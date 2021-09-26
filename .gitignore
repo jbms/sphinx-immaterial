@@ -1,0 +1,35 @@
+__pycache__/
+*.py[cod]
+/.eslintcache
+
+/.log
+/.eggs
+/.tox
+
+/*.egg-info
+/dist
+
+# Unit test / coverage reports
+.pytest_cache/
+
+# Sphinx documentation
+docs/_build/
+docs/generated/
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre type checker
+.pyre/
+.idea/
+
+# NPM modules
+/node_modules/
+
+# Built version
+/sphinx_immaterial/partials
+/sphinx_immaterial/*.html
+/sphinx_immaterial/.icons
+/sphinx_immaterial/static

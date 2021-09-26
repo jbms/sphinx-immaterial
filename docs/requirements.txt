@@ -1,0 +1,13 @@
+sphinx_immaterial
+numpy>=1.16
+pandas
+matplotlib
+numpydoc
+nbsphinx
+jupyter_client
+notebook
+nbconvert
+ipykernel
+recommonmark
+sphinx_markdown_tables
+sphinx-copybutton

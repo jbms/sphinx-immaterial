@@ -1,0 +1,8 @@
+black==19.10b0
+numpydoc
+nbsphinx
+jupyter
+numpy
+pandas
+matplotlib
+mypy
