@@ -37,7 +37,7 @@ with open("requirements-dev.txt") as dev_reqs:
     REQUIREMENTS_DEV = [dev_reqs.readlines()]
 
 root_dir = os.path.dirname(os.path.abspath(__file__))
-package_root = os.path.join(root_dir, 'sphinx_immaterial')
+package_root = os.path.join(root_dir, "sphinx_immaterial")
 
 
 def _setup_temp_egg_info(cmd):
@@ -48,7 +48,7 @@ def _setup_temp_egg_info(cmd):
     it doesn't litter the source directory and doesn't pick up a stale
     SOURCES.txt from a previous build.
     """
-    egg_info_cmd = cmd.distribution.get_command_obj('egg_info')
+    egg_info_cmd = cmd.distribution.get_command_obj("egg_info")
     if egg_info_cmd.egg_base is None:
         tempdir = tempfile.TemporaryDirectory(dir=os.curdir)
         egg_info_cmd.egg_base = tempdir.name
@@ -58,27 +58,27 @@ def _setup_temp_egg_info(cmd):
 class SdistCommand(setuptools.command.sdist.sdist):
     def run(self):
         _setup_temp_egg_info(self)
-        self.run_command('static_bundles')
+        self.run_command("static_bundles")
         super().run()
 
     def make_release_tree(self, base_dir, files):
         # Exclude .egg-info from source distribution.  These aren't actually
         # needed, and due to the use of the temporary directory in `run`, the
         # path isn't correct if it gets included.
-        files = [x for x in files if '.egg-info' not in x]
+        files = [x for x in files if ".egg-info" not in x]
         super().make_release_tree(base_dir, files)
 
 
 class InstallCommand(setuptools.command.install.install):
     def run(self):
         _setup_temp_egg_info(self)
-        self.run_command('static_bundles')
+        self.run_command("static_bundles")
         super().run()
 
 
 class BuildCommand(distutils.command.build.build):
     def finalize_options(self):
-        if self.build_base == 'build':
+        if self.build_base == "build":
             # Use temporary directory instead, to avoid littering the source directory
             # with a `build` sub-directory.
             tempdir = tempfile.TemporaryDirectory()
@@ -88,39 +88,46 @@ class BuildCommand(distutils.command.build.build):
 
     def run(self):
         _setup_temp_egg_info(self)
-        self.run_command('static_bundles')
+        self.run_command("static_bundles")
         super().run()
 
 
 class DevelopCommand(setuptools.command.develop.develop):
     def run(self):
-        self.run_command('static_bundles')
+        self.run_command("static_bundles")
         super().run()
 
 
 class StaticBundlesCommand(setuptools.command.build_py.build_py):
 
     user_options = setuptools.command.build_py.build_py.user_options + [
-        ('bundle-type=', None,
-         'The bundle type. "min" (default) creates minified bundles,'
-         ' "dev" creates non-minified files.'),
-        ('skip-npm-reinstall', None,
-         'Skip running `npm install` if the `node_modules` directory already exists.'
-         ),
-        ('skip-rebuild', None,
-         'Skip rebuilding if the `sphinx_immaterial` directory already exists.'
-         ),
+        (
+            "bundle-type=",
+            None,
+            'The bundle type. "min" (default) creates minified bundles,'
+            ' "dev" creates non-minified files.',
+        ),
+        (
+            "skip-npm-reinstall",
+            None,
+            "Skip running `npm install` if the `node_modules` directory already exists.",
+        ),
+        (
+            "skip-rebuild",
+            None,
+            "Skip rebuilding if the `sphinx_immaterial` directory already exists.",
+        ),
     ]
 
     def initialize_options(self):
         super().initialize_options()
-        self.bundle_type = 'min'
+        self.bundle_type = "min"
         self.skip_npm_reinstall = None
         self.skip_rebuild = None
 
     def finalize_options(self):
         super().finalize_options()
-        if self.bundle_type not in ['min', 'dev']:
+        if self.bundle_type not in ["min", "dev"]:
             raise RuntimeError('bundle-type has to be one of "min" or "dev"')
 
         if self.skip_npm_reinstall is None:
@@ -131,50 +138,67 @@ class StaticBundlesCommand(setuptools.command.build_py.build_py):
 
     def run(self):
         if self.skip_rebuild:
-            output_dir = os.path.join(package_root, 'static')
+            output_dir = os.path.join(package_root, "static")
             if os.path.exists(output_dir):
-                print('Skipping rebuild of package since %s already exists' %
-                      (output_dir, ))
+                print(
+                    "Skipping rebuild of package since %s already exists"
+                    % (output_dir,)
+                )
                 return
 
         target = {"min": "build", "dev": "build:dev"}
 
         try:
-            t = target[self.bundle_type]
-            node_modules_path = os.path.join(root_dir, 'node_modules')
-            if (self.skip_npm_reinstall and os.path.exists(node_modules_path)):
-                print('Skipping `npm install` since %s already exists' %
-                      (node_modules_path, ))
+            tgt = target[self.bundle_type]
+            node_modules_path = os.path.join(root_dir, "node_modules")
+            if self.skip_npm_reinstall and os.path.exists(node_modules_path):
+                print(
+                    "Skipping `npm install` since %s already exists"
+                    % (node_modules_path,)
+                )
             else:
-                subprocess.call('npm i', shell=True, cwd=root_dir)
-            res = subprocess.call('npm run %s' % t, shell=True, cwd=root_dir)
+                subprocess.run(["npm", "i"])
+            res = subprocess.run(["npm", "run", tgt])
         except:
-            raise RuntimeError('Could not run \'npm run %s\'.' % t)
+            raise RuntimeError("Could not run 'npm run %s'." % tgt)
 
-        if res != 0:
-            raise RuntimeError('failed to build sphinx-material package')
+        if res.returncode:
+            raise RuntimeError("failed to build sphinx-immaterial package.")
 
 
 setuptools.setup(
     name="sphinx_immaterial",
-    description=
-    "Adaptation of mkdocs-material theme for the Sphinx documentation system",
+    description="Adaptation of mkdocs-material theme for the Sphinx documentation system",
     long_description=open("README.rst").read(),
     author="Jeremy Maitin-Shepard",
     author_email="jeremy@jeremyms.com",
     url="https://github.com/jbms/sphinx-immaterial",
     packages=["sphinx_immaterial"],
-    include_package_data=True,
+    package_dir={"sphinx_immaterial": "sphinx_immaterial"},
+    package_data={
+        "sphinx_immaterial": [
+            ".icons/*/**",
+            ".icons/*/*/**",
+            "partials/*.html",
+            "partials/*/*.html",
+            "partials/*/*/*.html",
+            "partials/*/*/*/*.html",
+            "static/*/**",
+            "*.html",
+            "theme.conf"
+        ]
+    },
+    # include_package_data=True,
     python_requires=">=3.6",
     install_requires=REQUIREMENTS,
     extras_require={"dev": REQUIREMENTS_DEV},
     use_scm_version={
         # It would be nice to include the commit hash in the version, but that
         # can't be done in a PEP 440-compatible way.
-        'version_scheme': 'no-guess-dev',
+        "version_scheme": "no-guess-dev",
         # Test PyPI does not support local versions.
-        'local_scheme': 'no-local-version',
-        'fallback_version': '0.0.0',
+        "local_scheme": "no-local-version",
+        "fallback_version": "0.0.0",
     },
     license="MIT",
     classifiers=[
