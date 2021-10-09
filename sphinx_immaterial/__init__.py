@@ -3,7 +3,7 @@
 import collections
 import os
 import sys
-from typing import List, Optional, Union, Type, Dict, Sequence, Tuple
+from typing import List, Optional, Union, Type, Dict, Sequence, Tuple, Mapping
 
 import docutils.nodes
 import sphinx.builders
@@ -184,12 +184,12 @@ def _get_html_builder(
     return CustomHTMLBuilder
 
 
-def dict_merge(*dicts: List[collections.Mapping]):
+def dict_merge(*dicts: List[Mapping]):
     """Recursively merges the members of one or more dicts."""
     result = dict()
     for d in dicts:
         for k, v in d.items():
-            if (isinstance(v, collections.Mapping) and k in result
+            if (isinstance(v, Mapping) and k in result
                     and isinstance(result[k], dict)):
                 result[k] = dict_merge(result[k], v)
             else:
