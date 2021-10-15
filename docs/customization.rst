@@ -331,6 +331,7 @@ or ``rtl`` for right-to-left.
 ----------------------------
 
 Set to enable google analytics.
+
 ``globaltoc_depth``
 -------------------
 

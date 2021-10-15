@@ -68,6 +68,7 @@ or ``theme.conf`` for more details.
 
 .. toctree::
     :caption: Examples and Uses
+    :hidden:
 
     demo_api
     specimen
