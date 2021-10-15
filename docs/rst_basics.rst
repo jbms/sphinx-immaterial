@@ -63,9 +63,9 @@ List markup (:duref:`ref <bullet-lists>`) is natural: just place an asterisk at
 the start of a paragraph and indent properly.  The same goes for numbered
 lists; they can also be autonumbered using a ``#`` sign::
 
-   * This is a bulleted list.
-   * It has two items, the second
-     item uses two lines.
+    * This is a bulleted list.
+    * It has two items, the second
+      item uses two lines.
 
 * This is a bulleted list.
 * It has two items, the second
@@ -73,16 +73,16 @@ lists; they can also be autonumbered using a ``#`` sign::
 
 ::
 
-   1. This is a numbered list.
-   2. It has two items too.
+    1. This is a numbered list.
+    2. It has two items too.
 
 1. This is a numbered list.
 2. It has two items too.
 
 ::
 
-   #. This is a numbered list.
-   #. It has two items too.
+    #. This is a numbered list.
+    #. It has two items too.
 
 #. This is a numbered list.
 #. It has two items too.
@@ -90,13 +90,13 @@ lists; they can also be autonumbered using a ``#`` sign::
 Nested lists are possible, but be aware that they must be separated from the
 parent list items by blank lines::
 
-   * this is
-   * a list
+    * this is
+    * a list
 
-     * with a nested list
-     * and some subitems
+      * with a nested list
+      * and some subitems
 
-   * and here the parent list continues
+    * and here the parent list continues
 
 * this is
 * a list
@@ -108,22 +108,22 @@ parent list items by blank lines::
 
 Definition lists (:duref:`ref <definition-lists>`) are created as follows::
 
-   term (up to a line of text)
-      Definition of the term, which must be indented
+    term (up to a line of text)
+        Definition of the term, which must be indented
 
-      and can even consist of multiple paragraphs
+        and can even consist of multiple paragraphs
 
-   next term
-      Description.
+    next term
+        Description.
 
 
 term (up to a line of text)
-   Definition of the term, which must be indented
+    Definition of the term, which must be indented
 
-   and can even consist of multiple paragraphs
+    and can even consist of multiple paragraphs
 
 next term
-   Description.
+    Description.
 
 Note that the term cannot have more than one line of text.
 
@@ -132,9 +132,9 @@ them more than the surrounding paragraphs.
 
 Line blocks (:duref:`ref <line-blocks>`) are a way of preserving line breaks::
 
-   | These lines are
-   | broken exactly like in
-   | the source file.
+    | These lines are
+    | broken exactly like in
+    | the source file.
 
 | These lines are
 | broken exactly like in
@@ -160,21 +160,21 @@ paragraph with the special marker ``::``.  The literal block must be indented
 (and, like all paragraphs, separated from the surrounding ones by blank
 lines)::
 
-   This is a normal text paragraph. The next paragraph is a code sample::
+    This is a normal text paragraph. The next paragraph is a code sample::
 
-      It is not processed in any way, except
-      that the indentation is removed.
+        It is not processed in any way, except
+        that the indentation is removed.
 
-      It can span multiple lines.
+        It can span multiple lines.
 
-   This is a normal text paragraph again.
+    This is a normal text paragraph again.
 
 This is a normal text paragraph. The next paragraph is a code sample::
 
-   It is not processed in any way, except
-   that the indentation is removed.
+    It is not processed in any way, except
+    that the indentation is removed.
 
-   It can span multiple lines.
+    It can span multiple lines.
 
 This is a normal text paragraph again.
 
@@ -212,7 +212,7 @@ with a blank line and should *not* end with with an unused prompt::
 
 The doctest appears below,
 
- >>> 1 + 1
+>>> 1 + 1
 
 .. _rst-tables:
 
@@ -222,14 +222,14 @@ Tables
 For *grid tables* (:duref:`ref <grid-tables>`), you have to "paint" the cell
 grid yourself.  They look like this::
 
-   +------------------------+------------+----------+----------+
-   | Header row, column 1   | Header 2   | Header 3 | Header 4 |
-   | (header rows optional) |            |          |          |
-   +========================+============+==========+==========+
-   | body row 1, column 1   | column 2   | column 3 | column 4 |
-   +------------------------+------------+----------+----------+
-   | body row 2             | ...        | ...      |          |
-   +------------------------+------------+----------+----------+
+    +------------------------+------------+----------+----------+
+    | Header row, column 1   | Header 2   | Header 3 | Header 4 |
+    | (header rows optional) |            |          |          |
+    +========================+============+==========+==========+
+    | body row 1, column 1   | column 2   | column 3 | column 4 |
+    +------------------------+------------+----------+----------+
+    | body row 2             | ...        | ...      |          |
+    +------------------------+------------+----------+----------+
 
 
 +------------------------+------------+----------+----------+
@@ -245,14 +245,14 @@ grid yourself.  They look like this::
 limited: they must contain more than one row, and the first column cells cannot
 contain multiple lines.  They look like this::
 
-   =====  =====  =======
-   A      B      A and B
-   =====  =====  =======
-   False  False  False
-   True   False  False
-   False  True   False
-   True   True   True
-   =====  =====  =======
+    =====  =====  =======
+    A      B      A and B
+    =====  =====  =======
+    False  False  False
+    True   False  False
+    False  True   False
+    True   True   True
+    =====  =====  =======
 
 =====  =====  =======
 A      B      A and B
@@ -282,9 +282,9 @@ parser finds links and mail addresses in ordinary text.
 You can also separate the link and the target definition (:duref:`ref
 <hyperlink-targets>`), like this::
 
-   This is a paragraph that contains `a link`_.
+    This is a paragraph that contains `a link`_.
 
-   .. _a link: https://domain.invalid/
+    .. _a link: https://domain.invalid/
 
 
 This is a paragraph that contains `a link`_.
@@ -305,9 +305,9 @@ Section headers (:duref:`ref <sections>`) are created by underlining (and
 optionally overlining) the section title with a punctuation character, at least
 as long as the text::
 
-   =================
-   This is a heading
-   =================
+    =================
+    This is a heading
+    =================
 
 Normally, there are no heading levels assigned to certain characters as the
 structure is determined from the succession of headings.  However, this
@@ -335,7 +335,7 @@ Field Lists
 Field lists (:duref:`ref <field-lists>`) are sequences of fields marked up like
 this::
 
-   :fieldname: Field content
+    :fieldname: Field content
 
 They are commonly used in Python documentation::
 
@@ -411,42 +411,49 @@ Docutils supports the following directives:
   :dudir:`admonition <admonitions>`.  (Most themes style only "note" and
   "warning" specially.)
 
-.. attention::
+  .. attention::
 
-   Attention
+      Attention
 
-.. caution::
+  .. caution::
 
-   Caution
+      Caution
 
-.. danger::
+  .. danger::
 
-   Danger
+      Danger
 
-.. error::
+  .. error::
 
-   Error
+      Error
 
-.. hint::
+  .. hint::
 
-   Hint
+      Hint
 
-.. important::
+  .. important::
 
-   Important
+      Important
 
-.. note::
+  .. note::
 
-   Note
+      Note
 
-.. tip::
+  .. tip::
 
-   Tip
+      Tip
 
-.. warning::
+  .. warning::
 
-   Warning
+      Warning
 
+  .. admonition:: Generic Admonition Title Here
+
+      This was created with the following rst syntax::
+
+          .. admonition:: Generic Admonition Title Here
+
+              This was created with the following rst syntax
 * Images:
 
   - :dudir:`image` (see also Images_ below)
@@ -494,10 +501,10 @@ Docutils supports the following directives:
   Since these are only per-file, better use Sphinx's facilities for setting the
   :confval:`default_role`.
 
-.. warning::
+  .. warning::
 
-   Do *not* use the directives :dudir:`sectnum`, :dudir:`header` and
-   :dudir:`footer`.
+      Do *not* use the directives :dudir:`sectnum`, :dudir:`header` and
+      :dudir:`footer`.
 
 Directives added by Sphinx are described in directives in the Sphinx documentation.
 
@@ -526,8 +533,8 @@ Images
 
 reST supports an image directive (:dudir:`ref <image>`), used like so::
 
-   .. image:: gnu.png
-      (options)
+    .. image:: gnu.png
+        (options)
 
 When used within Sphinx, the file name given (here ``gnu.png``) must either be
 relative to the source file, or absolute which means that they are relative to
@@ -547,7 +554,7 @@ points) will be used for HTML and LaTeX output (the latter replaces ``pt`` by
 Sphinx extends the standard docutils behavior by allowing an asterisk for the
 extension::
 
-   .. image:: gnu.*
+    .. image:: gnu.*
 
 Sphinx then searches for all images matching the provided pattern and
 determines their type.  Each builder then chooses the best image out of these
@@ -594,9 +601,9 @@ Standard reST citations (:duref:`ref <citations>`) are supported, with the
 additional feature that they are "global", i.e. all citations can be referenced
 from all files.  Use them like so::
 
-   Lorem ipsum [Ref]_ dolor sit amet.
+    Lorem ipsum [Ref]_ dolor sit amet.
 
-   .. [Ref] Book or article reference, URL or whatever.
+    .. [Ref] Book or article reference, URL or whatever.
 
 Citation usage is similar to footnote usage, but with a label that is not
 numeric or begins with ``#``.
@@ -609,12 +616,12 @@ reST supports "substitutions" (:duref:`ref <substitution-definitions>`), which
 are pieces of text and/or markup referred to in the text by ``|name|``.  They
 are defined like footnotes with explicit markup blocks, like this::
 
-   .. |name| replace:: replacement *text*
+    .. |name| replace:: replacement *text*
 
 or this::
 
-   .. |caution| image:: warning.png
-                :alt: Warning!
+    .. |caution| image:: warning.png
+                    :alt: Warning!
 
 See the :duref:`reST reference for substitutions <substitution-definitions>`
 for details.
@@ -638,15 +645,15 @@ Every explicit markup block which isn't a valid markup construct (like the
 footnotes above) is regarded as a comment (:duref:`ref <comments>`).  For
 example::
 
-   .. This is a comment.
+    .. This is a comment.
 
 You can indent text after a comment start to form multiline comments::
 
-   ..
-      This whole indented block
-      is a comment.
+    ..
+        This whole indented block
+        is a comment.
 
-      Still in the comment.
+        Still in the comment.
 
 
 .. _html-meta:
@@ -658,25 +665,25 @@ The :rst:dir:`meta` directive (:dudir:`ref <meta>`) allows specifying the HTML
 `metadata element`_ of a Sphinx documentation page.  For example, the
 directive::
 
-   .. meta::
-      :description: The Sphinx documentation builder
-      :keywords: Sphinx, documentation, builder
+    .. meta::
+        :description: The Sphinx documentation builder
+        :keywords: Sphinx, documentation, builder
 
 will generate the following HTML output:
 
 .. code:: html
 
-   <meta name="description" content="The Sphinx documentation builder">
-   <meta name="keywords" content="Sphinx, documentation, builder">
+    <meta name="description" content="The Sphinx documentation builder">
+    <meta name="keywords" content="Sphinx, documentation, builder">
 
 Also, Sphinx will add the keywords as specified in the meta directive to the
 search index.  Thereby, the ``lang`` attribute of the meta element is
 considered.  For example, the directive::
 
-   .. meta::
-      :keywords: backup
-      :keywords lang=en: pleasefindthiskey pleasefindthiskeytoo
-      :keywords lang=de: bittediesenkeyfinden
+    .. meta::
+        :keywords: backup
+        :keywords lang=en: pleasefindthiskey pleasefindthiskeytoo
+        :keywords lang=de: bittediesenkeyfinden
 
 adds the following words to the search indices of builds with different language
 configurations:

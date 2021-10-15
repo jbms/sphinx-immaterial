@@ -33,9 +33,6 @@ import setuptools.command.sdist
 with open("requirements.txt") as reqs:
     REQUIREMENTS = [reqs.readlines()]
 
-with open("requirements-dev.txt") as dev_reqs:
-    REQUIREMENTS_DEV = [dev_reqs.readlines()]
-
 root_dir = os.path.dirname(os.path.abspath(__file__))
 package_root = os.path.join(root_dir, "sphinx_immaterial")
 
@@ -191,7 +188,6 @@ setuptools.setup(
     # include_package_data=True,
     python_requires=">=3.6",
     install_requires=REQUIREMENTS,
-    extras_require={"dev": REQUIREMENTS_DEV},
     use_scm_version={
         # It would be nice to include the commit hash in the version, but that
         # can't be done in a PEP 440-compatible way.

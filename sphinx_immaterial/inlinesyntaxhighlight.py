@@ -37,34 +37,31 @@ import sphinx.writers.html5
 
 
 def code_role(role, rawtext, text, lineno, inliner, options={}, content=[]):
-    r'''code_role override or create if older docutils used.
+    """code_role override or create if older docutils used.
     This only creates a literal node without parsing the code. This will
-    be done later in sphinx.  This override is not really needed, but it
+    be done later in sphinx. This override is not really needed, but it
     might give some speed
-    '''
+    """
 
     docutils.parsers.rst.roles.set_classes(options)
 
-    language = options.get('language', '')
-    classes = ['code']
+    language = options.get("language", "")
+    classes = ["code"]
 
-    if 'classes' in options:
-        classes.extend(options['classes'])
+    if "classes" in options:
+        classes.extend(options["classes"])
 
     if language and language not in classes:
         classes.append(language)
 
-    node = docutils.nodes.literal(rawtext,
-                                  text,
-                                  classes=classes,
-                                  language=language)
+    node = docutils.nodes.literal(rawtext, text, classes=classes, language=language)
 
     return [node], []
 
 
 code_role.options = {
-    'class': docutils.parsers.rst.directives.class_option,
-    'language': docutils.parsers.rst.directives.unchanged,
+    "class": docutils.parsers.rst.directives.class_option,
+    "language": docutils.parsers.rst.directives.unchanged,
 }
 
 
@@ -72,24 +69,24 @@ def _monkey_patch_html_translator(translator_class):
     orig_visit_literal = translator_class.visit_literal
 
     def visit_literal(self, node: docutils.nodes.literal) -> None:
-        lang = node.get('language', None)
-        if 'code' not in node['classes'] or not lang:
+        lang = node.get("language", None)
+        if "code" not in node["classes"] or not lang:
             return orig_visit_literal(self, node)
 
         def warner(msg):
             self.builder.warn(msg, (self.builder.current_docname, node.line))
 
-        highlight_args = dict(node.get('highlight_args', {}), nowrap=True)
-        highlighted = self.highlighter.highlight_block(node.astext(),
-                                                       lang,
-                                                       warn=warner,
-                                                       **highlight_args)
+        highlight_args = dict(node.get("highlight_args", {}), nowrap=True)
+        highlighted = self.highlighter.highlight_block(
+            node.astext(), lang, warn=warner, **highlight_args
+        )
         starttag = self.starttag(
             node,
-            'code',
-            suffix='',
-            CLASS='docutils literal highlight highlight-%s' % lang)
-        self.body.append(starttag + highlighted.strip() + '</code>')
+            "code",
+            suffix="",
+            CLASS="docutils literal highlight highlight-%s" % lang,
+        )
+        self.body.append(starttag + highlighted.strip() + "</code>")
         raise docutils.nodes.SkipNode
 
     translator_class.visit_literal = visit_literal
@@ -99,7 +96,7 @@ def _monkey_patch_html_translator(translator_class):
 
 
 def setup(app: sphinx.application.Sphinx):
-    docutils.parsers.rst.roles.register_canonical_role('code', code_role)
+    docutils.parsers.rst.roles.register_canonical_role("code", code_role)
     _monkey_patch_html_translator(sphinx.writers.html.HTMLTranslator)
     _monkey_patch_html_translator(sphinx.writers.html5.HTML5Translator)
     return {

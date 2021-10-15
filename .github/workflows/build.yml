@@ -34,8 +34,10 @@ jobs:
     - run: npm run tsc
     - run: npm run lint:ts
     - run: npm run lint:scss
-    - name: Install Python packaging/test tools
-      run: python -m pip install wheel
+    - name: Install Python packaging & linting tools
+      run: python -m pip install wheel pylint black
+    - run: pylint sphinx_immaterial/*.py
+    - run: black --check sphinx_immaterial/*.py
     - name: Show package version
       run: python setup.py --version
     - name: Build wheel
@@ -44,14 +46,26 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: python-packages
-        path: |
-          dist/*.whl
+        path: dist/*.whl
     - name: Install wheel
       run: pip install dist/*.whl
-    - run: pip install -r requirements-dev.txt
-    - name: Build docs
-      run: sphinx-build . _build
+    - name: Build html docs
       working-directory: docs
+      run: sphinx-build . _build/html
+    - name: Build latex docs
+      working-directory: docs
+      run: sphinx-build -b latex . _build/latex
+    - name: upload docs to github pages
+      # if: ${{ github.event_name == 'release'}}
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./docs/_build/html
+    - name: Upload doc builds as artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: doc-builds
+        path: docs/_build/
 
   python-publish-package:
     # Only publish package on push to tag or default branch.

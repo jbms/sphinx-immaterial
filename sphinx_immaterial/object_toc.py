@@ -6,6 +6,7 @@ import sphinx.addnodes
 import sphinx.application
 import sphinx.environment.collectors.toctree
 
+
 def _monkey_patch_toc_tree_process_doc(app: sphinx.application.Sphinx):
     """Enables support for also finding Sphinx domain objects.
 
@@ -17,28 +18,33 @@ def _monkey_patch_toc_tree_process_doc(app: sphinx.application.Sphinx):
     # Apply the monkey pach
     orig_process_doc = TocTreeCollector.process_doc
 
-    def _make_section_from_desc(source: sphinx.addnodes.desc) -> Optional[docutils.nodes.section]:
+    def _make_section_from_desc(
+        source: sphinx.addnodes.desc,
+    ) -> Optional[docutils.nodes.section]:
         signature: sphinx.addnodes.desc_signature
         for child in source._traverse():
-            if not isinstance(child, sphinx.addnodes.desc_signature): continue
+            if not isinstance(child, sphinx.addnodes.desc_signature):
+                continue
             signature = child
             break
         else:
             # No signature found
             return None
-        ids = signature['ids']
+        ids = signature["ids"]
         if not ids:
             # Not indexed.
             return None
         section = docutils.nodes.section()
-        section['ids'] = ids
+        section["ids"] = ids
 
         # Extract title from signature
-        title = signature.get('toc_title', None)
+        title = signature.get("toc_title", None)
         if not title:
-            title = ''
+            title = ""
             for child in signature._traverse():
-                if isinstance(child, (sphinx.addnodes.desc_name, sphinx.addnodes.desc_addname)):
+                if isinstance(
+                    child, (sphinx.addnodes.desc_name, sphinx.addnodes.desc_addname)
+                ):
                     title += child.astext()
         if not title:
             # No name found
@@ -49,15 +55,16 @@ def _monkey_patch_toc_tree_process_doc(app: sphinx.application.Sphinx):
         return section
 
     def _make_section_from_field(
-            source: docutils.nodes.field) -> Optional[docutils.nodes.section]:
+        source: docutils.nodes.field,
+    ) -> Optional[docutils.nodes.section]:
         fieldname = source[0]
         fieldbody = source[1]
-        ids = fieldname['ids']
+        ids = fieldname["ids"]
         if not ids:
             # Not indexed
             return None
         section = docutils.nodes.section()
-        section['ids'] = ids
+        section["ids"] = ids
         title = fieldname.astext()
         # Sphinx uses the first child of the section node as the title.
         titlenode = docutils.nodes.comment(title, title)
@@ -65,26 +72,29 @@ def _monkey_patch_toc_tree_process_doc(app: sphinx.application.Sphinx):
         return section
 
     def _make_section_from_parameter(
-            source: docutils.nodes.term) -> Optional[docutils.nodes.section]:
-        ids = source['ids']
+        source: docutils.nodes.term,
+    ) -> Optional[docutils.nodes.section]:
+        ids = source["ids"]
         if not ids:
             # Not indexed
             return None
         section = docutils.nodes.section()
-        section['ids'] = ids
-        paramname = source['paramname']
+        section["ids"] = ids
+        paramname = source["paramname"]
         titlenode = docutils.nodes.comment(paramname, paramname)
         section += titlenode
         return section
 
     def _patched_process_doc(
-            self: sphinx.environment.collectors.toctree.TocTreeCollector,
-            app: sphinx.application.Sphinx,
-            doctree: docutils.nodes.document) -> None:
+        self: sphinx.environment.collectors.toctree.TocTreeCollector,
+        app: sphinx.application.Sphinx,
+        doctree: docutils.nodes.document,
+    ) -> None:
         new_document = doctree.copy()  # Shallow copy
 
-        def _collect(source: docutils.nodes.Node,
-                     target: docutils.nodes.Element) -> None:
+        def _collect(
+            source: docutils.nodes.Node, target: docutils.nodes.Element
+        ) -> None:
             if not isinstance(source, docutils.nodes.Element):
                 return
             children = iter(source.children)
@@ -116,8 +126,7 @@ def _monkey_patch_toc_tree_process_doc(app: sphinx.application.Sphinx):
                 if new_node is not None:
                     target += new_node
                     target = new_node
-            elif isinstance(source,
-                            docutils.nodes.term) and source.get('paramname'):
+            elif isinstance(source, docutils.nodes.term) and source.get("paramname"):
                 # Parameter within object description.  Try to create synthetic section.
                 new_node = _make_section_from_parameter(source)
                 if new_node is not None:
@@ -135,8 +144,8 @@ def _monkey_patch_toc_tree_process_doc(app: sphinx.application.Sphinx):
 
     # TocTreeCollector is registered before our extension is.  In order for the
     # monkey patching to take effect, we need to unregister it and re-register it.
-    for read_listener in app.events.listeners['doctree-read']:
-        obj = getattr(read_listener.handler, '__self__', None)
+    for read_listener in app.events.listeners["doctree-read"]:
+        obj = getattr(read_listener.handler, "__self__", None)
         if obj is not None and isinstance(obj, TocTreeCollector):
             obj.disable(app)
             app.add_env_collector(TocTreeCollector)

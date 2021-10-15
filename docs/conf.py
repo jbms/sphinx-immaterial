@@ -6,27 +6,20 @@
 
 # -- Path setup --------------------------------------------------------------
 
-# If extensions (or modules to document with autodoc) are in another directory,
-# add these directories to sys.path here. If the directory is relative to the
-# documentation root, use os.path.abspath to make it absolute, like shown here.
-#
-# import os
-# import sys
-# sys.path.insert(0, os.path.abspath('.'))
+# add docs path to python sys.path to allow autodoc-ing a test_py_module
 import os
+import sys
 
-import sphinx_immaterial
+sys.path.insert(0, os.path.abspath("."))
 
 # -- Project information -----------------------------------------------------
 
-project = "Sphinx-immaterial"
-html_title = "Sphinx-immaterial"
-
+project = "Sphinx-Immaterial"
 copyright = "2021 The Sphinx-Immaterial Authors"
 author = "Jeremy Maitin-Shepard"
 
 # The full version, including alpha/beta/rc tags
-release = '1'
+release = "1"
 
 # -- General configuration ---------------------------------------------------
 
@@ -35,16 +28,22 @@ release = '1'
 # ones.
 extensions = [
     "sphinx.ext.autodoc",
-    "numpydoc",
     "sphinx.ext.doctest",
     "sphinx.ext.extlinks",
     "sphinx.ext.intersphinx",
     "sphinx.ext.todo",
     "sphinx.ext.mathjax",
     "sphinx.ext.viewcode",
-    # Disable nbsphinx since it greatly slows down documentation build.
-    #"nbsphinx",
 ]
+
+intersphinx_mapping = {
+    "python": ("https://docs.python.org/3", None),
+    # "sphinx_docs": ("https://www.sphinx-doc.org/en/master", None),
+}
+
+# The reST default role (used for this markup: `text`) to use for all
+# documents.
+default_role = "any"
 
 autosummary_generate = True
 autoclass_content = "class"
@@ -71,63 +70,66 @@ html_static_path = ["_static"]
 # -- HTML theme settings ------------------------------------------------
 
 extensions.append("sphinx_immaterial")
+html_title = "Sphinx-Immaterial"
 html_theme = "sphinx_immaterial"
+html_favicon = "_static/images/favicon.ico"  # colored version of material/bookshelf.svg
+html_logo = "_static/images/Ybin.gif"  # from https://gifer.com/en/Ybin
 
 # material theme options (see theme.conf for more information)
 html_theme_options = {
     "icon": {
         "logo": "material/library",
+        "repo": "fontawesome/brands/github",
     },
     "site_url": "https://jbms.github.io/sphinx-immaterial/",
     "repo_url": "https://github.com/jbms/sphinx-immaterial/",
     "repo_name": "Sphinx-Immaterial",
     "repo_type": "github",
+    "edit_uri": "blob/main/docs",
     "google_analytics": ["UA-XXXXX", "auto"],
-    'globaltoc_collapse': True,
+    "globaltoc_collapse": True,
     "globaltoc_depth": -1,
-    'features': [
-        # 'navigation.expand',
-        # 'navigation.tabs',
-        # 'toc.integrate',
-        'navigation.sections',
-        # 'navigation.instant',
-        # 'header.autohide',
-        'navigation.top',
+    "features": [
+        # "navigation.expand",
+        # "navigation.tabs",
+        # "toc.integrate",
+        "navigation.sections",
+        # "navigation.instant",
+        # "header.autohide",
+        "navigation.top",
     ],
-    'palette': [
+    "palette": [
         {
-        'media': '(prefers-color-scheme: light)',
-        'scheme': 'default',
-        'primary': 'blue',
-        'accent': 'cyan',
-            'toggle': {
-                'icon': 'material/lightbulb-outline',
-                'name': 'Switch to dark mode',
+            "media": "(prefers-color-scheme: light)",
+            "scheme": "default",
+            "primary": "light-green",
+            "accent": "teal",
+            "toggle": {
+                "icon": "material/lightbulb-outline",
+                "name": "Switch to dark mode",
             },
-    },
+        },
         {
-        'media': '(prefers-color-scheme: dark)',
-        'scheme': 'slate',
-        'primary': 'blue',
-        'accent': 'cyan',
-            'toggle': {
-                'icon': 'material/lightbulb',
-                'name': 'Switch to light mode',
+            "media": "(prefers-color-scheme: dark)",
+            "scheme": "slate",
+            "primary": "indigo",
+            "accent": "purple",
+            "toggle": {
+                "icon": "material/lightbulb",
+                "name": "Switch to light mode",
             },
-    },
+        },
     ],
-    "touch_icon": "images/apple-icon-152x152.png",
 }
 
-language = "en"
 html_last_updated_fmt = ""
-
-todo_include_todos = True
-html_favicon = "images/favicon.ico"
-
 html_use_index = True
 html_domain_indices = True
 
+# ---- Other documentation options -------------------------
+
+language = "en"
+todo_include_todos = True
 nbsphinx_execute = "always"
 nbsphinx_kernel_name = "python3"
 

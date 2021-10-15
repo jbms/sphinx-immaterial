@@ -1,0 +1,15 @@
+/*
+ * css overrides for the readthedocs-sphinx-ext that
+ * is automatically appended to projects built/hosted on RTD
+ */
+
+.rst-versions {
+  font-family: var(--md-text-font-family);
+
+  &.rst-badge {
+    top: 50px;
+    bottom: inherit !important;
+    height: auto;
+    font-size: .85rem;
+  }
+}
