@@ -55,17 +55,17 @@ jobs:
     - name: Build latex docs
       working-directory: docs
       run: sphinx-build -b latex . _build/latex
+    - name: Upload doc builds as artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: doc-builds
+        path: docs/_build/
     - name: upload docs to github pages
       # if: ${{ github.event_name == 'release'}}
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./docs/_build/html
-    - name: Upload doc builds as artifacts
-      uses: actions/upload-artifact@v2
-      with:
-        name: doc-builds
-        path: docs/_build/
 
   python-publish-package:
     # Only publish package on push to tag or default branch.
