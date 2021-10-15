@@ -35,7 +35,7 @@ jobs:
     - run: npm run lint:ts
     - run: npm run lint:scss
     - name: Install Python packaging & linting tools
-      run: python -m pip install wheel pylint black
+      run: python -m pip install wheel pylint black -r requirements.txt
     - run: pylint sphinx_immaterial/*.py
     - run: black --check sphinx_immaterial/*.py
     - name: Show package version
