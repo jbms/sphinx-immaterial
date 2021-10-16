@@ -29,6 +29,7 @@
   display: inline-block;
   height: 1.2rem;
   width: 1.2rem;
+  vertical-align: middle;
 }
 
 .eye {
