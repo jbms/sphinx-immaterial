@@ -66,6 +66,7 @@ exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 # relative to this directory. They are copied after the builtin static files,
 # so a file named 'default.css' will overwrite the builtin 'default.css'.
 html_static_path = ["_static"]
+html_css_files = ["extra_css.css"]
 
 # -- HTML theme settings ------------------------------------------------
 
@@ -103,7 +104,7 @@ html_theme_options = {
             "media": "(prefers-color-scheme: light)",
             "scheme": "default",
             "primary": "light-green",
-            "accent": "teal",
+            "accent": "light-blue",
             "toggle": {
                 "icon": "material/lightbulb-outline",
                 "name": "Switch to dark mode",
@@ -112,8 +113,8 @@ html_theme_options = {
         {
             "media": "(prefers-color-scheme: dark)",
             "scheme": "slate",
-            "primary": "indigo",
-            "accent": "purple",
+            "primary": "deep-orange",
+            "accent": "lime",
             "toggle": {
                 "icon": "material/lightbulb",
                 "name": "Switch to light mode",
