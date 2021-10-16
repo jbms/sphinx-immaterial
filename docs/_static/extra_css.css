@@ -156,7 +156,8 @@
 .accent-amber,
 .accent-orange,
 .accent-deep-orange {
-  padding: 0.05rem 0.3rem
+  padding: 0.05rem 0.3rem;
+  border-radius: 0.25rem;
 }
 
 .red {
