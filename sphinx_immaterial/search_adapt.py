@@ -23,38 +23,34 @@ class IndexBuilder(sphinx.search.IndexBuilder):
         onames = self._objnames
         for prefix, children in rv.items():
             if prefix:
-                name_prefix = prefix + '.'
+                name_prefix = prefix + "."
             else:
-                name_prefix = ''
-            for name, (docindex, typeindex, prio,
-                       shortanchor) in children.items():
+                name_prefix = ""
+            for name, (docindex, typeindex, prio, shortanchor) in children.items():
                 objtype_entry = onames[typeindex]
                 domain_name = objtype_entry[0]
                 domain = self.env.domains[domain_name]
-                synopsis = ''
-                get_object_synopsis = getattr(domain, 'get_object_synopsis',
-                                              None)
+                synopsis = ""
+                get_object_synopsis = getattr(domain, "get_object_synopsis", None)
                 if get_object_synopsis:
                     objtype = objtype_entry[1]
                     full_name = name_prefix + name
                     synopsis = get_object_synopsis(objtype, full_name)
                     if synopsis:
                         synopsis = synopsis.strip()
-                children[name] = (docindex, typeindex, prio, shortanchor,
-                                  synopsis)
+                children[name] = (docindex, typeindex, prio, shortanchor, synopsis)
         return rv
 
     def freeze(self):
         result = super().freeze()
 
         # filenames are unused
-        result.pop('filenames')
+        result.pop("filenames")
 
-        docnames = result.pop('docnames')
+        docnames = result.pop("docnames")
 
         builder = self.env.app.builder
-        result.update(
-            docurls=[builder.get_target_uri(docname) for docname in docnames])
+        result.update(docurls=[builder.get_target_uri(docname) for docname in docnames])
         return result
 
 

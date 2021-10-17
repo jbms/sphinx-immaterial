@@ -7,16 +7,6 @@ Various examples of styling applied to Sphinx constructs. You can
 view the `source <./_sources/examples.txt>`_ of this page to see the specific
 reStructuredText used to create these examples.
 
-Subpages
-========
-
-Suppages get bread crumbs when they are not at the top level.
-
-.. toctree::
-
-    subpage/index
-
-
 
 Headings
 ========
@@ -41,7 +31,8 @@ The theme uses pygments for ``inline code text`` and
 
 Here's an included example with line numbers.
 
-.. literalinclude:: ../sphinx_immaterial/__init__.py
+.. literalinclude:: ../sphinx_immaterial/autodoc_property_type.py
+   :caption: source from this theme in *sphinx_immaterial/autodoc_property_type.py*
    :linenos:
 
 It also works with existing Sphinx highlighting:
@@ -202,7 +193,7 @@ User-styled Table
 
 .. note::
 
-   `table_classes` is set to `["plain"]` in the site's configuration. Only plain
+   ``table_classes`` is set to ``["plain"]`` in the site's configuration. Only plain
    remains as the class of the table. Other standard classes applied by Sphinx are
    removed.
 

@@ -33,3 +33,6 @@ dmypy.json
 /sphinx_immaterial/*.html
 /sphinx_immaterial/.icons
 /sphinx_immaterial/static
+
+# user specific
+.vscode/
