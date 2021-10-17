@@ -9,7 +9,8 @@
 - the unused list of filenames is removed, since it just bloated the index.
 """
 
-from typing import Dict, Tuple
+import io
+from typing import Any, Dict, IO, Tuple
 
 import sphinx.search
 import sphinx.application
@@ -52,6 +53,43 @@ class IndexBuilder(sphinx.search.IndexBuilder):
         builder = self.env.app.builder
         result.update(docurls=[builder.get_target_uri(docname) for docname in docnames])
         return result
+
+    def load(
+        self, stream: IO, format: Any  # pylint: disable=redefined-builtin
+    ) -> None:
+        if isinstance(format, str):
+            format = self.formats[format]
+        frozen = format.load(stream)
+        # Reconstruct `docnames` and `filenames` from `docurls` since they are
+        # expected by `IndexBuilder`.
+        builder = self.env.app.builder
+        url_to_docname = {
+            builder.get_target_uri(docname): docname
+            for docname in self.env.all_docs.keys()
+        }
+        docurls = frozen["docurls"]
+        # Note: For documents that have been removed (and are therefore missing
+        # from `url_to_docname`), `docnames` and `filenames` will just contain
+        # the URL rather than the docname/filename.  However, since these will
+        # be pruned anyway it does not hurt.
+        docnames = []
+        filenames = []
+        for url in docurls:
+            docname = url_to_docname.get(url, None)
+            if docname is None:
+                docnames.append(url)
+                filenames.append(url)
+            else:
+                docnames.append(docname)
+                filenames.append(self.env.doc2path(docname, False))
+        frozen["docnames"] = docnames
+        frozen["filenames"] = filenames
+        new_data = format.dumps(frozen)
+        if isinstance(new_data, str):
+            stream = io.StringIO(new_data)
+        else:
+            stream = io.BytesIO(new_data)
+        super().load(stream, format)
 
 
 def _monkey_patch_index_builder():
