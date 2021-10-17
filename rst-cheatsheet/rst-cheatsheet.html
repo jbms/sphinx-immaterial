@@ -1,0 +1,1480 @@
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      <link rel="icon" href="../_static/favicon.ico">
+    
+    
+      
+        <title>rst Cheatsheet - Sphinx-Immaterial</title>
+      
+    
+    
+      <link rel="stylesheet" href="../_static/stylesheets/main.e3eeb26c.min.css">
+      
+        
+        <link rel="stylesheet" href="../_static/stylesheets/palette.89291e57.min.css">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+        <link rel="stylesheet" type="text/css" href="../_static/basic.css" />
+        <link rel="stylesheet" type="text/css" href="../_static/extra_css.css" />
+    
+      
+  
+
+
+
+  
+  
+
+
+
+  <script>window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","UA-XXXXX","auto"),ga("set","anonymizeIp",!0),ga("send","pageview"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){var e;this.value&&(e=document.location.pathname,ga("send","pageview",e+"?q="+this.value))}),"undefined"!=typeof location$&&location$.subscribe(function(e){ga("send","pageview",e.pathname)})})</script>
+  <script async src="https://www.google-analytics.com/analytics.js"></script>
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="light-green" data-md-color-accent="light-blue">
+  
+    
+    <script>function __prefix(e){return new URL("..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+      <script>var palette=__get("__palette");if(null!==palette&&"object"==typeof palette.color)for(var key in palette.color)document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../index.html" title="Sphinx-Immaterial" class="md-header__button md-logo" aria-label="Sphinx-Immaterial" data-md-component="logo">
+      <img src="../_static/Ybin.gif" alt="logo">
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Sphinx-Immaterial
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              rst Cheatsheet
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="light-green" data-md-color-accent="light-blue"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="deep-orange" data-md-color-accent="lime"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9v1z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        
+<a href="https://github.com/jbms/sphinx-immaterial/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Sphinx-Immaterial
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="Sphinx-Immaterial" class="md-nav__button md-logo" aria-label="Sphinx-Immaterial" data-md-component="logo">
+      <img src="../_static/Ybin.gif" alt="logo">
+    </a>
+    Sphinx-Immaterial
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/jbms/sphinx-immaterial/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Sphinx-Immaterial
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../customization.html" class="md-nav__link">
+        Customization
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      <label class="md-nav__link" for="__nav_2">
+        <a class="" href="../demo_api.html">Examples and Uses</a>
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Examples and Uses" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Examples and Uses
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../demo_api.html" class="md-nav__link">
+        sample API documentation and generated content
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../specimen.html" class="md-nav__link">
+        Specimen
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rst_basics.html" class="md-nav__link">
+        reStructuredText Primer
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          rst Cheatsheet
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="" class="md-nav__link md-nav__link--active">
+        rst Cheatsheet
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      rst Cheatsheet
+      
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#inline-markup" class="md-nav__link">
+    Inline Markup
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#escaping-with-backslashes" class="md-nav__link">
+    Escaping with Backslashes
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lists" class="md-nav__link">
+    Lists
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#section-structure" class="md-nav__link">
+    Section Structure
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#blocks" class="md-nav__link">
+    Blocks
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tables" class="md-nav__link">
+    Tables
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#explicit-markup" class="md-nav__link">
+    Explicit Markup
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#credits" class="md-nav__link">
+    Credits
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../additional_samples.html" class="md-nav__link">
+        Additional Samples
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      rst Cheatsheet
+      
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#inline-markup" class="md-nav__link">
+    Inline Markup
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#escaping-with-backslashes" class="md-nav__link">
+    Escaping with Backslashes
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lists" class="md-nav__link">
+    Lists
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#section-structure" class="md-nav__link">
+    Section Structure
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#blocks" class="md-nav__link">
+    Blocks
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tables" class="md-nav__link">
+    Tables
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#explicit-markup" class="md-nav__link">
+    Explicit Markup
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#credits" class="md-nav__link">
+    Credits
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset" role="main">
+              
+                
+                  <a href="https://github.com/jbms/sphinx-immaterial/blob/main/docs/rst-cheatsheet/rst-cheatsheet.rst" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+  <h1 id="rst-cheatsheet">rst Cheatsheet<a class="headerlink" href="#rst-cheatsheet" title="Permalink to this headline">¶</a></h1>
+<p>The <a class="reference external" href="https://github.com/ralsina/rst-cheatsheet">rst Cheatsheet</a> covers a wide range of
+rst markup. It and its contents are
+<a class="reference external" href="http://creativecommons.org/licenses/by/3.0/de/deed.en_GB">CC licensed</a>.</p>
+<h2 id="inline-markup">Inline Markup<a class="headerlink" href="#inline-markup" title="Permalink to this headline">¶</a></h2>
+<p>Inline markup allows words and phrases within text to have character styles (like italics and boldface) and functionality (like hyperlinks).</p>
+<table class="docutils data align-default">
+<colgroup>
+<col style="width: 55%" />
+<col style="width: 45%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="o">*</span><span class="n">emphasis</span><span class="o">*</span>
+</code></pre></div>
+</div>
+</td>
+<td><p><em>emphasis</em></p></td>
+</tr>
+<tr class="row-even"><td><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="o">**</span><span class="n">strong</span> <span class="n">emphasis</span><span class="o">**</span>
+</code></pre></div>
+</div>
+</td>
+<td><p><strong>strong emphasis</strong></p></td>
+</tr>
+<tr class="row-odd"><td><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code>`interpreted text`
+</code></pre></div>
+</div>
+</td>
+<td><p>The rendering and meaning of interpreted text
+is domain- or application-dependent.</p></td>
+</tr>
+<tr class="row-even"><td><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code>``inline literal``
+</code></pre></div>
+</div>
+</td>
+<td><p><code class="docutils literal notranslate"><span class="pre">inline</span> <span class="pre">literal</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="n">reference_</span>
+</code></pre></div>
+</div>
+</td>
+<td><p><a class="reference external" href="http://docutils.sourceforge.net/docs/user/rst/quickref.html#hyperlink-targets">reference</a></p></td>
+</tr>
+<tr class="row-even"><td><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code>`phrase reference`_
+</code></pre></div>
+</div>
+</td>
+<td><p><a class="reference external" href="http://docutils.sourceforge.net/docs/user/rst/quickref.html#hyperlink-targets">phrase reference</a></p></td>
+</tr>
+<tr class="row-odd"><td><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="n">anonymous__</span>
+</code></pre></div>
+</div>
+</td>
+<td><p><a class="reference external" href="http://docutils.sourceforge.net/docs/user/rst/quickref.html#hyperlink-targets">anonymous</a></p></td>
+</tr>
+<tr class="row-even"><td><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code>_`inline internal target`
+</code></pre></div>
+</div>
+</td>
+<td><p><span class="target" id="inline-internal-target">inline internal target</span></p></td>
+</tr>
+<tr class="row-odd"><td><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="o">|</span><span class="n">substitution</span> <span class="n">reference</span><span class="o">|</span>
+</code></pre></div>
+</div>
+</td>
+<td><p>The result is substituted in from the
+substitution definition.</p></td>
+</tr>
+<tr class="row-even"><td><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="n">footnote</span> <span class="n">reference</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="n">_</span>
+</code></pre></div>
+</div>
+</td>
+<td><p>footnote reference <a class="footnote-reference brackets" href="#id9" id="id2">1</a></p></td>
+</tr>
+<tr class="row-odd"><td><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="n">citation</span> <span class="n">reference</span> <span class="p">[</span><span class="n">CIT2002</span><span class="p">]</span><span class="n">_</span>
+</code></pre></div>
+</div>
+</td>
+<td><p>citation reference <a class="reference internal" href="#cit2002" id="id3"><span>[CIT2002]</span></a></p></td>
+</tr>
+<tr class="row-even"><td><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">docutils</span><span class="o">.</span><span class="n">sf</span><span class="o">.</span><span class="n">net</span><span class="o">/</span>
+</code></pre></div>
+</div>
+</td>
+<td><p><a class="reference external" href="http://docutils.sf.net/">http://docutils.sf.net/</a></p></td>
+</tr>
+</tbody>
+</table>
+<h2 id="escaping-with-backslashes">Escaping with Backslashes<a class="headerlink" href="#escaping-with-backslashes" title="Permalink to this headline">¶</a></h2>
+<p>reStructuredText uses backslashes (”\”) to override the special meaning given to markup characters and get
+the literal characters themselves. To get a literal backslash, use an escaped backslash (”\\”). For example:</p>
+<table class="docutils data align-default">
+<colgroup>
+<col style="width: 55%" />
+<col style="width: 45%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code>*escape* ``with`` &quot;\&quot;
+</code></pre></div>
+</div>
+</td>
+<td><p><em>escape</em> <code class="docutils literal notranslate"><span class="pre">with</span></code> “&quot;</p></td>
+</tr>
+<tr class="row-even"><td><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code>\*escape* \``with`` &quot;\\&quot;
+</code></pre></div>
+</div>
+</td>
+<td><p>*escape* ``with`` “\”</p></td>
+</tr>
+</tbody>
+</table>
+<h2 id="lists">Lists<a class="headerlink" href="#lists" title="Permalink to this headline">¶</a></h2>
+<table class="docutils data align-default">
+<colgroup>
+<col style="width: 52%" />
+<col style="width: 48%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="o">-</span> <span class="n">This</span> <span class="ow">is</span> <span class="n">item</span> <span class="mf">1.</span> <span class="n">A</span> <span class="n">blank</span> <span class="n">line</span> <span class="n">before</span> <span class="n">the</span> <span class="n">first</span>
+  <span class="ow">and</span> <span class="n">last</span> <span class="n">items</span> <span class="ow">is</span> <span class="n">required</span><span class="o">.</span>
+<span class="o">-</span> <span class="n">This</span> <span class="ow">is</span> <span class="n">item</span> <span class="mi">2</span>
+
+<span class="o">-</span> <span class="n">Item</span> <span class="mi">3</span><span class="p">:</span> <span class="n">blank</span> <span class="n">lines</span> <span class="n">between</span> <span class="n">items</span> <span class="n">are</span> <span class="n">optional</span><span class="o">.</span>
+<span class="o">-</span> <span class="n">Item</span> <span class="mi">4</span><span class="p">:</span> <span class="n">Bullets</span> <span class="n">are</span> <span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="s2">&quot;*&quot;</span> <span class="ow">or</span> <span class="s2">&quot;+&quot;</span><span class="o">.</span>
+  <span class="n">Continuing</span> <span class="n">text</span> <span class="n">must</span> <span class="n">be</span> <span class="n">aligned</span> <span class="n">after</span> <span class="n">the</span> <span class="n">bullet</span>
+  <span class="ow">and</span> <span class="n">whitespace</span><span class="o">.</span>
+<span class="o">-</span> <span class="n">This</span> <span class="nb">list</span> <span class="n">item</span> <span class="n">contains</span> <span class="n">nested</span> <span class="n">items</span>
+
+  <span class="o">-</span> <span class="n">Nested</span> <span class="n">items</span> <span class="n">must</span> <span class="n">be</span> <span class="n">indented</span> <span class="n">to</span> <span class="n">the</span> <span class="n">same</span>
+    <span class="n">level</span>
+</code></pre></div>
+</div>
+</td>
+<td><ul class="simple">
+<li><p>This is item 1. A blank line before the first
+and last items is required.</p></li>
+<li><p>This is item 2</p></li>
+<li><p>Item 3: blank lines between items are optional.</p></li>
+<li><p>Item 4: Bullets are “-”, “*” or “+”.
+Continuing text must be aligned after the bullet
+and whitespace.</p></li>
+<li><p>This list item contains nested items</p>
+<ul>
+<li><p>Nested items must be indented to the same
+level</p></li>
+</ul>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="mf">3.</span> <span class="n">This</span> <span class="ow">is</span> <span class="n">the</span> <span class="n">first</span> <span class="n">item</span>
+<span class="mf">4.</span> <span class="n">This</span> <span class="ow">is</span> <span class="n">the</span> <span class="n">second</span> <span class="n">item</span>
+<span class="mf">5.</span> <span class="n">Enumerators</span> <span class="n">are</span> <span class="n">arabic</span> <span class="n">numbers</span><span class="p">,</span>
+   <span class="n">single</span> <span class="n">letters</span><span class="p">,</span> <span class="ow">or</span> <span class="n">roman</span> <span class="n">numerals</span>
+<span class="mf">6.</span> <span class="n">List</span> <span class="n">items</span> <span class="n">should</span> <span class="n">be</span> <span class="n">sequentially</span>
+   <span class="n">numbered</span><span class="p">,</span> <span class="n">but</span> <span class="n">need</span> <span class="ow">not</span> <span class="n">start</span> <span class="n">at</span> <span class="mi">1</span>
+   <span class="p">(</span><span class="n">although</span> <span class="ow">not</span> <span class="nb">all</span> <span class="n">formatters</span> <span class="n">will</span>
+   <span class="n">honour</span> <span class="n">the</span> <span class="n">first</span> <span class="n">index</span><span class="p">)</span><span class="o">.</span>
+<span class="c1">#. This item is auto-enumerated</span>
+</code></pre></div>
+</div>
+</td>
+<td><ol class="arabic simple" start="3">
+<li><p>This is the first item</p></li>
+<li><p>This is the second item</p></li>
+<li><p>Enumerators are arabic numbers,
+single letters, or roman numerals</p></li>
+<li><p>List items should be sequentially
+numbered, but need not start at 1
+(although not all formatters will
+honour the first index).</p></li>
+<li><p>This item is auto-enumerated</p></li>
+</ol>
+</td>
+</tr>
+<tr class="row-odd"><td><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="n">what</span>
+  <span class="n">Definition</span> <span class="n">lists</span> <span class="n">associate</span> <span class="n">a</span> <span class="n">term</span> <span class="k">with</span>
+  <span class="n">a</span> <span class="n">definition</span><span class="o">.</span>
+
+<span class="n">how</span>
+  <span class="n">The</span> <span class="n">term</span> <span class="ow">is</span> <span class="n">a</span> <span class="n">one</span><span class="o">-</span><span class="n">line</span> <span class="n">phrase</span><span class="p">,</span> <span class="ow">and</span> <span class="n">the</span>
+  <span class="n">definition</span> <span class="ow">is</span> <span class="n">one</span> <span class="ow">or</span> <span class="n">more</span> <span class="n">paragraphs</span> <span class="ow">or</span>
+  <span class="n">body</span> <span class="n">elements</span><span class="p">,</span> <span class="n">indented</span> <span class="n">relative</span> <span class="n">to</span> <span class="n">the</span>
+  <span class="n">term</span><span class="o">.</span> <span class="n">Blank</span> <span class="n">lines</span> <span class="n">are</span> <span class="ow">not</span> <span class="n">allowed</span>
+  <span class="n">between</span> <span class="n">term</span> <span class="ow">and</span> <span class="n">definition</span><span class="o">.</span>
+</code></pre></div>
+</div>
+</td>
+<td><dl class="simple">
+<dt>what</dt><dd><p>Definition lists associate a term with
+a definition.</p>
+</dd>
+<dt>how</dt><dd><p>The term is a one-line phrase, and the
+definition is one or more paragraphs or
+body elements, indented relative to the
+term. Blank lines are not allowed
+between term and definition.</p>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="row-even"><td><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="p">:</span><span class="n">Authors</span><span class="p">:</span>
+    <span class="n">Tony</span> <span class="n">J</span><span class="o">.</span> <span class="p">(</span><span class="n">Tibs</span><span class="p">)</span> <span class="n">Ibbs</span><span class="p">,</span>
+    <span class="n">David</span> <span class="n">Goodger</span>
+
+<span class="p">:</span><span class="n">Version</span><span class="p">:</span> <span class="mf">1.0</span> <span class="n">of</span> <span class="mi">2001</span><span class="o">/</span><span class="mi">08</span><span class="o">/</span><span class="mi">08</span>
+<span class="p">:</span><span class="n">Dedication</span><span class="p">:</span> <span class="n">To</span> <span class="n">my</span> <span class="n">father</span><span class="o">.</span>
+</code></pre></div>
+</div>
+</td>
+<td><dl class="field-list simple">
+<dt class="field-odd">Authors</dt>
+<dd class="field-odd"><p>Tony J. (Tibs) Ibbs,
+David Goodger</p>
+</dd>
+<dt class="field-even">Version</dt>
+<dd class="field-even"><p>1.0 of 2001/08/08</p>
+</dd>
+<dt class="field-odd">Dedication</dt>
+<dd class="field-odd"><p>To my father.</p>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="row-odd"><td><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="o">-</span><span class="n">a</span>            <span class="n">command</span><span class="o">-</span><span class="n">line</span> <span class="n">option</span> <span class="s2">&quot;a&quot;</span>
+<span class="o">-</span><span class="n">b</span> <span class="n">file</span>       <span class="n">options</span> <span class="n">can</span> <span class="n">have</span> <span class="n">arguments</span>
+              <span class="ow">and</span> <span class="n">long</span> <span class="n">descriptions</span>
+<span class="o">--</span><span class="n">long</span>        <span class="n">options</span> <span class="n">can</span> <span class="n">be</span> <span class="n">long</span> <span class="n">also</span>
+<span class="o">--</span><span class="nb">input</span><span class="o">=</span><span class="n">file</span>  <span class="n">long</span> <span class="n">options</span> <span class="n">can</span> <span class="n">also</span> <span class="n">have</span>
+              <span class="n">arguments</span>
+<span class="o">/</span><span class="n">V</span>            <span class="n">DOS</span><span class="o">/</span><span class="n">VMS</span><span class="o">-</span><span class="n">style</span> <span class="n">options</span> <span class="n">too</span>
+</code></pre></div>
+</div>
+</td>
+<td><dl class="option-list">
+<dt><kbd><span class="option">-a</span></kbd></dt>
+<dd><p>command-line option “a”</p>
+</dd>
+<dt><kbd><span class="option">-b <var>file</var></span></kbd></dt>
+<dd><p>options can have arguments
+and long descriptions</p>
+</dd>
+<dt><kbd><span class="option">--long</span></kbd></dt>
+<dd><p>options can be long also</p>
+</dd>
+<dt><kbd><span class="option">--input=<var>file</var></span></kbd></dt>
+<dd><p>long options can also have
+arguments</p>
+</dd>
+<dt><kbd><span class="option">/V</span></kbd></dt>
+<dd><p>DOS/VMS-style options too</p>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="section-structure">Section Structure<a class="headerlink" href="#section-structure" title="Permalink to this headline">¶</a></h2>
+<table class="docutils data align-default">
+<colgroup>
+<col style="width: 51%" />
+<col style="width: 49%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code>Title
+=====
+
+Titles are underlined (or over- and underlined) with
+a nonalphanumeric character at least as long as the
+text.
+
+A lone top-level section is lifted up to be the
+document&#39;s title.
+
+Any non-alphanumeric character can be used, but
+Python convention is:
+
+* ``#`` with overline, for parts
+* ``*`` with overline, for chapters
+* ``=``, for sections
+* ``-``, for subsections
+* ``^``, for subsubsections
+* ``&quot;``, for paragraphs
+</code></pre></div>
+</div>
+</td>
+<td><p>Title</p>
+<p>Titles are underlined (or over- and underlined) with
+a nonalphanumeric character at least as long as the
+text.</p>
+<p>A lone top-level section is lifted up to be the
+document’s title.</p>
+<p>Any non-alphanumeric character can be used, but
+Python convention is:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">#</span></code> with overline, for parts</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">*</span></code> with overline, for chapters</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">=</span></code>, for sections</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-</span></code>, for subsections</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">^</span></code>, for subsubsections</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;</span></code>, for paragraphs</p></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="blocks">Blocks<a class="headerlink" href="#blocks" title="Permalink to this headline">¶</a></h2>
+<table class="docutils data align-default">
+<colgroup>
+<col style="width: 54%" />
+<col style="width: 46%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="n">This</span> <span class="ow">is</span> <span class="n">a</span> <span class="n">paragraph</span><span class="o">.</span>
+
+<span class="n">Paragraphs</span> <span class="n">line</span> <span class="n">up</span> <span class="n">at</span> <span class="n">their</span> <span class="n">left</span> <span class="n">edges</span><span class="p">,</span> <span class="ow">and</span> <span class="n">are</span>
+<span class="n">normally</span> <span class="n">separated</span> <span class="n">by</span> <span class="n">blank</span> <span class="n">lines</span><span class="o">.</span>
+</code></pre></div>
+</div>
+</td>
+<td><p>This is a paragraph.</p>
+<p>Paragraphs line up at their left
+edges, and are normally separated
+by blank lines.</p>
+</td>
+</tr>
+<tr class="row-even"><td><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code>A paragraph containing only two colons indicates
+the following indented or quoted text is a literal
+block or quoted text is a literal block.
+
+::
+
+  Whitespace, newlines, blank lines, and  all kinds of
+  markup (like *this* or \this) is preserved here.
+
+You can also tack the ``::`` at the end of a
+paragraph::
+
+   It&#39;s very convenient to use this form.
+
+Per-line quoting can also be used for unindented
+blocks::
+
+&gt; Useful for quotes from email and
+&gt; for Haskell literate programming.
+</code></pre></div>
+</div>
+</td>
+<td><p>A paragraph containing only two colons
+indicates that the following indented
+or quoted text is a literal block.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="n">Whitespace</span><span class="p">,</span> <span class="n">newlines</span><span class="p">,</span> <span class="n">blank</span> <span class="n">lines</span><span class="p">,</span> <span class="ow">and</span>
+<span class="nb">all</span> <span class="n">kinds</span> <span class="n">of</span> <span class="n">markup</span> <span class="p">(</span><span class="n">like</span> <span class="o">*</span><span class="n">this</span><span class="o">*</span> <span class="ow">or</span>
+\<span class="n">this</span><span class="p">)</span> <span class="ow">is</span> <span class="n">preserved</span> <span class="n">by</span> <span class="n">literal</span> <span class="n">blocks</span><span class="o">.</span>
+</code></pre></div>
+</div>
+<p>You can also tack the <code class="docutils literal notranslate"><span class="pre">::</span></code> at the end of a
+paragraph:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="n">It</span><span class="s1">&#39;s very convenient to use this form.</span>
+</code></pre></div>
+</div>
+<p>Per-line quoting can also be used for
+unindented blocks:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="o">&gt;</span> <span class="n">Useful</span> <span class="k">for</span> <span class="n">quotes</span> <span class="kn">from</span> <span class="nn">email</span> <span class="ow">and</span>
+<span class="o">&gt;</span> <span class="k">for</span> <span class="n">Haskell</span> <span class="n">literate</span> <span class="n">programming</span><span class="o">.</span>
+</code></pre></div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="o">|</span> <span class="n">Line</span> <span class="n">blocks</span> <span class="n">are</span> <span class="n">useful</span> <span class="k">for</span> <span class="n">addresses</span><span class="p">,</span>
+<span class="o">|</span> <span class="n">verse</span><span class="p">,</span> <span class="ow">and</span> <span class="n">adornment</span><span class="o">-</span><span class="n">free</span> <span class="n">lists</span><span class="o">.</span>
+<span class="o">|</span>
+<span class="o">|</span> <span class="n">Each</span> <span class="n">new</span> <span class="n">line</span> <span class="n">begins</span> <span class="k">with</span> <span class="n">a</span>
+<span class="o">|</span> <span class="n">vertical</span> <span class="n">bar</span> <span class="p">(</span><span class="s2">&quot;|&quot;</span><span class="p">)</span><span class="o">.</span>
+<span class="o">|</span>     <span class="n">Line</span> <span class="n">breaks</span> <span class="ow">and</span> <span class="n">initial</span> <span class="n">indents</span>
+<span class="o">|</span>     <span class="n">are</span> <span class="n">preserved</span><span class="o">.</span>
+<span class="o">|</span> <span class="n">Continuation</span> <span class="n">lines</span> <span class="n">are</span> <span class="n">wrapped</span>
+  <span class="n">portions</span> <span class="n">of</span> <span class="n">long</span> <span class="n">lines</span><span class="p">;</span> <span class="n">they</span> <span class="n">begin</span>
+  <span class="k">with</span> <span class="n">spaces</span> <span class="ow">in</span> <span class="n">place</span> <span class="n">of</span> <span class="n">vertical</span> <span class="n">bars</span><span class="o">.</span>
+</code></pre></div>
+</div>
+</td>
+<td><div class="line-block">
+<div class="line">Line blocks are useful for addresses,</div>
+<div class="line">verse, and adornment-free lists.</div>
+<div class="line"><br /></div>
+<div class="line">Each new line begins with a</div>
+<div class="line">vertical bar (“|”).</div>
+<div class="line-block">
+<div class="line">Line breaks and initial indents</div>
+<div class="line">are preserved.</div>
+</div>
+<div class="line">Continuation lines are wrapped
+portions of long lines; they begin
+with spaces in place of vertical bars.</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="n">Block</span> <span class="n">quotes</span> <span class="n">are</span> <span class="n">just</span><span class="p">:</span>
+
+    <span class="n">Indented</span> <span class="n">paragraphs</span><span class="p">,</span>
+
+        <span class="ow">and</span> <span class="n">they</span> <span class="n">may</span> <span class="n">nest</span><span class="o">.</span>
+</code></pre></div>
+</div>
+</td>
+<td><p>Block quotes are just:</p>
+<blockquote>
+<div><p>Indented paragraphs,</p>
+<blockquote>
+<div><p>and they may nest.</p>
+</div></blockquote>
+</div></blockquote>
+</td>
+</tr>
+<tr class="row-odd"><td><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="n">Doctest</span> <span class="n">blocks</span> <span class="n">are</span> <span class="n">interactive</span>
+<span class="n">Python</span> <span class="n">sessions</span><span class="o">.</span> <span class="n">They</span> <span class="n">begin</span> <span class="k">with</span>
+<span class="s2">&quot;``&gt;&gt;&gt;``&quot;</span> <span class="ow">and</span> <span class="n">end</span> <span class="k">with</span> <span class="n">a</span> <span class="n">blank</span> <span class="n">line</span><span class="o">.</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span> <span class="s2">&quot;This is a doctest block.&quot;</span>
+<span class="n">This</span> <span class="ow">is</span> <span class="n">a</span> <span class="n">doctest</span> <span class="n">block</span><span class="o">.</span>
+</code></pre></div>
+</div>
+</td>
+<td><p>Doctest blocks are interactive
+Python sessions. They begin with
+“<code class="docutils literal notranslate"><span class="pre">&gt;&gt;&gt;</span></code>” and end with a blank line.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="s2">&quot;This is a doctest block.&quot;</span>
+<span class="go">This is a doctest block.</span>
+</code></pre></div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="n">A</span> <span class="n">transition</span> <span class="n">marker</span> <span class="ow">is</span> <span class="n">a</span> <span class="n">horizontal</span> <span class="n">line</span>
+<span class="n">of</span> <span class="mi">4</span> <span class="ow">or</span> <span class="n">more</span> <span class="n">repeated</span> <span class="n">punctuation</span>
+<span class="n">characters</span><span class="o">.</span>
+
+<span class="o">------------</span>
+
+<span class="n">A</span> <span class="n">transition</span> <span class="n">should</span> <span class="ow">not</span> <span class="n">begin</span> <span class="ow">or</span> <span class="n">end</span> <span class="n">a</span>
+<span class="n">section</span> <span class="ow">or</span> <span class="n">document</span><span class="p">,</span> <span class="n">nor</span> <span class="n">should</span> <span class="n">two</span>
+<span class="n">transitions</span> <span class="n">be</span> <span class="n">immediately</span> <span class="n">adjacent</span><span class="o">.</span>
+</code></pre></div>
+</div>
+</td>
+<td><p>A transition marker is a horizontal line
+of 4 or more repeated punctuation
+characters.</p>
+<table class="docutils data align-default">
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td></td>
+</tr>
+</tbody>
+</table>
+<p>A transition should not begin or end a
+section or document, nor should two
+transitions be immediately adjacent.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tables">Tables<a class="headerlink" href="#tables" title="Permalink to this headline">¶</a></h2>
+<p>There are two syntaxes for tables in reStructuredText. Grid tables are complete but cumbersome to create. Simple
+tables are easy to create but limited (no row spans, etc.).</p>
+<table class="docutils data align-default">
+<colgroup>
+<col style="width: 54%" />
+<col style="width: 46%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="o">+------------+------------+-----------+</span>
+<span class="o">|</span> <span class="n">Header</span> <span class="mi">1</span>   <span class="o">|</span> <span class="n">Header</span> <span class="mi">2</span>   <span class="o">|</span> <span class="n">Header</span> <span class="mi">3</span>  <span class="o">|</span>
+<span class="o">+============+============+===========+</span>
+<span class="o">|</span> <span class="n">body</span> <span class="n">row</span> <span class="mi">1</span> <span class="o">|</span> <span class="n">column</span> <span class="mi">2</span>   <span class="o">|</span> <span class="n">column</span> <span class="mi">3</span>  <span class="o">|</span>
+<span class="o">+------------+------------+-----------+</span>
+<span class="o">|</span> <span class="n">body</span> <span class="n">row</span> <span class="mi">2</span> <span class="o">|</span> <span class="n">Cells</span> <span class="n">may</span> <span class="n">span</span> <span class="n">columns</span><span class="o">.|</span>
+<span class="o">+------------+------------+-----------+</span>
+<span class="o">|</span> <span class="n">body</span> <span class="n">row</span> <span class="mi">3</span> <span class="o">|</span> <span class="n">Cells</span> <span class="n">may</span>  <span class="o">|</span> <span class="o">-</span> <span class="n">Cells</span>   <span class="o">|</span>
+<span class="o">+------------+</span> <span class="n">span</span> <span class="n">rows</span><span class="o">.</span> <span class="o">|</span> <span class="o">-</span> <span class="n">contain</span> <span class="o">|</span>
+<span class="o">|</span> <span class="n">body</span> <span class="n">row</span> <span class="mi">4</span> <span class="o">|</span>            <span class="o">|</span> <span class="o">-</span> <span class="n">blocks</span><span class="o">.</span> <span class="o">|</span>
+<span class="o">+------------+------------+-----------+</span>
+</code></pre></div>
+</div>
+</td>
+<td><table class="docutils data align-default">
+<colgroup>
+<col style="width: 34%" />
+<col style="width: 34%" />
+<col style="width: 31%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Header 1</p></th>
+<th class="head"><p>Header 2</p></th>
+<th class="head"><p>Header 3</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>body row 1</p></td>
+<td><p>column 2</p></td>
+<td><p>column 3</p></td>
+</tr>
+<tr class="row-odd"><td><p>body row 2</p></td>
+<td colspan="2"><p>Cells may span columns.</p></td>
+</tr>
+<tr class="row-even"><td><p>body row 3</p></td>
+<td rowspan="2"><p>Cells may
+span rows.</p></td>
+<td rowspan="2"><ul class="simple">
+<li><p>Cells</p></li>
+<li><p>contain</p></li>
+<li><p>blocks.</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p>body row 4</p></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr class="row-even"><td><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="o">=====</span>  <span class="o">=====</span>  <span class="o">======</span>
+   <span class="n">Inputs</span>     <span class="n">Output</span>
+<span class="o">------------</span>  <span class="o">------</span>
+  <span class="n">A</span>      <span class="n">B</span>    <span class="n">A</span> <span class="ow">or</span> <span class="n">B</span>
+<span class="o">=====</span>  <span class="o">=====</span>  <span class="o">======</span>
+<span class="kc">False</span>  <span class="kc">False</span>  <span class="kc">False</span>
+<span class="kc">True</span>   <span class="kc">False</span>  <span class="kc">True</span>
+<span class="kc">False</span>  <span class="kc">True</span>   <span class="kc">True</span>
+<span class="kc">True</span>   <span class="kc">True</span>   <span class="kc">True</span>
+<span class="o">=====</span>  <span class="o">=====</span>  <span class="o">======</span>
+</code></pre></div>
+</div>
+</td>
+<td><table class="docutils data align-default">
+<colgroup>
+<col style="width: 31%" />
+<col style="width: 31%" />
+<col style="width: 38%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head" colspan="2"><p>Inputs</p></th>
+<th class="head"><p>Output</p></th>
+</tr>
+<tr class="row-even"><th class="head"><p>A</p></th>
+<th class="head"><p>B</p></th>
+<th class="head"><p>A or B</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-odd"><td><p>False</p></td>
+<td><p>False</p></td>
+<td><p>False</p></td>
+</tr>
+<tr class="row-even"><td><p>True</p></td>
+<td><p>False</p></td>
+<td><p>True</p></td>
+</tr>
+<tr class="row-odd"><td><p>False</p></td>
+<td><p>True</p></td>
+<td><p>True</p></td>
+</tr>
+<tr class="row-even"><td><p>True</p></td>
+<td><p>True</p></td>
+<td><p>True</p></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="explicit-markup">Explicit Markup<a class="headerlink" href="#explicit-markup" title="Permalink to this headline">¶</a></h2>
+<p>Explicit markup blocks are used for constructs which float (footnotes), have no direct paper-document representation
+(hyperlink targets, comments), or require specialized processing (directives).
+They all begin with two periods and whitespace, the “explicit markup start”.</p>
+<table class="docutils data align-default">
+<colgroup>
+<col style="width: 51%" />
+<col style="width: 49%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="n">Footnote</span> <span class="n">references</span><span class="p">,</span> <span class="n">like</span> <span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="n">_</span><span class="o">.</span>
+<span class="n">Note</span> <span class="n">that</span> <span class="n">footnotes</span> <span class="n">may</span> <span class="n">get</span>
+<span class="n">rearranged</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">g</span><span class="o">.</span><span class="p">,</span> <span class="n">to</span> <span class="n">the</span> <span class="n">bottom</span> <span class="n">of</span>
+<span class="n">the</span> <span class="s2">&quot;page&quot;</span><span class="o">.</span>
+
+<span class="o">..</span> <span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="n">A</span> <span class="n">numerical</span> <span class="n">footnote</span><span class="o">.</span> <span class="n">Note</span>
+   <span class="n">there</span><span class="s1">&#39;s no colon after the ``]``.</span>
+</code></pre></div>
+</div>
+</td>
+<td><p>Footnote references, like <a class="footnote-reference brackets" href="#id6" id="id5">5</a>.
+Note that footnotes may get
+rearranged, e.g., to the bottom of
+the “page”.</p>
+<dl class="footnote brackets">
+<dt class="label" id="id6"><span class="brackets"><a class="fn-backref" href="#id5">5</a></span></dt>
+<dd><p>A numerical footnote. Note
+there’s no colon after the <code class="docutils literal notranslate"><span class="pre">]</span></code>.</p>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="row-even"><td><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="n">Autonumbered</span> <span class="n">footnotes</span> <span class="n">are</span>
+<span class="n">possible</span><span class="p">,</span> <span class="n">like</span> <span class="n">using</span> <span class="p">[</span><span class="c1">#]_ and [#]_.</span>
+
+<span class="o">..</span> <span class="p">[</span><span class="c1">#] This is the first one.</span>
+<span class="o">..</span> <span class="p">[</span><span class="c1">#] This is the second one.</span>
+
+<span class="n">They</span> <span class="n">may</span> <span class="n">be</span> <span class="n">assigned</span> <span class="s1">&#39;autonumber</span>
+<span class="n">labels</span><span class="s1">&#39; - for instance,</span>
+<span class="p">[</span><span class="c1">#fourth]_ and [#third]_.</span>
+
+<span class="o">..</span> <span class="p">[</span><span class="c1">#third] a.k.a. third_</span>
+
+<span class="o">..</span> <span class="p">[</span><span class="c1">#fourth] a.k.a. fourth_</span>
+</code></pre></div>
+</div>
+</td>
+<td><p>Autonumbered footnotes are
+possible, like using <a class="footnote-reference brackets" href="#id9" id="id7">1</a> and <a class="footnote-reference brackets" href="#id10" id="id8">2</a>.</p>
+<dl class="footnote brackets">
+<dt class="label" id="id9"><span class="brackets"><a class="fn-backref" href="#id7">1</a></span></dt>
+<dd><p>This is the first one.</p>
+</dd>
+<dt class="label" id="id10"><span class="brackets"><a class="fn-backref" href="#id8">2</a></span></dt>
+<dd><p>This is the second one.</p>
+</dd>
+</dl>
+<p>They may be assigned ‘autonumber
+labels’ - for instance,
+<a class="footnote-reference brackets" href="#fourth" id="id11">4</a> and <a class="footnote-reference brackets" href="#third" id="id12">3</a>.</p>
+<dl class="footnote brackets">
+<dt class="label" id="third"><span class="brackets"><a class="fn-backref" href="#id12">3</a></span></dt>
+<dd><p>a.k.a. <a class="reference internal" href="#third">third</a></p>
+</dd>
+<dt class="label" id="fourth"><span class="brackets"><a class="fn-backref" href="#id11">4</a></span></dt>
+<dd><p>a.k.a. <a class="reference internal" href="#fourth">fourth</a></p>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="row-odd"><td><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="n">Auto</span><span class="o">-</span><span class="n">symbol</span> <span class="n">footnotes</span> <span class="n">are</span> <span class="n">also</span>
+<span class="n">possible</span><span class="p">,</span> <span class="n">like</span> <span class="n">this</span><span class="p">:</span> <span class="p">[</span><span class="o">*</span><span class="p">]</span><span class="n">_</span> <span class="ow">and</span> <span class="p">[</span><span class="o">*</span><span class="p">]</span><span class="n">_</span><span class="o">.</span>
+
+<span class="o">..</span> <span class="p">[</span><span class="o">*</span><span class="p">]</span> <span class="n">This</span> <span class="ow">is</span> <span class="n">the</span> <span class="n">first</span> <span class="n">one</span><span class="o">.</span>
+<span class="o">..</span> <span class="p">[</span><span class="o">*</span><span class="p">]</span> <span class="n">This</span> <span class="ow">is</span> <span class="n">the</span> <span class="n">second</span> <span class="n">one</span><span class="o">.</span>
+</code></pre></div>
+</div>
+</td>
+<td><p>Auto-symbol footnotes are also
+possible, like this: <a class="footnote-reference brackets" href="#id15" id="id13">*</a> and <a class="footnote-reference brackets" href="#id16" id="id14">†</a>.</p>
+<dl class="footnote brackets">
+<dt class="label" id="id15"><span class="brackets"><a class="fn-backref" href="#id13">*</a></span></dt>
+<dd><p>This is the first one.</p>
+</dd>
+<dt class="label" id="id16"><span class="brackets"><a class="fn-backref" href="#id14">†</a></span></dt>
+<dd><p>This is the second one.</p>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="row-even"><td><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="n">Citation</span> <span class="n">references</span><span class="p">,</span> <span class="n">like</span> <span class="p">[</span><span class="n">CIT2002</span><span class="p">]</span><span class="n">_</span><span class="o">.</span>
+<span class="n">Note</span> <span class="n">that</span> <span class="n">citations</span> <span class="n">may</span> <span class="n">get</span>
+<span class="n">rearranged</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">g</span><span class="o">.</span><span class="p">,</span> <span class="n">to</span> <span class="n">the</span> <span class="n">bottom</span> <span class="n">of</span>
+<span class="n">the</span> <span class="s2">&quot;page&quot;</span><span class="o">.</span>
+
+<span class="o">..</span> <span class="p">[</span><span class="n">CIT2002</span><span class="p">]</span> <span class="n">A</span> <span class="n">citation</span>
+   <span class="p">(</span><span class="k">as</span> <span class="n">often</span> <span class="n">used</span> <span class="ow">in</span> <span class="n">journals</span><span class="p">)</span><span class="o">.</span>
+
+<span class="n">Citation</span> <span class="n">labels</span> <span class="n">contain</span> <span class="n">alphanumerics</span><span class="p">,</span>
+<span class="n">underlines</span><span class="p">,</span> <span class="n">hyphens</span> <span class="ow">and</span> <span class="n">fullstops</span><span class="o">.</span>
+<span class="n">Case</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">significant</span><span class="o">.</span>
+
+<span class="n">Given</span> <span class="n">a</span> <span class="n">citation</span> <span class="n">like</span> <span class="p">[</span><span class="n">this</span><span class="p">]</span><span class="n">_</span><span class="p">,</span> <span class="n">one</span>
+<span class="n">can</span> <span class="n">also</span> <span class="n">refer</span> <span class="n">to</span> <span class="n">it</span> <span class="n">like</span> <span class="n">this_</span><span class="o">.</span>
+
+<span class="o">..</span> <span class="p">[</span><span class="n">this</span><span class="p">]</span> <span class="n">here</span><span class="o">.</span>
+</code></pre></div>
+</div>
+</td>
+<td><p>Citation references, like <a class="reference internal" href="#cit2002" id="id17"><span>[CIT2002]</span></a>.
+Note that citations may get
+rearranged, e.g., to the bottom of
+the “page”.</p>
+<dl class="citation">
+<dt class="label" id="cit2002"><span class="brackets">CIT2002</span><span class="fn-backref">(<a href="#id3">1</a>,<a href="#id17">2</a>)</span></dt>
+<dd><p>A citation
+(as often used in journals).</p>
+</dd>
+</dl>
+<p>Citation labels contain alphanumerics,
+underlines, hyphens and fullstops.
+Case is not significant.</p>
+<p>Given a citation like <a class="reference internal" href="#this" id="id18"><span>[this]</span></a>, one
+can also refer to it like <a class="reference internal" href="#this">this</a>.</p>
+<dl class="citation">
+<dt class="label" id="this"><span class="brackets"><a class="fn-backref" href="#id18">this</a></span></dt>
+<dd><p>here.</p>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="row-odd"><td><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="n">External</span> <span class="n">hyperlinks</span><span class="p">,</span> <span class="n">like</span> <span class="n">Python_</span><span class="o">.</span>
+
+<span class="o">..</span> <span class="n">_Python</span><span class="p">:</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="o">.</span><span class="n">python</span><span class="o">.</span><span class="n">org</span><span class="o">/</span>
+</code></pre></div>
+</div>
+</td>
+<td><p>External hyperlinks, like <a class="reference external" href="http://www.python.org/">Python</a>.</p>
+</td>
+</tr>
+<tr class="row-even"><td><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code>External hyperlinks, like `Python
+&lt;http://www.python.org/&gt;`_.
+</code></pre></div>
+</div>
+</td>
+<td><p>External hyperlinks, like <a class="reference external" href="http://www.python.org/">Python</a>.</p></td>
+</tr>
+<tr class="row-odd"><td><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="n">Internal</span> <span class="n">crossreferences</span><span class="p">,</span> <span class="n">like</span> <span class="n">example_</span><span class="o">.</span>
+
+<span class="o">..</span> <span class="n">_example</span><span class="p">:</span>
+
+<span class="n">This</span> <span class="ow">is</span> <span class="n">an</span> <span class="n">example</span> <span class="n">crossreference</span> <span class="n">target</span><span class="o">.</span>
+</code></pre></div>
+</div>
+</td>
+<td><p>Internal crossreferences, like <a class="reference internal" href="#example">example</a>.</p>
+<p id="example">This is an example crossreference target.</p>
+</td>
+</tr>
+<tr class="row-even"><td><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code>Python_ is `my favourite
+programming language`__.
+
+.. _Python: http://www.python.org/
+
+__ Python_
+</code></pre></div>
+</div>
+</td>
+<td><p><a class="reference external" href="http://www.python.org/">Python</a> is <a class="reference external" href="http://www.python.org/">my favourite
+programming language</a>.</p>
+</td>
+</tr>
+<tr class="row-odd"><td><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code>Titles are targets, too
+=======================
+
+Implict references, like `Titles are targets, too`_.
+</code></pre></div>
+</div>
+</td>
+<td><p id="titles-are-targets-too">Titles are targets, too</p>
+<p>Implict references, like
+<a class="reference internal" href="#titles-are-targets-too">Titles are targets, too</a>.</p>
+</td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>Directives are a general-purpose extension mechanism, a way of adding support for new constructs without adding
+new syntax. For a description of all standard directives, see reStructuredText Directives (<a class="reference external" href="http://is.gd/2Ecqh">http://is.gd/2Ecqh</a>).</p></td>
+</tr>
+<tr class="row-odd"><td><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="n">For</span> <span class="n">instance</span><span class="p">:</span>
+
+<span class="o">..</span> <span class="n">image</span><span class="p">::</span> <span class="n">magnetic</span><span class="o">-</span><span class="n">balls</span><span class="o">.</span><span class="n">jpg</span>
+   <span class="p">:</span><span class="n">width</span><span class="p">:</span> <span class="mi">40</span><span class="n">pt</span>
+</code></pre></div>
+</div>
+</td>
+<td><p>For instance:</p>
+<a class="reference internal image-reference" href="../_images/magnetic-balls.jpg"><img alt="../_images/magnetic-balls.jpg" src="../_images/magnetic-balls.jpg" style="width: 40pt;" /></a>
+</td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>Substitutions are like inline directives, allowing graphics and arbitrary constructs within text.</p></td>
+</tr>
+<tr class="row-odd"><td><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="n">The</span> <span class="o">|</span><span class="n">biohazard</span><span class="o">|</span> <span class="n">symbol</span> <span class="n">must</span> <span class="n">be</span> <span class="n">used</span> <span class="n">on</span> <span class="n">containers</span> <span class="n">used</span> <span class="n">to</span>
+<span class="n">dispose</span> <span class="n">of</span> <span class="n">medical</span> <span class="n">waste</span><span class="o">.</span>
+
+<span class="o">..</span> <span class="o">|</span><span class="n">biohazard</span><span class="o">|</span> <span class="n">image</span><span class="p">::</span> <span class="n">biohazard</span><span class="o">.</span><span class="n">png</span>
+   <span class="p">:</span><span class="n">align</span><span class="p">:</span> <span class="n">middle</span>
+   <span class="p">:</span><span class="n">width</span><span class="p">:</span> <span class="mi">12</span>
+</code></pre></div>
+</div>
+</td>
+<td><p>The <a class="reference internal" href="../_images/biohazard.png"><img alt="biohazard" class="align-middle" src="../_images/biohazard.png" style="width: 12px;" /></a> symbol must be used on containers used to
+dispose of medical waste.</p>
+</td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>Any text which begins with an explicit markup start but doesn’t use the syntax of any of the constructs above, is a comment.</p></td>
+</tr>
+<tr class="row-odd"><td><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="o">..</span> <span class="n">This</span> <span class="n">text</span> <span class="n">will</span> <span class="ow">not</span> <span class="n">be</span> <span class="n">shown</span>
+   <span class="p">(</span><span class="n">but</span><span class="p">,</span> <span class="k">for</span> <span class="n">instance</span><span class="p">,</span> <span class="ow">in</span> <span class="n">HTML</span> <span class="n">might</span> <span class="n">be</span>
+   <span class="n">rendered</span> <span class="k">as</span> <span class="n">an</span> <span class="n">HTML</span> <span class="n">comment</span><span class="p">)</span>
+</code></pre></div>
+</div>
+</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="n">An</span> <span class="s2">&quot;empty comment&quot;</span> <span class="n">does</span> <span class="ow">not</span>
+<span class="n">consume</span> <span class="n">following</span> <span class="n">blocks</span><span class="o">.</span>
+<span class="p">(</span><span class="n">An</span> <span class="n">empty</span> <span class="n">comment</span> <span class="ow">is</span> <span class="s2">&quot;..&quot;</span> <span class="k">with</span>
+<span class="n">blank</span> <span class="n">lines</span> <span class="n">before</span> <span class="ow">and</span> <span class="n">after</span><span class="o">.</span><span class="p">)</span>
+
+<span class="o">..</span>
+
+        <span class="n">So</span> <span class="n">this</span> <span class="n">block</span> <span class="ow">is</span> <span class="ow">not</span> <span class="s2">&quot;lost&quot;</span><span class="p">,</span>
+        <span class="n">despite</span> <span class="n">its</span> <span class="n">indentation</span><span class="o">.</span>
+</code></pre></div>
+</div>
+</td>
+<td><p>An “empty comment” does not
+consume following blocks.
+(An empty comment is “..” with
+blank lines before and after.)</p>
+<blockquote>
+<div><p>So this block is not “lost”,
+despite its indentation.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="credits">Credits<a class="headerlink" href="#credits" title="Permalink to this headline">¶</a></h2>
+<table class="docutils data align-default">
+<colgroup>
+<col style="width: 41%" />
+<col style="width: 59%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>CP Font from LiquiType:</p></td>
+<td><p><a class="reference external" href="http://www.liquitype.com/workshop/type_design/cp-mono">http://www.liquitype.com/workshop/type_design/cp-mono</a></p></td>
+</tr>
+<tr class="row-even"><td><p>Magnetic Balls V2 image by fdecomite:</p></td>
+<td><p><a class="reference external" href="http://www.flickr.com/photos/fdecomite/2926556794/">http://www.flickr.com/photos/fdecomite/2926556794/</a></p></td>
+</tr>
+<tr class="row-odd"><td><p>Sponsored by Net Managers</p></td>
+<td><p><a class="reference external" href="http://www.netmanagers.com.ar">http://www.netmanagers.com.ar</a></p></td>
+</tr>
+<tr class="row-even"><td><p>Typeset using rst2pdf</p></td>
+<td><p><a class="reference external" href="http://rst2pdf.googlecode.com">http://rst2pdf.googlecode.com</a></p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils data align-default">
+<colgroup>
+<col style="width: 52%" />
+<col style="width: 24%" />
+<col style="width: 12%" />
+<col style="width: 12%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>© <small>2009 Roberto Alsina &lt;ralsina&#64;netmanagers.com.ar&gt;  /  Creative Commons Attribution-Noncommercial-Share Alike 2.5 Argentina License</small></p></td>
+<td><p><a class="reference internal" href="../_images/attrib.png"><img alt="attrib" class="align-middle" src="../_images/attrib.png" style="width: 8pt;" /></a> <small>Based on quickref.txt from docutils</small></p></td>
+<td><p><a class="reference internal" href="../_images/noncomm.png"><img alt="noncomm" class="align-middle" src="../_images/noncomm.png" style="width: 8pt;" /></a> <small>Non-Commercial</small></p></td>
+<td><p><a class="reference internal" href="../_images/sharealike.png"><img alt="sharealike" class="align-middle" src="../_images/sharealike.png" style="width: 8pt;" /></a> <small>Share Alike</small></p></td>
+</tr>
+</tbody>
+</table>
+
+
+                
+                  
+                    
+
+<hr>
+<div class="md-source-date">
+  <small>
+    
+      Last update: Oct 17, 2021
+    
+  </small>
+</div>
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" data-md-state="hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"/></svg>
+            Back to top
+          </a>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../rst_basics.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: reStructuredText Primer" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              reStructuredText Primer
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../additional_samples.html" class="md-footer__link md-footer__link--next" aria-label="Next: Additional Samples" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Additional Samples
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  
+  <div class="md-footer-meta md-typeset">
+    
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+              &#169; Copyright 2021 The Sphinx-Immaterial Authors.
+              
+          </div>
+        
+          Created using
+          <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
+          4.2.0.
+           and
+          <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
+        
+      </div>
+      
+    </div>
+    
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.sections", "navigation.top"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../_static/javascripts/bundle.270123a5.min.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    
+  </body>
+</html>
