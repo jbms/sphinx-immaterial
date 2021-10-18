@@ -1,7 +1,7 @@
 Sphinx-Immaterial Theme
 =======================
 
-|MIT License|
+|MIT License| |PyPI Package| |CI status|
 
 This theme is an adaptation of the popular `mkdocs-material
 <https://github.com/squidfunk/mkdocs-material/>`__ theme for the `Sphinx
@@ -104,3 +104,9 @@ few differences, primarily due to differences between Sphinx and MkDocs:
 
 .. |MIT License| image:: https://img.shields.io/badge/License-MIT-blue.svg
    :target: https://opensource.org/licenses/MIT-Clause
+
+.. |PyPI Package| image:: https://img.shields.io/pypi/v/sphinx-immaterial
+   :target: https://pypi.org/project/sphinx-immaterial
+
+.. |CI status| image:: https://github.com/jbms/sphinx-immaterial/workflows/Build/badge.svg
+   :target: https://github.com/jbms/sphinx-immaterial/actions?query=workflow%3ABuild
