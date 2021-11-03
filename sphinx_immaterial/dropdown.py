@@ -66,7 +66,7 @@ class MaterialDetailsTransform(SphinxPostTransform):
     default_priority = 200
     formats = ("html",)
 
-    def run(self):
+    def run(self, **kwargs):
         matcher = NodeMatcher(nodes.container, type="details")
         for node in self.document.traverse(matcher):
             newnode = material_details(**node.attributes)
