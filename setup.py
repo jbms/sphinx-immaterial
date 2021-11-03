@@ -154,12 +154,12 @@ class StaticBundlesCommand(setuptools.command.build_py.build_py):
                     % (node_modules_path,)
                 )
             else:
-                subprocess.run(["npm", "i"])
-            res = subprocess.run(["npm", "run", tgt])
+                subprocess.call("npm i", shell=True, cwd=root_dir)
+            res = subprocess.call(f"npm run {tgt}", shell=True, cwd=root_dir)
         except:
             raise RuntimeError("Could not run 'npm run %s'." % tgt)
 
-        if res.returncode:
+        if res:
             raise RuntimeError("failed to build sphinx-immaterial package.")
 
 

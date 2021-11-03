@@ -19,6 +19,17 @@ from . import nav_adapt
 from . import object_toc
 from . import postprocess_html
 from . import search_adapt
+from .dropdown import (
+    material_details,
+    material_summary,
+    visit_material_details,
+    visit_material_summary,
+    depart_material_details,
+    depart_material_summary,
+    MaterialDetailsDirective,
+    MaterialDetailsTransform,
+)
+
 
 logger = sphinx.util.logging.getLogger(__name__)
 
@@ -268,6 +279,11 @@ def setup(app):
     app.add_config_value(
         "html_use_directory_uris_for_index_pages", False, rebuild="html", types=bool
     )
+
+    app.add_node(material_details, html=(visit_material_details, depart_material_details))
+    app.add_node(material_summary, html=(visit_material_summary, depart_material_summary))
+    app.add_directive("material-dropdown", MaterialDetailsDirective)
+    app.add_post_transform(MaterialDetailsTransform)
 
     app.add_builder(_get_html_builder(app.registry.builders["html"]), override=True)
     app.add_html_theme("sphinx_immaterial", os.path.abspath(os.path.dirname(__file__)))

@@ -7,6 +7,7 @@ rst markup. It and its contents are
 `CC licensed <http://creativecommons.org/licenses/by/3.0/de/deed.en_GB>`_.
 
 .. role:: small
+.. highlight:: rst
 
 Inline Markup
 -------------
@@ -168,7 +169,7 @@ Section Structure
 |                                                          |                                                        |
 |    A lone top-level section is lifted up to be the       |   A lone top-level section is lifted up to be the      |
 |    document's title.                                     |   document's title.                                    |
-|                                                          |                                                        |    
+|                                                          |                                                        |
 |    Any non-alphanumeric character can be used, but       |   Any non-alphanumeric character can be used, but      |
 |    Python convention is:                                 |   Python convention is:                                |
 |                                                          |                                                        |

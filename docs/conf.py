@@ -34,11 +34,12 @@ extensions = [
     "sphinx.ext.todo",
     "sphinx.ext.mathjax",
     "sphinx.ext.viewcode",
+    "sphinx_design",
 ]
 
 intersphinx_mapping = {
     "python": ("https://docs.python.org/3", None),
-    # "sphinx_docs": ("https://www.sphinx-doc.org/en/master", None),
+    "sphinx_docs": ("https://www.sphinx-doc.org/en/master", None),
 }
 
 # The reST default role (used for this markup: `text`) to use for all
@@ -145,9 +146,27 @@ extlinks = {
 
 
 def setup(app):
+    from sphinx.domains.python import PyField
+    from sphinx.util.docfields import Field
+
     app.add_object_type(
         "confval",
         "confval",
         objname="configuration value",
         indextemplate="pair: %s; configuration value",
+        doc_field_types=[
+            PyField(
+                "type",
+                label=("Type"),
+                has_arg=False,
+                names=("type",),
+                bodyrolename="class",
+            ),
+            Field(
+                "default",
+                label=("Default"),
+                has_arg=False,
+                names=("default",),
+            ),
+        ],
     )
