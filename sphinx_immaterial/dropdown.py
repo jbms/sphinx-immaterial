@@ -6,6 +6,7 @@ from sphinx.transforms.post_transforms import SphinxPostTransform
 from sphinx.util.nodes import NodeMatcher
 from sphinx.util.docutils import SphinxDirective
 
+
 class material_details(nodes.Element, nodes.General):
     pass
 
@@ -35,6 +36,7 @@ def depart_material_summary(self, node):
 
 class MaterialDetailsDirective(SphinxDirective):
     """Parses the rst directive"""
+
     optional_arguments = 1  # title of dropdown
     final_argument_whitespace = True
     has_content = True
@@ -63,6 +65,7 @@ class MaterialDetailsDirective(SphinxDirective):
 
 class MaterialDetailsTransform(SphinxPostTransform):
     """Transform docutil node(s) into HTML"""
+
     default_priority = 200
     formats = ("html",)
 

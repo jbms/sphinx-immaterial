@@ -280,8 +280,12 @@ def setup(app):
         "html_use_directory_uris_for_index_pages", False, rebuild="html", types=bool
     )
 
-    app.add_node(material_details, html=(visit_material_details, depart_material_details))
-    app.add_node(material_summary, html=(visit_material_summary, depart_material_summary))
+    app.add_node(
+        material_details, html=(visit_material_details, depart_material_details)
+    )
+    app.add_node(
+        material_summary, html=(visit_material_summary, depart_material_summary)
+    )
     app.add_directive("material-dropdown", MaterialDetailsDirective)
     app.add_post_transform(MaterialDetailsTransform)
 
