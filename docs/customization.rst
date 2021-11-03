@@ -119,7 +119,7 @@ options are:
 
 .. confval:: hero
 
-    To set the hero's text for an individual page, use the ``:hero:`` directive for the desired page.
+    To set the hero's text for an individual page, use the ``:hero:`` metadata field for the desired page.
     If not specified, then the page will not have a hero section.
 
 Configuration Options
