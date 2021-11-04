@@ -12,7 +12,7 @@ admonitions defined in the reStructuredText specifications. You may recognize th
 usage in other sphinx-based themes. They are:
 
 ``note``, ``todo``, ``seealso``
-   .. seealso::
+   .. todo::
       This admonition is specific to Sphinx directives and not defined in the rST specifications
       as you can `seealso`.
 
@@ -44,6 +44,15 @@ shown inside the demonstrated admonition.
    The ``:class:`` options below (in the rST code blocks) must use lower case letters for the
    styling to work. Otherwise, the admonition will look like a ``note`` (as that is the
    default fallback style).
+
+``info``
+   .. admonition:: Info
+      :class: info
+
+      .. code-block:: rst
+
+         .. admonition:: Info
+            :class: info
 
 ``abstract``, ``summary``, ``tldr``
    .. admonition:: TL;DR
@@ -151,8 +160,31 @@ dropdown style using the ``:class:`` option again.
                   :start-at: .. material-dropdown:: Closed by default
                   :end-before: .. versionadded:: 0.1.1
 
+.. warning::
+   Do not use a dropdown-based directive from a any other sphinx-extension.
+   The extension's added CSS rules will likely conflict with this theme's CSS rules.
+   This would be evident by visual artifacts.
+
 .. versionadded:: 0.1.1
     Added native support for dropdown admonitions.
+
+
+Removing the title
+******************
+
+The admonition's title can be removed if the ``material-dropdown`` directive is not provided
+any arguments. In this case, the admonition cannot be collapsed while the ``class`` option is
+still respected.
+
+.. material-dropdown::
+   :class: faq
+
+   This example uses the styling of the ``faq`` admonition
+
+   .. code-block:: rst
+
+      .. material-dropdown::
+         :class: faq
 
 Custom admonitions
 ******************
@@ -212,19 +244,18 @@ folder and add the new CSS to an additional style sheet.
 .. _tabbed_locks:
 
 .. material-dropdown::
-    :class: hint
+   The use of tabbed blocks (as seen above) are provided from
+   `sphinx-design extension <https://sphinx-design.readthedocs.io/en/furo-theme/tabs.html>`_.
+   We added some custom CSS to make the tabs' labels conform to this theme's color palete.
+   :class: todo
 
-    The use of tabbed blocks (as seen above) are provided from
-    `sphinx-design extension <https://sphinx-design.readthedocs.io/en/furo-theme/tabs.html>`_.
-    We added some custom CSS to make the tabs' labels conform to this theme's color palete.
+   .. code-block:: css
 
-    .. code-block:: css
+      .sd-tab-set>input:checked+label {
+         border-color: var(--md-primary-fg-color);
+         color: var(--md-primary-fg-color);
+      }
 
-        .sd-tab-set>input:checked+label {
-            border-color: var(--md-primary-fg-color);
-            color: var(--md-primary-fg-color);
-        }
-
-        .sd-tab-set>input:not(:checked)+label:hover {
-            color: var(--md-primary-fg-color);
-        }
+      .sd-tab-set>input:not(:checked)+label:hover {
+         color: var(--md-primary-fg-color);
+      }

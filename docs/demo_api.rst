@@ -4,6 +4,8 @@ sample API documentation and generated content
 
 .. contents:: Table of Contents
 
+.. python and C++ demo API was copied from sphinx-rtd-theme docs
+
 :mod:`test_py_module`
 =====================
 
@@ -18,39 +20,50 @@ C++ API
 
 .. cpp:type:: MyType
 
-   Some type
+   Some description for a datatype declared as :cpp:type:`MyType`
 
-.. cpp:function:: const MyType Foo(const MyType bar)
+.. cpp:function:: const MyType Foo(const MyType bar, uint8_t baz, bool flag, uint16_t foobar, int32_t foobaz, unsigned long barbaz)
 
-   Some function type thing
+   Some function description.
 
-.. cpp:class:: template<typename T, std::size_t N> std::array
+   :param bar: Some parameter description.
+   :returns: An :cpp:type:`MyType` object similar to the input parameter.
 
-   Some cpp class
+.. cpp:class:: template<typename T, std::size_t N, typename R, typename E, typename S, typename t, typename f> std::array
+
+   Some templated C++ class.
+
+   :tparam T: A description of the template parameter ``T``.
+   :tparam N: A description of the template parameter ``N``.
+
 
 .. cpp:member:: float Sphinx::version
 
-   The description of Sphinx::version.
+   The description of :cpp:member:`Sphinx::version`.
 
 .. cpp:var:: int version
 
-   The description of version.
+   The description of :cpp:var:`version`.
 
 .. cpp:type:: std::vector<int> List
 
-   The description of List type.
+   The description of type :cpp:type:`List`.
 
 .. cpp:enum:: MyEnum
 
-   An unscoped enum.
+   An unscoped enum named :cpp:enum:`MyEnum`.
 
    .. cpp:enumerator:: A
 
+      The description for :cpp:enumerator:`A`.
+
 .. cpp:enum-class:: MyScopedEnum
 
-   A scoped enum.
+   A scoped enum named :cpp:enum:`MyScopedEnum`.
 
    .. cpp:enumerator:: B
+
+      The description for :cpp:enumerator:`B`.
 
 .. cpp:enum-struct:: protected MyScopedVisibilityEnum : std::underlying_type<MySpecificEnum>::type
 
@@ -58,6 +71,7 @@ C++ API
 
    .. cpp:enumerator:: B
 
+      The description for :cpp:enumerator:`MyScopedVisibilityEnum::B`.
 
 JavaScript API
 ==============
