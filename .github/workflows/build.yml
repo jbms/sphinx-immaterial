@@ -1,9 +1,6 @@
 name: Build
 
-on:
-  pull_request:
-    types: [opened, reopened]
-  push:
+on: [pull_request, push]
 
 jobs:
   tox:
