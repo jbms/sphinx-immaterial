@@ -20,6 +20,7 @@ from . import object_toc
 from . import postprocess_html
 from . import search_adapt
 from .custom_admonition import setup as custom_admonition_setup
+
 logger = sphinx.util.logging.getLogger(__name__)
 
 

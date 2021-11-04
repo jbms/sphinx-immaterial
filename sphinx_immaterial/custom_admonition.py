@@ -7,6 +7,7 @@ from sphinx.application import Sphinx
 
 __version__ = "0.0.1"
 
+
 class noTitleAdmonition(admonitions.BaseAdmonition):
 
     node_class = nodes.admonition
@@ -28,9 +29,7 @@ class noTitleAdmonition(admonitions.BaseAdmonition):
                 admonition_node += title
             admonition_node += messages
             if not "classes" in self.options and title_text:
-                admonition_node["classes"] += [
-                    "admonition" + nodes.make_id(title_text)
-                ]
+                admonition_node["classes"] += ["admonition" + nodes.make_id(title_text)]
         self.state.nested_parse(self.content, self.content_offset, admonition_node)
         return [admonition_node]
 
