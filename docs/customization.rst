@@ -119,174 +119,156 @@ options are:
         'globaltoc_depth': 2
     }
 
-Heroes
-==========
+.. confval:: hero
 
-To set the hero's text for an individual page, use the ``:hero:`` directive for the desired page.
-If not specified, then the page will not have a hero section.
+    To set the hero's text for an individual page, use the ``:hero:`` metadata field for the desired page.
+    If not specified, then the page will not have a hero section.
 
 Configuration Options
 =====================
 
-``html_logo``
-**************
+.. confval:: html_logo
 
-The logo in the navigation side menu and header (when browser viewport is wide enough) is changed
-by specifying the ``html_logo`` option. This must specify an image in the project's path
-(typically in the *docs/images* folder).
+    The logo in the navigation side menu and header (when browser viewport is wide enough) is changed
+    by specifying the ``html_logo`` option. This must specify an image in the project's path
+    (typically in the *docs/images* folder).
 
-``html_theme_options`` dict
-****************************
+.. confval:: html_theme_options
 
-``site_url``
-------------
+    .. confval:: site_url
 
-Specify a site_url used to generate sitemap.xml links. If not specified, then
-no sitemap will be built.
+        Specify a site_url used to generate sitemap.xml links. If not specified, then
+        no sitemap will be built.
 
-``repo_url``
-------------
+    .. confval:: repo_url
 
-Set the repo url for the link to appear.
+        Set the repo url for the link to appear.
 
-``repo_name``
--------------
+    .. confval:: repo_name
 
-The name of the repo. If must be set if repo_url is set.
+        The name of the repo. If must be set if repo_url is set.
 
-``repo_type``
--------------
+    .. confval:: repo_type
 
-Must be one of github, gitlab or bitbucket.
+        Must be one of github, gitlab or bitbucket.
 
-``edit_uri``
--------------
+    .. confval:: edit_uri
 
-This is the url segment that is concatenated with repo_url to point readers to the document's
-source file. This is typically in the form of ``'blob/<branch name>/<docs source folder>'``.
-Defaults to a blank string (which disables the edit icon). This is disabled for builds on
-ReadTheDocs as they implement their own mechanism based on the repository's branch or tagged
-commit.
+        This is the url segment that is concatenated with repo_url to point readers to the document's
+        source file. This is typically in the form of ``'blob/<branch name>/<docs source folder>'``.
+        Defaults to a blank string (which disables the edit icon). This is disabled for builds on
+        ReadTheDocs as they implement their own mechanism based on the repository's branch or tagged
+        commit.
 
-``features``
-------------
+    .. confval:: features
 
-Some features that have been ported and can be enabled by specifying the features name in a list
-of strings. The following features are supported:
+        Some features that have been ported and can be enabled by specifying the features name in a list
+        of strings. The following features are supported:
 
-- `navigation.expand <https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#navigation-expansion>`_
-- `navigation.tabs <https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#navigation-tabs>`_ (only shows for browsers with large viewports)
-- `toc.integrate <https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#navigation-integration>`_
-- `navigation.sections <https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#navigation-sections>`_
-- `navigation.instant <https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#instant-loading>`_
-- `header.autohide <https://squidfunk.github.io/mkdocs-material/setup/setting-up-the-header/#automatic-hiding>`_
-- `navigation.top <https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#back-to-top-button>`_
-- `search.highlight <https://squidfunk.github.io/mkdocs-material/setup/setting-up-site-search/#search-highlighting>`_
-- `search.share <https://squidfunk.github.io/mkdocs-material/setup/setting-up-site-search/#search-sharing>`_
+        - `navigation.expand <https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#navigation-expansion>`_
+        - `navigation.tabs <https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#navigation-tabs>`_ (only shows for browsers with large viewports)
+        - `toc.integrate <https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#navigation-integration>`_
+        - `navigation.sections <https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#navigation-sections>`_
+        - `navigation.instant <https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#instant-loading>`_
+        - `header.autohide <https://squidfunk.github.io/mkdocs-material/setup/setting-up-the-header/#automatic-hiding>`_
+        - `navigation.top <https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#back-to-top-button>`_
+        - `search.highlight <https://squidfunk.github.io/mkdocs-material/setup/setting-up-site-search/#search-highlighting>`_
+        - `search.share <https://squidfunk.github.io/mkdocs-material/setup/setting-up-site-search/#search-sharing>`_
 
-``icon`` for the repository
----------------------------
+    .. confval:: icon for the repository
 
-The icon that represents the source code repository can be changed using the ``repo`` field of the
-``icon`` `dict` (within the ``html_theme_options`` `dict`). Although this icon can be
-`any of the icons bundled with this theme <https://github.com/squidfunk/mkdocs-material/tree/master/material/.icons>`_,
-popular choices are:
+        The icon that represents the source code repository can be changed using the ``repo`` field of the
+        ``icon`` `dict` (within the ``html_theme_options`` `dict`). Although this icon can be
+        `any of the icons bundled with this theme <https://github.com/squidfunk/mkdocs-material/tree/master/material/.icons>`_,
+        popular choices are:
 
-- |fa-git| ``fontawesome/brands/git``
-- |fa-git-alt| ``fontawesome/brands/git-alt``
-- |fa-git-square| ``fontawesome/brands/git-square``
-- |fa-github| ``fontawesome/brands/github``
-- |fa-github-alt| ``fontawesome/brands/github-alt``
-- |fa-github-square| ``fontawesome/brands/github-square``
-- |fa-gitlab| ``fontawesome/brands/gitlab``
-- |fa-gitkraken| ``fontawesome/brands/gitkraken``
-- |fa-bitbucket| ``fontawesome/brands/bitbucket``
+        - |fa-git| ``fontawesome/brands/git``
+        - |fa-git-alt| ``fontawesome/brands/git-alt``
+        - |fa-git-square| ``fontawesome/brands/git-square``
+        - |fa-github| ``fontawesome/brands/github``
+        - |fa-github-alt| ``fontawesome/brands/github-alt``
+        - |fa-github-square| ``fontawesome/brands/github-square``
+        - |fa-gitlab| ``fontawesome/brands/gitlab``
+        - |fa-gitkraken| ``fontawesome/brands/gitkraken``
+        - |fa-bitbucket| ``fontawesome/brands/bitbucket``
 
-``palette``
------------
+    .. confval:: palette
 
-The theme's color pallet. This theme requires at least 2 schemes specified (ie 1
-scheme for light & 1 scheme for dark). Each scheme needs a specified ``primary`` and
-``accent`` colors. Additionally, each scheme must have a ``toggle`` `dict` in which
-the ``name`` field specifies the text in the tooltip and the ``icon`` field specifies
-an icon to use to visually indicate which scheme is currently used.
+        The theme's color pallet. This theme requires at least 2 schemes specified (ie 1
+        scheme for light & 1 scheme for dark). Each scheme needs a specified ``primary`` and
+        ``accent`` colors. Additionally, each scheme must have a ``toggle`` `dict` in which
+        the ``name`` field specifies the text in the tooltip and the ``icon`` field specifies
+        an icon to use to visually indicate which scheme is currently used.
 
-- ``primary`` color
+        .. confval:: primary color
 
-  Options are
+            Options are
 
-  :red:`red`, :pink:`pink`, :purple:`purple`, :deep-purple:`deep-purple`, :indigo:`indigo`, :blue:`blue`,
-  :light-blue:`light-blue`, :cyan:`cyan`, :teal:`teal`, :green:`green`, :light-green:`light-green`,
-  :lime:`lime`, :yellow:`yellow`, :amber:`amber`, :orange:`orange`, :deep-orange:`deep-orange`,
-  :brown:`brown`, :grey:`grey`, :blue-grey:`blue-grey`, :black:`black`, and :white:`white`.
-- ``accent`` color
+            :red:`red`, :pink:`pink`, :purple:`purple`, :deep-purple:`deep-purple`, :indigo:`indigo`, :blue:`blue`,
+            :light-blue:`light-blue`, :cyan:`cyan`, :teal:`teal`, :green:`green`, :light-green:`light-green`,
+            :lime:`lime`, :yellow:`yellow`, :amber:`amber`, :orange:`orange`, :deep-orange:`deep-orange`,
+            :brown:`brown`, :grey:`grey`, :blue-grey:`blue-grey`, :black:`black`, and :white:`white`.
 
-  Options are
+        .. confval:: accent color
 
-  :accent-red:`red`, :accent-pink:`pink`, :accent-purple:`purple`, :accent-deep-purple:`deep-purple`,
-  :accent-indigo:`indigo`, :accent-blue:`blue`, :accent-light-blue:`light-blue`, :accent-cyan:`cyan`,
-  :accent-teal:`teal`, :accent-green:`green`, :accent-light-green:`light-green`, :accent-lime:`lime`,
-  :accent-yellow:`yellow`, :accent-amber:`amber`, :accent-orange:`orange`, :accent-deep-orange:`deep-orange`.
-- Toggle ``icon``
+            Options are
 
-  Options must be `any of the icons bundled with this theme <https://github.com/squidfunk/mkdocs-material/tree/master/material/.icons>`_.
-  Popular combinations are
+            :accent-red:`red`, :accent-pink:`pink`, :accent-purple:`purple`, :accent-deep-purple:`deep-purple`,
+            :accent-indigo:`indigo`, :accent-blue:`blue`, :accent-light-blue:`light-blue`, :accent-cyan:`cyan`,
+            :accent-teal:`teal`, :accent-green:`green`, :accent-light-green:`light-green`, :accent-lime:`lime`,
+            :accent-yellow:`yellow`, :accent-amber:`amber`, :accent-orange:`orange`, :accent-deep-orange:`deep-orange`.
 
-  .. csv-table::
+        .. confval:: Toggle icon
 
-      |toggle-off| ``material/toggle-switch-off-outline``, |toggle-on| ``material/toggle-switch``
-      |sunny| ``material/weather-sunny``, |night| ``material/weather-night``
-      |eye-outline| ``material/eye-outline``, |eye| ``material/eye``
-      |lightbulb-outline| ``material/lightbulb-outline``, |lightbulb| ``material/lightbulb``
+            Options must be `any of the icons bundled with this theme <https://github.com/squidfunk/mkdocs-material/tree/master/material/.icons>`_.
+            Popular combinations are
 
-``direction``
----------------
+            .. csv-table::
 
-Specifies the text direction.  Set to ``ltr`` (default) for left-to-right,
-or ``rtl`` for right-to-left.
+                |toggle-off| ``material/toggle-switch-off-outline``, |toggle-on| ``material/toggle-switch``
+                |sunny| ``material/weather-sunny``, |night| ``material/weather-night``
+                |eye-outline| ``material/eye-outline``, |eye| ``material/eye``
+                |lightbulb-outline| ``material/lightbulb-outline``, |lightbulb| ``material/lightbulb``
 
-``google_analytics_account``
-----------------------------
+    .. confval:: direction
 
-Set to enable google analytics.
+        Specifies the text direction.  Set to ``ltr`` (default) for left-to-right,
+        or ``rtl`` for right-to-left.
 
-``globaltoc_depth``
--------------------
+    .. confval:: google_analytics_account
 
-The maximum depth of the global TOC; set it to -1 to allow unlimited depth.
+        Set to enable google analytics.
 
-``globaltoc_collapse``
-----------------------
+    .. confval:: globaltoc_depth
 
-If true, TOC entries that are not ancestors of the current page are collapsed.
+        The maximum depth of the global TOC; set it to -1 to allow unlimited depth.
 
-``globaltoc_includehidden``
----------------------------
+    .. confval:: globaltoc_collapse
 
-If true, the global TOC tree will also contain hidden entries.
+        If true, TOC entries that are not ancestors of the current page are collapsed.
 
-``version_dropdown``
----------------------------
+    .. confval:: globaltoc_includehidden
 
-A flag indicating whether the version drop down should be included. You must supply a JSON file
-to use this feature.
+        If true, the global TOC tree will also contain hidden entries.
 
-``version_dropdown_text``
----------------------------
+    .. confval:: version_dropdown
 
-The text in the version dropdown button
+        A flag indicating whether the version drop down should be included. You must supply a JSON file
+        to use this feature.
 
-``version_json``
----------------------------
+    .. confval:: version_dropdown_text
 
-The location of the JSON file that contains the version information. The default assumes there
-is a file versions.json located in the root of the site.
+        The text in the version dropdown button
 
-``version_info``
----------------------------
+    .. confval:: version_json
 
-A dictionary used to populate the version dropdown.  If this variable is provided, the static
-dropdown is used and any JavaScript information is ignored.
+        The location of the JSON file that contains the version information. The default assumes there
+        is a file versions.json located in the root of the site.
+
+    .. confval:: version_info
+
+        A dictionary used to populate the version dropdown.  If this variable is provided, the static
+        dropdown is used and any JavaScript information is ignored.
 
 Customizing the layout
 ======================
@@ -322,7 +304,7 @@ Finally, edit your override file ``source/_templates/layout.html``:
     {%- endblock %}
 
 New Blocks
-==========
+**************
 The theme has a small number of new blocks to simplify some types of
 customization:
 

@@ -58,60 +58,6 @@ It also works with existing Sphinx highlighting:
       return "Hello World";
     }
 
-
-Admonitions
-===========
-The theme uses the ``admonition`` classes for Sphinx admonitions.
-
-Note
-----
-.. note:: This is a **note**.
-
-Todo
-----
-
-.. todo::
-
-   It is essential to complete **todo** items.
-
-Warning
--------
-.. warning:: This is a **warning**.
-
-Danger
-------
-.. danger:: This is **danger**-ous.
-
-Attention
----------
-.. attention:: Do I have your **attention**?
-
-Caution
--------
-.. caution:: Use **caution**!
-
-Error
------
-.. error:: You have made a grave **error**.
-
-Hint
-----
-.. hint:: Can you take a **hint**?
-
-Important
----------
-.. important:: It is **important** to correctly use admonitions.
-
-Tip
----
-.. tip:: Please **tip** your waiter.
-
-Custom Admonitions
-------------------
-.. admonition:: Custom
-
-   You can create your own admonitions with the default style.
-
 Footnotes
 =========
 I have footnoted a first item [#f1]_ and second item [#f2]_.

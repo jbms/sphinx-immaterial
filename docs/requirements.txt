@@ -1,12 +1,3 @@
 # The sphinx docs theme to use
 sphinx_immaterial
-
-# for documenting Jupyter notebooks
-nbsphinx
-ipykernel
-# pandoc is a 3rd party utility used to convert Jupyter notebooks' markdown syntax to
-# HTML. Thus, pandoc must be installed according to your OS!
-
-# for documenting with markdown syntax
-recommonmark
-sphinx_markdown_tables
+sphinx-design
