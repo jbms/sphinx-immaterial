@@ -1,7 +1,6 @@
 """This module inherits from the generic ``admonition`` directive and makes the
 title optional."""
 from docutils import nodes
-from docutils.parsers.rst import directives
 from docutils.parsers.rst.roles import set_classes
 from docutils.parsers.rst.directives import admonitions
 from sphinx.application import Sphinx
