@@ -10,6 +10,7 @@ __version__ = "0.0.1"
 
 class noTitleAdmonition(admonitions.BaseAdmonition):
 
+    optional_arguments = 1
     node_class = nodes.admonition
 
     def run(self):
