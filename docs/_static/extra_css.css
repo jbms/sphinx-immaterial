@@ -21,19 +21,16 @@
 
 /* *************************** custom admonition style rules *************************** */
 
-.md-typeset .admonition.pied-piper,
-.md-typeset details.pied-piper {
+.md-typeset .admonition.pied-piper {
   border-color: rgb(43, 155, 70);
 }
 
-.md-typeset .pied-piper>.admonition-title,
-.md-typeset .pied-piper>summary {
+.md-typeset .pied-piper>.admonition-title {
   background-color: rgba(43, 155, 70, 0.1);
   border-color: rgb(43, 155, 70);
 }
 
-.md-typeset .pied-piper>.admonition-title::before,
-.md-typeset .pied-piper>summary::before {
+.md-typeset .pied-piper>.admonition-title::before {
   background-color: rgb(43, 155, 70);
   -webkit-mask-image: var(--md-admonition-icon--pied-piper);
   mask-image: var(--md-admonition-icon--pied-piper);
