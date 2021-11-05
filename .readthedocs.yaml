@@ -25,5 +25,4 @@ python:
   install:
     - method: setuptools
       path: .
-    - method: pip
-      path: sphinx-design
+    - requirements: docs/requirements.txt
