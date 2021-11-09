@@ -207,6 +207,14 @@ any arguments. Because the ``md-admonition`` directive is an adaptation of the g
       .. md-admonition:: Using a title
          :class: help
 
+.. hint::
+   You can use the ``md-admonition`` directive in other themes by adding the theme's module to your
+   ``extensions`` list in *conf.py*
+
+   .. code-block:: python
+
+      extensions = ["sphinx_immaterial.md_admonition"]
+
 Custom admonitions
 ******************
 

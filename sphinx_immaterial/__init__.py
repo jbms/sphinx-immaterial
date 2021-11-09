@@ -19,7 +19,6 @@ from . import nav_adapt
 from . import object_toc
 from . import postprocess_html
 from . import search_adapt
-from .custom_admonition import setup as custom_admonition_setup
 
 logger = sphinx.util.logging.getLogger(__name__)
 
@@ -274,7 +273,7 @@ def setup(app):
     app.add_html_theme("sphinx_immaterial", os.path.abspath(os.path.dirname(__file__)))
 
     # register our custom adminition directive
-    custom_admonition_setup(app)
+    app.setup_extension("sphinx_immaterial.md_admonition")
 
     return {
         "parallel_read_safe": True,
