@@ -37,7 +37,7 @@ class NoTitleAdmonition(admonitions.BaseAdmonition):
 
 def setup(app: Sphinx):
     """register our custom directive."""
-    app.add_directive("md-admonition", noTitleAdmonition)
+    app.add_directive("md-admonition", NoTitleAdmonition)
 
     return {
         "version": __version__,
