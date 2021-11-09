@@ -8,7 +8,7 @@ from sphinx.application import Sphinx
 __version__ = "0.0.1"
 
 
-class noTitleAdmonition(admonitions.BaseAdmonition):
+class NoTitleAdmonition(admonitions.BaseAdmonition):
 
     optional_arguments = 1
     node_class = nodes.admonition
