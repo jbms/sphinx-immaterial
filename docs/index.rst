@@ -56,15 +56,19 @@ Update your ``conf.py`` with the required changes:
 There are a lot more ways to customize this theme. See :ref:`Customization`
 or ``theme.conf`` for more details.
 
-.. literalinclude:: ./conf.py
-    :caption: Settings used in this documentation
-    :start-at: # -- HTML theme settings ------------------------------------------------
-    :end-before: # ---- Other documentation options -------------------------
+.. admonition:: Settings used in this documentation
+    :class: example
+
+    .. literalinclude:: ./conf.py
+        :start-at: # -- HTML theme settings ------------------------------------------------
+        :end-before: # ---- Other documentation options -------------------------
 
 
 .. toctree::
+    :hidden:
 
     customization
+    admonitions
 
 .. toctree::
     :caption: Examples and Uses

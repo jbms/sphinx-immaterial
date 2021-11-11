@@ -47,8 +47,8 @@ jobs:
       with:
         name: python-packages
         path: dist/*.whl
-    - name: Install wheel
-      run: pip install dist/*.whl
+    - name: Install wheel and docs' dependencies
+      run: pip install dist/*.whl -r docs/requirements.txt
     - name: Build html docs
       working-directory: docs
       run: sphinx-build . _build/html

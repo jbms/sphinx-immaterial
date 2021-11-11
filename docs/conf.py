@@ -34,11 +34,13 @@ extensions = [
     "sphinx.ext.todo",
     "sphinx.ext.mathjax",
     "sphinx.ext.viewcode",
+    "sphinx_design",
 ]
 
 intersphinx_mapping = {
     "python": ("https://docs.python.org/3", None),
-    # "sphinx_docs": ("https://www.sphinx-doc.org/en/master", None),
+    "sphinx_docs": ("https://www.sphinx-doc.org/en/master", None),
+    "sphinx-design": ("https://sphinx-design.readthedocs.io/en/furo-theme", None),
 }
 
 # The reST default role (used for this markup: `text`) to use for all
@@ -66,7 +68,10 @@ exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 # relative to this directory. They are copied after the builtin static files,
 # so a file named 'default.css' will overwrite the builtin 'default.css'.
 html_static_path = ["_static"]
-html_css_files = ["extra_css.css"]
+html_css_files = [
+    "extra_css.css",
+    "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css",
+]
 
 # -- HTML theme settings ------------------------------------------------
 
@@ -87,7 +92,7 @@ html_theme_options = {
     "repo_name": "Sphinx-Immaterial",
     "repo_type": "github",
     "edit_uri": "blob/main/docs",
-    "google_analytics": ["UA-XXXXX", "auto"],
+    # "google_analytics": ["UA-XXXXX", "auto"],
     "globaltoc_collapse": True,
     "globaltoc_depth": -1,
     "features": [
