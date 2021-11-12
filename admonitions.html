@@ -1,0 +1,831 @@
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      <link rel="icon" href="_static/favicon.ico">
+    
+    
+      
+        <title>Admonitions - Sphinx-Immaterial</title>
+      
+    
+    
+      <link rel="stylesheet" href="_static/stylesheets/main.91c34c39.min.css">
+      
+        
+        <link rel="stylesheet" href="_static/stylesheets/palette.89291e57.min.css">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+        <link rel="stylesheet" type="text/css" href="_static/basic.css" />
+        <link rel="stylesheet" type="text/css" href="_static/design-style.59c74d8c95b765a7fd995ac71d459ebe.min.css" />
+        <link rel="stylesheet" type="text/css" href="_static/extra_css.css" />
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    
+      
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="light-green" data-md-color-accent="light-blue">
+  
+    
+    <script>function __prefix(e){return new URL(".",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+      <script>var palette=__get("__palette");if(null!==palette&&"object"==typeof palette.color)for(var key in palette.color)document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="index.html" title="Sphinx-Immaterial" class="md-header__button md-logo" aria-label="Sphinx-Immaterial" data-md-component="logo">
+      <img src="_static/Ybin.gif" alt="logo">
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Sphinx-Immaterial
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Admonitions
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="light-green" data-md-color-accent="light-blue"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="deep-orange" data-md-color-accent="lime"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9v1z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        
+<a href="https://github.com/jbms/sphinx-immaterial/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Sphinx-Immaterial
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="index.html" title="Sphinx-Immaterial" class="md-nav__button md-logo" aria-label="Sphinx-Immaterial" data-md-component="logo">
+      <img src="_static/Ybin.gif" alt="logo">
+    </a>
+    Sphinx-Immaterial
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/jbms/sphinx-immaterial/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Sphinx-Immaterial
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="customization.html" class="md-nav__link">
+        Customization
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Admonitions
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="" class="md-nav__link md-nav__link--active">
+        Admonitions
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Admonitions
+      
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#rst-and-sphinx" class="md-nav__link">
+    rST and Sphinx
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#admonitions-from-mkdocs-material" class="md-nav__link">
+    Admonitions from mkdocs-material
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#collapsable-dropdown" class="md-nav__link">
+    Collapsable dropdown
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#removing-the-title" class="md-nav__link">
+    Removing the title
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#custom-admonitions" class="md-nav__link">
+    Custom admonitions
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      <label class="md-nav__link" for="__nav_3">
+        <a class="" href="demo_api.html">Examples and Uses</a>
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Examples and Uses" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Examples and Uses
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="demo_api.html" class="md-nav__link">
+        sample API documentation and generated content
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="specimen.html" class="md-nav__link">
+        Specimen
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="rst_basics.html" class="md-nav__link">
+        reStructuredText Primer
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="rst-cheatsheet/rst-cheatsheet.html" class="md-nav__link">
+        rst Cheatsheet
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="additional_samples.html" class="md-nav__link">
+        Additional Samples
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Admonitions
+      
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#rst-and-sphinx" class="md-nav__link">
+    rST and Sphinx
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#admonitions-from-mkdocs-material" class="md-nav__link">
+    Admonitions from mkdocs-material
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#collapsable-dropdown" class="md-nav__link">
+    Collapsable dropdown
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#removing-the-title" class="md-nav__link">
+    Removing the title
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#custom-admonitions" class="md-nav__link">
+    Custom admonitions
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset" role="main">
+              
+                
+                  <a href="https://github.com/jbms/sphinx-immaterial/blob/main/docs/admonitions.rst" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+  <h1 id="admonitions">Admonitions<a class="headerlink" href="#admonitions" title="Permalink to this headline">¶</a></h1>
+<p>The theme uses the <code class="docutils literal notranslate"><span class="pre">admonition</span></code> directives for Sphinx admonitions.</p>
+<h2 id="rst-and-sphinx">rST and Sphinx<a class="headerlink" href="#rst-and-sphinx" title="Permalink to this headline">¶</a></h2>
+<p>Most of the admonitions that the mkdocs-material theme supports were “borrowed” from
+admonitions defined in the reStructuredText specifications. You may recognize them from
+usage in other sphinx-based themes. They are:</p>
+<dl>
+<dt><code class="docutils literal notranslate"><span class="pre">note</span></code>, <code class="docutils literal notranslate"><span class="pre">todo</span></code>, <code class="docutils literal notranslate"><span class="pre">seealso</span></code></dt><dd><div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>This admonition is specific to Sphinx directives and not defined in the rST specifications
+as you can <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/directives.html#directive-seealso" title="(in Sphinx v5.0.0+)"><code class="xref any docutils literal notranslate"><span class="pre">seealso</span></code></a>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">note</span></code> and <code class="docutils literal notranslate"><span class="pre">todo</span></code> are admonitions defined by the rST specifications.</p>
+</div>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">tip</span></code>, <code class="docutils literal notranslate"><span class="pre">hint</span></code>, <code class="docutils literal notranslate"><span class="pre">important</span></code></dt><dd><div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>It is <strong>important</strong> to correctly use admonitions.</p>
+</div>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">attention</span></code>, <code class="docutils literal notranslate"><span class="pre">caution</span></code>, <code class="docutils literal notranslate"><span class="pre">warning</span></code></dt><dd><div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This is a <strong>warning</strong>.</p>
+</div>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">danger</span></code>, <code class="docutils literal notranslate"><span class="pre">error</span></code></dt><dd><div class="admonition error">
+<p class="admonition-title">Error</p>
+<p>You have made a grave <strong>error</strong>.</p>
+</div>
+</dd>
+</dl>
+<h2 id="admonitions-from-mkdocs-material">Admonitions from mkdocs-material<a class="headerlink" href="#admonitions-from-mkdocs-material" title="Permalink to this headline">¶</a></h2>
+<p>Some addtional admonitions are supported via the source code from the mkdocs-material theme.
+These admonitions can still be used, but the syntax is a little different because it relies
+on the generic admonition defined in the reStructuredText specifications.</p>
+<p>To use the following admonitions’ styles from the mkdocs-material theme, the rST syntax is
+shown inside the demonstrated admonition.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">:class:</span></code> options below (in the rST code blocks) must use lower case letters for the
+styling to work. Otherwise, the admonition will look like a <code class="docutils literal notranslate"><span class="pre">note</span></code> (as that is the
+default fallback style).</p>
+</div>
+<dl>
+<dt><code class="docutils literal notranslate"><span class="pre">todo</span></code>, <code class="docutils literal notranslate"><span class="pre">info</span></code></dt><dd><div class="info admonition">
+<p class="admonition-title">Info</p>
+<p>Thanks to the mkdocs-material theme, the <code class="docutils literal notranslate"><span class="pre">todo</span></code> class is also an alias of the
+<code class="docutils literal notranslate"><span class="pre">info</span></code> class when not using the <code class="docutils literal notranslate"><span class="pre">..</span> <span class="pre">todo::</span></code> directive.</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><code><span class="p">..</span> <span class="ow">admonition</span><span class="p">::</span> Info
+   <span class="nc">:class:</span> info
+</code></pre></div>
+</div>
+</div>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">abstract</span></code>, <code class="docutils literal notranslate"><span class="pre">summary</span></code>, <code class="docutils literal notranslate"><span class="pre">tldr</span></code></dt><dd><div class="tldr admonition">
+<p class="admonition-title">TL;DR</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><code><span class="p">..</span> <span class="ow">admonition</span><span class="p">::</span> TL;DR
+   <span class="nc">:class:</span> tldr
+</code></pre></div>
+</div>
+</div>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">success</span></code>, <code class="docutils literal notranslate"><span class="pre">check</span></code>, <code class="docutils literal notranslate"><span class="pre">done</span></code></dt><dd><div class="done admonition">
+<p class="admonition-title">Done</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><code><span class="p">..</span> <span class="ow">admonition</span><span class="p">::</span> Done
+   <span class="nc">:class:</span> done
+</code></pre></div>
+</div>
+</div>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">question</span></code>, <code class="docutils literal notranslate"><span class="pre">help</span></code>, <code class="docutils literal notranslate"><span class="pre">faq</span></code></dt><dd><div class="faq admonition">
+<p class="admonition-title">FAQ</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><code><span class="p">..</span> <span class="ow">admonition</span><span class="p">::</span> FAQ
+   <span class="nc">:class:</span> faq
+</code></pre></div>
+</div>
+</div>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">failure</span></code>, <code class="docutils literal notranslate"><span class="pre">fail</span></code>, <code class="docutils literal notranslate"><span class="pre">missing</span></code></dt><dd><div class="missing admonition">
+<p class="admonition-title">Missing</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><code><span class="p">..</span> <span class="ow">admonition</span><span class="p">::</span> Missing
+   <span class="nc">:class:</span> missing
+</code></pre></div>
+</div>
+</div>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">bug</span></code></dt><dd><div class="bug admonition">
+<p class="admonition-title">Bug</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><code><span class="p">..</span> <span class="ow">admonition</span><span class="p">::</span> Bug
+   <span class="nc">:class:</span> bug
+</code></pre></div>
+</div>
+</div>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">example</span></code></dt><dd><div class="example admonition">
+<p class="admonition-title">Example</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><code><span class="p">..</span> <span class="ow">admonition</span><span class="p">::</span> Example
+   <span class="nc">:class:</span> example
+</code></pre></div>
+</div>
+</div>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">cite</span></code>, <code class="docutils literal notranslate"><span class="pre">quote</span></code></dt><dd><div class="quote admonition">
+<p class="admonition-title">Quote</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><code><span class="p">..</span> <span class="ow">admonition</span><span class="p">::</span> Quote
+   <span class="nc">:class:</span> quote
+</code></pre></div>
+</div>
+</div>
+</dd>
+</dl>
+<h2 id="collapsable-dropdown">Collapsable dropdown<a class="headerlink" href="#collapsable-dropdown" title="Permalink to this headline">¶</a></h2>
+<p>For collapsable dropdown admonitions, the mkdocs-material theme relies on a markdown syntax
+extension that cannot be used with sphinx. Instead, this sphinx-immaterial theme relies on
+other sphinx extensions to get similar (and more customizable) results.</p>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3 sd-outline-danger sd-fade-in-slide-down">
+<summary class="sd-summary-title sd-card-header sd-text-primary sd-outline-primary sd-fs-6">
+<span class="sd-summary-icon"><svg version="1.1" width="1.0em" height="1.0em" class="sd-octicon sd-octicon-package-dependents" viewBox="0 0 16 16" aria-hidden="true"><path fill-rule="evenodd" d="M6.122.392a1.75 1.75 0 011.756 0l5.25 3.045c.54.313.872.89.872 1.514V7.25a.75.75 0 01-1.5 0V5.677L7.75 8.432v6.384a1 1 0 01-1.502.865L.872 12.563A1.75 1.75 0 010 11.049V4.951c0-.624.332-1.2.872-1.514L6.122.392zM7.125 1.69l4.63 2.685L7 7.133 2.245 4.375l4.63-2.685a.25.25 0 01.25 0zM1.5 11.049V5.677l4.75 2.755v5.516l-4.625-2.683a.25.25 0 01-.125-.216zm10.828 3.684a.75.75 0 101.087 1.034l2.378-2.5a.75.75 0 000-1.034l-2.378-2.5a.75.75 0 00-1.087 1.034L13.501 12H10.25a.75.75 0 000 1.5h3.251l-1.173 1.233z"></path></svg></span>We endorse the sphinx-design extension!<div class="sd-summary-down docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-down" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 8.72a.75.75 0 000 1.06l6.25 6.25a.75.75 0 001.06 0l6.25-6.25a.75.75 0 00-1.06-1.06L12 14.44 6.28 8.72a.75.75 0 00-1.06 0z"></path></svg></div>
+<div class="sd-summary-up docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
+</summary><div class="sd-summary-content sd-card-body docutils">
+<div class="sd-card sd-sphinx-override sd-m-auto sd-shadow-sm docutils">
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold sd-text-center docutils">
+You can do some pretty cool stuff with the <span class="sd-sphinx-override sd-badge sd-outline-info sd-text-info">sphinx-design extension</span>.</div>
+<div class="sd-container-fluid sd-sphinx-override sd-mb-4 docutils">
+<div class="sd-row docutils">
+<div class="sd-col sd-d-flex-column sd-col-auto sd-col-xs-auto sd-col-sm-auto sd-col-md-auto sd-col-lg-auto sd-m-auto docutils">
+<p class="sd-card-text"><a class="sd-sphinx-override sd-btn sd-text-wrap sd-btn-success reference external" href="https://sphinx-design.readthedocs.io/en/furo-theme/badges_buttons.html#buttons" title="(in Sphinx Design)"><span>Buttons</span></a></p>
+</div>
+<div class="sd-col sd-d-flex-column sd-col-auto sd-col-xs-auto sd-col-sm-auto sd-col-md-auto sd-col-lg-auto sd-m-auto docutils">
+<p class="sd-card-text"><a class="sd-sphinx-override sd-btn sd-text-wrap sd-btn-success reference external" href="https://sphinx-design.readthedocs.io/en/furo-theme/tabs.html#tabs" title="(in Sphinx Design)"><span>Tabs</span></a></p>
+</div>
+<div class="sd-col sd-d-flex-column sd-col-auto sd-col-xs-auto sd-col-sm-auto sd-col-md-auto sd-col-lg-auto sd-m-auto docutils">
+<p class="sd-card-text"><a class="sd-sphinx-override sd-btn sd-text-wrap sd-btn-success reference external" href="https://sphinx-design.readthedocs.io/en/furo-theme/grids.html#grids" title="(in Sphinx Design)"><span>Grids</span></a></p>
+</div>
+<div class="sd-col sd-d-flex-column sd-col-auto sd-col-xs-auto sd-col-sm-auto sd-col-md-auto sd-col-lg-auto sd-m-auto docutils">
+<p class="sd-card-text"><a class="sd-sphinx-override sd-btn sd-text-wrap sd-btn-success reference external" href="https://sphinx-design.readthedocs.io/en/furo-theme/cards.html#cards" title="(in Sphinx Design)"><span>Cards</span></a></p>
+</div>
+<div class="sd-col sd-d-flex-column sd-col-auto sd-col-xs-auto sd-col-sm-auto sd-col-md-auto sd-col-lg-auto sd-m-auto docutils">
+<p class="sd-card-text"><a class="sd-sphinx-override sd-btn sd-text-wrap sd-btn-success reference external" href="https://sphinx-design.readthedocs.io/en/furo-theme/dropdowns.html#dropdowns" title="(in Sphinx Design)"><span>Dropdowns</span></a></p>
+</div>
+</div>
+</div>
+<p class="sd-card-text">Not to mention inline octicon <svg version="1.1" width="1.5rem" height="1.5rem" class="sd-octicon sd-octicon-infinity sd-text-info" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.25 8.5c-2.032 0-3.75 1.895-3.75 3.75S3.218 16 5.25 16c1.017 0 2.014-.457 3.062-1.253.89-.678 1.758-1.554 2.655-2.497-.897-.943-1.765-1.82-2.655-2.497C7.264 8.957 6.267 8.5 5.25 8.5zM12 11.16c-.887-.933-1.813-1.865-2.78-2.6C8.048 7.667 6.733 7 5.25 7 2.343 7 0 9.615 0 12.25s2.343 5.25 5.25 5.25c1.483 0 2.798-.668 3.97-1.56.967-.735 1.893-1.667 2.78-2.6.887.933 1.813 1.865 2.78 2.6 1.172.892 2.487 1.56 3.97 1.56 2.907 0 5.25-2.615 5.25-5.25S21.657 7 18.75 7c-1.483 0-2.798.668-3.97 1.56-.967.735-1.893 1.667-2.78 2.6zm1.033 1.09c.897.943 1.765 1.82 2.655 2.497C16.736 15.543 17.733 16 18.75 16c2.032 0 3.75-1.895 3.75-3.75S20.782 8.5 18.75 8.5c-1.017 0-2.014.457-3.062 1.253-.89.678-1.758 1.554-2.655 2.497z"></path></svg> and fontawesome
+<span class="fab fa-font-awesome-flag"></span> icons and <a class="sd-sphinx-override sd-badge sd-bg-info sd-bg-text-info reference external" href="https://sphinx-design.readthedocs.io/en/furo-theme/badges_buttons.html#badges" title="(in Sphinx Design)"><span>Badges</span></a>.</p>
+</div>
+</div>
+</div>
+</details><h2 id="removing-the-title">Removing the title<a class="headerlink" href="#removing-the-title" title="Permalink to this headline">¶</a></h2>
+<p>Since the mkdocs-material theme relies on a mardown extension that also allows removing the title
+from an admonition, this theme has an added directive to do just that: <code class="docutils literal notranslate"><span class="pre">md-admonition</span></code>.</p>
+<p>The admonition’s title can be removed if the <code class="docutils literal notranslate"><span class="pre">md-admonition</span></code> directive is not provided
+any arguments. Because the <code class="docutils literal notranslate"><span class="pre">md-admonition</span></code> directive is an adaptation of the generic
+<code class="docutils literal notranslate"><span class="pre">admonition</span></code> directive, the <code class="docutils literal notranslate"><span class="pre">class</span></code> option is still respected.</p>
+<div class="error admonition">
+<p>This example uses the styling of the <code class="docutils literal notranslate"><span class="pre">error</span></code> admonition</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><code><span class="p">..</span> <span class="ow">md-admonition</span><span class="p">::</span>
+   <span class="nc">:class:</span> error
+</code></pre></div>
+</div>
+</div>
+<div class="help admonition">
+<p class="admonition-title">Using a title</p>
+<p>This example uses the styling of the <code class="docutils literal notranslate"><span class="pre">help</span></code> admonition</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><code><span class="p">..</span> <span class="ow">md-admonition</span><span class="p">::</span> Using a title
+   <span class="nc">:class:</span> help
+</code></pre></div>
+</div>
+</div>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>You can use the <code class="docutils literal notranslate"><span class="pre">md-admonition</span></code> directive in other themes by adding the theme’s module to your
+<code class="docutils literal notranslate"><span class="pre">extensions</span></code> list in <em>conf.py</em></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="n">extensions</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;sphinx_immaterial.md_admonition&quot;</span><span class="p">]</span>
+</code></pre></div>
+</div>
+</div>
+<h2 id="custom-admonitions">Custom admonitions<a class="headerlink" href="#custom-admonitions" title="Permalink to this headline">¶</a></h2>
+<p>If you want to add a custom admonition type, all you need is a color and an *.svg icon.
+Copy the icon’s code from the <a class="reference external" href="https://github.com/squidfunk/mkdocs-material/tree/master/material/.icons">.icons</a>
+folder and add the new CSS to an additional style sheet.</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="5d427268-4db0-4728-b3e2-3ee9cbaaf966" name="62210580-2816-4eab-a42a-e76840942dd4" type="radio">
+</input><label class="sd-tab-label sd-font-weight-light" for="5d427268-4db0-4728-b3e2-3ee9cbaaf966">
+rST code</label><div class="sd-tab-content docutils">
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><code><span class="p">..</span> <span class="ow">admonition</span><span class="p">::</span> Pied Piper
+      <span class="nc">:class:</span> pied-piper
+
+      Don&#39;t tell him you use spaces instead of tabs...
+</code></pre></div>
+</div>
+</div>
+<input id="4f68cd46-6616-4acc-9c20-be83951e00de" name="62210580-2816-4eab-a42a-e76840942dd4" type="radio">
+</input><label class="sd-tab-label sd-font-weight-light" for="4f68cd46-6616-4acc-9c20-be83951e00de">
+CSS code</label><div class="sd-tab-content docutils">
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">docs/_static/extra_css.css</span><a class="headerlink" href="#id1" title="Permalink to this code">¶</a></div>
+<div class="highlight-css notranslate"><div class="highlight"><pre><span></span><code><span class="p">:</span><span class="nd">root</span> <span class="p">{</span>
+  <span class="nv">--md-admonition-icon--pied-piper</span><span class="p">:</span> <span class="nb">url</span><span class="p">(</span><span class="s1">&#39;data:image/svg+xml;charset=utf-8,&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 576 512&quot;&gt;&lt;path d=&quot;M244 246c-3.2-2-6.3-2.9-10.1-2.9-6.6 0-12.6 3.2-19.3 3.7l1.7 4.9zm135.9 197.9c-19 0-64.1 9.5-79.9 19.8l6.9 45.1c35.7 6.1 70.1 3.6 106-9.8-4.8-10-23.5-55.1-33-55.1zM340.8 177c6.6 2.8 11.5 9.2 22.7 22.1 2-1.4 7.5-5.2 7.5-8.6 0-4.9-11.8-13.2-13.2-23 11.2-5.7 25.2-6 37.6-8.9 68.1-16.4 116.3-52.9 146.8-116.7C548.3 29.3 554 16.1 554.6 2l-2 2.6c-28.4 50-33 63.2-81.3 100-31.9 24.4-69.2 40.2-106.6 54.6l-6.3-.3v-21.8c-19.6 1.6-19.7-14.6-31.6-23-18.7 20.6-31.6 40.8-58.9 51.1-12.7 4.8-19.6 10-25.9 21.8 34.9-16.4 91.2-13.5 98.8-10zM555.5 0l-.6 1.1-.3.9.6-.6zm-59.2 382.1c-33.9-56.9-75.3-118.4-150-115.5l-.3-6c-1.1-13.5 32.8 3.2 35.1-31l-14.4 7.2c-19.8-45.7-8.6-54.3-65.5-54.3-14.7 0-26.7 1.7-41.4 4.6 2.9 18.6 2.2 36.7-10.9 50.3l19.5 5.5c-1.7 3.2-2.9 6.3-2.9 9.8 0 21 42.8 2.9 42.8 33.6 0 18.4-36.8 60.1-54.9 60.1-8 0-53.7-50-53.4-60.1l.3-4.6 52.3-11.5c13-2.6 12.3-22.7-2.9-22.7-3.7 0-43.1 9.2-49.4 10.6-2-5.2-7.5-14.1-13.8-14.1-3.2 0-6.3 3.2-9.5 4-9.2 2.6-31 2.9-21.5 20.1L15.9 298.5c-5.5 1.1-8.9 6.3-8.9 11.8 0 6 5.5 10.9 11.5 10.9 8 0 131.3-28.4 147.4-32.2 2.6 3.2 4.6 6.3 7.8 8.6 20.1 14.4 59.8 85.9 76.4 85.9 24.1 0 58-22.4 71.3-41.9 3.2-4.3 6.9-7.5 12.4-6.9.6 13.8-31.6 34.2-33 43.7-1.4 10.2-1 35.2-.3 41.1 26.7 8.1 52-3.6 77.9-2.9 4.3-21 10.6-41.9 9.8-63.5l-.3-9.5c-1.4-34.2-10.9-38.5-34.8-58.6-1.1-1.1-2.6-2.6-3.7-4 2.2-1.4 1.1-1 4.6-1.7 88.5 0 56.3 183.6 111.5 229.9 33.1-15 72.5-27.9 103.5-47.2-29-25.6-52.6-45.7-72.7-79.9zm-196.2 46.1v27.2l11.8-3.4-2.9-23.8zm-68.7-150.4l24.1 61.2 21-13.8-31.3-50.9zm84.4 154.9l2 12.4c9-1.5 58.4-6.6 58.4-14.1 0-1.4-.6-3.2-.9-4.6-26.8 0-36.9 3.8-59.5 6.3z&quot;/&gt;&lt;/svg&gt;&#39;</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="p">.</span><span class="nc">md-typeset</span> <span class="p">.</span><span class="nc">admonition</span><span class="p">.</span><span class="nc">pied-piper</span> <span class="p">{</span>
+  <span class="k">border-color</span><span class="p">:</span> <span class="nb">rgb</span><span class="p">(</span><span class="mi">43</span><span class="p">,</span> <span class="mi">155</span><span class="p">,</span> <span class="mi">70</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="p">.</span><span class="nc">md-typeset</span> <span class="p">.</span><span class="nc">pied-piper</span> <span class="o">&gt;</span> <span class="p">.</span><span class="nc">admonition-title</span> <span class="p">{</span>
+  <span class="k">background-color</span><span class="p">:</span> <span class="nb">rgba</span><span class="p">(</span><span class="mi">43</span><span class="p">,</span> <span class="mi">155</span><span class="p">,</span> <span class="mi">70</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">);</span>
+  <span class="k">border-color</span><span class="p">:</span> <span class="nb">rgb</span><span class="p">(</span><span class="mi">43</span><span class="p">,</span> <span class="mi">155</span><span class="p">,</span> <span class="mi">70</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="p">.</span><span class="nc">md-typeset</span> <span class="p">.</span><span class="nc">pied-piper</span> <span class="o">&gt;</span> <span class="p">.</span><span class="nc">admonition-title</span><span class="p">::</span><span class="nd">before</span> <span class="p">{</span>
+  <span class="k">background-color</span><span class="p">:</span> <span class="nb">rgb</span><span class="p">(</span><span class="mi">43</span><span class="p">,</span> <span class="mi">155</span><span class="p">,</span> <span class="mi">70</span><span class="p">);</span>
+  <span class="kp">-webkit-</span><span class="k">mask-image</span><span class="p">:</span> <span class="nf">var</span><span class="p">(</span><span class="nv">--md-admonition-icon--pied-piper</span><span class="p">);</span>
+        <span class="k">mask-image</span><span class="p">:</span> <span class="nf">var</span><span class="p">(</span><span class="nv">--md-admonition-icon--pied-piper</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<input id="a8608556-ac16-4776-90bc-2567a333e910" name="62210580-2816-4eab-a42a-e76840942dd4" type="radio">
+</input><label class="sd-tab-label sd-font-weight-light" for="a8608556-ac16-4776-90bc-2567a333e910">
+conf.py code</label><div class="sd-tab-content docutils">
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="n">html_static_path</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;_static&quot;</span><span class="p">]</span>
+<span class="n">html_css_files</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;extra_css.css&quot;</span><span class="p">]</span>
+</code></pre></div>
+</div>
+</div></blockquote>
+</div>
+</div>
+<div class="pied-piper admonition">
+<p class="admonition-title">Pied Piper</p>
+<p>Don’t tell him you use spaces instead of tabs…</p>
+</div>
+<div class="todo admonition" id="tabbed-locks">
+<p>The use of tabbed blocks (as seen above) are provided from <a class="reference external" href="`&lt;https://sphinx-design.readthedocs.io/en/furo-theme&gt;`_">sphinx-design extension</a>.
+We added some custom CSS to make the tabs’ labels conform to this theme’s color palete.</p>
+<div class="highlight-css notranslate"><div class="highlight"><pre><span></span><code><span class="p">.</span><span class="nc">sd-tab-set</span><span class="o">&gt;</span><span class="nt">input</span><span class="p">:</span><span class="nd">checked</span><span class="o">+</span><span class="nt">label</span> <span class="p">{</span>
+   <span class="k">border-color</span><span class="p">:</span> <span class="nf">var</span><span class="p">(</span><span class="nv">--md-primary-fg-color</span><span class="p">);</span>
+   <span class="k">color</span><span class="p">:</span> <span class="nf">var</span><span class="p">(</span><span class="nv">--md-primary-fg-color</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="p">.</span><span class="nc">sd-tab-set</span><span class="o">&gt;</span><span class="nt">input</span><span class="p">:</span><span class="nd">not</span><span class="o">(</span><span class="p">:</span><span class="nd">checked</span><span class="o">)+</span><span class="nt">label</span><span class="p">:</span><span class="nd">hover</span> <span class="p">{</span>
+   <span class="k">color</span><span class="p">:</span> <span class="nf">var</span><span class="p">(</span><span class="nv">--md-primary-fg-color</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+</div>
+
+
+                
+                  
+                    
+
+<hr>
+<div class="md-source-date">
+  <small>
+    
+      Last update: Nov 12, 2021
+    
+  </small>
+</div>
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" data-md-state="hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"/></svg>
+            Back to top
+          </a>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="customization.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Customization" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Customization
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="demo_api.html" class="md-footer__link md-footer__link--next" aria-label="Next: sample API documentation and generated content" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              sample API documentation and generated content
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  
+  <div class="md-footer-meta md-typeset">
+    
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+              &#169; Copyright 2021 The Sphinx-Immaterial Authors.
+              
+          </div>
+        
+          Created using
+          <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
+          4.3.0.
+           and
+          <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
+        
+      </div>
+      
+    </div>
+    
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": ".", "features": ["navigation.sections", "navigation.top"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": null}</script>
+    
+    
+      <script src="_static/javascripts/bundle.c6851205.min.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/design-tabs.js"></script>
+    
+  </body>
+</html>

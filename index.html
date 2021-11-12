@@ -18,7 +18,7 @@
       
     
     
-      <link rel="stylesheet" href="_static/stylesheets/main.e3eeb26c.min.css">
+      <link rel="stylesheet" href="_static/stylesheets/main.91c34c39.min.css">
       
         
         <link rel="stylesheet" href="_static/stylesheets/palette.89291e57.min.css">
@@ -36,20 +36,11 @@
     
     
         <link rel="stylesheet" type="text/css" href="_static/basic.css" />
+        <link rel="stylesheet" type="text/css" href="_static/design-style.59c74d8c95b765a7fd995ac71d459ebe.min.css" />
         <link rel="stylesheet" type="text/css" href="_static/extra_css.css" />
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     
       
-  
-
-
-
-  
-  
-
-
-
-  <script>window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","UA-XXXXX","auto"),ga("set","anonymizeIp",!0),ga("send","pageview"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){var e;this.value&&(e=document.location.pathname,ga("send","pageview",e+"?q="+this.value))}),"undefined"!=typeof location$&&location$.subscribe(function(e){ga("send","pageview",e.pathname)})})</script>
-  <script async src="https://www.google-analytics.com/analytics.js"></script>
 
 
     
@@ -256,20 +247,35 @@
   
   
   
+    <li class="md-nav__item">
+      <a href="admonitions.html" class="md-nav__link">
+        Admonitions
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
     
       
     
     <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
       
-      <label class="md-nav__link" for="__nav_2">
+      <label class="md-nav__link" for="__nav_3">
         <a class="" href="demo_api.html">Examples and Uses</a>
         <span class="md-nav__icon md-icon"></span>
       </label>
       <nav class="md-nav" aria-label="Examples and Uses" data-md-level="1">
-        <label class="md-nav__title" for="__nav_2">
+        <label class="md-nav__title" for="__nav_3">
           <span class="md-nav__icon md-icon"></span>
           Examples and Uses
         </label>
@@ -418,8 +424,8 @@ node.js installed.</p>
 </div>
 <p>There are a lot more ways to customize this theme. See <a class="reference internal" href="customization.html#customization"><span class="std std-ref">Customization</span></a>
 or <code class="docutils literal notranslate"><span class="pre">theme.conf</span></code> for more details.</p>
-<div class="literal-block-wrapper docutils container" id="id1">
-<div class="code-block-caption"><span class="caption-text">Settings used in this documentation</span><a class="headerlink" href="#id1" title="Permalink to this code">¶</a></div>
+<div class="example admonition">
+<p class="admonition-title">Settings used in this documentation</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="c1"># -- HTML theme settings ------------------------------------------------</span>
 
 <span class="n">extensions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;sphinx_immaterial&quot;</span><span class="p">)</span>
@@ -439,7 +445,7 @@ or <code class="docutils literal notranslate"><span class="pre">theme.conf</span
     <span class="s2">&quot;repo_name&quot;</span><span class="p">:</span> <span class="s2">&quot;Sphinx-Immaterial&quot;</span><span class="p">,</span>
     <span class="s2">&quot;repo_type&quot;</span><span class="p">:</span> <span class="s2">&quot;github&quot;</span><span class="p">,</span>
     <span class="s2">&quot;edit_uri&quot;</span><span class="p">:</span> <span class="s2">&quot;blob/main/docs&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;google_analytics&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;UA-XXXXX&quot;</span><span class="p">,</span> <span class="s2">&quot;auto&quot;</span><span class="p">],</span>
+    <span class="c1"># &quot;google_analytics&quot;: [&quot;UA-XXXXX&quot;, &quot;auto&quot;],</span>
     <span class="s2">&quot;globaltoc_collapse&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
     <span class="s2">&quot;globaltoc_depth&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
     <span class="s2">&quot;features&quot;</span><span class="p">:</span> <span class="p">[</span>
@@ -483,45 +489,6 @@ or <code class="docutils literal notranslate"><span class="pre">theme.conf</span
 </div>
 </div>
 <div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="customization.html">Customization</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="customization.html#heroes">Heroes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="customization.html#configuration-options">Configuration Options</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="customization.html#html-logo"><code class="docutils literal notranslate"><span class="pre">html_logo</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="customization.html#html-theme-options-dict"><code class="docutils literal notranslate"><span class="pre">html_theme_options</span></code> dict</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="customization.html#site-url"><code class="docutils literal notranslate"><span class="pre">site_url</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="customization.html#repo-url"><code class="docutils literal notranslate"><span class="pre">repo_url</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="customization.html#repo-name"><code class="docutils literal notranslate"><span class="pre">repo_name</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="customization.html#repo-type"><code class="docutils literal notranslate"><span class="pre">repo_type</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="customization.html#edit-uri"><code class="docutils literal notranslate"><span class="pre">edit_uri</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="customization.html#features"><code class="docutils literal notranslate"><span class="pre">features</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="customization.html#icon-for-the-repository"><code class="docutils literal notranslate"><span class="pre">icon</span></code> for the repository</a></li>
-<li class="toctree-l4"><a class="reference internal" href="customization.html#palette"><code class="docutils literal notranslate"><span class="pre">palette</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="customization.html#direction"><code class="docutils literal notranslate"><span class="pre">direction</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="customization.html#google-analytics-account"><code class="docutils literal notranslate"><span class="pre">google_analytics_account</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="customization.html#globaltoc-depth"><code class="docutils literal notranslate"><span class="pre">globaltoc_depth</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="customization.html#globaltoc-collapse"><code class="docutils literal notranslate"><span class="pre">globaltoc_collapse</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="customization.html#globaltoc-includehidden"><code class="docutils literal notranslate"><span class="pre">globaltoc_includehidden</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="customization.html#version-dropdown"><code class="docutils literal notranslate"><span class="pre">version_dropdown</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="customization.html#version-dropdown-text"><code class="docutils literal notranslate"><span class="pre">version_dropdown_text</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="customization.html#version-json"><code class="docutils literal notranslate"><span class="pre">version_json</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="customization.html#version-info"><code class="docutils literal notranslate"><span class="pre">version_info</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="customization.html#customizing-the-layout">Customizing the layout</a></li>
-<li class="toctree-l2"><a class="reference internal" href="customization.html#new-blocks">New Blocks</a></li>
-<li class="toctree-l2"><a class="reference internal" href="customization.html#id3">Version Dropdown</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="customization.html#using-a-javascript-file">Using a Javascript File</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="customization.html#using-conf-py">Using <code class="docutils literal notranslate"><span class="pre">conf.py</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
 </div>
 <div class="toctree-wrapper compound">
 </div>
@@ -535,7 +502,7 @@ or <code class="docutils literal notranslate"><span class="pre">theme.conf</span
 <div class="md-source-date">
   <small>
     
-      Last update: Oct 17, 2021
+      Last update: Nov 12, 2021
     
   </small>
 </div>
@@ -594,7 +561,7 @@ or <code class="docutils literal notranslate"><span class="pre">theme.conf</span
         
           Created using
           <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
-          4.2.0.
+          4.3.0.
            and
           <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
         
@@ -612,8 +579,9 @@ or <code class="docutils literal notranslate"><span class="pre">theme.conf</span
     <script id="__config" type="application/json">{"base": ".", "features": ["navigation.sections", "navigation.top"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": null}</script>
     
     
-      <script src="_static/javascripts/bundle.270123a5.min.js"></script>
+      <script src="_static/javascripts/bundle.c6851205.min.js"></script>
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/design-tabs.js"></script>
     
   </body>
 </html>
