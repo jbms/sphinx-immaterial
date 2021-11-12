@@ -10,7 +10,7 @@
 """
 
 import io
-from typing import Any, Dict, IO, Tuple
+from typing import Any, Dict, IO, List, Tuple
 
 import sphinx.search
 import sphinx.application
@@ -19,15 +19,22 @@ import sphinx.application
 class IndexBuilder(sphinx.search.IndexBuilder):
     def get_objects(
         self, fn2index: Dict[str, int]
-    ) -> Dict[str, Dict[str, Tuple[int, int, int, str, str]]]:
+    ) -> Dict[str, List[Tuple[int, int, int, str, str]]]:
         rv = super().get_objects(fn2index)
         onames = self._objnames
-        for prefix, children in rv.items():
+        for prefix in rv:
             if prefix:
                 name_prefix = prefix + "."
             else:
                 name_prefix = ""
-            for name, (docindex, typeindex, prio, shortanchor) in children.items():
+            if sphinx.version_info[0] >= 4 and sphinx.version_info[1] >= 3:
+                # From sphinx 4.3 onwards the children dict is now a list
+                children = rv[prefix]
+            else:
+                children = [(*values, name) for name, values in rv[prefix].items()]
+            for i, (docindex, typeindex, prio, shortanchor, name) in enumerate(
+                children
+            ):
                 objtype_entry = onames[typeindex]
                 domain_name = objtype_entry[0]
                 domain = self.env.domains[domain_name]
@@ -39,7 +46,23 @@ class IndexBuilder(sphinx.search.IndexBuilder):
                     synopsis = get_object_synopsis(objtype, full_name)
                     if synopsis:
                         synopsis = synopsis.strip()
-                children[name] = (docindex, typeindex, prio, shortanchor, synopsis)
+                if sphinx.version_info[0] >= 4 and sphinx.version_info[1] >= 3:
+                    rv[prefix][i] = (
+                        docindex,
+                        typeindex,
+                        prio,
+                        shortanchor,
+                        synopsis,
+                        name,
+                    )
+                else:
+                    rv[prefix][name] = (
+                        docindex,
+                        typeindex,
+                        prio,
+                        shortanchor,
+                        synopsis,
+                    )
         return rv
 
     def freeze(self):
