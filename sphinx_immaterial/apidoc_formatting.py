@@ -182,7 +182,7 @@ def _monkey_patch_python_get_signature_prefix(
 
     def get_signature_prefix(self, sig: str) -> str:
         prefix = orig_get_signature_prefix(self, sig)
-        if sphinx.version_info[0] >= 4 and sphinx.version_info[1] >= 3:
+        if sphinx.version_info >= (4, 3):
             return prefix
         parts = prefix.strip().split(" ")
         if "property" in parts:

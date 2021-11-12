@@ -10,7 +10,7 @@
 """
 
 import io
-from typing import Any, Dict, IO, List, Tuple
+from typing import Any, Dict, IO, List, Tuple, Union
 
 import sphinx.search
 import sphinx.application
@@ -19,7 +19,14 @@ import sphinx.application
 class IndexBuilder(sphinx.search.IndexBuilder):
     def get_objects(
         self, fn2index: Dict[str, int]
-    ) -> Dict[str, List[Tuple[int, int, int, str, str]]]:
+    ) -> Dict[
+        str,
+        Union[
+            # From sphinx 4.3 onwards the children dict is now a list
+            Dict[str, Tuple[int, int, int, str]],
+            List[Tuple[int, int, int, str, str]],
+        ],
+    ]:
         rv = super().get_objects(fn2index)
         onames = self._objnames
         for prefix in rv:
@@ -27,7 +34,7 @@ class IndexBuilder(sphinx.search.IndexBuilder):
                 name_prefix = prefix + "."
             else:
                 name_prefix = ""
-            if sphinx.version_info[0] >= 4 and sphinx.version_info[1] >= 3:
+            if sphinx.version_info >= (4, 3):
                 # From sphinx 4.3 onwards the children dict is now a list
                 children = rv[prefix]
             else:
@@ -46,7 +53,7 @@ class IndexBuilder(sphinx.search.IndexBuilder):
                     synopsis = get_object_synopsis(objtype, full_name)
                     if synopsis:
                         synopsis = synopsis.strip()
-                if sphinx.version_info[0] >= 4 and sphinx.version_info[1] >= 3:
+                if sphinx.version_info >= (4, 3):
                     rv[prefix][i] = (
                         docindex,
                         typeindex,
