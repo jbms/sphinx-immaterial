@@ -29,16 +29,16 @@ class IndexBuilder(sphinx.search.IndexBuilder):
     ]:
         rv = super().get_objects(fn2index)
         onames = self._objnames
-        for prefix in rv:
+        for prefix, prefix_value in rv.items():
             if prefix:
                 name_prefix = prefix + "."
             else:
                 name_prefix = ""
             if sphinx.version_info >= (4, 3):
                 # From sphinx 4.3 onwards the children dict is now a list
-                children = rv[prefix]
+                children = prefix_value
             else:
-                children = [(*values, name) for name, values in rv[prefix].items()]
+                children = [(*values, name) for name, values in prefix_value.items()]
             for i, (docindex, typeindex, prio, shortanchor, name) in enumerate(
                 children
             ):
@@ -54,16 +54,16 @@ class IndexBuilder(sphinx.search.IndexBuilder):
                     if synopsis:
                         synopsis = synopsis.strip()
                 if sphinx.version_info >= (4, 3):
-                    rv[prefix][i] = (
+                    prefix_value[i] = (
                         docindex,
                         typeindex,
                         prio,
                         shortanchor,
-                        synopsis,
                         name,
+                        synopsis,
                     )
                 else:
-                    rv[prefix][name] = (
+                    prefix_value[name] = (
                         docindex,
                         typeindex,
                         prio,

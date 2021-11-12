@@ -104,9 +104,13 @@ const Scorer = {
   partialTerm: 2
 }
 
+// The representation of the list of objects changes in Sphinx 4.3.
+type Sphinx42Objects = Record<string, [documentIndex: number, objectTypeIndex: number, priority: number, anchor: string, synopsis: string]>
+type Sphinx43Objects = [documentIndex: number, objectTypeIndex: number, priority: number, anchor: string, name: string, synopsis: string][]
+
 interface SearchIndex {
   docurls: string[]
-  objects: Record<string, Record<string, [documentIndex: number, objectTypeIndex: number, priority: number, anchor: string, synopsis: string]>>
+  objects: Record<string, Sphinx42Objects|Sphinx43Objects>
   objnames: Record<number | string, string[]>
   objtypes: Record<number | string, string>
   terms: Record<string, number | number[]>
@@ -142,54 +146,73 @@ function performObjectSearch(objectTerm: string, otherterms: string[]): SphinxSe
   const {docurls, objects, objnames, titles} = searchIndex
 
   const results: SphinxSearchResult[] = []
-  for (const prefix in objects) {
-    for (const name in objects[prefix]) {
-      const fullname = (prefix ? `${prefix}.` : "") + name
-      const fullnameLower = fullname.toLowerCase()
-      if (fullnameLower.indexOf(objectTerm) > -1) {
-        let score = 0
-        const parts = fullnameLower.split(".")
-        // check for different match types: exact matches of full name or
-        // "last name" (i.e. last dotted part)
-        if (fullnameLower === objectTerm || parts[parts.length - 1] === objectTerm) {
-          score += Scorer.objNameMatch
-          // matches in last name
-        } else if (parts[parts.length - 1].indexOf(objectTerm) > -1) {
-          score += Scorer.objPartialMatch
-        }
-        const match = objects[prefix][name]
-        const objname = objnames[match[1]][2]
-        const title = titles[match[0]]
-        const synopsis = match[4]
-        // If more than one term searched for, we require other words to be
-        // found in the name/title/description
-        if (otherterms.length > 0) {
-          const haystack = `${prefix} ${name} ${objname} ${title} ${synopsis}`.toLowerCase()
-          let allfound = true
-          for (let i = 0; i < otherterms.length; i++) {
-            if (haystack.indexOf(otherterms[i]) === -1) {
-              allfound = false
-              break
-            }
-          }
-          if (!allfound) {
-            continue
-          }
-        }
 
-        let anchor = match[3]
-        if (anchor === "") anchor = fullname
-        else if (anchor === "-") anchor = `${objnames[match[1]][1]}-${fullname}`
-        // add custom score for some objects according to scorer
-        score += Scorer.objPrio[match[2]] ?? Scorer.objPrioDefault
-        results.push({
-          docurl: docurls[match[0]],
+  /**
+   * @param prefix - Prefix of object name, e.g. `modulename` or `modulename.ClassName`.
+   * @param docindex - Index into `docurls` and `titles`.
+   * @param typeindex - Index into `objnames`.
+   * @param prio - Index into `Scorer.objPrior`.
+   * @param anchor - Anchor within page.
+   * @param name - Final component of object name.
+   * @param synopsis - Object synopsis.
+   */
+  function matchEntry(prefix: string, docindex: number, typeindex: number, prio: number, anchor: string, name: string, synopsis: string) {
+    const fullname = (prefix ? `${prefix}.` : "") + name
+    const fullnameLower = fullname.toLowerCase()
+    if (fullnameLower.indexOf(objectTerm) > -1) {
+      let score = 0
+      const parts = fullnameLower.split(".")
+      // check for different match types: exact matches of full name or
+      // "last name" (i.e. last dotted part)
+      if (fullnameLower === objectTerm || parts[parts.length - 1] === objectTerm) {
+        score += Scorer.objNameMatch
+        // matches in last name
+      } else if (parts[parts.length - 1].indexOf(objectTerm) > -1) {
+        score += Scorer.objPartialMatch
+      }
+      const objname = objnames[typeindex][2]
+      const title = titles[docindex]
+      // If more than one term searched for, we require other words to be
+      // found in the name/title/description
+      if (otherterms.length > 0) {
+        const haystack = `${prefix} ${name} ${objname} ${title} ${synopsis ?? ""}`.toLowerCase()
+        let allfound = true
+        for (let i = 0; i < otherterms.length; i++) {
+          if (haystack.indexOf(otherterms[i]) === -1) {
+            allfound = false
+            break
+          }
+        }
+        if (!allfound) {
+          return
+        }
+      }
+
+      if (anchor === "") anchor = fullname
+      else if (anchor === "-") anchor = `${objnames[typeindex][1]}-${fullname}`
+      // add custom score for some objects according to scorer
+      score += Scorer.objPrio[prio] ?? Scorer.objPrioDefault
+      results.push({
+          docurl: docurls[docindex],
           title: fullname,
           anchor: `#${anchor}`,
           objectLabel: objname,
           synopsis,
           score
         })
+    }
+  }
+  for (const prefix in objects) {
+    const entries = objects[prefix]
+    if (Array.isArray(entries)) {
+      for (const entry of entries) {
+        const [docindex, typeindex, prio, anchor, name, synopsis] = entry
+        matchEntry(prefix, docindex, typeindex, prio, anchor, name, synopsis)
+      }
+    } else {
+      for (const name in entries) {
+        const [docindex, typeindex, prio, anchor, synopsis] = entries[name]
+        matchEntry(prefix, docindex, typeindex, prio, anchor, name, synopsis)
       }
     }
   }
