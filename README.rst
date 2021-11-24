@@ -47,11 +47,22 @@ or if you have the code checked out locally:
 Configuration
 -------------
 
-Add the following to your conf.py:
+In your `conf.py` add `sphinx_immaterial` as an extension:
+
+.. code-block:: python
+
+    extensions = [
+        ...,
+        "sphinx_immaterial"
+    ]
+
+and add the following:
 
 .. code-block:: python
 
     html_theme = 'sphinx_immaterial'
+
+to set the theme.
 
 Customizing the layout
 ----------------------
