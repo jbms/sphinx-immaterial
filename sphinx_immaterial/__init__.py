@@ -246,7 +246,9 @@ def _builder_inited(app: sphinx.application.Sphinx) -> None:
         app.builder.templates.environment.filters["url"] = lambda url: url
 
 
-def _config_inited(app: sphinx.application.Sphinx, config: sphinx.config.Config) -> None:
+def _config_inited(
+    app: sphinx.application.Sphinx, config: sphinx.config.Config
+) -> None:
     """Merge defaults into theme options."""
     if config["language"] is None:
         config["language"] = "en"  # default to English language
