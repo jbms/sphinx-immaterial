@@ -105,7 +105,7 @@ Customization
 =============
 
 This theme is customized via fields in the `html_theme_options` `dict` in *conf.py*.
-Unlike, newer versions of mkdocs-material theme, this theme also supports the use of textual
+Unlike, newer versions of mkdocs-material theme, this theme also supports the use of a textual
 "hero" section.
 
 .. confval:: hero
@@ -177,15 +177,15 @@ Configuration Options
 
     .. confval:: edit_uri
 
-        This is the url segment that is concatenated with repo_url to point readers to the document's
-        source file. This is typically in the form of ``'blob/<branch name>/<docs source folder>'``.
+        This is the url segment that is concatenated with :confval:`repo_url` to point readers to the document's
+        source file. This is typically in the form of ``"blob/<branch name>/<docs source folder>"``.
         Defaults to a blank string (which disables the edit icon). This is disabled for builds on
         ReadTheDocs as they implement their own mechanism based on the repository's branch or tagged
         commit.
 
     .. confval:: features
 
-        Some features that have been ported and can be enabled by specifying the features name in a list
+        Some features that have been ported from the mkdocs-material theme and can be enabled by specifying the features name in a list
         of strings. The following features are supported:
 
         - `navigation.expand <https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#navigation-expansion>`_
