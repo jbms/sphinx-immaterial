@@ -22,7 +22,7 @@
 
 <!-- Logo -->
 {%- if logo -%}
-  <img src="{{ pathto('_static/' ~ logo, 1) }}" alt="logo" />
+  <img src="{{ logo_url }}" alt="logo" />
 {%- elif theme_logo_svg -%}
   {%- include theme_logo_svg -%}
 {%- else %}

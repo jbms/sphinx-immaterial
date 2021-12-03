@@ -130,7 +130,7 @@ other sphinx extensions to get similar (and more customizable) results.
 .. dropdown:: We endorse the sphinx-design extension!
    :icon: package-dependents
    :animate: fade-in-slide-down
-   :class-title: sd-text-primary sd-outline-primary sd-fs-6
+   :class-title: sd-text-primary sd-outline-primary
    :class-container: sd-outline-danger
 
    .. card:: You can do some pretty cool stuff with the :bdg-info-line:`sphinx-design extension`.
