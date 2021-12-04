@@ -419,11 +419,8 @@ aliases. Other required fields include ``version`` and ``title``.
 - The ``version`` field can be set to a relative/absolute path or a URL.
 - The ``title`` field is a string used to describe the version in the selector's dropdown menu.
 - The ``aliases`` field is meant for giving a specific version a surname like "latest" or "stable".
-  This way the alias specified will redirect to the corresponding ``version``'s path. 
-
-  .. note::
-      Aliases are not specified via the dropdown menu. Aliases are used for command line arguments
-      to the mike plugin's CLI.
+  This way, a URL to the webserver "<webserver-domain>/stable" will be redirected to the corresponding
+  ``version``'s path.
 
   Let's say you have a version of the documentation built on a pre-release in a directory
   called "3.0-rc1".
@@ -451,6 +448,10 @@ aliases. Other required fields include ``version`` and ``title``.
     :caption: This is the version dropdown selector settings used by this theme:
     :start-at: "version_dropdown": True
     :end-before: }  # end html_theme_options
+
+.. note:: 
+    ``aliases`` do not apply when using an external URL (as in not relative to the same webserver)
+    in the ``verion`` field.
 
 .. tab-set::
 
