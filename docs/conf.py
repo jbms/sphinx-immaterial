@@ -129,7 +129,7 @@ html_theme_options = {
         {
             "version": "https://sphinx-immaterial.rtfd.io",
             "title": "ReadTheDocs",
-            "aliases": ["RTD"]
+            "aliases": []
         },
         {
             "version": "https://jbms.github.io/sphinx-immaterial",

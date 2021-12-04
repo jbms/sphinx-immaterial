@@ -165,7 +165,7 @@ Configuration Options
         - |fa-gitlab| ``fontawesome/brands/gitlab``
         - |fa-gitkraken| ``fontawesome/brands/gitkraken``
         - |fa-bitbucket| ``fontawesome/brands/bitbucket``
-        
+
         .. important::
             This option has no effect if the :confval:`repo_url` option is not specified.
 
@@ -197,7 +197,7 @@ Configuration Options
         - `navigation.top <https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#back-to-top-button>`_
         - `search.highlight <https://squidfunk.github.io/mkdocs-material/setup/setting-up-site-search/#search-highlighting>`_
         - `search.share <https://squidfunk.github.io/mkdocs-material/setup/setting-up-site-search/#search-sharing>`_
-        
+
     .. confval:: palette
 
         The theme's color pallet **must be** a single `dict` or a `list` of `dict`\ s.
@@ -316,6 +316,10 @@ Configuration Options
 
         If true (the default value), TOC entries that are not ancestors of the current page are collapsed.
 
+        .. warning::
+            Setting this option to `False` may lead to large generated page sizes since the entire
+            table of contents tree will be duplicated on every page.
+
     .. confval:: version_dropdown
 
         A `bool` flag indicating whether the version drop-down selector should be used. See
@@ -375,12 +379,12 @@ Supported Approaches
 There are two approaches:
 
 1. The version information is stored in a :confval:`version_info` `list` in the conf.py file.
-   
+
    .. note::
-       Notice this is an ordered list. Meaning, aproach 1 will take precedence over approach 2.
+       Notice this is an ordered list. Meaning, approach 1 will take precedence over approach 2.
 
 2. The version information is stored in a JSON file.
-   
+
    The default name of the JSON file is ``versions.json``, but the JSON file's name could be
    changed by setting :confval:`version_json` in the conf.py file's `html_theme_options`.
 
@@ -389,16 +393,16 @@ There are two approaches:
        html_theme_options = {
            "version_json": "doc_versions.json",
        }
-  
+
    .. warning::
        The JSON approach only works if your documentation is served from a webserver; it does not
        work if you use ``file://`` url). When serving the docs from a webserver the
        :confval:`version_json` file is resolved relative to the *parent* directory that contains
        the sphinx builder's HTML output. For example, if the builder's output is ``2.0``, you
        should have directory structure like so:
-   
+
        .. code-block:: text
-   
+
            /versions.json
            /1.0/index.html
            /2.0/index.html
@@ -409,15 +413,42 @@ Version Information Structure
 
 Both approaches use a data structure similar to what is used by the
 `mkdocs mike plugin <https://github.com/jimporter/mike>`_. Contrary to what the mike plugin's
-README says, the ``alias`` field is not optional, but it can be set to an empty list if not using
+README says, the ``aliases`` field is not optional, but it can be set to an empty list if not using
 aliases. Other required fields include ``version`` and ``title``.
 
 - The ``version`` field can be set to a relative/absolute path or a URL.
 - The ``title`` field is a string used to describe the version in the selector's dropdown menu.
+- The ``aliases`` field is meant for giving a specific version a surname like "latest" or "stable".
+  This way the alias specified will redirect to the corresponding ``version``'s path. 
+
+  .. note::
+      Aliases are not specified via the dropdown menu. Aliases are used for command line arguments
+      to the mike plugin's CLI.
+
+  Let's say you have a version of the documentation built on a pre-release in a directory
+  called "3.0-rc1".
+
+  .. code-block:: text
+
+      /
+      /1.0
+      /2.0
+      /3.0-rc1
   
+  You can give this pre-released version an alias called "beta" or "latest".
+  
+  .. code-block:: json
+
+      [
+        {"version": "1.0", "title": "1.0", "aliases": []}
+        {"version": "2.0", "title": "2.0", "aliases": ["stable"]}
+        {"version": "3.0-rc1", "title": "Release Candidate 1", "aliases": ["beta", "latest"]}
+      ]
+
+
 .. literalinclude:: conf.py
     :language: python
-    :caption: version dropdown selector settings used by this theme
+    :caption: This is the version dropdown selector settings used by this theme:
     :start-at: "version_dropdown": True
     :end-before: }  # end html_theme_options
 
