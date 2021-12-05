@@ -351,8 +351,7 @@ def _get_mkdocs_tocs(
         pagename,
         app.builder,
         collapse=theme_options.get("globaltoc_collapse", False),
-        includehidden=theme_options.get("globaltoc_includehidden", True),
-        maxdepth=theme_options.get("globaltoc_depth", -1),
+        maxdepth=-1,
         titles_only=False,
     )
     global_toc = _get_mkdocs_toc(global_toc_node, app.builder)

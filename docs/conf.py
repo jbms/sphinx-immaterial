@@ -84,7 +84,6 @@ html_logo = "_static/images/Ybin.gif"  # from https://gifer.com/en/Ybin
 # material theme options (see theme.conf for more information)
 html_theme_options = {
     "icon": {
-        "logo": "material/library",
         "repo": "fontawesome/brands/github",
     },
     "site_url": "https://jbms.github.io/sphinx-immaterial/",
@@ -94,7 +93,6 @@ html_theme_options = {
     "edit_uri": "blob/main/docs",
     # "google_analytics": ["UA-XXXXX", "auto"],
     "globaltoc_collapse": True,
-    "globaltoc_depth": -1,
     "features": [
         # "navigation.expand",
         # "navigation.tabs",
@@ -126,7 +124,20 @@ html_theme_options = {
             },
         },
     ],
-}
+    "version_dropdown": True,
+    "version_info": [
+        {
+            "version": "https://sphinx-immaterial.rtfd.io",
+            "title": "ReadTheDocs",
+            "aliases": []
+        },
+        {
+            "version": "https://jbms.github.io/sphinx-immaterial",
+            "title": "Github Pages",
+            "aliases": []
+        },
+    ],
+}  # end html_theme_options
 
 html_last_updated_fmt = ""
 html_use_index = True
@@ -134,18 +145,15 @@ html_domain_indices = True
 
 # ---- Other documentation options -------------------------
 
-language = "en"
 todo_include_todos = True
-nbsphinx_execute = "always"
-nbsphinx_kernel_name = "python3"
 
 extlinks = {
     "duref": (
-        "http://docutils.sourceforge.net/docs/ref/rst/" "restructuredtext.html#%s",
+        "http://docutils.sourceforge.net/docs/ref/rst/restructuredtext.html#%s",
         "",
     ),
-    "durole": ("http://docutils.sourceforge.net/docs/ref/rst/" "roles.html#%s", ""),
-    "dudir": ("http://docutils.sourceforge.net/docs/ref/rst/" "directives.html#%s", ""),
+    "durole": ("http://docutils.sourceforge.net/docs/ref/rst/roles.html#%s", ""),
+    "dudir": ("http://docutils.sourceforge.net/docs/ref/rst/directives.html#%s", ""),
 }
 
 

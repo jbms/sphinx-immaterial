@@ -32,9 +32,7 @@ DEFAULT_THEME_OPTIONS = {
     "icon": {},
     "repo_url": "",
     "edit_uri": "",
-    "globaltoc_depth": -1,
     "globaltoc_collapse": True,
-    "globaltoc_includehidden": True,
 }
 
 
@@ -248,8 +246,12 @@ def _builder_inited(app: sphinx.application.Sphinx) -> None:
         app.builder.templates.environment.filters["url"] = lambda url: url
 
 
-def _config_inited(app: sphinx.application.Sphinx, config: dict) -> None:
+def _config_inited(
+    app: sphinx.application.Sphinx, config: sphinx.config.Config
+) -> None:
     """Merge defaults into theme options."""
+    if config["language"] is None:
+        config["language"] = "en"  # default to English language
     config["html_theme_options"] = dict_merge(
         DEFAULT_THEME_OPTIONS, config["html_theme_options"]
     )
