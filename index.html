@@ -437,7 +437,6 @@ or <code class="docutils literal notranslate"><span class="pre">theme.conf</span
 <span class="c1"># material theme options (see theme.conf for more information)</span>
 <span class="n">html_theme_options</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s2">&quot;icon&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s2">&quot;logo&quot;</span><span class="p">:</span> <span class="s2">&quot;material/library&quot;</span><span class="p">,</span>
         <span class="s2">&quot;repo&quot;</span><span class="p">:</span> <span class="s2">&quot;fontawesome/brands/github&quot;</span><span class="p">,</span>
     <span class="p">},</span>
     <span class="s2">&quot;site_url&quot;</span><span class="p">:</span> <span class="s2">&quot;https://jbms.github.io/sphinx-immaterial/&quot;</span><span class="p">,</span>
@@ -447,7 +446,6 @@ or <code class="docutils literal notranslate"><span class="pre">theme.conf</span
     <span class="s2">&quot;edit_uri&quot;</span><span class="p">:</span> <span class="s2">&quot;blob/main/docs&quot;</span><span class="p">,</span>
     <span class="c1"># &quot;google_analytics&quot;: [&quot;UA-XXXXX&quot;, &quot;auto&quot;],</span>
     <span class="s2">&quot;globaltoc_collapse&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
-    <span class="s2">&quot;globaltoc_depth&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
     <span class="s2">&quot;features&quot;</span><span class="p">:</span> <span class="p">[</span>
         <span class="c1"># &quot;navigation.expand&quot;,</span>
         <span class="c1"># &quot;navigation.tabs&quot;,</span>
@@ -479,7 +477,20 @@ or <code class="docutils literal notranslate"><span class="pre">theme.conf</span
             <span class="p">},</span>
         <span class="p">},</span>
     <span class="p">],</span>
-<span class="p">}</span>
+    <span class="s2">&quot;version_dropdown&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="s2">&quot;version_info&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;https://sphinx-immaterial.rtfd.io&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;ReadTheDocs&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;aliases&quot;</span><span class="p">:</span> <span class="p">[]</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;https://jbms.github.io/sphinx-immaterial&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Github Pages&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;aliases&quot;</span><span class="p">:</span> <span class="p">[]</span>
+        <span class="p">},</span>
+    <span class="p">],</span>
+<span class="p">}</span>  <span class="c1"># end html_theme_options</span>
 
 <span class="n">html_last_updated_fmt</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
 <span class="n">html_use_index</span> <span class="o">=</span> <span class="kc">True</span>
@@ -502,7 +513,7 @@ or <code class="docutils literal notranslate"><span class="pre">theme.conf</span
 <div class="md-source-date">
   <small>
     
-      Last update: Nov 24, 2021
+      Last update: Dec 05, 2021
     
   </small>
 </div>
@@ -561,7 +572,7 @@ or <code class="docutils literal notranslate"><span class="pre">theme.conf</span
         
           Created using
           <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
-          4.3.0.
+          4.3.1.
            and
           <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
         
@@ -576,7 +587,7 @@ or <code class="docutils literal notranslate"><span class="pre">theme.conf</span
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": ".", "features": ["navigation.sections", "navigation.top"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": null}</script>
+    <script id="__config" type="application/json">{"base": ".", "features": ["navigation.sections", "navigation.top"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": {"provider": "mike", "staticVersions": [{"aliases": [], "title": "ReadTheDocs", "version": "https://sphinx-immaterial.rtfd.io"}, {"aliases": [], "title": "Github Pages", "version": "https://jbms.github.io/sphinx-immaterial"}], "versionPath": null}}</script>
     
     
       <script src="_static/javascripts/bundle.c6851205.min.js"></script>
