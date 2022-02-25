@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-2021 Martin Donath <martin.donath@squidfunk.com>
+ * Copyright (c) 2016-2022 Martin Donath <martin.donath@squidfunk.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -25,11 +25,6 @@ import {
   NEVER,
   Observable,
   Subject,
-  fromEvent,
-  merge,
-  of
-} from "rxjs"
-import {
   bufferCount,
   catchError,
   concatMap,
@@ -37,29 +32,31 @@ import {
   distinctUntilChanged,
   distinctUntilKeyChanged,
   filter,
+  fromEvent,
   map,
+  merge,
+  of,
   sample,
   share,
   skip,
   skipUntil,
   switchMap
-} from "rxjs/operators"
+} from "rxjs"
 
-import { configuration } from "~/_"
+import { configuration, feature } from "~/_"
 import {
   Viewport,
   ViewportOffset,
-  createElement,
-  getElement,
   getElements,
-  replaceElement,
+  getOptionalElement,
   request,
-  requestXML,
   setLocation,
-  setLocationHash,
-  setViewportOffset
+  setLocationHash
 } from "~/browser"
 import { getComponentElement } from "~/components"
+import { h } from "~/utilities"
+
+import { fetchSitemap } from "../sitemap"
 
 /* ----------------------------------------------------------------------------
  * Types
@@ -84,44 +81,6 @@ interface SetupOptions {
   document$: Subject<Document>         /* Document subject */
   location$: Subject<URL>              /* Location subject */
   viewport$: Observable<Viewport>      /* Viewport observable */
-}
-
-/* ----------------------------------------------------------------------------
- * Helper functions
- * ------------------------------------------------------------------------- */
-
-/**
- * Preprocess a list of URLs
- *
- * This function replaces the `site_url` in the sitemap with the actual base
- * URL, to allow instant loading to work in occasions like Netlify previews.
- *
- * @param urls - URLs
- *
- * @returns Processed URLs
- */
-function preprocess(urls: string[]): string[] {
-  if (urls.length < 2)
-    return urls
-
-  /* Take the first two URLs and remove everything after the last slash */
-  const [root, next] = urls
-    .sort((a, b) => a.length - b.length)
-    .map(url => url.replace(/[^/]+$/, ""))
-
-  /* Compute common prefix */
-  let index = 0
-  if (root === next)
-    index = root.length
-  else
-    while (root.charCodeAt(index) === next.charCodeAt(index))
-      index++
-
-  /* Replace common prefix (i.e. base) with effective base */
-  const config = configuration()
-  return urls.map(url => (
-    url.replace(root.slice(0, index), `${config.base}/`)
-  ))
 }
 
 /* ----------------------------------------------------------------------------
@@ -168,29 +127,37 @@ export function setupInstantLoading(
   }
 
   /* Hack: ensure absolute favicon link to omit 404s when switching */
-  const favicon = getElement<HTMLLinkElement>("link[rel=icon]")
+  const favicon = getOptionalElement<HTMLLinkElement>("link[rel=icon]")
   if (typeof favicon !== "undefined")
     favicon.href = favicon.href
 
   /* Intercept internal navigation */
-  const push$ = requestXML(`${config.base}/sitemap.xml`)
+  const push$ = fetchSitemap()
     .pipe(
-      map(sitemap => preprocess(getElements("loc", sitemap)
-        .map(node => node.textContent!)
-      )),
+      map(paths => paths.map(path => `${new URL(path, config.base)}`)),
       switchMap(urls => fromEvent<MouseEvent>(document.body, "click")
         .pipe(
           filter(ev => !ev.metaKey && !ev.ctrlKey),
           switchMap(ev => {
-
-            /* Handle HTML and SVG elements */
             if (ev.target instanceof Element) {
               const el = ev.target.closest("a")
-              if (el && !el.target && urls.includes(el.href)) {
-                ev.preventDefault()
-                return of({
-                  url: new URL(el.href)
-                })
+              if (el && !el.target) {
+                const url = new URL(el.href)
+
+                /* Canonicalize URL */
+                url.search = ""
+                url.hash = ""
+
+                /* Check if URL should be intercepted */
+                if (
+                  url.pathname !== location.pathname &&
+                  urls.includes(url.toString())
+                ) {
+                  ev.preventDefault()
+                  return of({
+                    url: new URL(el.href)
+                  })
+                }
               }
             }
             return NEVER
@@ -252,18 +219,7 @@ export function setupInstantLoading(
     )
       .subscribe(document$)
 
-  /* Emit history state change */
-  merge(push$, pop$)
-    .pipe(
-      sample(document$)
-    )
-      .subscribe(({ url, offset }) => {
-        if (url.hash && !offset)
-          setLocationHash(url.hash)
-        else
-          setViewportOffset(offset || { y: 0 })
-      })
-
+  /* sphinx-immaterial: save scripts on current page to re-add when reloading */
   const loadedScriptUrls = new Set<string>()
   const loadedInlineScripts = new Set<string>()
   for (const el of getElements("script", document)) {
@@ -291,32 +247,35 @@ export function setupInstantLoading(
           "[data-md-component=announce]",
           "[data-md-component=container]",
           "[data-md-component=header-topic]",
-          "[data-md-component=logo], .md-logo", // compat
-          "[data-md-component=skip]"
+          "[data-md-component=logo]",
+          "[data-md-component=skip]",
+          ...feature("navigation.tabs.sticky")
+            ? ["[data-md-component=tabs]"]
+            : []
         ]) {
-          const source = getElement(selector)
-          const target = getElement(selector, replacement)
+          const source = getOptionalElement(selector)
+          const target = getOptionalElement(selector, replacement)
           if (
             typeof source !== "undefined" &&
             typeof target !== "undefined"
           ) {
-            replaceElement(source, target)
+            source.replaceWith(target)
           }
         }
 
-        /* Run-run MathJax if already loaded */
+        /* sphinx-immaterial: Run-run MathJax if already loaded */
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         if ((window as any).MathJax?.typesetPromise !== undefined) {
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           await (window as any).MathJax.typesetPromise()
         }
 
-        /* Insert scripts */
+        /* sphinx-immaterial: Insert scripts */
         for (const el of getElements("script", replacement)) {
           if (el.src) {
             const url = new URL(el.src, document.baseURI).toString()
             if (!loadedScriptUrls.has(url)) {
-              const script = createElement("script")
+              const script = document.createElement("script")
               for (const name of el.getAttributeNames()) {
                 script.setAttribute(name, el.getAttribute(name)!)
               }
@@ -332,7 +291,7 @@ export function setupInstantLoading(
           } else {
             const outerHTML = el.outerHTML
             if (!loadedInlineScripts.has(outerHTML)) {
-              const script = createElement("script")
+              const script = document.createElement("script")
               for (const name of el.getAttributeNames()) {
                 script.setAttribute(name, el.getAttribute(name)!)
               }
@@ -352,11 +311,11 @@ export function setupInstantLoading(
       map(() => getComponentElement("container")),
       switchMap(el => of(...getElements("script", el))),
       concatMap(el => {
-        const script = createElement("script")
+        const script = h("script")
         if (el.src) {
           for (const name of el.getAttributeNames())
             script.setAttribute(name, el.getAttribute(name)!)
-          replaceElement(el, script)
+          el.replaceWith(script)
 
           /* Complete when script is loaded */
           return new Observable(observer => {
@@ -366,12 +325,25 @@ export function setupInstantLoading(
         /* Complete immediately */
         } else {
           script.textContent = el.textContent
-          replaceElement(el, script)
+          el.replaceWith(script)
           return EMPTY
         }
       })
     )
       .subscribe()
+
+  /* Emit history state change */
+  merge(push$, pop$)
+    .pipe(
+      sample(document$)
+    )
+      .subscribe(({ url, offset }) => {
+        if (url.hash && !offset) {
+          setLocationHash(url.hash)
+        } else {
+          window.scrollTo(0, offset?.y || 0)
+        }
+      })
 
   /* Debounce update of viewport offset */
   viewport$
@@ -392,6 +364,6 @@ export function setupInstantLoading(
       map(([, state]) => state)
     )
       .subscribe(({ offset }) => {
-        setViewportOffset(offset || { y: 0 })
+        window.scrollTo(0, offset?.y || 0)
       })
 }

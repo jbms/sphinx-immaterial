@@ -1,5 +1,5 @@
 ////
-/// Copyright (c) 2016-2021 Martin Donath <martin.donath@squidfunk.com>
+/// Copyright (c) 2016-2022 Martin Donath <martin.donath@squidfunk.com>
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -27,13 +27,10 @@
 // Content area
 .md-content {
   flex-grow: 1;
-  // Hack: we must use `overflow: hidden`, so the content area is capped by
-  // the dimensions of its parent. Otherwise, long code blocks might lead to
-  // a wider content area which will break everything. This, however, induces
-  // margin collapse, which will break scroll margins. Adding a large enough
-  // scroll padding seems to do the trick, at least in Chrome and Firefox.
-  overflow: hidden;
-  scroll-padding-top: px2rem(1024px);
+  // Hack: we must use `min-width: 0`, so the content area is capped by the
+  // dimensions of its parent. Otherwise, long code blocks might lead to a
+  // wider content area which will overflow. See https://bit.ly/3bP3f8k
+  min-width: 0;
 
   // Content wrapper
   &__inner {
@@ -45,24 +42,12 @@
 
       // Sidebar with navigation is visible
       .md-sidebar--primary:not([hidden]) ~ .md-content > & {
-        margin-left: px2rem(24px);
-
-        // Adjust for right-to-left languages
-        [dir="rtl"] & {
-          margin-right: px2rem(24px);
-          margin-left: px2rem(16px);
-        }
+        margin-inline-start: px2rem(24px);
       }
 
       // Sidebar with table of contents is visible
       .md-sidebar--secondary:not([hidden]) ~ .md-content > & {
-        margin-right: px2rem(24px);
-
-        // Adjust for right-to-left languages
-        [dir="rtl"] & {
-          margin-right: px2rem(16px);
-          margin-left: px2rem(24px);
-        }
+        margin-inline-end: px2rem(24px);
       }
     }
 
@@ -85,7 +70,7 @@
   &__button {
     float: right;
     margin: px2rem(8px) 0;
-    margin-left: px2rem(8px);
+    margin-inline-start: px2rem(8px);
     padding: 0;
 
     // [print]: Hide buttons
@@ -96,13 +81,6 @@
     // Adjust for right-to-left languages
     [dir="rtl"] & {
       float: left;
-      margin-right: px2rem(8px);
-      margin-left: initial;
-
-      // Flip icon vertically
-      svg {
-        transform: scaleX(-1);
-      }
     }
 
     // Adjust default link color for icons
@@ -114,6 +92,11 @@
     svg {
       display: inline;
       vertical-align: top;
+
+      // Adjust for right-to-left languages
+      [dir="rtl"] & {
+        transform: scaleX(-1);
+      }
     }
   }
 }

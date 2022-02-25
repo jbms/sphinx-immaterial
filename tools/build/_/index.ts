@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-2021 Martin Donath <martin.donath@squidfunk.com>
+ * Copyright (c) 2016-2022 Martin Donath <martin.donath@squidfunk.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -25,19 +25,17 @@ import * as fs from "fs/promises"
 import {
   EMPTY,
   Observable,
-  defer,
   from,
   fromEvent,
   identity,
-  of
-} from "rxjs"
-import {
   catchError,
+  defer,
   mapTo,
   mergeWith,
+  of,
   switchMap,
   tap
-} from "rxjs/operators"
+} from "rxjs"
 import glob from "tiny-glob"
 
 /* ----------------------------------------------------------------------------
@@ -128,7 +126,10 @@ export function resolve(
 export function watch(
   pattern: string, options: WatchOptions
 ): Observable<string> {
-  return fromEvent<string>(chokidar.watch(pattern, options), "change")
+  return fromEvent(
+    chokidar.watch(pattern, options),
+    "change"
+  ) as Observable<string>
 }
 
 /* ------------------------------------------------------------------------- */
@@ -158,6 +159,7 @@ export function read(file: string): Observable<string> {
   return defer(() => fs.readFile(file, "utf8"))
 }
 
+
 /**
  * Write a file, but only if the contents changed
  *
@@ -167,7 +169,7 @@ export function read(file: string): Observable<string> {
  * @returns File observable
  */
 export function write(file: string, data: string): Observable<string> {
-  const contents = cache.get(file)
+  let contents = cache.get(file)
   if (contents === data) {
     return of(file)
   } else {
@@ -176,7 +178,6 @@ export function write(file: string, data: string): Observable<string> {
       .pipe(
         mapTo(file),
         process.argv.includes("--verbose")
-          // eslint-disable-next-line no-console,@typescript-eslint/no-shadow
           ? tap(file => console.log(`${now()} + ${file}`))
           : identity
       )

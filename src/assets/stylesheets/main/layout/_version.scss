@@ -1,5 +1,5 @@
 ////
-/// Copyright (c) 2016-2021 Martin Donath <martin.donath@squidfunk.com>
+/// Copyright (c) 2016-2022 Martin Donath <martin.donath@squidfunk.com>
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -35,7 +35,7 @@
 // Rules
 // ----------------------------------------------------------------------------
 
-// Icon definitions
+// Version selection variables
 :root {
   --md-version-icon: svg-load("fontawesome/solid/caret-down.svg");
 }
@@ -56,34 +56,21 @@
     // this won't work consistently. Furthermore, we would need to use inline
     // positioning to align the links, which looks jagged.
     top: px2rem(1px);
-    margin-right: px2rem(8px);
-    margin-left: px2rem(28px);
+    margin-inline: px2rem(28px) px2rem(8px);
     color: inherit;
     outline: none;
     cursor: pointer;
-
-    // Adjust for right-to-left languages
-    [dir="rtl"] & {
-      margin-right: px2rem(28px);
-      margin-left: px2rem(8px);
-    }
 
     // Version selection icon
     &::after {
       display: inline-block;
       width: px2rem(8px);
       height: px2rem(12px);
-      margin-left: px2rem(8px);
-      background-color: currentColor;
+      margin-inline-start: px2rem(8px);
+      background-color: currentcolor;
       mask-image: var(--md-version-icon);
       mask-repeat: no-repeat;
       content: "";
-
-      // Adjust for right-to-left languages
-      [dir="rtl"] & {
-        margin-right: px2rem(8px);
-        margin-left: initial;
-      }
     }
   }
 
@@ -91,7 +78,7 @@
   &__list {
     position: absolute;
     top: px2rem(3px);
-    z-index: 1;
+    z-index: 3;
     max-height: 0;
     margin: px2rem(4px) px2rem(16px);
     padding: 0;
@@ -100,9 +87,7 @@
     list-style-type: none;
     background-color: var(--md-default-bg-color);
     border-radius: px2rem(2px);
-    box-shadow:
-      0 px2rem(4px) px2rem(10px) hsla(0, 0%, 0%, 0.1),
-      0 0           px2rem(1px)  hsla(0, 0%, 0%, 0.25);
+    box-shadow: var(--md-shadow-z2);
     opacity: 0;
     transition:
       max-height 0ms 500ms,
@@ -110,8 +95,7 @@
     scroll-snap-type: y mandatory;
 
     // Version selection list on parent focus/hover
-    .md-version:focus-within &,
-    .md-version:hover & {
+    .md-version:is(:focus-within, :hover) & {
       max-height: px2rem(200px);
       opacity: 1;
       transition:
@@ -143,8 +127,7 @@
   &__link {
     display: block;
     width: 100%;
-    padding-right: px2rem(24px);
-    padding-left: px2rem(12px);
+    padding-inline: px2rem(12px) px2rem(24px);
     white-space: nowrap;
     outline: none;
     cursor: pointer;
@@ -153,15 +136,8 @@
       background-color 250ms;
     scroll-snap-align: start;
 
-    // Adjust for right-to-left languages
-    [dir="rtl"] & {
-      padding-right: px2rem(12px);
-      padding-left: px2rem(24px);
-    }
-
     // Link on focus/hover
-    &:focus,
-    &:hover {
+    &:is(:focus, :hover) {
       color: var(--md-accent-fg-color);
     }
 

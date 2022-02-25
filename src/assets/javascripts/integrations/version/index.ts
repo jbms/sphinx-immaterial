@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-2021 Martin Donath <martin.donath@squidfunk.com>
+ * Copyright (c) 2016-2022 Martin Donath <martin.donath@squidfunk.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -20,11 +20,31 @@
  * IN THE SOFTWARE.
  */
 
-import { Observable, of } from "rxjs"
+import {
+  EMPTY,
+  Observable,
+  combineLatest,
+  filter,
+  fromEvent,
+  map,
+  of,
+  switchMap
+} from "rxjs"
 
 import { configuration } from "~/_"
-import { getElementOrThrow, requestJSON } from "~/browser"
-import { Version, renderVersionSelector } from "~/templates"
+import {
+  getElement,
+  getLocation,
+  requestJSON,
+  setLocation
+} from "~/browser"
+import { getComponentElements } from "~/components"
+import {
+  Version,
+  renderVersionSelector
+} from "~/templates"
+
+import { fetchSitemap } from "../sitemap"
 
 /* ----------------------------------------------------------------------------
  * Functions
@@ -35,14 +55,81 @@ import { Version, renderVersionSelector } from "~/templates"
  */
 export function setupVersionSelector(): void {
   const config = configuration()
-  const versionObservable: Observable<Version[]> =
+  const versions$: Observable<Version[]> =
       config.version!.staticVersions ?
         of(config.version!.staticVersions) :
         requestJSON<Version[]>(new URL(
-          config.version!.versionPath ?? "versions.json", config.base))
-  versionObservable
-    .subscribe(versions => {
-      const topic = getElementOrThrow(".md-header__topic")
-      topic.appendChild(renderVersionSelector(versions))
+          config.version!.versionPath ?? "../versions.json", config.base))
+
+  /* Determine current version */
+  const getCanonical = (version: string) => new URL(version, config.base).toString().replace(/\/*$/, "")
+  const current$ = versions$
+    .pipe(
+      map(versions => {
+        const current = config.base.toString().replace(/\/*$/, "")
+        return versions.find(({ version, aliases }) => (
+          getCanonical(version) === current || aliases.find(alias => getCanonical(alias) === current)
+        )) || versions[0]
+      })
+    )
+
+  /* Intercept inter-version navigation */
+  combineLatest([versions$, current$])
+    .pipe(
+      map(([versions, current]) => new Map(versions
+        .filter(version => version !== current)
+        .map(version => [
+          `${new URL(`../${version.version}/`, config.base)}`,
+          version
+        ])
+      )),
+      switchMap(urls => fromEvent<MouseEvent>(document.body, "click")
+        .pipe(
+          filter(ev => !ev.metaKey && !ev.ctrlKey),
+          switchMap(ev => {
+            if (ev.target instanceof Element) {
+              const el = ev.target.closest("a")
+              if (el && !el.target && urls.has(el.href)) {
+                ev.preventDefault()
+                return of(el.href)
+              }
+            }
+            return EMPTY
+          }),
+          switchMap(url => {
+            const { version } = urls.get(url)!
+            return fetchSitemap(new URL(url))
+              .pipe(
+                map(sitemap => {
+                  const location = getLocation()
+                  const path = location.href.replace(config.base, "")
+                  return sitemap.includes(path)
+                    ? new URL(`${version}/${path}`, new URL(config.base, "../"))
+                    : new URL(url)
+                })
+              )
+          })
+        )
+      )
+    )
+      .subscribe(url => setLocation(url))
+
+  /* Render version selector and warning */
+  combineLatest([versions$, current$])
+    .subscribe(([versions, current]) => {
+      const topic = getElement(".md-header__topic")
+      topic.appendChild(renderVersionSelector(versions, current))
+
+      /* Check if version state was already determined */
+      if (__md_get("__outdated", sessionStorage) === null) {
+        const latest = config.version?.default || "latest"
+        const outdated = !current.aliases.includes(latest)
+
+        /* Persist version state in session storage */
+        __md_set("__outdated", outdated, sessionStorage)
+        if (outdated)
+          for (const warning of getComponentElements("outdated"))
+            warning.hidden = false
+      }
     })
 }

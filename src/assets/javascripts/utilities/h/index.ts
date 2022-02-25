@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-2021 Martin Donath <martin.donath@squidfunk.com>
+ * Copyright (c) 2016-2022 Martin Donath <martin.donath@squidfunk.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -77,15 +77,25 @@ function appendChild(el: HTMLElement, child: Child | Child[]): void {
 /**
  * JSX factory
  *
+ * @template T - Element type
+ *
  * @param tag - HTML tag
  * @param attributes - HTML attributes
  * @param children - Child elements
  *
  * @returns Element
  */
-export function h(
-  tag: string, attributes: Attributes | null, ...children: Child[]
-): HTMLElement {
+export function h<T extends keyof HTMLElementTagNameMap>(
+  tag: T, attributes?: Attributes | null, ...children: Child[]
+): HTMLElementTagNameMap[T]
+
+export function h<T extends h.JSX.Element>(
+  tag: string, attributes?: Attributes | null, ...children: Child[]
+): T
+
+export function h<T extends h.JSX.Element>(
+  tag: string, attributes?: Attributes | null, ...children: Child[]
+): T {
   const el = document.createElement(tag)
 
   /* Set attributes, if any */
@@ -101,7 +111,7 @@ export function h(
     appendChild(el, child)
 
   /* Return element */
-  return el
+  return el as T
 }
 
 /* ----------------------------------------------------------------------------

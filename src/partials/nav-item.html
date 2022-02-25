@@ -1,5 +1,5 @@
 <!--
-  Copyright (c) 2016-2021 Martin Donath <martin.donath@squidfunk.com>
+  Copyright (c) 2016-2022 Martin Donath <martin.donath@squidfunk.com>
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to
@@ -63,12 +63,32 @@
         />
       {% endif %}
 
-      <!-- Expand active pages -->
-      <label class="md-nav__link" for="{{ path }}">
-        <!-- Unlike mkdocs, sphinx allows pages to contain subpages -->
-        <a class="{{ 'md-nav__link--active' if nav_item.current else '' }}" href="{{ nav_item.url|e }}">{{ nav_item.title }}</a>
-        <span class="md-nav__icon md-icon"></span>
-      </label>
+      <!-- sphinx-immaterial: "navigation.indexes" feature is built into sphinx -->
+      <!-- set indexes to an empty list here since it is reference below -->
+      {% set indexes = [] %}
+
+      <!-- Render toggle to expand nested items -->
+      {% if nav_item.caption_only %}
+        <label class="md-nav__link" for="{{ path }}">
+          {{ nav_item.title }}
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+
+      <!-- Render link to index page + toggle -->
+      {% else %}
+        {% set class = "md-nav__link--active" if nav_item.current %}
+        <div class="md-nav__link md-nav__link--index {{ class }}">
+          <a href="{{ nav_item.url|e }}">{{ nav_item.title }}</a>
+          <!-- sphinx-immaterial: already checked for children above -->
+          {% if True %}
+            <label for="{{ path }}">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          {% endif %}
+        </div>
+      {% endif %}
+
+      <!-- Render nested navigation -->
       <nav
         class="md-nav"
         aria-label="{{ nav_item.aria_label }}"
@@ -82,7 +102,9 @@
 
           <!-- Render nested item list -->
           {% for nav_item in nav_item.children %}
-            {{ render(nav_item, path ~ "_" ~ loop.index, level + 1) }}
+            {% if not indexes or nav_item != indexes | first %}
+              {{ render(nav_item, path ~ "_" ~ loop.index, level + 1) }}
+            {% endif %}
           {% endfor %}
         </ul>
       </nav>

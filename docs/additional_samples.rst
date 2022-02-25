@@ -170,8 +170,6 @@ List Tables
 Alignment
 ~~~~~~~~~
 
-.. warning:: Alignment is not currently working as expected.
-
 .. list-table:: Center Aligned
    :header-rows: 1
    :align: center

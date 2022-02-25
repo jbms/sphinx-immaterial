@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-2021 Martin Donath <martin.donath@squidfunk.com>
+ * Copyright (c) 2016-2022 Martin Donath <martin.donath@squidfunk.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -20,8 +20,15 @@
  * IN THE SOFTWARE.
  */
 
-import { Observable, fromEvent, merge } from "rxjs"
-import { map, startWith } from "rxjs/operators"
+import {
+  Observable,
+  debounceTime,
+  distinctUntilChanged,
+  fromEvent,
+  map,
+  merge,
+  startWith
+} from "rxjs"
 
 import { getActiveElement } from "../_"
 
@@ -30,24 +37,15 @@ import { getActiveElement } from "../_"
  * ------------------------------------------------------------------------- */
 
 /**
- * Set element focus
- *
- * @param el - Element
- * @param value - Whether the element should be focused
- */
-export function setElementFocus(
-  el: HTMLElement, value = true
-): void {
-  if (value)
-    el.focus()
-  else
-    el.blur()
-}
-
-/* ------------------------------------------------------------------------- */
-
-/**
  * Watch element focus
+ *
+ * Previously, this function used `focus` and `blur` events to determine whether
+ * an element is focused, but this doesn't work if there are focusable elements
+ * within the elements itself. A better solutions are `focusin` and `focusout`
+ * events, which bubble up the tree and allow for more fine-grained control.
+ *
+ * `debounceTime` is necessary, because when a focus change happens inside an
+ * element, the observable would first emit `false` and then `true` again.
  *
  * @param el - Element
  *
@@ -57,11 +55,18 @@ export function watchElementFocus(
   el: HTMLElement
 ): Observable<boolean> {
   return merge(
-    fromEvent<FocusEvent>(el, "focus"),
-    fromEvent<FocusEvent>(el, "blur")
+    fromEvent(document.body, "focusin"),
+    fromEvent(document.body, "focusout")
   )
     .pipe(
-      map(({ type }) => type === "focus"),
-      startWith(el === getActiveElement())
+      debounceTime(1),
+      map(() => {
+        const active = getActiveElement()
+        return typeof active !== "undefined"
+          ? el.contains(active)
+          : false
+      }),
+      startWith(el === getActiveElement()),
+      distinctUntilChanged()
     )
 }

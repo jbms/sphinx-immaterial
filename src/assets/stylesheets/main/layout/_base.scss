@@ -1,5 +1,5 @@
 ////
-/// Copyright (c) 2016-2021 Martin Donath <martin.donath@squidfunk.com>
+/// Copyright (c) 2016-2022 Martin Donath <martin.donath@squidfunk.com>
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -82,8 +82,7 @@ body {
 // to `1220px`, and they are rendered centered if the screen is larger.
 .md-grid {
   max-width: px2rem(1220px);
-  margin-right: auto;
-  margin-left: auto;
+  margin-inline: auto;
 }
 
 // Main container
@@ -140,7 +139,7 @@ body {
     display: block;
   }
 
-  // Show outline for pointer devices
+  // Show outline for keyboard devices
   &.focus-visible + label {
     outline-style: auto;
     outline-color: var(--md-accent-fg-color);

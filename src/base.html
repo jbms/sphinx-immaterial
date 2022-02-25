@@ -1,5 +1,5 @@
 <!--
-  Copyright (c) 2016-2021 Martin Donath <martin.donath@squidfunk.com>
+  Copyright (c) 2016-2022 Martin Donath <martin.donath@squidfunk.com>
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to
@@ -26,7 +26,7 @@
 <html lang="{{ lang.t('language') }}" class="no-js">
   <head>
 
-    <!-- Metatags -->
+    <!-- Meta tags -->
     {% block site_meta %}
       <meta charset="utf-8" />
       <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -36,13 +36,6 @@
         <meta name="description" content="{{ page.meta.description }}" />
       {% elif config.site_description %}
         <meta name="description" content="{{ config.site_description }}" />
-      {% endif %}
-
-      <!-- Page keywords -->
-      {% if page and page.meta and page.meta.keywords %}
-        <meta name="keywords" content="{{ page.meta.keywords }}" />
-      {% elif config.site_keywords %}
-        <meta name="keywords" content="{{ config.site_keywords }}" />
       {% endif %}
 
       <!-- Page author -->
@@ -72,7 +65,7 @@
       {% endif %}
     {% endblock %}
 
-    <!-- Theme-related stylesheets -->
+    <!-- Theme-related style sheets -->
     {% block styles %}
       <link rel="stylesheet" href="{{ pathto('_static/stylesheets/main.css', resource=True) }}" />
 
@@ -108,27 +101,18 @@
         <link
           rel="stylesheet"
           href="https://fonts.googleapis.com/css?family={{
-            font.text | replace(' ', '+') + ':300,400,400i,700%7C' +
-            font.code | replace(' ', '+')
+            font.text | replace(' ', '+') + ':300,300i,400,400i,700,700i%7C' +
+            font.code | replace(' ', '+') + ':400,400i,700,700i'
           }}&display=fallback"
         />
         <style>
           :root {
-            --md-text-font-family: "{{ font.text }}";
-            --md-code-font-family: "{{ font.code }}";
+            --md-text-font: "{{ font.text }}";
+            --md-code-font: "{{ font.code }}";
           }
         </style>
       {% endif %}
     {% endblock %}
-
-    <!-- Progressive Web App Manifest -->
-    {% if config.extra.manifest %}
-      <link
-        rel="manifest"
-        href="{{ config.extra.manifest | url }}"
-        crossorigin="use-credentials"
-      />
-    {% endif %}
 
     <!-- Custom stylesheets -->
     {%- for css in css_files %}
@@ -138,6 +122,9 @@
         <link rel="stylesheet" href="{{ pathto(css, 1)|e }}" type="text/css" />
       {%- endif %}
     {%- endfor %}
+
+    <!-- Helper functions for inline scripts -->
+    {% include "partials/javascripts/base.html" %}
 
     <!-- Analytics -->
     {% block analytics %}
@@ -170,7 +157,6 @@
 
     <!-- Retrieve features from configuration -->
     {% set features = config.theme.features or [] %}
-    {% include "partials/javascripts/base.html" %}
 
     <!-- User preference: color palette -->
     {% if not config.theme.palette is mapping %}
@@ -212,13 +198,27 @@
     <!-- Announcement bar -->
     <div data-md-component="announce">
       {% if self.announce() %}
-        <aside class="md-announce">
-          <div class="md-announce__inner md-grid md-typeset">
+        <aside class="md-banner">
+          <div class="md-banner__inner md-grid md-typeset">
             {% block announce %}{% endblock %}
           </div>
         </aside>
       {% endif %}
     </div>
+
+    <!-- Version warning -->
+    {% if config.extra.version %}
+      <div data-md-component="outdated" hidden>
+        <aside class="md-banner md-banner--warning">
+          {% if self.outdated() %}
+            <div class="md-banner__inner md-grid md-typeset">
+              {% block outdated %}{% endblock %}
+            </div>
+            {% include "partials/javascripts/outdated.html" %}
+          {% endif %}
+        </aside>
+      </div>
+    {% endif %}
 
     <!-- Header -->
     {% block header %}
@@ -233,10 +233,12 @@
       {% include "partials/hero.html" %}
       {% endblock %}
 
-      <!-- Navigation tabs -->
+      <!-- Navigation tabs (collapsing) -->
       {% block tabs %}
-        {% if "navigation.tabs" in features %}
-          {% include "partials/tabs.html" %}
+        {% if not "navigation.tabs.sticky" in features %}
+          {% if "navigation.tabs" in features %}
+            {% include "partials/tabs.html" %}
+          {% endif %}
         {% endif %}
       {% endblock %}
 
@@ -286,40 +288,15 @@
             {% endif %}
           {% endblock %}
 
-          <!-- Article -->
+          <!-- Page content -->
           <div class="md-content" data-md-component="content">
-            <!-- Include role="main" for sphinx search -->
+            <!-- sphinx-immaterial: Include role="main" for sphinx search -->
             <article class="md-content__inner md-typeset" role="main">
-
-              <!-- Content -->
+              <!-- sphinx-immaterial: make content of `body` block visible to `content.html` -->
+              {%- if False %}{% block body %}{% endblock body %}{% endif %}
+              {%- set sphinx_rendered_body = self.body() -%}
               {% block content %}
-
-                <!-- Edit button -->
-                {% if page.edit_url %}
-                  <a
-                    href="{{ page.edit_url }}"
-                    title="{{ lang.t('edit.link.title') }}"
-                    class="md-content__button md-icon"
-                  >
-                    {% include ".icons/material/pencil.svg" %}
-                  </a>
-                {% endif %}
-
-                {% block body %} {% endblock %}
-
-                <!-- Last update of source file -->
-                {% if page and page.meta %}
-                  {% if page.meta.git_revision_date_localized or
-                        page.meta.revision_date
-                  %}
-                    {% include "partials/source-file.html" %}
-                  {% endif %}
-                {% endif %}
-              {% endblock %}
-
-              <!-- Disqus integration -->
-              {% block disqus %}
-                {% include "partials/integrations/disqus.html" %}
+                {% include "partials/content.html" %}
               {% endblock %}
             </article>
           </div>
@@ -356,8 +333,12 @@
         "base": base_url,
         "features": features,
         "translations": {},
-        "version": config.extra.version or None
       } -%}
+
+      <!-- Versioning -->
+      {%- if config.extra.version -%}
+        {%- set _ = app.update({ "version": config.extra.version }) -%}
+      {%- endif -%}
 
       <!-- Translations -->
       {%- set translations = app.translations -%}

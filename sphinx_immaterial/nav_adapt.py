@@ -1,8 +1,9 @@
 """Injects mkdocs-style `nav` and `page` objects into the HTML jinja2 context."""
 
-import os
-from typing import List, Union, NamedTuple, Optional, Tuple, Iterator, Dict
 import copy
+import os
+import re
+from typing import List, Union, NamedTuple, Optional, Tuple, Iterator, Dict
 import urllib.parse
 import docutils.nodes
 import jinja2
@@ -21,6 +22,17 @@ def _strip_fragment(url: str) -> str:
     if fragment_start == -1:
         return url
     return url[:fragment_start]
+
+
+def _insert_wbr(text: str) -> str:
+    """Inserts <wbr> tags after likely split points for API symbols."""
+    # Split after punctuation
+    text = re.sub("([.:_-]+)", r"\1<wbr>", text)
+    # Split before brackets
+    text = re.sub(r"([(\[{])", r"<wbr>\1", text)
+    # Split between camel-case words
+    text = re.sub(r"([a-z])([A-Z])", r"\1<wbr>\2", text)
+    return text
 
 
 class MkdocsNavEntry:
@@ -42,10 +54,11 @@ class MkdocsNavEntry:
     # a TOC caption.
     caption_only: bool
 
-    def __init__(self, **kwargs):
+    def __init__(self, title_text: str, **kwargs):
         self.__dict__.update(kwargs)
+        self.title = f'<span class="md-ellipsis">{_insert_wbr(title_text)}</span>'
         if not self.aria_label:
-            self.aria_label = self.title
+            self.aria_label = title_text
 
     def __repr__(self):
         return repr(self.__dict__)
@@ -59,7 +72,7 @@ class _TocVisitor(docutils.nodes.NodeVisitor):
     ):
         super().__init__(document)
         self._prev_caption: Optional[docutils.nodes.Element] = None
-        self._rendered_title: Optional[str] = None
+        self._rendered_title_text: Optional[str] = None
         self._url: Optional[str] = None
         self._builder = builder
         # Indicates if this node or one of its descendents is the current page.
@@ -79,10 +92,10 @@ class _TocVisitor(docutils.nodes.NodeVisitor):
         """Returns the text representation of `node`."""
         if not isinstance(node, list):
             node = [node]
-        return jinja2.Markup.escape("".join(x.astext() for x in node))
+        return str(jinja2.Markup.escape("".join(x.astext() for x in node)))
 
     def visit_reference(self, node: docutils.nodes.reference):
-        self._rendered_title = self._render_title(node.children)
+        self._rendered_title_text = self._render_title(node.children)
         self._url = node.get("refuri")
         raise docutils.nodes.SkipChildren
 
@@ -108,7 +121,7 @@ class _TocVisitor(docutils.nodes.NodeVisitor):
     def visit_bullet_list(self, node: docutils.nodes.bullet_list):
         if self._prev_caption is not None and self._prev_caption.parent is node.parent:
             # Insert as sub-entry of the previous caption.
-            title = self._render_title(self._prev_caption.children)
+            title_text = self._render_title(self._prev_caption.children)
             self._prev_caption = None
             child_visitor = _TocVisitor(self.document, self._builder)
             if node.get("iscurrent", False):
@@ -120,7 +133,7 @@ class _TocVisitor(docutils.nodes.NodeVisitor):
                 url = children[0].url
             self._children.append(
                 MkdocsNavEntry(
-                    title=title,
+                    title_text=title_text,
                     url=url,
                     children=children,
                     active=child_visitor._active,
@@ -133,7 +146,7 @@ class _TocVisitor(docutils.nodes.NodeVisitor):
 
     def get_result(self) -> MkdocsNavEntry:
         return MkdocsNavEntry(
-            title=self._rendered_title,
+            title_text=self._rendered_title_text,
             url=self._url,
             children=self._children,
             active=self._active,
@@ -313,10 +326,12 @@ def _add_domain_info_to_toc(
                 f'class="objinfo-icon objinfo-icon__{icon_info.icon_class}" '
                 f'title="{label}">{icon_info.icon_text}</span>'
             )
+        span_prefix = "<span "
+        assert entry.title.startswith(span_prefix)
         entry.title = (
             title_prefix
-            + f'<span title="{jinja2.Markup.escape(tooltip)}">'
-            + f"{entry.title}</span>"
+            + f'<span title="{jinja2.Markup.escape(tooltip)}" '
+            + entry.title[len(span_prefix) :]
         )
 
 
@@ -405,6 +420,31 @@ def _html_page_context(
     context["nav"].homepage = dict(
         url=context["pathto"](context["master_doc"]),
     )
+
+    toc_title = theme_options.get("toc_title")
+    if toc_title:
+        toc_title = str(jinja2.Markup.escape(toc_title))
+    elif (
+        theme_options.get("toc_title_is_page_title")
+        and local_toc
+        and len(local_toc) == 1
+    ):
+        # Use single top-level heading as table of contents heading.
+        toc_title = local_toc[0].title
+
+    context.update(
+        config={
+            "mdx_configs": {
+                "toc": {"title": toc_title},
+            },
+        }
+    )
+
+    if len(local_toc) == 1:
+        # If there is a single top-level heading, it is treated as the page
+        # heading, and it would be redundant to also include it as an entry in
+        # the local toc.
+        local_toc = local_toc[0].children
 
     # Add other context values in mkdocs/mkdocs-material format.
     page = dict(

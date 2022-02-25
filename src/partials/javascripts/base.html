@@ -1,5 +1,5 @@
 <!--
-  Copyright (c) 2016-2021 Martin Donath <martin.donath@squidfunk.com>
+  Copyright (c) 2016-2022 Martin Donath <martin.donath@squidfunk.com>
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to
@@ -26,14 +26,20 @@
 -->
 <script>
 
-  /* Prepend the base path to the given key to ensure uniqueness */
-  function __prefix(key) {
-    var prefix = new URL("{{ base_url }}", location)
-    return prefix.pathname + "." + key
-  }
+  /* Compute base path once to integrate with instant loading */
+  __md_scope = new URL("{{ config.extra.scope | d(base_url) }}", location)
 
-  /* Fetch the given key from the given storage */
-  function __get(key, storage = localStorage) {
-    return JSON.parse(storage.getItem(__prefix(key)))
+  /* Fetch the value for a key from the given storage */
+  __md_get = (key, storage = localStorage, scope = __md_scope) => (
+    JSON.parse(storage.getItem(scope.pathname + "." + key))
+  )
+
+  /* Persist a key-value pair in the given storage */
+  __md_set = (key, value, storage = localStorage, scope = __md_scope) => {
+    try {
+      storage.setItem(scope.pathname + "." + key, JSON.stringify(value))
+    } catch (err) {
+      /* Uncritical, just swallow */
+    }
   }
 </script>

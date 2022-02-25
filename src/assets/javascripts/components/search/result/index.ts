@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-2021 Martin Donath <martin.donath@squidfunk.com>
+ * Copyright (c) 2016-2022 Martin Donath <martin.donath@squidfunk.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -23,29 +23,24 @@
 import {
   Observable,
   animationFrameScheduler,
-  interval,
-  of
-} from "rxjs"
-import {
   concatMap,
   debounce,
-  distinctUntilKeyChanged, observeOn
-} from "rxjs/operators"
+  distinctUntilKeyChanged,
+  interval,
+  observeOn,
+  of
+} from "rxjs"
 
+import { translation } from "~/_"
 import {
-  addToSearchResultList,
-  resetSearchResultList,
-  resetSearchResultMeta,
-  setSearchResultMeta
-} from "~/actions"
-import {
-  getElementOrThrow
+  getElement
 } from "~/browser"
 import {
   SearchResult
 } from "~/integrations"
 import { SearchResultStream, getResults } from "~/sphinx_search"
 import { renderSearchResultItem } from "~/templates"
+import { round } from "~/utilities"
 
 import { Component } from "../../_"
 import { SearchQuery } from "../query"
@@ -80,8 +75,8 @@ export function mountSearchResult(
   el: HTMLElement, { query$ }: MountOptions
 ): Observable<Component<SearchResult>> {
   /* Retrieve nested components */
-  const meta = getElementOrThrow(":scope > :first-child", el)
-  const list = getElementOrThrow(":scope > :last-child", el)
+  const meta = getElement(":scope > :first-child", el)
+  const list = getElement(":scope > :last-child", el)
 
   let lastResults: SearchResultStream|undefined
   let blocked: (() => void)|undefined
@@ -122,7 +117,7 @@ export function mountSearchResult(
         // Cancelled.
         return
       }
-      addToSearchResultList(list, renderSearchResultItem(result))
+      list.appendChild(renderSearchResultItem(result))
     }
   }
   query$
@@ -134,12 +129,30 @@ export function mountSearchResult(
           }),
         observeOn(animationFrameScheduler))
       .subscribe(results => {
-        resetSearchResultList(list)
+        list.innerHTML = ""
         if (results) {
-          setSearchResultMeta(meta, results.count)
+          switch (results.count) {
+
+            /* No results */
+            case 0:
+              meta.textContent = translation("search.result.none")
+              break
+
+            /* One result */
+            case 1:
+              meta.textContent = translation("search.result.one")
+              break
+
+            /* Multiple result */
+            default:
+              meta.textContent = translation(
+                "search.result.other",
+                round(results.count)
+              )
+          }
           void startAddingResults(results)
         } else {
-          resetSearchResultMeta(meta)
+          meta.textContent = translation("search.result.placeholder")
         }
       })
   return of()

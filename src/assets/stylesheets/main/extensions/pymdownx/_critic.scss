@@ -1,5 +1,5 @@
 ////
-/// Copyright (c) 2016-2021 Martin Donath <martin.donath@squidfunk.com>
+/// Copyright (c) 2016-2022 Martin Donath <martin.donath@squidfunk.com>
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -28,9 +28,7 @@
 .md-typeset {
 
   // Deletion, addition or comment
-  del.critic,
-  ins.critic,
-  .critic.comment {
+  :is(del, ins, .comment).critic {
     box-decoration-break: clone;
   }
 
@@ -63,8 +61,7 @@
   .critic.block {
     display: block;
     margin: 1em 0;
-    padding-right: px2rem(16px);
-    padding-left: px2rem(16px);
+    padding-inline: px2rem(16px);
     overflow: auto;
     box-shadow: none;
 

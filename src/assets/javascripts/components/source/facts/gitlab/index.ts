@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-2021 Martin Donath <martin.donath@squidfunk.com>
+ * Copyright (c) 2016-2022 Martin Donath <martin.donath@squidfunk.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -21,8 +21,11 @@
  */
 
 import { ProjectSchema } from "gitlab"
-import { Observable } from "rxjs"
-import { defaultIfEmpty, map } from "rxjs/operators"
+import {
+  Observable,
+  defaultIfEmpty,
+  map
+} from "rxjs"
 
 import { requestJSON } from "~/browser"
 

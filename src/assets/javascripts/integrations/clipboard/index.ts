@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-2021 Martin Donath <martin.donath@squidfunk.com>
+ * Copyright (c) 2016-2022 Martin Donath <martin.donath@squidfunk.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -21,9 +21,15 @@
  */
 
 import ClipboardJS from "clipboard"
-import { Observable, Subject } from "rxjs"
+import {
+  Observable,
+  Subject,
+  mapTo,
+  tap
+} from "rxjs"
 
 import { translation } from "~/_"
+import { getElement } from "~/browser"
 
 /* ----------------------------------------------------------------------------
  * Helper types
@@ -34,6 +40,24 @@ import { translation } from "~/_"
  */
 interface SetupOptions {
   alert$: Subject<string>              /* Alert subject */
+}
+
+/* ----------------------------------------------------------------------------
+ * Helper functions
+ * ------------------------------------------------------------------------- */
+
+/**
+ * Extract text to copy
+ *
+ * @param el - HTML element
+ *
+ * @returns Extracted text
+ */
+function extract(el: HTMLElement): string {
+  el.setAttribute("data-md-copying", "")
+  const text = el.innerText
+  el.removeAttribute("data-md-copying")
+  return text
 }
 
 /* ----------------------------------------------------------------------------
@@ -50,9 +74,23 @@ export function setupClipboardJS(
 ): void {
   if (ClipboardJS.isSupported()) {
     new Observable<ClipboardJS.Event>(subscriber => {
-      new ClipboardJS("[data-clipboard-target], [data-clipboard-text]")
+      new ClipboardJS("[data-clipboard-target], [data-clipboard-text]", {
+        text: el => (
+          el.getAttribute("data-clipboard-text")! ||
+          extract(getElement(
+            el.getAttribute("data-clipboard-target")!
+          ))
+        )
+      })
         .on("success", ev => subscriber.next(ev))
     })
-      .subscribe(() => alert$.next(translation("clipboard.copied")))
+      .pipe(
+        tap(ev => {
+          const trigger = ev.trigger as HTMLElement
+          trigger.focus()
+        }),
+        mapTo(translation("clipboard.copied"))
+      )
+        .subscribe(alert$)
   }
 }

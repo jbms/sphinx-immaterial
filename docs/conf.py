@@ -101,6 +101,9 @@ html_theme_options = {
         # "navigation.instant",
         # "header.autohide",
         "navigation.top",
+        # "navigation.tracking",
+        # "search.highlight",
+        "search.share",
     ],
     "palette": [
         {
@@ -140,8 +143,8 @@ html_theme_options = {
 }  # end html_theme_options
 
 html_last_updated_fmt = ""
-html_use_index = True
-html_domain_indices = True
+html_use_index = False
+html_domain_indices = False
 
 # ---- Other documentation options -------------------------
 

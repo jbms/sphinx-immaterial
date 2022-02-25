@@ -188,19 +188,22 @@ Configuration Options
         Some features that have been ported from the mkdocs-material theme and can be enabled by specifying the features name in a list
         of strings. The following features are supported:
 
-        - `navigation.expand <https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#navigation-expansion>`_
-        - `navigation.tabs <https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#navigation-tabs>`_ (only shows for browsers with large viewports)
-        - `toc.integrate <https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#navigation-integration>`_
-        - `navigation.sections <https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#navigation-sections>`_
-        - `navigation.instant <https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#instant-loading>`_
+        - `content.code.annotate <https://squidfunk.github.io/mkdocs-material/reference/code-blocks/#code-annotations>`_
         - `header.autohide <https://squidfunk.github.io/mkdocs-material/setup/setting-up-the-header/#automatic-hiding>`_
+        - `navigation.expand <https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#navigation-expansion>`_
+        - `navigation.instant <https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#instant-loading>`_
+        - `navigation.sections <https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#navigation-sections>`_
+        - `navigation.tabs <https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#navigation-tabs>`_ (only shows for browsers with large viewports)
+        - `navigation.tabs.sticky <https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#sticky-navigation-tabs>`_
         - `navigation.top <https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#back-to-top-button>`_
+        - `navigation.tracking <https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#anchor-tracking>`_
         - `search.highlight <https://squidfunk.github.io/mkdocs-material/setup/setting-up-site-search/#search-highlighting>`_
         - `search.share <https://squidfunk.github.io/mkdocs-material/setup/setting-up-site-search/#search-sharing>`_
+        - `toc.integrate <https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#navigation-integration>`_
 
     .. confval:: palette
 
-        The theme's color pallet **must be** a single `dict` or a `list` of `dict`\ s.
+        The theme's color pallete **must be** a single `dict` or a `list` of `dict`\ s.
         Each `dict` can optionally specify a ``scheme``, ``primary``, ``accent``, and ``media``
         fields.
 
@@ -320,6 +323,20 @@ Configuration Options
             Setting this option to `False` may lead to large generated page sizes since the entire
             table of contents tree will be duplicated on every page.
 
+    .. confval:: toc_title
+
+        A string that specifies the title text that appears above the table of
+        contents in the side bar.  If neither this configuration option nor
+        :confval:`toc_title_is_page_title` is specified, a default
+        language-dependent translation of "Table of Contents" is used.  This
+        configuration option takes precedence over
+        :confval:`toc_title_is_page_title`.
+
+    .. confval:: toc_title_is_page_title
+
+       If set to ``True`` and :confval:`toc_title` is unspecified, the table of
+       contents is labeled in the side bar by the title of the page itself.
+
     .. confval:: version_dropdown
 
         A `bool` flag indicating whether the version drop-down selector should be used. See
@@ -431,9 +448,9 @@ aliases. Other required fields include ``version`` and ``title``.
       /1.0
       /2.0
       /3.0-rc1
-  
+
   You can give this pre-released version an alias called "beta" or "latest".
-  
+
   .. code-block:: json
 
       [
@@ -449,7 +466,7 @@ aliases. Other required fields include ``version`` and ``title``.
     :start-at: "version_dropdown": True
     :end-before: }  # end html_theme_options
 
-.. note:: 
+.. note::
     ``aliases`` do not apply when using an external URL (as in not relative to the same webserver)
     in the ``verion`` field.
 

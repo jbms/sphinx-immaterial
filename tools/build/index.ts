@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-2021 Martin Donath <martin.donath@squidfunk.com>
+ * Copyright (c) 2016-2022 Martin Donath <martin.donath@squidfunk.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -22,15 +22,20 @@
 
 import { minify as minhtml } from "html-minifier"
 import * as path from "path"
-import { EMPTY, concat, defer, merge, of, zip } from "rxjs"
 import {
+  EMPTY,
+  concat,
   concatMap,
+  defer,
+  merge,
+  of,
   scan,
   startWith,
   switchMap,
   switchMapTo,
-  toArray
-} from "rxjs/operators"
+  toArray,
+  zip
+} from "rxjs"
 import {
   extendDefaultPlugins,
   optimize

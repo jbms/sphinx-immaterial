@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-2021 Martin Donath <martin.donath@squidfunk.com>
+ * Copyright (c) 2016-2022 Martin Donath <martin.donath@squidfunk.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -51,7 +51,7 @@ function renderVersion(version: Version): HTMLElement {
   const config = configuration()
 
   /* Ensure trailing slash, see https://bit.ly/3rL5u3f */
-  const url = new URL(`${version.version}/`, config.base)
+  const url = new URL(`${version.version}/`, new URL("../", config.base))
   return (
     <li class="md-version__item">
       <a href={url.toString()} class="md-version__link">
@@ -69,21 +69,13 @@ function renderVersion(version: Version): HTMLElement {
  * Render a version selector
  *
  * @param versions - Versions
+ * @param active - Active version
  *
  * @returns Element
  */
-export function renderVersionSelector(versions: Version[]): HTMLElement {
-  const config = configuration()
-
-  /* Determine active version */
-  const getCanonical = (version: string) => new URL(version, config.base).toString().replace(/\/*$/, '');
-  const current = config.base.toString().replace(/\/*$/, '');
-  const active =
-    versions.find(({ version, aliases }) => (
-      getCanonical(version) === current || aliases.find(alias => getCanonical(alias) === current)
-    )) || versions[0]
-
-  /* Render version selector */
+export function renderVersionSelector(
+  versions: Version[], active: Version
+): HTMLElement {
   return (
     <div class="md-version">
       <button

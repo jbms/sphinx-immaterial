@@ -319,7 +319,7 @@ function performTermsSearch(
 
       // set score for the word in each file to Scorer.term
       for (let j = 0; j < matchingFiles.length; j++) {
-        const file = matchingFiles[j]
+        const file: number = matchingFiles[j]
         if (!(file in scoreMap)) {
           scoreMap[file] = {}
         }

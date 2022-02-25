@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-2021 Martin Donath <martin.donath@squidfunk.com>
+ * Copyright (c) 2016-2022 Martin Donath <martin.donath@squidfunk.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -20,7 +20,7 @@
  * IN THE SOFTWARE.
  */
 
-import { getElementOrThrow, getLocation } from "~/browser"
+import { getElement, getLocation } from "~/browser"
 import { Version } from "~/templates/version"
 
 /* ----------------------------------------------------------------------------
@@ -31,12 +31,16 @@ import { Version } from "~/templates/version"
  * Feature flag
  */
 export type Flag =
+  | "content.code.annotate"            /* Code annotations */
   | "header.autohide"                  /* Hide header */
   | "navigation.expand"                /* Automatic expansion */
+  | "navigation.indexes"               /* Section pages */
   | "navigation.instant"               /* Instant loading */
-  | "navigation.sections"              /* Sections navigation */
+  | "navigation.sections"              /* Section navigation */
   | "navigation.tabs"                  /* Tabs navigation */
+  | "navigation.tabs.sticky"           /* Tabs navigation (sticky) */
   | "navigation.top"                   /* Back-to-top button */
+  | "navigation.tracking"              /* Anchor tracking */
   | "search.highlight"                 /* Search highlighting */
   | "search.share"                     /* Search sharing */
   | "search.suggest"                   /* Search suggestions */
@@ -77,6 +81,7 @@ export interface Versioning {
   provider: "mike"                     /* Version provider */
   staticVersions?: Version[]          /* Static version list to use */
   versionPath?: string                /* Base-relative path to versions.json */
+  default?: string                     /* Default version */
 }
 
 /**
@@ -96,11 +101,9 @@ export interface Config {
 /**
  * Retrieve global configuration and make base URL absolute
  */
-const script = getElementOrThrow("#__config")
+const script = getElement("#__config")
 const config: Config = JSON.parse(script.textContent!)
-config.base = new URL(config.base, getLocation())
-  .toString()
-  .replace(/\/$/, "")
+config.base = `${new URL(config.base, getLocation())}`
 
 /* ----------------------------------------------------------------------------
  * Functions
