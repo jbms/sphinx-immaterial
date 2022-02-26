@@ -154,10 +154,10 @@
     // sphinx-immaterial: Ensures the md-nav__icon element that comes after is
     // right-aligned.
     flex-grow: 1;
-    // sphinx-immaterial: allow wrapping of nav item titles
-    white-space: normal;
     // sphinx-immaterial: don't inherit display:flex (flex-grow still applies)
     display: block;
+    // sphinx-immaterial: allow wrapping of nav item titles
+    white-space: normal;
   }
 
   // Navigation icon
