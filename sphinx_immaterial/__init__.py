@@ -14,6 +14,7 @@ import sphinx.util.docutils
 import sphinx.writers.html5
 
 from . import apidoc_formatting
+from . import autodoc_property_type
 from . import inlinesyntaxhighlight
 from . import nav_adapt
 from . import object_toc
