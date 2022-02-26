@@ -156,6 +156,8 @@
     flex-grow: 1;
     // sphinx-immaterial: allow wrapping of nav item titles
     white-space: normal;
+    // sphinx-immaterial: don't inherit display:flex (flex-grow still applies)
+    display: block;
   }
 
   // Navigation icon
@@ -196,7 +198,8 @@
       // Navigation title
       .md-nav__title {
         position: relative;
-        height: px2rem(112px);
+        // sphinx-immaterial: word wrapping can require larger height
+        min-height: px2rem(112px);
         padding: px2rem(60px) px2rem(16px) px2rem(4px);
         color: var(--md-default-fg-color--light);
         font-weight: 400;
