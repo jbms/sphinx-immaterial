@@ -78,7 +78,7 @@ def _monkey_patch_html_translator(translator_class):
 
         highlight_args = dict(node.get("highlight_args", {}), nowrap=True)
         highlighted = self.highlighter.highlight_block(
-            node.astext(), lang, warn=warner, **highlight_args
+            node.astext(), lang, warn=warner, location=node, **highlight_args
         )
         starttag = self.starttag(
             node,
