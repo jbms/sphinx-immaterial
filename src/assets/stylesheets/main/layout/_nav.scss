@@ -385,6 +385,12 @@
         backface-visibility: hidden;
       }
     }
+
+    // sphinx-immaterial: ensure long titles in mobile/tablet layout
+    // are truncated with an ellipsis rather than wrapping.
+    .md-nav__title .md-ellipsis {
+      white-space: nowrap;
+    }
   }
 
   // [tablet portrait -]: Layered navigation with table of contents

@@ -140,6 +140,7 @@ html_theme_options = {
             "aliases": []
         },
     ],
+    "toc_title_is_page_title": True,
 }  # end html_theme_options
 
 html_last_updated_fmt = ""
