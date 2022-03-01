@@ -14,6 +14,7 @@ import sphinx.util.docutils
 import sphinx.writers.html5
 
 from . import apidoc_formatting
+from . import autodoc_property_type
 from . import inlinesyntaxhighlight
 from . import nav_adapt
 from . import object_toc
@@ -33,6 +34,8 @@ DEFAULT_THEME_OPTIONS = {
     "repo_url": "",
     "edit_uri": "",
     "globaltoc_collapse": True,
+    "toc_title": None,
+    "toc_title_is_page_title": False,
 }
 
 
@@ -102,6 +105,7 @@ def _get_html_builder(base_builder: Type[sphinx.builders.html.StandaloneHTMLBuil
                     "_static/underscore.js",
                     "_static/doctools.js",
                     "_static/language_data.js",
+                    "_static/documentation_options.js",
                 ]
             )
             if nav_adapt.READTHEDOCS is None:
@@ -119,6 +123,7 @@ def _get_html_builder(base_builder: Type[sphinx.builders.html.StandaloneHTMLBuil
                 [
                     "_static/pygments.css",
                     "_static/material.css",
+                    "_static/basic.css",
                 ]
             )
             self.css_files = [x for x in self.css_files if x.filename not in excluded]
@@ -220,21 +225,24 @@ def html_page_context(
         }
 
     context.update(
-        config={
-            "theme": theme_options,
-            "site_url": theme_options.get("site_url"),
-            "site_name": context["docstitle"],
-            "repo_url": theme_options.get("repo_url"),
-            "repo_name": theme_options.get("repo_name", None),
-            "extra": {
-                "version": version_config,
-                "social": theme_options.get("social"),
-                "disqus": theme_options.get("disqus"),
-                "manifest": theme_options.get("pwa_manifest"),
+        config=dict_merge(
+            context.get("config", {}),
+            {
+                "theme": theme_options,
+                "site_url": theme_options.get("site_url"),
+                "site_name": context["docstitle"],
+                "repo_url": theme_options.get("repo_url"),
+                "repo_name": theme_options.get("repo_name", None),
+                "extra": {
+                    "version": version_config,
+                    "social": theme_options.get("social"),
+                    "disqus": theme_options.get("disqus"),
+                    "manifest": theme_options.get("pwa_manifest"),
+                },
+                "plugins": theme_options.get("plugins"),
+                "google_analytics": theme_options.get("google_analytics"),
             },
-            "plugins": theme_options.get("plugins"),
-            "google_analytics": theme_options.get("google_analytics"),
-        },
+        ),
         base_url=base_url,
     )
 

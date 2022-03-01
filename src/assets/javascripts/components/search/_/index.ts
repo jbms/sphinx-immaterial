@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-2021 Martin Donath <martin.donath@squidfunk.com>
+ * Copyright (c) 2016-2022 Martin Donath <martin.donath@squidfunk.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -20,15 +20,18 @@
  * IN THE SOFTWARE.
  */
 
-import { NEVER, Observable, merge } from "rxjs"
-import { filter, mergeWith } from "rxjs/operators"
+import {
+  NEVER,
+  Observable,
+  filter,
+  merge,
+  mergeWith
+} from "rxjs"
 
 import {
   Keyboard,
   getActiveElement,
   getElements,
-  setElementFocus,
-  setElementSelection,
   setToggle
 } from "~/browser"
 import {
@@ -40,10 +43,19 @@ import {
   getComponentElement,
   getComponentElements
 } from "../../_"
-import { SearchQuery, mountSearchQuery } from "../query"
+import {
+  SearchQuery,
+  mountSearchQuery
+} from "../query"
 import { mountSearchResult } from "../result"
-import { SearchShare, mountSearchShare } from "../share"
-import { SearchSuggest, mountSearchSuggest } from "../suggest"
+import {
+  SearchShare,
+  mountSearchShare
+} from "../share"
+import {
+  SearchSuggest,
+  mountSearchSuggest
+} from "../suggest"
 
 /* ----------------------------------------------------------------------------
  * Types
@@ -130,14 +142,14 @@ export function mountSearch(
             case "Escape":
             case "Tab":
               setToggle("search", false)
-              setElementFocus(query, false)
+              query.blur()
               break
 
             /* Vertical arrows: select previous or next search result */
             case "ArrowUp":
             case "ArrowDown":
               if (typeof active === "undefined") {
-                setElementFocus(query)
+                query.focus()
               } else {
                 const els = [query, ...getElements(
                   ":not(details) > [href], summary, details[open] [href]",
@@ -148,7 +160,7 @@ export function mountSearch(
                     key.type === "ArrowUp" ? -1 : +1
                   )
                 ) % els.length)
-                setElementFocus(els[i])
+                els[i].focus()
               }
 
               /* Prevent scrolling of page */
@@ -158,7 +170,7 @@ export function mountSearch(
             /* All other keys: hand to search query */
             default:
               if (query !== getActiveElement())
-                setElementFocus(query)
+                query.focus()
           }
         })
 
@@ -174,8 +186,10 @@ export function mountSearch(
             case "f":
             case "s":
             case "/":
-              setElementFocus(query)
-              setElementSelection(query)
+              query.focus()
+              query.select()
+
+              /* Prevent scrolling of page */
               key.claim()
               break
           }
@@ -190,7 +204,7 @@ export function mountSearch(
 
           /* Search sharing */
           ...getComponentElements("search-share", el)
-          .map(child => mountSearchShare(child, { query$ })),
+            .map(child => mountSearchShare(child, { query$ })),
 
           /* Search suggestions */
           ...getComponentElements("search-suggest", el)

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-2021 Martin Donath <martin.donath@squidfunk.com>
+ * Copyright (c) 2016-2022 Martin Donath <martin.donath@squidfunk.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -47,6 +47,7 @@ export interface SearchIndexDocument {
   location: string                     /* Document location */
   title: string                        /* Document title */
   text: string                         /* Document text */
+  tags?: string[]                      /* Document tags */
 }
 
 /* ------------------------------------------------------------------------- */
@@ -60,7 +61,6 @@ export interface SearchIndexDocument {
 export interface SearchIndex {
   config: SearchIndexConfig            /* Search index configuration */
   docs: SearchIndexDocument[]          /* Search index documents */
-  index?: object                       /* Prebuilt index */
   options: SearchOptions               /* Search options */
 }
 

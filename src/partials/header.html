@@ -1,5 +1,5 @@
 <!--
-  Copyright (c) 2016-2021 Martin Donath <martin.donath@squidfunk.com>
+  Copyright (c) 2016-2022 Martin Donath <martin.donath@squidfunk.com>
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to
@@ -20,8 +20,14 @@
   IN THE SOFTWARE.
 -->
 
+<!-- Determine class according to configuration -->
+{% set class = "md-header" %}
+{% if "navigation.tabs.sticky" in features %}
+  {% set class = class ~ " md-header--lifted" %}
+{% endif %}
+
 <!-- Header -->
-<header class="md-header" data-md-component="header">
+<header class="{{ class }}" data-md-component="header">
   <nav
     class="md-header__inner md-grid"
     aria-label="{{ lang.t('header.title') }}"
@@ -145,4 +151,11 @@
       </div>
     {% endif %}
   </nav>
+
+  <!-- Navigation tabs (sticky) -->
+  {% if "navigation.tabs.sticky" in features %}
+    {% if "navigation.tabs" in features %}
+      {% include "partials/tabs.html" %}
+    {% endif %}
+  {% endif %}
 </header>

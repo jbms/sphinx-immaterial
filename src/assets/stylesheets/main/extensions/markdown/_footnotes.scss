@@ -1,5 +1,5 @@
 ////
-/// Copyright (c) 2016-2021 Martin Donath <martin.donath@squidfunk.com>
+/// Copyright (c) 2016-2022 Martin Donath <martin.donath@squidfunk.com>
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -24,7 +24,7 @@
 // Rules
 // ----------------------------------------------------------------------------
 
-// Icon definitions
+// Footnotes variables
 :root {
   --md-footnotes-icon: svg-load("material/keyboard-return.svg");
 }
@@ -41,7 +41,7 @@
 
     // Footnote list - omit left indentation
     > ol {
-      margin-left: 0;
+      margin-inline-start: 0;
 
       // Footnote item - footnote items can contain lists, so we need to scope
       // the spacing adjustments to the top-level footnote item.
@@ -53,9 +53,15 @@
           color: var(--md-default-fg-color);
         }
 
-        // Show backreferences on footnote hover
-        &:hover  .footnote-backref,
-        &:target .footnote-backref {
+        // Show backreferences on footnote focus without transition
+        &:focus-within .footnote-backref {
+          transform: translateX(0);
+          opacity: 1;
+          transition: none;
+        }
+
+        // Show backreferences on footnote hover/target
+        &:is(:hover, :target) .footnote-backref {
           transform: translateX(0);
           opacity: 1;
         }
@@ -77,6 +83,11 @@
     html & {
       outline-offset: px2rem(2px);
     }
+  }
+
+  // Show outline for all devices
+  [id^="fnref:"]:target > .footnote-ref {
+    outline: auto;
   }
 
   // Footnote backreference
@@ -115,7 +126,7 @@
       display: inline-block;
       width: px2rem(16px);
       height: px2rem(16px);
-      background-color: currentColor;
+      background-color: currentcolor;
       mask-image: var(--md-footnotes-icon);
       mask-repeat: no-repeat;
       mask-size: contain;
@@ -130,24 +141,5 @@
         }
       }
     }
-  }
-
-  // Footnote reference wrapper
-  [id^="fnref:"]:target {
-    scroll-margin-top: initial;
-    margin-top: -1 * px2rem(48px + 24px - 4px);
-    padding-top: px2rem(48px + 24px - 4px);
-
-    // Show outline for all devices
-    > .footnote-ref {
-      outline: auto;
-    }
-  }
-
-  // Footnote wrapper
-  [id^="fn:"]:target {
-    scroll-margin-top: initial;
-    margin-top: -1 * px2rem(48px + 24px - 3px);
-    padding-top: px2rem(48px + 24px - 3px);
   }
 }

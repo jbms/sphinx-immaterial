@@ -1,5 +1,5 @@
 ////
-/// Copyright (c) 2016-2021 Martin Donath <martin.donath@squidfunk.com>
+/// Copyright (c) 2016-2022 Martin Donath <martin.donath@squidfunk.com>
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -24,7 +24,7 @@
 // Rules
 // ----------------------------------------------------------------------------
 
-// Icon definitions
+// Details variables
 :root {
   --md-details-icon: svg-load("material/chevron-right.svg");
 }
@@ -36,8 +36,6 @@
 
   // Details
   details {
-    @extend .admonition;
-
     display: flow-root;
     padding-top: 0;
     overflow: visible;
@@ -60,28 +58,21 @@
         border-radius: px2rem(2px);
       }
     }
-
-    // Hack: omit margin collapse
-    &::after {
-      display: table;
-      content: "";
-    }
   }
 
   // Details title
   summary {
-    @extend .admonition-title;
-
     display: block;
     min-height: px2rem(20px);
-    padding: px2rem(8px) px2rem(36px) px2rem(8px) px2rem(40px);
-    border-top-left-radius: px2rem(2px);
-    border-top-right-radius: px2rem(2px);
+    padding-inline-end: px2rem(36px);
+    border-start-start-radius: px2rem(2px);
+    border-start-end-radius: px2rem(2px);
     cursor: pointer;
 
-    // Adjust for right-to-left languages
-    [dir="rtl"] & {
-      padding: px2rem(8px) px2rem(44px) px2rem(8px) px2rem(36px);
+    // Show outline for keyboard devices
+    &.focus-visible {
+      outline-color: var(--md-accent-fg-color);
+      outline-offset: px2rem(4px);
     }
 
     // Hide outline for pointer devices
@@ -93,11 +84,11 @@
     // Details marker
     &::after {
       position: absolute;
-      top: px2rem(8px);
-      right: px2rem(8px);
+      top: px2em(10px);
+      inset-inline-end: px2rem(8px);
       width: px2rem(20px);
       height: px2rem(20px);
-      background-color: currentColor;
+      background-color: currentcolor;
       mask-image: var(--md-details-icon);
       mask-repeat: no-repeat;
       mask-size: contain;
@@ -107,14 +98,17 @@
 
       // Adjust for right-to-left languages
       [dir="rtl"] & {
-        right: initial;
-        left: px2rem(8px);
         transform: rotate(180deg);
       }
     }
 
-    // Hide native details marker
-    &::marker,
+    // Hide native details marker - modern
+    &::marker {
+      display: none;
+    }
+
+    // Hide native details marker - legacy, must be split into a seprate rule,
+    // so older browsers don't consider the selector list as invalid
     &::-webkit-details-marker {
       display: none;
     }

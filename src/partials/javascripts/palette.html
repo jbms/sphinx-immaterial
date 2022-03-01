@@ -1,5 +1,5 @@
 <!--
-  Copyright (c) 2016-2021 Martin Donath <martin.donath@squidfunk.com>
+  Copyright (c) 2016-2022 Martin Donath <martin.donath@squidfunk.com>
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to
@@ -22,8 +22,8 @@
 
 <!-- User preference: color palette -->
 <script>
-  var palette = __get("__palette")
-  if (palette !== null && typeof palette.color === "object")
-    for (var key in palette.color)
+  var palette = __md_get("__palette")
+  if (palette && typeof palette.color === "object")
+    for (var key of Object.keys(palette.color))
       document.body.setAttribute("data-md-color-" + key, palette.color[key])
 </script>

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-2021 Martin Donath <martin.donath@squidfunk.com>
+ * Copyright (c) 2016-2022 Martin Donath <martin.donath@squidfunk.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -20,15 +20,17 @@
  * IN THE SOFTWARE.
  */
 
-import { Observable, Subject } from "rxjs"
 import {
+  Observable,
+  Subject,
+  defer,
   filter,
   finalize,
   map,
   mapTo,
-  mergeWith,
+  merge,
   tap
-} from "rxjs/operators"
+} from "rxjs"
 
 import { Component } from "../../_"
 
@@ -39,7 +41,10 @@ import { Component } from "../../_"
 /**
  * Details
  */
-export interface Details {}
+export interface Details {
+  action: "open" | "close"             /* Details state */
+  reveal?: boolean                     /* Details is revealed */
+}
 
 /* ----------------------------------------------------------------------------
  * Helper types
@@ -50,7 +55,7 @@ export interface Details {}
  */
 interface WatchOptions {
   target$: Observable<HTMLElement>     /* Location target observable */
-  print$: Observable<void>             /* Print mode observable */
+  print$: Observable<boolean>          /* Media print observable */
 }
 
 /**
@@ -58,7 +63,7 @@ interface WatchOptions {
  */
 interface MountOptions {
   target$: Observable<HTMLElement>     /* Location target observable */
-  print$: Observable<void>             /* Print mode observable */
+  print$: Observable<boolean>          /* Media print observable */
 }
 
 /* ----------------------------------------------------------------------------
@@ -76,13 +81,27 @@ interface MountOptions {
 export function watchDetails(
   el: HTMLDetailsElement, { target$, print$ }: WatchOptions
 ): Observable<Details> {
-  return target$
-    .pipe(
-      map(target => target.closest("details:not([open])")!),
-      filter(details => el === details),
-      mergeWith(print$),
-      mapTo(el)
-    )
+  let open = true
+  return merge(
+
+    /* Open and focus details on location target */
+    target$
+      .pipe(
+        map(target => target.closest("details:not([open])")!),
+        filter(details => el === details),
+        mapTo<Details>({ action: "open", reveal: true })
+      ),
+
+    /* Open details on print and close afterwards */
+    print$
+      .pipe(
+        filter(active => active || !open),
+        tap(() => open = el.open),
+        map(active => ({
+          action: active ? "open" : "close"
+        }) as Details)
+      )
+  )
 }
 
 /**
@@ -99,17 +118,23 @@ export function watchDetails(
 export function mountDetails(
   el: HTMLDetailsElement, options: MountOptions
 ): Observable<Component<Details>> {
-  const internal$ = new Subject<Details>()
-  internal$.subscribe(() => {
-    el.setAttribute("open", "")
-    el.scrollIntoView()
-  })
+  return defer(() => {
+    const push$ = new Subject<Details>()
+    push$.subscribe(({ action, reveal }) => {
+      if (action === "open")
+        el.setAttribute("open", "")
+      else
+        el.removeAttribute("open")
+      if (reveal)
+        el.scrollIntoView()
+    })
 
-  /* Create and return component */
-  return watchDetails(el, options)
-    .pipe(
-      tap(internal$),
-      finalize(() => internal$.complete()),
-      mapTo({ ref: el })
-    )
+    /* Create and return component */
+    return watchDetails(el, options)
+      .pipe(
+        tap(state => push$.next(state)),
+        finalize(() => push$.complete()),
+        map(state => ({ ref: el, ...state }))
+      )
+  })
 }

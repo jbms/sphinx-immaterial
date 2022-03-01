@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-2021 Martin Donath <martin.donath@squidfunk.com>
+ * Copyright (c) 2016-2022 Martin Donath <martin.donath@squidfunk.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -69,22 +69,4 @@ export function round(value: number): string {
   } else {
     return value.toString()
   }
-}
-
-/**
- * Simple hash function
- *
- * @see https://bit.ly/2wsVjJ4 - Original source
- *
- * @param value - Value to be hashed
- *
- * @returns Hash as 32bit integer
- */
-export function hash(value: string): number {
-  let h = 0
-  for (let i = 0, len = value.length; i < len; i++) {
-    h  = ((h << 5) - h) + value.charCodeAt(i)
-    h |= 0 // Convert to 32bit integer
-  }
-  return h
 }

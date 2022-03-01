@@ -1,5 +1,5 @@
 ////
-/// Copyright (c) 2016-2021 Martin Donath <martin.donath@squidfunk.com>
+/// Copyright (c) 2016-2022 Martin Donath <martin.donath@squidfunk.com>
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -24,7 +24,7 @@
 // Rules
 // ----------------------------------------------------------------------------
 
-// Color definitions
+// Color variables
 :root {
 
   // Default color shades
@@ -90,6 +90,9 @@
     --md-typeset-kbd-accent-color:     hsla(0, 100%, 100%, 1);
     --md-typeset-kbd-border-color:     hsla(0, 0%, 72%, 1);
 
+    // Typeset `table` color shades
+    --md-typeset-table-color:          hsla(0, 0%, 0%, 0.12);
+
     // Admonition color shades
     --md-admonition-fg-color:          var(--md-default-fg-color);
     --md-admonition-bg-color:          var(--md-default-bg-color);
@@ -101,4 +104,19 @@
     --md-footer-bg-color:              hsla(0, 0%, 0%, 0.87);
     --md-footer-bg-color--dark:        hsla(0, 0%, 0%, 0.32);
   }
+
+  // Shadow depth 1
+  --md-shadow-z1:
+    0 #{px2rem(4px)} #{px2rem(10px)} hsla(0, 0%, 0%, 0.05),
+    0 0              #{px2rem(1px)}  hsla(0, 0%, 0%, 0.1);
+
+  // Shadow depth 2
+  --md-shadow-z2:
+    0 #{px2rem(4px)} #{px2rem(10px)} hsla(0, 0%, 0%, 0.1),
+    0 0              #{px2rem(1px)}  hsla(0, 0%, 0%, 0.25);
+
+  // Shadow depth 3
+  --md-shadow-z3:
+    0 #{px2rem(4px)} #{px2rem(10px)} hsla(0, 0%, 0%, 0.2),
+    0 0              #{px2rem(1px)}  hsla(0, 0%, 0%, 0.35);
 }

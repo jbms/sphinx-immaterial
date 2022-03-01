@@ -1,5 +1,5 @@
 <!--
-  Copyright (c) 2016-2021 Martin Donath <martin.donath@squidfunk.com>
+  Copyright (c) 2016-2022 Martin Donath <martin.donath@squidfunk.com>
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to
@@ -20,11 +20,6 @@
   IN THE SOFTWARE.
 -->
 
-<!-- Determine analytics property (deprecated, removed in v8) -->
-{% if config.google_analytics %}
-  {% set property = config.google_analytics[0] %}
-{% endif %}
-
 <!-- Determine analytics property -->
 {% if config.extra.analytics %}
   {% set property = config.extra.analytics.property | d("", true) %}
@@ -40,8 +35,15 @@
     gtag("js", new Date())
     gtag("config", "{{ property }}")
 
-    /* Register virtual event handlers */
+    /* Register event handlers after documented loaded */
     document.addEventListener("DOMContentLoaded", function() {
+      if (document.forms.search) {
+        var query = document.forms.search.query
+        query.addEventListener("blur", function() {
+          if (this.value)
+            gtag("event", "search", { search_term: this.value })
+        })
+      }
 
       /* Send page view on location change */
       if (typeof location$ !== "undefined")
@@ -68,7 +70,7 @@
     ga("set", "anonymizeIp", true)
     ga("send", "pageview")
 
-    /* Register virtual event handlers */
+    /* Register event handlers after documented loaded */
     document.addEventListener("DOMContentLoaded", function() {
       if (document.forms.search) {
         var query = document.forms.search.query

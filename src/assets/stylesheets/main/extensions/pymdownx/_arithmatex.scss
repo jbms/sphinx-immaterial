@@ -1,5 +1,5 @@
 ////
-/// Copyright (c) 2016-2021 Martin Donath <martin.donath@squidfunk.com>
+/// Copyright (c) 2016-2022 Martin Donath <martin.donath@squidfunk.com>
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -39,10 +39,14 @@
     // Arithmatex content
     > * {
       width: min-content;
-      // stylelint-disable-next-line declaration-no-important
-      margin: 1em auto !important;
+      margin-inline: auto !important; // stylelint-disable-line
       padding: 0 px2rem(16px);
       touch-action: auto;
+
+      // MathJax container - see https://bit.ly/3HR8YJ5
+      mjx-container {
+        margin: 0 !important; // stylelint-disable-line
+      }
     }
   }
 }

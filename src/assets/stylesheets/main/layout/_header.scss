@@ -1,5 +1,5 @@
 ////
-/// Copyright (c) 2016-2021 Martin Donath <martin.donath@squidfunk.com>
+/// Copyright (c) 2016-2022 Martin Donath <martin.donath@squidfunk.com>
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -29,9 +29,8 @@
 .md-header {
   position: sticky;
   top: 0;
-  right: 0;
-  left: 0;
-  z-index: 3;
+  inset-inline: 0;
+  z-index: 4;
   color: var(--md-primary-bg-color);
   background-color: var(--md-primary-fg-color);
   // Hack: reduce jitter by adding a transparent box shadow of the same size
@@ -76,7 +75,7 @@
     z-index: 1;
     margin: px2rem(4px);
     padding: px2rem(8px);
-    color: currentColor;
+    color: currentcolor;
     vertical-align: middle;
     outline-color: var(--md-accent-fg-color);
     cursor: pointer;
@@ -109,12 +108,11 @@
       }
 
       // Image or icon
-      img,
-      svg {
+      :is(img, svg) {
         display: block;
-        width: px2rem(24px);
+        width: auto;
         height: px2rem(24px);
-        fill: currentColor;
+        fill: currentcolor;
       }
     }
 
@@ -132,12 +130,8 @@
       }
 
       // Adjust for right-to-left languages
-      [dir="rtl"] & {
-
-        // Flip icon vertically
-        svg {
-          transform: scaleX(-1);
-        }
+      [dir="rtl"] & svg {
+        transform: scaleX(-1);
       }
     }
 
@@ -175,14 +169,19 @@
         transform: translateX(px2rem(-25px));
       }
     }
+
+    // Adjust font weight of site title
+    &:first-child {
+      font-weight: 700;
+    }
   }
 
   // Header title
   &__title {
     flex-grow: 1;
     height: px2rem(48px);
-    margin-right: px2rem(8px);
-    margin-left: px2rem(20px);
+    margin-inline-end: px2rem(8px);
+    margin-inline-start: px2rem(20px);
     font-size: px2rem(18px);
     line-height: px2rem(48px);
 
@@ -250,23 +249,12 @@
       display: block;
       width: px2rem(234px);
       max-width: px2rem(234px);
-      margin-left: px2rem(20px);
-
-      // Adjust for right-to-left languages
-      [dir="rtl"] & {
-        margin-right: px2rem(20px);
-        margin-left: initial;
-      }
+      margin-inline-start: px2rem(20px);
     }
 
     // [screen +]: Adjust spacing of search bar
     @include break-from-device(screen) {
-      margin-left: px2rem(28px);
-
-      // Adjust for right-to-left languages
-      [dir="rtl"] & {
-        margin-right: px2rem(28px);
-      }
+      margin-inline-start: px2rem(28px);
     }
   }
 }

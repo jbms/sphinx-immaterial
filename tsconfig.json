@@ -7,7 +7,6 @@
     "jsxFactory": "h",
     "lib": [
       "dom",
-      "es2017",
       "esnext",
     ],
     "module": "commonjs",
@@ -23,6 +22,7 @@
     },
     "removeComments": false,
     "sourceMap": true,
+    "skipLibCheck": true,
     "strictBindCallApply": true,
     "strictFunctionTypes": true,
     "strictNullChecks": true,

@@ -1,5 +1,5 @@
 ////
-/// Copyright (c) 2016-2021 Martin Donath <martin.donath@squidfunk.com>
+/// Copyright (c) 2016-2022 Martin Donath <martin.donath@squidfunk.com>
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -33,7 +33,7 @@
     padding: px2em(10px) px2em(32px);
     color: var(--md-primary-fg-color);
     font-weight: 700;
-    border: px2rem(2px) solid currentColor;
+    border: px2rem(2px) solid currentcolor;
     border-radius: px2rem(2px);
     cursor: pointer;
     transition:
@@ -49,8 +49,7 @@
     }
 
     // Button on focus/hover
-    &:focus,
-    &:hover {
+    &:is(:focus, :hover) {
       color: var(--md-accent-bg-color);
       background-color: var(--md-accent-fg-color);
       border-color: var(--md-accent-fg-color);
@@ -62,18 +61,18 @@
     height: px2rem(36px);
     padding: 0 px2rem(12px);
     font-size: px2rem(16px);
-    border-radius: px2rem(2px);
-    box-shadow:
-      0 px2rem(4px)   px2rem(10px) hsla(0, 0%, 0%, 0.1),
-      0 px2rem(0.5px) px2rem(1px)  hsla(0, 0%, 0%, 0.1);
-    transition: box-shadow 250ms;
+    border-bottom: px2rem(2px) solid var(--md-default-fg-color--lighter);
+    border-start-start-radius: px2rem(2px);
+    border-start-end-radius: px2rem(2px);
+    box-shadow: var(--md-shadow-z1);
+    transition:
+      border     250ms,
+      box-shadow 250ms;
 
     // Input on focus/hover
-    &:focus,
-    &:hover {
-      box-shadow:
-        0 px2rem(8px)   px2rem(20px) hsla(0, 0%, 0%, 0.15),
-        0 px2rem(0.5px) px2rem(1px)  hsla(0, 0%, 0%, 0.15);
+    &:is(:focus, :hover) {
+      border-bottom-color: var(--md-accent-fg-color);
+      box-shadow: var(--md-shadow-z2);
     }
 
     // Stretch to full width

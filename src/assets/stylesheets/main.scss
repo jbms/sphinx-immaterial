@@ -1,5 +1,5 @@
 ////
-/// Copyright (c) 2016-2021 Martin Donath <martin.donath@squidfunk.com>
+/// Copyright (c) 2016-2022 Martin Donath <martin.donath@squidfunk.com>
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -36,26 +36,28 @@
 
 @import "config";
 
-@import "main/reset";
+@import "main/resets";
 @import "main/colors";
 @import "main/icons";
 @import "main/typeset";
 
+@import "main/layout/banner";
 @import "main/layout/base";
-@import "main/layout/announce";
 @import "main/layout/clipboard";
 @import "main/layout/content";
 @import "main/layout/dialog";
+@import "main/layout/footer";
 @import "main/layout/form";
 @import "main/layout/header";
 @import "main/layout/hero";
-@import "main/layout/footer";
 @import "main/layout/nav";
 @import "main/layout/search";
 @import "main/layout/select";
 @import "main/layout/sidebar";
 @import "main/layout/source";
 @import "main/layout/tabs";
+@import "main/layout/tag";
+@import "main/layout/tooltip";
 @import "main/layout/top";
 @import "main/layout/version";
 
@@ -74,8 +76,9 @@
 
 @import "main/extensions/readthedocs/readthedocs";
 
+@import "main/integrations/mermaid";
+
 @import "main/modifiers";
-@import "main/shame";
 
 @import "main/sphinx";
 @import "main/api";

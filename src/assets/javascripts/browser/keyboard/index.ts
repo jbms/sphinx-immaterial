@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-2021 Martin Donath <martin.donath@squidfunk.com>
+ * Copyright (c) 2016-2022 Martin Donath <martin.donath@squidfunk.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -20,8 +20,13 @@
  * IN THE SOFTWARE.
  */
 
-import { Observable, fromEvent } from "rxjs"
-import { filter, map, share } from "rxjs/operators"
+import {
+  Observable,
+  filter,
+  fromEvent,
+  map,
+  share
+} from "rxjs"
 
 import { getActiveElement } from "../element"
 import { getToggle } from "../toggle"
@@ -56,16 +61,26 @@ export interface Keyboard {
  * Check whether an element may receive keyboard input
  *
  * @param el - Element
+ * @param type - Key type
  *
  * @returns Test result
  */
-function isSusceptibleToKeyboard(el: HTMLElement): boolean {
-  switch (el.tagName) {
+function isSusceptibleToKeyboard(
+  el: HTMLElement, type: string
+): boolean {
+  switch (el.constructor) {
 
-    /* Form elements */
-    case "INPUT":
-    case "SELECT":
-    case "TEXTAREA":
+    /* Input elements */
+    case HTMLInputElement:
+      /* @ts-expect-error - omit unnecessary type cast */
+      if (el.type === "radio")
+        return /^Arrow/.test(type)
+      else
+        return true
+
+    /* Select element and textarea */
+    case HTMLSelectElement:
+    case HTMLTextAreaElement:
       return true
 
     /* Everything else */
@@ -95,11 +110,11 @@ export function watchKeyboard(): Observable<Keyboard> {
           ev.stopPropagation()
         }
       } as Keyboard)),
-      filter(({ mode }) => {
+      filter(({ mode, type }) => {
         if (mode === "global") {
           const active = getActiveElement()
           if (typeof active !== "undefined")
-            return !isSusceptibleToKeyboard(active)
+            return !isSusceptibleToKeyboard(active, type)
         }
         return true
       }),

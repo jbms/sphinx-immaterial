@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-2021 Martin Donath <martin.donath@squidfunk.com>
+ * Copyright (c) 2016-2022 Martin Donath <martin.donath@squidfunk.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -19,6 +19,8 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
  * IN THE SOFTWARE.
  */
+
+import { ComponentChild } from "preact"
 
 import { feature, translation } from "~/_"
 import {
@@ -61,8 +63,9 @@ function renderSearchDocument(
   /* Render missing query terms */
   const missing = Object.keys(document.terms)
     .filter(key => !document.terms[key])
-    .map(key => [<del>{key}</del>, " "])
-    .flat()
+    .reduce<ComponentChild[]>((list, key) => [
+      ...list, <del>{key}</del>, " "
+    ], [])
     .slice(0, -1)
 
   /* Assemble query string for highlighting */
@@ -90,6 +93,9 @@ function renderSearchDocument(
             {truncate(document.text, 320)}
           </p>
         }
+        {document.tags && document.tags.map(tag => (
+          <span class="md-tag">{tag}</span>
+        ))}
         {teaser > 0 && missing.length > 0 &&
           <p class="md-search-result__terms">
             {translation("search.result.term.missing")}: {...missing}

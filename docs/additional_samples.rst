@@ -170,8 +170,6 @@ List Tables
 Alignment
 ~~~~~~~~~
 
-.. warning:: Alignment is not currently working as expected.
-
 .. list-table:: Center Aligned
    :header-rows: 1
    :align: center
@@ -272,3 +270,11 @@ Production Lists
             : ["finally" ":" `suite`]
    try2_stmt: "try" ":" `suite`
             : "finally" ":" `suite`
+
+Sub-pages
+=========
+
+.. toctree::
+
+   subpage1
+   subpage2

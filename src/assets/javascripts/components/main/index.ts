@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-2021 Martin Donath <martin.donath@squidfunk.com>
+ * Copyright (c) 2016-2022 Martin Donath <martin.donath@squidfunk.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -22,16 +22,17 @@
 
 import {
   Observable,
-  combineLatest
-} from "rxjs"
-import {
+  combineLatest,
   distinctUntilChanged,
   distinctUntilKeyChanged,
   map,
   switchMap
-} from "rxjs/operators"
+} from "rxjs"
 
-import { Viewport, watchElementSize } from "~/browser"
+import {
+  Viewport,
+  watchElementSize
+} from "~/browser"
 
 import { Header } from "../header"
 
@@ -45,7 +46,7 @@ import { Header } from "../header"
 export interface Main {
   offset: number                       /* Main area top offset */
   height: number                       /* Main area visible height */
-  active: boolean                      /* User scrolled past header */
+  active: boolean                      /* Main area is active */
 }
 
 /* ----------------------------------------------------------------------------
