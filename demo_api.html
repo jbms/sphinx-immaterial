@@ -9,7 +9,6 @@
       
       
       
-      
       <link rel="icon" href="_static/favicon.ico">
     
     
@@ -18,10 +17,10 @@
       
     
     
-      <link rel="stylesheet" href="_static/stylesheets/main.91c34c39.min.css">
+      <link rel="stylesheet" href="_static/stylesheets/main.a3988da6.min.css">
       
         
-        <link rel="stylesheet" href="_static/stylesheets/palette.89291e57.min.css">
+        <link rel="stylesheet" href="_static/stylesheets/palette.52561aa6.min.css">
         
       
     
@@ -30,18 +29,16 @@
       
         
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
-        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
       
     
-    
-        <link rel="stylesheet" type="text/css" href="_static/basic.css" />
         <link rel="stylesheet" type="text/css" href="_static/design-style.59c74d8c95b765a7fd995ac71d459ebe.min.css" />
         <link rel="stylesheet" type="text/css" href="_static/extra_css.css" />
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <script>__md_scope=new URL(".",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
-
 
     
     
@@ -58,9 +55,8 @@
     <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="light-green" data-md-color-accent="light-blue">
   
     
-    <script>function __prefix(e){return new URL(".",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
     
-      <script>var palette=__get("__palette");if(null!==palette&&"object"==typeof palette.color)for(var key in palette.color)document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
@@ -68,7 +64,7 @@
     <div data-md-component="skip">
       
         
-        <a href="" class="md-skip">
+        <a href="#module-test_py_module.test" class="md-skip">
           Skip to content
         </a>
       
@@ -77,7 +73,16 @@
       
     </div>
     
-      <header class="md-header" data-md-component="header">
+      <div data-md-component="outdated" hidden>
+        <aside class="md-banner md-banner--warning">
+          
+        </aside>
+      </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href="index.html" title="Sphinx-Immaterial" class="md-header__button md-logo" aria-label="Sphinx-Immaterial" data-md-component="logo">
       <img src="_static/Ybin.gif" alt="logo">
@@ -129,8 +134,7 @@
       <label class="md-header__button md-icon" for="__search">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
       </label>
-      
-<div class="md-search" data-md-component="search" role="dialog">
+      <div class="md-search" data-md-component="search" role="dialog">
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
@@ -140,6 +144,10 @@
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
       </label>
       <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08z"/></svg>
+          </a>
         
         <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
@@ -162,11 +170,10 @@
     
     
       <div class="md-header__source">
-        
-<a href="https://github.com/jbms/sphinx-immaterial/" title="Go to repository" class="md-source" data-md-component="source">
+        <a href="https://github.com/jbms/sphinx-immaterial/" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
   </div>
   <div class="md-source__repository">
     Sphinx-Immaterial
@@ -175,6 +182,7 @@
       </div>
     
   </nav>
+  
 </header>
     
     <div class="md-container" data-md-component="container">
@@ -182,6 +190,8 @@
       
       
       
+        
+          
         
       
       <main class="md-main" data-md-component="main">
@@ -204,11 +214,10 @@
   </label>
   
     <div class="md-nav__source">
-      
-<a href="https://github.com/jbms/sphinx-immaterial/" title="Go to repository" class="md-source" data-md-component="source">
+      <a href="https://github.com/jbms/sphinx-immaterial/" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
   </div>
   <div class="md-source__repository">
     Sphinx-Immaterial
@@ -227,7 +236,7 @@
   
     <li class="md-nav__item">
       <a href="customization.html" class="md-nav__link">
-        Customization
+        <span class="md-ellipsis">Customization</span>
       </a>
     </li>
   
@@ -242,7 +251,7 @@
   
     <li class="md-nav__item">
       <a href="admonitions.html" class="md-nav__link">
-        Admonitions
+        <span class="md-ellipsis">Admonitions</span>
       </a>
     </li>
   
@@ -265,18 +274,22 @@
       
         <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
       
-      <label class="md-nav__link" for="__nav_3">
-        <a class="" href="">Examples and Uses</a>
-        <span class="md-nav__icon md-icon"></span>
-      </label>
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          <span class="md-ellipsis">Examples and Uses</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <nav class="md-nav" aria-label="Examples and Uses" data-md-level="1">
         <label class="md-nav__title" for="__nav_3">
           <span class="md-nav__icon md-icon"></span>
-          Examples and Uses
+          <span class="md-ellipsis">Examples and Uses</span>
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
             
+              
   
   
     
@@ -287,28 +300,30 @@
       <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          sample API documentation and generated content
+          <span class="md-ellipsis">sample API documentation and generated content</span>
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <a href="" class="md-nav__link md-nav__link--active">
-        sample API documentation and generated content
+        <span class="md-ellipsis">sample API documentation and generated content</span>
       </a>
       
         
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+
+  
+
+<nav class="md-nav md-nav--secondary">
   
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
-      sample API documentation and generated content
-      
+      <span class="md-ellipsis">sample API documentation and generated content</span>
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
   <a href="#module-test_py_module.test" class="md-nav__link">
-    test_py_module
+    <span class="md-ellipsis">test_<wbr>py_<wbr>module</span>
   </a>
   
     <nav class="md-nav" aria-label="test_py_module">
@@ -316,7 +331,7 @@
         
           <li class="md-nav__item">
   <a href="#test_py_module.test.Foo" class="md-nav__link">
-    <span aria-label="Python class" class="objinfo-icon objinfo-icon__data" title="Python class">C</span><span title="test_py_module.test.Foo (Python class)">test_py_module.test.Foo</span>
+    <span aria-label="Python class" class="objinfo-icon objinfo-icon__data" title="Python class">C</span><span title="test_py_module.test.Foo (Python class)" class="md-ellipsis">test_<wbr>py_<wbr>module.<wbr>test.<wbr>Foo</span>
   </a>
   
     <nav class="md-nav" aria-label="test_py_module.test.Foo">
@@ -324,70 +339,70 @@
         
           <li class="md-nav__item">
   <a href="#test_py_module.test.Foo.__init__" class="md-nav__link">
-    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="test_py_module.test.Foo.__init__ (Python method)">__init__</span>
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="test_py_module.test.Foo.__init__ (Python method)" class="md-ellipsis">__<wbr>init__<wbr></span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#test_py_module.test.Foo.__weakref__" class="md-nav__link">
-    <span aria-label="Python attribute" class="objinfo-icon objinfo-icon__alias" title="Python attribute">A</span><span title="test_py_module.test.Foo.__weakref__ (Python attribute)">__weakref__</span>
+    <span aria-label="Python attribute" class="objinfo-icon objinfo-icon__alias" title="Python attribute">A</span><span title="test_py_module.test.Foo.__weakref__ (Python attribute)" class="md-ellipsis">__<wbr>weakref__<wbr></span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#test_py_module.test.Foo.add" class="md-nav__link">
-    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="test_py_module.test.Foo.add (Python method)">add</span>
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="test_py_module.test.Foo.add (Python method)" class="md-ellipsis">add</span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#test_py_module.test.Foo.another_function" class="md-nav__link">
-    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="test_py_module.test.Foo.another_function (Python method)">another_function</span>
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="test_py_module.test.Foo.another_function (Python method)" class="md-ellipsis">another_<wbr>function</span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#test_py_module.test.Foo.bar" class="md-nav__link">
-    <span aria-label="Python attribute" class="objinfo-icon objinfo-icon__alias" title="Python attribute">A</span><span title="test_py_module.test.Foo.bar (Python attribute)">bar</span>
+    <span aria-label="Python attribute" class="objinfo-icon objinfo-icon__alias" title="Python attribute">A</span><span title="test_py_module.test.Foo.bar (Python attribute)" class="md-ellipsis">bar</span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#test_py_module.test.Foo.baz" class="md-nav__link">
-    <span aria-label="Python attribute" class="objinfo-icon objinfo-icon__alias" title="Python attribute">A</span><span title="test_py_module.test.Foo.baz (Python attribute)">baz</span>
+    <span aria-label="Python attribute" class="objinfo-icon objinfo-icon__alias" title="Python attribute">A</span><span title="test_py_module.test.Foo.baz (Python attribute)" class="md-ellipsis">baz</span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#test_py_module.test.Foo.capitalize" class="md-nav__link">
-    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="test_py_module.test.Foo.capitalize (Python method)">capitalize</span>
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="test_py_module.test.Foo.capitalize (Python method)" class="md-ellipsis">capitalize</span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#test_py_module.test.Foo.flox" class="md-nav__link">
-    <span aria-label="Python attribute" class="objinfo-icon objinfo-icon__alias" title="Python attribute">A</span><span title="test_py_module.test.Foo.flox (Python attribute)">flox</span>
+    <span aria-label="Python attribute" class="objinfo-icon objinfo-icon__alias" title="Python attribute">A</span><span title="test_py_module.test.Foo.flox (Python attribute)" class="md-ellipsis">flox</span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#test_py_module.test.Foo.qux" class="md-nav__link">
-    <span aria-label="Python attribute" class="objinfo-icon objinfo-icon__alias" title="Python attribute">A</span><span title="test_py_module.test.Foo.qux (Python attribute)">qux</span>
+    <span aria-label="Python attribute" class="objinfo-icon objinfo-icon__alias" title="Python attribute">A</span><span title="test_py_module.test.Foo.qux (Python attribute)" class="md-ellipsis">qux</span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#test_py_module.test.Foo.spam" class="md-nav__link">
-    <span aria-label="Python attribute" class="objinfo-icon objinfo-icon__alias" title="Python attribute">A</span><span title="test_py_module.test.Foo.spam (Python attribute)">spam</span>
+    <span aria-label="Python attribute" class="objinfo-icon objinfo-icon__alias" title="Python attribute">A</span><span title="test_py_module.test.Foo.spam (Python attribute)" class="md-ellipsis">spam</span>
   </a>
   
 </li>
@@ -404,7 +419,7 @@
       
         <li class="md-nav__item">
   <a href="#c-api" class="md-nav__link">
-    C++ API
+    <span class="md-ellipsis">C++ API</span>
   </a>
   
     <nav class="md-nav" aria-label="C++ API">
@@ -412,49 +427,49 @@
         
           <li class="md-nav__item">
   <a href="#_CPPv46MyType" class="md-nav__link">
-    <span aria-label="C++ type" class="objinfo-icon objinfo-icon__alias" title="C++ type">T</span><span title="MyType (C++ type)">MyType</span>
+    <span aria-label="C++ type" class="objinfo-icon objinfo-icon__alias" title="C++ type">T</span><span title="MyType (C++ type)" class="md-ellipsis">My<wbr>Type</span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#_CPPv43FooK6MyType" class="md-nav__link">
-    <span aria-label="C++ function" class="objinfo-icon objinfo-icon__procedure" title="C++ function">F</span><span title="Foo (C++ function)">Foo</span>
+    <span aria-label="C++ function" class="objinfo-icon objinfo-icon__procedure" title="C++ function">F</span><span title="Foo (C++ function)" class="md-ellipsis">Foo</span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#_CPPv4I0_NSt6size_tEENSt5arrayE" class="md-nav__link">
-    <span aria-label="C++ class" class="objinfo-icon objinfo-icon__data" title="C++ class">C</span><span title="std::array (C++ class)">TNstd::array</span>
+    <span aria-label="C++ class" class="objinfo-icon objinfo-icon__data" title="C++ class">C</span><span title="std::array (C++ class)" class="md-ellipsis">TNstd::<wbr>array</span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#_CPPv4N6Sphinx7versionE" class="md-nav__link">
-    <span aria-label="C++ member" class="objinfo-icon objinfo-icon__alias" title="C++ member">V</span><span title="Sphinx::version (C++ member)">Sphinx::version</span>
+    <span aria-label="C++ member" class="objinfo-icon objinfo-icon__alias" title="C++ member">V</span><span title="Sphinx::version (C++ member)" class="md-ellipsis">Sphinx::<wbr>version</span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#_CPPv47version" class="md-nav__link">
-    <span aria-label="C++ member" class="objinfo-icon objinfo-icon__alias" title="C++ member">V</span><span title="version (C++ member)">version</span>
+    <span aria-label="C++ member" class="objinfo-icon objinfo-icon__alias" title="C++ member">V</span><span title="version (C++ member)" class="md-ellipsis">version</span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#_CPPv44List" class="md-nav__link">
-    <span aria-label="C++ type" class="objinfo-icon objinfo-icon__alias" title="C++ type">T</span><span title="List (C++ type)">List</span>
+    <span aria-label="C++ type" class="objinfo-icon objinfo-icon__alias" title="C++ type">T</span><span title="List (C++ type)" class="md-ellipsis">List</span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#_CPPv46MyEnum" class="md-nav__link">
-    <span aria-label="C++ enum" class="objinfo-icon objinfo-icon__data" title="C++ enum">E</span><span title="MyEnum (C++ enum)">MyEnum</span>
+    <span aria-label="C++ enum" class="objinfo-icon objinfo-icon__data" title="C++ enum">E</span><span title="MyEnum (C++ enum)" class="md-ellipsis">My<wbr>Enum</span>
   </a>
   
     <nav class="md-nav" aria-label="MyEnum">
@@ -462,7 +477,7 @@
         
           <li class="md-nav__item">
   <a href="#_CPPv4N6MyEnum1AE" class="md-nav__link">
-    <span aria-label="C++ enumerator" class="objinfo-icon objinfo-icon__data" title="C++ enumerator">e</span><span title="A (C++ enumerator)">A</span>
+    <span aria-label="C++ enumerator" class="objinfo-icon objinfo-icon__data" title="C++ enumerator">e</span><span title="A (C++ enumerator)" class="md-ellipsis">A</span>
   </a>
   
 </li>
@@ -474,7 +489,7 @@
         
           <li class="md-nav__item">
   <a href="#_CPPv412MyScopedEnum" class="md-nav__link">
-    <span aria-label="C++ enum" class="objinfo-icon objinfo-icon__data" title="C++ enum">E</span><span title="MyScopedEnum (C++ enum)">MyScopedEnum</span>
+    <span aria-label="C++ enum" class="objinfo-icon objinfo-icon__data" title="C++ enum">E</span><span title="MyScopedEnum (C++ enum)" class="md-ellipsis">My<wbr>Scoped<wbr>Enum</span>
   </a>
   
     <nav class="md-nav" aria-label="MyScopedEnum">
@@ -482,7 +497,7 @@
         
           <li class="md-nav__item">
   <a href="#_CPPv4N12MyScopedEnum1BE" class="md-nav__link">
-    <span aria-label="C++ enumerator" class="objinfo-icon objinfo-icon__data" title="C++ enumerator">e</span><span title="MyScopedEnum::B (C++ enumerator)">B</span>
+    <span aria-label="C++ enumerator" class="objinfo-icon objinfo-icon__data" title="C++ enumerator">e</span><span title="MyScopedEnum::B (C++ enumerator)" class="md-ellipsis">B</span>
   </a>
   
 </li>
@@ -494,7 +509,7 @@
         
           <li class="md-nav__item">
   <a href="#_CPPv422MyScopedVisibilityEnum" class="md-nav__link">
-    <span aria-label="C++ enum" class="objinfo-icon objinfo-icon__data" title="C++ enum">E</span><span title="MyScopedVisibilityEnum (C++ enum)">MyScopedVisibilityEnum</span>
+    <span aria-label="C++ enum" class="objinfo-icon objinfo-icon__data" title="C++ enum">E</span><span title="MyScopedVisibilityEnum (C++ enum)" class="md-ellipsis">My<wbr>Scoped<wbr>Visibility<wbr>Enum</span>
   </a>
   
     <nav class="md-nav" aria-label="MyScopedVisibilityEnum">
@@ -502,7 +517,7 @@
         
           <li class="md-nav__item">
   <a href="#_CPPv4N22MyScopedVisibilityEnum1BE" class="md-nav__link">
-    <span aria-label="C++ enumerator" class="objinfo-icon objinfo-icon__data" title="C++ enumerator">e</span><span title="MyScopedVisibilityEnum::B (C++ enumerator)">B</span>
+    <span aria-label="C++ enumerator" class="objinfo-icon objinfo-icon__data" title="C++ enumerator">e</span><span title="MyScopedVisibilityEnum::B (C++ enumerator)" class="md-ellipsis">B</span>
   </a>
   
 </li>
@@ -519,7 +534,7 @@
       
         <li class="md-nav__item">
   <a href="#javascript-api" class="md-nav__link">
-    JavaScript API
+    <span class="md-ellipsis">Java<wbr>Script API</span>
   </a>
   
     <nav class="md-nav" aria-label="JavaScript API">
@@ -527,28 +542,28 @@
         
           <li class="md-nav__item">
   <a href="#module_a.submodule.ModTopLevel" class="md-nav__link">
-    <span aria-label="JavaScript class" class="objinfo-icon objinfo-icon__data" title="JavaScript class">C</span><span title="module_a.submodule.ModTopLevel (JavaScript class)">module_a.submodule.ModTopLevel</span>
+    <span aria-label="JavaScript class" class="objinfo-icon objinfo-icon__data" title="JavaScript class">C</span><span title="module_a.submodule.ModTopLevel (JavaScript class)" class="md-ellipsis">module_<wbr>a.<wbr>submodule.<wbr>Mod<wbr>Top<wbr>Level</span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#module_a.submodule.ModTopLevel.mod_child_1" class="md-nav__link">
-    <span aria-label="JavaScript method" class="objinfo-icon objinfo-icon__procedure" title="JavaScript method">M</span><span title="module_a.submodule.ModTopLevel.mod_child_1 (JavaScript method)">ModTopLevel.mod_child_1</span>
+    <span aria-label="JavaScript method" class="objinfo-icon objinfo-icon__procedure" title="JavaScript method">M</span><span title="module_a.submodule.ModTopLevel.mod_child_1 (JavaScript method)" class="md-ellipsis">Mod<wbr>Top<wbr>Level.<wbr>mod_<wbr>child_<wbr>1</span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#module_a.submodule.ModTopLevel.mod_child_2" class="md-nav__link">
-    <span aria-label="JavaScript method" class="objinfo-icon objinfo-icon__procedure" title="JavaScript method">M</span><span title="module_a.submodule.ModTopLevel.mod_child_2 (JavaScript method)">ModTopLevel.mod_child_2</span>
+    <span aria-label="JavaScript method" class="objinfo-icon objinfo-icon__procedure" title="JavaScript method">M</span><span title="module_a.submodule.ModTopLevel.mod_child_2 (JavaScript method)" class="md-ellipsis">Mod<wbr>Top<wbr>Level.<wbr>mod_<wbr>child_<wbr>2</span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#module_b.submodule.ModNested" class="md-nav__link">
-    <span aria-label="JavaScript class" class="objinfo-icon objinfo-icon__data" title="JavaScript class">C</span><span title="module_b.submodule.ModNested (JavaScript class)">module_b.submodule.ModNested</span>
+    <span aria-label="JavaScript class" class="objinfo-icon objinfo-icon__data" title="JavaScript class">C</span><span title="module_b.submodule.ModNested (JavaScript class)" class="md-ellipsis">module_<wbr>b.<wbr>submodule.<wbr>Mod<wbr>Nested</span>
   </a>
   
     <nav class="md-nav" aria-label="module_b.submodule.ModNested">
@@ -556,14 +571,14 @@
         
           <li class="md-nav__item">
   <a href="#module_b.submodule.ModNested.nested_child_1" class="md-nav__link">
-    <span aria-label="JavaScript method" class="objinfo-icon objinfo-icon__procedure" title="JavaScript method">M</span><span title="module_b.submodule.ModNested.nested_child_1 (JavaScript method)">ModNested.nested_child_1</span>
+    <span aria-label="JavaScript method" class="objinfo-icon objinfo-icon__procedure" title="JavaScript method">M</span><span title="module_b.submodule.ModNested.nested_child_1 (JavaScript method)" class="md-ellipsis">Mod<wbr>Nested.<wbr>nested_<wbr>child_<wbr>1</span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#module_b.submodule.ModNested.nested_child_2" class="md-nav__link">
-    <span aria-label="JavaScript method" class="objinfo-icon objinfo-icon__procedure" title="JavaScript method">M</span><span title="module_b.submodule.ModNested.nested_child_2 (JavaScript method)">ModNested.nested_child_2</span>
+    <span aria-label="JavaScript method" class="objinfo-icon objinfo-icon__procedure" title="JavaScript method">M</span><span title="module_b.submodule.ModNested.nested_child_2 (JavaScript method)" class="md-ellipsis">Mod<wbr>Nested.<wbr>nested_<wbr>child_<wbr>2</span>
   </a>
   
 </li>
@@ -580,14 +595,14 @@
       
         <li class="md-nav__item">
   <a href="#generated-index" class="md-nav__link">
-    Generated Index
+    <span class="md-ellipsis">Generated Index</span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#optional-parameter-args" class="md-nav__link">
-    Optional parameter args
+    <span class="md-ellipsis">Optional parameter args</span>
   </a>
   
     <nav class="md-nav" aria-label="Optional parameter args">
@@ -595,7 +610,7 @@
         
           <li class="md-nav__item">
   <a href="#test_py_module.test.payments.dotpay.DotpayProvider" class="md-nav__link">
-    <span aria-label="Python class" class="objinfo-icon objinfo-icon__data" title="Python class">C</span><span title="test_py_module.test.payments.dotpay.DotpayProvider (Python class)">payments.dotpay.DotpayProvider</span>
+    <span aria-label="Python class" class="objinfo-icon objinfo-icon__data" title="Python class">C</span><span title="test_py_module.test.payments.dotpay.DotpayProvider (Python class)" class="md-ellipsis">payments.<wbr>dotpay.<wbr>Dotpay<wbr>Provider</span>
   </a>
   
 </li>
@@ -607,7 +622,7 @@
       
         <li class="md-nav__item">
   <a href="#data" class="md-nav__link">
-    Data
+    <span class="md-ellipsis">Data</span>
   </a>
   
     <nav class="md-nav" aria-label="Data">
@@ -615,7 +630,7 @@
         
           <li class="md-nav__item">
   <a href="#test_py_module.test.Data_item_1" class="md-nav__link">
-    <span aria-label="Python data" class="objinfo-icon objinfo-icon__alias" title="Python data">V</span><span title="test_py_module.test.Data_item_1 (Python data)">test_py_module.test.Data_item_1</span>
+    <span aria-label="Python data" class="objinfo-icon objinfo-icon__alias" title="Python data">V</span><span title="test_py_module.test.Data_item_1 (Python data)" class="md-ellipsis">test_<wbr>py_<wbr>module.<wbr>test.<wbr>Data_<wbr>item_<wbr>1</span>
   </a>
   
 </li>
@@ -632,54 +647,63 @@
     </li>
   
 
+            
           
             
+              
   
   
   
     <li class="md-nav__item">
       <a href="specimen.html" class="md-nav__link">
-        Specimen
+        <span class="md-ellipsis">Specimen</span>
       </a>
     </li>
   
 
+            
           
             
+              
   
   
   
     <li class="md-nav__item">
       <a href="rst_basics.html" class="md-nav__link">
-        reStructuredText Primer
+        <span class="md-ellipsis">re<wbr>Structured<wbr>Text Primer</span>
       </a>
     </li>
   
 
+            
           
             
+              
   
   
   
     <li class="md-nav__item">
       <a href="rst-cheatsheet/rst-cheatsheet.html" class="md-nav__link">
-        rst Cheatsheet
+        <span class="md-ellipsis">rst Cheatsheet</span>
       </a>
     </li>
   
 
+            
           
             
+              
   
   
   
     <li class="md-nav__item">
       <a href="additional_samples.html" class="md-nav__link">
-        Additional Samples
+        <span class="md-ellipsis">Additional Samples</span>
       </a>
     </li>
   
 
+            
           
         </ul>
       </nav>
@@ -699,19 +723,21 @@
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+
+  
+
+<nav class="md-nav md-nav--secondary">
   
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
-      sample API documentation and generated content
-      
+      <span class="md-ellipsis">sample API documentation and generated content</span>
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
   <a href="#module-test_py_module.test" class="md-nav__link">
-    test_py_module
+    <span class="md-ellipsis">test_<wbr>py_<wbr>module</span>
   </a>
   
     <nav class="md-nav" aria-label="test_py_module">
@@ -719,7 +745,7 @@
         
           <li class="md-nav__item">
   <a href="#test_py_module.test.Foo" class="md-nav__link">
-    <span aria-label="Python class" class="objinfo-icon objinfo-icon__data" title="Python class">C</span><span title="test_py_module.test.Foo (Python class)">test_py_module.test.Foo</span>
+    <span aria-label="Python class" class="objinfo-icon objinfo-icon__data" title="Python class">C</span><span title="test_py_module.test.Foo (Python class)" class="md-ellipsis">test_<wbr>py_<wbr>module.<wbr>test.<wbr>Foo</span>
   </a>
   
     <nav class="md-nav" aria-label="test_py_module.test.Foo">
@@ -727,70 +753,70 @@
         
           <li class="md-nav__item">
   <a href="#test_py_module.test.Foo.__init__" class="md-nav__link">
-    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="test_py_module.test.Foo.__init__ (Python method)">__init__</span>
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="test_py_module.test.Foo.__init__ (Python method)" class="md-ellipsis">__<wbr>init__<wbr></span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#test_py_module.test.Foo.__weakref__" class="md-nav__link">
-    <span aria-label="Python attribute" class="objinfo-icon objinfo-icon__alias" title="Python attribute">A</span><span title="test_py_module.test.Foo.__weakref__ (Python attribute)">__weakref__</span>
+    <span aria-label="Python attribute" class="objinfo-icon objinfo-icon__alias" title="Python attribute">A</span><span title="test_py_module.test.Foo.__weakref__ (Python attribute)" class="md-ellipsis">__<wbr>weakref__<wbr></span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#test_py_module.test.Foo.add" class="md-nav__link">
-    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="test_py_module.test.Foo.add (Python method)">add</span>
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="test_py_module.test.Foo.add (Python method)" class="md-ellipsis">add</span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#test_py_module.test.Foo.another_function" class="md-nav__link">
-    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="test_py_module.test.Foo.another_function (Python method)">another_function</span>
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="test_py_module.test.Foo.another_function (Python method)" class="md-ellipsis">another_<wbr>function</span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#test_py_module.test.Foo.bar" class="md-nav__link">
-    <span aria-label="Python attribute" class="objinfo-icon objinfo-icon__alias" title="Python attribute">A</span><span title="test_py_module.test.Foo.bar (Python attribute)">bar</span>
+    <span aria-label="Python attribute" class="objinfo-icon objinfo-icon__alias" title="Python attribute">A</span><span title="test_py_module.test.Foo.bar (Python attribute)" class="md-ellipsis">bar</span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#test_py_module.test.Foo.baz" class="md-nav__link">
-    <span aria-label="Python attribute" class="objinfo-icon objinfo-icon__alias" title="Python attribute">A</span><span title="test_py_module.test.Foo.baz (Python attribute)">baz</span>
+    <span aria-label="Python attribute" class="objinfo-icon objinfo-icon__alias" title="Python attribute">A</span><span title="test_py_module.test.Foo.baz (Python attribute)" class="md-ellipsis">baz</span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#test_py_module.test.Foo.capitalize" class="md-nav__link">
-    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="test_py_module.test.Foo.capitalize (Python method)">capitalize</span>
+    <span aria-label="Python method" class="objinfo-icon objinfo-icon__procedure" title="Python method">M</span><span title="test_py_module.test.Foo.capitalize (Python method)" class="md-ellipsis">capitalize</span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#test_py_module.test.Foo.flox" class="md-nav__link">
-    <span aria-label="Python attribute" class="objinfo-icon objinfo-icon__alias" title="Python attribute">A</span><span title="test_py_module.test.Foo.flox (Python attribute)">flox</span>
+    <span aria-label="Python attribute" class="objinfo-icon objinfo-icon__alias" title="Python attribute">A</span><span title="test_py_module.test.Foo.flox (Python attribute)" class="md-ellipsis">flox</span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#test_py_module.test.Foo.qux" class="md-nav__link">
-    <span aria-label="Python attribute" class="objinfo-icon objinfo-icon__alias" title="Python attribute">A</span><span title="test_py_module.test.Foo.qux (Python attribute)">qux</span>
+    <span aria-label="Python attribute" class="objinfo-icon objinfo-icon__alias" title="Python attribute">A</span><span title="test_py_module.test.Foo.qux (Python attribute)" class="md-ellipsis">qux</span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#test_py_module.test.Foo.spam" class="md-nav__link">
-    <span aria-label="Python attribute" class="objinfo-icon objinfo-icon__alias" title="Python attribute">A</span><span title="test_py_module.test.Foo.spam (Python attribute)">spam</span>
+    <span aria-label="Python attribute" class="objinfo-icon objinfo-icon__alias" title="Python attribute">A</span><span title="test_py_module.test.Foo.spam (Python attribute)" class="md-ellipsis">spam</span>
   </a>
   
 </li>
@@ -807,7 +833,7 @@
       
         <li class="md-nav__item">
   <a href="#c-api" class="md-nav__link">
-    C++ API
+    <span class="md-ellipsis">C++ API</span>
   </a>
   
     <nav class="md-nav" aria-label="C++ API">
@@ -815,49 +841,49 @@
         
           <li class="md-nav__item">
   <a href="#_CPPv46MyType" class="md-nav__link">
-    <span aria-label="C++ type" class="objinfo-icon objinfo-icon__alias" title="C++ type">T</span><span title="MyType (C++ type)">MyType</span>
+    <span aria-label="C++ type" class="objinfo-icon objinfo-icon__alias" title="C++ type">T</span><span title="MyType (C++ type)" class="md-ellipsis">My<wbr>Type</span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#_CPPv43FooK6MyType" class="md-nav__link">
-    <span aria-label="C++ function" class="objinfo-icon objinfo-icon__procedure" title="C++ function">F</span><span title="Foo (C++ function)">Foo</span>
+    <span aria-label="C++ function" class="objinfo-icon objinfo-icon__procedure" title="C++ function">F</span><span title="Foo (C++ function)" class="md-ellipsis">Foo</span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#_CPPv4I0_NSt6size_tEENSt5arrayE" class="md-nav__link">
-    <span aria-label="C++ class" class="objinfo-icon objinfo-icon__data" title="C++ class">C</span><span title="std::array (C++ class)">TNstd::array</span>
+    <span aria-label="C++ class" class="objinfo-icon objinfo-icon__data" title="C++ class">C</span><span title="std::array (C++ class)" class="md-ellipsis">TNstd::<wbr>array</span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#_CPPv4N6Sphinx7versionE" class="md-nav__link">
-    <span aria-label="C++ member" class="objinfo-icon objinfo-icon__alias" title="C++ member">V</span><span title="Sphinx::version (C++ member)">Sphinx::version</span>
+    <span aria-label="C++ member" class="objinfo-icon objinfo-icon__alias" title="C++ member">V</span><span title="Sphinx::version (C++ member)" class="md-ellipsis">Sphinx::<wbr>version</span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#_CPPv47version" class="md-nav__link">
-    <span aria-label="C++ member" class="objinfo-icon objinfo-icon__alias" title="C++ member">V</span><span title="version (C++ member)">version</span>
+    <span aria-label="C++ member" class="objinfo-icon objinfo-icon__alias" title="C++ member">V</span><span title="version (C++ member)" class="md-ellipsis">version</span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#_CPPv44List" class="md-nav__link">
-    <span aria-label="C++ type" class="objinfo-icon objinfo-icon__alias" title="C++ type">T</span><span title="List (C++ type)">List</span>
+    <span aria-label="C++ type" class="objinfo-icon objinfo-icon__alias" title="C++ type">T</span><span title="List (C++ type)" class="md-ellipsis">List</span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#_CPPv46MyEnum" class="md-nav__link">
-    <span aria-label="C++ enum" class="objinfo-icon objinfo-icon__data" title="C++ enum">E</span><span title="MyEnum (C++ enum)">MyEnum</span>
+    <span aria-label="C++ enum" class="objinfo-icon objinfo-icon__data" title="C++ enum">E</span><span title="MyEnum (C++ enum)" class="md-ellipsis">My<wbr>Enum</span>
   </a>
   
     <nav class="md-nav" aria-label="MyEnum">
@@ -865,7 +891,7 @@
         
           <li class="md-nav__item">
   <a href="#_CPPv4N6MyEnum1AE" class="md-nav__link">
-    <span aria-label="C++ enumerator" class="objinfo-icon objinfo-icon__data" title="C++ enumerator">e</span><span title="A (C++ enumerator)">A</span>
+    <span aria-label="C++ enumerator" class="objinfo-icon objinfo-icon__data" title="C++ enumerator">e</span><span title="A (C++ enumerator)" class="md-ellipsis">A</span>
   </a>
   
 </li>
@@ -877,7 +903,7 @@
         
           <li class="md-nav__item">
   <a href="#_CPPv412MyScopedEnum" class="md-nav__link">
-    <span aria-label="C++ enum" class="objinfo-icon objinfo-icon__data" title="C++ enum">E</span><span title="MyScopedEnum (C++ enum)">MyScopedEnum</span>
+    <span aria-label="C++ enum" class="objinfo-icon objinfo-icon__data" title="C++ enum">E</span><span title="MyScopedEnum (C++ enum)" class="md-ellipsis">My<wbr>Scoped<wbr>Enum</span>
   </a>
   
     <nav class="md-nav" aria-label="MyScopedEnum">
@@ -885,7 +911,7 @@
         
           <li class="md-nav__item">
   <a href="#_CPPv4N12MyScopedEnum1BE" class="md-nav__link">
-    <span aria-label="C++ enumerator" class="objinfo-icon objinfo-icon__data" title="C++ enumerator">e</span><span title="MyScopedEnum::B (C++ enumerator)">B</span>
+    <span aria-label="C++ enumerator" class="objinfo-icon objinfo-icon__data" title="C++ enumerator">e</span><span title="MyScopedEnum::B (C++ enumerator)" class="md-ellipsis">B</span>
   </a>
   
 </li>
@@ -897,7 +923,7 @@
         
           <li class="md-nav__item">
   <a href="#_CPPv422MyScopedVisibilityEnum" class="md-nav__link">
-    <span aria-label="C++ enum" class="objinfo-icon objinfo-icon__data" title="C++ enum">E</span><span title="MyScopedVisibilityEnum (C++ enum)">MyScopedVisibilityEnum</span>
+    <span aria-label="C++ enum" class="objinfo-icon objinfo-icon__data" title="C++ enum">E</span><span title="MyScopedVisibilityEnum (C++ enum)" class="md-ellipsis">My<wbr>Scoped<wbr>Visibility<wbr>Enum</span>
   </a>
   
     <nav class="md-nav" aria-label="MyScopedVisibilityEnum">
@@ -905,7 +931,7 @@
         
           <li class="md-nav__item">
   <a href="#_CPPv4N22MyScopedVisibilityEnum1BE" class="md-nav__link">
-    <span aria-label="C++ enumerator" class="objinfo-icon objinfo-icon__data" title="C++ enumerator">e</span><span title="MyScopedVisibilityEnum::B (C++ enumerator)">B</span>
+    <span aria-label="C++ enumerator" class="objinfo-icon objinfo-icon__data" title="C++ enumerator">e</span><span title="MyScopedVisibilityEnum::B (C++ enumerator)" class="md-ellipsis">B</span>
   </a>
   
 </li>
@@ -922,7 +948,7 @@
       
         <li class="md-nav__item">
   <a href="#javascript-api" class="md-nav__link">
-    JavaScript API
+    <span class="md-ellipsis">Java<wbr>Script API</span>
   </a>
   
     <nav class="md-nav" aria-label="JavaScript API">
@@ -930,28 +956,28 @@
         
           <li class="md-nav__item">
   <a href="#module_a.submodule.ModTopLevel" class="md-nav__link">
-    <span aria-label="JavaScript class" class="objinfo-icon objinfo-icon__data" title="JavaScript class">C</span><span title="module_a.submodule.ModTopLevel (JavaScript class)">module_a.submodule.ModTopLevel</span>
+    <span aria-label="JavaScript class" class="objinfo-icon objinfo-icon__data" title="JavaScript class">C</span><span title="module_a.submodule.ModTopLevel (JavaScript class)" class="md-ellipsis">module_<wbr>a.<wbr>submodule.<wbr>Mod<wbr>Top<wbr>Level</span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#module_a.submodule.ModTopLevel.mod_child_1" class="md-nav__link">
-    <span aria-label="JavaScript method" class="objinfo-icon objinfo-icon__procedure" title="JavaScript method">M</span><span title="module_a.submodule.ModTopLevel.mod_child_1 (JavaScript method)">ModTopLevel.mod_child_1</span>
+    <span aria-label="JavaScript method" class="objinfo-icon objinfo-icon__procedure" title="JavaScript method">M</span><span title="module_a.submodule.ModTopLevel.mod_child_1 (JavaScript method)" class="md-ellipsis">Mod<wbr>Top<wbr>Level.<wbr>mod_<wbr>child_<wbr>1</span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#module_a.submodule.ModTopLevel.mod_child_2" class="md-nav__link">
-    <span aria-label="JavaScript method" class="objinfo-icon objinfo-icon__procedure" title="JavaScript method">M</span><span title="module_a.submodule.ModTopLevel.mod_child_2 (JavaScript method)">ModTopLevel.mod_child_2</span>
+    <span aria-label="JavaScript method" class="objinfo-icon objinfo-icon__procedure" title="JavaScript method">M</span><span title="module_a.submodule.ModTopLevel.mod_child_2 (JavaScript method)" class="md-ellipsis">Mod<wbr>Top<wbr>Level.<wbr>mod_<wbr>child_<wbr>2</span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#module_b.submodule.ModNested" class="md-nav__link">
-    <span aria-label="JavaScript class" class="objinfo-icon objinfo-icon__data" title="JavaScript class">C</span><span title="module_b.submodule.ModNested (JavaScript class)">module_b.submodule.ModNested</span>
+    <span aria-label="JavaScript class" class="objinfo-icon objinfo-icon__data" title="JavaScript class">C</span><span title="module_b.submodule.ModNested (JavaScript class)" class="md-ellipsis">module_<wbr>b.<wbr>submodule.<wbr>Mod<wbr>Nested</span>
   </a>
   
     <nav class="md-nav" aria-label="module_b.submodule.ModNested">
@@ -959,14 +985,14 @@
         
           <li class="md-nav__item">
   <a href="#module_b.submodule.ModNested.nested_child_1" class="md-nav__link">
-    <span aria-label="JavaScript method" class="objinfo-icon objinfo-icon__procedure" title="JavaScript method">M</span><span title="module_b.submodule.ModNested.nested_child_1 (JavaScript method)">ModNested.nested_child_1</span>
+    <span aria-label="JavaScript method" class="objinfo-icon objinfo-icon__procedure" title="JavaScript method">M</span><span title="module_b.submodule.ModNested.nested_child_1 (JavaScript method)" class="md-ellipsis">Mod<wbr>Nested.<wbr>nested_<wbr>child_<wbr>1</span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#module_b.submodule.ModNested.nested_child_2" class="md-nav__link">
-    <span aria-label="JavaScript method" class="objinfo-icon objinfo-icon__procedure" title="JavaScript method">M</span><span title="module_b.submodule.ModNested.nested_child_2 (JavaScript method)">ModNested.nested_child_2</span>
+    <span aria-label="JavaScript method" class="objinfo-icon objinfo-icon__procedure" title="JavaScript method">M</span><span title="module_b.submodule.ModNested.nested_child_2 (JavaScript method)" class="md-ellipsis">Mod<wbr>Nested.<wbr>nested_<wbr>child_<wbr>2</span>
   </a>
   
 </li>
@@ -983,14 +1009,14 @@
       
         <li class="md-nav__item">
   <a href="#generated-index" class="md-nav__link">
-    Generated Index
+    <span class="md-ellipsis">Generated Index</span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#optional-parameter-args" class="md-nav__link">
-    Optional parameter args
+    <span class="md-ellipsis">Optional parameter args</span>
   </a>
   
     <nav class="md-nav" aria-label="Optional parameter args">
@@ -998,7 +1024,7 @@
         
           <li class="md-nav__item">
   <a href="#test_py_module.test.payments.dotpay.DotpayProvider" class="md-nav__link">
-    <span aria-label="Python class" class="objinfo-icon objinfo-icon__data" title="Python class">C</span><span title="test_py_module.test.payments.dotpay.DotpayProvider (Python class)">payments.dotpay.DotpayProvider</span>
+    <span aria-label="Python class" class="objinfo-icon objinfo-icon__data" title="Python class">C</span><span title="test_py_module.test.payments.dotpay.DotpayProvider (Python class)" class="md-ellipsis">payments.<wbr>dotpay.<wbr>Dotpay<wbr>Provider</span>
   </a>
   
 </li>
@@ -1010,7 +1036,7 @@
       
         <li class="md-nav__item">
   <a href="#data" class="md-nav__link">
-    Data
+    <span class="md-ellipsis">Data</span>
   </a>
   
     <nav class="md-nav" aria-label="Data">
@@ -1018,7 +1044,7 @@
         
           <li class="md-nav__item">
   <a href="#test_py_module.test.Data_item_1" class="md-nav__link">
-    <span aria-label="Python data" class="objinfo-icon objinfo-icon__alias" title="Python data">V</span><span title="test_py_module.test.Data_item_1 (Python data)">test_py_module.test.Data_item_1</span>
+    <span aria-label="Python data" class="objinfo-icon objinfo-icon__alias" title="Python data">V</span><span title="test_py_module.test.Data_item_1 (Python data)" class="md-ellipsis">test_<wbr>py_<wbr>module.<wbr>test.<wbr>Data_<wbr>item_<wbr>1</span>
   </a>
   
 </li>
@@ -1038,13 +1064,13 @@
           
           <div class="md-content" data-md-component="content">
             <article class="md-content__inner md-typeset" role="main">
-              
                 
-                  <a href="https://github.com/jbms/sphinx-immaterial/blob/main/docs/demo_api.rst" title="Edit this page" class="md-content__button md-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
-                  </a>
-                
-                
+<a href="https://github.com/jbms/sphinx-immaterial/blob/main/docs/demo_api.rst" title="Edit this page" class="md-content__button md-icon">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+</a>
+
+
+
   <h1 id="sample-api-documentation-and-generated-content"><a class="toc-backref" href="#id1">sample API documentation and generated content</a><a class="headerlink" href="#sample-api-documentation-and-generated-content" title="Permalink to this headline">¶</a></h1>
 <div class="contents topic" id="table-of-contents">
 <p class="topic-title">Table of Contents</p>
@@ -1385,24 +1411,16 @@ However, some projects will manually do it, like so:</p>
 <p>Some data link <a class="reference internal" href="#test_py_module.test.Data_item_1" title="test_py_module.test.Data_item_1"><code class="xref py py-data docutils literal notranslate"><span class="pre">Data_item_1</span></code></a>.</p>
 
 
-                
-                  
-                    
 
-<hr>
-<div class="md-source-date">
+  <hr>
+<div class="md-source-file">
   <small>
     
-      Last update: Feb 23, 2022
+      Last update:
+      Mar 01, 2022
     
   </small>
 </div>
-                  
-                
-              
-              
-                
-
 
               
             </article>
@@ -1416,8 +1434,7 @@ However, some projects will manually do it, like so:</p>
         
       </main>
       
-        
-<footer class="md-footer">
+        <footer class="md-footer">
   
     <nav class="md-footer__inner md-grid" aria-label="Footer">
       
@@ -1455,23 +1472,24 @@ However, some projects will manually do it, like so:</p>
     </nav>
   
   
+  
   <div class="md-footer-meta md-typeset">
     
     <div class="md-footer-meta__inner md-grid">
-      <div class="md-footer-copyright">
+      <div class="md-copyright">
+  
+    <div class="md-footer-copyright__highlight">
+        &#169; Copyright 2021 The Sphinx-Immaterial Authors.
         
-          <div class="md-footer-copyright__highlight">
-              &#169; Copyright 2021 The Sphinx-Immaterial Authors.
-              
-          </div>
-        
-          Created using
-          <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
-          4.4.0.
-           and
-          <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
-        
-      </div>
+    </div>
+  
+    Created using
+    <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
+    4.4.0.
+     and
+    <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
+  
+</div>
       
     </div>
     
@@ -1482,11 +1500,10 @@ However, some projects will manually do it, like so:</p>
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": ".", "features": ["navigation.sections", "navigation.top"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": {"provider": "mike", "staticVersions": [{"aliases": [], "title": "ReadTheDocs", "version": "https://sphinx-immaterial.rtfd.io"}, {"aliases": [], "title": "Github Pages", "version": "https://jbms.github.io/sphinx-immaterial"}], "versionPath": null}}</script>
+    <script id="__config" type="application/json">{"base": ".", "features": ["navigation.sections", "navigation.top", "search.share"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": {"provider": "mike", "staticVersions": [{"aliases": [], "title": "ReadTheDocs", "version": "https://sphinx-immaterial.rtfd.io"}, {"aliases": [], "title": "Github Pages", "version": "https://jbms.github.io/sphinx-immaterial"}], "versionPath": null}}</script>
     
     
-      <script src="_static/javascripts/bundle.c6851205.min.js"></script>
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+      <script src="_static/javascripts/bundle.21b916f4.min.js"></script>
         <script src="_static/design-tabs.js"></script>
         <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     

@@ -9,7 +9,6 @@
       
       
       
-      
       <link rel="icon" href="_static/favicon.ico">
     
     
@@ -18,10 +17,10 @@
       
     
     
-      <link rel="stylesheet" href="_static/stylesheets/main.91c34c39.min.css">
+      <link rel="stylesheet" href="_static/stylesheets/main.a3988da6.min.css">
       
         
-        <link rel="stylesheet" href="_static/stylesheets/palette.89291e57.min.css">
+        <link rel="stylesheet" href="_static/stylesheets/palette.52561aa6.min.css">
         
       
     
@@ -30,18 +29,16 @@
       
         
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
-        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
       
     
-    
-        <link rel="stylesheet" type="text/css" href="_static/basic.css" />
         <link rel="stylesheet" type="text/css" href="_static/design-style.59c74d8c95b765a7fd995ac71d459ebe.min.css" />
         <link rel="stylesheet" type="text/css" href="_static/extra_css.css" />
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <script>__md_scope=new URL(".",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
-
 
     
     
@@ -58,9 +55,8 @@
     <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="light-green" data-md-color-accent="light-blue">
   
     
-    <script>function __prefix(e){return new URL(".",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
     
-      <script>var palette=__get("__palette");if(null!==palette&&"object"==typeof palette.color)for(var key in palette.color)document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
@@ -68,7 +64,7 @@
     <div data-md-component="skip">
       
         
-        <a href="" class="md-skip">
+        <a href="#confval-hero" class="md-skip">
           Skip to content
         </a>
       
@@ -77,7 +73,16 @@
       
     </div>
     
-      <header class="md-header" data-md-component="header">
+      <div data-md-component="outdated" hidden>
+        <aside class="md-banner md-banner--warning">
+          
+        </aside>
+      </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href="index.html" title="Sphinx-Immaterial" class="md-header__button md-logo" aria-label="Sphinx-Immaterial" data-md-component="logo">
       <img src="_static/Ybin.gif" alt="logo">
@@ -129,8 +134,7 @@
       <label class="md-header__button md-icon" for="__search">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
       </label>
-      
-<div class="md-search" data-md-component="search" role="dialog">
+      <div class="md-search" data-md-component="search" role="dialog">
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
@@ -140,6 +144,10 @@
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
       </label>
       <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08z"/></svg>
+          </a>
         
         <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
@@ -162,11 +170,10 @@
     
     
       <div class="md-header__source">
-        
-<a href="https://github.com/jbms/sphinx-immaterial/" title="Go to repository" class="md-source" data-md-component="source">
+        <a href="https://github.com/jbms/sphinx-immaterial/" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
   </div>
   <div class="md-source__repository">
     Sphinx-Immaterial
@@ -175,6 +182,7 @@
       </div>
     
   </nav>
+  
 </header>
     
     <div class="md-container" data-md-component="container">
@@ -189,6 +197,8 @@
 
       
       
+        
+          
         
       
       <main class="md-main" data-md-component="main">
@@ -211,11 +221,10 @@
   </label>
   
     <div class="md-nav__source">
-      
-<a href="https://github.com/jbms/sphinx-immaterial/" title="Go to repository" class="md-source" data-md-component="source">
+      <a href="https://github.com/jbms/sphinx-immaterial/" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
   </div>
   <div class="md-source__repository">
     Sphinx-Immaterial
@@ -239,35 +248,37 @@
       <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          Customization
+          <span class="md-ellipsis">Customization</span>
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <a href="" class="md-nav__link md-nav__link--active">
-        Customization
+        <span class="md-ellipsis">Customization</span>
       </a>
       
         
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+
+  
+
+<nav class="md-nav md-nav--secondary">
   
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
-      Customization
-      
+      <span class="md-ellipsis">Customization</span>
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
   <a href="#confval-hero" class="md-nav__link">
-    hero
+    <span class="md-ellipsis">hero</span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#configuration-options" class="md-nav__link">
-    Configuration Options
+    <span class="md-ellipsis">Configuration Options</span>
   </a>
   
     <nav class="md-nav" aria-label="Configuration Options">
@@ -275,14 +286,14 @@
         
           <li class="md-nav__item">
   <a href="#confval-html_logo" class="md-nav__link">
-    html_logo
+    <span class="md-ellipsis">html_<wbr>logo</span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#confval-html_theme_options" class="md-nav__link">
-    html_theme_options
+    <span class="md-ellipsis">html_<wbr>theme_<wbr>options</span>
   </a>
   
     <nav class="md-nav" aria-label="html_theme_options">
@@ -290,56 +301,56 @@
         
           <li class="md-nav__item">
   <a href="#confval-site_url" class="md-nav__link">
-    site_url
+    <span class="md-ellipsis">site_<wbr>url</span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#confval-repo_url" class="md-nav__link">
-    repo_url
+    <span class="md-ellipsis">repo_<wbr>url</span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#confval-repo_name" class="md-nav__link">
-    repo_name
+    <span class="md-ellipsis">repo_<wbr>name</span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#confval-repo_type" class="md-nav__link">
-    repo_type
+    <span class="md-ellipsis">repo_<wbr>type</span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#confval-icon-repo" class="md-nav__link">
-    icon[&#34;repo&#34;]
+    <span class="md-ellipsis">icon<wbr>[&#34;repo&#34;]</span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#confval-edit_uri" class="md-nav__link">
-    edit_uri
+    <span class="md-ellipsis">edit_<wbr>uri</span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#confval-features" class="md-nav__link">
-    features
+    <span class="md-ellipsis">features</span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#confval-palette" class="md-nav__link">
-    palette
+    <span class="md-ellipsis">palette</span>
   </a>
   
     <nav class="md-nav" aria-label="palette">
@@ -347,35 +358,35 @@
         
           <li class="md-nav__item">
   <a href="#confval-scheme" class="md-nav__link">
-    scheme
+    <span class="md-ellipsis">scheme</span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#confval-primary" class="md-nav__link">
-    primary
+    <span class="md-ellipsis">primary</span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#confval-accent" class="md-nav__link">
-    accent
+    <span class="md-ellipsis">accent</span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#confval-toggle" class="md-nav__link">
-    toggle
+    <span class="md-ellipsis">toggle</span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#confval-media-palette-preference" class="md-nav__link">
-    media (palette preference)
+    <span class="md-ellipsis">media <wbr>(palette preference)</span>
   </a>
   
 </li>
@@ -387,49 +398,63 @@
         
           <li class="md-nav__item">
   <a href="#confval-direction" class="md-nav__link">
-    direction
+    <span class="md-ellipsis">direction</span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#confval-font" class="md-nav__link">
-    font
+    <span class="md-ellipsis">font</span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#confval-google_analytics_account" class="md-nav__link">
-    google_analytics_account
+    <span class="md-ellipsis">google_<wbr>analytics_<wbr>account</span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#confval-globaltoc_collapse" class="md-nav__link">
-    globaltoc_collapse
+    <span class="md-ellipsis">globaltoc_<wbr>collapse</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#confval-toc_title" class="md-nav__link">
+    <span class="md-ellipsis">toc_<wbr>title</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#confval-toc_title_is_page_title" class="md-nav__link">
+    <span class="md-ellipsis">toc_<wbr>title_<wbr>is_<wbr>page_<wbr>title</span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#confval-version_dropdown" class="md-nav__link">
-    version_dropdown
+    <span class="md-ellipsis">version_<wbr>dropdown</span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#confval-version_json" class="md-nav__link">
-    version_json
+    <span class="md-ellipsis">version_<wbr>json</span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#confval-version_info" class="md-nav__link">
-    version_info
+    <span class="md-ellipsis">version_<wbr>info</span>
   </a>
   
 </li>
@@ -446,7 +471,7 @@
       
         <li class="md-nav__item">
   <a href="#version-dropdown" class="md-nav__link">
-    Version Dropdown
+    <span class="md-ellipsis">Version Dropdown</span>
   </a>
   
     <nav class="md-nav" aria-label="Version Dropdown">
@@ -454,14 +479,14 @@
         
           <li class="md-nav__item">
   <a href="#supported-approaches" class="md-nav__link">
-    Supported Approaches
+    <span class="md-ellipsis">Supported Approaches</span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#version-information-structure" class="md-nav__link">
-    Version Information Structure
+    <span class="md-ellipsis">Version Information Structure</span>
   </a>
   
 </li>
@@ -473,7 +498,7 @@
       
         <li class="md-nav__item">
   <a href="#customizing-the-layout" class="md-nav__link">
-    Customizing the layout
+    <span class="md-ellipsis">Customizing the layout</span>
   </a>
   
     <nav class="md-nav" aria-label="Customizing the layout">
@@ -481,7 +506,7 @@
         
           <li class="md-nav__item">
   <a href="#new-blocks" class="md-nav__link">
-    New Blocks
+    <span class="md-ellipsis">New Blocks</span>
   </a>
   
 </li>
@@ -508,7 +533,7 @@
   
     <li class="md-nav__item">
       <a href="admonitions.html" class="md-nav__link">
-        Admonitions
+        <span class="md-ellipsis">Admonitions</span>
       </a>
     </li>
   
@@ -529,76 +554,89 @@
       
         <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
       
-      <label class="md-nav__link" for="__nav_3">
-        <a class="" href="demo_api.html">Examples and Uses</a>
-        <span class="md-nav__icon md-icon"></span>
-      </label>
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          <span class="md-ellipsis">Examples and Uses</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <nav class="md-nav" aria-label="Examples and Uses" data-md-level="1">
         <label class="md-nav__title" for="__nav_3">
           <span class="md-nav__icon md-icon"></span>
-          Examples and Uses
+          <span class="md-ellipsis">Examples and Uses</span>
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
             
+              
   
   
   
     <li class="md-nav__item">
       <a href="demo_api.html" class="md-nav__link">
-        sample API documentation and generated content
+        <span class="md-ellipsis">sample API documentation and generated content</span>
       </a>
     </li>
   
 
+            
           
             
+              
   
   
   
     <li class="md-nav__item">
       <a href="specimen.html" class="md-nav__link">
-        Specimen
+        <span class="md-ellipsis">Specimen</span>
       </a>
     </li>
   
 
+            
           
             
+              
   
   
   
     <li class="md-nav__item">
       <a href="rst_basics.html" class="md-nav__link">
-        reStructuredText Primer
+        <span class="md-ellipsis">re<wbr>Structured<wbr>Text Primer</span>
       </a>
     </li>
   
 
+            
           
             
+              
   
   
   
     <li class="md-nav__item">
       <a href="rst-cheatsheet/rst-cheatsheet.html" class="md-nav__link">
-        rst Cheatsheet
+        <span class="md-ellipsis">rst Cheatsheet</span>
       </a>
     </li>
   
 
+            
           
             
+              
   
   
   
     <li class="md-nav__item">
       <a href="additional_samples.html" class="md-nav__link">
-        Additional Samples
+        <span class="md-ellipsis">Additional Samples</span>
       </a>
     </li>
   
 
+            
           
         </ul>
       </nav>
@@ -618,26 +656,28 @@
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+
+  
+
+<nav class="md-nav md-nav--secondary">
   
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
-      Customization
-      
+      <span class="md-ellipsis">Customization</span>
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
   <a href="#confval-hero" class="md-nav__link">
-    hero
+    <span class="md-ellipsis">hero</span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#configuration-options" class="md-nav__link">
-    Configuration Options
+    <span class="md-ellipsis">Configuration Options</span>
   </a>
   
     <nav class="md-nav" aria-label="Configuration Options">
@@ -645,14 +685,14 @@
         
           <li class="md-nav__item">
   <a href="#confval-html_logo" class="md-nav__link">
-    html_logo
+    <span class="md-ellipsis">html_<wbr>logo</span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#confval-html_theme_options" class="md-nav__link">
-    html_theme_options
+    <span class="md-ellipsis">html_<wbr>theme_<wbr>options</span>
   </a>
   
     <nav class="md-nav" aria-label="html_theme_options">
@@ -660,56 +700,56 @@
         
           <li class="md-nav__item">
   <a href="#confval-site_url" class="md-nav__link">
-    site_url
+    <span class="md-ellipsis">site_<wbr>url</span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#confval-repo_url" class="md-nav__link">
-    repo_url
+    <span class="md-ellipsis">repo_<wbr>url</span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#confval-repo_name" class="md-nav__link">
-    repo_name
+    <span class="md-ellipsis">repo_<wbr>name</span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#confval-repo_type" class="md-nav__link">
-    repo_type
+    <span class="md-ellipsis">repo_<wbr>type</span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#confval-icon-repo" class="md-nav__link">
-    icon[&#34;repo&#34;]
+    <span class="md-ellipsis">icon<wbr>[&#34;repo&#34;]</span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#confval-edit_uri" class="md-nav__link">
-    edit_uri
+    <span class="md-ellipsis">edit_<wbr>uri</span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#confval-features" class="md-nav__link">
-    features
+    <span class="md-ellipsis">features</span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#confval-palette" class="md-nav__link">
-    palette
+    <span class="md-ellipsis">palette</span>
   </a>
   
     <nav class="md-nav" aria-label="palette">
@@ -717,35 +757,35 @@
         
           <li class="md-nav__item">
   <a href="#confval-scheme" class="md-nav__link">
-    scheme
+    <span class="md-ellipsis">scheme</span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#confval-primary" class="md-nav__link">
-    primary
+    <span class="md-ellipsis">primary</span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#confval-accent" class="md-nav__link">
-    accent
+    <span class="md-ellipsis">accent</span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#confval-toggle" class="md-nav__link">
-    toggle
+    <span class="md-ellipsis">toggle</span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#confval-media-palette-preference" class="md-nav__link">
-    media (palette preference)
+    <span class="md-ellipsis">media <wbr>(palette preference)</span>
   </a>
   
 </li>
@@ -757,49 +797,63 @@
         
           <li class="md-nav__item">
   <a href="#confval-direction" class="md-nav__link">
-    direction
+    <span class="md-ellipsis">direction</span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#confval-font" class="md-nav__link">
-    font
+    <span class="md-ellipsis">font</span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#confval-google_analytics_account" class="md-nav__link">
-    google_analytics_account
+    <span class="md-ellipsis">google_<wbr>analytics_<wbr>account</span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#confval-globaltoc_collapse" class="md-nav__link">
-    globaltoc_collapse
+    <span class="md-ellipsis">globaltoc_<wbr>collapse</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#confval-toc_title" class="md-nav__link">
+    <span class="md-ellipsis">toc_<wbr>title</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#confval-toc_title_is_page_title" class="md-nav__link">
+    <span class="md-ellipsis">toc_<wbr>title_<wbr>is_<wbr>page_<wbr>title</span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#confval-version_dropdown" class="md-nav__link">
-    version_dropdown
+    <span class="md-ellipsis">version_<wbr>dropdown</span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#confval-version_json" class="md-nav__link">
-    version_json
+    <span class="md-ellipsis">version_<wbr>json</span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#confval-version_info" class="md-nav__link">
-    version_info
+    <span class="md-ellipsis">version_<wbr>info</span>
   </a>
   
 </li>
@@ -816,7 +870,7 @@
       
         <li class="md-nav__item">
   <a href="#version-dropdown" class="md-nav__link">
-    Version Dropdown
+    <span class="md-ellipsis">Version Dropdown</span>
   </a>
   
     <nav class="md-nav" aria-label="Version Dropdown">
@@ -824,14 +878,14 @@
         
           <li class="md-nav__item">
   <a href="#supported-approaches" class="md-nav__link">
-    Supported Approaches
+    <span class="md-ellipsis">Supported Approaches</span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#version-information-structure" class="md-nav__link">
-    Version Information Structure
+    <span class="md-ellipsis">Version Information Structure</span>
   </a>
   
 </li>
@@ -843,7 +897,7 @@
       
         <li class="md-nav__item">
   <a href="#customizing-the-layout" class="md-nav__link">
-    Customizing the layout
+    <span class="md-ellipsis">Customizing the layout</span>
   </a>
   
     <nav class="md-nav" aria-label="Customizing the layout">
@@ -851,7 +905,7 @@
         
           <li class="md-nav__item">
   <a href="#new-blocks" class="md-nav__link">
-    New Blocks
+    <span class="md-ellipsis">New Blocks</span>
   </a>
   
 </li>
@@ -871,13 +925,13 @@
           
           <div class="md-content" data-md-component="content">
             <article class="md-content__inner md-typeset" role="main">
-              
                 
-                  <a href="https://github.com/jbms/sphinx-immaterial/blob/main/docs/customization.rst" title="Edit this page" class="md-content__button md-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
-                  </a>
-                
-                
+<a href="https://github.com/jbms/sphinx-immaterial/blob/main/docs/customization.rst" title="Edit this page" class="md-content__button md-icon">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+</a>
+
+
+
   <h1 id="customization"><span id="id1"></span>Customization<a class="headerlink" href="#customization" title="Permalink to this headline">¶</a></h1>
 <p>This theme is customized via fields in the <a class="reference internal" href="#confval-html_theme_options"><code class="xref any std std-confval docutils literal notranslate"><span class="pre">html_theme_options</span></code></a> <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><code class="xref any docutils literal notranslate"><span class="pre">dict</span></code></a> in <em>conf.py</em>.
 Unlike, newer versions of mkdocs-material theme, this theme also supports the use of a textual
@@ -984,22 +1038,25 @@ commit.</p>
 <dd><p>Some features that have been ported from the mkdocs-material theme and can be enabled by specifying the features name in a list
 of strings. The following features are supported:</p>
 <ul class="simple">
-<li><p><a class="reference external" href="https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#navigation-expansion">navigation.expand</a></p></li>
-<li><p><a class="reference external" href="https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#navigation-tabs">navigation.tabs</a> (only shows for browsers with large viewports)</p></li>
-<li><p><a class="reference external" href="https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#navigation-integration">toc.integrate</a></p></li>
-<li><p><a class="reference external" href="https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#navigation-sections">navigation.sections</a></p></li>
-<li><p><a class="reference external" href="https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#instant-loading">navigation.instant</a></p></li>
+<li><p><a class="reference external" href="https://squidfunk.github.io/mkdocs-material/reference/code-blocks/#code-annotations">content.code.annotate</a></p></li>
 <li><p><a class="reference external" href="https://squidfunk.github.io/mkdocs-material/setup/setting-up-the-header/#automatic-hiding">header.autohide</a></p></li>
+<li><p><a class="reference external" href="https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#navigation-expansion">navigation.expand</a></p></li>
+<li><p><a class="reference external" href="https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#instant-loading">navigation.instant</a></p></li>
+<li><p><a class="reference external" href="https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#navigation-sections">navigation.sections</a></p></li>
+<li><p><a class="reference external" href="https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#navigation-tabs">navigation.tabs</a> (only shows for browsers with large viewports)</p></li>
+<li><p><a class="reference external" href="https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#sticky-navigation-tabs">navigation.tabs.sticky</a></p></li>
 <li><p><a class="reference external" href="https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#back-to-top-button">navigation.top</a></p></li>
+<li><p><a class="reference external" href="https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#anchor-tracking">navigation.tracking</a></p></li>
 <li><p><a class="reference external" href="https://squidfunk.github.io/mkdocs-material/setup/setting-up-site-search/#search-highlighting">search.highlight</a></p></li>
 <li><p><a class="reference external" href="https://squidfunk.github.io/mkdocs-material/setup/setting-up-site-search/#search-sharing">search.share</a></p></li>
+<li><p><a class="reference external" href="https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#navigation-integration">toc.integrate</a></p></li>
 </ul>
 </dd></dl>
 
 <dl class="std confval objdesc">
 <dt class="sig sig-object std" id="confval-palette">
 <span class="sig-name descname"><span class="pre">palette</span></span><a class="headerlink" href="#confval-palette" title="Permalink to this definition">¶</a></dt>
-<dd><p>The theme’s color pallet <strong>must be</strong> a single <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><code class="xref any docutils literal notranslate"><span class="pre">dict</span></code></a> or a <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><code class="xref any docutils literal notranslate"><span class="pre">list</span></code></a> of <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><code class="xref any docutils literal notranslate"><span class="pre">dict</span></code></a>s.
+<dd><p>The theme’s color pallete <strong>must be</strong> a single <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><code class="xref any docutils literal notranslate"><span class="pre">dict</span></code></a> or a <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><code class="xref any docutils literal notranslate"><span class="pre">list</span></code></a> of <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><code class="xref any docutils literal notranslate"><span class="pre">dict</span></code></a>s.
 Each <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><code class="xref any docutils literal notranslate"><span class="pre">dict</span></code></a> can optionally specify a <code class="docutils literal notranslate"><span class="pre">scheme</span></code>, <code class="docutils literal notranslate"><span class="pre">primary</span></code>, <code class="docutils literal notranslate"><span class="pre">accent</span></code>, and <code class="docutils literal notranslate"><span class="pre">media</span></code>
 fields.</p>
 <dl class="std confval objdesc">
@@ -1149,6 +1206,24 @@ table of contents tree will be duplicated on every page.</p>
 </dd></dl>
 
 <dl class="std confval objdesc">
+<dt class="sig sig-object std" id="confval-toc_title">
+<span class="sig-name descname"><span class="pre">toc_title</span></span><a class="headerlink" href="#confval-toc_title" title="Permalink to this definition">¶</a></dt>
+<dd><p>A string that specifies the title text that appears above the table of
+contents in the side bar.  If neither this configuration option nor
+<a class="reference internal" href="#confval-toc_title_is_page_title"><code class="xref std std-confval docutils literal notranslate"><span class="pre">toc_title_is_page_title</span></code></a> is specified, a default
+language-dependent translation of “Table of Contents” is used.  This
+configuration option takes precedence over
+<a class="reference internal" href="#confval-toc_title_is_page_title"><code class="xref std std-confval docutils literal notranslate"><span class="pre">toc_title_is_page_title</span></code></a>.</p>
+</dd></dl>
+
+<dl class="std confval objdesc">
+<dt class="sig sig-object std" id="confval-toc_title_is_page_title">
+<span class="sig-name descname"><span class="pre">toc_title_is_page_title</span></span><a class="headerlink" href="#confval-toc_title_is_page_title" title="Permalink to this definition">¶</a></dt>
+<dd><p>If set to <code class="docutils literal notranslate"><span class="pre">True</span></code> and <a class="reference internal" href="#confval-toc_title"><code class="xref std std-confval docutils literal notranslate"><span class="pre">toc_title</span></code></a> is unspecified, the table of
+contents is labeled in the side bar by the title of the page itself.</p>
+</dd></dl>
+
+<dl class="std confval objdesc">
 <dt class="sig sig-object std" id="confval-version_dropdown">
 <span class="sig-name descname"><span class="pre">version_dropdown</span></span><a class="headerlink" href="#confval-version_dropdown" title="Permalink to this definition">¶</a></dt>
 <dd><p>A <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><code class="xref any docutils literal notranslate"><span class="pre">bool</span></code></a> flag indicating whether the version drop-down selector should be used. See
@@ -1276,6 +1351,7 @@ called “3.0-rc1”.</p>
             <span class="s2">&quot;aliases&quot;</span><span class="p">:</span> <span class="p">[]</span>
         <span class="p">},</span>
     <span class="p">],</span>
+    <span class="s2">&quot;toc_title_is_page_title&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
 </code></pre></div>
 </div>
 </div>
@@ -1285,8 +1361,8 @@ called “3.0-rc1”.</p>
 in the <code class="docutils literal notranslate"><span class="pre">verion</span></code> field.</p>
 </div>
 <div class="sd-tab-set docutils">
-<input checked="checked" id="0ecfb37f-5c6b-45f1-ae9e-2182f1ca4567" name="5a893446-676f-46a6-bf9b-65e1b54fbd6d" type="radio">
-</input><label class="sd-tab-label sd-font-weight-light" for="0ecfb37f-5c6b-45f1-ae9e-2182f1ca4567">
+<input checked="checked" id="fca3bd86-9dbd-423e-a7f3-07f28826a87e" name="11d4854b-b273-49fa-a219-59bf3cf0018f" type="radio">
+</input><label class="sd-tab-label sd-font-weight-light" for="fca3bd86-9dbd-423e-a7f3-07f28826a87e">
 Using <code class="docutils literal notranslate"><span class="pre">version_info</span></code> in conf.py</label><div class="sd-tab-content docutils">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="n">html_theme_options</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s2">&quot;version_dropdown&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
@@ -1298,8 +1374,8 @@ Using <code class="docutils literal notranslate"><span class="pre">version_info<
 </code></pre></div>
 </div>
 </div>
-<input id="8bff0e57-497c-490d-81f9-ede1763ca91a" name="5a893446-676f-46a6-bf9b-65e1b54fbd6d" type="radio">
-</input><label class="sd-tab-label sd-font-weight-light" for="8bff0e57-497c-490d-81f9-ede1763ca91a">
+<input id="c54bf56f-000e-4a3b-b73e-90d0bce5648c" name="11d4854b-b273-49fa-a219-59bf3cf0018f" type="radio">
+</input><label class="sd-tab-label sd-font-weight-light" for="c54bf56f-000e-4a3b-b73e-90d0bce5648c">
 Using a JSON file</label><div class="sd-tab-content docutils">
 <div class="admonition hint">
 <p class="admonition-title">Hint</p>
@@ -1345,24 +1421,16 @@ touch source/_templates/layout.html
 </dl>
 
 
-                
-                  
-                    
 
-<hr>
-<div class="md-source-date">
+  <hr>
+<div class="md-source-file">
   <small>
     
-      Last update: Feb 23, 2022
+      Last update:
+      Mar 01, 2022
     
   </small>
 </div>
-                  
-                
-              
-              
-                
-
 
               
             </article>
@@ -1376,8 +1444,7 @@ touch source/_templates/layout.html
         
       </main>
       
-        
-<footer class="md-footer">
+        <footer class="md-footer">
   
     <nav class="md-footer__inner md-grid" aria-label="Footer">
       
@@ -1415,23 +1482,24 @@ touch source/_templates/layout.html
     </nav>
   
   
+  
   <div class="md-footer-meta md-typeset">
     
     <div class="md-footer-meta__inner md-grid">
-      <div class="md-footer-copyright">
+      <div class="md-copyright">
+  
+    <div class="md-footer-copyright__highlight">
+        &#169; Copyright 2021 The Sphinx-Immaterial Authors.
         
-          <div class="md-footer-copyright__highlight">
-              &#169; Copyright 2021 The Sphinx-Immaterial Authors.
-              
-          </div>
-        
-          Created using
-          <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
-          4.4.0.
-           and
-          <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
-        
-      </div>
+    </div>
+  
+    Created using
+    <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
+    4.4.0.
+     and
+    <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
+  
+</div>
       
     </div>
     
@@ -1442,11 +1510,10 @@ touch source/_templates/layout.html
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": ".", "features": ["navigation.sections", "navigation.top"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": {"provider": "mike", "staticVersions": [{"aliases": [], "title": "ReadTheDocs", "version": "https://sphinx-immaterial.rtfd.io"}, {"aliases": [], "title": "Github Pages", "version": "https://jbms.github.io/sphinx-immaterial"}], "versionPath": null}}</script>
+    <script id="__config" type="application/json">{"base": ".", "features": ["navigation.sections", "navigation.top", "search.share"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": {"provider": "mike", "staticVersions": [{"aliases": [], "title": "ReadTheDocs", "version": "https://sphinx-immaterial.rtfd.io"}, {"aliases": [], "title": "Github Pages", "version": "https://jbms.github.io/sphinx-immaterial"}], "versionPath": null}}</script>
     
     
-      <script src="_static/javascripts/bundle.c6851205.min.js"></script>
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+      <script src="_static/javascripts/bundle.21b916f4.min.js"></script>
         <script src="_static/design-tabs.js"></script>
     
   </body>
