@@ -455,9 +455,9 @@ def _html_page_context(
         content=context.get("body"),
     )
     if meta:
-        if meta.get("tocdepth") == 0:
+        if meta.get("tocdepth") == 0 or "hide-toc" in meta.keys():
             page["meta"]["hide"].append("toc")
-        if meta.get("hide") == "navigation":
+        if "hide-navigation" in meta.keys():
             page["meta"]["hide"].append("navigation")
     if context.get("next"):
         page["next_page"] = {

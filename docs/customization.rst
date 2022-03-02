@@ -104,11 +104,16 @@
 Customization
 =============
 
-This theme is customized via fields in the `html_theme_options` `dict` in *conf.py*.
-Unlike, newer versions of mkdocs-material theme, this theme also supports the use of a textual
-"hero" section.
+Metadata for a single page
+==========================
+
+Each page can support a set of page-specific options. These are configured using metadata roles.
+Each metadata is evaluated as a ``:key: value`` pair.
 
 .. confval:: hero
+
+    Unlike, newer versions of mkdocs-material theme, this theme also supports the use of a textual
+    "hero" section.
 
     To set the hero's text for an individual page, use the ``:hero:`` metadata field for the desired page.
     If not specified, then the page will not have a hero section.
@@ -118,23 +123,33 @@ Unlike, newer versions of mkdocs-material theme, this theme also supports the us
 
         :hero: Configuration options to personalize your site.
 
-.. confval:: hide
+.. confval:: hide-navigation
 
-    Unlike the mkdocs-material theme, using the ``:hide:`` metadata can only be used to hide the
-    page's navigation menu (on large viewports only). This is done like so:
+    This theme uses the ``:hide-navigation:`` metadata to hide the page's navigation menu (on
+    large enough viewports only).
 
     .. code-block:: rst
+        :caption: Hide the navigation menu like so:
 
-        :hide: navigation
+        :hide-navigation:
 
-    .. note::
+.. confval:: hide-toc
 
-        Instead of using ``:hide: toc``, this theme uses the ``:tocdepth:`` metadata to hide the
-        page's Table of Contents.
+    This theme uses ``:hide-toc:`` metadata to hide the page's Table of Contents (on large enough
+    viewports only).
 
-        .. code-block:: rst
+    .. code-block:: rst
+        :caption: Hide the Table of Contents like so:
 
-            :tocdepth: 0
+        :hide-toc:
+
+    Instead of using ``:hide-toc:``, this theme can also use the ``:tocdepth:`` metadata to hide the
+    page's Table of Contents.
+
+    .. code-block:: rst
+        :caption: Set the depth for the Table of Contents to ``0``:
+
+        :tocdepth: 0
 
 Configuration Options
 =====================
@@ -151,6 +166,10 @@ Configuration Options
         and `html_favicon` are not as strict for this theme.
 
 .. confval:: html_theme_options
+
+    This theme is configured using a ``html_theme_options`` `dict` in the *conf.py* file. The
+    following subsections can be used can be used as keys whose values configure the theme in
+    different ways.
 
     .. confval:: site_url
 
