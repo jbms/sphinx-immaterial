@@ -224,7 +224,7 @@ Configuration Options
 
         .. hint::
             Sphinx automatically implements the
-            `navigation.index <https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#section-index-pages>`_
+            `navigation.indexes <https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#section-index-pages>`_
             feature.
 
     .. confval:: palette
