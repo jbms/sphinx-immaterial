@@ -118,6 +118,24 @@ Unlike, newer versions of mkdocs-material theme, this theme also supports the us
 
         :hero: Configuration options to personalize your site.
 
+.. confval:: hide
+
+    Unlike the mkdocs-material theme, using the ``:hide:`` metadata can only be used to hide the
+    page's navigation menu (on large viewports only). This is done like so:
+
+    .. code-block:: rst
+
+        :hide: navigation
+
+    .. note::
+
+        Instead of using ``:hide: toc``, this theme uses the ``:tocdepth:`` metadata to hide the
+        page's Table of Contents.
+
+        .. code-block:: rst
+
+            :tocdepth: 0
+
 Configuration Options
 =====================
 
@@ -128,7 +146,9 @@ Configuration Options
 
     .. seealso::
         This option is documented with more detail in the Sphinx documentation.
-        However, the size contrants for `html_logo` and `html_favicon` are not as strict for this theme.
+        However, the size constraints for
+        `html_logo <https://www.sphinx-doc.org/en/master/usage/configuration.html#confval-html_logo>`_
+        and `html_favicon` are not as strict for this theme.
 
 .. confval:: html_theme_options
 
@@ -193,13 +213,19 @@ Configuration Options
         - `navigation.expand <https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#navigation-expansion>`_
         - `navigation.instant <https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#instant-loading>`_
         - `navigation.sections <https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#navigation-sections>`_
-        - `navigation.tabs <https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#navigation-tabs>`_ (only shows for browsers with large viewports)
+        - `navigation.tabs <https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#navigation-tabs>`_
+          (only shows for browsers with large viewports)
         - `navigation.tabs.sticky <https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#sticky-navigation-tabs>`_
         - `navigation.top <https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#back-to-top-button>`_
         - `navigation.tracking <https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#anchor-tracking>`_
         - `search.highlight <https://squidfunk.github.io/mkdocs-material/setup/setting-up-site-search/#search-highlighting>`_
         - `search.share <https://squidfunk.github.io/mkdocs-material/setup/setting-up-site-search/#search-sharing>`_
         - `toc.integrate <https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#navigation-integration>`_
+
+        .. hint::
+            Sphinx automatically implements the
+            `navigation.index <https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#section-index-pages>`_
+            feature.
 
     .. confval:: palette
 
