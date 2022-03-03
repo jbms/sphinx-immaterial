@@ -130,9 +130,8 @@ Each metadata is evaluated as a ``:key: value`` pair.
 
 .. confval:: hide-navigation
 
-    If specified, hides the global navigation sidebar shown on the left side (or right side in
-    ``rtl`` languages `direction`) of the page. By default, the navigation menu is shown if the
-    browser viewport is sufficiently wide.
+    If specified, hides the global navigation sidebar shown on the left side of the page.
+    By default, the navigation menu is shown if the browser viewport is sufficiently wide.
 
     .. code-block:: rst
         :caption: Hide the navigation menu like so:
@@ -141,10 +140,10 @@ Each metadata is evaluated as a ``:key: value`` pair.
 
 .. confval:: hide-toc
 
-    If specified, hides the local table of contents shown on the right side (or left side in
-    ``rtl`` languages `direction`) of the page. By default the local table of contents is shown if
-    the page contains sub-sections and the browser viewport is sufficiently wide. If the
-    ``toc.integrate`` `feature <features>` is enabled, then this option has no effect.
+    If specified, hides the local table of contents shown on the right side of the page.
+    By default the local table of contents is shown if the page contains sub-sections and the
+    browser viewport is sufficiently wide. If the ``toc.integrate`` `feature <features>` is
+    enabled, then this option has no effect.
     
     .. code-block:: rst
         :caption: Hide the Table of Contents like so:
