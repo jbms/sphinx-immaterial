@@ -210,3 +210,15 @@ $objinfo-icon-size: 16px;
   border: 1px solid var(--md-default-fg-color--light);
   border-radius: 2px;
 }
+
+// a rule specifically designed for autosummary tables
+// this overrides `.md-typeset code { word-break: break-word; }`
+table.longtable.docutils.data.align-default {
+  tbody > tr > td > p > a.reference.internal {
+    > code.xref.py.py-obj.docutils.literal.notranslate {
+      > span.pre {
+        word-break: normal;
+      }
+    }
+  }
+}
