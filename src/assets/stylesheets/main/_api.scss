@@ -212,7 +212,7 @@ $objinfo-icon-size: 16px;
 }
 
 // a rule specifically designed for autosummary tables
-.reference.internal .xref.py.py-obj.docutils.literal.notranslate {
-  // overrides `.md-typeset code { word-break: break-word; }`
+// this overrides `.md-typeset code { word-break: break-word; }`
+table.longtable.docutils.data.align-default tbody > tr > td > p > a.reference.internal > code.xref.py.py-obj.docutils.literal.notranslate > span.pre {
   word-break: normal;
 }
