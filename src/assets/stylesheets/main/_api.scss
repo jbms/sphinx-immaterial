@@ -10,20 +10,22 @@ $objinfo-icon-size: 16px;
 // Wrap in .md-typeset to ensure rules below have higher selectivity
 // than those in _typeset.scss.
 .md-typeset {
+
   dl.objdesc,
   dl.api-field {
-    > dt {
+    >dt {
       font-family: var(--md-code-font-family);
       background: $api-color-header-bg;
 
       .desctype {
+
         &,
-        > a.reference {
+        >a.reference {
           color: $api-color-type;
           // font-weight: 700;
         }
 
-        > a.reference:hover {
+        >a.reference:hover {
           color: var(--md-accent-fg-color);
         }
       }
@@ -45,7 +47,7 @@ $objinfo-icon-size: 16px;
         font-weight: 700;
       }
 
-      a.reference > .sig-name {
+      a.reference>.sig-name {
         color: var(--md-typeset-a-color);
 
         &:hover {
@@ -67,6 +69,7 @@ $objinfo-icon-size: 16px;
 
       &.sig-wrap {
         .sig-param {
+
           // Ensure each parameter starts on a new line and is indented.
           &::before {
             white-space: pre;
@@ -76,7 +79,8 @@ $objinfo-icon-size: 16px;
           }
         }
 
-        .sig-param + .sig-paren {
+        .sig-param+.sig-paren {
+
           // Ensure the final paren starts on a new line
           &::before {
             white-space: pre;
@@ -88,7 +92,7 @@ $objinfo-icon-size: 16px;
   }
 
   dl.objdesc {
-    > dt {
+    >dt {
       padding: 0.5em;
       font-family: var(--md-code-font-family);
       background: $api-color-header-bg;
@@ -117,10 +121,11 @@ $objinfo-icon-size: 16px;
       }
     }
 
-    > dd {
+    >dd {
+
       // Heading like "Parameters" or "Returns"
       dl.field-list {
-        > dt {
+        >dt {
           margin-bottom: 1em;
           font-weight: 700;
           font-size: 1em;
@@ -130,7 +135,7 @@ $objinfo-icon-size: 16px;
   }
 
   dl.api-field {
-    > dt {
+    >dt {
 
       // Display as table so that background is just the width of the
       // content.
@@ -144,9 +149,10 @@ $objinfo-icon-size: 16px;
   }
 
   // Make object summaries more compact
-  dl.objdesc.summary > dd {
+  dl.objdesc.summary>dd {
+
     &,
-    > p:first-child {
+    >p:first-child {
       margin-top: 0;
     }
   }
@@ -157,7 +163,7 @@ $objinfo-icon-size: 16px;
 }
 
 :root {
-  > * {
+  >* {
     --objinfo-icon-fg-alias: #{$clr-orange-900};
     --objinfo-icon-fg-default: #{$clr-grey-800};
     --objinfo-icon-fg-data: #{$clr-blue-800};
@@ -213,6 +219,8 @@ $objinfo-icon-size: 16px;
 
 // a rule specifically designed for autosummary tables
 // this overrides `.md-typeset code { word-break: break-word; }`
-table.longtable.docutils.data.align-default tbody > tr > td > p > a.reference.internal > code.xref.py.py-obj.docutils.literal.notranslate > span.pre {
-  word-break: normal;
-}
+table.longtable.docutils.data.align-default {
+  tbody>tr>td>p>a.reference.internal>code.xref.py.py-obj.docutils.literal.notranslate>span.pre {
+    word-break: normal;
+  }
+} 
