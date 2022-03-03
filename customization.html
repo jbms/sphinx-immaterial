@@ -64,7 +64,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#confval-hero" class="md-skip">
+        <a href="#metadata-for-a-single-page" class="md-skip">
           Skip to content
         </a>
       
@@ -270,9 +270,36 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#metadata-for-a-single-page" class="md-nav__link">
+    <span class="md-ellipsis">Metadata for a single page</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Metadata for a single page">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#confval-hero" class="md-nav__link">
     <span class="md-ellipsis">hero</span>
   </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#confval-hide-navigation" class="md-nav__link">
+    <span class="md-ellipsis">hide-<wbr>navigation</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#confval-hide-toc" class="md-nav__link">
+    <span class="md-ellipsis">hide-<wbr>toc</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -669,9 +696,36 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#metadata-for-a-single-page" class="md-nav__link">
+    <span class="md-ellipsis">Metadata for a single page</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Metadata for a single page">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#confval-hero" class="md-nav__link">
     <span class="md-ellipsis">hero</span>
   </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#confval-hide-navigation" class="md-nav__link">
+    <span class="md-ellipsis">hide-<wbr>navigation</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#confval-hide-toc" class="md-nav__link">
+    <span class="md-ellipsis">hide-<wbr>toc</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -933,17 +987,61 @@
 
 
   <h1 id="customization"><span id="id1"></span>Customization<a class="headerlink" href="#customization" title="Permalink to this headline">¶</a></h1>
-<p>This theme is customized via fields in the <a class="reference internal" href="#confval-html_theme_options"><code class="xref any std std-confval docutils literal notranslate"><span class="pre">html_theme_options</span></code></a> <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><code class="xref any docutils literal notranslate"><span class="pre">dict</span></code></a> in <em>conf.py</em>.
-Unlike, newer versions of mkdocs-material theme, this theme also supports the use of a textual
-“hero” section.</p>
+<h2 id="metadata-for-a-single-page">Metadata for a single page<a class="headerlink" href="#metadata-for-a-single-page" title="Permalink to this headline">¶</a></h2>
+<p>Each page can support a set of page-specific options. These are configured using metadata roles.
+Each metadata is evaluated as a <code class="docutils literal notranslate"><span class="pre">:key:</span> <span class="pre">value</span></code> pair.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Review the
+<a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/field-lists.html#file-wide-metadata">File-wide metadata</a>
+section in the sphinx docs.</p>
+</div>
 <dl class="std confval objdesc">
 <dt class="sig sig-object std" id="confval-hero">
 <span class="sig-name descname"><span class="pre">hero</span></span><a class="headerlink" href="#confval-hero" title="Permalink to this definition">¶</a></dt>
-<dd><p>To set the hero’s text for an individual page, use the <code class="docutils literal notranslate"><span class="pre">:hero:</span></code> metadata field for the desired page.
+<dd><p>Unlike, newer versions of mkdocs-material theme, this theme also supports the use of a textual
+“hero” section.</p>
+<p>To set the hero’s text for an individual page, use the <code class="docutils literal notranslate"><span class="pre">:hero:</span></code> metadata field for the desired page.
 If not specified, then the page will not have a hero section.</p>
 <div class="literal-block-wrapper docutils container" id="id4">
 <div class="code-block-caption"><span class="caption-text">This is how the hero for this page is declared.</span><a class="headerlink" href="#id4" title="Permalink to this code">¶</a></div>
 <div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><code><span class="nc">:hero:</span> Configuration options to personalize your site.
+</code></pre></div>
+</div>
+</div>
+</dd></dl>
+
+<dl class="std confval objdesc">
+<dt class="sig sig-object std" id="confval-hide-navigation">
+<span class="sig-name descname"><span class="pre">hide-navigation</span></span><a class="headerlink" href="#confval-hide-navigation" title="Permalink to this definition">¶</a></dt>
+<dd><p>If specified, hides the global navigation sidebar shown on the left side of the page.
+By default, the navigation menu is shown if the browser viewport is sufficiently wide.</p>
+<div class="literal-block-wrapper docutils container" id="id5">
+<div class="code-block-caption"><span class="caption-text">Hide the navigation menu like so:</span><a class="headerlink" href="#id5" title="Permalink to this code">¶</a></div>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><code><span class="nc">:hide-navigation:</span>
+</code></pre></div>
+</div>
+</div>
+</dd></dl>
+
+<dl class="std confval objdesc">
+<dt class="sig sig-object std" id="confval-hide-toc">
+<span class="sig-name descname"><span class="pre">hide-toc</span></span><a class="headerlink" href="#confval-hide-toc" title="Permalink to this definition">¶</a></dt>
+<dd><p>If specified, hides the local table of contents shown on the right side of the page.
+By default the local table of contents is shown if the page contains sub-sections and the
+browser viewport is sufficiently wide. If the <code class="docutils literal notranslate"><span class="pre">toc.integrate</span></code> <a class="reference internal" href="#confval-features"><code class="xref any std std-confval docutils literal notranslate"><span class="pre">feature</span></code></a> is
+enabled, then this option has no effect.</p>
+<div class="literal-block-wrapper docutils container" id="id6">
+<div class="code-block-caption"><span class="caption-text">Hide the Table of Contents like so:</span><a class="headerlink" href="#id6" title="Permalink to this code">¶</a></div>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><code><span class="nc">:hide-toc:</span>
+</code></pre></div>
+</div>
+</div>
+<p>Instead of using <code class="docutils literal notranslate"><span class="pre">:hide-toc:</span></code>, this theme can also use the <code class="docutils literal notranslate"><span class="pre">:tocdepth:</span></code> metadata to hide the
+page’s Table of Contents.</p>
+<div class="literal-block-wrapper docutils container" id="id7">
+<div class="code-block-caption"><span class="caption-text">Set the depth for the Table of Contents to <code class="docutils literal notranslate"><span class="pre">0</span></code>:</span><a class="headerlink" href="#id7" title="Permalink to this code">¶</a></div>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><code><span class="nc">:tocdepth:</span> 0
 </code></pre></div>
 </div>
 </div>
@@ -958,14 +1056,18 @@ by specifying the <code class="docutils literal notranslate"><span class="pre">h
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
 <p>This option is documented with more detail in the Sphinx documentation.
-However, the size contrants for <a class="reference internal" href="#confval-html_logo"><code class="xref any std std-confval docutils literal notranslate"><span class="pre">html_logo</span></code></a> and <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/configuration.html#confval-html_favicon" title="(in Sphinx v5.0.0+)"><code class="xref any docutils literal notranslate"><span class="pre">html_favicon</span></code></a> are not as strict for this theme.</p>
+However, the size constraints for <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/configuration.html#confval-html_logo" title="(in Sphinx v5.0.0+)"><code class="xref std std-confval docutils literal notranslate"><span class="pre">html_logo</span></code></a>
+and <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/configuration.html#confval-html_favicon" title="(in Sphinx v5.0.0+)"><code class="xref any docutils literal notranslate"><span class="pre">html_favicon</span></code></a> are not as strict for this theme.</p>
 </div>
 </dd></dl>
 
 <dl class="std confval objdesc">
 <dt class="sig sig-object std" id="confval-html_theme_options">
 <span class="sig-name descname"><span class="pre">html_theme_options</span></span><a class="headerlink" href="#confval-html_theme_options" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="std confval objdesc">
+<dd><p>This theme is configured using a <code class="docutils literal notranslate"><span class="pre">html_theme_options</span></code> <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><code class="xref any docutils literal notranslate"><span class="pre">dict</span></code></a> in the <em>conf.py</em> file. The
+following subsections can be used can be used as keys whose values configure the theme in
+different ways.</p>
+<dl class="std confval objdesc">
 <dt class="sig sig-object std" id="confval-site_url">
 <span class="sig-name descname"><span class="pre">site_url</span></span><a class="headerlink" href="#confval-site_url" title="Permalink to this definition">¶</a></dt>
 <dd><p>Specify a site_url used to generate sitemap.xml links. If not specified, then
@@ -1012,8 +1114,8 @@ popular choices are:</p>
 <p class="admonition-title">Important</p>
 <p>This option has no effect if the <a class="reference internal" href="#confval-repo_url"><code class="xref std std-confval docutils literal notranslate"><span class="pre">repo_url</span></code></a> option is not specified.</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id5">
-<div class="code-block-caption"><span class="caption-text">This is the setting currently used by this documentation.</span><a class="headerlink" href="#id5" title="Permalink to this code">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id8">
+<div class="code-block-caption"><span class="caption-text">This is the setting currently used by this documentation.</span><a class="headerlink" href="#id8" title="Permalink to this code">¶</a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code>    <span class="s2">&quot;icon&quot;</span><span class="p">:</span> <span class="p">{</span>
         <span class="s2">&quot;repo&quot;</span><span class="p">:</span> <span class="s2">&quot;fontawesome/brands/github&quot;</span><span class="p">,</span>
     <span class="p">},</span>
@@ -1043,7 +1145,8 @@ of strings. The following features are supported:</p>
 <li><p><a class="reference external" href="https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#navigation-expansion">navigation.expand</a></p></li>
 <li><p><a class="reference external" href="https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#instant-loading">navigation.instant</a></p></li>
 <li><p><a class="reference external" href="https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#navigation-sections">navigation.sections</a></p></li>
-<li><p><a class="reference external" href="https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#navigation-tabs">navigation.tabs</a> (only shows for browsers with large viewports)</p></li>
+<li><p><a class="reference external" href="https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#navigation-tabs">navigation.tabs</a>
+(only shows for browsers with large viewports)</p></li>
 <li><p><a class="reference external" href="https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#sticky-navigation-tabs">navigation.tabs.sticky</a></p></li>
 <li><p><a class="reference external" href="https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#back-to-top-button">navigation.top</a></p></li>
 <li><p><a class="reference external" href="https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#anchor-tracking">navigation.tracking</a></p></li>
@@ -1051,6 +1154,12 @@ of strings. The following features are supported:</p>
 <li><p><a class="reference external" href="https://squidfunk.github.io/mkdocs-material/setup/setting-up-site-search/#search-sharing">search.share</a></p></li>
 <li><p><a class="reference external" href="https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#navigation-integration">toc.integrate</a></p></li>
 </ul>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>Sphinx automatically implements the
+<a class="reference external" href="https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#section-index-pages">navigation.indexes</a>
+feature.</p>
+</div>
 </dd></dl>
 
 <dl class="std confval objdesc">
@@ -1336,8 +1445,8 @@ called “3.0-rc1”.</p>
 </div>
 </li>
 </ul>
-<div class="literal-block-wrapper docutils container" id="id6">
-<div class="code-block-caption"><span class="caption-text">This is the version dropdown selector settings used by this theme:</span><a class="headerlink" href="#id6" title="Permalink to this code">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id9">
+<div class="code-block-caption"><span class="caption-text">This is the version dropdown selector settings used by this theme:</span><a class="headerlink" href="#id9" title="Permalink to this code">¶</a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code>    <span class="s2">&quot;version_dropdown&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
     <span class="s2">&quot;version_info&quot;</span><span class="p">:</span> <span class="p">[</span>
         <span class="p">{</span>
@@ -1361,8 +1470,8 @@ called “3.0-rc1”.</p>
 in the <code class="docutils literal notranslate"><span class="pre">verion</span></code> field.</p>
 </div>
 <div class="sd-tab-set docutils">
-<input checked="checked" id="fca3bd86-9dbd-423e-a7f3-07f28826a87e" name="11d4854b-b273-49fa-a219-59bf3cf0018f" type="radio">
-</input><label class="sd-tab-label sd-font-weight-light" for="fca3bd86-9dbd-423e-a7f3-07f28826a87e">
+<input checked="checked" id="3db160d3-0c59-4ed5-9dd4-908827649697" name="f875686f-37c3-4e2d-a913-4bfe566fc7f8" type="radio">
+</input><label class="sd-tab-label sd-font-weight-light" for="3db160d3-0c59-4ed5-9dd4-908827649697">
 Using <code class="docutils literal notranslate"><span class="pre">version_info</span></code> in conf.py</label><div class="sd-tab-content docutils">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="n">html_theme_options</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s2">&quot;version_dropdown&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
@@ -1374,8 +1483,8 @@ Using <code class="docutils literal notranslate"><span class="pre">version_info<
 </code></pre></div>
 </div>
 </div>
-<input id="c54bf56f-000e-4a3b-b73e-90d0bce5648c" name="11d4854b-b273-49fa-a219-59bf3cf0018f" type="radio">
-</input><label class="sd-tab-label sd-font-weight-light" for="c54bf56f-000e-4a3b-b73e-90d0bce5648c">
+<input id="ddf1b5e2-92f0-4ebc-b8ec-a01dc90f63f7" name="f875686f-37c3-4e2d-a913-4bfe566fc7f8" type="radio">
+</input><label class="sd-tab-label sd-font-weight-light" for="ddf1b5e2-92f0-4ebc-b8ec-a01dc90f63f7">
 Using a JSON file</label><div class="sd-tab-content docutils">
 <div class="admonition hint">
 <p class="admonition-title">Hint</p>
@@ -1427,7 +1536,7 @@ touch source/_templates/layout.html
   <small>
     
       Last update:
-      Mar 01, 2022
+      Mar 03, 2022
     
   </small>
 </div>
