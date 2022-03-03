@@ -110,6 +110,11 @@ Metadata for a single page
 Each page can support a set of page-specific options. These are configured using metadata roles.
 Each metadata is evaluated as a ``:key: value`` pair.
 
+.. seealso::
+    Review the
+    `File-wide metadata <https://www.sphinx-doc.org/en/master/usage/restructuredtext/field-lists.html#file-wide-metadata>`_
+    section in the sphinx docs.
+
 .. confval:: hero
 
     Unlike, newer versions of mkdocs-material theme, this theme also supports the use of a textual
@@ -125,8 +130,9 @@ Each metadata is evaluated as a ``:key: value`` pair.
 
 .. confval:: hide-navigation
 
-    This theme uses the ``:hide-navigation:`` metadata to hide the page's navigation menu (on
-    large enough viewports only).
+    If specified, hides the global navigation sidebar shown on the left side (or right side in
+    ``rtl`` languages `direction`) of the page. By default, the navigation menu is shown if the
+    browser viewport is sufficiently wide.
 
     .. code-block:: rst
         :caption: Hide the navigation menu like so:
@@ -135,9 +141,11 @@ Each metadata is evaluated as a ``:key: value`` pair.
 
 .. confval:: hide-toc
 
-    This theme uses ``:hide-toc:`` metadata to hide the page's Table of Contents (on large enough
-    viewports only).
-
+    If specified, hides the local table of contents shown on the right side (or left side in
+    ``rtl`` languages `direction`) of the page. By default the local table of contents is shown if
+    the page contains sub-sections and the browser viewport is sufficiently wide. If the
+    ``toc.integrate`` `feature <features>` is enabled, then this option has no effect.
+    
     .. code-block:: rst
         :caption: Hide the Table of Contents like so:
 
@@ -161,8 +169,7 @@ Configuration Options
 
     .. seealso::
         This option is documented with more detail in the Sphinx documentation.
-        However, the size constraints for
-        `html_logo <https://www.sphinx-doc.org/en/master/usage/configuration.html#confval-html_logo>`_
+        However, the size constraints for :external+sphinx_docs:confval:`html_logo`
         and `html_favicon` are not as strict for this theme.
 
 .. confval:: html_theme_options
