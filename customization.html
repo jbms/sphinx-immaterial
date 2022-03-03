@@ -17,7 +17,7 @@
       
     
     
-      <link rel="stylesheet" href="_static/stylesheets/main.a3988da6.min.css">
+      <link rel="stylesheet" href="_static/stylesheets/main.bdb82932.min.css">
       
         
         <link rel="stylesheet" href="_static/stylesheets/palette.52561aa6.min.css">
@@ -1139,14 +1139,25 @@ commit.</p>
 <span class="sig-name descname"><span class="pre">features</span></span><a class="headerlink" href="#confval-features" title="Permalink to this definition">¶</a></dt>
 <dd><p>Some features that have been ported from the mkdocs-material theme and can be enabled by specifying the features name in a list
 of strings. The following features are supported:</p>
-<ul class="simple">
+<ul>
 <li><p><a class="reference external" href="https://squidfunk.github.io/mkdocs-material/reference/code-blocks/#code-annotations">content.code.annotate</a></p></li>
 <li><p><a class="reference external" href="https://squidfunk.github.io/mkdocs-material/setup/setting-up-the-header/#automatic-hiding">header.autohide</a></p></li>
 <li><p><a class="reference external" href="https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#navigation-expansion">navigation.expand</a></p></li>
 <li><p><a class="reference external" href="https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#instant-loading">navigation.instant</a></p></li>
 <li><p><a class="reference external" href="https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#navigation-sections">navigation.sections</a></p></li>
 <li><p><a class="reference external" href="https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#navigation-tabs">navigation.tabs</a>
-(only shows for browsers with large viewports)</p></li>
+(only shows for browsers with large viewports)</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Due to a difference in general document structure between mkdocs and sphinx, any
+<a class="reference external" href="https://www.sphinx-doc.org/en/master/templating.html#toctree" title="(in Sphinx v5.0.0+)"><code class="xref any docutils literal notranslate"><span class="pre">toctree</span></code></a> entry should start with a page entity (that contains a section header).
+Sphinx does allow <a class="reference external" href="https://www.sphinx-doc.org/en/master/templating.html#toctree" title="(in Sphinx v5.0.0+)"><code class="xref any docutils literal notranslate"><span class="pre">toctree</span></code></a> entries to be a list of only hyperlinks, but a
+navigation tab created from such an entry will only lead to the first hyperlink in
+the <a class="reference external" href="https://www.sphinx-doc.org/en/master/templating.html#toctree" title="(in Sphinx v5.0.0+)"><code class="xref any docutils literal notranslate"><span class="pre">toctree</span></code></a>.</p>
+<p>See <a class="reference external" href="https://github.com/jbms/sphinx-immaterial/issues/33">issue #33</a> for a
+problematic demonstration.</p>
+</div>
+</li>
 <li><p><a class="reference external" href="https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#sticky-navigation-tabs">navigation.tabs.sticky</a></p></li>
 <li><p><a class="reference external" href="https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#back-to-top-button">navigation.top</a></p></li>
 <li><p><a class="reference external" href="https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#anchor-tracking">navigation.tracking</a></p></li>
@@ -1470,8 +1481,8 @@ called “3.0-rc1”.</p>
 in the <code class="docutils literal notranslate"><span class="pre">verion</span></code> field.</p>
 </div>
 <div class="sd-tab-set docutils">
-<input checked="checked" id="3db160d3-0c59-4ed5-9dd4-908827649697" name="f875686f-37c3-4e2d-a913-4bfe566fc7f8" type="radio">
-</input><label class="sd-tab-label sd-font-weight-light" for="3db160d3-0c59-4ed5-9dd4-908827649697">
+<input checked="checked" id="195d1365-c563-42c2-a3d9-f4e763f95025" name="87e77d3d-89f9-49c4-836e-db8f1e968882" type="radio">
+</input><label class="sd-tab-label sd-font-weight-light" for="195d1365-c563-42c2-a3d9-f4e763f95025">
 Using <code class="docutils literal notranslate"><span class="pre">version_info</span></code> in conf.py</label><div class="sd-tab-content docutils">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="n">html_theme_options</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s2">&quot;version_dropdown&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
@@ -1483,8 +1494,8 @@ Using <code class="docutils literal notranslate"><span class="pre">version_info<
 </code></pre></div>
 </div>
 </div>
-<input id="ddf1b5e2-92f0-4ebc-b8ec-a01dc90f63f7" name="f875686f-37c3-4e2d-a913-4bfe566fc7f8" type="radio">
-</input><label class="sd-tab-label sd-font-weight-light" for="ddf1b5e2-92f0-4ebc-b8ec-a01dc90f63f7">
+<input id="deead700-f887-4e2e-a7a1-1642a74c56ed" name="87e77d3d-89f9-49c4-836e-db8f1e968882" type="radio">
+</input><label class="sd-tab-label sd-font-weight-light" for="deead700-f887-4e2e-a7a1-1642a74c56ed">
 Using a JSON file</label><div class="sd-tab-content docutils">
 <div class="admonition hint">
 <p class="admonition-title">Hint</p>
