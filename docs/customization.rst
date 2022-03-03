@@ -240,6 +240,16 @@ Configuration Options
         - `navigation.sections <https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#navigation-sections>`_
         - `navigation.tabs <https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#navigation-tabs>`_
           (only shows for browsers with large viewports)
+
+          .. note::
+              Due to a difference in general document structure between mkdocs and sphinx, any
+              `toctree` entry should start with a page entity (that contains a section header).
+              Sphinx does allow `toctree` entries to be a list of only hyperlinks, but a
+              navigation tab created from such an entry will only lead to the first hyperlink in
+              the `toctree`.
+
+              See `issue #33 <https://github.com/jbms/sphinx-immaterial/issues/33>`_ for a
+              problematic demonstration.
         - `navigation.tabs.sticky <https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#sticky-navigation-tabs>`_
         - `navigation.top <https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#back-to-top-button>`_
         - `navigation.tracking <https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#anchor-tracking>`_
