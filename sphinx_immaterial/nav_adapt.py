@@ -454,8 +454,11 @@ def _html_page_context(
         meta={"hide": [], "revision_date": context.get("last_updated")},
         content=context.get("body"),
     )
-    if meta and meta.get("tocdepth") == 0:
-        page["meta"]["hide"].append("toc")
+    if meta:
+        if meta.get("tocdepth") == 0 or "hide-toc" in meta.keys():
+            page["meta"]["hide"].append("toc")
+        if "hide-navigation" in meta.keys():
+            page["meta"]["hide"].append("navigation")
     if context.get("next"):
         page["next_page"] = {
             "title": jinja2.Markup.escape(
