@@ -210,3 +210,9 @@ $objinfo-icon-size: 16px;
   border: 1px solid var(--md-default-fg-color--light);
   border-radius: 2px;
 }
+
+// a rule specifically designed for autosummary tables
+.reference.internal .xref.py.py-obj.docutils.literal.notranslate {
+  // overrides `.md-typeset code { word-break: break-word; }`
+  word-break: normal;
+}
