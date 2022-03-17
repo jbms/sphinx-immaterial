@@ -27,6 +27,7 @@ import {
   delay,
   distinctUntilChanged,
   distinctUntilKeyChanged,
+  filter,
   finalize,
   fromEvent,
   map,
@@ -34,6 +35,7 @@ import {
   of,
   shareReplay,
   startWith,
+  take,
   takeLast,
   takeUntil,
   tap
@@ -43,7 +45,8 @@ import { translation } from "~/_"
 import {
   getLocation,
   setToggle,
-  watchElementFocus
+  watchElementFocus,
+  watchToggle
 } from "~/browser"
 
 import { Component } from "../../_"
@@ -90,6 +93,18 @@ export function watchSearchQuery(
   } else {
     param$ = of()
   }
+
+  /* Remove query parameter when search is closed */
+  watchToggle("search")
+    .pipe(
+      filter(active => !active),
+      take(1)
+    )
+      .subscribe(() => {
+        const url = new URL(location.href)
+        url.searchParams.delete("q")
+        history.replaceState({}, "", `${url}`)
+      })
 
   /* Intercept focus and input events */
   const focus$ = watchElementFocus(el)
