@@ -260,6 +260,8 @@ def _config_inited(
     """Merge defaults into theme options."""
     if config["language"] is None:
         config["language"] = "en"  # default to English language
+    # make code-blocks' line numbers be a separate column of a 1-row table
+    config["html_codeblock_linenos_style"] = "table"  # default is "inline"
     config["html_theme_options"] = dict_merge(
         DEFAULT_THEME_OPTIONS, config["html_theme_options"]
     )
