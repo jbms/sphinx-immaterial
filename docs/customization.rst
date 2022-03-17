@@ -264,7 +264,7 @@ Configuration Options
 
     .. confval:: palette
 
-        The theme's color pallete **must be** a single `dict` or a `list` of `dict`\ s.
+        The theme's color pallette **must be** a single `dict` or a `list` of `dict`\ s.
         Each `dict` can optionally specify a ``scheme``, ``primary``, ``accent``, and ``media``
         fields.
 
@@ -427,7 +427,7 @@ The standard structure of the site (relative to the base domain) is usually
     /1.0
     /2.0
 
-Whereas Sphinx must be executed seperately for each version of the documentation you are
+Whereas Sphinx must be executed separately for each version of the documentation you are
 building.
 
 .. code-block:: text

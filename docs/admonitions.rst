@@ -33,7 +33,7 @@ usage in other sphinx-based themes. They are:
 Admonitions from mkdocs-material
 ********************************
 
-Some addtional admonitions are supported via the source code from the mkdocs-material theme.
+Some additional admonitions are supported via the source code from the mkdocs-material theme.
 These admonitions can still be used, but the syntax is a little different because it relies
 on the generic admonition defined in the reStructuredText specifications.
 
@@ -120,67 +120,35 @@ shown inside the demonstrated admonition.
          .. admonition:: Quote
             :class: quote
 
-Collapsable dropdown
+Collapsible dropdown
 *********************
 
-For collapsable dropdown admonitions, the mkdocs-material theme relies on a markdown syntax
+For collapsible dropdown admonitions, the mkdocs-material theme relies on a markdown syntax
 extension that cannot be used with sphinx. Instead, this sphinx-immaterial theme relies on
-other sphinx extensions to get similar (and more customizable) results.
+the sphinxcontrib-details-directive extension to get similar results.
 
-.. dropdown:: We endorse the sphinx-design extension!
-   :icon: package-dependents
-   :animate: fade-in-slide-down
-   :class-title: sd-text-primary sd-outline-primary
-   :class-container: sd-outline-danger
+.. details:: Open by default
+   :class: example
+   :open:
 
-   .. card:: You can do some pretty cool stuff with the :bdg-info-line:`sphinx-design extension`.
-      :class-title: sd-text-center
-      :margin: auto
+   .. code-block:: rst
 
-      .. grid::
+      .. details:: Open by default
+         :class: example
+         :open:
 
-         .. grid-item::
-            :columns: auto
-            :margin: auto
+.. details:: Closed by default
+   :class: help
 
-            .. button-ref:: buttons
-               :color: success
+   .. code-block:: rst
 
-         .. grid-item::
-            :columns: auto
-            :margin: auto
-
-            .. button-ref:: tabs
-               :color: success
-
-         .. grid-item::
-            :columns: auto
-            :margin: auto
-
-            .. button-ref:: grids
-               :color: success
-
-         .. grid-item::
-            :columns: auto
-            :margin: auto
-
-            .. button-ref:: cards
-               :color: success
-
-         .. grid-item::
-            :columns: auto
-            :margin: auto
-
-            .. button-ref:: dropdowns
-               :color: success
-
-      Not to mention inline octicon :octicon:`infinity;1.5rem;sd-text-info` and fontawesome
-      :fab:`font-awesome-flag` icons and :bdg-ref-info:`badges`.
+      .. details:: Closed by default
+         :class: help
 
 Removing the title
 ******************
 
-Since the mkdocs-material theme relies on a mardown extension that also allows removing the title
+Since the mkdocs-material theme relies on a markdown extension that also allows removing the title
 from an admonition, this theme has an added directive to do just that: ``md-admonition``.
 
 The admonition's title can be removed if the ``md-admonition`` directive is not provided
@@ -259,10 +227,10 @@ folder and add the new CSS to an additional style sheet.
    .. tab-item:: conf.py code
       :class-label: sd-font-weight-light
 
-        .. code-block:: python
+      .. code-block:: python
 
-            html_static_path = ["_static"]
-            html_css_files = ["extra_css.css"]
+         html_static_path = ["_static"]
+         html_css_files = ["extra_css.css"]
 
 
 .. admonition:: Pied Piper

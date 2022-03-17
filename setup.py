@@ -17,20 +17,19 @@
 # IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-import setuptools
-
 import atexit
 import distutils.command.build
 import os
 import subprocess
 import tempfile
 
+import setuptools
 import setuptools.command.build_py
 import setuptools.command.develop
 import setuptools.command.install
 import setuptools.command.sdist
 
-with open("requirements.txt") as reqs:
+with open("requirements.txt", encoding="utf-8") as reqs:
     REQUIREMENTS = [reqs.readlines()]
 
 root_dir = os.path.dirname(os.path.abspath(__file__))
