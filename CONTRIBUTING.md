@@ -18,13 +18,11 @@ There is no intention to support any mkdocs extensions in this theme because thi
 
 ### Merging in changes from upstream
 
-There is a script titled "merge_from_mkdocs_material.py" that is designed to do most of the heavy lifting when pulling in changes from the mkdocs-material theme. It provides a help menu
+There is a script titled "merge_from_mkdocs_material.py" that is designed to do most of the heavy lifting when pulling in changes from the mkdocs-material theme. It can only be executed in a Linux shell. More usage information is provided by the help menu:
 
 ```sh
 python merge_from_mkdocs_material.py -h
 ```
-
-And, it will provide as much info it can to aid in the merging process.
 
 Please take the time to read the extremely helpful comment from @jbms on the matter:
 
