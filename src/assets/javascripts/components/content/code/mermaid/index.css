@@ -92,6 +92,22 @@ marker {
   stroke: var(--md-default-fg-color--lighter);
 }
 
+/* Flowchart subgraph labels */
+.cluster span {
+  color: var(--md-mermaid-label-fg-color);
+  font-family: var(--md-mermaid-font-family);
+}
+
+/* Flowchart markers */
+#flowchart-circleStart,
+#flowchart-circleEnd,
+#flowchart-crossStart,
+#flowchart-crossEnd,
+#flowchart-pointStart,
+#flowchart-pointEnd {
+  stroke: none;
+}
+
 /* ----------------------------------------------------------------------------
  * Rules: class diagrams
  * ------------------------------------------------------------------------- */
