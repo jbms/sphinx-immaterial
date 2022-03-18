@@ -22,7 +22,7 @@ directive that exposes the underlying implementation in mkdocs-material theme.
     .. md-admonition::
         :class: missing
     
-        While all `mermaid.js`_ features should work out-of-the-box, This theme will currently only
+        While all `mermaid.js`_ features should work out-of-the-box, this theme will currently only
         adjust the fonts and colors for `flowcharts`_, `sequence diagrams <sequence-diagrams>`,
         `class diagrams <class-diagrams>`, `state diagrams <state-diagrams>`, and
         `entity-relationship diagrams <entity-relationship-diagrams>`.

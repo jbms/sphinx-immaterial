@@ -24,7 +24,7 @@ the sphinx-immaterial theme provides its own directives to make use of content t
 .. confval:: md-tab-set
 
     Each set of tabs on a page must begin with a `md-tab-set` directive. This directive
-    only accepts children that `md-tab-item` directives.
+    only accepts children that are `md-tab-item` directives.
 
     This directive supports ``:class:`` and ``:name:`` options to use custom CSS classes
     and reference links (respectively)
@@ -47,7 +47,7 @@ the sphinx-immaterial theme provides its own directives to make use of content t
                 To cross-reference this tab set from a different page, use
                 :ref:`tab set description <ref_this_tab_set>`
 
-                Clearly this also works on the same page.
+                Clearly, this also works on the same page.
 
             .. md-tab-item:: Custom CSS
 
@@ -72,7 +72,7 @@ the sphinx-immaterial theme provides its own directives to make use of content t
             To cross-reference this tab set from a different page, use
             :ref:`tab set description <ref_this_tab_set>`
 
-            Clearly this also works on the same page as the tab set.
+            Clearly, this also works on the same page as the tab set.
 
         .. md-tab-item:: Custom CSS
 

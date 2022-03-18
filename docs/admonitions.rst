@@ -42,7 +42,7 @@ shown inside the demonstrated admonition.
 
 .. important::
    The ``:class:`` options below (in the rST code blocks) must use lower case letters for the
-   styling to work. Otherwise, the admonition will look like a ``note`` (as that is the
+   styling to work. Otherwise, the admonition will look like a `note` (as that is the
    default fallback style).
 
 ``todo``, ``info``
