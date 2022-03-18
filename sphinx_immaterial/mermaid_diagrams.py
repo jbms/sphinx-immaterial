@@ -1,5 +1,4 @@
 """A custom directive that allows using mermaid diagrams"""
-from heapq import merge
 from typing import List
 from docutils import nodes
 from docutils.parsers.rst import directives
