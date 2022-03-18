@@ -26,16 +26,16 @@ class MermaidDirective(SphinxDirective):
             "",
             classes=["mermaid"] + self.options.get("class", []),
             name=self.options.get("name", ""),
+            content="\n".join(self.content),
         )
         self.set_source_info(diagram)
-        diagram += nodes.raw("", "\n".join(self.content), format="html")
         return [diagram]
 
 
 def visit_mermaid(self, node: mermaid_node):
     attributes = {"class": " ".join(node["classes"]), "name": node["name"]}
     self.body.append(self.starttag(node, "pre", **attributes))
-    self.body.append("<code>")
+    self.body.append("<code>\n" + node["content"])
 
 
 def depart_mermaid(self, node: mermaid_node):
