@@ -1,4 +1,5 @@
 """A custom directive that allows using mermaid diagrams"""
+from heapq import merge
 from typing import List
 from docutils import nodes
 from docutils.parsers.rst import directives
@@ -38,10 +39,19 @@ def visit_mermaid(self, node: mermaid_node):
     self.body.append("<code>\n" + node["content"])
 
 
+def visit_mermaid_latex(self, node: mermaid_node):
+    self.body.append("<pre class='mermaid'>")
+    self.body.append("<code>\n" + node["content"])
+
+
 def depart_mermaid(self, node: mermaid_node):
     self.body.append("</code></pre>")
 
 
 def setup(app: Sphinx):
     app.add_directive("md-mermaid", MermaidDirective)
-    app.add_node(mermaid_node, html=(visit_mermaid, depart_mermaid))
+    app.add_node(
+        mermaid_node,
+        html=(visit_mermaid, depart_mermaid),
+        latex=(visit_mermaid_latex, depart_mermaid),
+    )
