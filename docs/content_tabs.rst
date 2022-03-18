@@ -4,9 +4,9 @@ Content tabs
 ============
 
 .. note::
-    This document focused on content tabs, not navigation tabs.
+    This document discusses content tabs, not navigation tabs.
 
-Use of `content tabs in mkdocs-material <https://squidfunk.github.io/mkdocs-material/reference/content-tabs/>`_
+Use of `content tabs in the mkdocs-material <https://squidfunk.github.io/mkdocs-material/reference/content-tabs/>`_
 theme relies on a markdown extension that isn't used in the world of Sphinx. Instead,
 the sphinx-immaterial theme provides its own directives to make use of content tabs.
 
@@ -14,17 +14,30 @@ the sphinx-immaterial theme provides its own directives to make use of content t
     :class: missing
 
     The `linked content tabs <https://squidfunk.github.io/mkdocs-material/reference/content-tabs/#linked-content-tabs>`_
-    seen in mkdocs-material is not supported until that feature transitions from the mkdocs-material theme's insider
-    releases to it's public releases.
+    feature seen in mkdocs-material is not supported until that feature transitions from the mkdocs-material theme's insider
+    releases to its public releases.
 
-    However, you can use other sphinx extensions (like `sphinx-design tabs`_) to achieve this functionality.
-    Although, other extensions will require some custom CSS styling to match the mkdocs-material
+    You can use other sphinx extensions (like `sphinx-design tabs`_) to achieve this functionality.
+    However, other extensions will require some custom CSS styling to match the mkdocs-material
     theme's styling for content tabs.
 
-.. confval:: md-tab-set
+.. rst:directive:: md-tab-set
 
     Each set of tabs on a page must begin with a `md-tab-set` directive. This directive
     only accepts children that are `md-tab-item` directives.
+
+    .. rst:directive:option:: class
+        :type: string
+        
+        A space delimited list of qualified names that get used as the HTMl element's
+        ``class`` attribute.
+
+    .. rst:directive:option:: name
+        :type: string
+        
+        A qualified name that get used as the HTML element's ``id`` attribute.
+    
+        Use the `ref` role to reference the element by name.
 
     This directive supports ``:class:`` and ``:name:`` options to use custom CSS classes
     and reference links (respectively)
@@ -81,13 +94,35 @@ the sphinx-immaterial theme provides its own directives to make use of content t
                 :start-at: /* ************************ custom-tab-set-style
                 :end-before: /* *********************** custom-tab-item-style
 
-.. confval:: md-tab-item
+.. rst:directive:: md-tab-item
 
     This directive is used to create a tab within a set of content tabs. It requires a
-    label as it's argument. Additionally, it also supports the ``:class:`` option, to
-    optionally provide custom CSS classes to the tab's content (not the tab's label).
+    label as it's argument. 
 
-    .. code-block:: rst
+    .. rst:directive:option:: class
+        :type: string
+        
+        A space delimited list of qualified names that get used as the HTMl element's
+        ``class`` attribute.
+
+        Use the ``:class:`` option to optionally provide custom CSS classes to the tab's content
+        (not the tab's label).
+
+        .. code-block:: rst
+
+            .. md-tab-set::
+
+                .. md-tab-item:: Customized content
+                    :class: custom-tab-item-style
+
+                    This content could be styled differently from other page content.
+
+                .. md-tab-item:: Custom CSS
+
+                    .. literalinclude:: _static/extra_css.css
+                        :language: css
+                        :start-at: /* *********************** custom-tab-item-style
+                        :end-before: /* ************************* inline icon stuff
 
         .. md-tab-set::
 
@@ -102,20 +137,6 @@ the sphinx-immaterial theme provides its own directives to make use of content t
                     :language: css
                     :start-at: /* *********************** custom-tab-item-style
                     :end-before: /* ************************* inline icon stuff
-
-    .. md-tab-set::
-
-        .. md-tab-item:: Customized content
-            :class: custom-tab-item-style
-
-            This content could be styled differently from other page content.
-
-        .. md-tab-item:: Custom CSS
-
-            .. literalinclude:: _static/extra_css.css
-                :language: css
-                :start-at: /* *********************** custom-tab-item-style
-                :end-before: /* ************************* inline icon stuff
 
 Typical examples are seen in this documentations'
 `Custom admonitions <admonitions.html#custom-admonitions>`_ and

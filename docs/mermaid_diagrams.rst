@@ -8,16 +8,29 @@ Mermaid diagrams
 
 The mkdocs-material theme is equipped to make use of diagrams generated (during page load time)
 with `mermaid.js`_. Although, its implementation relies on a markdown extension that does not get
-used by this sphinx-immaterial theme. Thus, the sphinx-immaterial theme provides with an optional
+used by this sphinx-immaterial theme. Thus, the sphinx-immaterial theme provides an optional
 directive that exposes the underlying implementation in mkdocs-material theme.
 
-.. confval:: md-mermaid
+.. rst:directive:: md-mermaid
 
-    The `md-mermaid` directive does support the ``:class:`` and ``:name:`` options which can used
+    .. rst:directive:option:: class
+        :type: string
+        
+        A space delimited list of qualified names that get used as the HTMl element's
+        ``class`` attribute.
+
+    .. rst:directive:option:: name
+        :type: string
+        
+        A qualified name that get used as the HTML element's ``id`` attribute.
+    
+        Use the `ref` role to reference the element by name.
+
+    The `md-mermaid` directive's ``:class:`` and ``:name:`` options can be used
     as respective class and id specifiers in custom CSS.
 
-    This theme comes with CSS styling that conforms to the chosen primary & accent colors
-    (based on the selected scheme).
+    This theme comes with CSS styling that conforms to the chosen `primary` & `accent` colors
+    (based on the selected `scheme`).
 
     .. md-admonition::
         :class: missing
