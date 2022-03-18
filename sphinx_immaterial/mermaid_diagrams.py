@@ -2,7 +2,7 @@
 from typing import List
 from docutils import nodes
 from docutils.parsers.rst import directives
-from sphinx.util.docutils import SphinxDirective, is_node_registered
+from sphinx.util.docutils import SphinxDirective
 from sphinx.application import Sphinx
 
 
@@ -42,23 +42,18 @@ def visit_mermaid_node_html(self, node: mermaid_node):
     self.body.append(self.starttag(node, "pre", **attributes))
 
 
-def depart_mermaid_node_html(self, node: mermaid_node):
+def depart_mermaid_node(self, node: mermaid_node):
     self.body.append("</pre>")
 
 
 def visit_mermaid_node_latex(self, node: mermaid_node):
     self.body.append('<pre class="mermaid">')
-    self.body.append("<code>\n" + node["content"])
-
-
-def depart_mermaid_node_latex(self, node: mermaid_node):
-    self.body.append("</code></pre>")
 
 
 def setup(app: Sphinx):
     app.add_directive("md-mermaid", MermaidDirective)
     app.add_node(
         mermaid_node,
-        html=(visit_mermaid_node_html, depart_mermaid_node_html),
-        latex=(visit_mermaid_node_latex, depart_mermaid_node_latex),
+        html=(visit_mermaid_node_html, depart_mermaid_node),
+        latex=(visit_mermaid_node_latex, depart_mermaid_node),
     )
