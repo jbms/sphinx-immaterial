@@ -34,7 +34,8 @@ extensions = [
     "sphinx.ext.todo",
     "sphinx.ext.mathjax",
     "sphinx.ext.viewcode",
-    "sphinx_design",
+    "sphinx_immaterial.content_tabs",
+    "sphinxcontrib.details.directive",
 ]
 
 intersphinx_mapping = {

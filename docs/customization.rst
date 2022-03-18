@@ -531,10 +531,10 @@ aliases. Other required fields include ``version`` and ``title``.
     ``aliases`` do not apply when using an external URL (as in not relative to the same webserver)
     in the ``verion`` field.
 
-.. tab-set::
+.. md-tab-set::
+    :name: version_info_example
 
-    .. tab-item:: Using ``version_info`` in conf.py
-        :class-label: sd-font-weight-light
+    .. md-tab-item:: Using ``version_info`` in conf.py
 
         .. code-block:: python
 
@@ -546,8 +546,7 @@ aliases. Other required fields include ``version`` and ``title``.
                 ],
             }
 
-    .. tab-item:: Using a JSON file
-        :class-label: sd-font-weight-light
+    .. md-tab-item:: Using a JSON file
 
         .. hint::
             Remember to set ``"version_dropdown": True`` in the conf.py file's `html_theme_options` `dict`.

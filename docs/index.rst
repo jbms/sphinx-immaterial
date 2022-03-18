@@ -69,6 +69,7 @@ or ``theme.conf`` for more details.
 
     customization
     admonitions
+    content_tabs
 
 .. toctree::
     :caption: Examples and Uses

@@ -190,10 +190,9 @@ If you want to add a custom admonition type, all you need is a color and an \*.s
 Copy the icon's code from the `.icons <https://github.com/squidfunk/mkdocs-material/tree/master/material/.icons>`_
 folder and add the new CSS to an additional style sheet.
 
-.. tab-set::
+.. md-tab-set::
 
-   .. tab-item:: rST code
-      :class-label: sd-font-weight-light
+   .. md-tab-item:: rST code
 
       .. code-block:: rst
 
@@ -202,8 +201,7 @@ folder and add the new CSS to an additional style sheet.
 
                Don't tell him you use spaces instead of tabs...
 
-   .. tab-item:: CSS code
-      :class-label: sd-font-weight-light
+   .. md-tab-item:: CSS code
 
       .. code-block:: css
          :caption: docs/_static/extra_css.css
@@ -224,8 +222,7 @@ folder and add the new CSS to an additional style sheet.
                  mask-image: var(--md-admonition-icon--pied-piper);
          }
 
-   .. tab-item:: conf.py code
-      :class-label: sd-font-weight-light
+   .. md-tab-item:: conf.py code
 
       .. code-block:: python
 
@@ -237,24 +234,3 @@ folder and add the new CSS to an additional style sheet.
    :class: pied-piper
 
    Don't tell him you use spaces instead of tabs...
-
-.. _tabbed_locks:
-
-.. md-admonition::
-   :class: todo
-
-   The use of tabbed blocks (as seen above) are provided from `sphinx-design extension`_.
-   We added some custom CSS to make the tabs' labels conform to this theme's color palete.
-
-   .. code-block:: css
-
-      .sd-tab-set>input:checked+label {
-         border-color: var(--md-primary-fg-color);
-         color: var(--md-primary-fg-color);
-      }
-
-      .sd-tab-set>input:not(:checked)+label:hover {
-         color: var(--md-primary-fg-color);
-      }
-
-.. _sphinx-design extension: ` <https://sphinx-design.readthedocs.io/en/furo-theme>`_
