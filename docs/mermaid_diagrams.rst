@@ -13,12 +13,6 @@ directive that exposes the underlying implementation in mkdocs-material theme.
 
 .. confval:: md-mermaid
 
-    To enable this directive, simply add the extension to the conf.py extension list:
-
-    .. code-block:: python
-
-        extensions = ["sphinx_immaterial", "sphinx_immaterial.mermaid_diagrams"]
-
     The `md-mermaid` directive does support the ``:class:`` and ``:name:`` options which can used
     as respective class and id specifiers in custom CSS.
 

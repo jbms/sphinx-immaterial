@@ -285,8 +285,10 @@ def setup(app):
     app.add_builder(_get_html_builder(app.registry.builders["html"]), override=True)
     app.add_html_theme("sphinx_immaterial", os.path.abspath(os.path.dirname(__file__)))
 
-    # register our custom adminition directive
+    # register our custom adminition directive that are tied to the theme's CSS
     app.setup_extension("sphinx_immaterial.md_admonition")
+    app.setup_extension("sphinx_immaterial.content_tabs")
+    app.setup_extension("sphinx_immaterial.mermaid_diagrams")
     # patch the details directive's run method
     monkey_patch_details_run()
 

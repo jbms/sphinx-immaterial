@@ -10,11 +10,6 @@ Use of `content tabs in mkdocs-material <https://squidfunk.github.io/mkdocs-mate
 theme relies on a markdown extension that isn't used in the world of Sphinx. Instead,
 the sphinx-immaterial theme provides its own directives to make use of content tabs.
 
-.. code-block:: python
-    :caption: These directives require an added entry in conf.py's extension list:
-
-    extensions = ["sphinx_immaterial", "sphinx_immaterial.content_tabs"]
-
 .. admonition:: Linked Tabs
     :class: missing
 

@@ -35,8 +35,6 @@ extensions = [
     "sphinx.ext.mathjax",
     "sphinx.ext.viewcode",
     "sphinxcontrib.details.directive",
-    "sphinx_immaterial.content_tabs",
-    "sphinx_immaterial.mermaid_diagrams",
 ]
 
 intersphinx_mapping = {
