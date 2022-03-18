@@ -19,29 +19,27 @@ directive that exposes the underlying implementation in mkdocs-material theme.
 
         extensions = ["sphinx_immaterial", "sphinx_immaterial.mermaid_diagrams"]
 
-    The `md-mermaid` directive does support the ``:class:`` option, but it has no affect after
-    the graph is generated.
+    The `md-mermaid` directive does support the ``:class:`` and ``:name:`` options which can used
+    as respective class and id specifiers in custom CSS.
 
     This theme comes with CSS styling that conforms to the chosen primary & accent colors
-    (based on the selected scheme). To modify the CSS for a particular graph, you should use the
-    mechanics available in `mermaid.js`_. For example, each graph's node has a unique ``id``
-    and generic ``class`` attribute that can be used in a CSS rule's selector.
+    (based on the selected scheme).
 
     .. md-admonition::
         :class: missing
     
         While all `mermaid.js`_ features should work out-of-the-box, This theme will currently only
-        adjust the fonts and colors for `flowcharts`_, `sequence diagrams`_, `class diagrams`_,
-        `state diagrams`_ and `entity-relationship diagrams`_.
+        adjust the fonts and colors for `flowcharts`_, `sequence diagrams <sequence-diagrams>`,
+        `class diagrams <class-diagrams>`, `state diagrams <state-diagrams>`, and
+        `entity-relationship diagrams <entity-relationship-diagrams>`.
 
-.. _flowcharts:
-
-flowcharts
+Using flowcharts
 ----------------
 
 .. code-block:: rst
 
     .. md-mermaid::
+        :name: flowcharts
 
         graph LR
             A[Start] --> B{Error?};
@@ -51,6 +49,7 @@ flowcharts
             B ---->|No| E[Yay!];
 
 .. md-mermaid::
+    :name: flowcharts
 
     graph LR
         A[Start] --> B{Error?};
@@ -59,14 +58,13 @@ flowcharts
         D --> B;
         B ---->|No| E[Yay!];
 
-.. _sequence diagrams:
-
-sequence diagrams
+Using sequence diagrams
 -----------------------
 
 .. code-block:: rst
 
     .. md-mermaid::
+        :name: sequence-diagrams
 
         sequenceDiagram
             Alice->>John: Hello John, how are you?
@@ -79,6 +77,7 @@ sequence diagrams
             Bob-->>John: Jolly good!
 
 .. md-mermaid::
+    :name: sequence-diagrams
 
     sequenceDiagram
         Alice->>John: Hello John, how are you?
@@ -90,14 +89,13 @@ sequence diagrams
         John->>Bob: How about you?
         Bob-->>John: Jolly good!
 
-.. _state diagrams:
-
-state diagrams
+Using state diagrams
 --------------------
 
 .. code-block:: rst
 
     .. md-mermaid::
+        :name: state-diagrams
 
         stateDiagram-v2
             state fork_state <<fork>>
@@ -112,6 +110,7 @@ state diagrams
                 State4 --> [*]
 
 .. md-mermaid::
+    :name: state-diagrams
 
     stateDiagram-v2
         state fork_state <<fork>>
@@ -125,15 +124,14 @@ state diagrams
             join_state --> State4
             State4 --> [*]
 
-.. _class diagrams:
-
-class diagrams
+Using class diagrams
 --------------------
 
 
 .. code-block:: rst
 
     .. md-mermaid::
+        :name: class-diagrams
 
         classDiagram
             Person <|-- Student
@@ -163,6 +161,7 @@ class diagrams
             }
 
 .. md-mermaid::
+    :name: class-diagrams
 
     classDiagram
         Person <|-- Student
@@ -191,15 +190,14 @@ class diagrams
             +outputAsLabel()  
         }
 
-.. _entity-relationship diagrams:
-
-entity-relationship diagrams
+Using entity-relationship diagrams
 ----------------------------------
 
 
 .. code-block:: rst
 
     .. md-mermaid::
+        :name: entity-relationship-diagrams
 
         erDiagram
             CUSTOMER ||--o{ ORDER : places
@@ -207,6 +205,7 @@ entity-relationship diagrams
             CUSTOMER }|..|{ DELIVERY-ADDRESS : uses
 
 .. md-mermaid::
+    :name: entity-relationship-diagrams
 
     erDiagram
         CUSTOMER ||--o{ ORDER : places
