@@ -1,9 +1,11 @@
 from typing import List
 from docutils import nodes
+
 try:
     from sphinxcontrib.details.directive import DetailsDirective
 except ImportError:
     DetailsDirective = None
+
 
 def monkey_patch_details_run():
     """Patch the details directive to respect the class option.
