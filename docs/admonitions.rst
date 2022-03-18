@@ -123,9 +123,22 @@ shown inside the demonstrated admonition.
 Collapsible dropdown
 *********************
 
+.. _sphinxcontrib-details-directive extension: https://pypi.org/project/sphinxcontrib-details-directive
+
 For collapsible dropdown admonitions, the mkdocs-material theme relies on a markdown syntax
 extension that cannot be used with sphinx. Instead, this sphinx-immaterial theme relies on
-the sphinxcontrib-details-directive extension to get similar results.
+the `sphinxcontrib-details-directive extension`_
+to get similar results.
+
+The `sphinxcontrib-details-directive extension`_ should be added to conf.py's extension list.
+
+.. code-block:: python
+
+   extensions = ["sphinx_immaterial", "sphinxcontrib.details.directive"]
+
+
+If the ``:class:`` option is not supplied to the ``details`` directive then the admonition
+style falls back to a `note` admonition style.
 
 .. details:: Open by default
    :class: example

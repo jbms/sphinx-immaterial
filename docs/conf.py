@@ -34,14 +34,15 @@ extensions = [
     "sphinx.ext.todo",
     "sphinx.ext.mathjax",
     "sphinx.ext.viewcode",
-    "sphinx_immaterial.content_tabs",
+    "sphinx_immaterial",
     "sphinxcontrib.details.directive",
+    "sphinx_immaterial.content_tabs",
+    "sphinx_immaterial.mermaid_diagrams",
 ]
 
 intersphinx_mapping = {
     "python": ("https://docs.python.org/3", None),
     "sphinx_docs": ("https://www.sphinx-doc.org/en/master", None),
-    "sphinx-design": ("https://sphinx-design.readthedocs.io/en/furo-theme", None),
 }
 
 # The reST default role (used for this markup: `text`) to use for all
@@ -76,7 +77,7 @@ html_css_files = [
 
 # -- HTML theme settings ------------------------------------------------
 
-extensions.append("sphinx_immaterial")
+# extensions.append("sphinx_immaterial")
 html_title = "Sphinx-Immaterial"
 html_theme = "sphinx_immaterial"
 html_favicon = "_static/images/favicon.ico"  # colored version of material/bookshelf.svg

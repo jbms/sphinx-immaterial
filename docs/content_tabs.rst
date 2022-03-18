@@ -1,7 +1,7 @@
 .. _sphinx-design tabs: https://sphinx-design.readthedocs.io/en/furo-theme/tabs.html
 
-Using tabbed content
-====================
+Content tabs
+============
 
 .. note::
     This document focused on content tabs, not navigation tabs.

@@ -70,6 +70,7 @@ or ``theme.conf`` for more details.
     customization
     admonitions
     content_tabs
+    mermaid_diagrams
 
 .. toctree::
     :caption: Examples and Uses
