@@ -108,7 +108,10 @@ class MaterialTabItemDirective(SphinxDirective):
 
         # add tab content
         tab_content = nodes.container(
-            "", is_div=True, type="", classes=["tabbed-block"] + self.options.get("class", [])
+            "",
+            is_div=True,
+            type="",
+            classes=["tabbed-block"] + self.options.get("class", []),
         )
         self.state.nested_parse(self.content, self.content_offset, tab_content)
         tab_item += tab_content

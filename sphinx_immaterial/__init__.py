@@ -289,7 +289,7 @@ def setup(app):
     app.setup_extension("sphinx_immaterial.md_admonition")
     # patch the details directive's run method
     monkey_patch_details_run()
-    
+
     return {
         "parallel_read_safe": True,
         "parallel_write_safe": True,
