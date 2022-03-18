@@ -20,6 +20,7 @@ from . import nav_adapt
 from . import object_toc
 from . import postprocess_html
 from . import search_adapt
+from .details_patch import monkey_patch_details_run
 
 logger = sphinx.util.logging.getLogger(__name__)
 
@@ -286,7 +287,9 @@ def setup(app):
 
     # register our custom adminition directive
     app.setup_extension("sphinx_immaterial.md_admonition")
-
+    # patch the details directive's run method
+    monkey_patch_details_run()
+    
     return {
         "parallel_read_safe": True,
         "parallel_write_safe": True,
