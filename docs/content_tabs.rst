@@ -52,7 +52,6 @@ the sphinx-immaterial theme provides its own directives to make use of content t
                 To cross-reference this tab set from a different page, use
                 :ref:`tab set description <ref_this_tab_set>`
 
-                Use this syntax to give a tab set a custom description.
                 Clearly this also works on the same page.
 
             .. md-tab-item:: Custom CSS
