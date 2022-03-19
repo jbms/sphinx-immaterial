@@ -136,7 +136,6 @@ def visit_tab_set(self: HTMLTranslator, node: content_tab_set):
     # configure tab set's div attributes
     tab_set_identity = f"__tabbed_{self.tab_set_count}"
     attributes = {"data-tabs": f"{self.tab_set_count}:{len(node.children)}"}
-    node["set_id"] = tab_set_identity
     self.body.append(self.starttag(node, "div", **attributes))
 
     # walkabout the children
