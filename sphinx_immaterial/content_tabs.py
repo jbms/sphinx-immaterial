@@ -112,10 +112,6 @@ class MaterialTabItemDirective(SphinxDirective):
         return [tab_item]
 
 
-class content_tab_input(nodes.Element, nodes.General):
-    pass
-
-
 class content_tab_label(nodes.TextElement, nodes.General):
     pass
 
