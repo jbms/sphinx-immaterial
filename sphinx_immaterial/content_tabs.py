@@ -170,8 +170,9 @@ def visit_tab_set(self: HTMLTranslator, node: content_tab_set):
         # add content
         tab_content_div += tab_block
 
-    node += tab_label_div
-    node += tab_content_div
+    tab_label_div.walkabout(self)
+    tab_content_div.walkabout(self)
+    raise nodes.SkipNode()
 
 
 def depart_tab_set(self, node):
