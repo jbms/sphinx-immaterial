@@ -46,7 +46,6 @@ class MaterialTabSetDirective(SphinxDirective):
         if self.options.get("name", ""):
             self.add_name(tab_set)
         self.state.nested_parse(self.content, self.content_offset, tab_set)
-        tab_total = 0
         for item in tab_set.children:
             if not is_md_tab_type(item, "md-tab-item"):
                 LOGGER.warning(
@@ -54,8 +53,6 @@ class MaterialTabSetDirective(SphinxDirective):
                     location=item,
                 )
                 break
-            tab_total += 1
-        tab_set["data-tabs"] = f":{tab_total}"
         return [tab_set]
 
 
@@ -123,17 +120,6 @@ class content_tab_label(nodes.TextElement, nodes.General):
     pass
 
 
-def visit_tab_input(self, node):
-    attributes = {"ids": [node["id"]], "type": node["type"], "name": node["set_id"]}
-    if node["checked"]:
-        attributes["checked"] = "checked"
-    self.body.append(self.starttag(node, "input", **attributes))
-
-
-def depart_tab_input(self, node):
-    self.body.append("</input>")
-
-
 def visit_tab_label(self, node):
     attributes = {"for": node["input_id"]}
     self.body.append(self.starttag(node, "label", **attributes))
@@ -148,14 +134,13 @@ def visit_tab_set(self: HTMLTranslator, node: content_tab_set):
     self.tab_set_count = getattr(self, "tab_set_count", 0) + 1
 
     # configure tab set's div attributes
-    tab_set_identity = "__tabbed_" + str(self.tab_set_count)
-    attributes = {"data-tabs": str(self.tab_set_count) + node["data-tabs"]}
+    tab_set_identity = f"__tabbed_{self.tab_set_count}"
+    attributes = {"data-tabs": f"{self.tab_set_count}:{len(node.children)}"}
     node["set_id"] = tab_set_identity
     self.body.append(self.starttag(node, "div", **attributes))
 
     # walkabout the children
     tab_total = 0
-    children = []
     tab_label_div = nodes.container("", is_div=True, classes=["tabbed-labels"])
     tab_content_div = nodes.container("", is_div=True, classes=["tabbed-content"])
     for tab_item in node.children:
@@ -163,19 +148,15 @@ def visit_tab_set(self: HTMLTranslator, node: content_tab_set):
             tab_label, tab_block = tab_item.children
         except ValueError as exc:
             raise ValueError(f"md-tab-item has no children:\n{repr(tab_item)}") from exc
-        tab_total += 1
-        tab_item_identity = tab_set_identity + f"_{tab_total}"
+        tab_item_identity = tab_set_identity + f"_{tab_total + 1}"
 
         # create: <input checked="checked" id="id" type="radio">
-        input_node = content_tab_input(
-            "",
-            id=tab_item_identity,
-            set_id=tab_set_identity,
-            type="radio",
-            checked=(tab_total == 1),
+        self.body.append(
+            "<input "
+            + ('checked="checked"' if not tab_total else "")
+            + f'type="radio" id="{tab_item_identity}" name="{tab_set_identity}">'
         )
-        input_node.source, input_node.line = tab_item.source, tab_item.line
-        children.append(input_node)
+        tab_total += 1
 
         # create: <label for="id">...</label>
         label_node = content_tab_label(
@@ -190,7 +171,6 @@ def visit_tab_set(self: HTMLTranslator, node: content_tab_set):
         # add content
         tab_content_div += tab_block
 
-    node.children = children
     node += tab_label_div
     node += tab_content_div
 
@@ -202,6 +182,5 @@ def depart_tab_set(self, node):
 def setup(app: Sphinx) -> None:
     app.add_directive("md-tab-set", MaterialTabSetDirective)
     app.add_directive("md-tab-item", MaterialTabItemDirective)
-    app.add_node(content_tab_input, html=(visit_tab_input, depart_tab_input))
     app.add_node(content_tab_label, html=(visit_tab_label, depart_tab_label))
     app.add_node(content_tab_set, html=(visit_tab_set, depart_tab_set))
