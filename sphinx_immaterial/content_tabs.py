@@ -1,7 +1,7 @@
 """
 A special theme-specific extension to support "content tabs" from mkdocs-material.
 """
-from typing import List, Any
+from typing import List
 from docutils import nodes
 from docutils.parsers.rst import directives
 from sphinx.util.docutils import SphinxDirective
