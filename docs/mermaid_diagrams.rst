@@ -16,7 +16,7 @@ directive that exposes the underlying implementation in mkdocs-material theme.
     .. rst:directive:option:: class
         :type: string
         
-        A space delimited list of qualified names that get used as the HTMl element's
+        A space delimited list of qualified names that get used as the HTML element's
         ``class`` attribute.
 
     .. rst:directive:option:: name

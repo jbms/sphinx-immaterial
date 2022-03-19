@@ -40,7 +40,7 @@ the sphinx-immaterial theme provides its own directives to make use of content t
         Use the `ref` role to reference the element by name.
 
     This directive supports ``:class:`` and ``:name:`` options to use custom CSS classes
-    and reference links (respectively)
+    and reference links (respectively).
 
     .. code-block:: rst
 
