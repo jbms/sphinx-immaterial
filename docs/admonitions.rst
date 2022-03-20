@@ -33,7 +33,7 @@ usage in other sphinx-based themes. They are:
 Admonitions from mkdocs-material
 ********************************
 
-Some addtional admonitions are supported via the source code from the mkdocs-material theme.
+Some additional admonitions are supported via the source code from the mkdocs-material theme.
 These admonitions can still be used, but the syntax is a little different because it relies
 on the generic admonition defined in the reStructuredText specifications.
 
@@ -42,7 +42,7 @@ shown inside the demonstrated admonition.
 
 .. important::
    The ``:class:`` options below (in the rST code blocks) must use lower case letters for the
-   styling to work. Otherwise, the admonition will look like a ``note`` (as that is the
+   styling to work. Otherwise, the admonition will look like a `note` (as that is the
    default fallback style).
 
 ``todo``, ``info``
@@ -120,67 +120,48 @@ shown inside the demonstrated admonition.
          .. admonition:: Quote
             :class: quote
 
-Collapsable dropdown
+Collapsible dropdown
 *********************
 
-For collapsable dropdown admonitions, the mkdocs-material theme relies on a markdown syntax
+.. _sphinxcontrib-details-directive extension: https://pypi.org/project/sphinxcontrib-details-directive
+
+For collapsible dropdown admonitions, the mkdocs-material theme relies on a markdown syntax
 extension that cannot be used with sphinx. Instead, this sphinx-immaterial theme relies on
-other sphinx extensions to get similar (and more customizable) results.
+the `sphinxcontrib-details-directive extension`_
+to get similar results.
 
-.. dropdown:: We endorse the sphinx-design extension!
-   :icon: package-dependents
-   :animate: fade-in-slide-down
-   :class-title: sd-text-primary sd-outline-primary
-   :class-container: sd-outline-danger
+The `sphinxcontrib-details-directive extension`_ should be added to conf.py's extension list.
 
-   .. card:: You can do some pretty cool stuff with the :bdg-info-line:`sphinx-design extension`.
-      :class-title: sd-text-center
-      :margin: auto
+.. code-block:: python
 
-      .. grid::
+   extensions = ["sphinx_immaterial", "sphinxcontrib.details.directive"]
 
-         .. grid-item::
-            :columns: auto
-            :margin: auto
 
-            .. button-ref:: buttons
-               :color: success
+If the ``:class:`` option is not supplied to the ``details`` directive then the admonition
+style falls back to a `note` admonition style.
 
-         .. grid-item::
-            :columns: auto
-            :margin: auto
+.. details:: Open by default
+   :class: example
+   :open:
 
-            .. button-ref:: tabs
-               :color: success
+   .. code-block:: rst
 
-         .. grid-item::
-            :columns: auto
-            :margin: auto
+      .. details:: Open by default
+         :class: example
+         :open:
 
-            .. button-ref:: grids
-               :color: success
+.. details:: Closed by default
+   :class: help
 
-         .. grid-item::
-            :columns: auto
-            :margin: auto
+   .. code-block:: rst
 
-            .. button-ref:: cards
-               :color: success
-
-         .. grid-item::
-            :columns: auto
-            :margin: auto
-
-            .. button-ref:: dropdowns
-               :color: success
-
-      Not to mention inline octicon :octicon:`infinity;1.5rem;sd-text-info` and fontawesome
-      :fab:`font-awesome-flag` icons and :bdg-ref-info:`badges`.
+      .. details:: Closed by default
+         :class: help
 
 Removing the title
 ******************
 
-Since the mkdocs-material theme relies on a mardown extension that also allows removing the title
+Since the mkdocs-material theme relies on a markdown extension that also allows removing the title
 from an admonition, this theme has an added directive to do just that: ``md-admonition``.
 
 The admonition's title can be removed if the ``md-admonition`` directive is not provided
@@ -222,10 +203,9 @@ If you want to add a custom admonition type, all you need is a color and an \*.s
 Copy the icon's code from the `.icons <https://github.com/squidfunk/mkdocs-material/tree/master/material/.icons>`_
 folder and add the new CSS to an additional style sheet.
 
-.. tab-set::
+.. md-tab-set::
 
-   .. tab-item:: rST code
-      :class-label: sd-font-weight-light
+   .. md-tab-item:: rST code
 
       .. code-block:: rst
 
@@ -234,8 +214,7 @@ folder and add the new CSS to an additional style sheet.
 
                Don't tell him you use spaces instead of tabs...
 
-   .. tab-item:: CSS code
-      :class-label: sd-font-weight-light
+   .. md-tab-item:: CSS code
 
       .. code-block:: css
          :caption: docs/_static/extra_css.css
@@ -256,37 +235,15 @@ folder and add the new CSS to an additional style sheet.
                  mask-image: var(--md-admonition-icon--pied-piper);
          }
 
-   .. tab-item:: conf.py code
-      :class-label: sd-font-weight-light
+   .. md-tab-item:: conf.py code
 
-        .. code-block:: python
+      .. code-block:: python
 
-            html_static_path = ["_static"]
-            html_css_files = ["extra_css.css"]
+         html_static_path = ["_static"]
+         html_css_files = ["extra_css.css"]
 
 
 .. admonition:: Pied Piper
    :class: pied-piper
 
    Don't tell him you use spaces instead of tabs...
-
-.. _tabbed_locks:
-
-.. md-admonition::
-   :class: todo
-
-   The use of tabbed blocks (as seen above) are provided from `sphinx-design extension`_.
-   We added some custom CSS to make the tabs' labels conform to this theme's color palete.
-
-   .. code-block:: css
-
-      .sd-tab-set>input:checked+label {
-         border-color: var(--md-primary-fg-color);
-         color: var(--md-primary-fg-color);
-      }
-
-      .sd-tab-set>input:not(:checked)+label:hover {
-         color: var(--md-primary-fg-color);
-      }
-
-.. _sphinx-design extension: ` <https://sphinx-design.readthedocs.io/en/furo-theme>`_

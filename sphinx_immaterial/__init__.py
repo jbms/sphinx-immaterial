@@ -20,6 +20,7 @@ from . import nav_adapt
 from . import object_toc
 from . import postprocess_html
 from . import search_adapt
+from .details_patch import monkey_patch_details_run
 
 logger = sphinx.util.logging.getLogger(__name__)
 
@@ -260,6 +261,8 @@ def _config_inited(
     """Merge defaults into theme options."""
     if config["language"] is None:
         config["language"] = "en"  # default to English language
+    # make code-blocks' line numbers be a separate column of a 1-row table
+    config["html_codeblock_linenos_style"] = "table"  # default is "inline"
     config["html_theme_options"] = dict_merge(
         DEFAULT_THEME_OPTIONS, config["html_theme_options"]
     )
@@ -282,8 +285,12 @@ def setup(app):
     app.add_builder(_get_html_builder(app.registry.builders["html"]), override=True)
     app.add_html_theme("sphinx_immaterial", os.path.abspath(os.path.dirname(__file__)))
 
-    # register our custom adminition directive
+    # register our custom adminition directive that are tied to the theme's CSS
     app.setup_extension("sphinx_immaterial.md_admonition")
+    app.setup_extension("sphinx_immaterial.content_tabs")
+    app.setup_extension("sphinx_immaterial.mermaid_diagrams")
+    # patch the details directive's run method
+    monkey_patch_details_run()
 
     return {
         "parallel_read_safe": True,

@@ -36,15 +36,19 @@
   mask-image: var(--md-admonition-icon--pied-piper);
 }
 
-/* *********************** sphinx-design tab-set style overrides ********************* */
+/* ************************ custom-tab-set-style **************************** */
 
-.sd-tab-set>input:checked+label {
-  border-color: var(--md-primary-fg-color);
-  color: var(--md-primary-fg-color);
+.custom-tab-set-style {
+  border: solid 2px var(--md-default-fg-color);
+  padding: 0 5px;
 }
 
-.sd-tab-set>input:not(:checked)+label:hover {
-  color: var(--md-primary-fg-color);
+/* *********************** custom-tab-item-style **************************** */
+
+.custom-tab-item-style {
+  border: solid 2px var(--md-default-fg-color);
+  padding: 0 5px;
+  margin-top: 3px;
 }
 
 /* ************************* inline icon stuff ****************************** */

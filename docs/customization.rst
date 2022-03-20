@@ -264,7 +264,7 @@ Configuration Options
 
     .. confval:: palette
 
-        The theme's color pallete **must be** a single `dict` or a `list` of `dict`\ s.
+        The theme's color pallette **must be** a single `dict` or a `list` of `dict`\ s.
         Each `dict` can optionally specify a ``scheme``, ``primary``, ``accent``, and ``media``
         fields.
 
@@ -427,7 +427,7 @@ The standard structure of the site (relative to the base domain) is usually
     /1.0
     /2.0
 
-Whereas Sphinx must be executed seperately for each version of the documentation you are
+Whereas Sphinx must be executed separately for each version of the documentation you are
 building.
 
 .. code-block:: text
@@ -531,10 +531,10 @@ aliases. Other required fields include ``version`` and ``title``.
     ``aliases`` do not apply when using an external URL (as in not relative to the same webserver)
     in the ``verion`` field.
 
-.. tab-set::
+.. md-tab-set::
+    :name: version_info_example
 
-    .. tab-item:: Using ``version_info`` in conf.py
-        :class-label: sd-font-weight-light
+    .. md-tab-item:: Using ``version_info`` in conf.py
 
         .. code-block:: python
 
@@ -546,8 +546,7 @@ aliases. Other required fields include ``version`` and ``title``.
                 ],
             }
 
-    .. tab-item:: Using a JSON file
-        :class-label: sd-font-weight-light
+    .. md-tab-item:: Using a JSON file
 
         .. hint::
             Remember to set ``"version_dropdown": True`` in the conf.py file's `html_theme_options` `dict`.

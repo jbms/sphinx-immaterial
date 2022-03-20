@@ -34,13 +34,12 @@ extensions = [
     "sphinx.ext.todo",
     "sphinx.ext.mathjax",
     "sphinx.ext.viewcode",
-    "sphinx_design",
+    "sphinxcontrib.details.directive",
 ]
 
 intersphinx_mapping = {
     "python": ("https://docs.python.org/3", None),
     "sphinx_docs": ("https://www.sphinx-doc.org/en/master", None),
-    "sphinx-design": ("https://sphinx-design.readthedocs.io/en/furo-theme", None),
 }
 
 # The reST default role (used for this markup: `text`) to use for all
