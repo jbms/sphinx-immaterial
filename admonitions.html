@@ -17,7 +17,7 @@
       
     
     
-      <link rel="stylesheet" href="_static/stylesheets/main.f10368cd.min.css">
+      <link rel="stylesheet" href="_static/stylesheets/main.42d9060c.min.css">
       
         
         <link rel="stylesheet" href="_static/stylesheets/palette.52561aa6.min.css">
@@ -34,7 +34,6 @@
         <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
       
     
-        <link rel="stylesheet" type="text/css" href="_static/design-style.59c74d8c95b765a7fd995ac71d459ebe.min.css" />
         <link rel="stylesheet" type="text/css" href="_static/extra_css.css" />
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     <script>__md_scope=new URL(".",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
@@ -293,8 +292,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#collapsable-dropdown" class="md-nav__link">
-    <span class="md-ellipsis">Collapsable dropdown</span>
+  <a href="#collapsible-dropdown" class="md-nav__link">
+    <span class="md-ellipsis">Collapsible dropdown</span>
   </a>
   
 </li>
@@ -328,23 +327,53 @@
   
   
   
+    <li class="md-nav__item">
+      <a href="content_tabs.html" class="md-nav__link">
+        <span class="md-ellipsis">Content tabs</span>
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="mermaid_diagrams.html" class="md-nav__link">
+        <span class="md-ellipsis">Mermaid diagrams</span>
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
     
       
     
     <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
       
       
       
-        <label class="md-nav__link" for="__nav_3">
+        <label class="md-nav__link" for="__nav_5">
           <span class="md-ellipsis">Examples and Uses</span>
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <nav class="md-nav" aria-label="Examples and Uses" data-md-level="1">
-        <label class="md-nav__title" for="__nav_3">
+        <label class="md-nav__title" for="__nav_5">
           <span class="md-nav__icon md-icon"></span>
           <span class="md-ellipsis">Examples and Uses</span>
         </label>
@@ -465,8 +494,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#collapsable-dropdown" class="md-nav__link">
-    <span class="md-ellipsis">Collapsable dropdown</span>
+  <a href="#collapsible-dropdown" class="md-nav__link">
+    <span class="md-ellipsis">Collapsible dropdown</span>
   </a>
   
 </li>
@@ -533,7 +562,7 @@ as you can <a class="reference external" href="https://www.sphinx-doc.org/en/mas
 </dd>
 </dl>
 <h2 id="admonitions-from-mkdocs-material">Admonitions from mkdocs-material<a class="headerlink" href="#admonitions-from-mkdocs-material" title="Permalink to this headline">¶</a></h2>
-<p>Some addtional admonitions are supported via the source code from the mkdocs-material theme.
+<p>Some additional admonitions are supported via the source code from the mkdocs-material theme.
 These admonitions can still be used, but the syntax is a little different because it relies
 on the generic admonition defined in the reStructuredText specifications.</p>
 <p>To use the following admonitions’ styles from the mkdocs-material theme, the rST syntax is
@@ -541,7 +570,7 @@ shown inside the demonstrated admonition.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">:class:</span></code> options below (in the rST code blocks) must use lower case letters for the
-styling to work. Otherwise, the admonition will look like a <code class="docutils literal notranslate"><span class="pre">note</span></code> (as that is the
+styling to work. Otherwise, the admonition will look like a <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/directives.html#directive-note" title="(in Sphinx v5.0.0+)"><code class="xref any docutils literal notranslate"><span class="pre">note</span></code></a> (as that is the
 default fallback style).</p>
 </div>
 <dl>
@@ -612,47 +641,32 @@ default fallback style).</p>
 </div>
 </dd>
 </dl>
-<h2 id="collapsable-dropdown">Collapsable dropdown<a class="headerlink" href="#collapsable-dropdown" title="Permalink to this headline">¶</a></h2>
-<p>For collapsable dropdown admonitions, the mkdocs-material theme relies on a markdown syntax
+<h2 id="collapsible-dropdown">Collapsible dropdown<a class="headerlink" href="#collapsible-dropdown" title="Permalink to this headline">¶</a></h2>
+<p>For collapsible dropdown admonitions, the mkdocs-material theme relies on a markdown syntax
 extension that cannot be used with sphinx. Instead, this sphinx-immaterial theme relies on
-other sphinx extensions to get similar (and more customizable) results.</p>
-<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3 sd-outline-danger sd-fade-in-slide-down">
-<summary class="sd-summary-title sd-card-header sd-text-primary sd-outline-primary">
-<span class="sd-summary-icon"><svg version="1.1" width="1.0em" height="1.0em" class="sd-octicon sd-octicon-package-dependents" viewBox="0 0 16 16" aria-hidden="true"><path fill-rule="evenodd" d="M6.122.392a1.75 1.75 0 011.756 0l5.25 3.045c.54.313.872.89.872 1.514V7.25a.75.75 0 01-1.5 0V5.677L7.75 8.432v6.384a1 1 0 01-1.502.865L.872 12.563A1.75 1.75 0 010 11.049V4.951c0-.624.332-1.2.872-1.514L6.122.392zM7.125 1.69l4.63 2.685L7 7.133 2.245 4.375l4.63-2.685a.25.25 0 01.25 0zM1.5 11.049V5.677l4.75 2.755v5.516l-4.625-2.683a.25.25 0 01-.125-.216zm10.828 3.684a.75.75 0 101.087 1.034l2.378-2.5a.75.75 0 000-1.034l-2.378-2.5a.75.75 0 00-1.087 1.034L13.501 12H10.25a.75.75 0 000 1.5h3.251l-1.173 1.233z"></path></svg></span>We endorse the sphinx-design extension!<div class="sd-summary-down docutils">
-<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-down" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 8.72a.75.75 0 000 1.06l6.25 6.25a.75.75 0 001.06 0l6.25-6.25a.75.75 0 00-1.06-1.06L12 14.44 6.28 8.72a.75.75 0 00-1.06 0z"></path></svg></div>
-<div class="sd-summary-up docutils">
-<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
-</summary><div class="sd-summary-content sd-card-body docutils">
-<div class="sd-card sd-sphinx-override sd-m-auto sd-shadow-sm docutils">
-<div class="sd-card-body docutils">
-<div class="sd-card-title sd-font-weight-bold sd-text-center docutils">
-You can do some pretty cool stuff with the <span class="sd-sphinx-override sd-badge sd-outline-info sd-text-info">sphinx-design extension</span>.</div>
-<div class="sd-container-fluid sd-sphinx-override sd-mb-4 docutils">
-<div class="sd-row docutils">
-<div class="sd-col sd-d-flex-column sd-col-auto sd-col-xs-auto sd-col-sm-auto sd-col-md-auto sd-col-lg-auto sd-m-auto docutils">
-<p class="sd-card-text"><a class="sd-sphinx-override sd-btn sd-text-wrap sd-btn-success reference external" href="https://sphinx-design.readthedocs.io/en/furo-theme/badges_buttons.html#buttons" title="(in Sphinx Design)"><span>Buttons</span></a></p>
+the <a class="reference external" href="https://pypi.org/project/sphinxcontrib-details-directive">sphinxcontrib-details-directive extension</a>
+to get similar results.</p>
+<p>The <a class="reference external" href="https://pypi.org/project/sphinxcontrib-details-directive">sphinxcontrib-details-directive extension</a> should be added to conf.py’s extension list.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="n">extensions</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;sphinx_immaterial&quot;</span><span class="p">,</span> <span class="s2">&quot;sphinxcontrib.details.directive&quot;</span><span class="p">]</span>
+</code></pre></div>
 </div>
-<div class="sd-col sd-d-flex-column sd-col-auto sd-col-xs-auto sd-col-sm-auto sd-col-md-auto sd-col-lg-auto sd-m-auto docutils">
-<p class="sd-card-text"><a class="sd-sphinx-override sd-btn sd-text-wrap sd-btn-success reference external" href="https://sphinx-design.readthedocs.io/en/furo-theme/tabs.html#tabs" title="(in Sphinx Design)"><span>Tabs</span></a></p>
+<p>If the <code class="docutils literal notranslate"><span class="pre">:class:</span></code> option is not supplied to the <code class="docutils literal notranslate"><span class="pre">details</span></code> directive then the admonition
+style falls back to a <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/directives.html#directive-note" title="(in Sphinx v5.0.0+)"><code class="xref any docutils literal notranslate"><span class="pre">note</span></code></a> admonition style.</p>
+<details class="example" open="open">
+<summary>
+Open by default</summary><div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><code><span class="p">..</span> <span class="ow">details</span><span class="p">::</span> Open by default
+   <span class="nc">:class:</span> example
+   <span class="nc">:open:</span>
+</code></pre></div>
 </div>
-<div class="sd-col sd-d-flex-column sd-col-auto sd-col-xs-auto sd-col-sm-auto sd-col-md-auto sd-col-lg-auto sd-m-auto docutils">
-<p class="sd-card-text"><a class="sd-sphinx-override sd-btn sd-text-wrap sd-btn-success reference external" href="https://sphinx-design.readthedocs.io/en/furo-theme/grids.html#grids" title="(in Sphinx Design)"><span>Grids</span></a></p>
-</div>
-<div class="sd-col sd-d-flex-column sd-col-auto sd-col-xs-auto sd-col-sm-auto sd-col-md-auto sd-col-lg-auto sd-m-auto docutils">
-<p class="sd-card-text"><a class="sd-sphinx-override sd-btn sd-text-wrap sd-btn-success reference external" href="https://sphinx-design.readthedocs.io/en/furo-theme/cards.html#cards" title="(in Sphinx Design)"><span>Cards</span></a></p>
-</div>
-<div class="sd-col sd-d-flex-column sd-col-auto sd-col-xs-auto sd-col-sm-auto sd-col-md-auto sd-col-lg-auto sd-m-auto docutils">
-<p class="sd-card-text"><a class="sd-sphinx-override sd-btn sd-text-wrap sd-btn-success reference external" href="https://sphinx-design.readthedocs.io/en/furo-theme/dropdowns.html#dropdowns" title="(in Sphinx Design)"><span>Dropdowns</span></a></p>
-</div>
-</div>
-</div>
-<p class="sd-card-text">Not to mention inline octicon <svg version="1.1" width="1.5rem" height="1.5rem" class="sd-octicon sd-octicon-infinity sd-text-info" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.25 8.5c-2.032 0-3.75 1.895-3.75 3.75S3.218 16 5.25 16c1.017 0 2.014-.457 3.062-1.253.89-.678 1.758-1.554 2.655-2.497-.897-.943-1.765-1.82-2.655-2.497C7.264 8.957 6.267 8.5 5.25 8.5zM12 11.16c-.887-.933-1.813-1.865-2.78-2.6C8.048 7.667 6.733 7 5.25 7 2.343 7 0 9.615 0 12.25s2.343 5.25 5.25 5.25c1.483 0 2.798-.668 3.97-1.56.967-.735 1.893-1.667 2.78-2.6.887.933 1.813 1.865 2.78 2.6 1.172.892 2.487 1.56 3.97 1.56 2.907 0 5.25-2.615 5.25-5.25S21.657 7 18.75 7c-1.483 0-2.798.668-3.97 1.56-.967.735-1.893 1.667-2.78 2.6zm1.033 1.09c.897.943 1.765 1.82 2.655 2.497C16.736 15.543 17.733 16 18.75 16c2.032 0 3.75-1.895 3.75-3.75S20.782 8.5 18.75 8.5c-1.017 0-2.014.457-3.062 1.253-.89.678-1.758 1.554-2.655 2.497z"></path></svg> and fontawesome
-<span class="fab fa-font-awesome-flag"></span> icons and <a class="sd-sphinx-override sd-badge sd-bg-info sd-bg-text-info reference external" href="https://sphinx-design.readthedocs.io/en/furo-theme/badges_buttons.html#badges" title="(in Sphinx Design)"><span>Badges</span></a>.</p>
-</div>
-</div>
+</details><details class="help">
+<summary>
+Closed by default</summary><div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><code><span class="p">..</span> <span class="ow">details</span><span class="p">::</span> Closed by default
+   <span class="nc">:class:</span> help
+</code></pre></div>
 </div>
 </details><h2 id="removing-the-title">Removing the title<a class="headerlink" href="#removing-the-title" title="Permalink to this headline">¶</a></h2>
-<p>Since the mkdocs-material theme relies on a mardown extension that also allows removing the title
+<p>Since the mkdocs-material theme relies on a markdown extension that also allows removing the title
 from an admonition, this theme has an added directive to do just that: <code class="docutils literal notranslate"><span class="pre">md-admonition</span></code>.</p>
 <p>The admonition’s title can be removed if the <code class="docutils literal notranslate"><span class="pre">md-admonition</span></code> directive is not provided
 any arguments. Because the <code class="docutils literal notranslate"><span class="pre">md-admonition</span></code> directive is an adaptation of the generic
@@ -684,10 +698,14 @@ any arguments. Because the <code class="docutils literal notranslate"><span clas
 <p>If you want to add a custom admonition type, all you need is a color and an *.svg icon.
 Copy the icon’s code from the <a class="reference external" href="https://github.com/squidfunk/mkdocs-material/tree/master/material/.icons">.icons</a>
 folder and add the new CSS to an additional style sheet.</p>
-<div class="sd-tab-set docutils">
-<input checked="checked" id="ea38cd78-5fdb-4ea9-a7ea-833955cdfa98" name="3ae4d3f2-0046-4f7d-91be-ff2f43891469" type="radio">
-</input><label class="sd-tab-label sd-font-weight-light" for="ea38cd78-5fdb-4ea9-a7ea-833955cdfa98">
-rST code</label><div class="sd-tab-content docutils">
+<div class="tabbed-set tabbed-alternate" data-tabs="1:3">
+<input checked type="radio" id="__tabbed_1_1" name="__tabbed_1"><input type="radio" id="__tabbed_1_2" name="__tabbed_1"><input type="radio" id="__tabbed_1_3" name="__tabbed_1"><div class="tabbed-labels docutils container">
+<label class="tabbed-label" for="__tabbed_1_1">
+rST code</label><label class="tabbed-label" for="__tabbed_1_2">
+CSS code</label><label class="tabbed-label" for="__tabbed_1_3">
+conf.py code</label></div>
+<div class="tabbed-content docutils container">
+<div class="tabbed-block docutils container">
 <div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><code><span class="p">..</span> <span class="ow">admonition</span><span class="p">::</span> Pied Piper
       <span class="nc">:class:</span> pied-piper
 
@@ -695,9 +713,7 @@ rST code</label><div class="sd-tab-content docutils">
 </code></pre></div>
 </div>
 </div>
-<input id="0ff153ce-cdfe-42b7-85b4-f130d1766d61" name="3ae4d3f2-0046-4f7d-91be-ff2f43891469" type="radio">
-</input><label class="sd-tab-label sd-font-weight-light" for="0ff153ce-cdfe-42b7-85b4-f130d1766d61">
-CSS code</label><div class="sd-tab-content docutils">
+<div class="tabbed-block docutils container">
 <div class="literal-block-wrapper docutils container" id="id1">
 <div class="code-block-caption"><span class="caption-text">docs/_static/extra_css.css</span><a class="headerlink" href="#id1" title="Permalink to this code">¶</a></div>
 <div class="highlight-css notranslate"><div class="highlight"><pre><span></span><code><span class="p">:</span><span class="nd">root</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
@@ -719,34 +735,16 @@ CSS code</label><div class="sd-tab-content docutils">
 </div>
 </div>
 </div>
-<input id="86021c6c-775c-49ff-9c08-899a2e59f603" name="3ae4d3f2-0046-4f7d-91be-ff2f43891469" type="radio">
-</input><label class="sd-tab-label sd-font-weight-light" for="86021c6c-775c-49ff-9c08-899a2e59f603">
-conf.py code</label><div class="sd-tab-content docutils">
-<blockquote>
-<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="n">html_static_path</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;_static&quot;</span><span class="p">]</span>
+<div class="tabbed-block docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="n">html_static_path</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;_static&quot;</span><span class="p">]</span>
 <span class="n">html_css_files</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;extra_css.css&quot;</span><span class="p">]</span>
 </code></pre></div>
 </div>
-</div></blockquote>
 </div>
 </div>
 <div class="pied-piper admonition">
 <p class="admonition-title">Pied Piper</p>
 <p>Don’t tell him you use spaces instead of tabs…</p>
-</div>
-<div class="todo admonition" id="tabbed-locks">
-<p>The use of tabbed blocks (as seen above) are provided from <a class="reference external" href="`&lt;https://sphinx-design.readthedocs.io/en/furo-theme&gt;`_">sphinx-design extension</a>.
-We added some custom CSS to make the tabs’ labels conform to this theme’s color palete.</p>
-<div class="highlight-css notranslate"><div class="highlight"><pre><span></span><code><span class="p">.</span><span class="nc">sd-tab-set</span><span class="o">&gt;</span><span class="nt">input</span><span class="p">:</span><span class="nd">checked</span><span class="o">+</span><span class="nt">label</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">   </span><span class="k">border-color</span><span class="p">:</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--md-primary-fg-color</span><span class="p">);</span><span class="w"></span>
-<span class="w">   </span><span class="k">color</span><span class="p">:</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--md-primary-fg-color</span><span class="p">);</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-
-<span class="p">.</span><span class="nc">sd-tab-set</span><span class="o">&gt;</span><span class="nt">input</span><span class="p">:</span><span class="nd">not</span><span class="o">(</span><span class="p">:</span><span class="nd">checked</span><span class="o">)+</span><span class="nt">label</span><span class="p">:</span><span class="nd">hover</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">   </span><span class="k">color</span><span class="p">:</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--md-primary-fg-color</span><span class="p">);</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-</code></pre></div>
-</div>
 </div>
 
 
@@ -756,7 +754,7 @@ We added some custom CSS to make the tabs’ labels conform to this theme’s co
   <small>
     
       Last update:
-      Mar 17, 2022
+      Mar 20, 2022
     
   </small>
 </div>
@@ -794,13 +792,13 @@ We added some custom CSS to make the tabs’ labels conform to this theme’s co
       
       
         
-        <a href="demo_api.html" class="md-footer__link md-footer__link--next" aria-label="Next: sample API documentation and generated content" rel="next">
+        <a href="content_tabs.html" class="md-footer__link md-footer__link--next" aria-label="Next: Content tabs" rel="next">
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
                 Next
               </span>
-              sample API documentation and generated content
+              Content tabs
             </div>
           </div>
           <div class="md-footer__button md-icon">
@@ -843,7 +841,6 @@ We added some custom CSS to make the tabs’ labels conform to this theme’s co
     
     
       <script src="_static/javascripts/bundle.d847cb42.min.js"></script>
-        <script src="_static/design-tabs.js"></script>
     
   </body>
 </html>

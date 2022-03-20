@@ -17,7 +17,7 @@
       
     
     
-      <link rel="stylesheet" href="_static/stylesheets/main.f10368cd.min.css">
+      <link rel="stylesheet" href="_static/stylesheets/main.42d9060c.min.css">
       
         
         <link rel="stylesheet" href="_static/stylesheets/palette.52561aa6.min.css">
@@ -34,7 +34,6 @@
         <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
       
     
-        <link rel="stylesheet" type="text/css" href="_static/design-style.59c74d8c95b765a7fd995ac71d459ebe.min.css" />
         <link rel="stylesheet" type="text/css" href="_static/extra_css.css" />
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     <script>__md_scope=new URL(".",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
@@ -264,6 +263,36 @@
 
   
   
+  
+    <li class="md-nav__item">
+      <a href="content_tabs.html" class="md-nav__link">
+        <span class="md-ellipsis">Content tabs</span>
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="mermaid_diagrams.html" class="md-nav__link">
+        <span class="md-ellipsis">Mermaid diagrams</span>
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
     
   
   
@@ -273,17 +302,17 @@
     <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" checked>
       
       
       
-        <label class="md-nav__link" for="__nav_3">
+        <label class="md-nav__link" for="__nav_5">
           <span class="md-ellipsis">Examples and Uses</span>
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <nav class="md-nav" aria-label="Examples and Uses" data-md-level="1">
-        <label class="md-nav__title" for="__nav_3">
+        <label class="md-nav__title" for="__nav_5">
           <span class="md-nav__icon md-icon"></span>
           <span class="md-ellipsis">Examples and Uses</span>
         </label>
@@ -819,84 +848,159 @@ reStructuredText used to create these examples.</p>
 <p>Here’s an included example with line numbers.</p>
 <div class="literal-block-wrapper docutils container" id="id5">
 <div class="code-block-caption"><span class="caption-text">source from this theme in <em>sphinx_immaterial/autodoc_property_type.py</em></span><a class="headerlink" href="#id5" title="Permalink to this code">¶</a></div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="linenos"> 1</span><span class="sd">&quot;&quot;&quot;Adds support for obtaining property types from docstring signatures, and</span>
-<span class="linenos"> 2</span><span class="sd">improves formatting by PyProperty of type annotations.&quot;&quot;&quot;</span>
-<span class="linenos"> 3</span><span class="kn">import</span> <span class="nn">re</span>
-<span class="linenos"> 4</span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Optional</span>
-<span class="linenos"> 5</span>
-<span class="linenos"> 6</span><span class="kn">import</span> <span class="nn">sphinx.addnodes</span>
-<span class="linenos"> 7</span><span class="kn">import</span> <span class="nn">sphinx.domains</span>
-<span class="linenos"> 8</span><span class="kn">import</span> <span class="nn">sphinx.domains.python</span>
-<span class="linenos"> 9</span><span class="kn">import</span> <span class="nn">sphinx.ext.autodoc</span>
-<span class="linenos">10</span>
-<span class="linenos">11</span><span class="n">property_sig_re</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;^(</span><span class="se">\\</span><span class="s2">(.*)</span><span class="se">\\</span><span class="s2">)</span><span class="se">\\</span><span class="s2">s*-&gt;</span><span class="se">\\</span><span class="s2">s*(.*)$&quot;</span><span class="p">)</span>
-<span class="linenos">12</span>
-<span class="linenos">13</span>
-<span class="linenos">14</span><span class="k">def</span> <span class="nf">_get_property_return_type</span><span class="p">(</span><span class="n">obj</span><span class="p">:</span> <span class="nb">property</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
-<span class="linenos">15</span>    <span class="k">if</span> <span class="n">obj</span><span class="o">.</span><span class="n">fget</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-<span class="linenos">16</span>        <span class="k">return</span> <span class="kc">None</span>
-<span class="linenos">17</span>    <span class="n">doc</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">fget</span><span class="o">.</span><span class="vm">__doc__</span>
-<span class="linenos">18</span>    <span class="k">if</span> <span class="n">doc</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-<span class="linenos">19</span>        <span class="k">return</span> <span class="kc">None</span>
-<span class="linenos">20</span>    <span class="n">line</span> <span class="o">=</span> <span class="n">doc</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
-<span class="linenos">21</span>    <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
-<span class="linenos">22</span>    <span class="n">match</span> <span class="o">=</span> <span class="n">property_sig_re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
-<span class="linenos">23</span>    <span class="k">if</span> <span class="ow">not</span> <span class="n">match</span><span class="p">:</span>
-<span class="linenos">24</span>        <span class="k">return</span> <span class="kc">None</span>
-<span class="linenos">25</span>    <span class="n">_</span><span class="p">,</span> <span class="n">retann</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">groups</span><span class="p">()</span>
-<span class="linenos">26</span>    <span class="k">return</span> <span class="n">retann</span>
-<span class="linenos">27</span>
-<span class="linenos">28</span>
-<span class="linenos">29</span><span class="k">def</span> <span class="nf">_apply_property_documenter_type_annotation_fix</span><span class="p">():</span>
-<span class="linenos">30</span>
-<span class="linenos">31</span>    <span class="c1"># Modify PropertyDocumenter to support obtaining signature from docstring.</span>
-<span class="linenos">32</span>    <span class="n">PropertyDocumenter</span> <span class="o">=</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">ext</span><span class="o">.</span><span class="n">autodoc</span><span class="o">.</span><span class="n">PropertyDocumenter</span>
-<span class="linenos">33</span>
-<span class="linenos">34</span>    <span class="n">orig_import_object</span> <span class="o">=</span> <span class="n">PropertyDocumenter</span><span class="o">.</span><span class="n">import_object</span>
-<span class="linenos">35</span>
-<span class="linenos">36</span>    <span class="k">def</span> <span class="nf">import_object</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">PropertyDocumenter</span><span class="p">,</span> <span class="n">raiseerror</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="linenos">37</span>        <span class="n">result</span> <span class="o">=</span> <span class="n">orig_import_object</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">raiseerror</span><span class="p">)</span>
-<span class="linenos">38</span>        <span class="k">if</span> <span class="ow">not</span> <span class="n">result</span><span class="p">:</span>
-<span class="linenos">39</span>            <span class="k">return</span> <span class="kc">False</span>
-<span class="linenos">40</span>        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">retann</span><span class="p">:</span>
-<span class="linenos">41</span>            <span class="bp">self</span><span class="o">.</span><span class="n">retann</span> <span class="o">=</span> <span class="n">_get_property_return_type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="p">)</span>
-<span class="linenos">42</span>        <span class="k">return</span> <span class="kc">True</span>
-<span class="linenos">43</span>
-<span class="linenos">44</span>    <span class="n">PropertyDocumenter</span><span class="o">.</span><span class="n">import_object</span> <span class="o">=</span> <span class="n">import_object</span>
-<span class="linenos">45</span>
-<span class="linenos">46</span>    <span class="n">old_add_directive_header</span> <span class="o">=</span> <span class="n">PropertyDocumenter</span><span class="o">.</span><span class="n">add_directive_header</span>
-<span class="linenos">47</span>
-<span class="linenos">48</span>    <span class="k">def</span> <span class="nf">add_directive_header</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sig</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="linenos">49</span>        <span class="n">old_add_directive_header</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sig</span><span class="p">)</span>
-<span class="linenos">50</span>
-<span class="linenos">51</span>        <span class="c1"># Check for return annotation</span>
-<span class="linenos">52</span>        <span class="n">retann</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">retann</span> <span class="ow">or</span> <span class="n">_get_property_return_type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="p">)</span>
-<span class="linenos">53</span>        <span class="k">if</span> <span class="n">retann</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-<span class="linenos">54</span>            <span class="bp">self</span><span class="o">.</span><span class="n">add_line</span><span class="p">(</span><span class="s2">&quot;   :type: &quot;</span> <span class="o">+</span> <span class="n">retann</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_sourcename</span><span class="p">())</span>
-<span class="linenos">55</span>
-<span class="linenos">56</span>    <span class="n">PropertyDocumenter</span><span class="o">.</span><span class="n">add_directive_header</span> <span class="o">=</span> <span class="n">add_directive_header</span>
-<span class="linenos">57</span>
-<span class="linenos">58</span>    <span class="c1"># Modify PyProperty to improve formatting of :type: option</span>
-<span class="linenos">59</span>    <span class="n">PyProperty</span> <span class="o">=</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">domains</span><span class="o">.</span><span class="n">python</span><span class="o">.</span><span class="n">PyProperty</span>
-<span class="linenos">60</span>
-<span class="linenos">61</span>    <span class="k">def</span> <span class="nf">handle_signature</span><span class="p">(</span>
-<span class="linenos">62</span>        <span class="bp">self</span><span class="p">,</span> <span class="n">sig</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">signode</span><span class="p">:</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">addnodes</span><span class="o">.</span><span class="n">desc_signature</span>
-<span class="linenos">63</span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
-<span class="linenos">64</span>        <span class="n">fullname</span><span class="p">,</span> <span class="n">prefix</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">PyProperty</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">handle_signature</span><span class="p">(</span><span class="n">sig</span><span class="p">,</span> <span class="n">signode</span><span class="p">)</span>
-<span class="linenos">65</span>
-<span class="linenos">66</span>        <span class="n">typ</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;type&quot;</span><span class="p">)</span>
-<span class="linenos">67</span>        <span class="k">if</span> <span class="n">typ</span><span class="p">:</span>
-<span class="linenos">68</span>            <span class="n">signode</span> <span class="o">+=</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">addnodes</span><span class="o">.</span><span class="n">desc_sig_punctuation</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot; : &quot;</span><span class="p">)</span>
-<span class="linenos">69</span>            <span class="n">signode</span> <span class="o">+=</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">domains</span><span class="o">.</span><span class="n">python</span><span class="o">.</span><span class="n">_parse_annotation</span><span class="p">(</span><span class="n">typ</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="p">)</span>
-<span class="linenos">70</span>
-<span class="linenos">71</span>        <span class="k">return</span> <span class="n">fullname</span><span class="p">,</span> <span class="n">prefix</span>
-<span class="linenos">72</span>
-<span class="linenos">73</span>    <span class="n">PyProperty</span><span class="o">.</span><span class="n">handle_signature</span> <span class="o">=</span> <span class="n">handle_signature</span>
-<span class="linenos">74</span>
-<span class="linenos">75</span>
-<span class="linenos">76</span><span class="n">_apply_property_documenter_type_annotation_fix</span><span class="p">()</span>
+<div class="highlight-default notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span>
+<span class="normal">73</span>
+<span class="normal">74</span>
+<span class="normal">75</span>
+<span class="normal">76</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="sd">&quot;&quot;&quot;Adds support for obtaining property types from docstring signatures, and</span>
+<span class="sd">improves formatting by PyProperty of type annotations.&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Optional</span>
+
+<span class="kn">import</span> <span class="nn">sphinx.addnodes</span>
+<span class="kn">import</span> <span class="nn">sphinx.domains</span>
+<span class="kn">import</span> <span class="nn">sphinx.domains.python</span>
+<span class="kn">import</span> <span class="nn">sphinx.ext.autodoc</span>
+
+<span class="n">property_sig_re</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;^(</span><span class="se">\\</span><span class="s2">(.*)</span><span class="se">\\</span><span class="s2">)</span><span class="se">\\</span><span class="s2">s*-&gt;</span><span class="se">\\</span><span class="s2">s*(.*)$&quot;</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_get_property_return_type</span><span class="p">(</span><span class="n">obj</span><span class="p">:</span> <span class="nb">property</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+    <span class="k">if</span> <span class="n">obj</span><span class="o">.</span><span class="n">fget</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="n">doc</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">fget</span><span class="o">.</span><span class="vm">__doc__</span>
+    <span class="k">if</span> <span class="n">doc</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="n">line</span> <span class="o">=</span> <span class="n">doc</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="n">match</span> <span class="o">=</span> <span class="n">property_sig_re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">match</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">retann</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">groups</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">retann</span>
+
+
+<span class="k">def</span> <span class="nf">_apply_property_documenter_type_annotation_fix</span><span class="p">():</span>
+
+    <span class="c1"># Modify PropertyDocumenter to support obtaining signature from docstring.</span>
+    <span class="n">PropertyDocumenter</span> <span class="o">=</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">ext</span><span class="o">.</span><span class="n">autodoc</span><span class="o">.</span><span class="n">PropertyDocumenter</span>
+
+    <span class="n">orig_import_object</span> <span class="o">=</span> <span class="n">PropertyDocumenter</span><span class="o">.</span><span class="n">import_object</span>
+
+    <span class="k">def</span> <span class="nf">import_object</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">PropertyDocumenter</span><span class="p">,</span> <span class="n">raiseerror</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">orig_import_object</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">raiseerror</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">result</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">retann</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">retann</span> <span class="o">=</span> <span class="n">_get_property_return_type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">True</span>
+
+    <span class="n">PropertyDocumenter</span><span class="o">.</span><span class="n">import_object</span> <span class="o">=</span> <span class="n">import_object</span>
+
+    <span class="n">old_add_directive_header</span> <span class="o">=</span> <span class="n">PropertyDocumenter</span><span class="o">.</span><span class="n">add_directive_header</span>
+
+    <span class="k">def</span> <span class="nf">add_directive_header</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sig</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">old_add_directive_header</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sig</span><span class="p">)</span>
+
+        <span class="c1"># Check for return annotation</span>
+        <span class="n">retann</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">retann</span> <span class="ow">or</span> <span class="n">_get_property_return_type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">retann</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_line</span><span class="p">(</span><span class="s2">&quot;   :type: &quot;</span> <span class="o">+</span> <span class="n">retann</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_sourcename</span><span class="p">())</span>
+
+    <span class="n">PropertyDocumenter</span><span class="o">.</span><span class="n">add_directive_header</span> <span class="o">=</span> <span class="n">add_directive_header</span>
+
+    <span class="c1"># Modify PyProperty to improve formatting of :type: option</span>
+    <span class="n">PyProperty</span> <span class="o">=</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">domains</span><span class="o">.</span><span class="n">python</span><span class="o">.</span><span class="n">PyProperty</span>
+
+    <span class="k">def</span> <span class="nf">handle_signature</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">sig</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">signode</span><span class="p">:</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">addnodes</span><span class="o">.</span><span class="n">desc_signature</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
+        <span class="n">fullname</span><span class="p">,</span> <span class="n">prefix</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">PyProperty</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">handle_signature</span><span class="p">(</span><span class="n">sig</span><span class="p">,</span> <span class="n">signode</span><span class="p">)</span>
+
+        <span class="n">typ</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;type&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">typ</span><span class="p">:</span>
+            <span class="n">signode</span> <span class="o">+=</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">addnodes</span><span class="o">.</span><span class="n">desc_sig_punctuation</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot; : &quot;</span><span class="p">)</span>
+            <span class="n">signode</span> <span class="o">+=</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">domains</span><span class="o">.</span><span class="n">python</span><span class="o">.</span><span class="n">_parse_annotation</span><span class="p">(</span><span class="n">typ</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">fullname</span><span class="p">,</span> <span class="n">prefix</span>
+
+    <span class="n">PyProperty</span><span class="o">.</span><span class="n">handle_signature</span> <span class="o">=</span> <span class="n">handle_signature</span>
+
+
+<span class="n">_apply_property_documenter_type_annotation_fix</span><span class="p">()</span>
 </code></pre></div>
-</div>
+</td></tr></table></div>
 </div>
 <p>It also works with existing Sphinx highlighting:</p>
 <div class="highlight-html notranslate"><div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
@@ -1210,7 +1314,7 @@ source files for one Sphinx project.</p>
   <small>
     
       Last update:
-      Mar 17, 2022
+      Mar 20, 2022
     
   </small>
 </div>
@@ -1297,7 +1401,6 @@ source files for one Sphinx project.</p>
     
     
       <script src="_static/javascripts/bundle.d847cb42.min.js"></script>
-        <script src="_static/design-tabs.js"></script>
         <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     
   </body>
