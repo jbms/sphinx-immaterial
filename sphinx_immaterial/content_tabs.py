@@ -92,9 +92,7 @@ class MaterialTabItemDirective(SphinxDirective):
         # add tab label
         textnodes, _ = self.state.inline_text(self.arguments[0], self.lineno)
         tab_label = nodes.rubric(
-            self.arguments[0],
-            *textnodes,
-            classes=["tabbed-label"],
+            self.arguments[0], *textnodes, classes=["tabbed-label"]
         )
         self.add_name(tab_label)
         tab_item += tab_label
@@ -135,23 +133,22 @@ def visit_tab_set(self: HTMLTranslator, node: content_tab_set):
     self.body.append(self.starttag(node, "div", **attributes))
 
     # walkabout the children
-    tab_total = 0
     tab_label_div = nodes.container("", is_div=True, classes=["tabbed-labels"])
     tab_content_div = nodes.container("", is_div=True, classes=["tabbed-content"])
-    for tab_item in node.children:
+    for tab_count, tab_item in enumerate(node.children):
         try:
             tab_label, tab_block = tab_item.children
         except ValueError as exc:
             raise ValueError(f"md-tab-item has no children:\n{repr(tab_item)}") from exc
-        tab_item_identity = tab_set_identity + f"_{tab_total + 1}"
+        tab_item_identity = tab_set_identity + f"_{tab_count + 1}"
 
         # create: <input checked="checked" id="id" type="radio">
         self.body.append(
             "<input "
-            + ('checked="checked"' if not tab_total else "")
-            + f'type="radio" id="{tab_item_identity}" name="{tab_set_identity}">'
+            + ("checked " if not tab_count else "")
+            + f'type="radio" id="{self.attval(tab_item_identity)}"'
+            + f' name="{self.attval(tab_set_identity)}">'
         )
-        tab_total += 1
 
         # create: <label for="id">...</label>
         label_node = content_tab_label(
