@@ -172,7 +172,10 @@ def _get_mkdocs_toc(
 ) -> List[MkdocsNavEntry]:
     """Converts a docutils toc node into a mkdocs-format JSON toc."""
     visitor = _TocVisitor(sphinx.util.docutils.new_document(""), builder)
-    toc_node.walk(visitor)
+
+    # toc_node can be None for projects with no toctree or 1 rst-file only.
+    if toc_node is not None:
+        toc_node.walk(visitor)
     return visitor._children
 
 
