@@ -6,7 +6,7 @@ import re
 from typing import List, Union, NamedTuple, Optional, Tuple, Iterator, Dict
 import urllib.parse
 import docutils.nodes
-import jinja2
+import markupsafe
 import sphinx.builders
 import sphinx.application
 import sphinx.environment.adapters.toctree
@@ -92,7 +92,7 @@ class _TocVisitor(docutils.nodes.NodeVisitor):
         """Returns the text representation of `node`."""
         if not isinstance(node, list):
             node = [node]
-        return str(jinja2.Markup.escape("".join(x.astext() for x in node)))
+        return str(markupsafe.Markup.escape("".join(x.astext() for x in node)))
 
     def visit_reference(self, node: docutils.nodes.reference):
         self._rendered_title_text = self._render_title(node.children)
@@ -330,7 +330,7 @@ def _add_domain_info_to_toc(
         assert entry.title.startswith(span_prefix)
         entry.title = (
             title_prefix
-            + f'<span title="{jinja2.Markup.escape(tooltip)}" '
+            + f'<span title="{markupsafe.Markup.escape(tooltip)}" '
             + entry.title[len(span_prefix) :]
         )
 
@@ -407,7 +407,7 @@ def _html_page_context(
     doctree: docutils.nodes.Node,
 ) -> None:
     theme_options = app.config["html_theme_options"]  # type: dict
-    page_title = jinja2.Markup.escape(jinja2.Markup(context.get("title")).striptags())
+    page_title = markupsafe.Markup.escape(markupsafe.Markup(context.get("title")).striptags())
     meta = context.get("meta", {})
     global_toc, local_toc = _get_mkdocs_tocs(
         app,
@@ -423,7 +423,7 @@ def _html_page_context(
 
     toc_title = theme_options.get("toc_title")
     if toc_title:
-        toc_title = str(jinja2.Markup.escape(toc_title))
+        toc_title = str(markupsafe.Markup.escape(toc_title))
     elif (
         theme_options.get("toc_title_is_page_title")
         and local_toc
@@ -461,15 +461,15 @@ def _html_page_context(
             page["meta"]["hide"].append("navigation")
     if context.get("next"):
         page["next_page"] = {
-            "title": jinja2.Markup.escape(
-                jinja2.Markup(context["next"]["title"]).striptags()
+            "title": markupsafe.Markup.escape(
+                markupsafe.Markup(context["next"]["title"]).striptags()
             ),
             "url": context["next"]["link"],
         }
     if context.get("prev"):
         page["previous_page"] = {
-            "title": jinja2.Markup.escape(
-                jinja2.Markup(context["prev"]["title"]).striptags()
+            "title": markupsafe.Markup.escape(
+                markupsafe.Markup(context["prev"]["title"]).striptags()
             ),
             "url": context["prev"]["link"],
         }
