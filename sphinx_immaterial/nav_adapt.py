@@ -407,7 +407,9 @@ def _html_page_context(
     doctree: docutils.nodes.Node,
 ) -> None:
     theme_options = app.config["html_theme_options"]  # type: dict
-    page_title = markupsafe.Markup.escape(markupsafe.Markup(context.get("title")).striptags())
+    page_title = markupsafe.Markup.escape(
+        markupsafe.Markup(context.get("title")).striptags()
+    )
     meta = context.get("meta", {})
     global_toc, local_toc = _get_mkdocs_tocs(
         app,
