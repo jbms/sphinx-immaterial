@@ -79,7 +79,8 @@ export function setupVersionSelector(
           config.version!.versionPath ?? "../versions.json", config.base))
 
   /* Determine current version */
-  const getCanonical = (version: string) => new URL(version, config.base).toString().replace(/\/*$/, "")
+  const versionBase = new URL("..", config.base)
+  const getCanonical = (version: string) => new URL(version, versionBase).toString().replace(/\/*$/, "")
   const current$ = versions$
     .pipe(
       map(versions => {
