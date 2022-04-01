@@ -35,6 +35,7 @@ extensions = [
     "sphinx.ext.mathjax",
     "sphinx.ext.viewcode",
     "sphinxcontrib.details.directive",
+    "sphinx_immaterial.theme_result",
 ]
 
 intersphinx_mapping = {
@@ -69,7 +70,8 @@ exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 html_static_path = ["_static"]
 html_css_files = [
     "extra_css.css",
-    "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css",
+    # "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css",
+    "results.css",
 ]
 
 # -- HTML theme settings ------------------------------------------------
@@ -131,12 +133,12 @@ html_theme_options = {
         {
             "version": "https://sphinx-immaterial.rtfd.io",
             "title": "ReadTheDocs",
-            "aliases": []
+            "aliases": [],
         },
         {
             "version": "https://jbms.github.io/sphinx-immaterial",
             "title": "Github Pages",
-            "aliases": []
+            "aliases": [],
         },
     ],
     "toc_title_is_page_title": True,

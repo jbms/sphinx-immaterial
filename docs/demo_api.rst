@@ -7,56 +7,71 @@ sample API documentation and generated content
 :mod:`test_py_module`
 =====================
 
-.. automodule:: test_py_module.test
-    :members:
-    :private-members:
-    :special-members:
+.. result:: autodoc example
 
+   .. automodule:: test_py_module.test
+      :members:
+      :private-members:
+      :special-members:
 
 C++ API
 =======
 
-.. cpp:type:: MyType
+.. result::
 
-   Some type
+   .. cpp:type:: MyType
 
-.. cpp:function:: const MyType Foo(const MyType bar)
+      Some type
 
-   Some function type thing
+.. result::
 
-.. cpp:class:: template<typename T, std::size_t N> std::array
+   .. cpp:function:: const MyType Foo(const MyType bar)
 
-   Some cpp class
+      Some function type thing
 
-.. cpp:member:: float Sphinx::version
+.. result::
 
-   The description of Sphinx::version.
+   .. cpp:class:: template<typename T, std::size_t N> std::array
 
-.. cpp:var:: int version
+      Some cpp class
 
-   The description of version.
+.. result::
 
-.. cpp:type:: std::vector<int> List
+   .. cpp:member:: float Sphinx::version
 
-   The description of List type.
+      The description of Sphinx::version.
 
-.. cpp:enum:: MyEnum
+.. result::
 
-   An unscoped enum.
+   .. cpp:var:: int version
 
-   .. cpp:enumerator:: A
+      The description of version.
 
-.. cpp:enum-class:: MyScopedEnum
+.. result::
 
-   A scoped enum.
+   .. cpp:type:: std::vector<int> List
 
-   .. cpp:enumerator:: B
+      The description of List type.
 
-.. cpp:enum-struct:: protected MyScopedVisibilityEnum : std::underlying_type<MySpecificEnum>::type
+.. result::
 
-   A scoped enum with non-default visibility, and with a specified underlying type.
+   .. cpp:enum:: MyEnum
 
-   .. cpp:enumerator:: B
+      An unscoped enum.
+
+      .. cpp:enumerator:: A
+
+   .. cpp:enum-class:: MyScopedEnum
+
+      A scoped enum.
+
+      .. cpp:enumerator:: B
+
+   .. cpp:enum-struct:: protected MyScopedVisibilityEnum : std::underlying_type<MySpecificEnum>::type
+
+      A scoped enum with non-default visibility, and with a specified underlying type.
+
+      .. cpp:enumerator:: B
 
 
 JavaScript API
@@ -66,34 +81,44 @@ JavaScript API
 
 .. js:module:: module_a.submodule
 
-* Link to :js:class:`ModTopLevel`
+.. result::
 
-.. js:class:: ModTopLevel
+   * Link to :js:class:`ModTopLevel`
 
-    * Link to :js:meth:`mod_child_1`
-    * Link to :js:meth:`ModTopLevel.mod_child_1`
+.. result::
 
-.. js:method:: ModTopLevel.mod_child_1
+   .. js:class:: ModTopLevel
 
-    * Link to :js:meth:`mod_child_2`
+      * Link to :js:meth:`mod_child_1`
+      * Link to :js:meth:`ModTopLevel.mod_child_1`
 
-.. js:method:: ModTopLevel.mod_child_2
+.. result::
 
-    * Link to :js:meth:`module_a.submodule.ModTopLevel.mod_child_1`
+   .. js:method:: ModTopLevel.mod_child_1
+
+      * Link to :js:meth:`mod_child_2`
+
+   .. js:method:: ModTopLevel.mod_child_2
+
+      * Link to :js:meth:`module_a.submodule.ModTopLevel.mod_child_1`
 
 .. js:module:: module_b.submodule
 
-* Link to :js:class:`ModTopLevel`
+.. result::
 
-.. js:class:: ModNested
+   * Link to :js:class:`ModTopLevel`
 
-    .. js:method:: nested_child_1
+.. result::
 
-        * Link to :js:meth:`nested_child_2`
+   .. js:class:: ModNested
 
-    .. js:method:: nested_child_2
+      .. js:method:: nested_child_1
 
-        * Link to :js:meth:`nested_child_1`
+         * Link to :js:meth:`nested_child_2`
+
+      .. js:method:: nested_child_2
+
+         * Link to :js:meth:`nested_child_1`
 
 
 Generated Index
@@ -110,18 +135,20 @@ However, some projects will manually do it, like so:
 
 This example comes from `django-payments module docs`_.
 
-.. class:: payments.dotpay.DotpayProvider(seller_id, pin[, channel=0[, lock=False], lang='pl'])
+.. result::
 
-   This backend implements payments using a popular Polish gateway, `Dotpay.pl <http://www.dotpay.pl>`_.
+   .. class:: payments.dotpay.DotpayProvider(seller_id, pin[, channel=0[, lock=False], lang='pl'])
 
-   Due to API limitations there is no support for transferring purchased items.
+      This backend implements payments using a popular Polish gateway, `Dotpay.pl <http://www.dotpay.pl>`_.
+
+      Due to API limitations there is no support for transferring purchased items.
 
 
-   :param seller_id: Seller ID assigned by Dotpay
-   :param pin: PIN assigned by Dotpay
-   :param channel: Default payment channel (consult reference guide)
-   :param lang: UI language
-   :param lock: Whether to disable channels other than the default selected above
+      :param seller_id: Seller ID assigned by Dotpay
+      :param pin: PIN assigned by Dotpay
+      :param channel: Default payment channel (consult reference guide)
+      :param lang: UI language
+      :param lock: Whether to disable channels other than the default selected above
 
 .. _cannot be generated from code: https://groups.google.com/forum/#!topic/sphinx-users/_qfsVT5Vxpw
 .. _django-payments module docs: http://django-payments.readthedocs.org/en/latest/modules.html#payments.authorizenet.AuthorizeNetProvide
@@ -130,10 +157,12 @@ This example comes from `django-payments module docs`_.
 Data
 ====
 
-.. data:: Data_item_1
-          Data_item_2
-          Data_item_3
+.. result::
 
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce congue elit eu hendrerit mattis.
+   .. data:: Data_item_1
+             Data_item_2
+             Data_item_3
 
-Some data link :data:`Data_item_1`.
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce congue elit eu hendrerit mattis.
+
+   Some data link :data:`Data_item_1`.

@@ -15,15 +15,15 @@ directive that exposes the underlying implementation in mkdocs-material theme.
 
     .. rst:directive:option:: class
         :type: string
-        
+
         A space delimited list of qualified names that get used as the HTML element's
         ``class`` attribute.
 
     .. rst:directive:option:: name
         :type: string
-        
+
         A qualified name that get used as the HTML element's ``id`` attribute.
-    
+
         Use the `ref` role to reference the element by name.
 
     The `md-mermaid` directive's ``:class:`` and ``:name:`` options can be used
@@ -34,16 +34,22 @@ directive that exposes the underlying implementation in mkdocs-material theme.
 
     .. md-admonition::
         :class: missing
-    
+
         While all `mermaid.js`_ features should work out-of-the-box, this theme will currently only
-        adjust the fonts and colors for `flowcharts`_, `sequence diagrams <sequence-diagrams>`,
-        `class diagrams <class-diagrams>`, `state diagrams <state-diagrams>`, and
-        `entity-relationship diagrams <entity-relationship-diagrams>`.
+        adjust the fonts and colors for the following types of diagrams:
+
+        .. result:: References linking directly to a diagram's ``:name:``
+
+            - `flowcharts`_
+            - `sequence diagrams <sequence-diagrams>`
+            - `class diagrams <class-diagrams>`
+            - `state diagrams <state-diagrams>`
+            - `entity-relationship diagrams <entity-relationship-diagrams>`
 
 Using flowcharts
 ----------------
 
-.. code-block:: rst
+.. result::
 
     .. md-mermaid::
         :name: flowcharts
@@ -55,20 +61,10 @@ Using flowcharts
             D --> B;
             B ---->|No| E[Yay!];
 
-.. md-mermaid::
-    :name: flowcharts
-
-    graph LR
-        A[Start] --> B{Error?};
-        B -->|Yes| C[Hmm...];
-        C --> D[Debug];
-        D --> B;
-        B ---->|No| E[Yay!];
-
 Using sequence diagrams
 -----------------------
 
-.. code-block:: rst
+.. result::
 
     .. md-mermaid::
         :name: sequence-diagrams
@@ -83,23 +79,10 @@ Using sequence diagrams
             John->>Bob: How about you?
             Bob-->>John: Jolly good!
 
-.. md-mermaid::
-    :name: sequence-diagrams
-
-    sequenceDiagram
-        Alice->>John: Hello John, how are you?
-        loop Healthcheck
-            John->>John: Fight against hypochondria
-        end
-        Note right of John: Rational thoughts!
-        John-->>Alice: Great!
-        John->>Bob: How about you?
-        Bob-->>John: Jolly good!
-
 Using state diagrams
 --------------------
 
-.. code-block:: rst
+.. result::
 
     .. md-mermaid::
         :name: state-diagrams
@@ -116,26 +99,11 @@ Using state diagrams
                 join_state --> State4
                 State4 --> [*]
 
-.. md-mermaid::
-    :name: state-diagrams
-
-    stateDiagram-v2
-        state fork_state <<fork>>
-            [*] --> fork_state
-            fork_state --> State2
-            fork_state --> State3
-
-            state join_state <<join>>
-            State2 --> join_state
-            State3 --> join_state
-            join_state --> State4
-            State4 --> [*]
 
 Using class diagrams
 --------------------
 
-
-.. code-block:: rst
+.. result::
 
     .. md-mermaid::
         :name: class-diagrams
@@ -164,44 +132,13 @@ Using class diagrams
                 +int postalCode
                 +String country
                 -validate()
-                +outputAsLabel()  
+                +outputAsLabel()
             }
-
-.. md-mermaid::
-    :name: class-diagrams
-
-    classDiagram
-        Person <|-- Student
-        Person <|-- Professor
-        Person : +String name
-        Person : +String phoneNumber
-        Person : +String emailAddress
-        Person: +purchaseParkingPass()
-        Address "1" <-- "0..1" Person:lives at
-        class Student{
-            +int studentNumber
-            +int averageMark
-            +isEligibleToEnrol()
-            +getSeminarsTaken()
-        }
-        class Professor{
-            +int salary
-        }
-        class Address{
-            +String street
-            +String city
-            +String state
-            +int postalCode
-            +String country
-            -validate()
-            +outputAsLabel()  
-        }
 
 Using entity-relationship diagrams
 ----------------------------------
 
-
-.. code-block:: rst
+.. result::
 
     .. md-mermaid::
         :name: entity-relationship-diagrams
@@ -210,11 +147,3 @@ Using entity-relationship diagrams
             CUSTOMER ||--o{ ORDER : places
             ORDER ||--|{ LINE-ITEM : contains
             CUSTOMER }|..|{ DELIVERY-ADDRESS : uses
-
-.. md-mermaid::
-    :name: entity-relationship-diagrams
-
-    erDiagram
-        CUSTOMER ||--o{ ORDER : places
-        ORDER ||--|{ LINE-ITEM : contains
-        CUSTOMER }|..|{ DELIVERY-ADDRESS : uses

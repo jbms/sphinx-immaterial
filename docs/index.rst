@@ -56,7 +56,7 @@ Update your ``conf.py`` with the required changes:
 There are a lot more ways to customize this theme. See :ref:`Customization`
 or ``theme.conf`` for more details.
 
-.. admonition:: Settings used in this documentation
+.. details:: Settings used in this documentation
     :class: example
 
     .. literalinclude:: ./conf.py
