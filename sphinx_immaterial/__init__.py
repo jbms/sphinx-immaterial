@@ -225,6 +225,13 @@ def html_page_context(
             "versionPath": theme_options.get("version_json"),
         }
 
+    analytics = None
+    if theme_options.get("google_analytics"):
+        analytics = {
+            "provider": "google",  # Google is the only provider currently supported
+            "property": theme_options.get("google_analytics")[0]
+        }
+
     context.update(
         config=dict_merge(
             context.get("config", {}),
@@ -239,9 +246,9 @@ def html_page_context(
                     "social": theme_options.get("social"),
                     "disqus": theme_options.get("disqus"),
                     "manifest": theme_options.get("pwa_manifest"),
+                    "analytics": analytics,
                 },
                 "plugins": theme_options.get("plugins"),
-                "google_analytics": theme_options.get("google_analytics"),
             },
         ),
         base_url=base_url,
