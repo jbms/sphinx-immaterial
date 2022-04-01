@@ -71,7 +71,7 @@ def keys_role(
         if key in KEYS_OPTS["keys_map"].keys():
             display = KEYS_OPTS["keys_map"][key]
         if keys_db is not None:
-            if key in keys_db.aliases.keys():
+            if key in keys_db.aliases:
                 display = keys_db.keymap[keys_db.aliases[key]]
                 cls = keys_db.aliases[key]
         return (cls, display)

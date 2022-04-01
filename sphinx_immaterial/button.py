@@ -1,15 +1,13 @@
 """A simple directive that creates a HTML ``<a>`` element."""
 
 from typing import List, Any, Tuple
-from docutils.parsers.rst import directives
+from docutils.parsers.rst import directives, states
 from docutils import nodes
 from sphinx.application import Sphinx
 from sphinx.util.docutils import SphinxDirective
-from sphinx import addnodes
 from sphinx.roles import AnyXRefRole
 from sphinx.writers.html import HTMLTranslator
 from sphinx.util.logging import getLogger
-from docutils.parsers.rst import states
 
 LOGGER = getLogger(__name__)
 
@@ -88,7 +86,7 @@ class BasicButton(SphinxDirective):
                 a_tag += content
         return [a_tag]
 
-
+# pylint: disable=too-many-arguments
 class MaterialButton(BasicButton):
     def __init__(
         self,
