@@ -73,6 +73,7 @@ or ``theme.conf`` for more details.
     mermaid_diagrams
     task_lists
     keys
+    buttons
 
 .. toctree::
     :caption: Examples and Uses
