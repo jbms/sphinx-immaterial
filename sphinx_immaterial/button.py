@@ -86,6 +86,7 @@ class BasicButton(SphinxDirective):
                 a_tag += content
         return [a_tag]
 
+
 # pylint: disable=too-many-arguments
 class MaterialButton(BasicButton):
     def __init__(
