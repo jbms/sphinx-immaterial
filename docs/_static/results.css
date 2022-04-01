@@ -1,0 +1,16 @@
+/* **************************** theme-results directive special ******************** */
+
+.md-typeset .code-block-caption+.notranslate pre,
+.md-typeset .code-block-caption+.notranslate>.highlighttable {
+  margin-top: 0;
+}
+
+.result .results-prefix {
+  margin-bottom: 1em;
+  margin-top: 0.1rem;
+  background-color: var(--md-code-bg-color);
+  overflow: visible;
+  border-bottom-left-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+  padding: 0 0.5rem;
+}

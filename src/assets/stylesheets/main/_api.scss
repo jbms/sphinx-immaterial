@@ -222,3 +222,10 @@ table.longtable.docutils.data.align-default {
     }
   }
 }
+
+// a rule to reset margin for code-blocks with a caption
+// works best with sphinx_immaterial.patch_literal_blocks extension
+.md-typeset .code-block-caption + .notranslate pre,
+.md-typeset .code-block-caption + .notranslate .highlighttable {
+  margin-top: 0;
+}

@@ -20,6 +20,7 @@ from . import nav_adapt
 from . import object_toc
 from . import postprocess_html
 from . import search_adapt
+from . import patch_literal_blocks
 from .details_patch import monkey_patch_details_run
 
 logger = sphinx.util.logging.getLogger(__name__)
@@ -276,6 +277,7 @@ def setup(app):
     app.setup_extension(inlinesyntaxhighlight.__name__)
     app.setup_extension(object_toc.__name__)
     app.setup_extension(search_adapt.__name__)
+    app.setup_extension(patch_literal_blocks.__name__)
     app.connect("html-page-context", html_page_context)
     app.connect("builder-inited", _builder_inited)
     app.add_config_value(
