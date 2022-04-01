@@ -18,6 +18,46 @@
   --md-icon__fa-bitbucket: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M22.2 32A16 16 0 0 0 6 47.8a26.35 26.35 0 0 0 .2 2.8l67.9 412.1a21.77 21.77 0 0 0 21.3 18.2h325.7a16 16 0 0 0 16-13.4L505 50.7a16 16 0 0 0-13.2-18.3 24.58 24.58 0 0 0-2.8-.2L22.2 32zm285.9 297.8h-104l-28.1-147h157.3l-25.2 147z"/></svg>');
 }
 
+.md-typeset a.lcars-button {
+  border-radius: 36px;
+}
+
+/* ************************* my-special-key style ************************************* */
+
+.md-typeset kbd.key-my-special-key,
+.md-typeset kbd.key-git {
+  color: var(--md-primary-fg-color);
+  background: var(--md-accent-bg-color);
+}
+
+.md-typeset kbd.key-git::before {
+  content: "██";
+  --webmask-image: var(--md-icon__fa-git);
+  mask-image: var(--md-icon__fa-git);
+  mask-repeat: no-repeat;
+}
+
+.md-typeset kbd.key-my-special-key:hover,
+.md-typeset kbd.key-git:hover {
+  color: var(--md-accent-fg-color);
+}
+
+/* **************************** custom-task-list style rules *************************** */
+
+/* style for the unchecked checkboxes */
+.custom-task-list-style>ul>.task-list-item>.task-list-control>.task-list-indicator::before {
+  -webkit-mask-image: var(--md-admonition-icon--failure);
+  mask-image: var(--md-admonition-icon--failure);
+  background-color: hsl(0, 72%, 55%);
+}
+
+/* style for the checked checkboxes */
+.custom-task-list-style>ul>.task-list-item>.task-list-control>[type="checkbox"]:checked+.task-list-indicator::before {
+  -webkit-mask-image: var(--md-admonition-icon--success);
+  mask-image: var(--md-admonition-icon--success);
+  background-color: hsl(122, 84%, 45%);
+}
+
 /* *************************** custom admonition style rules *************************** */
 
 :root {
