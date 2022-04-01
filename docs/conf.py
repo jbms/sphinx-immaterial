@@ -36,6 +36,7 @@ extensions = [
     "sphinx.ext.viewcode",
     "sphinxcontrib.details.directive",
     "sphinx_immaterial.theme_result",
+    "sphinx_immaterial.kbd_keys",
 ]
 
 intersphinx_mapping = {
@@ -57,6 +58,11 @@ templates_path = ["_templates"]
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
 exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
+
+# -- sphinx_immaterial.keys extension options
+#
+# optional key_map for example purposes
+keys_map = {"my-special-key": "Awesome Key", "git": ""}
 
 # -- Options for HTML output -------------------------------------------------
 

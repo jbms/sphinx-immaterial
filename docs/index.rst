@@ -71,6 +71,8 @@ or ``theme.conf`` for more details.
     admonitions
     content_tabs
     mermaid_diagrams
+    task_lists
+    keys
 
 .. toctree::
     :caption: Examples and Uses
