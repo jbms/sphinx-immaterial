@@ -229,7 +229,7 @@ def html_page_context(
     if theme_options.get("google_analytics"):
         analytics = {
             "provider": "google",  # Google is the only provider currently supported
-            "property": theme_options.get("google_analytics")[0]
+            "property": theme_options.get("google_analytics")[0],
         }
 
     context.update(
