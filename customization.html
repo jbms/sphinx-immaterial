@@ -438,8 +438,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#confval-google_analytics_account" class="md-nav__link">
-    <span class="md-ellipsis">google_<wbr>analytics_<wbr>account</span>
+  <a href="#confval-analytics" class="md-nav__link">
+    <span class="md-ellipsis">analytics</span>
   </a>
   
 </li>
@@ -894,8 +894,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#confval-google_analytics_account" class="md-nav__link">
-    <span class="md-ellipsis">google_<wbr>analytics_<wbr>account</span>
+  <a href="#confval-analytics" class="md-nav__link">
+    <span class="md-ellipsis">analytics</span>
   </a>
   
 </li>
@@ -1086,8 +1086,8 @@ by specifying the <code class="docutils literal notranslate"><span class="pre">h
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
 <p>This option is documented with more detail in the Sphinx documentation.
-However, the size constraints for <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/configuration.html#confval-html_logo" title="(in Sphinx v5.0.0+)"><code class="xref std std-confval docutils literal notranslate"><span class="pre">html_logo</span></code></a>
-and <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/configuration.html#confval-html_favicon" title="(in Sphinx v5.0.0+)"><code class="xref any docutils literal notranslate"><span class="pre">html_favicon</span></code></a> are not as strict for this theme.</p>
+However, the size constraints for <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/configuration.html#confval-html_logo" title="(in Sphinx v6.0.0)"><code class="xref std std-confval docutils literal notranslate"><span class="pre">html_logo</span></code></a>
+and <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/configuration.html#confval-html_favicon" title="(in Sphinx v6.0.0)"><code class="xref any docutils literal notranslate"><span class="pre">html_favicon</span></code></a> are not as strict for this theme.</p>
 </div>
 </dd></dl>
 
@@ -1180,10 +1180,10 @@ of strings. The following features are supported:</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Due to a difference in general document structure between mkdocs and sphinx, any
-<a class="reference external" href="https://www.sphinx-doc.org/en/master/templating.html#toctree" title="(in Sphinx v5.0.0+)"><code class="xref any docutils literal notranslate"><span class="pre">toctree</span></code></a> entry should start with a page entity (that contains a section header).
-Sphinx does allow <a class="reference external" href="https://www.sphinx-doc.org/en/master/templating.html#toctree" title="(in Sphinx v5.0.0+)"><code class="xref any docutils literal notranslate"><span class="pre">toctree</span></code></a> entries to be a list of only hyperlinks, but a
+<a class="reference external" href="https://www.sphinx-doc.org/en/master/templating.html#toctree" title="(in Sphinx v6.0.0)"><code class="xref any docutils literal notranslate"><span class="pre">toctree</span></code></a> entry should start with a page entity (that contains a section header).
+Sphinx does allow <a class="reference external" href="https://www.sphinx-doc.org/en/master/templating.html#toctree" title="(in Sphinx v6.0.0)"><code class="xref any docutils literal notranslate"><span class="pre">toctree</span></code></a> entries to be a list of only hyperlinks, but a
 navigation tab created from such an entry will only lead to the first hyperlink in
-the <a class="reference external" href="https://www.sphinx-doc.org/en/master/templating.html#toctree" title="(in Sphinx v5.0.0+)"><code class="xref any docutils literal notranslate"><span class="pre">toctree</span></code></a>.</p>
+the <a class="reference external" href="https://www.sphinx-doc.org/en/master/templating.html#toctree" title="(in Sphinx v6.0.0)"><code class="xref any docutils literal notranslate"><span class="pre">toctree</span></code></a>.</p>
 <p>See <a class="reference external" href="https://github.com/jbms/sphinx-immaterial/issues/33">issue #33</a> for a
 problematic demonstration.</p>
 </div>
@@ -1339,9 +1339,17 @@ or <code class="docutils literal notranslate"><span class="pre">rtl</span></code
 </dd></dl>
 
 <dl class="std confval objdesc">
-<dt class="sig sig-object std" id="confval-google_analytics_account">
-<span class="sig-name descname"><span class="pre">google_analytics_account</span></span><a class="headerlink" href="#confval-google_analytics_account" title="Permalink to this definition">¶</a></dt>
-<dd><p>Set to enable google analytics.</p>
+<dt class="sig sig-object std" id="confval-analytics">
+<span class="sig-name descname"><span class="pre">analytics</span></span><a class="headerlink" href="#confval-analytics" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set to enable site analytics.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="n">html_theme_options</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;analytics&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;provider&quot;</span><span class="p">:</span> <span class="s2">&quot;google&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;property&quot;</span><span class="p">:</span> <span class="s2">&quot;G-XXXXXXXXXX&quot;</span>  <span class="c1"># Or &quot;UA-XXXXXXXX-X&quot;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
 </dd></dl>
 
 <dl class="std confval objdesc">
@@ -1578,7 +1586,7 @@ touch source/_templates/layout.html
   <small>
     
       Last update:
-      Mar 30, 2022
+      Apr 03, 2022
     
   </small>
 </div>
