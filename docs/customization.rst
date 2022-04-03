@@ -372,9 +372,18 @@ Configuration Options
 
         You can specify any of the available `Google Fonts <https://fonts.google.com/>`_.
 
-    .. confval:: google_analytics_account
+    .. confval:: analytics
 
-        Set to enable google analytics.
+        Set to enable site analytics.
+
+        .. code-block:: python
+
+            html_theme_options = {
+                "analytics": {
+                    "provider": "google",
+                    "property": "G-XXXXXXXXXX"  # Or "UA-XXXXXXXX-X"
+                }
+            }
 
     .. confval:: globaltoc_collapse
 
