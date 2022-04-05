@@ -195,7 +195,7 @@ class HTMLTranslatorMixin:
         if not isinstance(
             node.parent, docutils.nodes.container
         ) and not node.parent.get("literal_block"):
-            # only append ending tag if parent is not a literal-block. 
+            # only append ending tag if parent is not a literal-block.
             # Because all elements in the caption should be within a span element
             self.body.append("</span>")
 
