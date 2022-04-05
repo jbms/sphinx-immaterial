@@ -82,15 +82,15 @@ $objinfo-icon-size: 16px;
         }
 
         .sig-param:not(:first-of-type) > .n:first-child::before {
-          content: "\A     ";
           white-space: pre;
+          content: "\A     ";
         }
 
-        .sig-paren:not(:last-of-type){
+        .sig-paren:not(:last-of-type) {
           // Ensure the first paren ends the line
           &::after {
-            content: "\A     ";
             white-space: pre;
+            content: "\A     ";
           }
         }
 
