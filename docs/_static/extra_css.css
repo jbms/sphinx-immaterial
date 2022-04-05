@@ -18,10 +18,33 @@
   --md-icon__fa-bitbucket: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M22.2 32A16 16 0 0 0 6 47.8a26.35 26.35 0 0 0 .2 2.8l67.9 412.1a21.77 21.77 0 0 0 21.3 18.2h325.7a16 16 0 0 0 16-13.4L505 50.7a16 16 0 0 0-13.2-18.3 24.58 24.58 0 0 0-2.8-.2L22.2 32zm285.9 297.8h-104l-28.1-147h157.3l-25.2 147z"/></svg>');
 }
 
+/* **************************** test buttons' LCARS style ************************** */
+
 .md-typeset a.lcars-button {
   border-radius: 36px;
 }
 
+/* **************************** theme-results directive special ******************** */
+
+.result .results-prefix {
+  margin-bottom: 1em;
+  margin-top: 0.1rem;
+  background-color: var(--md-code-bg-color);
+  overflow: visible;
+  border-bottom-left-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+  padding: 0 0.5rem;
+}
+
+.md-typeset :is(.highlight, .highlighttable, .literal-block-wrapper) + .result {
+	border: .05rem solid var(--md-code-bg-color);
+	border-bottom-left-radius: .1rem;
+	border-bottom-right-radius: .1rem;
+	border-top-width: .1rem;
+	margin-top: -1.125em;
+	overflow: visible;
+	padding: 0 1em;
+}
 /* ************************* my-special-key style ************************************* */
 
 .md-typeset kbd.key-my-special-key,

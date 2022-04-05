@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 """Test Module for sphinx_rtd_theme."""
+from typing import Union
 
 
 class Foo:
@@ -111,3 +112,7 @@ class Foo:
             This is deprecated since 3.0
         """
         return sum(kwargs.values()) / len(kwargs), a + b
+
+def func(long: int, param: str, args: None, flags: bool, lists: Union[list, tuple]):
+    """A function with many parameters."""
+    return None

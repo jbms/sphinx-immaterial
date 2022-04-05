@@ -42,7 +42,7 @@ These admonitions can still be used, but the syntax is a little different becaus
 on the generic admonition defined in the reStructuredText specifications.
 
 To use the following admonitions' styles from the mkdocs-material theme, the rST syntax is
-shown inside the demonstrated admonition.
+shown to demonstrate using the ``:class:`` option of generic admonitions.
 
 .. important::
    The ``:class:`` options below (in the rST code blocks) must use lower case letters for the
@@ -55,7 +55,7 @@ shown inside the demonstrated admonition.
       :class: info
 
       Thanks to the mkdocs-material theme, the ``todo`` class is also an alias of the
-      ``info`` class when not using the ``.. todo::`` directive.
+      ``info`` class when not using the `.. todo:: <todo>` directive.
 
 .. result:: ``abstract``, ``summary``, ``tldr``
 
@@ -71,14 +71,12 @@ shown inside the demonstrated admonition.
 
       This style is used for ``success``, ``check``, ``done`` CSS classes.
 
-
 .. result:: ``question``, ``help``, ``faq``
 
    .. admonition:: FAQ
       :class: faq
 
       Helpful advice goes here.
-
 
 .. result:: ``failure``, ``fail``, ``missing``
 
@@ -87,7 +85,6 @@ shown inside the demonstrated admonition.
 
       We expected some loss of feature-coverage.
 
-
 .. result:: ``bug``
 
    .. admonition:: Known Bug
@@ -95,14 +92,12 @@ shown inside the demonstrated admonition.
 
       Bug reported data/conclusion.
 
-
 .. result:: ``example``
 
    .. admonition:: Example Admonition
       :class: example
 
       Example Body.
-
 
 .. result:: ``cite``, ``quote``
 
@@ -154,7 +149,6 @@ from an admonition, this theme has an added directive to do just that: ``md-admo
 The admonition's title can be removed if the ``md-admonition`` directive is not provided
 any arguments. Because the ``md-admonition`` directive is an adaptation of the generic
 ``admonition`` directive, the ``class`` option is still respected.
-
 
 .. result::
 

@@ -25,13 +25,15 @@ C++ API
 
 .. result::
 
-   .. cpp:function:: const MyType Foo(const MyType bar)
+   .. c:macro:: DEFAULT_LENGTH
+
+   .. cpp:function:: const MyType Foo(const MyType bar, uint8_t* arr, unsigned int len = DEFAULT_LENGTH, bool baz= false)
 
       Some function type thing
 
 .. result::
 
-   .. cpp:class:: template<typename T, std::size_t N> std::array
+   .. cpp:class:: template<typename T, typename A, typename B, typename C, std::size_t N> std::array
 
       Some cpp class
 
@@ -39,7 +41,7 @@ C++ API
 
    .. cpp:member:: float Sphinx::version
 
-      The description of Sphinx::version.
+      The description of `Sphinx::version`.
 
 .. result::
 
@@ -102,11 +104,11 @@ JavaScript API
 
       * Link to :js:meth:`module_a.submodule.ModTopLevel.mod_child_1`
 
-.. js:module:: module_b.submodule
-
 .. result::
 
    * Link to :js:class:`ModTopLevel`
+
+.. js:module:: module_b.submodule
 
 .. result::
 
@@ -120,6 +122,15 @@ JavaScript API
 
          * Link to :js:meth:`nested_child_1`
 
+      .. js:method:: getJSON(href, callback, priority[, err_back, flags])
+
+         :param string href: An URI to the location of the resource.
+         :param callback: Gets called with the object.
+         :param err_back:
+            Gets called in case the request fails. And a lot of other
+            text so we need multiple lines.
+         :throws SomeError: For whatever reason in that case.
+         :returns: Something.
 
 Generated Index
 ===============

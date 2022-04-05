@@ -37,6 +37,7 @@ extensions = [
     "sphinxcontrib.details.directive",
     "sphinx_immaterial.theme_result",
     "sphinx_immaterial.kbd_keys",
+    "sphinx_immaterial.button",
 ]
 
 intersphinx_mapping = {
@@ -77,7 +78,6 @@ html_static_path = ["_static"]
 html_css_files = [
     "extra_css.css",
     # "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css",
-    "results.css",
 ]
 
 # -- HTML theme settings ------------------------------------------------

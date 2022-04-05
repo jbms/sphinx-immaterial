@@ -4,7 +4,8 @@ Mermaid diagrams
 ================
 
 .. note::
-    Use of this feature has no affect or affiliation with sphinx's graphviz implementation.
+    Use of this feature has no affect or affiliation with sphinx's
+    :py:mod:`graphviz <sphinx.ext.graphviz>` implementation.
 
 The mkdocs-material theme is equipped to make use of diagrams generated (during page load time)
 with `mermaid.js`_. Although, its implementation relies on a markdown extension that does not get
