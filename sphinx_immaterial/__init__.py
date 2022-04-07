@@ -59,6 +59,12 @@ def _get_html_translator(
                 self.settings.table_style.split(",") + ["data"]
             )
 
+            # Ensure classes like `s` (used for string literals in code
+            # highlighting) aren't converted to `<s>` elements (strikethrough).
+            # Sphinx already overrides this, but for some reason due to
+            # `__init__` invocation order it gets overridden.
+            self.supported_inline_tags = set()
+
         def visit_section(self, node: docutils.nodes.section) -> None:
             # Sphinx normally writes sections with a section heading as:
             #
