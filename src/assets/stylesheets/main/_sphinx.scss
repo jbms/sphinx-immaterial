@@ -95,11 +95,11 @@
     + .result {
       margin-top: -1em;
       padding: 0 1em;
+      overflow: visible;
       border: 0.05rem solid var(--md-code-bg-color);
       border-top-width: 0.1rem;
       border-bottom-right-radius: 0.1rem;
       border-bottom-left-radius: 0.1rem;
-      overflow: visible;
     }
   }
 
