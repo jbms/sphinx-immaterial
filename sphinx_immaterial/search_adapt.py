@@ -10,7 +10,7 @@
 """
 
 import io
-from typing import Any, Dict, IO, List, Tuple, Union
+from typing import cast, Any, Dict, IO, List, Tuple, Union
 
 import sphinx.search
 import sphinx.application
@@ -45,7 +45,7 @@ class IndexBuilder(sphinx.search.IndexBuilder):
                 objtype_entry = onames[typeindex]
                 domain_name = objtype_entry[0]
                 domain = self.env.domains[domain_name]
-                synopsis = ""
+                synopsis = None
                 get_object_synopsis = getattr(domain, "get_object_synopsis", None)
                 if get_object_synopsis:
                     objtype = objtype_entry[1]
@@ -53,6 +53,7 @@ class IndexBuilder(sphinx.search.IndexBuilder):
                     synopsis = get_object_synopsis(objtype, full_name)
                     if synopsis:
                         synopsis = synopsis.strip()
+                synopsis = synopsis or ""
                 if sphinx.version_info >= (4, 3):
                     prefix_value[i] = (
                         docindex,
@@ -70,7 +71,7 @@ class IndexBuilder(sphinx.search.IndexBuilder):
                         shortanchor,
                         synopsis,
                     )
-        return rv
+        return cast(Any, rv)
 
     def freeze(self):
         result = super().freeze()
