@@ -20,6 +20,15 @@ directive that exposes the underlying implementation in mkdocs-material theme.
         A space delimited list of qualified names that get used as the HTML element's
         ``class`` attribute.
 
+        .. hint::
+            You can use this option to specify ``text-align`` property via the following
+            CSS classes:
+
+            - ``align-right`` sets the ``text-align`` property to ``right``. 
+            - ``align-left`` sets the ``text-align`` property to ``left``. 
+            - ``align-center`` sets the ``text-align`` property to ``center``. 
+
+
     .. rst:directive:option:: name
         :type: string
 

@@ -46,11 +46,11 @@ class Foo:
         """Start the Foo.
 
         :param qux: The first argument to initialize class.
-        :type qux: string
+        :type qux: str
         :param spam: Spam me yes or no...
         :type spam: bool
-
         """
+
         #: Doc comment for instance attribute qux.
         self.qux = 3
 

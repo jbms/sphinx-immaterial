@@ -60,8 +60,8 @@ or ``theme.conf`` for more details.
     :class: example
 
     .. literalinclude:: ./conf.py
-        :start-at: # -- HTML theme settings ------------------------------------------------
-        :end-before: # ---- Other documentation options -------------------------
+        :start-at: # -- HTML theme specific settings
+        :end-before: # ---- Other documentation options
 
 
 .. toctree::
@@ -73,7 +73,6 @@ or ``theme.conf`` for more details.
     mermaid_diagrams
     task_lists
     keys
-    buttons
 
 .. toctree::
     :caption: Examples and Uses

@@ -24,27 +24,6 @@
   border-radius: 36px;
 }
 
-/* **************************** theme-results directive special ******************** */
-
-.result .results-prefix {
-  margin-bottom: 1em;
-  margin-top: 0.1rem;
-  background-color: var(--md-code-bg-color);
-  overflow: visible;
-  border-bottom-left-radius: 0.5rem;
-  border-bottom-right-radius: 0.5rem;
-  padding: 0 0.5rem;
-}
-
-.md-typeset :is(.highlight, .highlighttable, .literal-block-wrapper) + .result {
-	border: .05rem solid var(--md-code-bg-color);
-	border-bottom-left-radius: .1rem;
-	border-bottom-right-radius: .1rem;
-	border-top-width: .1rem;
-	margin-top: -1.125em;
-	overflow: visible;
-	padding: 0 1em;
-}
 /* ************************* my-special-key style ************************************* */
 
 .md-typeset kbd.key-my-special-key,

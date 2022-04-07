@@ -81,14 +81,14 @@ $objinfo-icon-size: 16px;
           }
         }
 
-        .sig-param:not(:first-of-type) > .n:first-child::before {
+        .sig-param > .n:first-child::before {
           white-space: pre;
           content: "\A     ";
         }
 
-        .sig-paren:not(:last-of-type) {
+        .sig-paren + span {
           // Ensure the first paren ends the line
-          &::after {
+          &::before {
             white-space: pre;
             content: "\A     ";
           }
@@ -242,7 +242,6 @@ table.longtable.docutils.data.align-default {
 }
 
 // a rule to reset margin for code-blocks with a caption
-// works best with sphinx_immaterial.patch_literal_blocks extension
 .md-typeset .code-block-caption + .notranslate pre,
 .md-typeset .code-block-caption + .notranslate .highlighttable {
   margin-top: 0;
