@@ -172,8 +172,12 @@ def depart_tab_set(self, node):
     self.body.append("</div>")
 
 
-def setup(app: Sphinx) -> None:
+def setup(app: Sphinx):
     app.add_directive("md-tab-set", MaterialTabSetDirective)
     app.add_directive("md-tab-item", MaterialTabItemDirective)
     app.add_node(content_tab_label, html=(visit_tab_label, depart_tab_label))
     app.add_node(content_tab_set, html=(visit_tab_set, depart_tab_set))
+    return {
+        "parallel_read_safe": True,
+        "parallel_write_safe": True,
+    }
