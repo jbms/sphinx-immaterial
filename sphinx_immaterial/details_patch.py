@@ -2,7 +2,9 @@ from typing import List
 from docutils import nodes
 
 try:
-    from sphinxcontrib.details.directive import DetailsDirective
+    from sphinxcontrib.details.directive import (  # pytype: disable=import-error
+        DetailsDirective,
+    )
 except ImportError:
     DetailsDirective = None
 

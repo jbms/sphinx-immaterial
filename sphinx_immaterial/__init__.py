@@ -1,12 +1,13 @@
 """Sphinx-Immaterial theme."""
 
 import os
-from typing import List, Type, Dict, Mapping
+from typing import cast, List, Type, Dict, Mapping, Optional
 
 import docutils.nodes
 from sphinx.application import Sphinx
 import sphinx.builders
 import sphinx.builders.html
+import sphinx.theming
 import sphinx.util.logging
 import sphinx.util.fileutil
 import sphinx.util.matching
@@ -58,6 +59,12 @@ def _get_html_translator(
                 self.settings.table_style.split(",") + ["data"]
             )
 
+            # Ensure classes like `s` (used for string literals in code
+            # highlighting) aren't converted to `<s>` elements (strikethrough).
+            # Sphinx already overrides this, but for some reason due to
+            # `__init__` invocation order it gets overridden.
+            self.supported_inline_tags = set()
+
         def visit_section(self, node: docutils.nodes.section) -> None:
             # Sphinx normally writes sections with a section heading as:
             #
@@ -92,6 +99,11 @@ def _get_html_builder(base_builder: Type[sphinx.builders.html.StandaloneHTMLBuil
     """Returns a modified HTML translator."""
 
     class CustomHTMLBuilder(base_builder):
+
+        css_files: List[sphinx.builders.html.Stylesheet]
+        theme: sphinx.theming.Theme
+        templates: sphinx.jinja2glue.BuiltinTemplateLoader
+
         @property
         def default_translator_class(self):
             return _get_html_translator(super().default_translator_class)
@@ -127,7 +139,11 @@ def _get_html_builder(base_builder: Type[sphinx.builders.html.StandaloneHTMLBuil
                     "_static/basic.css",
                 ]
             )
-            self.css_files = [x for x in self.css_files if x.filename not in excluded]
+            self.css_files = [
+                x
+                for x in cast(List[sphinx.builders.html.Stylesheet], self.css_files)
+                if x.filename not in excluded
+            ]
 
         def gen_additional_pages(self):
             # Prevent the search.html page from being written since this theme provides
@@ -171,11 +187,13 @@ def _get_html_builder(base_builder: Type[sphinx.builders.html.StandaloneHTMLBuil
                         os.path.join(self.outdir, "_static"),
                         excluded=excluded,
                         context=context,
-                        renderer=self.templates,
+                        renderer=cast(
+                            sphinx.util.template.BaseRenderer, self.templates
+                        ),
                         onerror=onerror,
                     )
 
-        def get_target_uri(self, docname: str, typ: str = None) -> str:
+        def get_target_uri(self, docname: str, typ: Optional[str] = None) -> str:
             """Strips ``index.html`` suffix from URIs for cleaner links."""
             orig_uri = super().get_target_uri(docname, typ)
             if self.app.config["html_use_directory_uris_for_index_pages"]:
@@ -189,7 +207,7 @@ def _get_html_builder(base_builder: Type[sphinx.builders.html.StandaloneHTMLBuil
     return CustomHTMLBuilder
 
 
-def dict_merge(*dicts: List[Mapping]):
+def dict_merge(*dicts: Mapping):
     """Recursively merges the members of one or more dicts."""
     result = {}
     for d in dicts:

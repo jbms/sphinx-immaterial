@@ -61,3 +61,7 @@ def setup(app: Sphinx):
         html=(visit_mermaid_node_html, depart_mermaid_node_html),
         latex=(visit_mermaid_node_latex, depart_mermaid_node_latex),
     )
+    return {
+        "parallel_read_safe": True,
+        "parallel_write_safe": True,
+    }
