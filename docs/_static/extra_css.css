@@ -34,7 +34,8 @@
 
 .md-typeset kbd.key-git::before {
   content: "██";
-  --webmask-image: var(--md-icon__fa-git);
+  -webkit-mask-image: var(--md-icon__fa-git);
+  -webkit-mask-repeat: no-repeat;
   mask-image: var(--md-icon__fa-git);
   mask-repeat: no-repeat;
 }
