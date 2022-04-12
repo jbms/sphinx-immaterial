@@ -26,7 +26,7 @@ def depart_checkbox_label(self: HTMLTranslator, node: nodes.Node):
     self.body.append("</label>")
 
 
-class checkboxLabel(nodes.container):
+class checkbox_label(nodes.container):
     pass
 
 
@@ -76,7 +76,7 @@ class TaskListDirective(SphinxDirective):
                             li_[first_para][first_text] = li_[first_para][
                                 first_text
                             ].lstrip("[ ] ")
-                        checkbox = checkboxLabel(
+                        checkbox = checkbox_label(
                             "",
                             custom=custom,
                             disabled=not clickable,
@@ -90,6 +90,6 @@ class TaskListDirective(SphinxDirective):
 def setup(app: Sphinx):
     """Setup the extension."""
     app.add_directive("task-list", TaskListDirective)
-    app.add_node(checkboxLabel, html=(visit_checkbox_label, depart_checkbox_label))
+    app.add_node(checkbox_label, html=(visit_checkbox_label, depart_checkbox_label))
     app.add_config_value("custom_checkbox", False, rebuild="html", types=bool)
     app.add_config_value("clickable_checkbox", False, rebuild="html", types=bool)
