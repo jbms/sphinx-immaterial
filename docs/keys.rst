@@ -64,7 +64,7 @@ Keys extension role
     The value of this role is interpreted as a keyboard key name. Each role invocation can
     describe multiple keys pressed simultaneously using the `keys_separator`.
 
-    .. result::
+    .. rst-example::
 
         :keys:`ctrl+alt+tab`
 
@@ -143,7 +143,7 @@ project's conf.py file.
 
             In our case, ``my-special-key`` to fetch the display text from `keys_map`.
             
-            .. result::
+            .. rst-example::
 
                 :keys:`my-special-key` + :keys:`git` = :keys:`git+my-special-key`
 
@@ -153,6 +153,6 @@ project's conf.py file.
             ``My Special Key`` ignores the `keys_map` but still uses the
             ``key-my-special-key`` CSS class.
 
-            .. result::
+            .. rst-example::
 
                 :keys:`My Special Key` + :keys:`Git` = :keys:`Git+My Special Key`

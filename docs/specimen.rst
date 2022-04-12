@@ -373,14 +373,14 @@ Images
 
 Default Alignment
 ~~~~~~~~~~~~~~~~~
-.. result::
+.. rst-example::
 
    .. image:: desert-flower.jpg
       :alt: Default image
 
 Center Alignment
 ~~~~~~~~~~~~~~~~
-.. result::
+.. rst-example::
 
    .. image:: desert-flower.jpg
       :alt: Centered Image, 80% scale
@@ -389,7 +389,7 @@ Center Alignment
 
 Right Alignment
 ~~~~~~~~~~~~~~~
-.. result::
+.. rst-example::
 
    .. image:: desert-flower.jpg
       :alt: Right Image, 60% scale

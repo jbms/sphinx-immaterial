@@ -42,7 +42,7 @@ the sphinx-immaterial theme provides its own directives to make use of content t
     This directive supports ``:class:`` and ``:name:`` options to use custom CSS classes
     and reference links (respectively).
 
-    .. result:: ``md-tab-set`` Example
+    .. rst-example:: ``md-tab-set`` Example
 
         .. md-tab-set::
             :class: custom-tab-set-style
@@ -84,7 +84,7 @@ the sphinx-immaterial theme provides its own directives to make use of content t
         Use the ``:class:`` option to optionally provide custom CSS classes to the tab's content
         (not the tab's label).
 
-        .. result:: ``md-tab-item`` Example
+        .. rst-example:: ``md-tab-item`` Example
 
             .. md-tab-set::
 

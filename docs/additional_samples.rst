@@ -23,7 +23,7 @@ This is a third level heading (``h3``).
 Code
 ====
 
-.. result::
+.. rst-example::
 
    The theme uses pygments for ``inline code text`` and
    ::
@@ -33,7 +33,7 @@ Code
 
 Here's an included example with line numbers.
 
-.. result::
+.. rst-example::
 
    .. literalinclude:: ../sphinx_immaterial/autodoc_property_type.py
       :caption: source from this theme in *sphinx_immaterial/autodoc_property_type.py*
@@ -41,7 +41,7 @@ Here's an included example with line numbers.
 
 It also works with existing Sphinx highlighting:
 
-.. result::
+.. rst-example::
 
    .. code-block:: html
 
@@ -67,7 +67,7 @@ It also works with existing Sphinx highlighting:
 Footnotes
 =========
 
-.. result::
+.. rst-example::
 
    I have footnoted a first item [#f1]_ and second item [#f2]_.
    This also references the second item [#f2]_.
@@ -79,7 +79,7 @@ Footnotes
 Icons
 =====
 
-.. result:: The following raw HTML
+.. rst-example:: The following raw HTML
    :output-prefix: translates to the icon:
 
    .. raw:: html
@@ -89,7 +89,7 @@ Icons
 The material icon font provides hundreds to choose from. You can use the ``<i>`` tag or the
 ``<span>`` tag.
 
-.. result::
+.. rst-example::
 
    .. raw:: html
 
@@ -117,7 +117,7 @@ using ``.. cssclass:: custom-class`` and then add it to your configuration's
 Grid
 ----
 
-.. result:: A grid table:
+.. rst-example:: A grid table:
 
    +------------------------+------------+----------+----------+
    | Header1                | Header2    | Header3  | Header4  |
@@ -133,7 +133,7 @@ Grid
 Simple
 ------
 
-.. result:: A simple table:
+.. rst-example:: A simple table:
 
    =====  =====  =======
    H1     H2     H3
@@ -156,7 +156,7 @@ User-styled Table
    this is completely unstyled.
 
 
-.. result::
+.. rst-example::
 
    .. cssclass:: plain
 
@@ -171,7 +171,7 @@ User-styled Table
 List Tables
 -----------
 
-.. result::
+.. rst-example::
 
    .. list-table:: A List Table
       :header-rows: 1
@@ -184,7 +184,7 @@ List Tables
 Alignment
 ~~~~~~~~~
 
-.. result::
+.. rst-example::
 
    .. list-table:: Center Aligned
       :header-rows: 1
@@ -196,7 +196,7 @@ Alignment
         - Item 2
 
 
-.. result::
+.. rst-example::
 
    .. list-table:: Right Aligned
       :widths: 15 10 30
@@ -220,7 +220,7 @@ Code Documentation
 ==================
 
 
-.. result:: An example Python function.
+.. rst-example:: An example Python function.
 
    .. py:function:: format_exception(etype, value, tb[, limit=None])
 
@@ -233,7 +233,7 @@ Code Documentation
       :type limit: integer or None
       :rtype: list of strings
 
-.. result:: An example JavaScript function.
+.. rst-example:: An example JavaScript function.
 
    .. js:class:: MyAnimal(name[, age])
 
@@ -258,7 +258,7 @@ Glossaries
 Math
 ====
 
-.. result::
+.. rst-example::
 
    .. math::
 
@@ -266,14 +266,14 @@ Math
 
       (a - b)^2 = a^2 - 2ab + b^2
 
-.. result::
+.. rst-example::
 
    .. math::
    
       (a + b)^2  &=  (a + b)(a + b) \\
                  &=  a^2 + 2ab + b^2
 
-.. result::
+.. rst-example::
 
    .. math::
       :nowrap:
@@ -286,7 +286,7 @@ Math
 Production Lists
 ================
 
-.. result::
+.. rst-example::
 
    .. productionlist::
       try_stmt: try1_stmt | try2_stmt

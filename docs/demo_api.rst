@@ -7,7 +7,7 @@ sample API documentation and generated content
 :mod:`test_py_module`
 =====================
 
-.. result:: autodoc example
+.. rst-example:: autodoc example
 
    .. automodule:: test_py_module.test
       :members:
@@ -17,13 +17,13 @@ sample API documentation and generated content
 C++ API
 =======
 
-.. result::
+.. rst-example::
 
    .. cpp:type:: MyType
 
       Some type
 
-.. result::
+.. rst-example::
 
    .. c:macro:: DEFAULT_LENGTH
 
@@ -31,31 +31,31 @@ C++ API
 
       Some function type thing
 
-.. result::
+.. rst-example::
 
    .. cpp:class:: template<typename T, typename A, typename B, typename C, std::size_t N> std::array
 
       Some cpp class
 
-.. result::
+.. rst-example::
 
    .. cpp:member:: float Sphinx::version
 
       The description of `Sphinx::version`.
 
-.. result::
+.. rst-example::
 
    .. cpp:var:: int version
 
       The description of version.
 
-.. result::
+.. rst-example::
 
    .. cpp:type:: std::vector<int> List
 
       The description of List type.
 
-.. result::
+.. rst-example::
 
    .. cpp:enum:: MyEnum
 
@@ -83,18 +83,18 @@ JavaScript API
 
 .. js:module:: module_a.submodule
 
-.. result::
+.. rst-example::
 
    * Link to :js:class:`ModTopLevel`
 
-.. result::
+.. rst-example::
 
    .. js:class:: ModTopLevel
 
       * Link to :js:meth:`mod_child_1`
       * Link to :js:meth:`ModTopLevel.mod_child_1`
 
-.. result::
+.. rst-example::
 
    .. js:method:: ModTopLevel.mod_child_1
 
@@ -104,13 +104,13 @@ JavaScript API
 
       * Link to :js:meth:`module_a.submodule.ModTopLevel.mod_child_1`
 
-.. result::
+.. rst-example::
 
    * Link to :js:class:`ModTopLevel`
 
 .. js:module:: module_b.submodule
 
-.. result::
+.. rst-example::
 
    .. js:class:: ModNested
 
@@ -135,7 +135,7 @@ JavaScript API
 Generated Index
 ===============
 
-.. result::
+.. rst-example::
 
    A generated index (:ref:`genindex`) is part of the Sphinx build process, unless
    `html_use_index` is set to `False`.
@@ -150,7 +150,7 @@ Generated Index
 Data
 ====
 
-.. result::
+.. rst-example::
 
    .. data:: Data_item_1
              Data_item_2

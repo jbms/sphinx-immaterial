@@ -87,7 +87,7 @@ Config variables
 
             .. md-tab-item:: rST code
 
-                .. result:: Custom icons scoped to immediate list only (not child lists)
+                .. rst-example:: Custom icons scoped to immediate list only (not child lists)
 
                     .. task-list::
                         :class: custom-task-list-style
@@ -136,7 +136,7 @@ Task List Example
 The following `task-list` example demonstrates nested `task-list`.
 Notice that indentation is important with reStructuredText lists.
 
-.. result:: A feature spanning ``task-list`` example
+.. rst-example:: A feature spanning ``task-list`` example
 
     .. task-list::
         :name: task_list_example

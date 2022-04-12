@@ -50,4 +50,4 @@ class ResultsDirective(SphinxDirective):
 
 
 def setup(app):
-    app.add_directive("result", ResultsDirective)
+    app.add_directive("rst-example", ResultsDirective)

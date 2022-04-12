@@ -11,7 +11,7 @@ Most of the admonitions that the mkdocs-material theme supports were "borrowed" 
 admonitions defined in the reStructuredText specifications. You may recognize them from
 usage in other sphinx-based themes. They are:
 
-.. result:: ``note``, ``todo``, ``seealso``
+.. rst-example:: ``note``, ``todo``, ``seealso``
 
    .. seealso::
       This admonition is specific to Sphinx directives and not defined in the rST specifications
@@ -19,17 +19,17 @@ usage in other sphinx-based themes. They are:
 
       ``note`` and ``todo`` are admonitions defined by the rST specifications.
 
-.. result:: ``tip``, ``hint``, ``important``
+.. rst-example:: ``tip``, ``hint``, ``important``
 
    .. important::
       It is **important** to correctly use admonitions.
 
-.. result:: ``attention``, ``caution``, ``warning``
+.. rst-example:: ``attention``, ``caution``, ``warning``
 
    .. warning::
       This is a **warning**.
 
-.. result:: ``danger``, ``error``
+.. rst-example:: ``danger``, ``error``
 
    .. error::
       You have made a grave **error**.
@@ -49,7 +49,7 @@ shown to demonstrate using the ``:class:`` option of generic admonitions.
    styling to work. Otherwise, the admonition will look like a `note` (as that is the
    default fallback style).
 
-.. result:: ``todo``, ``info``
+.. rst-example:: ``todo``, ``info``
 
    .. admonition:: Info
       :class: info
@@ -57,49 +57,49 @@ shown to demonstrate using the ``:class:`` option of generic admonitions.
       Thanks to the mkdocs-material theme, the ``todo`` class is also an alias of the
       ``info`` class when not using the `.. todo:: <todo>` directive.
 
-.. result:: ``abstract``, ``summary``, ``tldr``
+.. rst-example:: ``abstract``, ``summary``, ``tldr``
 
    .. admonition:: TL;DR
       :class: tldr
 
       The ``:class: tldr`` part is important.
 
-.. result:: ``success``, ``check``, ``done``
+.. rst-example:: ``success``, ``check``, ``done``
 
    .. admonition:: Accomplished
       :class: done
 
       This style is used for ``success``, ``check``, ``done`` CSS classes.
 
-.. result:: ``question``, ``help``, ``faq``
+.. rst-example:: ``question``, ``help``, ``faq``
 
    .. admonition:: FAQ
       :class: faq
 
       Helpful advice goes here.
 
-.. result:: ``failure``, ``fail``, ``missing``
+.. rst-example:: ``failure``, ``fail``, ``missing``
 
    .. admonition:: Something Missing
       :class: missing
 
       We expected some loss of feature-coverage.
 
-.. result:: ``bug``
+.. rst-example:: ``bug``
 
    .. admonition:: Known Bug
       :class: bug
 
       Bug reported data/conclusion.
 
-.. result:: ``example``
+.. rst-example:: ``example``
 
    .. admonition:: Example Admonition
       :class: example
 
       Example Body.
 
-.. result:: ``cite``, ``quote``
+.. rst-example:: ``cite``, ``quote``
 
    .. admonition:: Unknown Quote
       :class: quote
@@ -125,7 +125,7 @@ The `sphinxcontrib-details-directive extension`_ should be added to conf.py's ex
 If the ``:class:`` option is not supplied to the ``details`` directive then the admonition
 style falls back to a `note` admonition style.
 
-.. result::
+.. rst-example::
 
    .. details:: Open by default
       :class: example
@@ -133,7 +133,7 @@ style falls back to a `note` admonition style.
 
       Use the ``:open:`` option as a flag to expand the admonition by default.
 
-.. result::
+.. rst-example::
 
    .. details:: Closed by default
       :class: help
@@ -150,14 +150,14 @@ The admonition's title can be removed if the ``md-admonition`` directive is not 
 any arguments. Because the ``md-admonition`` directive is an adaptation of the generic
 ``admonition`` directive, the ``class`` option is still respected.
 
-.. result::
+.. rst-example::
 
    .. md-admonition::
       :class: error
 
       This example uses the styling of the ``error`` admonition
 
-.. result::
+.. rst-example::
 
    .. md-admonition:: Using a title
       :class: help
@@ -183,7 +183,7 @@ folder and add the new CSS to an additional style sheet.
 
    .. md-tab-item:: rST code
 
-      .. result:: Pied Piper Example
+      .. rst-example:: Pied Piper Example
          :output-prefix:
 
          .. admonition:: Pied Piper

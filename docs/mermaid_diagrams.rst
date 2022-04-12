@@ -48,7 +48,7 @@ directive that exposes the underlying implementation in mkdocs-material theme.
         While all `mermaid.js`_ features should work out-of-the-box, this theme will currently only
         adjust the fonts and colors for the following types of diagrams:
 
-        .. result:: References linking directly to a diagram's ``:name:``
+        .. rst-example:: References linking directly to a diagram's ``:name:``
 
             - `flowcharts`_
             - `sequence diagrams <sequence-diagrams>`
@@ -59,7 +59,7 @@ directive that exposes the underlying implementation in mkdocs-material theme.
 Using flowcharts
 ----------------
 
-.. result::
+.. rst-example::
 
     .. md-mermaid::
         :name: flowcharts
@@ -74,7 +74,7 @@ Using flowcharts
 Using sequence diagrams
 -----------------------
 
-.. result::
+.. rst-example::
 
     .. md-mermaid::
         :name: sequence-diagrams
@@ -92,7 +92,7 @@ Using sequence diagrams
 Using state diagrams
 --------------------
 
-.. result::
+.. rst-example::
 
     .. md-mermaid::
         :name: state-diagrams
@@ -113,7 +113,7 @@ Using state diagrams
 Using class diagrams
 --------------------
 
-.. result::
+.. rst-example::
 
     .. md-mermaid::
         :name: class-diagrams
@@ -148,7 +148,7 @@ Using class diagrams
 Using entity-relationship diagrams
 ----------------------------------
 
-.. result::
+.. rst-example::
 
     .. md-mermaid::
         :name: entity-relationship-diagrams
