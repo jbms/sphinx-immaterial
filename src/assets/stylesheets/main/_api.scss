@@ -240,9 +240,3 @@ table.longtable.docutils.data.align-default {
     }
   }
 }
-
-// a rule to reset margin for code-blocks with a caption
-.md-typeset .code-block-caption + .notranslate pre,
-.md-typeset .code-block-caption + .notranslate .highlighttable {
-  margin-top: 0;
-}

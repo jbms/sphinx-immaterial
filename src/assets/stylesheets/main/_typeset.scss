@@ -256,6 +256,14 @@ kbd {
     }
   }
 
+  // sphinx-immaterial: reset margin for code-blocks with a caption
+  .code-block-caption + .notranslate {
+    pre,
+    .highlighttable {
+      margin-top: 0;
+    }
+  }
+
   // Keyboard key
   kbd {
     display: inline-block;
