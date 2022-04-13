@@ -22,26 +22,27 @@ class kbd_node(nodes.TextElement):
     pass
 
 
+def map_filter(key: str, user_map: dict) -> Tuple[str, str]:
+    display = key.title()
+    cls = key.replace("_", "-").replace(" ", "-").lower()
+    if key in user_map.keys():
+        display = user_map[key]
+    if keys_db is not None:
+        if key in keys_db.aliases:
+            display = keys_db.keymap[keys_db.aliases[key]]
+            cls = keys_db.aliases[key]
+    return (cls, display)
+
+
 def visit_kbd(self: HTMLTranslator, node: kbd_node):
     tag = "kbd" if self.builder.config["keys_strict"] else "span"
     self.body.append(f'<{tag} class="' + f'{self.builder.config["keys_class"]}"')
     keys = node.rawsource.split(self.builder.config["keys_separator"])
 
-    def map_filter(key: str) -> Tuple[str, str]:
-        display = key.title()
-        cls = key.replace("_", "-").replace(" ", "-").lower()
-        if key in self.builder.config["keys_map"].keys():
-            display = self.builder.config["keys_map"][key]
-        if keys_db is not None:
-            if key in keys_db.aliases:
-                display = keys_db.keymap[keys_db.aliases[key]]
-                cls = keys_db.aliases[key]
-        return (cls, display)
-
     keys_out = ">"
     for i, key in enumerate(keys):
-        key_cls, key_display = map_filter(key.strip().lower())
-        keys_out += f'<kbd class="key-{key_cls}">{key_display}</kbd>'
+        cls, text = map_filter(key.strip().lower(), self.builder.config["keys_map"])
+        keys_out += f'<kbd class="key-{cls}">{text}</kbd>'
         if i + 1 != len(keys):
             keys_out += f'<span>{self.builder.config["keys_separator"]}</span>'
     self.body.append(keys_out)
@@ -50,6 +51,19 @@ def visit_kbd(self: HTMLTranslator, node: kbd_node):
 def depart_kbd(self, node):
     tag = "kbd" if self.builder.config["keys_strict"] else "span"
     self.body.append(f"</{tag}>")
+
+
+def visit_kbd_latex(self, node):
+    keys = node.rawsource.split(self.builder.config["keys_separator"])
+    for i, key in enumerate(keys):
+        _, text = map_filter(key.strip().lower(), self.builder.config["keys_map"])
+        self.body.append(text)
+        if i + 1 < len(keys):
+            self.body.append(f' {self.builder.config["keys_separator"]} ')
+
+
+def depart_kbd_latex(self, node):
+    pass
 
 
 def keys_role(
@@ -73,4 +87,8 @@ def setup(app: Sphinx):
     app.add_config_value("keys_map", {}, rebuild=True, types=dict)
     app.add_role("keys", keys_role)
     app.connect("config-inited", _config_inited)
-    app.add_node(kbd_node, html=(visit_kbd, depart_kbd))
+    app.add_node(
+        kbd_node,
+        html=(visit_kbd, depart_kbd),
+        latex=(visit_kbd_latex, depart_kbd_latex),
+    )
