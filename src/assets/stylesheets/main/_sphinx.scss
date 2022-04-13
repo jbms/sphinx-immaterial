@@ -79,33 +79,4 @@
   .rubric {
     font-weight: 700;
   }
-
-  // theme-results directive special rules
-  .results .results-prefix {
-    margin-top: -1em;
-    padding: px2em(9px, 13.6px) px2em(16px, 13.6px);
-    font-weight: 700;
-    font-size: px2em(13.6px);
-    background-color: var(--md-code-bg-color);
-  }
-
-  :is(.highlight, .highlighttable, .literal-block-wrapper),
-  div[class^="highlight-"],
-  .results-prefix {
-    + .result {
-      margin-top: -1em;
-      padding: 0 1em;
-      overflow: visible;
-      border: 0.05rem solid var(--md-code-bg-color);
-      border-top-width: 0.1rem;
-      border-bottom-right-radius: 0.1rem;
-      border-bottom-left-radius: 0.1rem;
-    }
-  }
-
-  .results-prefix {
-    +.result {
-      margin-top: 0;
-    }
-  }
 }
