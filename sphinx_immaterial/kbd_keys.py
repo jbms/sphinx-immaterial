@@ -18,87 +18,52 @@ except ImportError:
     keys_db = None
 
 
-class spanNode(nodes.container):
+class kbd_node(nodes.TextElement):
     pass
 
 
-def visit_span(self: HTMLTranslator, node: spanNode):
-    self.body.append("<span")
-    if "classes" in node and node.get("classes"):
-        self.body.append(
-            f' class="{" ".join([self.attval(cls) for cls in node["classes"]])}"'
-        )
-    if "text" in node:
-        self.body.append(">" + node["text"])
-    else:
-        self.body.append(">")
-
-
-def depart_span(self: HTMLTranslator, node: spanNode):
-    self.body.append("</span>")
-
-
-class kbdNode(nodes.container):
-    pass
-
-
-def visit_kbd(self, node):
-    self.body.append(
-        '<kbd class="' + f'{" ".join([self.attval(cls) for cls in node["classes"]])}'
-    )
-    if "text" in node:
-        self.body.append('">' + node["text"])
-    else:
-        self.body.append('">')
-
-
-def depart_kbd(self, node):
-    self.body.append("</kbd>")
-
-
-def keys_role(
-    role, rawtext, text, lineno, inliner, options={}, content=[]
-) -> Tuple[List[nodes.Node], List[str]]:
-    keys = text.split(KEYS_OPTS["keys_sep"])
-    keys_div = spanNode("", classes=[KEYS_OPTS["keys_class"]])
-    if KEYS_OPTS["keys_strict"]:
-        keys_div = kbdNode("", classes=[KEYS_OPTS["keys_class"]])
-    keys_out = []
+def visit_kbd(self: HTMLTranslator, node: kbd_node):
+    tag = "kbd" if self.builder.config["keys_strict"] else "span"
+    self.body.append(f'<{tag} class="' + f'{self.builder.config["keys_class"]}"')
+    keys = node.rawsource.split(self.builder.config["keys_separator"])
 
     def map_filter(key: str) -> Tuple[str, str]:
         display = key.title()
         cls = key.replace("_", "-").replace(" ", "-").lower()
-        if key in KEYS_OPTS["keys_map"].keys():
-            display = KEYS_OPTS["keys_map"][key]
+        if key in self.builder.config["keys_map"].keys():
+            display = self.builder.config["keys_map"][key]
         if keys_db is not None:
             if key in keys_db.aliases:
                 display = keys_db.keymap[keys_db.aliases[key]]
                 cls = keys_db.aliases[key]
         return (cls, display)
 
+    keys_out = ">"
     for i, key in enumerate(keys):
         key_cls, key_display = map_filter(key.strip().lower())
-        keys_key = kbdNode("", classes=["key-" + key_cls])
-        keys_key["text"] = key_display
-        keys_out.append(keys_key)
+        keys_out += f'<kbd class="key-{key_cls}">{key_display}</kbd>'
         if i + 1 != len(keys):
-            keys_sep = spanNode("", classes=[])
-            keys_sep["text"] = KEYS_OPTS["keys_sep"]
-            keys_out.append(keys_sep)
-    keys_div += keys_out
+            keys_out += f'<span>{self.builder.config["keys_separator"]}</span>'
+    self.body.append(keys_out)
+
+
+def depart_kbd(self, node):
+    tag = "kbd" if self.builder.config["keys_strict"] else "span"
+    self.body.append(f"</{tag}>")
+
+
+def keys_role(
+    role, rawtext, text, lineno, inliner, options={}, content=[]
+) -> Tuple[List[nodes.Node], List[str]]:
+    keys_div = kbd_node(text)
     return [keys_div], []
 
 
-KEYS_OPTS = {"keys_map": ({} if keys_db is None else keys_db.keymap.copy())}
-
-
 def _config_inited(app: Sphinx, config: Config) -> None:
-    """Set defaults for `key` role options based on conf.py vars."""
-    KEYS_OPTS["keys_class"] = app.config["keys_class"]
-    KEYS_OPTS["keys_sep"] = app.config["keys_separator"]
-    KEYS_OPTS["keys_strict"] = app.config["keys_strict"]
-    if app.config["keys_map"].keys():
-        KEYS_OPTS["keys_map"].update(**app.config["keys_map"])
+    """Merge default `keys_db.keymap` with user-specified `keys_map` role option."""
+    if keys_db is not None and app.config["keys_map"].keys():
+        keys_db.keymap.update(**app.config["keys_map"])
+        app.config["keys_map"] = keys_db.keymap
 
 
 def setup(app: Sphinx):
@@ -108,5 +73,4 @@ def setup(app: Sphinx):
     app.add_config_value("keys_map", {}, rebuild=True, types=dict)
     app.add_role("keys", keys_role)
     app.connect("config-inited", _config_inited)
-    app.add_node(spanNode, html=(visit_span, depart_span))
-    app.add_node(kbdNode, html=(visit_kbd, depart_kbd))
+    app.add_node(kbd_node, html=(visit_kbd, depart_kbd))
