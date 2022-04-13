@@ -42,7 +42,7 @@
 /* **************************** custom-task-list style rules *************************** */
 
 /* style for the unchecked checkboxes */
-.custom-task-list-style>ul>.task-list-item>.task-list-control>.task-list-indicator::before {
+.custom-task-list-style > ul > li > label .task-list-indicator::before {
   -webkit-mask-image: var(--md-admonition-icon--failure);
   mask-image: var(--md-admonition-icon--failure);
   background-color: hsl(0, 72%, 55%);
