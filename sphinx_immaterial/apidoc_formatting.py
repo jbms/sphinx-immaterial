@@ -167,6 +167,14 @@ class HTMLTranslatorMixin:
         _, close_paren = node.get("parens", ("(", ")"))
         self.body[-1] = self.body[-1].replace(")", close_paren)
 
+    def visit_desc_parameter(self, node: sphinx.addnodes.desc_parameter) -> None:
+        self.body.append('<span class="sig-param-decl">')
+        super().visit_desc_parameter(node)
+
+    def depart_desc_parameter(self, node: sphinx.addnodes.desc_parameter) -> None:
+        super().depart_desc_parameter(node)
+        self.body.append("</span>")
+
     def depart_field_name(self, node: docutils.nodes.Element) -> None:
         self.add_permalink_ref(node, _("Permalink to this headline"))
         super().depart_field_name(node)

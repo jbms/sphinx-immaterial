@@ -67,29 +67,11 @@ $objinfo-icon-size: 16px;
 
       // Ensure each parameter starts on a new line and is indented.
       &.sig-wrap {
-        .sig-param,
-        .n {
-          + .kt,
-          + .k,
-          + .n:not(.sig-param) {
-            &::before {
-              white-space: pre;
-              // 5 spaces below result in 4 spaces of indent.
-              // For some reason one space is lost.
-              content: "\A     ";
-            }
-          }
-        }
-
-        .sig-param > .n:first-child::before {
-          white-space: pre;
-          content: "\A     ";
-        }
-
-        .sig-paren + span {
-          // Ensure the first paren ends the line
+        .sig-param-decl {
           &::before {
             white-space: pre;
+            // 5 spaces below result in 4 spaces of indent.
+            // For some reason one space is lost.
             content: "\A     ";
           }
         }
