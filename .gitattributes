@@ -1,8 +1,10 @@
-# Set the default behavior, in case people have core.autocrlf set differently.
-* text=input
+# We need to make sure that the remote and workspace line endings all use LF due to
+# linting and other reasons.
+[core]
+    # Set core.autocrlf to false in case people have this set differently.
+    # If this is set to 'true' or 'input', then it overrides the eol option.
+    autocrlf=false
 
-# Explicitly declare text files you want to always be normalized and converted
-# to native line endings on checkout.
-*.py text eol=lf
-*.rst text eol=lf
-*.scss text eol=lf
+    # This setting forces Git to normalize line endings to LF on checkin and
+    # prevents conversion to CRLF when the file is checked out.
+    eol=lf
