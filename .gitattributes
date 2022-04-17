@@ -1,10 +1,10 @@
 # We need to make sure that the remote and workspace line endings all use LF due to
 # linting and other reasons.
-[core]
-    # Set core.autocrlf to false in case people have this set differently.
-    # If this is set to 'true' or 'input', then it overrides the eol option.
-    autocrlf=false
 
-    # This setting forces Git to normalize line endings to LF on checkin and
-    # prevents conversion to CRLF when the file is checked out.
-    eol=lf
+# Set core.autocrlf to false in case people have this set differently.
+# If this is set to 'true' or 'input', then it overrides the eol option.
+* text autocrlf=false
+
+# This setting forces Git to normalize line endings to LF on checkin and
+# prevents conversion to CRLF when the file is checked out.
+* text eol=lf
