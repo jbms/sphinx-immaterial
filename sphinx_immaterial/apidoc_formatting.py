@@ -134,7 +134,6 @@ class HTMLTranslatorMixin:
 
         # Augment the list of classes with `objdesc` to make it easier to
         # style these without resorting to hacks.
-        # add highlight to invoke syntax highlighting in CSS
         node["classes"].append("objdesc")
         super().visit_desc(node)
 
@@ -148,6 +147,7 @@ class HTMLTranslatorMixin:
 
     def visit_desc_signature(self, node: sphinx.addnodes.desc_signature) -> None:
         node_text = node.astext()
+        # add highlight to invoke syntax highlighting in CSS
         node["classes"].append("highlight")
         if len(node_text) > SIGNATURE_WRAP_LENGTH:
             node["classes"].append("sig-wrap")
