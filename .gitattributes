@@ -1,5 +1,5 @@
-# Set the default behavior, in case people don't have core.autocrlf set.
-* text=auto
+# Set the default behavior, in case people have core.autocrlf set differently.
+* text=input
 
 # Explicitly declare text files you want to always be normalized and converted
 # to native line endings on checkout.
