@@ -156,7 +156,7 @@ class _TocVisitor(docutils.nodes.NodeVisitor):
                 )
             )
             raise docutils.nodes.SkipChildren
-        # Otherwise, just process the each list_item as direct children.
+        # Otherwise, just process each list_item as direct children.
 
     def get_result(self) -> MkdocsNavEntry:
         return MkdocsNavEntry(
@@ -390,10 +390,9 @@ def _build_toc_index(toc: List[MkdocsNavEntry]) -> Dict[str, List[TocEntryKey]]:
         for i, entry in enumerate(entries):
             child_key = parent_key + (i,)
             url = entry.url
-            if url is None:
-                continue
-            url = _strip_fragment(url)
-            url_map[url].append(child_key)
+            if url is not None and not entry.caption_only:
+                url = _strip_fragment(url)
+                url_map[url].append(child_key)
             _traverse(entry.children, child_key)
 
     _traverse(toc, ())
