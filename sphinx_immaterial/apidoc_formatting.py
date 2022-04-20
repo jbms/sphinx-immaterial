@@ -10,7 +10,6 @@ import sphinx.writers.html5
 
 _ = sphinx.locale._
 
-SIGNATURE_WRAP_LENGTH = 70
 
 if TYPE_CHECKING:
     HTMLTranslatorMixinBase = sphinx.writers.html5.HTML5Translator
@@ -39,14 +38,6 @@ class HTMLTranslatorMixin(HTMLTranslatorMixinBase):  # pylint: disable=abstract-
 
     def depart_desc_type(self, node: sphinx.addnodes.desc_type) -> None:
         self.body.append("</span>")
-
-    def visit_desc_signature(self, node: sphinx.addnodes.desc_signature) -> None:
-        node_text = node.astext()
-        # add highlight to invoke syntax highlighting in CSS
-        node["classes"].append("highlight")
-        if len(node_text) > SIGNATURE_WRAP_LENGTH:
-            node["classes"].append("sig-wrap")
-        super().visit_desc_signature(node)
 
     def visit_desc_parameterlist(
         self, node: sphinx.addnodes.desc_parameterlist
@@ -133,6 +124,37 @@ class HTMLTranslatorMixin(HTMLTranslatorMixinBase):  # pylint: disable=abstract-
         self.body.append("</code>")
 
 
+def _wrap_signature(node: sphinx.addnodes.desc_signature, limit: int):
+    """Wraps long function signatures.
+
+    Adds the `sig-wrap` class which causes each parameter to be displayed on a
+    separate line.
+    """
+    node_text = node.astext()
+    if len(node_text) > limit:
+        node["classes"].append("sig-wrap")
+
+
+def _wrap_signatures(
+    app: sphinx.application.Sphinx,
+    domain: str,
+    objtype: str,
+    content: docutils.nodes.Element,
+) -> None:
+    enabled = app.config.html_wrap_signatures_with_css
+    if enabled is True or enabled is None:
+        pass
+    if enabled is False:
+        return
+    if domain not in enabled:
+        return
+    signatures = content.parent[:-1]
+    for signature in signatures:
+        _wrap_signature(
+            signature, app.config.html_wrap_signatures_with_css_column_limit
+        )
+
+
 def setup(app: sphinx.application.Sphinx):
     """Registers the monkey patches.
 
@@ -141,6 +163,13 @@ def setup(app: sphinx.application.Sphinx):
     # Add "highlight" class in order for pygments syntax highlighting CSS rules
     # to apply.
     sphinx.addnodes.desc_signature.classes.append("highlight")
+
+    app.add_config_value("html_wrap_signatures_with_css", default=None, rebuild="env")
+    app.add_config_value(
+        "html_wrap_signatures_with_css_column_limit", default=68, rebuild="env"
+    )
+
+    app.connect("object-description-transform", _wrap_signatures)
 
     return {
         "parallel_read_safe": True,

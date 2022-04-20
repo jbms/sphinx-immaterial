@@ -75,6 +75,12 @@ or ``theme.conf`` for more details.
     keys
 
 .. toctree::
+    :caption: API documentation customization
+    :hidden:
+
+    format_signatures
+
+.. toctree::
     :caption: Examples and Uses
     :hidden:
 

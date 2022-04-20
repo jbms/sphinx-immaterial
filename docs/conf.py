@@ -37,6 +37,7 @@ extensions = [
     "sphinxcontrib.details.directive",
     "sphinx_immaterial.theme_result",
     "sphinx_immaterial.kbd_keys",
+    "sphinx_immaterial.format_signatures",
 ]
 
 intersphinx_mapping = {
@@ -155,6 +156,31 @@ extlinks = {
     "durole": ("http://docutils.sourceforge.net/docs/ref/rst/roles.html#%s", ""),
     "dudir": ("http://docutils.sourceforge.net/docs/ref/rst/directives.html#%s", ""),
 }
+
+# BEGIN: sphinx_immaterial.format_signatures extension options
+clang_format_signatures_domain_styles = {
+    "cpp": """{
+    BasedOnStyle: LLVM,
+    ColumnLimit: 68,
+    }""",
+}
+# END: sphinx_immaterial.format_signatures extension options
+
+html_wrap_signatures_with_css = ["py"]
+
+rst_prolog = """
+.. role:: python(code)
+   :language: python
+   :class: highlight
+
+.. role:: cpp(code)
+   :language: cpp
+   :class: highlight
+
+.. role:: json(code)
+   :language: json
+   :class: highlight
+"""
 
 
 def setup(app):
