@@ -93,3 +93,7 @@ def setup(app: Sphinx):
     app.add_node(checkbox_label, html=(visit_checkbox_label, depart_checkbox_label))
     app.add_config_value("custom_checkbox", False, rebuild="html", types=bool)
     app.add_config_value("clickable_checkbox", False, rebuild="html", types=bool)
+    return {
+        "parallel_read_safe": True,
+        "parallel_write_safe": True,
+    }
