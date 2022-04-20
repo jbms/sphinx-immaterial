@@ -35,6 +35,8 @@ extensions = [
     "sphinx.ext.mathjax",
     "sphinx.ext.viewcode",
     "sphinxcontrib.details.directive",
+    "sphinx_immaterial.theme_result",
+    "sphinx_immaterial.kbd_keys",
 ]
 
 intersphinx_mapping = {
@@ -57,28 +59,27 @@ templates_path = ["_templates"]
 # This pattern also affects html_static_path and html_extra_path.
 exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 
-# -- Options for HTML output -------------------------------------------------
-
-# The theme to use for HTML and HTML Help pages.  See the documentation for
-# a list of builtin themes.
+# -- sphinx_immaterial.keys extension options
 #
+# optional key_map for example purposes
+keys_map = {"my-special-key": "Awesome Key", "git": ""}
+
+# -- Options for HTML output -------------------------------------------------
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named 'default.css' will overwrite the builtin 'default.css'.
 html_static_path = ["_static"]
-html_css_files = [
-    "extra_css.css",
-    "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css",
-]
-
-# -- HTML theme settings ------------------------------------------------
-
-extensions.append("sphinx_immaterial")
+html_css_files = ["extra_css.css"]
+html_last_updated_fmt = ""
 html_title = "Sphinx-Immaterial"
-html_theme = "sphinx_immaterial"
 html_favicon = "_static/images/favicon.ico"  # colored version of material/bookshelf.svg
 html_logo = "_static/images/Ybin.gif"  # from https://gifer.com/en/Ybin
+
+# -- HTML theme specific settings ------------------------------------------------
+
+extensions.append("sphinx_immaterial")
+html_theme = "sphinx_immaterial"
 
 # material theme options (see theme.conf for more information)
 html_theme_options = {
@@ -131,20 +132,16 @@ html_theme_options = {
         {
             "version": "https://sphinx-immaterial.rtfd.io",
             "title": "ReadTheDocs",
-            "aliases": []
+            "aliases": [],
         },
         {
             "version": "https://jbms.github.io/sphinx-immaterial",
             "title": "Github Pages",
-            "aliases": []
+            "aliases": [],
         },
     ],
     "toc_title_is_page_title": True,
 }  # end html_theme_options
-
-html_last_updated_fmt = ""
-html_use_index = False
-html_domain_indices = False
 
 # ---- Other documentation options -------------------------
 

@@ -45,7 +45,7 @@ $objinfo-icon-size: 16px;
         font-weight: 700;
       }
 
-      a.reference > .sig-name {
+      a.reference > span {
         color: var(--md-typeset-a-color);
 
         &:hover {
@@ -65,9 +65,9 @@ $objinfo-icon-size: 16px;
         color: var(--md-accent-fg-color);
       }
 
+      // Ensure each parameter starts on a new line and is indented.
       &.sig-wrap {
-        .sig-param {
-          // Ensure each parameter starts on a new line and is indented.
+        .sig-param-decl {
           &::before {
             white-space: pre;
             // 5 spaces below result in 4 spaces of indent.
@@ -76,7 +76,7 @@ $objinfo-icon-size: 16px;
           }
         }
 
-        .sig-param + .sig-paren {
+        .sig-paren:last-of-type {
           // Ensure the final paren starts on a new line
           &::before {
             white-space: pre;

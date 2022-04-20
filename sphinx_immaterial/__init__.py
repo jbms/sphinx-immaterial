@@ -317,6 +317,8 @@ def setup(app):
     app.setup_extension("sphinx_immaterial.md_admonition")
     app.setup_extension("sphinx_immaterial.content_tabs")
     app.setup_extension("sphinx_immaterial.mermaid_diagrams")
+    app.setup_extension("sphinx_immaterial.task_lists")
+
     # patch the details directive's run method
     monkey_patch_details_run()
 

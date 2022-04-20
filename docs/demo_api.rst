@@ -7,56 +7,73 @@ sample API documentation and generated content
 :mod:`test_py_module`
 =====================
 
-.. automodule:: test_py_module.test
-    :members:
-    :private-members:
-    :special-members:
+.. rst-example:: autodoc example
 
+   .. automodule:: test_py_module.test
+      :members:
+      :private-members:
+      :special-members:
 
 C++ API
 =======
 
-.. cpp:type:: MyType
+.. rst-example::
 
-   Some type
+   .. cpp:type:: MyType
 
-.. cpp:function:: const MyType Foo(const MyType bar)
+      Some type
 
-   Some function type thing
+.. rst-example::
 
-.. cpp:class:: template<typename T, std::size_t N> std::array
+   .. c:macro:: DEFAULT_LENGTH
 
-   Some cpp class
+   .. cpp:function:: const MyType Foo(const MyType bar, uint8_t* arr, unsigned int len = DEFAULT_LENGTH, bool baz= false)
 
-.. cpp:member:: float Sphinx::version
+      Some function type thing
 
-   The description of Sphinx::version.
+.. rst-example::
 
-.. cpp:var:: int version
+   .. cpp:class:: template<typename T, typename A, typename B, typename C, std::size_t N> std::array
 
-   The description of version.
+      Some cpp class
 
-.. cpp:type:: std::vector<int> List
+.. rst-example::
 
-   The description of List type.
+   .. cpp:member:: float Sphinx::version
 
-.. cpp:enum:: MyEnum
+      The description of `Sphinx::version`.
 
-   An unscoped enum.
+.. rst-example::
 
-   .. cpp:enumerator:: A
+   .. cpp:var:: int version
 
-.. cpp:enum-class:: MyScopedEnum
+      The description of version.
 
-   A scoped enum.
+.. rst-example::
 
-   .. cpp:enumerator:: B
+   .. cpp:type:: std::vector<int> List
 
-.. cpp:enum-struct:: protected MyScopedVisibilityEnum : std::underlying_type<MySpecificEnum>::type
+      The description of List type.
 
-   A scoped enum with non-default visibility, and with a specified underlying type.
+.. rst-example::
 
-   .. cpp:enumerator:: B
+   .. cpp:enum:: MyEnum
+
+      An unscoped enum.
+
+      .. cpp:enumerator:: A
+
+   .. cpp:enum-class:: MyScopedEnum
+
+      A scoped enum.
+
+      .. cpp:enumerator:: B
+
+   .. cpp:enum-struct:: protected MyScopedVisibilityEnum : std::underlying_type<MySpecificEnum>::type
+
+      A scoped enum with non-default visibility, and with a specified underlying type.
+
+      .. cpp:enumerator:: B
 
 
 JavaScript API
@@ -66,74 +83,79 @@ JavaScript API
 
 .. js:module:: module_a.submodule
 
-* Link to :js:class:`ModTopLevel`
+.. rst-example::
 
-.. js:class:: ModTopLevel
+   * Link to :js:class:`ModTopLevel`
 
-    * Link to :js:meth:`mod_child_1`
-    * Link to :js:meth:`ModTopLevel.mod_child_1`
+.. rst-example::
 
-.. js:method:: ModTopLevel.mod_child_1
+   .. js:class:: ModTopLevel
 
-    * Link to :js:meth:`mod_child_2`
+      * Link to :js:meth:`mod_child_1`
+      * Link to :js:meth:`ModTopLevel.mod_child_1`
 
-.. js:method:: ModTopLevel.mod_child_2
+.. rst-example::
 
-    * Link to :js:meth:`module_a.submodule.ModTopLevel.mod_child_1`
+   .. js:method:: ModTopLevel.mod_child_1
+
+      * Link to :js:meth:`mod_child_2`
+
+   .. js:method:: ModTopLevel.mod_child_2
+
+      * Link to :js:meth:`module_a.submodule.ModTopLevel.mod_child_1`
+
+.. rst-example::
+
+   * Link to :js:class:`ModTopLevel`
 
 .. js:module:: module_b.submodule
 
-* Link to :js:class:`ModTopLevel`
+.. rst-example::
 
-.. js:class:: ModNested
+   .. js:class:: ModNested
 
-    .. js:method:: nested_child_1
+      .. js:method:: nested_child_1
 
-        * Link to :js:meth:`nested_child_2`
+         * Link to :js:meth:`nested_child_2`
 
-    .. js:method:: nested_child_2
+      .. js:method:: nested_child_2
 
-        * Link to :js:meth:`nested_child_1`
+         * Link to :js:meth:`nested_child_1`
 
+      .. js:method:: getJSON(href, callback, priority[, err_back, flags])
+
+         :param string href: An URI to the location of the resource.
+         :param callback: Gets called with the object.
+         :param err_back:
+            Gets called in case the request fails. And a lot of other
+            text so we need multiple lines.
+         :throws SomeError: For whatever reason in that case.
+         :returns: Something.
 
 Generated Index
 ===============
 
-Part of the sphinx build process in generate and index file: :ref:`genindex`.
+.. rst-example::
 
+   A generated index (:ref:`genindex`) is part of the Sphinx build process, unless
+   `html_use_index` is set to `False`.
 
-Optional parameter args
-=======================
+   Sphinx also allows indexing by domain (programming language), as seen in the
+   :ref:`modindex` for the demo Python module that is documented on this page.
 
-At this point optional parameters `cannot be generated from code`_.
-However, some projects will manually do it, like so:
-
-This example comes from `django-payments module docs`_.
-
-.. class:: payments.dotpay.DotpayProvider(seller_id, pin[, channel=0[, lock=False], lang='pl'])
-
-   This backend implements payments using a popular Polish gateway, `Dotpay.pl <http://www.dotpay.pl>`_.
-
-   Due to API limitations there is no support for transferring purchased items.
-
-
-   :param seller_id: Seller ID assigned by Dotpay
-   :param pin: PIN assigned by Dotpay
-   :param channel: Default payment channel (consult reference guide)
-   :param lang: UI language
-   :param lock: Whether to disable channels other than the default selected above
-
-.. _cannot be generated from code: https://groups.google.com/forum/#!topic/sphinx-users/_qfsVT5Vxpw
-.. _django-payments module docs: http://django-payments.readthedocs.org/en/latest/modules.html#payments.authorizenet.AuthorizeNetProvide
-
+.. note::
+   This theme does not support a separate search page (usually referenced with
+   ``:ref:`search``), since the search is accessible in the site's navigation bar.
 
 Data
 ====
 
-.. data:: Data_item_1
-          Data_item_2
-          Data_item_3
+.. rst-example::
 
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce congue elit eu hendrerit mattis.
+   .. data:: Data_item_1
+             Data_item_2
+             Data_item_3
 
-Some data link :data:`Data_item_1`.
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce congue elit eu hendrerit mattis.
+
+   Some data link :data:`Data_item_1`.

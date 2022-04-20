@@ -1,3 +1,4 @@
 # The sphinx docs theme to use
 sphinx_immaterial
 sphinxcontrib-details-directive
+pymdown-extensions

@@ -91,9 +91,7 @@ class MaterialTabItemDirective(SphinxDirective):
 
         # add tab label
         textnodes, _ = self.state.inline_text(self.arguments[0], self.lineno)
-        tab_label = nodes.rubric(
-            self.arguments[0], *textnodes, classes=["tabbed-label"]
-        )
+        tab_label = nodes.rubric("", "", *textnodes, classes=["tabbed-label"])
         self.add_name(tab_label)
         tab_item += tab_label
 
@@ -152,6 +150,7 @@ def visit_tab_set(self: HTMLTranslator, node: content_tab_set):
 
         # create: <label for="id">...</label>
         label_node = content_tab_label(
+            "",
             "",
             *tab_label.children,
             input_id=tab_item_identity,

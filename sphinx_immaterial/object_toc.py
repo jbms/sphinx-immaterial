@@ -15,7 +15,7 @@ def _monkey_patch_toc_tree_process_doc(app: sphinx.application.Sphinx):
     """
     TocTreeCollector = sphinx.environment.collectors.toctree.TocTreeCollector
 
-    # Apply the monkey pach
+    # Apply the monkey patch
     orig_process_doc = TocTreeCollector.process_doc
 
     def _make_section_from_desc(

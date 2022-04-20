@@ -42,7 +42,7 @@ the sphinx-immaterial theme provides its own directives to make use of content t
     This directive supports ``:class:`` and ``:name:`` options to use custom CSS classes
     and reference links (respectively).
 
-    .. code-block:: rst
+    .. rst-example:: ``md-tab-set`` Example
 
         .. md-tab-set::
             :class: custom-tab-set-style
@@ -69,30 +69,6 @@ the sphinx-immaterial theme provides its own directives to make use of content t
                     :start-at: /* ************************ custom-tab-set-style
                     :end-before: /* *********************** custom-tab-item-style
 
-    .. md-tab-set::
-        :class: custom-tab-set-style
-        :name: ref_this_tab_set
-
-        .. md-tab-item:: Local Ref
-
-            A reference to this tab set renders like so:
-            `tab set description <ref_this_tab_set>`.
-            
-            This syntax can only be used on the same page as the tab set.
-
-        .. md-tab-item:: Cross-page Ref
-
-            To cross-reference this tab set from a different page, use
-            :ref:`tab set description <ref_this_tab_set>`
-
-            Clearly, this also works on the same page as the tab set.
-
-        .. md-tab-item:: Custom CSS
-
-            .. literalinclude:: _static/extra_css.css
-                :language: css
-                :start-at: /* ************************ custom-tab-set-style
-                :end-before: /* *********************** custom-tab-item-style
 
 .. rst:directive:: md-tab-item
 
@@ -108,7 +84,7 @@ the sphinx-immaterial theme provides its own directives to make use of content t
         Use the ``:class:`` option to optionally provide custom CSS classes to the tab's content
         (not the tab's label).
 
-        .. code-block:: rst
+        .. rst-example:: ``md-tab-item`` Example
 
             .. md-tab-set::
 
@@ -124,19 +100,6 @@ the sphinx-immaterial theme provides its own directives to make use of content t
                         :start-at: /* *********************** custom-tab-item-style
                         :end-before: /* ************************* inline icon stuff
 
-        .. md-tab-set::
-
-            .. md-tab-item:: Customized content
-                :class: custom-tab-item-style
-
-                This content could be styled differently from other page content.
-
-            .. md-tab-item:: Custom CSS
-
-                .. literalinclude:: _static/extra_css.css
-                    :language: css
-                    :start-at: /* *********************** custom-tab-item-style
-                    :end-before: /* ************************* inline icon stuff
 
 Typical examples are seen in this documentations'
 `Custom admonitions <admonitions.html#custom-admonitions>`_ and

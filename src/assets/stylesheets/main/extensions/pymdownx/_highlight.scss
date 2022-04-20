@@ -322,7 +322,10 @@
   }
 
   // Code block result container
-  :is(.highlight, .highlighttable) + .result {
+  // sphinx-immaterial: altered to support
+  // 1. docutils classes (.literal-block-wrapper, div[class^="highlight-"])
+  // 2. rst-result directive's output-prefix (.results-prefix)
+  :is(.highlight, .highlighttable, .literal-block-wrapper, div[class^="highlight-"], .results-prefix) + .result {
     margin-top: calc(-1em + #{px2em(-2px)});
     padding: 0 px2em(16px);
     overflow: visible;
@@ -337,6 +340,20 @@
       clear: both;
       content: "";
     }
+  }
+
+  // sphinx-immaterial: reset margin for rst-result directive's output-prefix
+  .results .results-prefix + .result {
+    margin-top: 0;
+  }
+
+  // sphinx-immaterial: use modified style from span.filename (see above)
+  .results .results-prefix {
+    margin-top: -1em;
+    padding: px2em(9px, 13.6px) px2em(16px, 13.6px);
+    font-weight: 700;
+    font-size: px2em(13.6px);
+    background-color: var(--md-code-bg-color);
   }
 }
 
