@@ -1,0 +1,33 @@
+C++ domain customization
+========================
+
+.. confval:: cpp_strip_namespaces_from_signatures
+
+   :python:`list[str]` specifying namespaces to strip from signatures.  This
+   does not apply to the name of the symbol being defined by the signature, only
+   to parameter types, return types, default value expressions, etc.
+
+   For example, with the following in :file:`conf.py`:
+
+   .. literalinclude:: conf.py
+      :language: python
+      :start-after: # BEGIN: cpp_strip_namespaces_from_signatures option
+      :end-before: # END: cpp_strip_namespaces_from_signatures option
+
+   .. rst-example:: C++ function definition with stripped namespaces
+
+      .. cpp:type:: my_ns1::A
+
+      .. cpp:type:: my_ns2::my_nested_ns::B
+
+      .. cpp:type:: my_ns3::C
+
+      .. cpp:function:: void my_ns1::MyFunction(my_ns1::A x, my_ns2::my_nested_ns::B y, my_ns3::C);
+
+   .. warning::
+
+      If a nested symbol name like :python:`"my_ns1::abc"` is specified in
+      :confval:`cpp_strip_namespaces_from_signatures`, then a reference like
+      :cpp:`my_ns1::abc::X` will be converted to :cpp:`my_ns1::X`.  To also
+      strip the :cpp:`my_ns1::` portion, :python:`"my_ns1"` must also be
+      specified in :confval:`cpp_strip_namespaces_from_signatures`.

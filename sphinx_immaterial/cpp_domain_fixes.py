@@ -343,6 +343,60 @@ def _monkey_patch_cpp_expr_role_to_include_c_parent_key():
     CPPExprRole.run = run
 
 
+def _strip_namespaces_from_signature(
+    node: docutils.nodes.Element, namespaces: List[str]
+):
+    # Collect nodes to remove first, then remove them in reverse order.
+    removals = []
+    for child in node.traverse(condition=sphinx.addnodes.desc_sig_name):
+        parent = child.parent
+        if not isinstance(parent, sphinx.addnodes.pending_xref):
+            continue
+        if (
+            parent["reftype"] != "identifier"
+            or parent["refdomain"] != "cpp"
+            or parent["reftarget"] not in namespaces
+        ):
+            continue
+        grandparent = parent.parent
+        if isinstance(grandparent, sphinx.addnodes.desc_addname):
+            continue
+        index = grandparent.index(parent)
+        if index + 1 >= len(grandparent.children):
+            continue
+        sibling = grandparent[index + 1]
+        if (
+            not isinstance(sibling, sphinx.addnodes.desc_sig_punctuation)
+            or sibling.astext() != "::"
+        ):
+            continue
+        removals.append((grandparent, index))
+
+    removals.reverse()
+
+    for (parent, index) in removals:
+        del parent[index : index + 2]
+
+
+def _strip_namespaces_from_signatures(
+    app: sphinx.application.Sphinx,
+    domain: str,
+    objtype: str,
+    content: docutils.nodes.Element,
+) -> None:
+    """object-description-transform callback that strips namespaces."""
+    if domain != "cpp":
+        return
+
+    namespaces = app.config.cpp_strip_namespaces_from_signatures
+    if not namespaces:
+        return
+
+    signatures = content.parent[:-1]
+    for signode in signatures:
+        _strip_namespaces_from_signature(signode, namespaces)
+
+
 def setup(app: sphinx.application.Sphinx):
     _monkey_patch_cpp_parameter_fields(sphinx.domains.cpp.CPPObject.doc_field_types)
     _monkey_patch_cpp_parameter_fields(
@@ -383,6 +437,11 @@ def setup(app: sphinx.application.Sphinx):
     _monkey_patch_cpp_expr_role_to_include_c_parent_key()
     _monkey_patch_add_object_type_css_classes(sphinx.domains.c.CDomain)
     _monkey_patch_add_object_type_css_classes(sphinx.domains.cpp.CPPDomain)
+
+    app.add_config_value(
+        "cpp_strip_namespaces_from_signatures", default=[], rebuild="env"
+    )
+    app.connect("object-description-transform", _strip_namespaces_from_signatures)
 
     return {
         "parallel_read_safe": True,

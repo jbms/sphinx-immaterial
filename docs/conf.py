@@ -184,6 +184,14 @@ external_cpp_references = {
 }
 # END: sphinx_immaterial.external_cpp_references extension options
 
+# BEGIN: cpp_strip_namespaces_from_signatures option
+cpp_strip_namespaces_from_signatures = [
+    "my_ns1",
+    "my_ns2",
+    "my_ns2::my_nested_ns",
+]
+# END: cpp_strip_namespaces_from_signatures option
+
 rst_prolog = """
 .. role:: python(code)
    :language: python

@@ -79,6 +79,7 @@ or ``theme.conf`` for more details.
     :hidden:
 
     format_signatures
+    cpp
     external_cpp_references
     cppreference
 
