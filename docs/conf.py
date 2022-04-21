@@ -38,6 +38,7 @@ extensions = [
     "sphinx_immaterial.theme_result",
     "sphinx_immaterial.kbd_keys",
     "sphinx_immaterial.format_signatures",
+    "sphinx_immaterial.cppreference",
 ]
 
 intersphinx_mapping = {
@@ -167,6 +168,21 @@ clang_format_signatures_domain_styles = {
 # END: sphinx_immaterial.format_signatures extension options
 
 html_wrap_signatures_with_css = ["py"]
+
+# BEGIN: sphinx_immaterial.external_cpp_references extension options
+external_cpp_references = {
+    "nlohmann::json": {
+        "url": "https://json.nlohmann.me/api/json/",
+        "object_type": "type alias",
+        "desc": "C++ type alias",
+    },
+    "nlohmann::basic_json": {
+        "url": "https://json.nlohmann.me/api/basic_json/",
+        "object_type": "class",
+        "desc": "C++ class",
+    },
+}
+# END: sphinx_immaterial.external_cpp_references extension options
 
 rst_prolog = """
 .. role:: python(code)

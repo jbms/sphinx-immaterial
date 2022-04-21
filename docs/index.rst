@@ -79,6 +79,8 @@ or ``theme.conf`` for more details.
     :hidden:
 
     format_signatures
+    external_cpp_references
+    cppreference
 
 .. toctree::
     :caption: Examples and Uses

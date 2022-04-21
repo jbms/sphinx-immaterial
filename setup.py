@@ -170,7 +170,7 @@ setuptools.setup(
     author="Jeremy Maitin-Shepard",
     author_email="jeremy@jeremyms.com",
     url="https://github.com/jbms/sphinx-immaterial",
-    packages=["sphinx_immaterial"],
+    packages=["sphinx_immaterial", "sphinx_immaterial.cppreference_data"],
     package_dir={"sphinx_immaterial": "sphinx_immaterial"},
     package_data={
         "sphinx_immaterial": [
@@ -182,11 +182,11 @@ setuptools.setup(
             "partials/*/*/*/*.html",
             "static/*/**",
             "*.html",
-            "theme.conf"
-        ]
+            "theme.conf",
+        ],
+        "sphinx_immaterial.cppreference_data": ["*.xml"],
     },
-    # include_package_data=True,
-    python_requires=">=3.6",
+    python_requires=">=3.7",
     install_requires=REQUIREMENTS,
     use_scm_version={
         # It would be nice to include the commit hash in the version, but that
