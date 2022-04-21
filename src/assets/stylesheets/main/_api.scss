@@ -9,81 +9,92 @@ $objinfo-icon-size: 16px;
 // Wrap in .md-typeset to ensure rules below have higher selectivity
 // than those in _typeset.scss.
 .md-typeset {
-  dl.objdesc,
-  dl.api-field {
-    > dt {
-      font-family: var(--md-code-font-family);
-      background: $api-color-header-bg;
+  :is(dl.objdesc, dl.api-field) > dt {
+    font-family: var(--md-code-font-family);
+    background: $api-color-header-bg;
 
-      .desctype {
-        &,
-        > a.reference {
-          color: $api-color-type;
-          // font-weight: 700;
+    // Eliminate the normal padding for inline code blocks
+    code {
+      padding: 0;
+      border-radius: 0;
+    }
+
+    .sig-name:not(.sig-name-nonprimary) {
+      padding: 0;
+      color: $api-color-name;
+      font-weight: 700;
+    }
+
+    .sig-param {
+      font-style: normal;
+    }
+
+    .sig-param .n:not(.desctype) {
+      color: $api-color-param-name;
+    }
+
+    .sig-param a.reference .n:not(.desctype):hover {
+      color: var(--md-accent-fg-color);
+    }
+
+    // Ensure each parameter starts on a new line and is indented.
+    &.sig-wrap {
+      .sig-param-decl {
+        &::before {
+          white-space: pre;
+          // 5 spaces below result in 4 spaces of indent.
+          // For some reason one space is lost.
+          content: "\A     ";
         }
+      }
 
-        > a.reference:hover {
-          color: var(--md-accent-fg-color);
+      // Note: It would be nice to have something like
+      // `:last-of-class` here, but that doesn't exist.
+      .sig-paren ~ .sig-paren {
+        // Ensure the final paren starts on a new line
+        &::before {
+          white-space: pre;
+          content: "\A";
         }
       }
+    }
+  }
 
-      // Eliminate the normal padding for inline code blocks
-      code {
-        padding: 0;
-        border-radius: 0;
-      }
+  // Rules for coloring cross-references in signatures.
+  :is(dl.objdesc, dl.api-field) > dt,
+  .sig-inline {
+    a.reference > .sig-name,
+    a.reference.sig-name,
+    a.reference:not(.desctype) > .n {
+      color: var(--md-typeset-a-color);
 
-      .sig-name {
-        padding: 0;
-        color: $api-color-name;
-        font-weight: 700;
-      }
-
-      a.reference > span {
-        color: var(--md-typeset-a-color);
-
-        &:hover {
-          color: var(--md-accent-fg-color);
-        }
-      }
-
-      .sig-param {
-        font-style: normal;
-      }
-
-      .sig-param .n:not(.desctype) {
-        color: $api-color-param-name;
-      }
-
-      .sig-param a.reference .n:not(.desctype):hover {
+      &:hover {
         color: var(--md-accent-fg-color);
       }
+    }
 
-      // Ensure each parameter starts on a new line and is indented.
-      &.sig-wrap {
-        .sig-param-decl {
-          &::before {
-            white-space: pre;
-            // 5 spaces below result in 4 spaces of indent.
-            // For some reason one space is lost.
-            content: "\A     ";
-          }
+    .desctype {
+      &,
+      > a.reference {
+        color: $api-color-type;
+        // Prevent pygments highlight rules from taking precedence.
+        * {
+          color: inherit;
         }
+      }
 
-        .sig-paren:last-of-type {
-          // Ensure the final paren starts on a new line
-          &::before {
-            white-space: pre;
-            content: "\A";
-          }
-        }
+      &:is(a.reference):hover,
+      > a.reference:hover {
+        color: var(--md-accent-fg-color);
       }
     }
   }
 
   dl.objdesc {
     > dt {
-      padding: 0.5em;
+      padding-top: 0.5em;
+      padding-right: 0.5em;
+      padding-left: 0.5em;
       font-family: var(--md-code-font-family);
       background: $api-color-header-bg;
 
@@ -111,6 +122,14 @@ $objinfo-icon-size: 16px;
       }
     }
 
+    > dt:first-child {
+      padding-top: 0.5em;
+    }
+
+    > dt:last-of-type {
+      padding-bottom: 0.5em;
+    }
+
     > dd {
       // Heading like "Parameters" or "Returns"
       dl.field-list {
@@ -134,6 +153,19 @@ $objinfo-icon-size: 16px;
       code {
         font-size: 0.65rem;
       }
+
+      &.api-parameter-kind {
+        float: right;
+        font-family: var(--md-text-font-family);
+
+        &::before {
+          content: "[";
+        }
+
+        &::after {
+          content: "]";
+        }
+      }
     }
   }
 
@@ -143,6 +175,13 @@ $objinfo-icon-size: 16px;
     > p:first-child {
       margin-top: 0;
     }
+  }
+
+  // C/C++ inline "text" expressions: should have regular, rather than
+  // "code", font face.
+  .sig-inline:is(.c-texpr, .cpp-texpr) {
+    font-family: unset;
+    background-color: unset;
   }
 }
 
@@ -176,6 +215,7 @@ $objinfo-icon-size: 16px;
 
 .objinfo-icon {
   display: inline-block;
+  flex-shrink: 0;
   width: $objinfo-icon-size;
   height: $objinfo-icon-size;
   margin-right: 8px;

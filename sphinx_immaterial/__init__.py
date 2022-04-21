@@ -16,6 +16,7 @@ import sphinx.writers.html5
 
 from . import apidoc_formatting
 from . import autodoc_property_type
+from . import cpp_domain_fixes
 from . import inlinesyntaxhighlight
 from . import nav_adapt
 from . import object_toc
@@ -303,6 +304,7 @@ def setup(app):
     app.connect("config-inited", _config_inited)
     app.setup_extension(apidoc_formatting.__name__)
     app.setup_extension(python_domain_fixes.__name__)
+    app.setup_extension(cpp_domain_fixes.__name__)
     app.setup_extension(nav_adapt.__name__)
     app.setup_extension(postprocess_html.__name__)
     app.setup_extension(inlinesyntaxhighlight.__name__)

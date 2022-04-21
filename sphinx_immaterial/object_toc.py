@@ -45,6 +45,8 @@ def _monkey_patch_toc_tree_process_doc(app: sphinx.application.Sphinx):
                 if isinstance(
                     child, (sphinx.addnodes.desc_name, sphinx.addnodes.desc_addname)
                 ):
+                    if "sig-name-nonprimary" in child["classes"]:
+                        continue
                     title += child.astext()
         if not title:
             # No name found
