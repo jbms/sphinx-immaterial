@@ -16,6 +16,8 @@ import docutils.nodes
 import docutils.parsers.rst.states
 import sphinx.addnodes
 import sphinx.application
+import sphinx.directives
+import sphinx.domains.c
 import sphinx.domains.cpp
 
 
@@ -397,6 +399,48 @@ def _strip_namespaces_from_signatures(
         _strip_namespaces_from_signature(signode, namespaces)
 
 
+def _monkey_patch_domain_to_support_include_directives(
+    object_class: Type[sphinx.directives.ObjectDescription], language: str
+):
+
+    orig_get_signatures = object_class.get_signatures
+
+    def is_include(sig: str) -> bool:
+        return sig.startswith("#")
+
+    def get_signatures(self: object_class) -> List[str]:
+        return [sig for sig in orig_get_signatures(self) if not is_include(sig)]
+
+    object_class.get_signatures = get_signatures
+
+    orig_run = object_class.run
+
+    def run(self: object_class) -> List[docutils.nodes.Node]:
+        nodes = orig_run(self)
+        include_directives = [
+            sig for sig in orig_get_signatures(self) if is_include(sig)
+        ]
+        if include_directives:
+            obj_desc = nodes[-1]
+            include_sig = sphinx.addnodes.desc_signature("", "")
+            include_sig["classes"].append("api-include-path")
+            for directive in include_directives:
+                container = docutils.nodes.container()
+                container += docutils.nodes.literal(
+                    directive,
+                    directive,
+                    classes=[language, "code", "highlight"],
+                    language=language,
+                )
+                include_sig.append(container)
+
+            self.set_source_info(include_sig)
+            obj_desc.insert(0, include_sig)
+        return nodes
+
+    object_class.run = run
+
+
 def setup(app: sphinx.application.Sphinx):
     _monkey_patch_cpp_parameter_fields(sphinx.domains.cpp.CPPObject.doc_field_types)
     _monkey_patch_cpp_parameter_fields(
@@ -437,6 +481,13 @@ def setup(app: sphinx.application.Sphinx):
     _monkey_patch_cpp_expr_role_to_include_c_parent_key()
     _monkey_patch_add_object_type_css_classes(sphinx.domains.c.CDomain)
     _monkey_patch_add_object_type_css_classes(sphinx.domains.cpp.CPPDomain)
+
+    _monkey_patch_domain_to_support_include_directives(
+        object_class=sphinx.domains.cpp.CPPObject, language="cpp"
+    )
+    _monkey_patch_domain_to_support_include_directives(
+        object_class=sphinx.domains.c.CObject, language="c"
+    )
 
     app.add_config_value(
         "cpp_strip_namespaces_from_signatures", default=[], rebuild="env"

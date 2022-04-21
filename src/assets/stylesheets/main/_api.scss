@@ -120,6 +120,13 @@ $objinfo-icon-size: 16px;
         float: right;
         text-align: right;
       }
+
+      &.api-include-path {
+        &,
+        code {
+          font-size: 0.65rem;
+        }
+      }
     }
 
     > dt:first-child {

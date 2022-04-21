@@ -31,3 +31,17 @@ C++ domain customization
       :cpp:`my_ns1::abc::X` will be converted to :cpp:`my_ns1::X`.  To also
       strip the :cpp:`my_ns1::` portion, :python:`"my_ns1"` must also be
       specified in :confval:`cpp_strip_namespaces_from_signatures`.
+
+:cpp:`#include` directives in signatures
+----------------------------------------
+
+This theme extend the C and C++ domains to allow signatures to specify required
+:cpp:`#include` directives.
+
+.. rst-example:: Specifying :cpp:`#include` directives in signatures
+
+   .. cpp:function:: #include "my_header.h"
+                     #include "another_header.h"
+                     void foo(int param);
+
+      Some function.
