@@ -3,7 +3,6 @@ $api-color-keyword: var(--md-code-hl-keyword-color);
 $api-color-name: var(--md-code-hl-name-color);
 $api-color-pre-name: var(--md-code-hl-name-color);
 $api-color-type: var(--md-code-hl-special-color);
-$api-color-punctuation: var(--md-code-hl-punctuation-color);
 $api-color-param-name: var(--md-default-fg-color--light);
 $objinfo-icon-size: 16px;
 
@@ -26,11 +25,6 @@ $objinfo-icon-size: 16px;
         > a.reference:hover {
           color: var(--md-accent-fg-color);
         }
-      }
-
-      // Punctuation
-      .p {
-        color: $api-color-punctuation;
       }
 
       // Eliminate the normal padding for inline code blocks

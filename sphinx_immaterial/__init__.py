@@ -20,6 +20,7 @@ from . import inlinesyntaxhighlight
 from . import nav_adapt
 from . import object_toc
 from . import postprocess_html
+from . import python_domain_fixes
 from . import search_adapt
 from .details_patch import monkey_patch_details_run
 
@@ -44,7 +45,9 @@ DEFAULT_THEME_OPTIONS = {
 def _get_html_translator(
     base_translator: Type[sphinx.writers.html5.HTML5Translator],
 ) -> Type[sphinx.writers.html5.HTML5Translator]:
-    class CustomHTMLTranslator(apidoc_formatting.HTMLTranslatorMixin, base_translator):
+    class CustomHTMLTranslator(
+        apidoc_formatting.HTMLTranslatorMixin, base_translator
+    ):  # pylint: disable=abstract-method
         def __init__(self, *args, **kwargs):
             super().__init__(*args, **kwargs)
 
@@ -299,6 +302,7 @@ def _config_inited(
 def setup(app):
     app.connect("config-inited", _config_inited)
     app.setup_extension(apidoc_formatting.__name__)
+    app.setup_extension(python_domain_fixes.__name__)
     app.setup_extension(nav_adapt.__name__)
     app.setup_extension(postprocess_html.__name__)
     app.setup_extension(inlinesyntaxhighlight.__name__)
