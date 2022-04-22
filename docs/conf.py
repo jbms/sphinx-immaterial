@@ -129,6 +129,7 @@ html_theme_options = {
             },
         },
     ],
+    # BEGIN: version_dropdown
     "version_dropdown": True,
     "version_info": [
         {
@@ -142,8 +143,10 @@ html_theme_options = {
             "aliases": [],
         },
     ],
+    # END: version_dropdown
     "toc_title_is_page_title": True,
-}  # end html_theme_options
+}
+# end html_theme_options
 
 # ---- Other documentation options -------------------------
 

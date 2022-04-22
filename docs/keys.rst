@@ -123,7 +123,7 @@ project's conf.py file.
 
             .. literalinclude:: conf.py
                 :language: python
-                :start-at: # -- sphinx_immaterial.keys extension options
+                :start-after: # -- sphinx_immaterial.keys extension options
                 :end-before: # --
 
         .. md-tab-item::  CSS code
@@ -133,7 +133,7 @@ project's conf.py file.
 
             .. literalinclude:: _static/extra_css.css
                 :language: css
-                :start-at: /* ************************* my-special-key style
+                :start-after: /* ************************* my-special-key style
                 :end-before: /* **************************** custom-task-list style rules
 
 
@@ -142,12 +142,12 @@ project's conf.py file.
             Specify the key using a known name in the `keys_map` index.
 
             In our case, ``my-special-key`` to fetch the display text from `keys_map`.
-            
+
             .. rst-example::
 
                 :keys:`my-special-key` + :keys:`git` = :keys:`git+my-special-key`
 
-            
+
             Use of spaces in a key name will result in CSS class that has hyphens instead of
             spaces in a lower case form of the given text. Therefore, entering
             ``My Special Key`` ignores the `keys_map` but still uses the

@@ -196,7 +196,7 @@ folder and add the new CSS to an additional style sheet.
       .. literalinclude:: _static/extra_css.css
          :language: css
          :caption: docs/_static/extra_css.css
-         :start-at: /* *************************** custom admonition style rules
+         :start-after: /* *************************** custom admonition style rules
          :end-before: /* **********
 
    .. md-tab-item:: conf.py code

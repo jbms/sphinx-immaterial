@@ -60,8 +60,8 @@ or ``theme.conf`` for more details.
     :class: example
 
     .. literalinclude:: ./conf.py
-        :start-at: # -- HTML theme specific settings
-        :end-before: # ---- Other documentation options
+        :start-after: # -- HTML theme specific settings
+        :end-before: # end html_theme_options
 
 
 .. toctree::
