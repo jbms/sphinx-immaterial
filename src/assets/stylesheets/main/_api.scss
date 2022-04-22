@@ -156,6 +156,14 @@ $objinfo-icon-size: 16px;
       // content.
       display: table;
 
+      // Prevent permalink symbol from having a background color of $api-color-header-bg.
+      a.headerlink {
+        position: relative;
+        left: 0.5em;
+        width: 0;
+        margin-left: 0;
+      }
+
       &,
       code {
         font-size: 0.65rem;

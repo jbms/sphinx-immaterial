@@ -82,8 +82,8 @@ def _monkey_patch_toc_tree_process_doc(app: sphinx.application.Sphinx):
             return None
         section = docutils.nodes.section()
         section["ids"] = ids
-        paramname = source["paramname"]
-        titlenode = docutils.nodes.comment(paramname, paramname)
+        title = source.get("toc_title", source["paramname"])
+        titlenode = docutils.nodes.comment(title, title)
         section += titlenode
         return section
 

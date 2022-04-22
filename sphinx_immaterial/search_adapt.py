@@ -29,6 +29,24 @@ class IndexBuilder(sphinx.search.IndexBuilder):
     ]:
         rv = super().get_objects(fn2index)
         onames = self._objnames
+        docindex_to_docname = {i: docname for docname, i in fn2index.items()}
+        synopses = {}
+        all_anchors = {}
+        for domain_name, domain in self.env.domains.items():
+            get_object_synopses = getattr(domain, "get_object_synopses", None)
+            if get_object_synopses is not None:
+                for key, synopsis in get_object_synopses():
+                    synopses.setdefault(key, synopsis or "")
+            for (
+                name,
+                dispname,
+                objtype,
+                docname,
+                anchor,
+                priority,
+            ) in domain.get_objects():
+                synopses.setdefault((docname, anchor), "")
+
         for prefix, prefix_value in rv.items():
             if prefix:
                 name_prefix = prefix + "."
@@ -44,16 +62,43 @@ class IndexBuilder(sphinx.search.IndexBuilder):
             ):
                 objtype_entry = onames[typeindex]
                 domain_name = objtype_entry[0]
+                objtype = objtype_entry[1]
                 domain = self.env.domains[domain_name]
-                synopsis = None
-                get_object_synopsis = getattr(domain, "get_object_synopsis", None)
-                if get_object_synopsis:
-                    objtype = objtype_entry[1]
-                    full_name = name_prefix + name
-                    synopsis = get_object_synopsis(objtype, full_name)
-                    if synopsis:
-                        synopsis = synopsis.strip()
+
+                docname = docindex_to_docname.get(docindex)
+
+                # Workaround for problems with the `shortanchor` encoding
+                # https://github.com/sphinx-doc/sphinx/issues/10380
+
+                # First decode `shortanchor` into the actual anchor based on the
+                # full set of `(docname, anchor)` pairs.
+
+                full_name = name_prefix + name
+
+                anchor = shortanchor
+                synopsis = synopses.get((docname, anchor))
+                if shortanchor == "":
+                    # The anchor could either be the actual empty string, or `full_name`.
+                    if synopsis is None:
+                        # Anchor is probably `full_name`
+                        anchor = full_name
+                        synopsis = synopses.get((docname, anchor))
+                elif shortanchor == "-":
+                    # The anchor could either by "-" or `objtype
+                    if synopsis is None:
+                        anchor = objtype + "-" + full_name
+                        synopsis = synopses.get((docname, anchor))
+
+                # Encode `anchor` into a lossless `shortanchor`.
+                if anchor == full_name:
+                    shortanchor = 0
+                elif anchor == objtype + "-" + full_name:
+                    shortanchor = 1
+                else:
+                    shortanchor = anchor
+
                 synopsis = synopsis or ""
+
                 if sphinx.version_info >= (4, 3):
                     prefix_value[i] = (
                         docindex,

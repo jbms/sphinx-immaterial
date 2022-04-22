@@ -223,6 +223,7 @@ class DomainAnchorEntry(NamedTuple):
     display_name: str
     objtype: str
     priority: int
+    synopsis: Optional[str]
 
 
 class ObjectIconInfo(NamedTuple):
@@ -258,6 +259,7 @@ OBJECT_ICON_INFO: Dict[Tuple[str, str], ObjectIconInfo] = {
     ("c", "enum"): ObjectIconInfo(icon_class="data", icon_text="E"),
     ("c", "enumerator"): ObjectIconInfo(icon_class="data", icon_text="e"),
     ("c", "type"): ObjectIconInfo(icon_class="alias", icon_text="T"),
+    ("c", "macroParam"): ObjectIconInfo(icon_class="sub-data", icon_text="p"),
     ("cpp", "class"): ObjectIconInfo(icon_class="data", icon_text="C"),
     ("cpp", "struct"): ObjectIconInfo(icon_class="data", icon_text="S"),
     ("cpp", "enum"): ObjectIconInfo(icon_class="data", icon_text="E"),
@@ -272,8 +274,10 @@ OBJECT_ICON_INFO: Dict[Tuple[str, str], ObjectIconInfo] = {
     ("cpp", "var"): ObjectIconInfo(icon_class="alias", icon_text="V"),
     ("cpp", "type"): ObjectIconInfo(icon_class="alias", icon_text="T"),
     ("cpp", "namespace"): ObjectIconInfo(icon_class="alias", icon_text="N"),
-    ("cpp", "templateParam"): ObjectIconInfo(icon_class="data", icon_text="P"),
     ("cpp", "functionParam"): ObjectIconInfo(icon_class="sub-data", icon_text="p"),
+    ("cpp", "templateTypeParam"): ObjectIconInfo(icon_class="alias", icon_text="T"),
+    ("cpp", "templateNonTypeParam"): ObjectIconInfo(icon_class="data", icon_text="N"),
+    ("cpp", "templateTemplateParam"): ObjectIconInfo(icon_class="alias", icon_text="T"),
 }
 
 
@@ -286,6 +290,11 @@ def _make_domain_anchor_map(
     }
     m: Dict[Tuple[str, str], DomainAnchorEntry] = {}
     for domain_name, domain in env.domains.items():
+        synopses = {}
+        get_object_synopses = getattr(domain, "get_object_synopses", None)
+        if get_object_synopses is not None:
+            for key, synopsis in get_object_synopses():
+                synopses.setdefault(key, synopsis)
         for (
             name,
             dispname,
@@ -297,7 +306,13 @@ def _make_domain_anchor_map(
             if (domain_name, objtype) not in OBJECT_ICON_INFO:
                 continue
             key = (docname_to_url[docname], anchor)
-            m[key] = DomainAnchorEntry(domain_name, name, dispname, objtype, priority)
+            synopsis = synopses.get((docname, anchor))
+            m.setdefault(
+                key,
+                DomainAnchorEntry(
+                    domain_name, name, dispname, objtype, priority, synopsis
+                ),
+            )
     return m
 
 
@@ -328,15 +343,11 @@ def _add_domain_info_to_toc(
         if objinfo is None:
             continue
         domain = app.env.domains[objinfo.domain_name]
-        get_object_synopsis = getattr(domain, "get_object_synopsis", None)
         label = domain.get_type_name(domain.object_types[objinfo.objtype])
         tooltip = f"{objinfo.name} ({label})"
-        if get_object_synopsis is not None:
-            synopsis = get_object_synopsis(objinfo.objtype, objinfo.name)
-            if synopsis:
-                synopsis = synopsis.strip()
-                if synopsis:
-                    tooltip += f" — {synopsis}"
+        synopsis = (objinfo.synopsis or "").strip()
+        if synopsis:
+            tooltip += f" — {synopsis}"
         icon_info = OBJECT_ICON_INFO.get((objinfo.domain_name, objinfo.objtype))
         title_prefix = ""
         if icon_info is not None:

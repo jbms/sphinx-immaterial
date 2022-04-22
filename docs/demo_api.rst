@@ -27,9 +27,34 @@ C++ API
 
    .. c:macro:: DEFAULT_LENGTH
 
-   .. cpp:function:: const MyType Foo(const MyType bar, uint8_t* arr, unsigned int len = DEFAULT_LENGTH, bool baz= false)
+   .. cpp:function:: template <typename T, int K> \
+                     const MyType Foo(\
+                         const MyType bar, uint8_t* arr, \
+                         unsigned int len = DEFAULT_LENGTH, \
+                         bool baz= false)
+                     const MyType Foo(\
+                         const MyType bar, uint16_t* arr, \
+                         unsigned int len = DEFAULT_LENGTH, \
+                         bool baz= false)
 
       Some function type thing
+
+      :tparam T: Some type template parameter.
+      :tparam K: Some non-type template parameter.
+      :param bar: This is the bar parameter.
+      :param arr[out]: Array of something.  Elements may be either
+          :cpp:expr:`uint8_t` or :cpp:expr:`uint16_t`.
+      :param len: Length of :cpp:expr:`arr`.
+      :param baz: Baz parameter.
+
+.. rst-example::
+
+   .. c:macro:: MY_MACRO(X, Y, Z)
+
+      Expands to something.
+
+      :param X: The X parameter to the macro.
+      :param Y: The Y parameter to the macro.
 
 .. rst-example::
 
@@ -68,6 +93,8 @@ C++ API
       A scoped enum.
 
       .. cpp:enumerator:: B
+
+         Description of enumerator B.
 
    .. cpp:enum-struct:: protected MyScopedVisibilityEnum : std::underlying_type<MySpecificEnum>::type
 

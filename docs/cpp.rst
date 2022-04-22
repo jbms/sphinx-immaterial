@@ -1,6 +1,48 @@
 C++ domain customization
 ========================
 
+.. confval:: cpp_generate_synopses
+
+   :python:`bool` specifying whether to generate a *synopsis* for C++ domain
+   objects based on the first paragraph of their content (first sentence for
+   parameters).  The synopsis is shown as a tooltip when hovering over a
+   cross-reference link, and is also shown in the search results list.
+
+   Defaults to :python:`True`.
+
+   .. rst-example:: C++ synopses
+
+      .. cpp:type:: synopses_ex::SomeType
+
+         Description will be shown as a tooltip when hovering over
+         cross-references to :cpp:expr:`SomeType` in other signatures as well as
+         in the TOC.
+
+         Additional description not shown in tooltip.  This is the return type
+         for :cpp:expr:`Foo`.
+
+      .. cpp:function:: template <typename T, int N> \
+                        synopses_ex::SomeType synopses_ex::Foo(\
+                          T param, \
+                          const int (&arr)[N]\
+                        );
+
+         Synopsis for this function, shown when hovering over cross references
+         as well as in the TOC.
+
+         :tparam T: Tooltip shown when hovering over cross-references to this
+             template parameter.  Additional description not included in
+             tooltip.
+         :tparam N: Tooltip shown for N.
+         :param param: Tooltip shown for cross-references to this function
+             parameter param.
+         :param arr: Tooltip shown for cross-references to this function
+             parameter arr.  To cross reference another parameter, use the
+             :rst:role:`cpp:expr` role, e.g.: :cpp:expr:`N`.  Parameters can
+             also be referenced via their fake qualified name,
+             e.g. :cpp:expr:`synopses_ex::Foo::N`.
+         :returns: Something or other.
+
 .. confval:: cpp_strip_namespaces_from_signatures
 
    :python:`list[str]` specifying namespaces to strip from signatures.  This
@@ -31,6 +73,18 @@ C++ domain customization
       :cpp:`my_ns1::abc::X` will be converted to :cpp:`my_ns1::X`.  To also
       strip the :cpp:`my_ns1::` portion, :python:`"my_ns1"` must also be
       specified in :confval:`cpp_strip_namespaces_from_signatures`.
+
+.. confval:: cpp_qualify_parameter_ids
+
+   :python:`bool` specifying whether function, template, and macro parameters
+   should be assigned fully-qualified ids (for cross-linking purposes) of the
+   form ``<parent-id>-p-<param-name>`` based on the id of the parent
+   declaration.  Defaults to :python:`True`.
+
+   If set to :python:`False`, instead the shorter unqualified id
+   ``p-<param-name>`` is used.  This option should only be set to
+   :python:`False` if each C++ declaration is on a separate page.
+
 
 :cpp:`#include` directives in signatures
 ----------------------------------------
