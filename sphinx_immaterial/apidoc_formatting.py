@@ -1,6 +1,6 @@
 """Modifies the formatting of API documentation."""
 
-from typing import TYPE_CHECKING
+from typing import List, TYPE_CHECKING, cast
 
 import docutils.nodes
 import sphinx.addnodes
@@ -155,6 +155,42 @@ def _wrap_signatures(
         )
 
 
+def _monkey_patch_object_description_to_include_fields_in_toc():
+    orig_run = sphinx.directives.ObjectDescription.run
+
+    def run(self: sphinx.directives.ObjectDescription) -> List[docutils.nodes.Node]:
+        nodes = orig_run(self)
+
+        if not self.env.config.include_object_description_fields_in_toc:
+            return nodes
+
+        obj_desc = nodes[-1]
+
+        obj_id = None
+        for sig in obj_desc[:-1]:
+            ids = sig["ids"]
+            if ids and ids[0]:
+                obj_id = ids[0]
+                break
+
+        obj_content = obj_desc[-1]
+        for child in obj_content:
+            if not isinstance(child, docutils.nodes.field_list):
+                continue
+            for field in child:
+                field_name = cast(docutils.nodes.field_name, field[0])
+                if field_name["ids"]:
+                    continue
+                field_id = docutils.nodes.make_id(field_name.astext())
+                if obj_id:
+                    field_id = f"{obj_id}-{field_id}"
+                field_name["ids"].append(field_id)
+
+        return nodes
+
+    sphinx.directives.ObjectDescription.run = run
+
+
 def setup(app: sphinx.application.Sphinx):
     """Registers the monkey patches.
 
@@ -169,7 +205,12 @@ def setup(app: sphinx.application.Sphinx):
         "html_wrap_signatures_with_css_column_limit", default=68, rebuild="env"
     )
 
+    app.add_config_value(
+        "include_object_description_fields_in_toc", default=True, rebuild="env"
+    )
+
     app.connect("object-description-transform", _wrap_signatures)
+    _monkey_patch_object_description_to_include_fields_in_toc()
 
     return {
         "parallel_read_safe": True,

@@ -78,6 +78,7 @@ or ``theme.conf`` for more details.
     :caption: API documentation customization
     :hidden:
 
+    api
     format_signatures
     cpp
     external_cpp_references
