@@ -719,13 +719,17 @@ def _add_parameter_documentation_ids(
 
     qualify_parameter_ids = env.config.cpp_qualify_parameter_ids
 
-    for param_node in list(obj_content.traverse(condition=docutils.nodes.term)):
-        param_name = param_node.get("paramname")
-        if not param_name:
-            continue
+    def cross_link_single_parameter(param_node: docutils.nodes.term) -> None:
         kind = param_node.get("param_kind")
 
-        # Determine the number of unique declarations of this parameter
+        # Determine the number of unique declarations of this parameter.
+        #
+        # If this single object description has multiple signatures, the same
+        # parameter name may be declared in more than one of those signatures.
+        # In the parameter description, we will replace the bare parameter name
+        # with the list of all of the distinct declarations of the parameter.
+        # Identical declarations in more than one signature will only be
+        # included once.
         unique_decls: Dict[str, Tuple[int, docutils.nodes.Element]] = {}
         for i, sig_param_nodes in enumerate(sig_param_nodes_for_signature):
             desc_param_node = sig_param_nodes.get(param_name)
@@ -734,10 +738,17 @@ def _add_parameter_documentation_ids(
             decl_text = desc_param_node.astext().strip()
             unique_decls.setdefault(decl_text, (i, desc_param_node))
         if not unique_decls:
+            all_params = {}
+            for sig_param_nodes in sig_param_nodes_for_signature:
+                all_params.update(sig_param_nodes)
             logger.warning(
-                "Invalid parameter name: %r", param_name, location=param_node
+                "Parameter name %r does not match any of the parameters "
+                "defined in the signature: %r",
+                param_name,
+                list(all_params.keys()),
+                location=param_node,
             )
-            continue
+            return
 
         if env.config.cpp_generate_synopses:
             synopsis = sphinx_utils.summarize_element_text(param_node.parent[-1])
@@ -767,7 +778,9 @@ def _add_parameter_documentation_ids(
             param_id_suffix = f"p-{param_name}"
 
             # Set symbol id, since by default parameters don't have unique ids,
-            # they just use the same id as the parent symbol.
+            # they just use the same id as the parent symbol.  This is
+            # neccessary in order for cross links to correctly refer to the
+            # parameter description.
             setattr(
                 param_symbol.declaration,
                 AST_ID_OVERRIDE_ATTR,
@@ -804,11 +817,15 @@ def _add_parameter_documentation_ids(
 
         new_param_nodes = []
 
+        # Add the parameter kind/direction (e.g. "in" or "out" or "in, out") if
+        # present.
         if kind:
             kind_node = docutils.nodes.term(kind, kind)
             kind_node["classes"].append("api-parameter-kind")
             new_param_nodes.append(kind_node)
 
+        # Replace the bare parameter name with the unique parameter
+        # declarations.
         for i, desc_param_node in unique_decls.values():
             new_param_node = param_node.deepcopy()
             if i != 0:
@@ -821,6 +838,35 @@ def _add_parameter_documentation_ids(
                 child.line = line
             new_param_nodes.append(new_param_node)
         param_node.parent[:1] = new_param_nodes
+
+    # Find all parameter descriptions within the object description body.  Make
+    # sure not to find parameter descriptions within neted object descriptions.
+    # For example, if this is a class object description, we don't want to find
+    # parameter descriptions within a nested function object description.
+    for child in obj_content:
+        if not isinstance(child, docutils.nodes.field_list):
+            continue
+        for field in child:
+            field_body = field[-1]
+            for field_body_child in field_body.children:
+                if (
+                    not isinstance(field_body_child, docutils.nodes.definition_list)
+                    or "api-field" not in field_body_child["classes"]
+                ):
+                    continue
+                for definition in field_body_child.children:
+                    if (
+                        not isinstance(definition, docutils.nodes.definition_list_item)
+                        or len(definition.children) == 0
+                    ):
+                        continue
+                    term = definition[0]
+                    if not isinstance(term, docutils.nodes.term):
+                        continue
+                    param_name = term.get("paramname")
+                    if not param_name:
+                        continue
+                    cross_link_single_parameter(term)
 
 
 _FIRST_PARAMETER_ID_VERSIONS: Dict[str, int] = {"c": 1, "cpp": 4}
@@ -851,12 +897,23 @@ def _cross_link_parameters(
 
     assert len(signodes) == len(symbols)
 
+    # Collect the docutils nodes corresponding to the declarations of the
+    # parameters in each signature, and turn the parameter names into
+    # cross-links to the parameter description.
+    #
+    # In the parameter descriptions (e.g. in the "Parameters" or "Template
+    # Parameters" fields), these declarations will be copied in to replace the
+    # bare parameter name so that the parameter description shows e.g. `int x =
+    # 10` or `typename T` rather than just `x` or `T`.
     sig_param_nodes_for_signature = []
     for signode, symbol in zip(signodes, symbols):
         sig_param_nodes_for_signature.append(
             _add_parameter_links_to_signature(app.env, signode, symbol, domain=domain)
         )
 
+    # Find all parameter descriptions in the object description body, and mark
+    # them as the target for cross links to that parameter.  Also substitute in
+    # the parameter declaration for the bare parameter name, as described above.
     _add_parameter_documentation_ids(
         env=app.env,
         obj_content=content,
