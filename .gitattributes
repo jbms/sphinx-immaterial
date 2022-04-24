@@ -1,10 +1,19 @@
-# We need to make sure that the remote and workspace line endings all use LF due to
-# linting and other reasons.
+# Prevent line ending conversions by default to avoid problems with binary files.
+* -text
 
-# Set core.autocrlf to false in case people have this set differently.
-# If this is set to 'true' or 'input', then it overrides the eol option.
-* text autocrlf=false
-
-# This setting forces Git to normalize line endings to LF on checkin and
-# prevents conversion to CRLF when the file is checked out.
-* text eol=lf
+# Known text files should have LF line endings.
+*.py text eol=lf
+*.rst text eol=lf
+*.md text eol=lf
+*.toml text eol=lf
+*.txt text eol=lf
+*.scss text eol=lf
+*.ts text eol=lf
+*.json text eol=lf
+*.html text eol=lf
+*.css text eol=lf
+*.tsx text eol=lf
+*.svg text eol=lf
+*.sh text eol=lf
+*.xml text eol=lf
+LICENSE text eol=lf
