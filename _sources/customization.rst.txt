@@ -144,7 +144,7 @@ Each metadata is evaluated as a ``:key: value`` pair.
     By default the local table of contents is shown if the page contains sub-sections and the
     browser viewport is sufficiently wide. If the ``toc.integrate`` `feature <features>` is
     enabled, then this option has no effect.
-    
+
     .. code-block:: rst
         :caption: Hide the Table of Contents like so:
 
@@ -533,8 +533,8 @@ aliases. Other required fields include ``version`` and ``title``.
 .. literalinclude:: conf.py
     :language: python
     :caption: This is the version dropdown selector settings used by this theme:
-    :start-at: "version_dropdown": True
-    :end-before: }  # end html_theme_options
+    :start-after: BEGIN: version_dropdown
+    :end-before: END: version_dropdown
 
 .. note::
     ``aliases`` do not apply when using an external URL (as in not relative to the same webserver)
