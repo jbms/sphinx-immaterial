@@ -1,10 +1,13 @@
 """Utilities for use with Sphinx."""
 
+from typing import Literal
+
 import docutils.nodes
 
 
 def summarize_element_text(
-    node: docutils.nodes.Element, first_sentence_only=True
+    node: docutils.nodes.Element,
+    mode: Literal["first_paragraph", "first_sentence"] = "first_paragraph",
 ) -> str:
     """Extracts a short text synopsis, e.g. for use as a tooltip."""
 
@@ -19,7 +22,7 @@ def summarize_element_text(
             break
 
     text = node.astext()
-    if first_sentence_only:
+    if mode == "first_sentence":
         sentence_end = text.find(". ")
         if sentence_end != -1:
             text = text[: sentence_end + 1]

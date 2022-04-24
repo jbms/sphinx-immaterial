@@ -6,9 +6,10 @@ Currently only clang-format is supported.
 import collections
 import hashlib
 import io
+import json
 import re
 import subprocess
-from typing import Dict, List, Any
+from typing import Dict, List, Any, Union, Optional
 
 import docutils.nodes
 import sphinx.addnodes
@@ -16,6 +17,8 @@ import sphinx.application
 import sphinx.environment
 import sphinx.transforms
 import sphinx.util.logging
+
+from . import apidoc_formatting
 
 logger = sphinx.util.logging.getLogger(__name__)
 
@@ -55,12 +58,14 @@ class CollectSignaturesTransform(sphinx.transforms.SphinxTransform):
 
     def apply(self, **kwargs: Any) -> None:
         collected_signatures = _get_collected_signatures(self.env)
-        domain_styles = self.config.clang_format_signatures_domain_styles
-
         for node in self.document.traverse(sphinx.addnodes.desc_signature):
             parent = node.parent
             domain = parent.get("domain")
-            if domain not in domain_styles:
+            objtype = parent.get("objtype")
+            options = apidoc_formatting.get_object_description_options(
+                self.env, domain, objtype
+            )
+            if options.get("clang_format_style") is None:
                 continue
             if "api-include-path" in node["classes"]:
                 continue
@@ -68,9 +73,11 @@ class CollectSignaturesTransform(sphinx.transforms.SphinxTransform):
             for child in node.children:
                 parts.append(child.astext())
             signature = " ".join(parts)
-            sig_id = hashlib.md5(signature.encode("utf-8")).hexdigest()
+            sig_id = hashlib.md5(
+                (f"{domain}:{objtype}:" + signature).encode("utf-8")
+            ).hexdigest()
             node[_SIGNATURE_FORMAT_ID] = sig_id
-            collected_signatures[domain][sig_id] = signature
+            collected_signatures[domain, objtype][sig_id] = signature
 
 
 def _append_child_copy_source_info(
@@ -221,8 +228,7 @@ class FormatSignaturesTransform(sphinx.transforms.SphinxTransform):
             signature_id = node.get(_SIGNATURE_FORMAT_ID)
             if signature_id is None:
                 continue
-            domain = node.parent["domain"]
-            formatted_signature = formatted_signatures[domain].get(signature_id)
+            formatted_signature = formatted_signatures.get(signature_id)
             if formatted_signature is None:
                 continue
             _format_signature(node, formatted_signature)
@@ -237,14 +243,40 @@ def merge_info(
     _get_collected_signatures(env).update(_get_collected_signatures(other))
 
 
+DOMAIN_CLANG_FORMAT_LANGUAGE = {
+    "cpp": "Cpp",
+    "c": "Cpp",
+    "js": "JavaScript",
+}
+
+ClangFormatStyle = Union[str, Dict[str, Any]]
+
+
 def env_updated(
     app: sphinx.application.Sphinx, env: sphinx.environment.BuildEnvironment
 ) -> None:
-    domain_signatures = _get_collected_signatures(env)
-    domain_formatted_signatures = collections.defaultdict(dict)
-    domain_styles = app.config.clang_format_signatures_domain_styles
+    all_signatures = _get_collected_signatures(env)
+    formatted_signatures = {}
 
-    for domain, signatures in domain_signatures.items():
+    signatures_for_style = collections.defaultdict(dict)
+
+    for (domain, objtype), signatures in all_signatures.items():
+        options = apidoc_formatting.get_object_description_options(env, domain, objtype)
+
+        style: ClangFormatStyle = options["clang_format_style"]
+        if isinstance(style, str):
+            style = {"BasedOnStyle"}
+        else:
+            style = style.copy()
+
+        style.setdefault("ColumnLimit", options["wrap_signatures_column_limit"])
+        language = DOMAIN_CLANG_FORMAT_LANGUAGE.get(domain)
+        if language is not None:
+            style.setdefault("Language", language)
+        style_key = json.dumps(style, sort_keys=True)
+        signatures_for_style[style_key].update(signatures)
+
+    for style_key, signatures in signatures_for_style.items():
         source = io.StringIO()
 
         for sig_id, signature in signatures.items():
@@ -252,9 +284,8 @@ def env_updated(
             source.write(signature.strip().strip(";"))
             source.write(";\n")
 
-        style = domain_styles[domain]
         result = subprocess.run(
-            [app.config.clang_format_command, f"-style={style}"],
+            [app.config.clang_format_command, f"-style={style_key}"],
             input=source.getvalue(),
             encoding="utf-8",
             stdout=subprocess.PIPE,
@@ -271,26 +302,27 @@ def env_updated(
         result.check_returncode()
         stdout = result.stdout
 
-        formatted_signatures = domain_formatted_signatures[domain]
-
         for m in re.finditer(
             "^// ([0-9a-f]+)\n((?:(?!\n//).)+)", stdout, re.MULTILINE | re.DOTALL
         ):
             formatted_signatures[m.group(1)] = m.group(2)
 
-    setattr(env, _FORMATTED_SIGNATURES, domain_formatted_signatures)
+    setattr(env, _FORMATTED_SIGNATURES, formatted_signatures)
 
 
 def setup(app: sphinx.application.Sphinx):
     app.add_transform(CollectSignaturesTransform)
     app.add_post_transform(FormatSignaturesTransform)
+    apidoc_formatting.add_object_description_option(
+        app,
+        "clang_format_style",
+        default=None,
+        type_constraint=Optional[ClangFormatStyle],
+    )
 
     app.connect("env-merge-info", merge_info)
     app.connect("env-updated", env_updated)
     app.add_node(SignatureText, html=(visit_signature_text, depart_signature_text))
-    app.add_config_value(
-        name="clang_format_signatures_domain_styles", default={}, rebuild="env"
-    )
     app.add_config_value(
         name="clang_format_command", default="clang-format", rebuild="env"
     )

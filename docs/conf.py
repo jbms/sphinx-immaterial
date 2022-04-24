@@ -12,6 +12,17 @@ import sys
 
 sys.path.insert(0, os.path.abspath("."))
 
+import docutils
+import sphinx
+import sphinx.domains.python
+import sphinx.environment
+import sphinx.util.logging
+import sphinx.util.typing
+
+from sphinx_immaterial import apidoc_formatting
+
+logger = sphinx.util.logging.getLogger(__name__)
+
 # -- Project information -----------------------------------------------------
 
 project = "Sphinx-Immaterial"
@@ -161,16 +172,15 @@ extlinks = {
     "dudir": ("http://docutils.sourceforge.net/docs/ref/rst/directives.html#%s", ""),
 }
 
+object_description_options = []
+
 # BEGIN: sphinx_immaterial.format_signatures extension options
-clang_format_signatures_domain_styles = {
-    "cpp": """{
-    BasedOnStyle: LLVM,
-    ColumnLimit: 68,
-    }""",
-}
+object_description_options.append(
+    ("cpp:.*", dict(clang_format_style={"BasedOnStyle": "LLVM"}))
+)
 # END: sphinx_immaterial.format_signatures extension options
 
-html_wrap_signatures_with_css = ["py"]
+object_description_options.append(("py:.*", dict(wrap_signatures_with_css=True)))
 
 # BEGIN: sphinx_immaterial.external_cpp_references extension options
 external_cpp_references = {
@@ -210,6 +220,50 @@ rst_prolog = """
 """
 
 
+object_description_options.append(
+    (
+        "std:confval",
+        dict(
+            toc_icon_class="data", toc_icon_text="C", generate_synopses="first_sentence"
+        ),
+    )
+)
+
+object_description_options.append(
+    (
+        "std:objconf",
+        dict(
+            toc_icon_class="data", toc_icon_text="O", generate_synopses=None,
+        ),
+    )
+)
+
+
+def _parse_object_description_signature(
+    env: sphinx.environment.BuildEnvironment, signature: str, node: docutils.nodes.Node
+) -> str:
+    registry = apidoc_formatting.get_object_description_option_registry(env.app)
+    registry_option = registry.get(signature)
+    node += sphinx.addnodes.desc_name(signature, signature)
+    if registry_option is None:
+        logger.error("Invalid object description option: %r", signature)
+    else:
+        node += sphinx.addnodes.desc_sig_punctuation(" : ", " : ")
+        annotations = sphinx.domains.python._parse_annotation(
+            sphinx.util.typing.stringify(registry_option.type_constraint), env
+        )
+        node += sphinx.addnodes.desc_type("", "", *annotations)
+        node += sphinx.addnodes.desc_sig_punctuation(" = ", " = ")
+        default_repr = repr(registry_option.default)
+        node += docutils.nodes.literal(
+            default_repr,
+            default_repr,
+            language="python",
+            classes=["python", "code", "highlight"],
+        )
+    return signature
+
+
 def setup(app):
     app.add_object_type(
         "confval",
@@ -217,3 +271,12 @@ def setup(app):
         objname="configuration value",
         indextemplate="pair: %s; configuration value",
     )
+
+    app.add_object_type(
+        "objconf",
+        "objconf",
+        objname="object description option",
+        indextemplate="pair: %s; object description option",
+        parse_node=_parse_object_description_signature,
+    )
+    return {"parallel_read_safe": True, "parallel_write_safe": True}
