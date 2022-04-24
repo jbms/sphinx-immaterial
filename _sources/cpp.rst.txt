@@ -43,6 +43,17 @@ C++ domain customization
              e.g. :cpp:expr:`synopses_ex::Foo::N`.
          :returns: Something or other.
 
+
+   .. rst-example::
+
+      .. cpp:class:: synopses_ex::Class
+
+          .. cpp:function:: Class(uint16_t _cepin, uint16_t _cspin, uint32_t _spi_speed=RF24_SPI_SPEED)
+
+              :param _cepin: The pin attached to Chip Enable on the RF module
+              :param _cspin: The pin attached to Chip Select (often labeled CSN) on the radio module.
+              :param _spi_speed: The SPI speed in Hz ie: 1000000 == 1Mhz
+
 .. confval:: cpp_strip_namespaces_from_signatures
 
    :python:`list[str]` specifying namespaces to strip from signatures.  This
