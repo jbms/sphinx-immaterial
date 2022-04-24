@@ -106,7 +106,7 @@ Config variables
 
                 .. literalinclude:: _static/extra_css.css
                     :language: css
-                    :start-at: /* **************************** custom-task-list style rules
+                    :start-after: /* **************************** custom-task-list style rules
                     :end-before: /* *************************** custom admonition style rules
 
     .. rst:directive:option:: name

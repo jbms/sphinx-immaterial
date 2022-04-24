@@ -12,7 +12,7 @@ import { SearchResultItem } from "./integrations/search/_"
 interface SphinxSearchResult {
   docurl: string
   title: string
-  anchor: string
+  anchor: string | 0 | 1
   objectLabel: string | null
   synopsis: string | null
   score: number
@@ -156,7 +156,7 @@ function performObjectSearch(objectTerm: string, otherterms: string[]): SphinxSe
    * @param name - Final component of object name.
    * @param synopsis - Object synopsis.
    */
-  function matchEntry(prefix: string, docindex: number, typeindex: number, prio: number, anchor: string, name: string, synopsis: string) {
+  function matchEntry(prefix: string, docindex: number, typeindex: number, prio: number, anchor: string | 0 | 1, name: string, synopsis: string) {
     const fullname = (prefix ? `${prefix}.` : "") + name
     const fullnameLower = fullname.toLowerCase()
     if (fullnameLower.indexOf(objectTerm) > -1) {
@@ -188,8 +188,8 @@ function performObjectSearch(objectTerm: string, otherterms: string[]): SphinxSe
         }
       }
 
-      if (anchor === "") anchor = fullname
-      else if (anchor === "-") anchor = `${objnames[typeindex][1]}-${fullname}`
+      if (anchor === 0) anchor = fullname
+      else if (anchor === 1) anchor = `${objnames[typeindex][1]}-${fullname}`
       // add custom score for some objects according to scorer
       score += Scorer.objPrio[prio] ?? Scorer.objPrioDefault
       results.push({

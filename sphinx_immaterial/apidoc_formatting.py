@@ -1,129 +1,23 @@
 """Modifies the formatting of API documentation."""
 
-from typing import Sequence, Tuple, List, Dict, Type, Optional
+from typing import List, TYPE_CHECKING, cast
+
 import docutils.nodes
-import docutils.parsers.rst.states
 import sphinx.addnodes
 import sphinx.application
-import sphinx.domains
-import sphinx.domains.python
-import sphinx.ext.napoleon
-from sphinx.locale import _
+import sphinx.locale
+import sphinx.writers.html5
 
-SIGNATURE_WRAP_LENGTH = 70
+_ = sphinx.locale._
 
 
-def _ensure_wrapped_in_desc_type(
-    nodes: List[docutils.nodes.Node],
-) -> List[docutils.nodes.Node]:
-    if len(nodes) != 1 or not isinstance(nodes[0], sphinx.addnodes.desc_type):
-        nodes = [sphinx.addnodes.desc_type("", "", *nodes)]
-    return nodes
+if TYPE_CHECKING:
+    HTMLTranslatorMixinBase = sphinx.writers.html5.HTML5Translator
+else:
+    HTMLTranslatorMixinBase = object
 
 
-def _monkey_patch_python_doc_fields():
-    PyTypedField = sphinx.domains.python.PyTypedField
-
-    def make_field(
-        self: PyTypedField,
-        types: Dict[str, List[docutils.nodes.Node]],
-        domain: str,
-        items: Sequence[Tuple[str, str]],
-        env: Optional[sphinx.environment.BuildEnvironment] = None,
-        inliner: Optional[docutils.parsers.rst.states.Inliner] = None,
-        location: Optional[docutils.nodes.Node] = None,
-    ) -> docutils.nodes.field:
-        bodynode = docutils.nodes.definition_list()
-        bodynode["classes"].append("api-field")
-
-        def handle_item(
-            fieldarg: str, content: List[docutils.nodes.Node]
-        ) -> docutils.nodes.Node:
-            node = docutils.nodes.definition_list_item()
-            term_node = docutils.nodes.term()
-            term_node["paramname"] = fieldarg
-            term_node += sphinx.addnodes.desc_name(fieldarg, fieldarg)
-            fieldtype = types.pop(fieldarg, None)
-            if fieldtype:
-                term_node += sphinx.addnodes.desc_sig_punctuation("", " : ")
-                fieldtype_node = sphinx.addnodes.desc_type()
-                if len(fieldtype) == 1 and isinstance(
-                    fieldtype[0], docutils.nodes.Text
-                ):
-                    typename = fieldtype[0].astext()
-                    fieldtype_node.extend(
-                        _ensure_wrapped_in_desc_type(
-                            self.make_xrefs(
-                                self.typerolename,
-                                domain,
-                                typename,
-                                docutils.nodes.Text,
-                                env=env,
-                                inliner=inliner,
-                                location=location,
-                            )
-                        )
-                    )
-                else:
-                    fieldtype_node += fieldtype
-                term_node += fieldtype_node
-            node += term_node
-            def_node = docutils.nodes.definition()
-            p = docutils.nodes.paragraph()
-            p += content
-            def_node += p
-            node += def_node
-            return node
-
-        for fieldarg, content in items:
-            bodynode += handle_item(fieldarg, content)
-        fieldname = docutils.nodes.field_name("", self.label)
-        fieldbody = docutils.nodes.field_body("", bodynode)
-        return docutils.nodes.field("", fieldname, fieldbody)
-
-    PyTypedField.make_field = make_field
-
-
-def _monkey_patch_python_parse_annotation():
-    """Ensures that type annotations in signatures are wrapped in `desc_type`.
-
-    This allows them to be distinguished from parameter names in CSS rules.
-    """
-    orig_parse_annotation = sphinx.domains.python._parse_annotation
-
-    def parse_annotation(
-        annotation: str, env: sphinx.environment.BuildEnvironment = None
-    ) -> List[docutils.nodes.Node]:
-        return _ensure_wrapped_in_desc_type(orig_parse_annotation(annotation, env))
-
-    sphinx.domains.python._parse_annotation = parse_annotation
-
-
-def _monkey_patch_python_parse_arglist():
-    """Ensures default values in signatures are styled as code."""
-
-    orig_parse_arglist = sphinx.domains.python._parse_arglist
-
-    def parse_arglist(
-        arglist: str, env: sphinx.environment.BuildEnvironment = None
-    ) -> sphinx.addnodes.desc_parameterlist:
-        result = orig_parse_arglist(arglist, env)
-        for node in result.traverse(condition=docutils.nodes.inline):
-            if "default_value" not in node["classes"]:
-                continue
-            node.replace_self(
-                docutils.nodes.literal(
-                    text=node.astext(),
-                    classes=["code", "python", "default_value"],
-                    language="python",
-                )
-            )
-        return result
-
-    sphinx.domains.python._parse_arglist = parse_arglist
-
-
-class HTMLTranslatorMixin:
+class HTMLTranslatorMixin(HTMLTranslatorMixinBase):  # pylint: disable=abstract-method
     """Mixin for HTMLTranslator that adds additional CSS classes."""
 
     def visit_desc(self, node: sphinx.addnodes.desc) -> None:
@@ -144,14 +38,6 @@ class HTMLTranslatorMixin:
 
     def depart_desc_type(self, node: sphinx.addnodes.desc_type) -> None:
         self.body.append("</span>")
-
-    def visit_desc_signature(self, node: sphinx.addnodes.desc_signature) -> None:
-        node_text = node.astext()
-        # add highlight to invoke syntax highlighting in CSS
-        node["classes"].append("highlight")
-        if len(node_text) > SIGNATURE_WRAP_LENGTH:
-            node["classes"].append("sig-wrap")
-        super().visit_desc_signature(node)
 
     def visit_desc_parameterlist(
         self, node: sphinx.addnodes.desc_parameterlist
@@ -225,75 +111,84 @@ class HTMLTranslatorMixin:
         else:
             super().depart_caption(node)
 
+    # `desc_inline` nodes are generated by the `cpp:expr` role.
+    #
+    # Wrap it in a `<code>` element with the "highlight" class to ensure it
+    # displays properly as an inline code literal.
+    def visit_desc_inline(self, node: sphinx.addnodes.desc_inline) -> None:
+        self.body.append(
+            self.starttag(node, tagname="code", suffix="", CLASS="highlight")
+        )
 
-def _monkey_patch_python_get_signature_prefix(
-    directive_cls: Type[sphinx.domains.python.PyObject],
+    def depart_desc_inline(self, node: sphinx.addnodes.desc_inline) -> None:
+        self.body.append("</code>")
+
+
+def _wrap_signature(node: sphinx.addnodes.desc_signature, limit: int):
+    """Wraps long function signatures.
+
+    Adds the `sig-wrap` class which causes each parameter to be displayed on a
+    separate line.
+    """
+    node_text = node.astext()
+    if len(node_text) > limit:
+        node["classes"].append("sig-wrap")
+
+
+def _wrap_signatures(
+    app: sphinx.application.Sphinx,
+    domain: str,
+    objtype: str,
+    content: docutils.nodes.Element,
 ) -> None:
-    orig_get_signature_prefix = directive_cls.get_signature_prefix
-
-    def get_signature_prefix(self, sig: str) -> str:
-        prefix = orig_get_signature_prefix(self, sig)
-        if sphinx.version_info >= (4, 3):
-            return prefix
-        parts = prefix.strip().split(" ")
-        if "property" in parts:
-            parts.remove("property")
-        if parts:
-            return " ".join(parts) + " "
-        return ""
-
-    directive_cls.get_signature_prefix = get_signature_prefix
+    enabled = app.config.html_wrap_signatures_with_css
+    if enabled is True or enabled is None:
+        pass
+    if enabled is False:
+        return
+    if domain not in enabled:
+        return
+    signatures = content.parent[:-1]
+    for signature in signatures:
+        _wrap_signature(
+            signature, app.config.html_wrap_signatures_with_css_column_limit
+        )
 
 
-def _monkey_patch_pyattribute_handle_signature(
-    directive_cls: Type[sphinx.domains.python.PyObject],
-):
-    """Modifies PyAttribute or PyVariable to improve styling of signature."""
+def _monkey_patch_object_description_to_include_fields_in_toc():
+    orig_run = sphinx.directives.ObjectDescription.run
 
-    def handle_signature(
-        self, sig: str, signode: sphinx.addnodes.desc_signature
-    ) -> Tuple[str, str]:
-        result = super(directive_cls, self).handle_signature(sig, signode)
-        typ = self.options.get("type")
-        if typ:
-            signode += sphinx.addnodes.desc_sig_punctuation("", " : ")
-            signode += sphinx.domains.python._parse_annotation(typ, self.env)
+    def run(self: sphinx.directives.ObjectDescription) -> List[docutils.nodes.Node]:
+        nodes = orig_run(self)
 
-        value = self.options.get("value")
-        if value:
-            signode += sphinx.addnodes.desc_sig_punctuation("", " = ")
-            signode += docutils.nodes.literal(
-                text=value, classes=["code", "python"], language="python"
-            )
-        return result
+        if not self.env.config.include_object_description_fields_in_toc:
+            return nodes
 
-    directive_cls.handle_signature = handle_signature
+        obj_desc = nodes[-1]
 
+        obj_id = None
+        for sig in obj_desc[:-1]:
+            ids = sig["ids"]
+            if ids and ids[0]:
+                obj_id = ids[0]
+                break
 
-def _monkey_patch_parameterlist_to_support_subscript():
-    desc_parameterlist = sphinx.addnodes.desc_parameterlist
+        obj_content = obj_desc[-1]
+        for child in obj_content:
+            if not isinstance(child, docutils.nodes.field_list):
+                continue
+            for field in child:
+                field_name = cast(docutils.nodes.field_name, field[0])
+                if field_name["ids"]:
+                    continue
+                field_id = docutils.nodes.make_id(field_name.astext())
+                if obj_id:
+                    field_id = f"{obj_id}-{field_id}"
+                field_name["ids"].append(field_id)
 
-    def astext(self: desc_parameterlist) -> str:
-        open_paren, close_paren = self.get("parens", ("(", ")"))
-        return f"{open_paren}{super(desc_parameterlist, self).astext()}{close_paren}"
+        return nodes
 
-    desc_parameterlist.astext = astext
-
-
-def _monkey_patch_napoleon_admonition_classes():
-    GoogleDocstring = sphinx.ext.napoleon.docstring.GoogleDocstring
-
-    def _add_admonition_class(method_name: str, class_name: str) -> None:
-        orig_method = getattr(GoogleDocstring, method_name)
-
-        def wrapper(self: GoogleDocstring, section: str) -> List[str]:
-            result = orig_method(self, section)
-            result.insert(1, f"   :class: {class_name}")
-            return result
-
-        setattr(GoogleDocstring, method_name, wrapper)
-
-    _add_admonition_class("_parse_examples_section", "example")
+    sphinx.directives.ObjectDescription.run = run
 
 
 def setup(app: sphinx.application.Sphinx):
@@ -301,16 +196,21 @@ def setup(app: sphinx.application.Sphinx):
 
     Does not register HTMLTranslatorMixin, the caller must do that.
     """
-    _monkey_patch_python_doc_fields()
-    _monkey_patch_python_parse_annotation()
-    _monkey_patch_python_parse_arglist()
-    _monkey_patch_python_get_signature_prefix(sphinx.domains.python.PyFunction)
-    _monkey_patch_python_get_signature_prefix(sphinx.domains.python.PyMethod)
-    _monkey_patch_python_get_signature_prefix(sphinx.domains.python.PyProperty)
-    _monkey_patch_pyattribute_handle_signature(sphinx.domains.python.PyAttribute)
-    _monkey_patch_pyattribute_handle_signature(sphinx.domains.python.PyVariable)
-    _monkey_patch_parameterlist_to_support_subscript()
-    _monkey_patch_napoleon_admonition_classes()
+    # Add "highlight" class in order for pygments syntax highlighting CSS rules
+    # to apply.
+    sphinx.addnodes.desc_signature.classes.append("highlight")
+
+    app.add_config_value("html_wrap_signatures_with_css", default=None, rebuild="env")
+    app.add_config_value(
+        "html_wrap_signatures_with_css_column_limit", default=68, rebuild="env"
+    )
+
+    app.add_config_value(
+        "include_object_description_fields_in_toc", default=True, rebuild="env"
+    )
+
+    app.connect("object-description-transform", _wrap_signatures)
+    _monkey_patch_object_description_to_include_fields_in_toc()
 
     return {
         "parallel_read_safe": True,

@@ -60,8 +60,8 @@ or ``theme.conf`` for more details.
     :class: example
 
     .. literalinclude:: ./conf.py
-        :start-at: # -- HTML theme specific settings
-        :end-before: # ---- Other documentation options
+        :start-after: # -- HTML theme specific settings
+        :end-before: # end html_theme_options
 
 
 .. toctree::
@@ -73,6 +73,16 @@ or ``theme.conf`` for more details.
     mermaid_diagrams
     task_lists
     keys
+
+.. toctree::
+    :caption: API documentation customization
+    :hidden:
+
+    api
+    format_signatures
+    cpp
+    external_cpp_references
+    cppreference
 
 .. toctree::
     :caption: Examples and Uses

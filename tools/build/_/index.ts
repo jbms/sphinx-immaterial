@@ -50,13 +50,6 @@ interface ResolveOptions {
   watch?: boolean                      /* Watch mode */
 }
 
-/**
- * Watch options
- */
-interface WatchOptions {
-  cwd: string                          /* Working directory */
-}
-
 /* ----------------------------------------------------------------------------
  * Data
  * ------------------------------------------------------------------------- */
@@ -124,7 +117,7 @@ export function resolve(
  * @returns File observable
  */
 export function watch(
-  pattern: string, options: WatchOptions
+  pattern: string | ReadonlyArray<string>, options: chokidar.WatchOptions
 ): Observable<string> {
   return fromEvent(
     chokidar.watch(pattern, options),

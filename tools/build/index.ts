@@ -20,10 +20,13 @@
  * IN THE SOFTWARE.
  */
 
+import { spawn } from "child_process"
 import { minify as minhtml } from "html-minifier"
 import * as path from "path"
+import rimraf from "rimraf"
 import {
   EMPTY,
+  Observable,
   concat,
   concatMap,
   defer,
@@ -211,15 +214,60 @@ const templates$ = manifest$
     }))
   )
 
+const docs$ = (() => {
+  let building = false
+  let dirty = false
+  return defer(() => process.argv.includes("--watch")
+    ? watch(["docs/**", "sphinx_immaterial/**"],
+            { ignored: ["*.pyc", "docs/_build/**", "docs/generated/**"] })
+        : EMPTY
+  ).pipe(startWith("*"),
+    switchMap(async () => {
+                dirty = true
+                if (building) {
+                  return
+                }
+                try {
+                  do {
+                    building = true
+                    dirty = false
+                    await new Promise((resolve, reject) => {
+                      rimraf("docs/_build", error => {
+                        if (error != null) {
+                          reject(error)
+                        } else {
+                          resolve(undefined)
+                        }
+                      })
+                    })
+                    const child = spawn("sphinx-build", ["docs", "docs/_build", "-a"],
+                                        {stdio: "inherit"})
+                    await new Promise(resolve => {
+                      child.on("exit", resolve)
+                    })
+                  } while (dirty)
+                } finally {
+                  building = false
+                }
+                return EMPTY
+              }))
+
+})()
+
 /* ----------------------------------------------------------------------------
  * Program
  * ------------------------------------------------------------------------- */
 
 /* Assemble pipeline */
-const build$ =
+const templatesBuild$ =
   process.argv.includes("--dirty")
     ? templates$
     : concat(assets$, templates$)
+
+const build$: Observable<any> =
+  process.argv.includes("--docs")
+    ? merge(templatesBuild$, docs$)
+    : templatesBuild$
 
 /* Let's get rolling */
 build$.subscribe()

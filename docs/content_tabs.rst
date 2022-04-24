@@ -28,15 +28,15 @@ the sphinx-immaterial theme provides its own directives to make use of content t
 
     .. rst:directive:option:: class
         :type: string
-        
+
         A space delimited list of qualified names that get used as the HTMl element's
         ``class`` attribute.
 
     .. rst:directive:option:: name
         :type: string
-        
+
         A qualified name that get used as the HTML element's ``id`` attribute.
-    
+
         Use the `ref` role to reference the element by name.
 
     This directive supports ``:class:`` and ``:name:`` options to use custom CSS classes
@@ -52,7 +52,7 @@ the sphinx-immaterial theme provides its own directives to make use of content t
 
                 A reference to this tab set renders like so:
                 `tab set description <ref_this_tab_set>`.
-                
+
                 This syntax can only be used on the same page as the tab set.
 
             .. md-tab-item:: Cross-page Ref
@@ -66,18 +66,18 @@ the sphinx-immaterial theme provides its own directives to make use of content t
 
                 .. literalinclude:: _static/extra_css.css
                     :language: css
-                    :start-at: /* ************************ custom-tab-set-style
+                    :start-after: /* ************************ custom-tab-set-style
                     :end-before: /* *********************** custom-tab-item-style
 
 
 .. rst:directive:: md-tab-item
 
     This directive is used to create a tab within a set of content tabs. It requires a
-    label as it's argument. 
+    label as it's argument.
 
     .. rst:directive:option:: class
         :type: string
-        
+
         A space delimited list of qualified names that get used as the HTMl element's
         ``class`` attribute.
 
@@ -97,7 +97,7 @@ the sphinx-immaterial theme provides its own directives to make use of content t
 
                     .. literalinclude:: _static/extra_css.css
                         :language: css
-                        :start-at: /* *********************** custom-tab-item-style
+                        :start-after: /* *********************** custom-tab-item-style
                         :end-before: /* ************************* inline icon stuff
 
 

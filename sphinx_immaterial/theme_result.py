@@ -51,3 +51,7 @@ class ResultsDirective(SphinxDirective):
 
 def setup(app):
     app.add_directive("rst-example", ResultsDirective)
+    return {
+        "parallel_read_safe": True,
+        "parallel_write_safe": True,
+    }

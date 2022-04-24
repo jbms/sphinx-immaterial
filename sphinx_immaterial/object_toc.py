@@ -45,6 +45,8 @@ def _monkey_patch_toc_tree_process_doc(app: sphinx.application.Sphinx):
                 if isinstance(
                     child, (sphinx.addnodes.desc_name, sphinx.addnodes.desc_addname)
                 ):
+                    if "sig-name-nonprimary" in child["classes"]:
+                        continue
                     title += child.astext()
         if not title:
             # No name found
@@ -80,8 +82,8 @@ def _monkey_patch_toc_tree_process_doc(app: sphinx.application.Sphinx):
             return None
         section = docutils.nodes.section()
         section["ids"] = ids
-        paramname = source["paramname"]
-        titlenode = docutils.nodes.comment(paramname, paramname)
+        title = source.get("toc_title", source["paramname"])
+        titlenode = docutils.nodes.comment(title, title)
         section += titlenode
         return section
 

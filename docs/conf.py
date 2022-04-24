@@ -37,6 +37,8 @@ extensions = [
     "sphinxcontrib.details.directive",
     "sphinx_immaterial.theme_result",
     "sphinx_immaterial.kbd_keys",
+    "sphinx_immaterial.format_signatures",
+    "sphinx_immaterial.cppreference",
 ]
 
 intersphinx_mapping = {
@@ -127,6 +129,7 @@ html_theme_options = {
             },
         },
     ],
+    # BEGIN: version_dropdown
     "version_dropdown": True,
     "version_info": [
         {
@@ -140,8 +143,10 @@ html_theme_options = {
             "aliases": [],
         },
     ],
+    # END: version_dropdown
     "toc_title_is_page_title": True,
-}  # end html_theme_options
+}
+# end html_theme_options
 
 # ---- Other documentation options -------------------------
 
@@ -155,6 +160,54 @@ extlinks = {
     "durole": ("http://docutils.sourceforge.net/docs/ref/rst/roles.html#%s", ""),
     "dudir": ("http://docutils.sourceforge.net/docs/ref/rst/directives.html#%s", ""),
 }
+
+# BEGIN: sphinx_immaterial.format_signatures extension options
+clang_format_signatures_domain_styles = {
+    "cpp": """{
+    BasedOnStyle: LLVM,
+    ColumnLimit: 68,
+    }""",
+}
+# END: sphinx_immaterial.format_signatures extension options
+
+html_wrap_signatures_with_css = ["py"]
+
+# BEGIN: sphinx_immaterial.external_cpp_references extension options
+external_cpp_references = {
+    "nlohmann::json": {
+        "url": "https://json.nlohmann.me/api/json/",
+        "object_type": "type alias",
+        "desc": "C++ type alias",
+    },
+    "nlohmann::basic_json": {
+        "url": "https://json.nlohmann.me/api/basic_json/",
+        "object_type": "class",
+        "desc": "C++ class",
+    },
+}
+# END: sphinx_immaterial.external_cpp_references extension options
+
+# BEGIN: cpp_strip_namespaces_from_signatures option
+cpp_strip_namespaces_from_signatures = [
+    "my_ns1",
+    "my_ns2",
+    "my_ns2::my_nested_ns",
+]
+# END: cpp_strip_namespaces_from_signatures option
+
+rst_prolog = """
+.. role:: python(code)
+   :language: python
+   :class: highlight
+
+.. role:: cpp(code)
+   :language: cpp
+   :class: highlight
+
+.. role:: json(code)
+   :language: json
+   :class: highlight
+"""
 
 
 def setup(app):
