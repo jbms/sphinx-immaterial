@@ -11,7 +11,7 @@ To use this extension, simply add it to the list of extensions in :file:`conf.py
 
     extensions = [
         # other extensions...
-        "sphinx_immaterial.cppreferences",
+        "sphinx_immaterial.cppreference",
     ]
 
 .. rst-example::
