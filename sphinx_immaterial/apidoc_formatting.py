@@ -144,9 +144,9 @@ def _wrap_signatures(
     enabled = app.config.html_wrap_signatures_with_css
     if enabled is True or enabled is None:
         pass
-    if enabled is False:
+    elif enabled is False:
         return
-    if domain not in enabled:
+    elif domain not in enabled:
         return
     signatures = content.parent[:-1]
     for signature in signatures:
