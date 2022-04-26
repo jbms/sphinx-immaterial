@@ -239,6 +239,13 @@ object_description_options.append(
 )
 
 
+def _validate_parallel_build(app):
+    # Verifies that all of the extensions defined by this theme support parallel
+    # building.
+    assert app.is_parallel_allowed("read")
+    assert app.is_parallel_allowed("write")
+
+
 def _parse_object_description_signature(
     env: sphinx.environment.BuildEnvironment, signature: str, node: docutils.nodes.Node
 ) -> str:
@@ -279,4 +286,4 @@ def setup(app):
         indextemplate="pair: %s; object description option",
         parse_node=_parse_object_description_signature,
     )
-    return {"parallel_read_safe": True, "parallel_write_safe": True}
+    app.connect("builder-inited", _validate_parallel_build)
