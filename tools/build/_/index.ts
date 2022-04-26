@@ -25,15 +25,16 @@ import * as fs from "fs/promises"
 import {
   EMPTY,
   Observable,
+  concatAll,
+  filter,
   from,
   fromEvent,
   identity,
   catchError,
   defer,
-  mapTo,
+  map,
   mergeWith,
   of,
-  switchMap,
   tap
 } from "rxjs"
 import glob from "tiny-glob"
@@ -101,7 +102,14 @@ export function resolve(
   return from(glob(pattern, options))
     .pipe(
       catchError(() => EMPTY),
-      switchMap(files => from(files)),
+      concatAll(),
+
+      /* Build overrides */
+      !process.argv.includes("--all")
+        ? filter(file => !file.startsWith("overrides/"))
+        : identity,
+
+      /* Start file watcher */
       options?.watch
         ? mergeWith(watch(pattern, options))
         : identity
@@ -137,7 +145,7 @@ export function watch(
 export function mkdir(directory: string): Observable<string> {
   return defer(() => fs.mkdir(directory, { recursive: true }))
     .pipe(
-      mapTo(directory)
+      map(() => directory)
     )
 }
 
@@ -169,7 +177,7 @@ export function write(file: string, data: string): Observable<string> {
     cache.set(file, data)
     return defer(() => fs.writeFile(file, data))
       .pipe(
-        mapTo(file),
+        map(() => file),
         process.argv.includes("--verbose")
           ? tap(file => console.log(`${now()} + ${file}`))
           : identity
