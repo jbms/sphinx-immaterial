@@ -155,37 +155,5 @@ export function mountSearchResult(
           meta.textContent = translation("search.result.placeholder")
         }
       })
-
-  /* Update search result list */
-  push$
-    .pipe(
-      tap(() => list.innerHTML = ""),
-      switchMap(({ items }) => merge(
-        of(...items.slice(0, 10)),
-        of(...items.slice(10))
-          .pipe(
-            bufferCount(4),
-            zipWith(boundary$),
-            switchMap(([chunk]) => chunk)
-          )
-      ))
-    )
-      .subscribe(result => list.appendChild(
-        renderSearchResultItem(result)
-      ))
-
-  /* Filter search result message */
-  const result$ = rx$
-    .pipe(
-      filter(isSearchResultMessage),
-      map(({ data }) => data)
-    )
-
-  /* Create and return component */
-  return result$
-    .pipe(
-      tap(state => push$.next(state)),
-      finalize(() => push$.complete()),
-      map(state => ({ ref: el, ...state }))
-    )
+  return of()
 }
