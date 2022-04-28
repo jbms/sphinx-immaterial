@@ -87,8 +87,7 @@ export function watchSearchQuery(
   let param$: Observable<string>
   if (searchParams.has("q")) {
     setToggle("search", true)
-    const value = el.value = searchParams.get("q")!
-    el.focus()
+    const value = searchParams.get("q")!
     param$ = of(value)
   } else {
     param$ = of()
@@ -105,6 +104,14 @@ export function watchSearchQuery(
         url.searchParams.delete("q")
         history.replaceState({}, "", `${url}`)
       })
+
+  /* Set query from parameter */
+  param$.subscribe(value => { // TODO: not ideal - find a better way
+    if (value) {
+      el.value = value
+      el.focus()
+    }
+  })
 
   /* Intercept focus and input events */
   const focus$ = watchElementFocus(el)

@@ -62,6 +62,7 @@ MKDOCS_EXCLUDE_PATTERNS = [
     "CHANGELOG",
     "package-lock.json",
     "*.md",
+    "giscus.json",
 ]
 
 ap = argparse.ArgumentParser()
