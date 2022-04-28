@@ -87,7 +87,7 @@ export function watchSearchQuery(
   let param$: Observable<string>
   if (searchParams.has("q")) {
     setToggle("search", true)
-    const value = el.value = searchParams.get("q")!
+    const value = searchParams.get("q")!
     param$ = of(value)
   } else {
     param$ = of()
