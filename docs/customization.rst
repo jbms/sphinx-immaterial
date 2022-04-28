@@ -115,7 +115,7 @@ Each metadata is evaluated as a ``:key: value`` pair.
     `File-wide metadata <https://www.sphinx-doc.org/en/master/usage/restructuredtext/field-lists.html#file-wide-metadata>`_
     section in the sphinx docs.
 
-.. confval:: hero
+.. themeconf:: hero
 
     Unlike, newer versions of mkdocs-material theme, this theme also supports the use of a textual
     "hero" section.
@@ -128,7 +128,7 @@ Each metadata is evaluated as a ``:key: value`` pair.
 
         :hero: Configuration options to personalize your site.
 
-.. confval:: hide-navigation
+.. themeconf:: hide-navigation
 
     If specified, hides the global navigation sidebar shown on the left side of the page.
     By default, the navigation menu is shown if the browser viewport is sufficiently wide.
@@ -138,7 +138,7 @@ Each metadata is evaluated as a ``:key: value`` pair.
 
         :hide-navigation:
 
-.. confval:: hide-toc
+.. themeconf:: hide-toc
 
     If specified, hides the local table of contents shown on the right side of the page.
     By default the local table of contents is shown if the page contains sub-sections and the
@@ -177,24 +177,24 @@ Configuration Options
     following subsections can be used can be used as keys whose values configure the theme in
     different ways.
 
-    .. confval:: site_url
+    .. themeconf:: site_url
 
         Specify a site_url used to generate sitemap.xml links. If not specified, then
         no sitemap will be built.
 
-    .. confval:: repo_url
+    .. themeconf:: repo_url
 
         Set the repo url for the link to appear.
 
-    .. confval:: repo_name
+    .. themeconf:: repo_name
 
         The name of the repo. If must be set if repo_url is set.
 
-    .. confval:: repo_type
+    .. themeconf:: repo_type
 
         Must be one of github, gitlab or bitbucket.
 
-    .. confval:: icon["repo"]
+    .. themeconf:: icon["repo"]
 
         The icon that represents the source code repository can be changed using the ``repo`` field of the
         ``icon`` `dict` (within the `html_theme_options` `dict`). Although this icon can be
@@ -212,7 +212,7 @@ Configuration Options
         - |fa-bitbucket| ``fontawesome/brands/bitbucket``
 
         .. important::
-            This option has no effect if the :confval:`repo_url` option is not specified.
+            This option has no effect if the :themeconf:`repo_url` option is not specified.
 
         .. literalinclude:: conf.py
             :language: python
@@ -220,15 +220,15 @@ Configuration Options
             :start-at: "icon": {
             :end-before: "site_url":
 
-    .. confval:: edit_uri
+    .. themeconf:: edit_uri
 
-        This is the url segment that is concatenated with :confval:`repo_url` to point readers to the document's
+        This is the url segment that is concatenated with :themeconf:`repo_url` to point readers to the document's
         source file. This is typically in the form of ``"blob/<branch name>/<docs source folder>"``.
         Defaults to a blank string (which disables the edit icon). This is disabled for builds on
         ReadTheDocs as they implement their own mechanism based on the repository's branch or tagged
         commit.
 
-    .. confval:: features
+    .. themeconf:: features
 
         Some features that have been ported from the mkdocs-material theme and can be enabled by specifying the features name in a list
         of strings. The following features are supported:
@@ -262,13 +262,13 @@ Configuration Options
             `navigation.indexes <https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#section-index-pages>`_
             feature.
 
-    .. confval:: palette
+    .. themeconf:: palette
 
         The theme's color pallette **must be** a single `dict` or a `list` of `dict`\ s.
         Each `dict` can optionally specify a ``scheme``, ``primary``, ``accent``, and ``media``
         fields.
 
-        .. confval:: scheme
+        .. themeconf:: scheme
 
             To use light and dark modes, this theme supports 2 schemes which are specified by a ``scheme`` field.
 
@@ -289,7 +289,7 @@ Configuration Options
                    }
 
 
-        .. confval:: primary
+        .. themeconf:: primary
 
             Primary color options are
 
@@ -298,7 +298,7 @@ Configuration Options
             :lime:`lime`, :yellow:`yellow`, :amber:`amber`, :orange:`orange`, :deep-orange:`deep-orange`,
             :brown:`brown`, :grey:`grey`, :blue-grey:`blue-grey`, :black:`black`, and :white:`white`.
 
-        .. confval:: accent
+        .. themeconf:: accent
 
             Accent color options are
 
@@ -307,7 +307,7 @@ Configuration Options
             :accent-teal:`teal`, :accent-green:`green`, :accent-light-green:`light-green`, :accent-lime:`lime`,
             :accent-yellow:`yellow`, :accent-amber:`amber`, :accent-orange:`orange`, :accent-deep-orange:`deep-orange`.
 
-        .. confval:: toggle
+        .. themeconf:: toggle
 
             If using a `list` of schemes, then each scheme can have a ``toggle`` `dict` in which
 
@@ -324,7 +324,7 @@ Configuration Options
                   |eye-outline| ``material/eye-outline``, |eye| ``material/eye``
                   |lightbulb-outline| ``material/lightbulb-outline``, |lightbulb| ``material/lightbulb``
 
-        .. confval:: media (palette preference)
+        .. themeconf:: media (palette preference)
 
             In order to automatically set the color palette based on the user's system preference, a media
             query can be specified with the ``media`` field.
@@ -352,12 +352,12 @@ Configuration Options
                     ]
                 }
 
-    .. confval:: direction
+    .. themeconf:: direction
 
         Specifies the text direction. Set to ``ltr`` (default) for left-to-right,
         or ``rtl`` for right-to-left.
 
-    .. confval:: font
+    .. themeconf:: font
 
         Use this dictionary to change the fonts used in the theme. For example:
 
@@ -372,7 +372,7 @@ Configuration Options
 
         You can specify any of the available `Google Fonts <https://fonts.google.com/>`_.
 
-    .. confval:: analytics
+    .. themeconf:: analytics
 
         Set to enable site analytics.
 
@@ -385,7 +385,7 @@ Configuration Options
                 }
             }
 
-    .. confval:: globaltoc_collapse
+    .. themeconf:: globaltoc_collapse
 
         If true (the default value), TOC entries that are not ancestors of the current page are collapsed.
 
@@ -393,32 +393,32 @@ Configuration Options
             Setting this option to `False` may lead to large generated page sizes since the entire
             table of contents tree will be duplicated on every page.
 
-    .. confval:: toc_title
+    .. themeconf:: toc_title
 
         A string that specifies the title text that appears above the table of
         contents in the side bar.  If neither this configuration option nor
-        :confval:`toc_title_is_page_title` is specified, a default
+        :themeconf:`toc_title_is_page_title` is specified, a default
         language-dependent translation of "Table of Contents" is used.  This
         configuration option takes precedence over
-        :confval:`toc_title_is_page_title`.
+        :themeconf:`toc_title_is_page_title`.
 
-    .. confval:: toc_title_is_page_title
+    .. themeconf:: toc_title_is_page_title
 
-       If set to ``True`` and :confval:`toc_title` is unspecified, the table of
+       If set to ``True`` and :themeconf:`toc_title` is unspecified, the table of
        contents is labeled in the side bar by the title of the page itself.
 
-    .. confval:: version_dropdown
+    .. themeconf:: version_dropdown
 
         A `bool` flag indicating whether the version drop-down selector should be used. See
         :ref:`version_dropdown` below about using this feature.
 
-    .. confval:: version_json
+    .. themeconf:: version_json
 
         The name of the JSON file that contains the version information to be used for the
         :ref:`version_dropdown` selector. The default assumes there is a file named *versions.json*
         located in the root directory of the site hosted by a webserver.
 
-    .. confval:: version_info
+    .. themeconf:: version_info
 
         A list of dictionaries used to populate the :ref:`version_dropdown` selector.
 
@@ -451,7 +451,7 @@ This means you need to implement a custom mechanism that allows keeping the buil
 documentation when checking out different branches or tagged commits.
 
 .. important::
-    To use the version dropdown selector, you must set :confval:`version_dropdown` to `True` in
+    To use the version dropdown selector, you must set :themeconf:`version_dropdown` to `True` in
     the `html_theme_options` dict.
 
     .. code-block:: python
@@ -465,7 +465,7 @@ Supported Approaches
 
 There are two approaches:
 
-1. The version information is stored in a :confval:`version_info` `list` in the conf.py file.
+1. The version information is stored in a :themeconf:`version_info` `list` in the conf.py file.
 
    .. note::
        Notice this is an ordered list. Meaning, approach 1 will take precedence over approach 2.
@@ -473,7 +473,7 @@ There are two approaches:
 2. The version information is stored in a JSON file.
 
    The default name of the JSON file is ``versions.json``, but the JSON file's name could be
-   changed by setting :confval:`version_json` in the conf.py file's `html_theme_options`.
+   changed by setting :themeconf:`version_json` in the conf.py file's `html_theme_options`.
 
    .. code-block:: python
 
@@ -484,7 +484,7 @@ There are two approaches:
    .. warning::
        The JSON approach only works if your documentation is served from a webserver; it does not
        work if you use ``file://`` url). When serving the docs from a webserver the
-       :confval:`version_json` file is resolved relative to the *parent* directory that contains
+       :themeconf:`version_json` file is resolved relative to the *parent* directory that contains
        the sphinx builder's HTML output. For example, if the builder's output is ``2.0``, you
        should have directory structure like so:
 

@@ -455,7 +455,10 @@ def setup(app: sphinx.application.Sphinx):
     )
 
     app.add_config_value(
-        "object_description_options", default=[], rebuild="env", types=(list,)
+        "object_description_options",
+        default=[],
+        rebuild="env",
+        types=(List[Tuple[Pattern, Dict[str, Any]]],),
     )
     app.connect("builder-inited", _builder_inited)
 

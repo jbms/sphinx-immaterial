@@ -11,8 +11,6 @@ domain/object type pair.
    :python:`"domain:objtype"` and :python:`options` is a dictionary of supported
    `object-description-options`.
 
-   We need something `object_description_options`.
-
    The actual options for a given object type are determined by first
    initializing each option to its default value, and then applying as overrides
    the options associated with each matching pattern in order.

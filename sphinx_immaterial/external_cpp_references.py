@@ -113,5 +113,10 @@ def _load_from_config(app: sphinx.application.Sphinx) -> None:
 def setup(app: sphinx.application.Sphinx):
     app.connect("missing-reference", _missing_reference)
     app.connect("builder-inited", _load_from_config)
-    app.add_config_value(name="external_cpp_references", default={}, rebuild="env")
+    app.add_config_value(
+        name="external_cpp_references",
+        default={},
+        types=(typing.Dict[str, "ExternalCppReference"],),
+        rebuild="env",
+    )
     return {"parallel_read_safe": True, "parallel_write_safe": True}
