@@ -63,7 +63,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#confval-include_object_description_fields_in_toc" class="md-skip">
+        <a href="#confval-object_description_options" class="md-skip">
           Skip to content
         </a>
       
@@ -235,7 +235,7 @@
   
     <li class="md-nav__item">
       <a href="customization.html" class="md-nav__link">
-        <span class="md-ellipsis">Customization</span>
+        <span title="customization (document)" class="md-ellipsis">Customization</span>
       </a>
     </li>
   
@@ -250,7 +250,7 @@
   
     <li class="md-nav__item">
       <a href="admonitions.html" class="md-nav__link">
-        <span class="md-ellipsis">Admonitions</span>
+        <span title="admonitions (document)" class="md-ellipsis">Admonitions</span>
       </a>
     </li>
   
@@ -265,7 +265,7 @@
   
     <li class="md-nav__item">
       <a href="content_tabs.html" class="md-nav__link">
-        <span class="md-ellipsis">Content tabs</span>
+        <span title="content_tabs (document)" class="md-ellipsis">Content tabs</span>
       </a>
     </li>
   
@@ -280,7 +280,7 @@
   
     <li class="md-nav__item">
       <a href="mermaid_diagrams.html" class="md-nav__link">
-        <span class="md-ellipsis">Mermaid diagrams</span>
+        <span title="mermaid_diagrams (document)" class="md-ellipsis">Mermaid diagrams</span>
       </a>
     </li>
   
@@ -295,7 +295,7 @@
   
     <li class="md-nav__item">
       <a href="task_lists.html" class="md-nav__link">
-        <span class="md-ellipsis">Task Lists</span>
+        <span title="task_lists (document)" class="md-ellipsis">Task Lists</span>
       </a>
     </li>
   
@@ -310,7 +310,7 @@
   
     <li class="md-nav__item">
       <a href="keys.html" class="md-nav__link">
-        <span class="md-ellipsis">Keys extension</span>
+        <span title="keys (document)" class="md-ellipsis">Keys extension</span>
       </a>
     </li>
   
@@ -359,12 +359,12 @@
       <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          <span class="md-ellipsis">General API customization</span>
+          <span title="api (document)" class="md-ellipsis">General API customization</span>
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <a href="" class="md-nav__link md-nav__link--active">
-        <span class="md-ellipsis">General API customization</span>
+        <span title="api (document)" class="md-ellipsis">General API customization</span>
       </a>
       
         
@@ -376,14 +376,82 @@
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
-      <span class="md-ellipsis">General API customization</span>
+      <span title="api (document)" class="md-ellipsis">General API customization</span>
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#confval-include_object_description_fields_in_toc" class="md-nav__link">
-    <span class="md-ellipsis">include_<wbr>object_<wbr>description_<wbr>fields_<wbr>in_<wbr>toc</span>
+  <a href="#confval-object_description_options" class="md-nav__link">
+    <span aria-label="configuration value" class="objinfo-icon objinfo-icon__data" title="configuration value">C</span><span title="object_description_options (configuration value) — list of (pattern, options) pairs, where pattern is a regular expression matching strings of the form &#34;domain:objtype&#34; and options is a dictionary of supported object-description-options." class="md-ellipsis">object_<wbr>description_<wbr>options</span>
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#object-description-options" class="md-nav__link">
+    <span title="object-description-options (reference label)" class="md-ellipsis">Object description options</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Object description options">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#objconf-include_in_toc" class="md-nav__link">
+    <span aria-label="object description option" class="objinfo-icon objinfo-icon__data" title="object description option">O</span><span title="include_in_toc (object description option)" class="md-ellipsis">include_<wbr>in_<wbr>toc</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#objconf-generate_synopses" class="md-nav__link">
+    <span aria-label="object description option" class="objinfo-icon objinfo-icon__data" title="object description option">O</span><span title="generate_synopses (object description option)" class="md-ellipsis">generate_<wbr>synopses</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#objconf-include_object_type_in_xref_tooltip" class="md-nav__link">
+    <span aria-label="object description option" class="objinfo-icon objinfo-icon__data" title="object description option">O</span><span title="include_object_type_in_xref_tooltip (object description option)" class="md-ellipsis">include_<wbr>object_<wbr>type_<wbr>in_<wbr>xref_<wbr>tooltip</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#objconf-include_fields_in_toc" class="md-nav__link">
+    <span aria-label="object description option" class="objinfo-icon objinfo-icon__data" title="object description option">O</span><span title="include_fields_in_toc (object description option)" class="md-ellipsis">include_<wbr>fields_<wbr>in_<wbr>toc</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#table-of-contents-icons" class="md-nav__link">
+    <span class="md-ellipsis">Table of contents icons</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Table of contents icons">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#objconf-toc_icon_class" class="md-nav__link">
+    <span aria-label="object description option" class="objinfo-icon objinfo-icon__data" title="object description option">O</span><span title="toc_icon_class (object description option)" class="md-ellipsis">toc_<wbr>icon_<wbr>class</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#objconf-toc_icon_text" class="md-nav__link">
+    <span aria-label="object description option" class="objinfo-icon objinfo-icon__data" title="object description option">O</span><span title="toc_icon_text (object description option)" class="md-ellipsis">toc_<wbr>icon_<wbr>text</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -403,7 +471,7 @@
   
     <li class="md-nav__item">
       <a href="format_signatures.html" class="md-nav__link">
-        <span class="md-ellipsis">Formatting signatures</span>
+        <span title="format_signatures (document)" class="md-ellipsis">Formatting signatures</span>
       </a>
     </li>
   
@@ -417,7 +485,7 @@
   
     <li class="md-nav__item">
       <a href="cpp.html" class="md-nav__link">
-        <span class="md-ellipsis">C++ domain customization</span>
+        <span title="cpp (document)" class="md-ellipsis">C++ domain customization</span>
       </a>
     </li>
   
@@ -431,7 +499,7 @@
   
     <li class="md-nav__item">
       <a href="external_cpp_references.html" class="md-nav__link">
-        <span class="md-ellipsis">External C++ symbol links</span>
+        <span title="external_cpp_references (document)" class="md-ellipsis">External C++ symbol links</span>
       </a>
     </li>
   
@@ -445,7 +513,7 @@
   
     <li class="md-nav__item">
       <a href="cppreference.html" class="md-nav__link">
-        <span class="md-ellipsis">Automatic cross-<wbr>linking to cppreference.<wbr>com</span>
+        <span title="cppreference (document)" class="md-ellipsis">Automatic cross-<wbr>linking to cppreference.<wbr>com</span>
       </a>
     </li>
   
@@ -494,7 +562,7 @@
   
     <li class="md-nav__item">
       <a href="demo_api.html" class="md-nav__link">
-        <span class="md-ellipsis">sample API documentation and generated content</span>
+        <span title="demo_api (document)" class="md-ellipsis">sample API documentation and generated content</span>
       </a>
     </li>
   
@@ -508,7 +576,7 @@
   
     <li class="md-nav__item">
       <a href="specimen.html" class="md-nav__link">
-        <span class="md-ellipsis">Specimen</span>
+        <span title="specimen (document)" class="md-ellipsis">Specimen</span>
       </a>
     </li>
   
@@ -522,7 +590,7 @@
   
     <li class="md-nav__item">
       <a href="rst_basics.html" class="md-nav__link">
-        <span class="md-ellipsis">re<wbr>Structured<wbr>Text Primer</span>
+        <span title="rst_basics (document)" class="md-ellipsis">re<wbr>Structured<wbr>Text Primer</span>
       </a>
     </li>
   
@@ -536,7 +604,7 @@
   
     <li class="md-nav__item">
       <a href="rst-cheatsheet/rst-cheatsheet.html" class="md-nav__link">
-        <span class="md-ellipsis">rst Cheatsheet</span>
+        <span title="rst-cheatsheet/rst-cheatsheet (document)" class="md-ellipsis">rst Cheatsheet</span>
       </a>
     </li>
   
@@ -550,7 +618,7 @@
   
     <li class="md-nav__item">
       <a href="additional_samples.html" class="md-nav__link">
-        <span class="md-ellipsis">Additional Samples</span>
+        <span title="additional_samples (document)" class="md-ellipsis">Additional Samples</span>
       </a>
     </li>
   
@@ -583,14 +651,82 @@
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
-      <span class="md-ellipsis">General API customization</span>
+      <span title="api (document)" class="md-ellipsis">General API customization</span>
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#confval-include_object_description_fields_in_toc" class="md-nav__link">
-    <span class="md-ellipsis">include_<wbr>object_<wbr>description_<wbr>fields_<wbr>in_<wbr>toc</span>
+  <a href="#confval-object_description_options" class="md-nav__link">
+    <span aria-label="configuration value" class="objinfo-icon objinfo-icon__data" title="configuration value">C</span><span title="object_description_options (configuration value) — list of (pattern, options) pairs, where pattern is a regular expression matching strings of the form &#34;domain:objtype&#34; and options is a dictionary of supported object-description-options." class="md-ellipsis">object_<wbr>description_<wbr>options</span>
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#object-description-options" class="md-nav__link">
+    <span title="object-description-options (reference label)" class="md-ellipsis">Object description options</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Object description options">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#objconf-include_in_toc" class="md-nav__link">
+    <span aria-label="object description option" class="objinfo-icon objinfo-icon__data" title="object description option">O</span><span title="include_in_toc (object description option)" class="md-ellipsis">include_<wbr>in_<wbr>toc</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#objconf-generate_synopses" class="md-nav__link">
+    <span aria-label="object description option" class="objinfo-icon objinfo-icon__data" title="object description option">O</span><span title="generate_synopses (object description option)" class="md-ellipsis">generate_<wbr>synopses</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#objconf-include_object_type_in_xref_tooltip" class="md-nav__link">
+    <span aria-label="object description option" class="objinfo-icon objinfo-icon__data" title="object description option">O</span><span title="include_object_type_in_xref_tooltip (object description option)" class="md-ellipsis">include_<wbr>object_<wbr>type_<wbr>in_<wbr>xref_<wbr>tooltip</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#objconf-include_fields_in_toc" class="md-nav__link">
+    <span aria-label="object description option" class="objinfo-icon objinfo-icon__data" title="object description option">O</span><span title="include_fields_in_toc (object description option)" class="md-ellipsis">include_<wbr>fields_<wbr>in_<wbr>toc</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#table-of-contents-icons" class="md-nav__link">
+    <span class="md-ellipsis">Table of contents icons</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Table of contents icons">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#objconf-toc_icon_class" class="md-nav__link">
+    <span aria-label="object description option" class="objinfo-icon objinfo-icon__data" title="object description option">O</span><span title="toc_icon_class (object description option)" class="md-ellipsis">toc_<wbr>icon_<wbr>class</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#objconf-toc_icon_text" class="md-nav__link">
+    <span aria-label="object description option" class="objinfo-icon objinfo-icon__data" title="object description option">O</span><span title="toc_icon_text (object description option)" class="md-ellipsis">toc_<wbr>icon_<wbr>text</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -612,28 +748,181 @@
 
 
   <h1 id="general-api-customization">General API customization<a class="headerlink" href="#general-api-customization" title="Permalink to this headline">¶</a></h1>
+<p>This theme supports a number of options that can be customized for each
+domain/object type pair.</p>
 <dl class="std confval objdesc">
-<dt class="sig sig-object highlight std" id="confval-include_object_description_fields_in_toc">
-<span class="sig-name descname"><span class="pre">include_object_description_fields_in_toc</span></span><a class="headerlink" href="#confval-include_object_description_fields_in_toc" title="Permalink to this definition">¶</a></dt>
-<dd><p><code class="code highlight python docutils literal highlight-python"><span class="nb">bool</span></code> indicating whether to include domain object description
-fields, like “Parameters”, “Returns”, “Raises”, etc. in the table of
-contents.  Defaults to <code class="code highlight python docutils literal highlight-python"><span class="kc">True</span></code>.</p>
-<p>For an example, see: <code class="cpp-expr sig sig-inline cpp highlight"><span class="n">synopses_ex</span><span class="p">::</span><a class="reference internal" href="cpp.html#_CPPv4I0_iEN11synopses_ex3FooEN11synopses_ex8SomeTypeE1TRA1N_Ki" title="synopses_ex::Foo (C++ function) — Synopsis for this function, shown when hovering over cross references as well as in the TOC."><span class="n">Foo</span></a></code> and note the <code class="docutils literal notranslate"><span class="pre">Template</span>
+<dt class="sig sig-object highlight std" id="confval-object_description_options">
+<span class="sig-name descname"><span class="pre">object_description_options</span></span><a class="headerlink" href="#confval-object_description_options" title="Permalink to this definition">¶</a></dt>
+<dd><p><code class="code highlight python docutils literal highlight-python"><span class="nb">list</span></code> of <code class="code highlight python docutils literal highlight-python"><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">options</span><span class="p">)</span></code> pairs, where <code class="code highlight python docutils literal highlight-python"><span class="n">pattern</span></code>
+is a regular expression matching strings of the form
+<code class="code highlight python docutils literal highlight-python"><span class="s2">&quot;domain:objtype&quot;</span></code> and <code class="code highlight python docutils literal highlight-python"><span class="n">options</span></code> is a dictionary of supported
+<a class="reference internal" href="#object-description-options"><span class="std std-ref">Object description options</span></a>.</p>
+<p>We need something <a class="reference internal" href="#confval-object_description_options" title="object_description_options (configuration value) — list of (pattern, options) pairs, where pattern is a regular expression matching strings of the form &quot;domain:objtype&quot; and options is a dictionary of supported object-description-options."><code class="xref any std std-confval docutils literal notranslate"><span class="pre">object_description_options</span></code></a>.</p>
+<p>The actual options for a given object type are determined by first
+initializing each option to its default value, and then applying as overrides
+the options associated with each matching pattern in order.</p>
+</dd></dl>
+
+<h2 id="object-description-options"><span id="id1"></span>Object description options<a class="headerlink" href="#object-description-options" title="Permalink to this headline">¶</a></h2>
+<p>The following options can be customized for each object type using
+<a class="reference internal" href="#confval-object_description_options" title="object_description_options (configuration value) — list of (pattern, options) pairs, where pattern is a regular expression matching strings of the form &quot;domain:objtype&quot; and options is a dictionary of supported object-description-options."><code class="xref std std-confval docutils literal notranslate"><span class="pre">object_description_options</span></code></a>.</p>
+<dl class="std objconf objdesc">
+<dt class="sig sig-object highlight std" id="objconf-include_in_toc">
+<span class="sig-name descname"><span class="pre">include_in_toc</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="kc">True</span></code><a class="headerlink" href="#objconf-include_in_toc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Indicates whether to include the object description in the table of contents.</p>
+<div class="example admonition">
+<p class="admonition-title">Example</p>
+<p>To prevent C++ parameter descriptions from appearing in the TOC, add the
+following to <code class="file docutils literal notranslate"><span class="pre">conf.py</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="n">object_description_options</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s2">&quot;cpp:.*Param&quot;</span><span class="p">:</span> <span class="nb">dict</span><span class="p">(</span><span class="n">include_in_toc</span><span class="o">=</span><span class="kc">False</span><span class="p">)),</span>
+<span class="p">]</span>
+</code></pre></div>
+</div>
+</div>
+</dd></dl>
+
+<dl class="std objconf objdesc">
+<dt class="sig sig-object highlight sig-wrap std" id="objconf-generate_synopses">
+<span class="sig-name descname"><span class="pre">generate_synopses</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'first_paragraph'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'first_sentence'</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="s1">&#39;first_paragraph&#39;</span></code><a class="headerlink" href="#objconf-generate_synopses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Indicates whether to generate a <em>synopsis</em> from the object description.  The
+synopsis is shown as a tooltip when hovering over a cross-reference link, and
+is also shown in the search results list.  Supported values are:</p>
+<dl class="simple">
+<dt><code class="code highlight python docutils literal highlight-python"><span class="kc">None</span></code></dt><dd><p>Disables synopsis generation.</p>
+</dd>
+<dt><code class="code highlight python docutils literal highlight-python"><span class="s2">&quot;first_paragraph&quot;</span></code></dt><dd><p>Uses the first paragraph of the description as the synopsis.</p>
+</dd>
+<dt><code class="code highlight python docutils literal highlight-python"><span class="s2">&quot;first_sentence&quot;</span></code></dt><dd><p>Uses the first sentence of the first paragraph of the description as the synopsis.</p>
+</dd>
+</dl>
+<p>The default is <code class="code highlight python docutils literal highlight-python"><span class="s2">&quot;first_paragraph&quot;</span></code> except for <code class="regexp docutils literal notranslate"><span class="pre">c(pp)?:.*Param</span></code>
+where the default is <code class="code highlight python docutils literal highlight-python"><span class="s2">&quot;first_sentence&quot;</span></code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Synopsis generation is currently supported only for the following domains:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">std</span></code> (including object types added using <a class="reference external" href="https://www.sphinx-doc.org/en/master/extdev/appapi.html#sphinx.application.Sphinx.add_object_type" title="(in Sphinx v6.0.0)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sphinx.application.Sphinx.add_object_type</span></code></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">c</span></code> and <code class="docutils literal notranslate"><span class="pre">cpp</span></code></p></li>
+</ul>
+</div>
+<div class="example admonition">
+<p class="admonition-title">Example</p>
+<p>To use the first sentence rather than the first paragraph as the synopsis
+for C++ class descriptions, add the following to <code class="file docutils literal notranslate"><span class="pre">conf.py</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="n">object_description_options</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s2">&quot;cpp:class&quot;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">generate_synopses</span><span class="o">=</span><span class="s2">&quot;first_sentence&quot;</span><span class="p">)),</span>
+<span class="p">]</span>
+</code></pre></div>
+</div>
+</div>
+</dd></dl>
+
+<dl class="std objconf objdesc">
+<dt class="sig sig-object highlight std" id="objconf-include_object_type_in_xref_tooltip">
+<span class="sig-name descname"><span class="pre">include_object_type_in_xref_tooltip</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="kc">True</span></code><a class="headerlink" href="#objconf-include_object_type_in_xref_tooltip" title="Permalink to this definition">¶</a></dt>
+<dd><p>Indicates whether to include the object type in cross-reference and TOC
+tooltips.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For TOC entries, this is supported for all domains.  For regular cross
+references, this is supported only for the following domains:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">std</span></code> (including object types added using <a class="reference external" href="https://www.sphinx-doc.org/en/master/extdev/appapi.html#sphinx.application.Sphinx.add_object_type" title="(in Sphinx v6.0.0)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sphinx.application.Sphinx.add_object_type</span></code></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">c</span></code> and <code class="docutils literal notranslate"><span class="pre">cpp</span></code></p></li>
+</ul>
+</div>
+<div class="example admonition">
+<p class="admonition-title">Example</p>
+<p>To exclude the object type from all <code class="docutils literal notranslate"><span class="pre">py</span></code> domain xrefs, add the following
+to <code class="file docutils literal notranslate"><span class="pre">conf.py</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="n">object_description_options</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s2">&quot;py:.*&quot;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">include_object_type_in_xref_tooltip</span><span class="o">=</span><span class="kc">False</span><span class="p">)),</span>
+<span class="p">]</span>
+</code></pre></div>
+</div>
+</div>
+</dd></dl>
+
+<dl class="std objconf objdesc">
+<dt class="sig sig-object highlight std" id="objconf-include_fields_in_toc">
+<span class="sig-name descname"><span class="pre">include_fields_in_toc</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="kc">True</span></code><a class="headerlink" href="#objconf-include_fields_in_toc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Indicates whether to include fields, like “Parameters”, “Returns”, “Raises”,
+etc. in the table of contents.</p>
+<p>For an example, see: <code class="cpp-expr sig sig-inline cpp highlight"><span class="n">synopses_ex</span><span class="p">::</span><a class="reference internal" href="demo_api.html#_CPPv4I0_iEN11synopses_ex3FooEN11synopses_ex8SomeTypeE1TRA1N_Ki" title="synopses_ex::Foo (C++ function) — Synopsis for this function, shown when hovering over cross references as well as in the TOC."><span class="n">Foo</span></a></code> and note the <code class="docutils literal notranslate"><span class="pre">Template</span>
 <span class="pre">Parameters</span></code>, <code class="docutils literal notranslate"><span class="pre">Parameters</span></code>, and <code class="docutils literal notranslate"><span class="pre">Returns</span></code> headings shown in the
 right-side table of contents.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>This option does not control whether there are separate TOC entries for
-individual parameters, such as for <code class="cpp-expr sig sig-inline cpp highlight"><span class="n">synopses_ex</span><span class="p">::</span><a class="reference internal" href="cpp.html#_CPPv4I0_iEN11synopses_ex3FooEN11synopses_ex8SomeTypeE1TRA1N_Ki" title="synopses_ex::Foo (C++ function) — Synopsis for this function, shown when hovering over cross references as well as in the TOC."><span class="n">Foo</span></a><span class="p">::</span><a class="desctype reference internal" href="cpp.html#_CPPv4I0_iEN11synopses_ex3FooEN11synopses_ex8SomeTypeE1TRA1N_Ki-p-T" title="synopses_ex::Foo::T (C++ type template parameter) — Tooltip shown when hovering over cross-references to this template parameter."><span class="n">T</span></a></code>,
-<code class="cpp-expr sig sig-inline cpp highlight"><span class="n">synopses_ex</span><span class="p">::</span><a class="reference internal" href="cpp.html#_CPPv4I0_iEN11synopses_ex3FooEN11synopses_ex8SomeTypeE1TRA1N_Ki" title="synopses_ex::Foo (C++ function) — Synopsis for this function, shown when hovering over cross references as well as in the TOC."><span class="n">Foo</span></a><span class="p">::</span><a class="reference internal" href="cpp.html#_CPPv4I0_iEN11synopses_ex3FooEN11synopses_ex8SomeTypeE1TRA1N_Ki-p-N" title="synopses_ex::Foo::N (C++ non-type template parameter) — Tooltip shown for N."><span class="n">N</span></a></code>, <code class="cpp-expr sig sig-inline cpp highlight"><span class="n">synopses_ex</span><span class="p">::</span><a class="reference internal" href="cpp.html#_CPPv4I0_iEN11synopses_ex3FooEN11synopses_ex8SomeTypeE1TRA1N_Ki" title="synopses_ex::Foo (C++ function) — Synopsis for this function, shown when hovering over cross references as well as in the TOC."><span class="n">Foo</span></a><span class="p">::</span><a class="reference internal" href="cpp.html#_CPPv4I0_iEN11synopses_ex3FooEN11synopses_ex8SomeTypeE1TRA1N_Ki-p-param" title="synopses_ex::Foo::param (C++ function parameter) — Tooltip shown for cross-references to this function parameter param."><span class="n">param</span></a></code>, and
-<code class="cpp-expr sig sig-inline cpp highlight"><span class="n">synopses_ex</span><span class="p">::</span><a class="reference internal" href="cpp.html#_CPPv4I0_iEN11synopses_ex3FooEN11synopses_ex8SomeTypeE1TRA1N_Ki" title="synopses_ex::Foo (C++ function) — Synopsis for this function, shown when hovering over cross references as well as in the TOC."><span class="n">Foo</span></a><span class="p">::</span><a class="reference internal" href="cpp.html#_CPPv4I0_iEN11synopses_ex3FooEN11synopses_ex8SomeTypeE1TRA1N_Ki-p-arr" title="synopses_ex::Foo::arr (C++ function parameter) — Tooltip shown for cross-references to this function parameter arr."><span class="n">arr</span></a></code>.  Currently, for the C and C++ domains,
-any parameter documented by a :rst:<code class="docutils literal notranslate"><span class="pre">:param</span> <span class="pre">x:</span></code> field will always result
-in a TOC entry, regardless of the value of
-<a class="reference internal" href="#confval-include_object_description_fields_in_toc"><code class="xref std std-confval docutils literal notranslate"><span class="pre">include_object_description_fields_in_toc</span></code></a>.  Other domains are
-not yet supported.</p>
+<p>To control whether there are separate TOC entries for individual
+parameters, such as for <code class="cpp-expr sig sig-inline cpp highlight"><span class="n">synopses_ex</span><span class="p">::</span><a class="reference internal" href="demo_api.html#_CPPv4I0_iEN11synopses_ex3FooEN11synopses_ex8SomeTypeE1TRA1N_Ki" title="synopses_ex::Foo (C++ function) — Synopsis for this function, shown when hovering over cross references as well as in the TOC."><span class="n">Foo</span></a><span class="p">::</span><a class="desctype reference internal" href="demo_api.html#_CPPv4I0_iEN11synopses_ex3FooEN11synopses_ex8SomeTypeE1TRA1N_Ki-p-T" title="synopses_ex::Foo::T (C++ type template parameter) — Tooltip shown when hovering over cross-references to this template parameter."><span class="n">T</span></a></code>,
+<code class="cpp-expr sig sig-inline cpp highlight"><span class="n">synopses_ex</span><span class="p">::</span><a class="reference internal" href="demo_api.html#_CPPv4I0_iEN11synopses_ex3FooEN11synopses_ex8SomeTypeE1TRA1N_Ki" title="synopses_ex::Foo (C++ function) — Synopsis for this function, shown when hovering over cross references as well as in the TOC."><span class="n">Foo</span></a><span class="p">::</span><a class="reference internal" href="demo_api.html#_CPPv4I0_iEN11synopses_ex3FooEN11synopses_ex8SomeTypeE1TRA1N_Ki-p-N" title="synopses_ex::Foo::N (C++ non-type template parameter) — Tooltip shown for N."><span class="n">N</span></a></code>, <code class="cpp-expr sig sig-inline cpp highlight"><span class="n">synopses_ex</span><span class="p">::</span><a class="reference internal" href="demo_api.html#_CPPv4I0_iEN11synopses_ex3FooEN11synopses_ex8SomeTypeE1TRA1N_Ki" title="synopses_ex::Foo (C++ function) — Synopsis for this function, shown when hovering over cross references as well as in the TOC."><span class="n">Foo</span></a><span class="p">::</span><a class="reference internal" href="demo_api.html#_CPPv4I0_iEN11synopses_ex3FooEN11synopses_ex8SomeTypeE1TRA1N_Ki-p-param" title="synopses_ex::Foo::param (C++ function parameter) — Tooltip shown for cross-references to this function parameter param."><span class="n">param</span></a></code>, and
+<code class="cpp-expr sig sig-inline cpp highlight"><span class="n">synopses_ex</span><span class="p">::</span><a class="reference internal" href="demo_api.html#_CPPv4I0_iEN11synopses_ex3FooEN11synopses_ex8SomeTypeE1TRA1N_Ki" title="synopses_ex::Foo (C++ function) — Synopsis for this function, shown when hovering over cross references as well as in the TOC."><span class="n">Foo</span></a><span class="p">::</span><a class="reference internal" href="demo_api.html#_CPPv4I0_iEN11synopses_ex3FooEN11synopses_ex8SomeTypeE1TRA1N_Ki-p-arr" title="synopses_ex::Foo::arr (C++ function parameter) — Tooltip shown for cross-references to this function parameter arr."><span class="n">arr</span></a></code>, use the <a class="reference internal" href="#objconf-include_in_toc" title="include_in_toc (object description option)"><code class="xref std std-objconf docutils literal notranslate"><span class="pre">include_in_toc</span></code></a>
+option.</p>
+</div>
+<div class="example admonition">
+<p class="admonition-title">Example</p>
+<p>To exclude object description fields from the table of contents for all
+<code class="docutils literal notranslate"><span class="pre">py</span></code> domain objects, add the following to <code class="file docutils literal notranslate"><span class="pre">conf.py</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="n">object_description_options</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s2">&quot;py:.*&quot;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">include_fields_in_toc</span><span class="o">=</span><span class="kc">False</span><span class="p">)),</span>
+<span class="p">]</span>
+</code></pre></div>
+</div>
 </div>
 </dd></dl>
 
+<p>Other options described elsewhere include:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="format_signatures.html#objconf-wrap_signatures_with_css" title="wrap_signatures_with_css (object description option)"><code class="xref std std-objconf docutils literal notranslate"><span class="pre">wrap_signatures_with_css</span></code></a></p></li>
+<li><p><a class="reference internal" href="format_signatures.html#objconf-wrap_signatures_column_limit" title="wrap_signatures_column_limit (object description option)"><code class="xref std std-objconf docutils literal notranslate"><span class="pre">wrap_signatures_column_limit</span></code></a></p></li>
+<li><p><a class="reference internal" href="format_signatures.html#objconf-clang_format_style" title="clang_format_style (object description option)"><code class="xref std std-objconf docutils literal notranslate"><span class="pre">clang_format_style</span></code></a></p></li>
+</ul>
+<h3 id="table-of-contents-icons">Table of contents icons<a class="headerlink" href="#table-of-contents-icons" title="Permalink to this headline">¶</a></h3>
+<p>For object descriptions included in the table of contents (when
+<a class="reference internal" href="#objconf-include_in_toc" title="include_in_toc (object description option)"><code class="xref std std-objconf docutils literal notranslate"><span class="pre">include_in_toc</span></code></a> is <code class="code highlight python docutils literal highlight-python"><span class="kc">True</span></code>), a text-based “icon” can optionally
+be included to indicate the object type.</p>
+<p>Default icons are specified for a number of object types, but they can be
+overridden using the following options:</p>
+<dl class="std objconf objdesc">
+<dt class="sig sig-object highlight std" id="objconf-toc_icon_class">
+<span class="sig-name descname"><span class="pre">toc_icon_class</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="kc">None</span></code><a class="headerlink" href="#objconf-toc_icon_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>Indicates the icon class, or <code class="code highlight python docutils literal highlight-python"><span class="kc">None</span></code> to disable the icon.  The class
+must be one of:</p>
+<ul class="simple">
+<li><p><code class="code highlight python docutils literal highlight-python"><span class="s2">&quot;alias&quot;</span></code></p></li>
+<li><p><code class="code highlight python docutils literal highlight-python"><span class="s2">&quot;procedure&quot;</span></code></p></li>
+<li><p><code class="code highlight python docutils literal highlight-python"><span class="s2">&quot;data&quot;</span></code></p></li>
+<li><p><code class="code highlight python docutils literal highlight-python"><span class="s2">&quot;sub-data&quot;</span></code></p></li>
+</ul>
+</dd></dl>
+
+<dl class="std objconf objdesc">
+<dt class="sig sig-object highlight std" id="objconf-toc_icon_text">
+<span class="sig-name descname"><span class="pre">toc_icon_text</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="kc">None</span></code><a class="headerlink" href="#objconf-toc_icon_text" title="Permalink to this definition">¶</a></dt>
+<dd><p>Indicates the text content of the icon, or <code class="code highlight python docutils literal highlight-python"><span class="kc">None</span></code> to disable the
+icon.  This should normally be a single character, such as <code class="code highlight python docutils literal highlight-python"><span class="s2">&quot;C&quot;</span></code> to
+indicate a class or <code class="code highlight python docutils literal highlight-python"><span class="s2">&quot;F&quot;</span></code> to indicate a function.</p>
+</dd></dl>
+
+<div class="example admonition">
+<p class="admonition-title">Example</p>
+<p>To define a custom object type and specify an icon for it, add the following to
+<code class="file docutils literal notranslate"><span class="pre">conf.py</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="n">object_description_options</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s2">&quot;std:confval&quot;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">toc_icon_class</span><span class="o">=</span><span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="n">toc_icon_text</span><span class="o">=</span><span class="s2">&quot;C&quot;</span><span class="p">)),</span>
+<span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">setup</span><span class="p">(</span><span class="n">app</span><span class="p">):</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">add_object_type</span><span class="p">(</span>
+        <span class="s2">&quot;confval&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;confval&quot;</span><span class="p">,</span>
+        <span class="n">objname</span><span class="o">=</span><span class="s2">&quot;configuration value&quot;</span><span class="p">,</span>
+        <span class="n">indextemplate</span><span class="o">=</span><span class="s2">&quot;pair: </span><span class="si">%s</span><span class="s2">; configuration value&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+</code></pre></div>
+</div>
+</div>
 
 
 
@@ -642,7 +931,7 @@ not yet supported.</p>
   <small>
     
       Last update:
-      Apr 25, 2022
+      Apr 28, 2022
     
   </small>
 </div>
