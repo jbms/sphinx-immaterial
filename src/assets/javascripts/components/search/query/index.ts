@@ -110,7 +110,6 @@ export function watchSearchQuery(
   param$.subscribe(value => { // TODO: not ideal - find a better way
     if (value) {
       el.value = value
-      el.focus()
     }
   })
 
