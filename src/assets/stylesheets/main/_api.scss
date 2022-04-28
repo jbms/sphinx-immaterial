@@ -78,7 +78,7 @@ $objinfo-icon-size: 16px;
       > a.reference {
         color: $api-color-type;
         // Prevent pygments highlight rules from taking precedence.
-        .n {
+        * {
           color: inherit;
         }
       }
