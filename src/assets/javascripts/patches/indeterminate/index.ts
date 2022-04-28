@@ -23,9 +23,8 @@
 import {
   Observable,
   fromEvent,
-  mapTo,
+  map,
   mergeMap,
-  of,
   switchMap,
   takeWhile,
   tap,
@@ -63,9 +62,9 @@ export function patchIndeterminate(
 ): void {
   document$
     .pipe(
-      switchMap(() => of(...getElements<HTMLInputElement>(
+      switchMap(() => getElements<HTMLInputElement>(
         "[data-md-state=indeterminate]"
-      ))),
+      )),
       tap(el => {
         el.indeterminate = true
         el.checked = false
@@ -73,7 +72,7 @@ export function patchIndeterminate(
       mergeMap(el => fromEvent(el, "change")
         .pipe(
           takeWhile(() => el.hasAttribute("data-md-state")),
-          mapTo(el)
+          map(() => el)
         )
       ),
       withLatestFrom(tablet$)

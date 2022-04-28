@@ -170,6 +170,17 @@ kbd {
     &:focus,
     &:hover {
       color: var(--md-accent-fg-color);
+
+      // Inline code block
+      code {
+        background-color: var(--md-accent-fg-color--transparent);
+      }
+    }
+
+    // Inline code block
+    code {
+      color: currentcolor;
+      transition: background-color 125ms;
     }
 
     // Show outline for keyboard devices
@@ -206,11 +217,6 @@ kbd {
       outline: none;
       -webkit-tap-highlight-color: transparent;
     }
-  }
-
-  // Ensure link color in code blocks
-  a code {
-    color: currentcolor;
   }
 
   // Unformatted content

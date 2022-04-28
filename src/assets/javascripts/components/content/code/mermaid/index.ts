@@ -22,7 +22,7 @@
 
 import {
   Observable,
-  mapTo,
+  map,
   of,
   shareReplay,
   tap
@@ -69,7 +69,7 @@ let index = 0
  */
 function fetchScripts(): Observable<void> {
   return typeof mermaid === "undefined" || mermaid instanceof Element
-    ? watchScript("https://unpkg.com/mermaid@8.13.3/dist/mermaid.min.js")
+    ? watchScript("https://unpkg.com/mermaid@9.0.1/dist/mermaid.min.js")
     : of(undefined)
 }
 
@@ -94,7 +94,7 @@ export function mountMermaid(
         startOnLoad: false,
         themeCSS
       })),
-      mapTo(undefined),
+      map(() => undefined),
       shareReplay(1)
     )
 
@@ -117,6 +117,6 @@ export function mountMermaid(
   /* Create and return component */
   return mermaid$
     .pipe(
-      mapTo({ ref: el })
+      map(() => ({ ref: el }))
     )
 }

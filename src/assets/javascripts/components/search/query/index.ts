@@ -106,6 +106,14 @@ export function watchSearchQuery(
         history.replaceState({}, "", `${url}`)
       })
 
+  /* Set query from parameter */
+  param$.subscribe(value => { // TODO: not ideal - find a better way
+    if (value) {
+      el.value = value
+      el.focus()
+    }
+  })
+
   /* Intercept focus and input events */
   const focus$ = watchElementFocus(el)
   const value$ = merge(
