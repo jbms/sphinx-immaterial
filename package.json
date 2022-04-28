@@ -27,7 +27,6 @@
     "tsc": "tsc --noEmit",
     "build": "npm run clean && ts-node -T tools/build --optimize",
     "build:dev": "npm run clean && ts-node -T tools/build",
-    "build:all": "rimraf material && ts-node -T tools/build --all --optimize",
     "build:dirty": "ts-node -T tools/build --dirty",
     "build:noclean": "ts-node -T tools/build --verbose",
     "docs": "npm run build && rimraf docs/_build && cd docs && sphinx-build . _build -a",

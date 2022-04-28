@@ -104,11 +104,6 @@ export function resolve(
       catchError(() => EMPTY),
       concatAll(),
 
-      /* Build overrides */
-      !process.argv.includes("--all")
-        ? filter(file => !file.startsWith("overrides/"))
-        : identity,
-
       /* Start file watcher */
       options?.watch
         ? mergeWith(watch(pattern, options))
