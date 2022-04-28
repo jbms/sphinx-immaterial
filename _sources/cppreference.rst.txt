@@ -26,9 +26,9 @@ To use this extension, simply add it to the list of extensions in :file:`conf.py
 
 .. confval:: cppreference_xml_files
 
-   List of :python:`tuple[str, str]` that overrides the default list of XML data
-   files to use.  This allows an alternative (e.g. newer) version of the
-   cppreference XML data files that are available at:
+   Overrides the default list of XML data files to use.  This allows an
+   alternative (e.g. newer) version of the cppreference XML data files that are
+   available at:
 
    - https://raw.githubusercontent.com/p12tic/cppreference-doc/master/index-functions-c.xml
    - https://raw.githubusercontent.com/p12tic/cppreference-doc/master/index-functions-cpp.xml

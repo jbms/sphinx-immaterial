@@ -32,9 +32,8 @@ define the :confval:`external_cpp_references` configuration option:
 
 .. confval:: external_cpp_references
 
-   :python:`dict[str, ExternalCppReference]`, specifying for each `str`
-   symbol name a dictionary specifying the URL, object type, and description
-   type:
+   Specifies for each symbol name a dictionary specifying the URL, object type,
+   and description type:
 
    .. code-block:: python
 

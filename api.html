@@ -484,6 +484,20 @@
   
   
     <li class="md-nav__item">
+      <a href="python.html" class="md-nav__link">
+        <span title="python (document)" class="md-ellipsis">Python domain customization</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="cpp.html" class="md-nav__link">
         <span title="cpp (document)" class="md-ellipsis">C++ domain customization</span>
       </a>
@@ -751,13 +765,12 @@
 <p>This theme supports a number of options that can be customized for each
 domain/object type pair.</p>
 <dl class="std confval objdesc">
-<dt class="sig sig-object highlight std" id="confval-object_description_options">
-<span class="sig-name descname"><span class="pre">object_description_options</span></span><a class="headerlink" href="#confval-object_description_options" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object highlight sig-wrap std" id="confval-object_description_options">
+<span class="sig-name descname"><span class="pre">object_description_options</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.10)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Pattern</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.10)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="p">[]</span></code><a class="headerlink" href="#confval-object_description_options" title="Permalink to this definition">¶</a></dt>
 <dd><p><code class="code highlight python docutils literal highlight-python"><span class="nb">list</span></code> of <code class="code highlight python docutils literal highlight-python"><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">options</span><span class="p">)</span></code> pairs, where <code class="code highlight python docutils literal highlight-python"><span class="n">pattern</span></code>
 is a regular expression matching strings of the form
 <code class="code highlight python docutils literal highlight-python"><span class="s2">&quot;domain:objtype&quot;</span></code> and <code class="code highlight python docutils literal highlight-python"><span class="n">options</span></code> is a dictionary of supported
 <a class="reference internal" href="#object-description-options"><span class="std std-ref">Object description options</span></a>.</p>
-<p>We need something <a class="reference internal" href="#confval-object_description_options" title="object_description_options (configuration value) — list of (pattern, options) pairs, where pattern is a regular expression matching strings of the form &quot;domain:objtype&quot; and options is a dictionary of supported object-description-options."><code class="xref any std std-confval docutils literal notranslate"><span class="pre">object_description_options</span></code></a>.</p>
 <p>The actual options for a given object type are determined by first
 initializing each option to its default value, and then applying as overrides
 the options associated with each matching pattern in order.</p>
@@ -784,7 +797,7 @@ following to <code class="file docutils literal notranslate"><span class="pre">c
 
 <dl class="std objconf objdesc">
 <dt class="sig sig-object highlight sig-wrap std" id="objconf-generate_synopses">
-<span class="sig-name descname"><span class="pre">generate_synopses</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'first_paragraph'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'first_sentence'</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="s1">&#39;first_paragraph&#39;</span></code><a class="headerlink" href="#objconf-generate_synopses" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">generate_synopses</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><span class="s"><span class="pre">'first_paragraph'</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="s"><span class="pre">'first_sentence'</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="s1">&#39;first_paragraph&#39;</span></code><a class="headerlink" href="#objconf-generate_synopses" title="Permalink to this definition">¶</a></dt>
 <dd><p>Indicates whether to generate a <em>synopsis</em> from the object description.  The
 synopsis is shown as a tooltip when hovering over a cross-reference link, and
 is also shown in the search results list.  Supported values are:</p>
@@ -886,7 +899,7 @@ be included to indicate the object type.</p>
 overridden using the following options:</p>
 <dl class="std objconf objdesc">
 <dt class="sig sig-object highlight std" id="objconf-toc_icon_class">
-<span class="sig-name descname"><span class="pre">toc_icon_class</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="kc">None</span></code><a class="headerlink" href="#objconf-toc_icon_class" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">toc_icon_class</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="kc">None</span></code><a class="headerlink" href="#objconf-toc_icon_class" title="Permalink to this definition">¶</a></dt>
 <dd><p>Indicates the icon class, or <code class="code highlight python docutils literal highlight-python"><span class="kc">None</span></code> to disable the icon.  The class
 must be one of:</p>
 <ul class="simple">
@@ -899,7 +912,7 @@ must be one of:</p>
 
 <dl class="std objconf objdesc">
 <dt class="sig sig-object highlight std" id="objconf-toc_icon_text">
-<span class="sig-name descname"><span class="pre">toc_icon_text</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="kc">None</span></code><a class="headerlink" href="#objconf-toc_icon_text" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">toc_icon_text</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="kc">None</span></code><a class="headerlink" href="#objconf-toc_icon_text" title="Permalink to this definition">¶</a></dt>
 <dd><p>Indicates the text content of the icon, or <code class="code highlight python docutils literal highlight-python"><span class="kc">None</span></code> to disable the
 icon.  This should normally be a single character, such as <code class="code highlight python docutils literal highlight-python"><span class="s2">&quot;C&quot;</span></code> to
 indicate a class or <code class="code highlight python docutils literal highlight-python"><span class="s2">&quot;F&quot;</span></code> to indicate a function.</p>

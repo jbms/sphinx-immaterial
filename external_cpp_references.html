@@ -381,6 +381,20 @@
   
   
     <li class="md-nav__item">
+      <a href="python.html" class="md-nav__link">
+        <span title="python (document)" class="md-ellipsis">Python domain customization</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="cpp.html" class="md-nav__link">
         <span title="cpp (document)" class="md-ellipsis">C++ domain customization</span>
       </a>
@@ -431,7 +445,7 @@
       
         <li class="md-nav__item">
   <a href="#confval-external_cpp_references" class="md-nav__link">
-    <span aria-label="configuration value" class="objinfo-icon objinfo-icon__data" title="configuration value">C</span><span title="external_cpp_references (configuration value) — dict[str, ExternalCppReference], specifying for each str symbol name a dictionary specifying the URL, object type, and description type:" class="md-ellipsis">external_<wbr>cpp_<wbr>references</span>
+    <span aria-label="configuration value" class="objinfo-icon objinfo-icon__data" title="configuration value">C</span><span title="external_cpp_references (configuration value) — Specifies for each symbol name a dictionary specifying the URL, object type, and description type:" class="md-ellipsis">external_<wbr>cpp_<wbr>references</span>
   </a>
   
 </li>
@@ -603,7 +617,7 @@
       
         <li class="md-nav__item">
   <a href="#confval-external_cpp_references" class="md-nav__link">
-    <span aria-label="configuration value" class="objinfo-icon objinfo-icon__data" title="configuration value">C</span><span title="external_cpp_references (configuration value) — dict[str, ExternalCppReference], specifying for each str symbol name a dictionary specifying the URL, object type, and description type:" class="md-ellipsis">external_<wbr>cpp_<wbr>references</span>
+    <span aria-label="configuration value" class="objinfo-icon objinfo-icon__data" title="configuration value">C</span><span title="external_cpp_references (configuration value) — Specifies for each symbol name a dictionary specifying the URL, object type, and description type:" class="md-ellipsis">external_<wbr>cpp_<wbr>references</span>
   </a>
   
 </li>
@@ -634,7 +648,7 @@ manually specified in <code class="file docutils literal notranslate"><span clas
 extension, template arguments are stripped when resolving references, which
 allows template entities to be resolved based on their base name.</p>
 <p>To use this extension, add it to the list of extensions in <code class="file docutils literal notranslate"><span class="pre">conf.py</span></code> and
-define the <a class="reference internal" href="#confval-external_cpp_references" title="external_cpp_references (configuration value) — dict[str, ExternalCppReference], specifying for each str symbol name a dictionary specifying the URL, object type, and description type:"><code class="xref std std-confval docutils literal notranslate"><span class="pre">external_cpp_references</span></code></a> configuration option:</p>
+define the <a class="reference internal" href="#confval-external_cpp_references" title="external_cpp_references (configuration value) — Specifies for each symbol name a dictionary specifying the URL, object type, and description type:"><code class="xref std std-confval docutils literal notranslate"><span class="pre">external_cpp_references</span></code></a> configuration option:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="n">extensions</span> <span class="o">=</span> <span class="p">[</span>
     <span class="c1"># other extensions...</span>
     <span class="s2">&quot;sphinx_immaterial.external_cpp_references&quot;</span><span class="p">,</span>
@@ -672,10 +686,9 @@ define the <a class="reference internal" href="#confval-external_cpp_references"
 </div>
 <dl class="std confval objdesc">
 <dt class="sig sig-object highlight std" id="confval-external_cpp_references">
-<span class="sig-name descname"><span class="pre">external_cpp_references</span></span><a class="headerlink" href="#confval-external_cpp_references" title="Permalink to this definition">¶</a></dt>
-<dd><p><code class="code highlight python docutils literal highlight-python"><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">ExternalCppReference</span><span class="p">]</span></code>, specifying for each <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><code class="xref any docutils literal notranslate"><span class="pre">str</span></code></a>
-symbol name a dictionary specifying the URL, object type, and description
-type:</p>
+<span class="sig-name descname"><span class="pre">external_cpp_references</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ExternalCppReference</span><span class="p"><span class="pre">]</span></span></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="p">{}</span></code><a class="headerlink" href="#confval-external_cpp_references" title="Permalink to this definition">¶</a></dt>
+<dd><p>Specifies for each symbol name a dictionary specifying the URL, object type,
+and description type:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">ExternalCppReference</span><span class="p">(</span><span class="n">typing</span><span class="o">.</span><span class="n">TypedDict</span><span class="p">):</span>
     <span class="n">url</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">object_type</span><span class="p">:</span> <span class="nb">str</span>
