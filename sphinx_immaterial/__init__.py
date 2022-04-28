@@ -23,6 +23,7 @@ from . import nav_adapt
 from . import object_toc
 from . import postprocess_html
 from . import python_domain_fixes
+from . import python_type_annotation_transforms
 from . import search_adapt
 from .details_patch import monkey_patch_details_run
 
@@ -305,6 +306,7 @@ def setup(app):
     app.connect("config-inited", _config_inited)
     app.setup_extension(apidoc_formatting.__name__)
     app.setup_extension(python_domain_fixes.__name__)
+    app.setup_extension(python_type_annotation_transforms.__name__)
     app.setup_extension(cpp_domain_fixes.__name__)
     app.setup_extension(nav_adapt.__name__)
     app.setup_extension(postprocess_html.__name__)

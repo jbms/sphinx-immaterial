@@ -182,5 +182,10 @@ def load_mappings(app: sphinx.application.Sphinx):
 def setup(app: sphinx.application.Sphinx):
     app.setup_extension("sphinx_immaterial.external_cpp_references")
     app.connect("builder-inited", load_mappings)
-    app.add_config_value(name="cppreference_xml_files", default=None, rebuild="env")
+    app.add_config_value(
+        name="cppreference_xml_files",
+        default=None,
+        types=(typing.Optional[typing.List[typing.Tuple[str, str]]],),
+        rebuild="env",
+    )
     return {"parallel_read_safe": True, "parallel_write_safe": True}

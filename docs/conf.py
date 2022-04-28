@@ -9,6 +9,7 @@
 # add docs path to python sys.path to allow autodoc-ing a test_py_module
 import os
 import sys
+import typing
 
 sys.path.insert(0, os.path.abspath("."))
 
@@ -50,6 +51,7 @@ extensions = [
     "sphinx_immaterial.kbd_keys",
     "sphinx_immaterial.format_signatures",
     "sphinx_immaterial.cppreference",
+    "sphinx_jinja",
 ]
 
 intersphinx_mapping = {
@@ -233,10 +235,34 @@ object_description_options.append(
     (
         "std:objconf",
         dict(
-            toc_icon_class="data", toc_icon_text="O", generate_synopses=None,
+            toc_icon_class="data",
+            toc_icon_text="O",
+            generate_synopses=None,
         ),
     )
 )
+
+object_description_options.append(
+    (
+        "std:themeconf",
+        dict(
+            toc_icon_class="data", toc_icon_text="T", generate_synopses="first_sentence"
+        ),
+    )
+)
+
+python_type_aliases = {}
+
+# BEGIN: python_type_aliases example
+python_type_aliases = {
+    "MyUnqualifiedType": "alias_ex.MyUnqualifiedType",
+}
+# END: python_type_aliases example
+
+
+jinja_contexts = {
+    "sys": {"sys": sys},
+}
 
 
 def _validate_parallel_build(app):
@@ -271,12 +297,51 @@ def _parse_object_description_signature(
     return signature
 
 
+def _parse_confval_signature(
+    env: sphinx.environment.BuildEnvironment, signature: str, node: docutils.nodes.Node
+) -> str:
+    values = env.config.values
+    registry_option = values.get(signature)
+    node += sphinx.addnodes.desc_name(signature, signature)
+    if registry_option is None:
+        logger.error("Invalid config option: %r", signature)
+    else:
+        default, rebuild, types = registry_option
+        if isinstance(types, type):
+            types = (types,)
+        if types:
+            type_constraint = typing.Union[tuple(types)]
+            node += sphinx.addnodes.desc_sig_punctuation(" : ", " : ")
+            annotations = sphinx.domains.python._parse_annotation(
+                sphinx.util.typing.stringify(type_constraint), env
+            )
+            node += sphinx.addnodes.desc_type("", "", *annotations)
+        if not callable(default):
+            node += sphinx.addnodes.desc_sig_punctuation(" = ", " = ")
+            default_repr = repr(default)
+            node += docutils.nodes.literal(
+                default_repr,
+                default_repr,
+                language="python",
+                classes=["python", "code", "highlight"],
+            )
+    return signature
+
+
 def setup(app):
     app.add_object_type(
         "confval",
         "confval",
         objname="configuration value",
         indextemplate="pair: %s; configuration value",
+        parse_node=_parse_confval_signature,
+    )
+
+    app.add_object_type(
+        "themeconf",
+        "themeconf",
+        objname="theme configuration option",
+        indextemplate="pair: %s; theme option",
     )
 
     app.add_object_type(

@@ -1075,9 +1075,14 @@ def setup(app: sphinx.application.Sphinx):
     )
 
     app.add_config_value(
-        "cpp_strip_namespaces_from_signatures", default=[], rebuild="env"
+        "cpp_strip_namespaces_from_signatures",
+        default=[],
+        rebuild="env",
+        types=(List[str],),
     )
-    app.add_config_value("cpp_qualify_parameter_ids", default=True, rebuild="env")
+    app.add_config_value(
+        "cpp_qualify_parameter_ids", default=True, rebuild="env", types=(bool,)
+    )
     app.connect("object-description-transform", _strip_namespaces_from_signatures)
 
     _monkey_patch_domain_to_cross_link_parameters_and_add_synopses(

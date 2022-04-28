@@ -324,6 +324,9 @@ def setup(app: sphinx.application.Sphinx):
     app.connect("env-updated", env_updated)
     app.add_node(SignatureText, html=(visit_signature_text, depart_signature_text))
     app.add_config_value(
-        name="clang_format_command", default="clang-format", rebuild="env"
+        name="clang_format_command",
+        default="clang-format",
+        rebuild="env",
+        types=(str,),
     )
     return {"parallel_read_safe": True, "parallel_write_safe": True}

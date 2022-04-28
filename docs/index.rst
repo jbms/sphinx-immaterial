@@ -80,6 +80,7 @@ or ``theme.conf`` for more details.
 
     api
     format_signatures
+    python
     cpp
     external_cpp_references
     cppreference
