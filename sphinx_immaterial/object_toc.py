@@ -6,6 +6,8 @@ import sphinx.addnodes
 import sphinx.application
 import sphinx.environment.collectors.toctree
 
+from . import apidoc_formatting
+
 
 def _monkey_patch_toc_tree_process_doc(app: sphinx.application.Sphinx):
     """Enables support for also finding Sphinx domain objects.
@@ -21,6 +23,12 @@ def _monkey_patch_toc_tree_process_doc(app: sphinx.application.Sphinx):
     def _make_section_from_desc(
         source: sphinx.addnodes.desc,
     ) -> Optional[docutils.nodes.section]:
+        options = apidoc_formatting.get_object_description_options(
+            app.env, source["domain"], source["objtype"]
+        )
+        if not options["include_in_toc"]:
+            return False
+
         signature: sphinx.addnodes.desc_signature
         for child in source._traverse():
             if not isinstance(child, sphinx.addnodes.desc_signature):
@@ -73,7 +81,7 @@ def _monkey_patch_toc_tree_process_doc(app: sphinx.application.Sphinx):
         section += titlenode
         return section
 
-    def _make_section_from_parameter(
+    def _make_section_from_term(
         source: docutils.nodes.term,
     ) -> Optional[docutils.nodes.section]:
         ids = source["ids"]
@@ -82,7 +90,7 @@ def _monkey_patch_toc_tree_process_doc(app: sphinx.application.Sphinx):
             return None
         section = docutils.nodes.section()
         section["ids"] = ids
-        title = source.get("toc_title", source["paramname"])
+        title = source["toc_title"]
         titlenode = docutils.nodes.comment(title, title)
         section += titlenode
         return section
@@ -128,9 +136,9 @@ def _monkey_patch_toc_tree_process_doc(app: sphinx.application.Sphinx):
                 if new_node is not None:
                     target += new_node
                     target = new_node
-            elif isinstance(source, docutils.nodes.term) and source.get("paramname"):
-                # Parameter within object description.  Try to create synthetic section.
-                new_node = _make_section_from_parameter(source)
+            elif isinstance(source, docutils.nodes.term) and source.get("toc_title"):
+                # Term with toc title.  Try to create synthetic section.
+                new_node = _make_section_from_term(source)
                 if new_node is not None:
                     target += new_node
                 # Parameters cannot contain sub-sections

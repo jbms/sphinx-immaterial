@@ -22,6 +22,7 @@ import sphinx.domains.c
 import sphinx.domains.cpp
 import sphinx.util.logging
 
+from . import apidoc_formatting
 from . import sphinx_utils
 
 logger = sphinx.util.logging.getLogger(__name__)
@@ -72,7 +73,6 @@ class CppParamField(sphinx.util.docfields.GroupedField):
             term_node["paramname"] = param_name
             if kind is not None:
                 term_node["param_kind"] = kind
-                term_node["toc_title"] = f"{param_name} [{kind}]"
             term_node += sphinx.addnodes.desc_name(param_name, param_name)
             node += term_node
             def_node = docutils.nodes.definition()
@@ -717,6 +717,8 @@ def _add_parameter_documentation_ids(
     starting_id_version,
 ) -> None:
 
+    domain = obj_content.parent["domain"]
+
     qualify_parameter_ids = env.config.cpp_qualify_parameter_ids
 
     def cross_link_single_parameter(param_node: docutils.nodes.term) -> None:
@@ -750,10 +752,8 @@ def _add_parameter_documentation_ids(
             )
             return
 
-        if env.config.cpp_generate_synopses:
-            synopsis = sphinx_utils.summarize_element_text(param_node.parent[-1])
-        else:
-            synopsis = None
+        object_type = None
+        synopsis = None
 
         # Set ids of the parameter node.
         for symbol_i, _ in unique_decls.values():
@@ -771,6 +771,19 @@ def _add_parameter_documentation_ids(
                     location=param_node,
                 )
                 continue
+
+            if object_type is None:
+                object_type = _get_precise_template_parameter_object_type(
+                    param_symbol.declaration.objectType, param_symbol
+                )
+                param_options = apidoc_formatting.get_object_description_options(
+                    env, domain, object_type
+                )
+                generate_synopses = param_options["generate_synopses"]
+                if generate_synopses is not None:
+                    synopsis = sphinx_utils.summarize_element_text(
+                        param_node.parent[-1], generate_synopses
+                    )
 
             if synopsis:
                 set_synopsis(param_symbol, synopsis)
@@ -809,6 +822,13 @@ def _add_parameter_documentation_ids(
                 for id_prefix in id_prefixes:
                     param_id = id_prefix + param_id_suffix
                     param_node["ids"].append(param_id)
+
+        if object_type is not None:
+            if param_options["include_in_toc"]:
+                toc_title = param_name
+                if kind:
+                    toc_title += f" [{kind}]"
+                param_node["toc_title"] = toc_title
 
         if not qualify_parameter_ids:
             param_node["ids"].append(param_id_suffix)
@@ -948,9 +968,14 @@ def _monkey_patch_domain_to_cross_link_parameters_and_add_synopses(
             app=self.env.app, domain=domain, content=self.contentnode, symbols=symbols
         )
 
-        if self.env.config.cpp_generate_synopses:
+        options = apidoc_formatting.get_object_description_options(
+            self.env, self.domain, self.objtype
+        )
+        generate_synopses = options["generate_synopses"]
+
+        if generate_synopses is not None:
             synopsis = sphinx_utils.summarize_element_text(
-                self.contentnode, first_sentence_only=False
+                self.contentnode, generate_synopses
             )
             if synopsis:
                 for symbol in symbols:
@@ -1066,8 +1091,6 @@ def setup(app: sphinx.application.Sphinx):
     _monkey_patch_override_ast_id(sphinx.domains.cpp.ASTDeclaration)
     _monkey_patch_domain_get_object_synopses(sphinx.domains.c.CDomain)
     _monkey_patch_domain_get_object_synopses(sphinx.domains.cpp.CPPDomain)
-    app.add_config_value("cpp_generate_synopses", default=True, rebuild="env")
-
     _monkey_patch_cpp_add_precise_template_parameter_object_types()
 
     return {

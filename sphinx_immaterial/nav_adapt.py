@@ -23,6 +23,8 @@ import sphinx.application
 import sphinx.environment.adapters.toctree
 import sphinx.util.osutil
 
+from . import apidoc_formatting
+
 
 # env var is only defined in RTD hosted builds
 READTHEDOCS = os.getenv("READTHEDOCS")
@@ -226,61 +228,6 @@ class DomainAnchorEntry(NamedTuple):
     synopsis: Optional[str]
 
 
-class ObjectIconInfo(NamedTuple):
-    icon_class: str
-    icon_text: str
-
-
-OBJECT_ICON_INFO: Dict[Tuple[str, str], ObjectIconInfo] = {
-    ("std", "envvar"): ObjectIconInfo(icon_class="alias", icon_text="$"),
-    ("js", "module"): ObjectIconInfo(icon_class="data", icon_text="r"),
-    ("js", "function"): ObjectIconInfo(icon_class="procedure", icon_text="M"),
-    ("js", "method"): ObjectIconInfo(icon_class="procedure", icon_text="M"),
-    ("js", "class"): ObjectIconInfo(icon_class="data", icon_text="C"),
-    ("js", "data"): ObjectIconInfo(icon_class="alias", icon_text="V"),
-    ("js", "attribute"): ObjectIconInfo(icon_class="alias", icon_text="V"),
-    ("json", "schema"): ObjectIconInfo(icon_class="data", icon_text="J"),
-    ("json", "subschema"): ObjectIconInfo(icon_class="sub-data", icon_text="j"),
-    ("py", "class"): ObjectIconInfo(icon_class="data", icon_text="C"),
-    ("py", "function"): ObjectIconInfo(icon_class="procedure", icon_text="F"),
-    ("py", "method"): ObjectIconInfo(icon_class="procedure", icon_text="M"),
-    ("py", "classmethod"): ObjectIconInfo(icon_class="procedure", icon_text="M"),
-    ("py", "staticmethod"): ObjectIconInfo(icon_class="procedure", icon_text="M"),
-    ("py", "property"): ObjectIconInfo(icon_class="alias", icon_text="P"),
-    ("py", "attribute"): ObjectIconInfo(icon_class="alias", icon_text="A"),
-    ("py", "data"): ObjectIconInfo(icon_class="alias", icon_text="V"),
-    ("py", "parameter"): ObjectIconInfo(icon_class="sub-data", icon_text="p"),
-    ("c", "member"): ObjectIconInfo(icon_class="alias", icon_text="V"),
-    ("c", "var"): ObjectIconInfo(icon_class="alias", icon_text="V"),
-    ("c", "function"): ObjectIconInfo(icon_class="procedure", icon_text="F"),
-    ("c", "macro"): ObjectIconInfo(icon_class="alias", icon_text="D"),
-    ("c", "union"): ObjectIconInfo(icon_class="data", icon_text="U"),
-    ("c", "struct"): ObjectIconInfo(icon_class="data", icon_text="S"),
-    ("c", "enum"): ObjectIconInfo(icon_class="data", icon_text="E"),
-    ("c", "enumerator"): ObjectIconInfo(icon_class="data", icon_text="e"),
-    ("c", "type"): ObjectIconInfo(icon_class="alias", icon_text="T"),
-    ("c", "macroParam"): ObjectIconInfo(icon_class="sub-data", icon_text="p"),
-    ("cpp", "class"): ObjectIconInfo(icon_class="data", icon_text="C"),
-    ("cpp", "struct"): ObjectIconInfo(icon_class="data", icon_text="S"),
-    ("cpp", "enum"): ObjectIconInfo(icon_class="data", icon_text="E"),
-    ("cpp", "enum-class"): ObjectIconInfo(icon_class="data", icon_text="E"),
-    ("cpp", "enum-struct"): ObjectIconInfo(icon_class="data", icon_text="E"),
-    ("cpp", "enumerator"): ObjectIconInfo(icon_class="data", icon_text="e"),
-    ("cpp", "union"): ObjectIconInfo(icon_class="data", icon_text="U"),
-    ("cpp", "concept"): ObjectIconInfo(icon_class="data", icon_text="t"),
-    ("cpp", "function"): ObjectIconInfo(icon_class="procedure", icon_text="F"),
-    ("cpp", "alias"): ObjectIconInfo(icon_class="procedure", icon_text="F"),
-    ("cpp", "member"): ObjectIconInfo(icon_class="alias", icon_text="V"),
-    ("cpp", "var"): ObjectIconInfo(icon_class="alias", icon_text="V"),
-    ("cpp", "type"): ObjectIconInfo(icon_class="alias", icon_text="T"),
-    ("cpp", "namespace"): ObjectIconInfo(icon_class="alias", icon_text="N"),
-    ("cpp", "functionParam"): ObjectIconInfo(icon_class="sub-data", icon_text="p"),
-    ("cpp", "templateTypeParam"): ObjectIconInfo(icon_class="alias", icon_text="T"),
-    ("cpp", "templateNonTypeParam"): ObjectIconInfo(icon_class="data", icon_text="N"),
-    ("cpp", "templateTemplateParam"): ObjectIconInfo(icon_class="alias", icon_text="T"),
-}
-
-
 def _make_domain_anchor_map(
     env: sphinx.environment.BuildEnvironment,
 ) -> Dict[Tuple[str, str], DomainAnchorEntry]:
@@ -303,9 +250,10 @@ def _make_domain_anchor_map(
             anchor,
             priority,
         ) in domain.get_objects():
-            if (domain_name, objtype) not in OBJECT_ICON_INFO:
+            url = docname_to_url.get(docname)
+            if url is None:
                 continue
-            key = (docname_to_url[docname], anchor)
+            key = (url, anchor)
             synopsis = synopses.get((docname, anchor))
             m.setdefault(
                 key,
@@ -344,17 +292,20 @@ def _add_domain_info_to_toc(
             continue
         domain = app.env.domains[objinfo.domain_name]
         label = domain.get_type_name(domain.object_types[objinfo.objtype])
-        tooltip = f"{objinfo.name} ({label})"
-        synopsis = (objinfo.synopsis or "").strip()
-        if synopsis:
-            tooltip += f" — {synopsis}"
-        icon_info = OBJECT_ICON_INFO.get((objinfo.domain_name, objinfo.objtype))
+        options = apidoc_formatting.get_object_description_options(
+            app.env, objinfo.domain_name, objinfo.objtype
+        )
+        tooltip = apidoc_formatting.format_object_description_tooltip(
+            app.env, options, objinfo.name, objinfo.synopsis
+        )
+        toc_icon_text = options["toc_icon_text"]
+        toc_icon_class = options["toc_icon_class"]
         title_prefix = ""
-        if icon_info is not None:
+        if toc_icon_text is not None and toc_icon_class is not None:
             title_prefix = (
                 f'<span aria-label="{label}" '
-                f'class="objinfo-icon objinfo-icon__{icon_info.icon_class}" '
-                f'title="{label}">{icon_info.icon_text}</span>'
+                f'class="objinfo-icon objinfo-icon__{toc_icon_class}" '
+                f'title="{label}">{toc_icon_text}</span>'
             )
         span_prefix = "<span "
         assert entry.title.startswith(span_prefix)
