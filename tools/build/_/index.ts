@@ -26,7 +26,6 @@ import {
   EMPTY,
   Observable,
   concatAll,
-  filter,
   from,
   fromEvent,
   identity,
