@@ -3,3 +3,4 @@ sphinx_immaterial
 sphinxcontrib-details-directive
 pymdown-extensions
 clang-format
+sphinx-jinja

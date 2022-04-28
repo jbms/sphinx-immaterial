@@ -51,6 +51,7 @@ extensions = [
     "sphinx_immaterial.kbd_keys",
     "sphinx_immaterial.format_signatures",
     "sphinx_immaterial.cppreference",
+    "sphinx_jinja",
 ]
 
 intersphinx_mapping = {
@@ -249,6 +250,19 @@ object_description_options.append(
         ),
     )
 )
+
+python_type_aliases = {}
+
+# BEGIN: python_type_aliases example
+python_type_aliases = {
+    "MyUnqualifiedType": "alias_ex.MyUnqualifiedType",
+}
+# END: python_type_aliases example
+
+
+jinja_contexts = {
+    "sys": {"sys": sys},
+}
 
 
 def _validate_parallel_build(app):
