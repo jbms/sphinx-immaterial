@@ -88,7 +88,6 @@ export function watchSearchQuery(
   if (searchParams.has("q")) {
     setToggle("search", true)
     const value = el.value = searchParams.get("q")!
-    el.focus()
     param$ = of(value)
   } else {
     param$ = of()
@@ -110,6 +109,7 @@ export function watchSearchQuery(
   param$.subscribe(value => { // TODO: not ideal - find a better way
     if (value) {
       el.value = value
+      el.focus()
     }
   })
 
