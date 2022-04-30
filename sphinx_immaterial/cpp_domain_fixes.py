@@ -394,16 +394,15 @@ def _monkey_patch_add_object_type_and_synopsis(
         ):
             refnode["classes"].append("desctype")
 
-        reftitle = refnode["reftitle"]
-
         if last_resolved_symbol is not None:
-            label = self.get_type_name(self.object_types[objtype])
-            reftitle += f" ({label})"
-
-            synopsis = getattr(last_resolved_symbol.declaration, SYNOPSIS_ATTR, None)
-            if synopsis:
-                reftitle += f" — {synopsis}"
-        refnode["reftitle"] = reftitle
+            refnode["reftitle"] = apidoc_formatting.format_object_description_tooltip(
+                env,
+                apidoc_formatting.get_object_description_options(
+                    env, self.name, objtype
+                ),
+                base_title=refnode["reftitle"],
+                synopsis=getattr(last_resolved_symbol.declaration, SYNOPSIS_ATTR, None),
+            )
 
         return refnode, objtype
 
@@ -721,7 +720,9 @@ def _add_parameter_documentation_ids(
 
     qualify_parameter_ids = env.config.cpp_qualify_parameter_ids
 
-    def cross_link_single_parameter(param_node: docutils.nodes.term) -> None:
+    def cross_link_single_parameter(
+        param_name: str, param_node: docutils.nodes.term
+    ) -> None:
         kind = param_node.get("param_kind")
 
         # Determine the number of unique declarations of this parameter.
@@ -886,7 +887,7 @@ def _add_parameter_documentation_ids(
                     param_name = term.get("paramname")
                     if not param_name:
                         continue
-                    cross_link_single_parameter(term)
+                    cross_link_single_parameter(param_name, term)
 
 
 _FIRST_PARAMETER_ID_VERSIONS: Dict[str, int] = {"c": 1, "cpp": 4}
@@ -906,7 +907,6 @@ def _cross_link_parameters(
     content: docutils.nodes.Element,
     symbols,
 ) -> None:
-    """object-description-transform callback that cross-links parameters."""
     obj_desc = content.parent
 
     signodes = [

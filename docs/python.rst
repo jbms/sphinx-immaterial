@@ -75,3 +75,13 @@ Python domain customization
 
       The concise syntax is non-standard and not accepted by Python type
       checkers.
+
+.. confval:: python_qualify_parameter_ids
+
+   Specifies whether function parameters should be assigned fully-qualified ids
+   (for cross-linking purposes) of the form ``<parent-id>.<param-name>`` based
+   on the id of the parent declaration.
+
+   If set to :python:`False`, instead the shorter unqualified id
+   ``p-<param-name>`` is used.  This option should only be set to
+   :python:`False` if each Python declaration is on a separate page.
