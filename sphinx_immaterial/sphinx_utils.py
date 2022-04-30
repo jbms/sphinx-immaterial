@@ -1,6 +1,6 @@
 """Utilities for use with Sphinx."""
 
-from typing import Literal
+from typing_extensions import Literal
 
 import docutils.nodes
 

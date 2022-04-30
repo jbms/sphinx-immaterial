@@ -9,7 +9,10 @@ jobs:
         os:
           - 'ubuntu-latest'
         python-version:
+          - '3.7'
+          - '3.8'
           - '3.9'
+          - '3.10'
         node-version:
           - '16.x'
     runs-on: ${{ matrix.os }}
@@ -56,13 +59,14 @@ jobs:
       working-directory: docs
       run: sphinx-build -b latex . _build/latex
     - name: Upload doc builds as artifacts
+      if: ${{ matrix.python-version == '3.10' }}
       uses: actions/upload-artifact@v2
       with:
         name: doc-builds
         path: docs/_build/
     - name: upload docs to github pages
       # if: ${{ github.event_name == 'release'}}
-      if: ${{ github.event_name != 'pull_request' && github.ref == 'refs/heads/main' }}
+      if: ${{ matrix.python-version == '3.10' && github.event_name != 'pull_request' && github.ref == 'refs/heads/main' }}
       uses: peaceiris/actions-gh-pages@068dc23d9710f1ba62e86896f84735d869951305 # pinned to v3.8.0
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
