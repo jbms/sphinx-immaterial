@@ -486,10 +486,15 @@ def _add_parameter_documentation_ids(
 
             unqualified_param_id = f"p-{param_name}"
 
+            param_symbols = set()
+
             # Set ids of the parameter node.
             for symbol_i, _ in unique_decls.values():
                 symbol = symbols[symbol_i]
                 param_symbol = f"{symbol}.{param_name}"
+                if param_symbol in param_symbols:
+                    continue
+                param_symbols.add(param_symbol)
 
                 if synopsis:
                     py.data["synopses"][param_symbol] = synopsis
@@ -565,16 +570,11 @@ def _add_parameter_documentation_ids(
 def _cross_link_parameters(
     directive: sphinx.domains.python.PyObject,
     app: sphinx.application.Sphinx,
+    signodes: List[sphinx.addnodes.desc_signature],
     content: docutils.nodes.Element,
     symbols: List[str],
     noindex: bool,
 ) -> None:
-    obj_desc = content.parent
-
-    signodes = obj_desc.children[:-1]
-
-    assert len(signodes) == len(symbols)
-
     # Collect the docutils nodes corresponding to the declarations of the
     # parameters in each signature, and turn the parameter names into
     # cross-links to the parameter description.
@@ -619,10 +619,14 @@ def _monkey_patch_python_domain_to_support_synopses():
 
     def after_content(self: object_class) -> None:
         orig_after_content(self)
-        modname = self.options.get("module", self.env.ref_context.get("py:module"))
-        symbols = [
-            (modname + "." if modname else "") + name_cls[0] for name_cls in self.names
-        ]
+        obj_desc = self.contentnode.parent
+        signodes = obj_desc.children[:-1]
+
+        symbols = []
+        for signode in signodes:
+            modname = signode["module"]
+            fullname = signode["fullname"]
+            symbols.append((modname + "." if modname else "") + fullname)
         noindex = "noindex" in self.options
         if not symbols:
             return
@@ -636,6 +640,7 @@ def _monkey_patch_python_domain_to_support_synopses():
         _cross_link_parameters(
             directive=self,
             app=self.env.app,
+            signodes=signodes,
             content=self.contentnode,
             symbols=function_symbols,
             noindex=noindex,

@@ -4,8 +4,11 @@ sample API documentation and generated content
 
 .. contents:: Table of Contents
 
+Python API
+==========
+
 :mod:`test_py_module`
-=====================
+---------------------
 
 .. rst-example:: autodoc example
 
@@ -13,6 +16,16 @@ sample API documentation and generated content
       :members:
       :private-members:
       :special-members:
+
+.. rst-example:: Python function with multiple signatures
+
+   .. py:function:: overloaded_func(a: int, b: int) -> int
+                    overloaded_func(a: float, b: float) -> float
+
+      Adds :py:param:`a` and :py:param:`b`.
+
+      :param a: First operand.
+      :param b: Second operand.
 
 C++ API
 =======
