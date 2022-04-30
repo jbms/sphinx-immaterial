@@ -23,20 +23,13 @@ def _monkey_patch_generic_object_to_support_synopses():
         self.contentnode = contentnode
         orig_transform_content(self, contentnode)
 
-    orig_add_target_and_index = object_class.add_target_and_index
-
-    def add_target_and_index(
-        self: object_class, name: str, sig: str, signode: sphinx.addnodes.desc_signature
-    ) -> None:
-        self._saved_object_name = name
-        orig_add_target_and_index(self, name, sig, signode)
-
-    object_class.add_target_and_index = add_target_and_index
-
     object_class.transform_content = transform_content
 
     def after_content(self: object_class) -> None:
         orig_after_content(self)
+        noindex = "noindex" in self.options
+        if noindex:
+            return
         options = apidoc_formatting.get_object_description_options(
             self.env, self.domain, self.objtype
         )
@@ -47,7 +40,8 @@ def _monkey_patch_generic_object_to_support_synopses():
             self.contentnode, generate_synopses
         )
         std = cast(StandardDomain, self.env.get_domain("std"))
-        std.data["synopses"][self.objtype, self._saved_object_name] = synopsis
+        for name in self.names:
+            std.data["synopses"][self.objtype, name] = synopsis
 
     object_class.after_content = after_content
 
