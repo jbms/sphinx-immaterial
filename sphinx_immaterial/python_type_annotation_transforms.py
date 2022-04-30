@@ -6,6 +6,7 @@ from typing import (
     Dict,
     Union,
     Optional,
+    Tuple,
 )
 
 import sphinx.application
@@ -128,25 +129,61 @@ class TypeAnnotationTransformer(ast.NodeTransformer):
 
     def visit_Name(self, node: ast.Name) -> ast.AST:
         aliases = self.aliases
-        if not aliases:
-            return node
-        dotted_name = node.id
-        new_name = aliases.get(dotted_name)
-        if new_name is None:
-            return node
-        return _dotted_name_to_ast(new_name, node.ctx)
+        if aliases:
+            dotted_name = node.id
+            new_name = aliases.get(dotted_name)
+            if new_name is not None:
+                return _dotted_name_to_ast(new_name, node.ctx)
+        return self.generic_visit(node)
 
     def visit_Attribute(self, node: ast.Attribute) -> ast.AST:
         aliases = self.aliases
-        if not aliases:
-            return node
-        dotted_name = _get_ast_dotted_name(node)
-        if dotted_name is None:
-            return node
-        new_name = aliases.get(dotted_name)
-        if new_name is None:
-            return node
-        return _dotted_name_to_ast(new_name, node.ctx)
+        if aliases:
+            dotted_name = _get_ast_dotted_name(node)
+            if dotted_name is not None:
+                new_name = aliases.get(dotted_name)
+                if new_name is not None:
+                    return _dotted_name_to_ast(new_name, node.ctx)
+        return self.generic_visit(node)
+
+    def visit_UnaryOp(self, node: ast.Invert) -> ast.AST:
+        if not isinstance(node.op, ast.Invert) or not isinstance(
+            node.operand, ast.Subscript
+        ):
+            return self.generic_visit(node)
+        operand, pep604_transformed = self._transform_subscript_pep604(node.operand)
+        if pep604_transformed:
+            return operand
+        return ast.UnaryOp(node.op, operand)
+
+    def _transform_subscript_pep604(self, node: ast.Subscript) -> Tuple[ast.AST, bool]:
+        if not self.pep604:
+            return self.generic_visit(self), False
+        value = self.visit(node.value)
+        id_str = _get_ast_dotted_name(value)
+        if id_str in ("typing.Optional", "typing.Union", "typing.Literal"):
+            elts = node.slice
+            if isinstance(node.slice, ast.Index):
+                elts = elts.value
+            if isinstance(elts, ast.Tuple):
+                elts = elts.elts
+            else:
+                elts = [node.slice]
+            elts = [self.visit(x) for x in elts]
+            if id_str == "typing.Optional":
+                elts.append(ast.Constant(value=None))
+            elif id_str == "typing.Literal":
+                elts = [
+                    ast.Subscript(value, x, node.ctx)
+                    if not self.concise_literal or _retain_explicit_literal(x)
+                    else x
+                    for x in elts
+                ]
+            result = functools.reduce(
+                (lambda left, right: ast.BinOp(left, ast.BitOr(), right)), elts
+            )
+            return result, True
+        return ast.Subscript(value, self.visit(node.slice), node.ctx), False
 
     def visit_Subscript(self, node: ast.Subscript) -> ast.AST:
         value = self.visit(node.value)

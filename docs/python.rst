@@ -71,6 +71,9 @@ Python domain customization
       .. py:function:: foo(x: typing.Literal[1, 2, "abc"])
          :noindex:
 
+      .. py:function:: foo(x: ~typing.Literal[1, 2, "abc"])
+         :noindex:
+
    .. warning::
 
       The concise syntax is non-standard and not accepted by Python type
