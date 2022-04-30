@@ -63,6 +63,7 @@ The following options can be customized for each object type using
 
       - ``std`` (including object types added using :py:obj:`sphinx.application.Sphinx.add_object_type`)
       - ``c`` and ``cpp``
+      - ``py``
 
    .. admonition:: Example
       :class: example
@@ -88,6 +89,7 @@ The following options can be customized for each object type using
 
       - ``std`` (including object types added using :py:obj:`sphinx.application.Sphinx.add_object_type`)
       - ``c`` and ``cpp``
+      - ``py``
 
    .. admonition:: Example
       :class: example

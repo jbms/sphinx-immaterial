@@ -34,10 +34,9 @@ C++ domain customization
 
 .. confval:: cpp_qualify_parameter_ids
 
-   :python:`bool` specifying whether function, template, and macro parameters
-   should be assigned fully-qualified ids (for cross-linking purposes) of the
-   form ``<parent-id>-p-<param-name>`` based on the id of the parent
-   declaration.  Defaults to :python:`True`.
+   Specifies whether function, template, and macro parameters should be assigned
+   fully-qualified ids (for cross-linking purposes) of the form
+   ``<parent-id>-p-<param-name>`` based on the id of the parent declaration.
 
    If set to :python:`False`, instead the shorter unqualified id
    ``p-<param-name>`` is used.  This option should only be set to
