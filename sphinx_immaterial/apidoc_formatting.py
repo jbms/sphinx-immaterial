@@ -6,7 +6,6 @@ from typing import (
     List,
     TYPE_CHECKING,
     cast,
-    Literal,
     Optional,
     Dict,
     Tuple,
@@ -22,6 +21,7 @@ import sphinx.application
 import sphinx.locale
 import sphinx.util.logging
 import sphinx.writers.html5
+from typing_extensions import Literal
 
 _ = sphinx.locale._
 
