@@ -5,6 +5,7 @@ from xml.etree import ElementTree
 
 import docutils.nodes
 import sphinx.application
+import sphinx.builders.html
 import sphinx.util.console
 
 
@@ -17,10 +18,12 @@ def add_html_link(
 ):
     """As each page is built, collect page names for the sitemap"""
     base_url = app.config["html_theme_options"].get("site_url", "")
+    builder = app.builder
+    assert isinstance(builder, sphinx.builders.html.StandaloneHTMLBuilder)
     if base_url:
         if not base_url.endswith("/"):
             base_url += "/"
-        full_url = base_url + app.builder.get_target_uri(pagename)
+        full_url = base_url + builder.get_target_uri(pagename)
         cast(Any, app).sitemap_links.append(full_url)
 
 
@@ -57,7 +60,7 @@ def setup(app: sphinx.application.Sphinx):
     app.connect("build-finished", create_sitemap)
     manager = multiprocessing.Manager()
     cast(Any, app).sitemap_links = manager.list()
-    app.multiprocess_manager = manager
+    app.multiprocess_manager = manager  # type: ignore
     return {
         "parallel_read_safe": True,
         "parallel_write_safe": True,

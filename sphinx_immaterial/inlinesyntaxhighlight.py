@@ -59,7 +59,7 @@ def code_role(role, rawtext, text, lineno, inliner, options={}, content=[]):
     return [node], []
 
 
-code_role.options = {
+code_role.options = {  # type: ignore
     "class": docutils.parsers.rst.directives.class_option,
     "language": docutils.parsers.rst.directives.unchanged,
 }

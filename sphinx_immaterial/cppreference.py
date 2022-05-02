@@ -65,6 +65,7 @@ class CppReferenceXmlParser:
 
     def add_simple(self, element: ET.Element, typ: str):
         name = element.get("name")
+        assert name is not None
         since = element.get("since", self.since)
         self.add(
             name=_join_names(self.name_prefix, name),
@@ -82,6 +83,7 @@ class CppReferenceXmlParser:
     def _add_from_typedef(self, element: ET.Element):
         alias = element.get("alias")
         name = element.get("name")
+        assert name is not None
         if alias is not None:
             existing_obj = self.cpp_objects[alias]
             full_name = _join_names(self.name_prefix, name)
@@ -96,6 +98,7 @@ class CppReferenceXmlParser:
 
     def _add_from_class(self, element: ET.Element):
         name = element.get("name")
+        assert name is not None
         prev_name_prefix = self.name_prefix
         prev_link_prefix = self.link_prefix
         prev_since = self.since

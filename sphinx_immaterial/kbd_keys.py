@@ -8,7 +8,7 @@ from sphinx.util.logging import getLogger
 LOGGER = getLogger(__name__)
 
 try:
-    import pymdownx.keymap_db as keys_db  # pytype: disable=import-error
+    import pymdownx.keymap_db as keys_db  # type: ignore # pytype: disable=import-error
 except ImportError:
     LOGGER.info(
         "Could not import `keymap_db` module from `pymdownx` package.\n    "

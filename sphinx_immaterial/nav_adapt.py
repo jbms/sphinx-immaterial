@@ -5,6 +5,7 @@ import copy
 import os
 import re
 from typing import (
+    cast,
     List,
     Union,
     NamedTuple,
@@ -19,11 +20,15 @@ import urllib.parse
 import docutils.nodes
 import markupsafe
 import sphinx.builders
+import sphinx.builders.html
 import sphinx.application
 import sphinx.environment.adapters.toctree
+import sphinx.util.docutils
 import sphinx.util.osutil
 
 from . import apidoc_formatting
+
+StandaloneHTMLBuilder = sphinx.builders.html.StandaloneHTMLBuilder
 
 
 # env var is only defined in RTD hosted builds
@@ -54,7 +59,7 @@ class MkdocsNavEntry:
     title: str
 
     # Aria label text, plain text.
-    aria_label: str = None
+    aria_label: Optional[str] = None
 
     # URL of this page, or the first descendent if `caption_only` is `True`.
     url: Optional[str]
@@ -162,7 +167,7 @@ class _TocVisitor(docutils.nodes.NodeVisitor):
 
     def get_result(self) -> MkdocsNavEntry:
         return MkdocsNavEntry(
-            title_text=self._rendered_title_text,
+            title_text=cast(str, self._rendered_title_text),
             url=self._url,
             children=self._children,
             active=self._active,
@@ -231,13 +236,13 @@ class DomainAnchorEntry(NamedTuple):
 def _make_domain_anchor_map(
     env: sphinx.environment.BuildEnvironment,
 ) -> Dict[Tuple[str, str], DomainAnchorEntry]:
-    builder = env.app.builder
+    builder = cast(sphinx.builders.Builder, env.app.builder)
     docname_to_url = {
         docname: builder.get_target_uri(docname) for docname in env.found_docs
     }
     m: Dict[Tuple[str, str], DomainAnchorEntry] = {}
     for domain_name, domain in env.domains.items():
-        synopses = {}
+        synopses: Dict[Tuple[str, str], str] = {}
         get_object_synopses = getattr(domain, "get_object_synopses", None)
         if get_object_synopses is not None:
             for key, synopsis in get_object_synopses():
@@ -268,10 +273,12 @@ def _get_domain_anchor_map(
     app: sphinx.application.Sphinx,
 ) -> Dict[Tuple[str, str], DomainAnchorEntry]:
     key = "sphinx_immaterial_domain_anchor_map"
-    m = getattr(app.env, key, None)
+    env = app.env
+    assert env is not None
+    m = getattr(env, key, None)
     if m is None:
-        m = _make_domain_anchor_map(app.env)
-        setattr(app.env, key, m)
+        m = _make_domain_anchor_map(env)
+        setattr(env, key, m)
     return m
 
 
@@ -279,6 +286,9 @@ def _add_domain_info_to_toc(
     app: sphinx.application.Sphinx, toc: List[MkdocsNavEntry], pagename: str
 ) -> None:
     m = _get_domain_anchor_map(app)
+    assert isinstance(app.builder, StandaloneHTMLBuilder)
+    env = app.env
+    assert env is not None
     for entry in _traverse_mkdocs_toc(toc):
         if entry.caption_only or entry.url is None:
             continue
@@ -290,13 +300,13 @@ def _add_domain_info_to_toc(
         objinfo = m.get(refinfo)
         if objinfo is None:
             continue
-        domain = app.env.domains[objinfo.domain_name]
+        domain = env.domains[objinfo.domain_name]
         label = domain.get_type_name(domain.object_types[objinfo.objtype])
         options = apidoc_formatting.get_object_description_options(
-            app.env, objinfo.domain_name, objinfo.objtype
+            env, objinfo.domain_name, objinfo.objtype
         )
         tooltip = apidoc_formatting.format_object_description_tooltip(
-            app.env, options, objinfo.name, objinfo.synopsis
+            env, options, objinfo.name, objinfo.synopsis
         )
         toc_icon_text = options["toc_icon_text"]
         toc_icon_class = options["toc_icon_class"]
@@ -386,16 +396,21 @@ class CachedTocInfo:
         # cached data structure the URLs will be converted to be relative to the
         # current page.
         fake_pagename = ""
+        env = app.env
+        assert env is not None
+        builder = app.builder
+        assert isinstance(builder, StandaloneHTMLBuilder)
         global_toc_node = sphinx.environment.adapters.toctree.TocTree(
-            app.env
+            env
         ).get_toctree_for(
             fake_pagename,
-            app.builder,
+            builder,
             collapse=False,
             maxdepth=-1,
             titles_only=False,
         )
-        global_toc = _get_mkdocs_toc(global_toc_node, app.builder)
+        assert global_toc_node is not None
+        global_toc = _get_mkdocs_toc(global_toc_node, builder)
         _add_domain_info_to_toc(app, global_toc, fake_pagename)
         self.entries = global_toc
         self.url_map = _build_toc_index(global_toc)
@@ -424,15 +439,17 @@ def _get_ancestor_keys(keys: Iterable[TocEntryKey]) -> Set[TocEntryKey]:
 def _get_global_toc(app: sphinx.application.Sphinx, pagename: str, collapse: bool):
     """Obtains the global TOC for a given page."""
     cached_data = _get_cached_globaltoc_info(app)
-    url = app.builder.get_target_uri(pagename)
+    builder = app.builder
+    assert isinstance(builder, StandaloneHTMLBuilder)
+    url = builder.get_target_uri(pagename)
     keys = set(cached_data.url_map[url])
     ancestors = _get_ancestor_keys(keys)
 
     fake_pagename = ""
 
-    fake_page_url = app.builder.get_target_uri(fake_pagename)
+    fake_page_url = builder.get_target_uri(fake_pagename)
 
-    real_page_url = app.builder.get_target_uri(pagename)
+    real_page_url = builder.get_target_uri(pagename)
 
     def _make_toc_for_page(key: TocEntryKey, children: List[MkdocsNavEntry]):
         children = list(children)
@@ -472,7 +489,11 @@ def _get_mkdocs_tocs(
         collapse=theme_options.get("globaltoc_collapse", False),
     )
     local_toc = []
-    if pagename != app.env.config.master_doc:
+    env = app.env
+    assert env is not None
+    builder = app.builder
+    assert isinstance(builder, StandaloneHTMLBuilder)
+    if pagename != env.config.master_doc:
         # Extract entry from `global_toc` corresponding to the current page.
         current_page_toc_entry = _get_current_page_in_toc(global_toc)
         if current_page_toc_entry:
@@ -483,13 +504,11 @@ def _get_mkdocs_tocs(
     else:
         # Every page is a child of the root page.  We still want a full TOC
         # tree, though.
-        local_toc_node = sphinx.environment.adapters.toctree.TocTree(
-            app.env
-        ).get_toc_for(
+        local_toc_node = sphinx.environment.adapters.toctree.TocTree(env).get_toc_for(
             pagename,
-            app.builder,
+            builder,
         )
-        local_toc = _get_mkdocs_toc(local_toc_node, app.builder)
+        local_toc = _get_mkdocs_toc(local_toc_node, builder)
         _add_domain_info_to_toc(app, local_toc, pagename)
 
     if len(local_toc) == 1 and len(local_toc[0].children) == 0:
@@ -505,6 +524,9 @@ def _html_page_context(
     context: dict,
     doctree: docutils.nodes.Node,
 ) -> None:
+    env = app.env
+    assert env is not None
+
     theme_options: dict = app.config["html_theme_options"]
     page_title = markupsafe.Markup.escape(
         markupsafe.Markup(context.get("title")).striptags()
@@ -581,7 +603,7 @@ def _html_page_context(
             [
                 repo_url.rstrip("/"),
                 edit_uri.strip("/"),
-                app.builder.env.doc2path(pagename, False),
+                env.doc2path(pagename, False),
             ]
         )
     context.update(

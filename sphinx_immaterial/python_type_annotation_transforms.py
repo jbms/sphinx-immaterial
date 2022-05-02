@@ -3,10 +3,12 @@
 import functools
 import sys
 from typing import (
+    cast,
     Dict,
     Union,
     Optional,
     Tuple,
+    Sequence,
 )
 
 import sphinx.application
@@ -80,15 +82,17 @@ TYPING_NAMES = [
 def _get_ast_dotted_name(node: Union[ast.Name, ast.Attribute]) -> Optional[str]:
     if isinstance(node, ast.Name):
         return node.id
-    parent = _get_ast_dotted_name(node.value)
+    parent = _get_ast_dotted_name(cast(Union[ast.Name, ast.Attribute], node.value))
     if parent is None:
         return None
     return f"{parent}.{node.attr}"
 
 
-def _dotted_name_to_ast(name: str, ctx: ast.expr_context) -> ast.AST:
+def _dotted_name_to_ast(
+    name: str, ctx: ast.expr_context
+) -> Union[ast.Name, ast.Attribute]:
     parts = name.split(".")
-    tree = ast.Name(parts[0], ctx)
+    tree: Union[ast.Name, ast.Attribute] = ast.Name(parts[0], ctx)
     for part in parts[1:]:
         tree = ast.Attribute(tree, part, ctx)
     return tree
@@ -146,7 +150,7 @@ class TypeAnnotationTransformer(ast.NodeTransformer):
                     return _dotted_name_to_ast(new_name, node.ctx)
         return self.generic_visit(node)
 
-    def visit_UnaryOp(self, node: ast.Invert) -> ast.AST:
+    def visit_UnaryOp(self, node: ast.UnaryOp) -> ast.AST:
         if not isinstance(node.op, ast.Invert) or not isinstance(
             node.operand, ast.Subscript
         ):
@@ -158,17 +162,18 @@ class TypeAnnotationTransformer(ast.NodeTransformer):
 
     def _transform_subscript_pep604(self, node: ast.Subscript) -> Tuple[ast.AST, bool]:
         if not self.pep604:
-            return self.generic_visit(self), False
+            return self.generic_visit(node), False
         value = self.visit(node.value)
         id_str = _get_ast_dotted_name(value)
         if id_str in ("typing.Optional", "typing.Union", "typing.Literal"):
-            elts = node.slice
-            if isinstance(node.slice, ast.Index):
-                elts = elts.value
-            if isinstance(elts, ast.Tuple):
-                elts = elts.elts
+            slice_expr = node.slice
+            elts: Sequence[ast.AST]
+            if isinstance(slice_expr, ast.Index):
+                elts = slice_expr.value  # type: ignore
+            if isinstance(slice_expr, ast.Tuple):
+                elts = slice_expr.elts
             else:
-                elts = [node.slice]
+                elts = [slice_expr]
             elts = [self.visit(x) for x in elts]
             if id_str == "typing.Optional":
                 elts.append(ast.Constant(value=None))
@@ -186,33 +191,7 @@ class TypeAnnotationTransformer(ast.NodeTransformer):
         return ast.Subscript(value, self.visit(node.slice), node.ctx), False
 
     def visit_Subscript(self, node: ast.Subscript) -> ast.AST:
-        value = self.visit(node.value)
-        id_str = _get_ast_dotted_name(value)
-        if id_str is None:
-            return ast.Subscript(value, self.visit(node.slice), node.ctx)
-        if id_str in ("typing.Optional", "typing.Union", "typing.Literal"):
-            elts = node.slice
-            if isinstance(node.slice, ast.Index):
-                elts = elts.value
-            if isinstance(elts, ast.Tuple):
-                elts = elts.elts
-            else:
-                elts = [node.slice]
-            elts = [self.visit(x) for x in elts]
-            if id_str == "typing.Optional":
-                elts.append(ast.Constant(value=None))
-            elif id_str == "typing.Literal":
-                elts = [
-                    ast.Subscript(value, x, node.ctx)
-                    if not self.concise_literal or _retain_explicit_literal(x)
-                    else x
-                    for x in elts
-                ]
-            result = functools.reduce(
-                (lambda left, right: ast.BinOp(left, ast.BitOr(), right)), elts
-            )
-            return result
-        return ast.Subscript(value, self.visit(node.slice), node.ctx)
+        return self._transform_subscript_pep604(node)[0]
 
 
 def _monkey_patch_python_domain_to_transform_type_annotations():
@@ -220,7 +199,7 @@ def _monkey_patch_python_domain_to_transform_type_annotations():
     orig_parse_annotation = sphinx.domains.python._parse_annotation
 
     def _parse_annotation(annotation: str, env: sphinx.environment.BuildEnvironment):
-        if not env._sphinx_immaterial_python_type_transform:
+        if not env._sphinx_immaterial_python_type_transform:  # type: ignore
             return orig_parse_annotation(annotation, env)
         try:
             orig_ast_parse = sphinx.domains.python.ast_parse
@@ -229,14 +208,14 @@ def _monkey_patch_python_domain_to_transform_type_annotations():
                 tree = orig_ast_parse(annotation)
                 config = env.config
                 transformer = TypeAnnotationTransformer()
-                transformer.aliases = env._sphinx_immaterial_python_type_aliases
+                transformer.aliases = env._sphinx_immaterial_python_type_aliases  # type: ignore
                 transformer.pep604 = config.python_transform_type_annotations_pep604
                 transformer.concise_literal = (
                     config.python_transform_type_annotations_concise_literal
                 )
                 return ast.fix_missing_locations(transformer.visit(tree))
 
-            sphinx.domains.python.ast_parse = ast_parse
+            sphinx.domains.python.ast_parse = ast_parse  # type: ignore
             return orig_parse_annotation(annotation, env)
         finally:
             sphinx.domains.python.ast_parse = orig_ast_parse
@@ -267,9 +246,9 @@ def _builder_inited(app: sphinx.application.Sphinx):
             "requires python_transform_type_annotations_pep604=True"
         )
 
-    app.env._sphinx_immaterial_python_type_aliases = aliases
+    app.env._sphinx_immaterial_python_type_aliases = aliases  # type: ignore
 
-    app.env._sphinx_immaterial_python_type_transform = (
+    app.env._sphinx_immaterial_python_type_transform = (  # type: ignore
         aliases or config.python_transform_type_annotations_pep604
     )
 

@@ -10,25 +10,37 @@ cases.
 """
 
 import re
-import typing
+from typing import List, Dict, NamedTuple, Optional
 
 import docutils.nodes
 import sphinx.application
 import sphinx.environment
 import sphinx.addnodes
+from typing_extensions import TypedDict
 
 
-class ObjectInfo(typing.NamedTuple):
+class ObjectInfo(NamedTuple):
     url: str
     desc: str
     object_type: str
 
 
-def _strip_template_arguments(s: str) -> typing.Optional[str]:
+class ExternalCppReference(TypedDict):
+    url: str
+    """URL to use as the target for references to this symbol."""
+
+    object_type: str
+    """C++ object type."""
+
+    desc: str
+    """Description text to include in the tooltip."""
+
+
+def _strip_template_arguments(s: str) -> Optional[str]:
     s = s.lstrip(":")
     prev_index = 0
     retained_parts = []
-    nested = []
+    nested: List[str] = []
     pattern = re.compile("[()<>]")
     s_len = len(s)
     while prev_index < s_len:
@@ -72,7 +84,7 @@ def _missing_reference(
     env: sphinx.environment.BuildEnvironment,
     node: sphinx.addnodes.pending_xref,
     contnode: docutils.nodes.TextElement,
-) -> typing.Optional[docutils.nodes.reference]:
+) -> Optional[docutils.nodes.reference]:
 
     data = get_mappings(app)
 
@@ -80,6 +92,8 @@ def _missing_reference(
         return None
 
     target = _strip_template_arguments(node["reftarget"])
+    if target is None:
+        return None
     result = data.get(target)
     if result is None:
         return None
@@ -96,10 +110,12 @@ def _missing_reference(
     return newnode
 
 
-def get_mappings(app: sphinx.application.Sphinx) -> typing.Dict[str, ObjectInfo]:
-    cpp_objects = getattr(app.env, "cppreference_objects", None)
+def get_mappings(app: sphinx.application.Sphinx) -> Dict[str, ObjectInfo]:
+    env = app.env
+    assert env is not None
+    cpp_objects = getattr(env, "cppreference_objects", None)
     if cpp_objects is None:
-        cpp_objects = app.env.cppreference_objects = {}
+        cpp_objects = env.cppreference_objects = {}  # type: ignore
     return cpp_objects
 
 
@@ -116,7 +132,7 @@ def setup(app: sphinx.application.Sphinx):
     app.add_config_value(
         name="external_cpp_references",
         default={},
-        types=(typing.Dict[str, "ExternalCppReference"],),
+        types=(Dict[str, "ExternalCppReference"],),
         rebuild="env",
     )
     return {"parallel_read_safe": True, "parallel_write_safe": True}

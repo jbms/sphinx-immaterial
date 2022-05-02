@@ -9,7 +9,7 @@ import io
 import json
 import re
 import subprocess
-from typing import Dict, List, Any, Union, Optional
+from typing import Dict, List, Any, Union, Optional, cast, Tuple
 
 import docutils.nodes
 import sphinx.addnodes
@@ -29,7 +29,7 @@ _FORMATTED_SIGNATURES = "sphinx_immaterial_formatted_signatures"
 
 def _get_collected_signatures(
     env: sphinx.environment.BuildEnvironment,
-) -> Dict[str, Dict[str, str]]:
+) -> Dict[Tuple[str, str], Dict[str, str]]:
     attr = "_sphinx_immaterial_collected_signatures_to_format"
     x = getattr(env, attr, None)
     if x is None:
@@ -60,8 +60,8 @@ class CollectSignaturesTransform(sphinx.transforms.SphinxTransform):
         collected_signatures = _get_collected_signatures(self.env)
         for node in self.document.traverse(sphinx.addnodes.desc_signature):
             parent = node.parent
-            domain = parent.get("domain")
-            objtype = parent.get("objtype")
+            domain: str = parent.get("domain")
+            objtype: str = parent.get("objtype")
             options = apidoc_formatting.get_object_description_options(
                 self.env, domain, objtype
             )
@@ -81,7 +81,7 @@ class CollectSignaturesTransform(sphinx.transforms.SphinxTransform):
 
 
 def _append_child_copy_source_info(
-    target: docutils.nodes.Node,
+    target: docutils.nodes.Element,
     source_node: docutils.nodes.Node,
     node: docutils.nodes.Node,
 ):
@@ -93,7 +93,7 @@ def _append_child_copy_source_info(
 
 
 def _extend_children_copy_source_info(
-    target: docutils.nodes.Node,
+    target: docutils.nodes.Element,
     source_node: docutils.nodes.Node,
     children: List[docutils.nodes.Node],
 ):
@@ -133,20 +133,73 @@ def _format_signature(node: sphinx.addnodes.desc_signature, formatted: str) -> N
     seen_name = False
     name_text_node_replacement = None
 
+    def process_text(node: docutils.nodes.Text):
+        nonlocal prev_text_node
+        new_text = format_next_text(node.astext())
+        new_node = SignatureText(new_text)
+        if not seen_name:
+            prev_text_node = new_node
+        new_node.source = node.source
+        new_node.line = node.line
+        return [new_node]
+
+    def process_desc_signature_line(node: sphinx.addnodes.desc_signature_line):
+        # Exclude the `desc_signature_line` element and just include its children
+        # directly.
+        new_children = []
+        for child in node.children:
+            new_children.extend(process(child))
+        return new_children
+
+    def process_pending_xref(node: sphinx.addnodes.pending_xref):
+        node = cast(sphinx.addnodes.pending_xref, node)
+        old_children = list(node.children)
+        del node[:]
+        for child in old_children:
+            _extend_children_copy_source_info(node, child, process(child))
+        return [node]
+
+    def convert_desc_parameter(
+        node: sphinx.addnodes.desc_parameter,
+    ) -> docutils.nodes.inline:
+        new_node = docutils.nodes.inline("", "")
+        new_node["classes"] = node["classes"]
+        for child in node.children:
+            _append_child_copy_source_info(new_node, child, child)
+        new_node.source = node.source
+        new_node.line = node.line
+        return new_node
+
+    def convert_desc_parameterlist(
+        node: sphinx.addnodes.desc_parameterlist,
+    ) -> docutils.nodes.inline:
+        # First replace with other representation
+        new_node = docutils.nodes.inline("", "")
+        new_node += sphinx.addnodes.desc_sig_punctuation("(", "(")
+        for i, child in enumerate(node.children):
+            if i != 0:
+                new_node += sphinx.addnodes.desc_sig_punctuation(",", ",")
+            _append_child_copy_source_info(new_node, child, child)
+        new_node += sphinx.addnodes.desc_sig_punctuation(")", ")")
+        return new_node
+
+    def process_text_element(node: docutils.nodes.TextElement):
+        assert node.child_text_separator == ""
+        old_children = list(node.children)
+        del node[:]
+        for child in old_children:
+            _extend_children_copy_source_info(node, child, process(child))
+        return [node]
+
     def process(node: docutils.nodes.Node):
-        nonlocal prev_text_node, seen_name, name_text_node_replacement
+        nonlocal seen_name, name_text_node_replacement
         if isinstance(node, docutils.nodes.Text):
-            new_text = format_next_text(node.astext())
-            new_node = SignatureText(new_text)
-            if not seen_name:
-                prev_text_node = new_node
-            new_node.source = node.source
-            new_node.line = node.line
-            return [new_node]
+            return process_text(node)
         if not seen_name:
             if isinstance(node, sphinx.addnodes.desc_addname) or (
                 isinstance(node, sphinx.addnodes.desc_name)
-                and "sig-name-nonprimary" not in node["classes"]
+                and "sig-name-nonprimary"
+                not in cast(docutils.nodes.Element, node)["classes"]
             ):
                 seen_name = True
                 if prev_text_node is not None:
@@ -160,43 +213,15 @@ def _format_signature(node: sphinx.addnodes.desc_signature, formatted: str) -> N
                         )
 
         if isinstance(node, sphinx.addnodes.desc_signature_line):
-            # Exclude the `desc_signature_line` element and just include its children
-            # directly.
-            new_children = []
-            for child in node.children:
-                new_children.extend(process(child))
-            return new_children
+            return process_desc_signature_line(node)
         if isinstance(node, sphinx.addnodes.pending_xref):
-            old_children = list(node.children)
-            del node[:]
-            for child in old_children:
-                _extend_children_copy_source_info(node, child, process(child))
-            return [node]
+            return process_pending_xref(node)
         if isinstance(node, sphinx.addnodes.desc_parameter):
-            new_node = docutils.nodes.inline("", "")
-            new_node["classes"] = node["classes"]
-            for child in node.children:
-                _append_child_copy_source_info(new_node, child, child)
-            new_node.source = node.source
-            new_node.line = node.line
-            node = new_node
+            node = convert_desc_parameter(node)
         elif isinstance(node, sphinx.addnodes.desc_parameterlist):
-            # First replace with other representation
-            new_node = docutils.nodes.inline("", "")
-            new_node += sphinx.addnodes.desc_sig_punctuation("(", "(")
-            for i, child in enumerate(node.children):
-                if i != 0:
-                    new_node += sphinx.addnodes.desc_sig_punctuation(",", ",")
-                _append_child_copy_source_info(new_node, child, child)
-            new_node += sphinx.addnodes.desc_sig_punctuation(")", ")")
-            node = new_node
+            node = convert_desc_parameterlist(node)
         if isinstance(node, docutils.nodes.TextElement):
-            assert node.child_text_separator == ""
-            old_children = list(node.children)
-            del node[:]
-            for child in old_children:
-                _extend_children_copy_source_info(node, child, process(child))
-            return [node]
+            return process_text_element(node)
         raise ValueError("unexpected child")
 
     node["is_multiline"] = False
@@ -258,14 +283,14 @@ def env_updated(
     all_signatures = _get_collected_signatures(env)
     formatted_signatures = {}
 
-    signatures_for_style = collections.defaultdict(dict)
+    signatures_for_style: Dict[str, Dict[str, str]] = collections.defaultdict(dict)
 
     for (domain, objtype), signatures in all_signatures.items():
         options = apidoc_formatting.get_object_description_options(env, domain, objtype)
 
         style: ClangFormatStyle = options["clang_format_style"]
         if isinstance(style, str):
-            style = {"BasedOnStyle"}
+            style = {"BasedOnStyle": style}
         else:
             style = style.copy()
 
@@ -322,7 +347,7 @@ def setup(app: sphinx.application.Sphinx):
 
     app.connect("env-merge-info", merge_info)
     app.connect("env-updated", env_updated)
-    app.add_node(SignatureText, html=(visit_signature_text, depart_signature_text))
+    app.add_node(SignatureText, html=(visit_signature_text, depart_signature_text))  # type: ignore
     app.add_config_value(
         name="clang_format_command",
         default="clang-format",

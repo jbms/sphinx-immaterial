@@ -10,42 +10,50 @@
 """
 
 import io
-from typing import cast, Any, Dict, IO, List, Tuple, Union
+from typing import cast, Any, Dict, IO, List, Tuple, Union, Optional
 
+import sphinx
 import sphinx.search
 import sphinx.application
+import sphinx.builders.html
+
+
+def _get_all_synopses(
+    env: sphinx.environment.BuildEnvironment,
+) -> Dict[Tuple[Optional[str], str], str]:
+    synopses: Dict[Tuple[Optional[str], str], str] = {}
+    for domain_name, domain in env.domains.items():
+        get_object_synopses = getattr(domain, "get_object_synopses", None)
+        if get_object_synopses is not None:
+            for key, synopsis in get_object_synopses():
+                synopses.setdefault(key, synopsis or "")
+        for (
+            name,
+            dispname,
+            objtype,
+            docname,
+            anchor,
+            priority,
+        ) in domain.get_objects():
+            synopses.setdefault((docname, anchor), "")
+    return synopses
 
 
 class IndexBuilder(sphinx.search.IndexBuilder):
-    def get_objects(
+    def get_objects(  # type: ignore
         self, fn2index: Dict[str, int]
     ) -> Dict[
         str,
         Union[
             # From sphinx 4.3 onwards the children dict is now a list
-            Dict[str, Tuple[int, int, int, str]],
-            List[Tuple[int, int, int, str, str]],
+            Dict[str, Tuple[int, int, int, Union[int, str]]],
+            List[Tuple[int, int, int, Union[int, str], str]],
         ],
     ]:
         rv = super().get_objects(fn2index)
         onames = self._objnames
         docindex_to_docname = {i: docname for docname, i in fn2index.items()}
-        synopses = {}
-        all_anchors = {}
-        for domain_name, domain in self.env.domains.items():
-            get_object_synopses = getattr(domain, "get_object_synopses", None)
-            if get_object_synopses is not None:
-                for key, synopsis in get_object_synopses():
-                    synopses.setdefault(key, synopsis or "")
-            for (
-                name,
-                dispname,
-                objtype,
-                docname,
-                anchor,
-                priority,
-            ) in domain.get_objects():
-                synopses.setdefault((docname, anchor), "")
+        synopses = _get_all_synopses(self.env)
 
         for prefix, prefix_value in rv.items():
             if prefix:
@@ -56,7 +64,7 @@ class IndexBuilder(sphinx.search.IndexBuilder):
                 # From sphinx 4.3 onwards the children dict is now a list
                 children = prefix_value
             else:
-                children = [(*values, name) for name, values in prefix_value.items()]
+                children = [(*values, name) for name, values in prefix_value.items()]  # type: ignore
             for i, (docindex, typeindex, prio, shortanchor, name) in enumerate(
                 children
             ):
@@ -90,30 +98,31 @@ class IndexBuilder(sphinx.search.IndexBuilder):
                         synopsis = synopses.get((docname, anchor))
 
                 # Encode `anchor` into a lossless `shortanchor`.
+                new_shortanchor: Union[int, str]
                 if anchor == full_name:
-                    shortanchor = 0
+                    new_shortanchor = 0
                 elif anchor == objtype + "-" + full_name:
-                    shortanchor = 1
+                    new_shortanchor = 1
                 else:
-                    shortanchor = anchor
+                    new_shortanchor = anchor
 
                 synopsis = synopsis or ""
 
                 if sphinx.version_info >= (4, 3):
-                    prefix_value[i] = (
-                        docindex,
+                    prefix_value[i] = (  # type: ignore
+                        docindex,  # type: ignore
                         typeindex,
                         prio,
-                        shortanchor,
+                        new_shortanchor,
                         name,
                         synopsis,
                     )
                 else:
-                    prefix_value[name] = (
+                    prefix_value[name] = (  # type: ignore
                         docindex,
                         typeindex,
                         prio,
-                        shortanchor,
+                        new_shortanchor,
                         synopsis,
                     )
         return cast(Any, rv)
@@ -139,6 +148,7 @@ class IndexBuilder(sphinx.search.IndexBuilder):
         # Reconstruct `docnames` and `filenames` from `docurls` since they are
         # expected by `IndexBuilder`.
         builder = self.env.app.builder
+        assert isinstance(builder, sphinx.builders.html.StandaloneHTMLBuilder)
         url_to_docname = {
             builder.get_target_uri(docname): docname
             for docname in self.env.all_docs.keys()

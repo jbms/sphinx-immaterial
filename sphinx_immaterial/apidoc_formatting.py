@@ -18,6 +18,8 @@ import docutils.nodes
 import pydantic
 import sphinx.addnodes
 import sphinx.application
+import sphinx.directives
+import sphinx.environment
 import sphinx.locale
 import sphinx.util.logging
 import sphinx.writers.html5
@@ -39,7 +41,7 @@ else:
 class HTMLTranslatorMixin(HTMLTranslatorMixinBase):  # pylint: disable=abstract-method
     """Mixin for HTMLTranslator that adds additional CSS classes."""
 
-    def visit_desc(self, node: sphinx.addnodes.desc) -> None:
+    def visit_desc(self, node: docutils.nodes.Element) -> None:
         # Object description node
 
         # These are converted to `<dl>` elements with the domain and objtype
@@ -50,33 +52,29 @@ class HTMLTranslatorMixin(HTMLTranslatorMixinBase):  # pylint: disable=abstract-
         node["classes"].append("objdesc")
         super().visit_desc(node)
 
-    def visit_desc_type(self, node: sphinx.addnodes.desc_type) -> None:
+    def visit_desc_type(self, node: docutils.nodes.Element) -> None:
         self.body.append(
             self.starttag(node, tagname="span", suffix="", CLASS="desctype")
         )
 
-    def depart_desc_type(self, node: sphinx.addnodes.desc_type) -> None:
+    def depart_desc_type(self, node: docutils.nodes.Element) -> None:
         self.body.append("</span>")
 
-    def visit_desc_parameterlist(
-        self, node: sphinx.addnodes.desc_parameterlist
-    ) -> None:
+    def visit_desc_parameterlist(self, node: docutils.nodes.Element) -> None:
         super().visit_desc_parameterlist(node)
         open_paren, _ = node.get("parens", ("(", ")"))
         self.body[-1] = self.body[-1].replace("(", open_paren)
 
-    def depart_desc_parameterlist(
-        self, node: sphinx.addnodes.desc_parameterlist
-    ) -> None:
+    def depart_desc_parameterlist(self, node: docutils.nodes.Element) -> None:
         super().depart_desc_parameterlist(node)
         _, close_paren = node.get("parens", ("(", ")"))
         self.body[-1] = self.body[-1].replace(")", close_paren)
 
-    def visit_desc_parameter(self, node: sphinx.addnodes.desc_parameter) -> None:
+    def visit_desc_parameter(self, node: docutils.nodes.Element) -> None:
         self.body.append('<span class="sig-param-decl">')
         super().visit_desc_parameter(node)
 
-    def depart_desc_parameter(self, node: sphinx.addnodes.desc_parameter) -> None:
+    def depart_desc_parameter(self, node: docutils.nodes.Element) -> None:
         super().depart_desc_parameter(node)
         self.body.append("</span>")
 
@@ -85,7 +83,7 @@ class HTMLTranslatorMixin(HTMLTranslatorMixinBase):  # pylint: disable=abstract-
         super().depart_field_name(node)
 
     def depart_term(self, node: docutils.nodes.Element) -> None:
-        if "ids" in node:
+        if "ids" in node.attributes:
             self.add_permalink_ref(node, _("Permalink to this definition"))
         super().depart_term(node)
 
@@ -134,12 +132,12 @@ class HTMLTranslatorMixin(HTMLTranslatorMixinBase):  # pylint: disable=abstract-
     #
     # Wrap it in a `<code>` element with the "highlight" class to ensure it
     # displays properly as an inline code literal.
-    def visit_desc_inline(self, node: sphinx.addnodes.desc_inline) -> None:
+    def visit_desc_inline(self, node: docutils.nodes.Element) -> None:
         self.body.append(
             self.starttag(node, tagname="code", suffix="", CLASS="highlight")
         )
 
-    def depart_desc_inline(self, node: sphinx.addnodes.desc_inline) -> None:
+    def depart_desc_inline(self, node: docutils.nodes.Element) -> None:
         self.body.append("</code>")
 
 
@@ -160,7 +158,9 @@ def _wrap_signatures(
     objtype: str,
     content: docutils.nodes.Element,
 ) -> None:
-    options = get_object_description_options(app.env, domain, objtype)
+    env = app.env
+    assert env is not None
+    options = get_object_description_options(env, domain, objtype)
     if (
         not options["wrap_signatures_with_css"]
         or options.get("clang_format_style") is not None
@@ -168,6 +168,7 @@ def _wrap_signatures(
         return
     signatures = content.parent[:-1]
     for signature in signatures:
+        assert isinstance(signature, sphinx.addnodes.desc_signature)
         _wrap_signature(signature, options["wrap_signatures_column_limit"])
 
 
@@ -195,6 +196,7 @@ def _monkey_patch_object_description_to_include_fields_in_toc():
             if not isinstance(child, docutils.nodes.field_list):
                 continue
             for field in child:
+                assert isinstance(field, docutils.nodes.field)
                 field_name = cast(docutils.nodes.field_name, field[0])
                 if field_name["ids"]:
                     continue
@@ -331,7 +333,7 @@ class RegisteredObjectDescriptionOption(NamedTuple):
 
 
 def add_object_description_option(
-    app: sphinx.application.Sphinx, name: str, default: Any, type_constraint: type = Any
+    app: sphinx.application.Sphinx, name: str, default: Any, type_constraint: Any = Any
 ) -> None:
     registry = get_object_description_option_registry(app)
     if name in registry:
@@ -346,7 +348,7 @@ def get_object_description_options(
     env: sphinx.environment.BuildEnvironment, domain: str, object_type: str
 ) -> ObjectDescriptionOptions:
 
-    return env.app._sphinx_immaterial_get_object_description_options(
+    return env.app._sphinx_immaterial_get_object_description_options(  # type: ignore
         domain, object_type
     )
 
@@ -414,7 +416,7 @@ def _builder_inited(app: sphinx.application.Sphinx) -> None:
         full_options.update(domain=domain, object_type=object_type)
         return full_options
 
-    app._sphinx_immaterial_get_object_description_options = get_options
+    app._sphinx_immaterial_get_object_description_options = get_options  # type: ignore
 
 
 def setup(app: sphinx.application.Sphinx):

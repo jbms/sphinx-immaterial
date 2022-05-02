@@ -14,10 +14,9 @@ LOGGER = getLogger(__name__)
 
 def is_md_tab_type(node: nodes.Node, name: str):
     """Check if a node is a certain tabbed component."""
-    try:
-        return node.get("type") == name
-    except AttributeError:
+    if not isinstance(node, nodes.Element):
         return False
+    return node.get("type") == name
 
 
 class content_tab_set(nodes.container):
@@ -123,22 +122,25 @@ def depart_tab_label(self, node):
 
 def visit_tab_set(self: HTMLTranslator, node: content_tab_set):
     # increment tab set counter
-    self.tab_set_count = getattr(self, "tab_set_count", 0) + 1
+    self.tab_set_count = getattr(self, "tab_set_count", 0) + 1  # type: ignore
 
     # configure tab set's div attributes
-    tab_set_identity = f"__tabbed_{self.tab_set_count}"
-    attributes = {"data-tabs": f"{self.tab_set_count}:{len(node.children)}"}
+    tab_set_identity = f"__tabbed_{self.tab_set_count}"  # type: ignore
+    attributes = {"data-tabs": f"{self.tab_set_count}:{len(node.children)}"}  # type: ignore
     self.body.append(self.starttag(node, "div", **attributes))
 
     # walkabout the children
     tab_label_div = nodes.container("", is_div=True, classes=["tabbed-labels"])
     tab_content_div = nodes.container("", is_div=True, classes=["tabbed-content"])
     for tab_count, tab_item in enumerate(node.children):
+        assert isinstance(tab_item, nodes.Element)
         try:
             tab_label, tab_block = tab_item.children
         except ValueError as exc:
             raise ValueError(f"md-tab-item has no children:\n{repr(tab_item)}") from exc
         tab_item_identity = tab_set_identity + f"_{tab_count + 1}"
+
+        assert isinstance(tab_label, nodes.Element)
 
         # create: <input checked="checked" id="id" type="radio">
         self.body.append(
