@@ -17,7 +17,7 @@
       
     
     
-      <link rel="stylesheet" href="_static/stylesheets/main.425dc53b.min.css">
+      <link rel="stylesheet" href="_static/stylesheets/main.8674dc46.min.css">
       
         
         <link rel="stylesheet" href="_static/stylesheets/palette.92c9fe4a.min.css">
@@ -527,6 +527,20 @@
 
             
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="json.html" class="md-nav__link">
+        <span title="json (document)" class="md-ellipsis">JSON domain</span>
+      </a>
+    </li>
+  
+
+            
+          
         </ul>
       </nav>
     </li>
@@ -846,7 +860,11 @@ build will fail).</p>
 which case normal <code class="docutils literal notranslate"><span class="pre">PATH</span></code> resolution applies, or a path to the executable.
 Defaults to <code class="code highlight python docutils literal highlight-python"><span class="s2">&quot;clang-format&quot;</span></code>.</p>
 <p>To ensure that a consistent version of <code class="docutils literal notranslate"><span class="pre">clang-format</span></code> is available when
-building your documentation, add the <a class="reference external" href="https://pypi.org/project/clang-format/">clang-format PyPI package</a> as a dependency.</p>
+building your documentation, add the <a class="reference external" href="https://pypi.org/project/clang-format/">clang-format PyPI package</a> as a dependency, or depend on the
+<code class="docutils literal notranslate"><span class="pre">clang-format</span></code> optional feature of this package:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><code>pip install sphinx-immaterial<span class="o">[</span>clang-format<span class="o">]</span>
+</code></pre></div>
+</div>
 </dd></dl>
 
 <div class="results docutils container">
@@ -880,7 +898,7 @@ building your documentation, add the <a class="reference external" href="https:/
   <small>
     
       Last update:
-      Apr 30, 2022
+      May 02, 2022
     
   </small>
 </div>

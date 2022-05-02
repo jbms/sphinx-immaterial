@@ -17,7 +17,7 @@
       
     
     
-      <link rel="stylesheet" href="_static/stylesheets/main.425dc53b.min.css">
+      <link rel="stylesheet" href="_static/stylesheets/main.8674dc46.min.css">
       
         
         <link rel="stylesheet" href="_static/stylesheets/palette.92c9fe4a.min.css">
@@ -353,7 +353,7 @@
         
           <li class="md-nav__item">
   <a href="#role-keys" class="md-nav__link">
-    <span title="keys (reStructuredText role)" class="md-ellipsis">:<wbr>keys:<wbr></span>
+    <span aria-label="reStructuredText role" class="objinfo-icon objinfo-icon__procedure" title="reStructuredText role">R</span><span title="keys (reStructuredText role)" class="md-ellipsis">:<wbr>keys:<wbr></span>
   </a>
   
 </li>
@@ -525,6 +525,20 @@
 
             
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="json.html" class="md-nav__link">
+        <span title="json (document)" class="md-ellipsis">JSON domain</span>
+      </a>
+    </li>
+  
+
+            
+          
         </ul>
       </nav>
     </li>
@@ -677,7 +691,7 @@
         
           <li class="md-nav__item">
   <a href="#role-keys" class="md-nav__link">
-    <span title="keys (reStructuredText role)" class="md-ellipsis">:<wbr>keys:<wbr></span>
+    <span aria-label="reStructuredText role" class="objinfo-icon objinfo-icon__procedure" title="reStructuredText role">R</span><span title="keys (reStructuredText role)" class="md-ellipsis">:<wbr>keys:<wbr></span>
   </a>
   
 </li>
@@ -775,11 +789,13 @@ CSS is not included with this extension</summary><p>To add CSS to a theme that d
 </details><h2 id="markdown-extension-pre-requisite"><span id="pymdownx-keys-req"></span>Markdown extension pre-requisite<a class="headerlink" href="#markdown-extension-pre-requisite" title="Permalink to this headline">¶</a></h2>
 <p>This pre-requisite does not mean Markdown support is enabled. However, this extension
 does import the <code class="docutils literal notranslate"><span class="pre">pymdownx.keymap_db</span></code> module to use for the <a class="reference internal" href="#confval-keys_map" title="keys_map (configuration value) — An additional dict where key: value pairs consist of:"><code class="xref any std std-confval docutils literal notranslate"><span class="pre">keys_map</span></code></a> option’s defaults.</p>
-<p>To use this extension, the pymdownx package needs to be installed.</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><code>python -m pip install pymdown-extensions
+<p>To use this extension, the <a class="reference external" href="https://pypi.org/project/pymdown-extensions/">pymdown-extensions</a> package needs to be installed.
+You can either add it as a dependency directly, or depend on the <code class="docutils literal notranslate"><span class="pre">keys</span></code>
+optional feature of this package:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><code>python -m pip install sphinx-immaterial<span class="o">[</span>keys<span class="o">]</span>
 </code></pre></div>
 </div>
-<p>And be sure to include the extension in your conf.py file.</p>
+<p>And be sure to include the extension in your <code class="file docutils literal notranslate"><span class="pre">conf.py</span></code> file.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="n">extensions</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;sphinx_immaterial.kbd_keys&quot;</span><span class="p">]</span>
 </code></pre></div>
 </div>
@@ -931,7 +947,7 @@ spaces in a lower case form of the given text. Therefore, entering
   <small>
     
       Last update:
-      Apr 30, 2022
+      May 02, 2022
     
   </small>
 </div>
