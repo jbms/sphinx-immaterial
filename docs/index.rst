@@ -84,6 +84,7 @@ or ``theme.conf`` for more details.
     cpp
     external_cpp_references
     cppreference
+    json
 
 .. toctree::
     :caption: Examples and Uses

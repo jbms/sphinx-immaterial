@@ -51,6 +51,7 @@ extensions = [
     "sphinx_immaterial.kbd_keys",
     "sphinx_immaterial.format_signatures",
     "sphinx_immaterial.cppreference",
+    "sphinx_immaterial.json_domain",
     "sphinx_jinja",
 ]
 
@@ -263,6 +264,9 @@ python_type_aliases = {
 jinja_contexts = {
     "sys": {"sys": sys},
 }
+
+
+json_schemas = ["index_transform_schema.yml", "inheritance_schema.yml"]
 
 
 def _validate_parallel_build(app):

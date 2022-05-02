@@ -215,6 +215,12 @@ setuptools.setup(
     setup_requires=[
         "setuptools_scm>=6.3.2",
     ],
+    extras_require={
+        "json": ["pyyaml"],
+        "jsonschema_validation": ["jsonschema"],
+        "clang-format": ["clang-format"],
+        "keys": ["pymdown-extensions"],
+    },
     cmdclass=dict(
         sdist=SdistCommand,
         build=BuildCommand,
