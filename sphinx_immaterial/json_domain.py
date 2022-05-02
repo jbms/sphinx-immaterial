@@ -198,14 +198,12 @@ def yaml_load(  # pylint: disable=invalid-name
 ) -> Tuple[Any, YamlSourceInfoMap]:
     """Loads a yaml file, preserving object key order and source line information.
 
-    Args:
-      stream: File-like stream to read from.
-      source_path: Path to source file for inclusion in source info map.
-      Loader: YAML loader class.
-      object_pairs_hook: Function to obtain object representation.
+    :param stream: File-like stream to read from.
+    :param source_path: Path to source file for inclusion in source info map.
+    :param Loader: YAML loader class.
+    :param object_pairs_hook: Function to obtain object representation.
 
-    Returns:
-      Tuple of loaded YAML value and source info map.
+    :returns: Tuple of loaded YAML value and source info map.
     """
     source_info_map: YamlSourceInfoMap = {}
 
