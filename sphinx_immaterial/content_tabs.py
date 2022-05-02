@@ -122,7 +122,7 @@ def depart_tab_label(self, node):
 
 def visit_tab_set(self: HTMLTranslator, node: content_tab_set):
     # increment tab set counter
-    self.tab_set_count = getattr(self, "tab_set_count", 0) + 1  # type: ignore
+    self.tab_set_count: int = getattr(self, "tab_set_count", 0) + 1  # type: ignore
 
     # configure tab set's div attributes
     tab_set_identity = f"__tabbed_{self.tab_set_count}"  # type: ignore
