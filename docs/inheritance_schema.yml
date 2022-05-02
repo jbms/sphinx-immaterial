@@ -1,0 +1,52 @@
+$schema: http://json-schema.org/draft-07/schema#
+$id: Pet
+title: "Represents a generic pet."
+type: object
+properties:
+  type:
+    type: string
+    title: Type of pet.
+  name:
+    type: string
+    title: Name of the pet.
+  age:
+    type: number
+    title: Age of the pet in years.
+    minimum: 0
+required:
+- type
+- name
+
+definitions:
+  dog:
+    $id: Dog
+    title: "Represents a dog."
+    allOf:
+    - $ref: Pet
+    - type: object
+      properties:
+        type:
+          const: "dog"
+        bark_volume:
+          type: number
+          title: "Bark volume in dB."
+        favorite_walk:
+          type: string
+          title: "Favorite place to walk."
+  cat:
+    $id: Cat
+    title: "Represents a cat."
+    allOf:
+    - $ref: Pet
+    - type: object
+      properties:
+        type:
+          const: "cat"
+        meow_volume:
+          type: number
+          title: "Meow volume in dB."
+        favorite_scratching_post:
+          type: string
+          title: "Favorite place to scratch."
+    examples:
+    - {"type": "cat", "name": "Tom", "age": 10, "meow_volume": 45}

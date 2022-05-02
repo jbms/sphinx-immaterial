@@ -146,6 +146,11 @@ $objinfo-icon-size: 16px;
           font-size: 1em;
         }
       }
+      // JSON domain uses noindent class to avoid an extra level of
+      // nesting.
+      dd.noindent {
+        margin-left: 0;
+      }
     }
   }
 

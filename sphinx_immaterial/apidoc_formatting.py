@@ -310,6 +310,9 @@ DEFAULT_OBJECT_DESCRIPTION_OPTIONS: List[Tuple[str, dict]] = [
             "generate_synopses": "first_sentence",
         },
     ),
+    ("rst:directive", {"toc_icon_class": "data", "toc_icon_text": "D"}),
+    ("rst:directive:option", {"toc_icon_class": "sub-data", "toc_icon_text": "o"}),
+    ("rst:role", {"toc_icon_class": "procedure", "toc_icon_text": "R"}),
 ]
 
 

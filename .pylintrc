@@ -107,7 +107,10 @@ disable=raw-checker-failed,
         too-many-ancestors,
         too-many-nested-blocks,
         global-statement,
-        too-many-lines
+        too-many-lines,
+        too-many-instance-attributes,
+        bad-option-value,
+        too-many-return-statements
 
 # Enable the message, report, category or checker with the given id(s). You can
 # either give multiple identifier separated by comma (,) or put this option

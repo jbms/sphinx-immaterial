@@ -99,7 +99,12 @@ which the extension should be used.
 
    To ensure that a consistent version of ``clang-format`` is available when
    building your documentation, add the `clang-format PyPI package
-   <https://pypi.org/project/clang-format/>`__ as a dependency.
+   <https://pypi.org/project/clang-format/>`__ as a dependency, or depend on the
+   ``clang-format`` optional feature of this package:
+
+   .. code-block:: shell
+
+      pip install sphinx-immaterial[clang-format]
 
 .. rst-example::
 

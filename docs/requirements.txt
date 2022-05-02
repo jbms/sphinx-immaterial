@@ -1,6 +1,3 @@
-# The sphinx docs theme to use
-sphinx_immaterial
+sphinx_immaterial[json,clang-format,keys]
 sphinxcontrib-details-directive
-pymdown-extensions
-clang-format
 sphinx-jinja

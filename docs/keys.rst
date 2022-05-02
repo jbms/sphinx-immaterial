@@ -42,13 +42,16 @@ Markdown extension pre-requisite
 This pre-requisite does not mean Markdown support is enabled. However, this extension
 does import the ``pymdownx.keymap_db`` module to use for the `keys_map` option's defaults.
 
-To use this extension, the pymdownx package needs to be installed.
+To use this extension, the `pymdown-extensions
+<https://pypi.org/project/pymdown-extensions/>`__ package needs to be installed.
+You can either add it as a dependency directly, or depend on the ``keys``
+optional feature of this package:
 
 .. code-block:: shell
 
-    python -m pip install pymdown-extensions
+    python -m pip install sphinx-immaterial[keys]
 
-And be sure to include the extension in your conf.py file.
+And be sure to include the extension in your :file:`conf.py` file.
 
 .. code-block:: python
 

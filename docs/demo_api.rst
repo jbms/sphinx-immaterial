@@ -221,14 +221,15 @@ Generated Index
 .. rst-example::
 
    A generated index (:ref:`genindex`) is part of the Sphinx build process, unless
-   `html_use_index` is set to `False`.
+   `html_use_index` is set to :python:`False`.
 
    Sphinx also allows indexing by domain (programming language), as seen in the
    :ref:`modindex` for the demo Python module that is documented on this page.
 
 .. note::
-   This theme does not support a separate search page (usually referenced with
-   ``:ref:`search``), since the search is accessible in the site's navigation bar.
+
+   This theme does not support a separate search page, since the search
+   functionality is accessible in the site's navigation bar.
 
 Data
 ====
