@@ -27,7 +27,7 @@ const config = configuration()
  * @returns The full URL.
  */
 function getAbsoluteUrl(path: string): string {
-  return `${config.base}/${path}`
+  return `${config.base}${path}`
 }
 
 let searchIndexLoaded: Promise<void> | undefined
