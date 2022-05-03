@@ -1,2 +1,12 @@
 [build-system]
 requires = ["setuptools>=42", "wheel", "setuptools_scm"]
+
+[tool.pyright]
+reportUnnecessaryTypeIgnoreComment = true
+reportGeneralTypeIssues = false
+reportOptionalSubscript = false
+reportOptionalMemberAccess = false
+reportUnboundVariable = false
+reportPrivateImportUsage = false
+include = ["sphinx_immaterial/**"]
+exclude = ["node_modules/**", "setup.py"]

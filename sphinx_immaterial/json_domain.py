@@ -22,7 +22,7 @@ import docutils
 import docutils.parsers.rst.directives
 
 try:
-    import jsonschema.validators
+    import jsonschema.validators  # type: ignore
 
     _jsonschema_validation_supported = True
 except ImportError:
@@ -628,7 +628,7 @@ class JsonSchemaDirective(sphinx.directives.ObjectDescription):
 
     def _make_field(
         self, label: str
-    ) -> (docutils.nodes.field_list, docutils.nodes.field_body):
+    ) -> Tuple[docutils.nodes.field_list, docutils.nodes.field_body]:
         field_list = docutils.nodes.field_list()
         field = docutils.nodes.field()
         field_list += field
@@ -813,7 +813,7 @@ class JsonSchemaDirective(sphinx.directives.ObjectDescription):
         # Set ref_context information which will be used to resolve cross references
         # in the body.
         self.env.ref_context["json:schema"] = self._fully_qualified_name
-        self.env.ref_context.setdefault("json:schemas", []).append(  # type: ignore
+        self.env.ref_context.setdefault("json:schemas", []).append(
             self._fully_qualified_name
         )
 

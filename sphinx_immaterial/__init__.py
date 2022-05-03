@@ -13,6 +13,7 @@ import sphinx.util.fileutil
 import sphinx.util.matching
 import sphinx.util.docutils
 import sphinx.writers.html5
+import sphinx.jinja2glue
 
 from . import apidoc_formatting
 from . import autodoc_property_type

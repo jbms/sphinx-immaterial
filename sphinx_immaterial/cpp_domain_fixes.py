@@ -793,7 +793,7 @@ def _add_parameter_documentation_ids(
 
             # Set symbol id, since by default parameters don't have unique ids,
             # they just use the same id as the parent symbol.  This is
-            # neccessary in order for cross links to correctly refer to the
+            # necessary in order for cross links to correctly refer to the
             # parameter description.
             setattr(
                 param_symbol.declaration,

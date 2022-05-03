@@ -116,7 +116,7 @@ def setup(app: sphinx.application.Sphinx):
     app.add_config_value(
         name="external_cpp_references",
         default={},
-        types=(typing.Dict[str, "ExternalCppReference"],),
+        types=(typing.Dict[str, "ObjectInfo"],),
         rebuild="env",
     )
     return {"parallel_read_safe": True, "parallel_write_safe": True}
