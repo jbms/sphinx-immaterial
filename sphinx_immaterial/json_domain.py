@@ -4,6 +4,7 @@ import collections
 import dataclasses
 import json
 import os
+from io import TextIOWrapper
 import re
 from typing import (
     List,
@@ -16,9 +17,10 @@ from typing import (
     Iterator,
     Set,
     Union,
+    Pattern,
 )
 
-import docutils
+import docutils.nodes
 import docutils.parsers.rst.directives
 
 try:
@@ -31,6 +33,7 @@ except ImportError:
 import sphinx
 import sphinx.addnodes
 import sphinx.application
+import sphinx.builders
 import sphinx.directives
 import sphinx.domains
 import sphinx.environment
@@ -190,11 +193,11 @@ class LoadedSchemaData:
             _process_schema(sub_schema, pointer)
 
 
-def yaml_load(  # pylint: disable=invalid-name
-    stream,
+def yaml_load(
+    stream: TextIOWrapper,
     source_path: str,
     Loader=yaml.SafeLoader,
-    object_pairs_hook=collections.OrderedDict,
+    object_pairs_hook=collections.OrderedDict,  # type:ignore
 ) -> Tuple[Any, YamlSourceInfoMap]:
     """Loads a yaml file, preserving object key order and source line information.
 
@@ -215,7 +218,7 @@ def yaml_load(  # pylint: disable=invalid-name
                 source_info_map[id(node.value)] = (source_path, line)
             return node
 
-    def construct_mapping(loader, node):
+    def construct_mapping(loader, node):  # type: ignore
         loader.flatten_mapping(node)
         return object_pairs_hook(loader.construct_pairs(node))
 
@@ -226,7 +229,7 @@ def yaml_load(  # pylint: disable=invalid-name
     return result, source_info_map
 
 
-def _globs_to_re(globs: List[str]) -> re.Pattern:
+def _globs_to_re(globs: List[str]) -> Pattern[str]:
     return re.compile(
         "|".join(
             "(?:" + sphinx.util.matching._translate_pattern(x) + ")" for x in globs
@@ -333,7 +336,7 @@ def _traverse_sub_schemas(
     """
     yield (schema, pointer)
 
-    def _handle_prop(prop):
+    def _handle_prop(prop: str):
         obj = schema.get(prop)
         if obj is None:
             return
@@ -377,7 +380,7 @@ def _fix_jsonschema_ids(
     :param source_info: Source info map to update.
     """
 
-    def _fix_ids(sub_schema):
+    def _fix_ids(sub_schema: JsonSchema):
         for prop in ("$id", "$ref"):
             if prop in sub_schema:
                 value = sub_schema[prop]
@@ -416,8 +419,7 @@ def _schema_to_xref(schema_id: str) -> sphinx.addnodes.pending_xref:
     )
 
 
-# pyright: reportUninitializedInstanceVariable=false
-class JsonSchemaDirective(sphinx.directives.ObjectDescription):
+class JsonSchemaDirective(sphinx.directives.ObjectDescription[Any]):
     """json:schema directive."""
 
     required_arguments = 1
@@ -714,7 +716,7 @@ class JsonSchemaDirective(sphinx.directives.ObjectDescription):
             adjusted_source, *self._get_source_info_from_schema_string(source_string)
         )
 
-    def _render_body(self):
+    def _render_body(self) -> List[docutils.nodes.Node]:
         """Renders the body of the schema."""
         schema_data = self.env.json_schema_data
         schema_node = self._schema_entry.schema
@@ -787,7 +789,7 @@ class JsonSchemaDirective(sphinx.directives.ObjectDescription):
                         )
                     )
 
-        def add_example(value, caption, admonition_class="example"):
+        def add_example(value: str, caption: str, admonition_class="example"):
             nonlocal result
             result += self._parse_rst(
                 sphinx_utils.format_directive(
@@ -858,6 +860,7 @@ class JsonSchemaDirective(sphinx.directives.ObjectDescription):
         signode["ids"].append(self._node_id)
 
     def run(self) -> List[docutils.nodes.Node]:
+        # pyright: reportUninitializedInstanceVariable=false
 
         schema_data = self.env.json_schema_data
         schema_id = self.arguments[0]
@@ -1046,8 +1049,8 @@ class JsonSchemaDomain(sphinx.domains.Domain):
             )
 
     def merge_domaindata(
-        self, docnames: List[str], otherdata: Dict
-    ) -> None:  # pylint: disable=g-bare-generic
+        self, docnames: List[str], otherdata: Dict[Any, DomainSchemaEntry]
+    ) -> None:
         self.schemas.update(otherdata["schemas"])
 
     def get_fully_qualified_name(self, node: docutils.nodes.Element) -> Optional[str]:

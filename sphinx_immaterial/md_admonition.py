@@ -1,5 +1,6 @@
 """This module inherits from the generic ``admonition`` directive and makes the
 title optional."""
+from typing import List, Any, Dict, Union
 from docutils import nodes
 from docutils.parsers.rst.roles import set_classes
 from docutils.parsers.rst.directives import admonitions
@@ -16,7 +17,7 @@ class NoTitleAdmonition(admonitions.BaseAdmonition):
 
     classes = ()
 
-    def run(self):
+    def run(self, **kwargs: Any) -> List[nodes.Node]:
         set_classes(self.options)
         if self.classes:
             self.options.setdefault("classes", list(self.classes))
@@ -40,7 +41,7 @@ class NoTitleAdmonition(admonitions.BaseAdmonition):
         return [admonition_node]
 
 
-def setup(app: Sphinx):
+def setup(app: Sphinx) -> Dict[str, Union[bool, str]]:
     """register our custom directive."""
     app.add_directive("md-admonition", NoTitleAdmonition)
 

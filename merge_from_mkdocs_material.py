@@ -30,6 +30,7 @@ import pathlib
 import shutil
 import subprocess
 import tempfile
+from typing import Dict, Tuple, List
 
 MKDOCS_EXCLUDE_PATTERNS = [
     # mkdocs-specific configuration files
@@ -186,7 +187,7 @@ def _get_git_status(workdir: str):
         text=True,
         cwd=workdir,
     ).stdout
-    result = {}
+    result: Dict[str, str] = {}
     for line in status_output.split("\x00"):
         if not line:
             continue
@@ -196,7 +197,7 @@ def _get_git_status(workdir: str):
     return result
 
 
-def _characterize_git_status(file_status):
+def _characterize_git_status(file_status: Dict[str, str]) -> Tuple[List[str], List[str]]:
     conflicts = []
     updated = []
     for filename, status in file_status.items():

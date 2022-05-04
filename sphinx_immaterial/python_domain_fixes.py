@@ -6,7 +6,6 @@ from typing import (
     Tuple,
     List,
     Dict,
-    Type,
     Optional,
     Any,
     Iterator,
@@ -17,9 +16,11 @@ import docutils.parsers.rst.states
 import sphinx.addnodes
 import sphinx.application
 import sphinx.domains.python
-import sphinx.ext.napoleon
+import sphinx.ext.napoleon.docstring
 import sphinx.util.logging
 import sphinx.util.nodes
+import sphinx.environment
+import sphinx.builders
 
 from . import apidoc_formatting
 from . import sphinx_utils
@@ -138,11 +139,11 @@ def _monkey_patch_python_parse_arglist():
 
 
 def _monkey_patch_python_get_signature_prefix(
-    directive_cls: Type[sphinx.domains.python.PyObject],
+    directive_cls: sphinx.domains.python.PyObject,
 ) -> None:
     orig_get_signature_prefix = directive_cls.get_signature_prefix
 
-    def get_signature_prefix(self, sig: str) -> str:
+    def get_signature_prefix(self: sphinx.domains.python.PyObject, sig: str) -> str:
         prefix = orig_get_signature_prefix(self, sig)
         if sphinx.version_info >= (4, 3):
             return prefix
@@ -157,12 +158,14 @@ def _monkey_patch_python_get_signature_prefix(
 
 
 def _monkey_patch_pyattribute_handle_signature(
-    directive_cls: Type[sphinx.domains.python.PyObject],
+    directive_cls: sphinx.domains.python.PyObject,
 ):
     """Modifies PyAttribute or PyVariable to improve styling of signature."""
 
     def handle_signature(
-        self, sig: str, signode: sphinx.addnodes.desc_signature
+        self: sphinx.domains.python.PyObject,
+        sig: str,
+        signode: sphinx.addnodes.desc_signature,
     ) -> Tuple[str, str]:
         result = super(directive_cls, self).handle_signature(sig, signode)
         typ = self.options.get("type")
@@ -538,7 +541,7 @@ def _add_parameter_documentation_ids(
             param_node.parent[:1] = new_param_nodes
 
     # Find all parameter descriptions within the object description body.  Make
-    # sure not to find parameter descriptions within neted object descriptions.
+    # sure not to find parameter descriptions within nested object descriptions.
     # For example, if this is a class object description, we don't want to find
     # parameter descriptions within a nested function object description.
     for child in obj_content:
@@ -611,7 +614,9 @@ def _monkey_patch_python_domain_to_support_synopses():
 
     orig_transform_content = object_class.transform_content
 
-    def transform_content(self: object_class, contentnode) -> None:
+    def transform_content(
+        self: object_class, contentnode: sphinx.addnodes.desc_content
+    ) -> None:
         self.contentnode = contentnode
         orig_transform_content(self, contentnode)
 
@@ -666,7 +671,9 @@ def _monkey_patch_python_domain_to_support_synopses():
 
     orig_merge_domaindata = PythonDomain.merge_domaindata
 
-    def merge_domaindata(self, docnames: List[str], otherdata: dict) -> None:
+    def merge_domaindata(
+        self: PythonDomain, docnames: List[str], otherdata: Dict[str, Any]
+    ) -> None:
         orig_merge_domaindata(self, docnames, otherdata)
         self.data["synopses"].update(otherdata["synopses"])
 

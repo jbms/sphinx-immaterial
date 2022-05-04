@@ -1,5 +1,5 @@
 import multiprocessing
-from typing import cast, Any
+from typing import cast, Any, Dict
 
 from xml.etree import ElementTree
 
@@ -13,7 +13,7 @@ def add_html_link(
     app: sphinx.application.Sphinx,
     pagename: str,
     templatename: str,
-    context: dict,
+    context: Dict[str, Any],
     doctree: docutils.nodes.Node,
 ):
     """As each page is built, collect page names for the sitemap"""
@@ -26,7 +26,7 @@ def add_html_link(
         cast(Any, app).sitemap_links.append(full_url)
 
 
-def create_sitemap(app: sphinx.application.Sphinx, exception):
+def create_sitemap(app: sphinx.application.Sphinx, exception: Exception):
     """Generates the sitemap.xml from the collected HTML page links"""
     sitemap_links = cast(Any, app).sitemap_links
 

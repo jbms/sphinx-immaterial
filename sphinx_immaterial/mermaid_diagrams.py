@@ -1,9 +1,12 @@
 """A custom directive that allows using mermaid diagrams"""
-from typing import List
+from typing import List, Union
 from docutils import nodes
 from docutils.parsers.rst import directives
 from sphinx.util.docutils import SphinxDirective
 from sphinx.application import Sphinx
+from sphinx.writers.html import HTMLTranslator
+from sphinx.writers.html5 import HTML5Translator
+from sphinx.writers.latex import LaTeXTranslator
 
 
 class mermaid_node(nodes.General, nodes.Element):
@@ -37,20 +40,24 @@ class MermaidDirective(SphinxDirective):
         return [diagram_div]
 
 
-def visit_mermaid_node_html(self, node: mermaid_node):
+def visit_mermaid_node_html(
+    self: Union[HTMLTranslator, HTML5Translator], node: mermaid_node
+):
     attributes = {"class": "mermaid"}
     self.body.append(self.starttag(node, "pre", **attributes))
 
 
-def depart_mermaid_node_html(self, node: mermaid_node):
+def depart_mermaid_node_html(
+    self: Union[HTMLTranslator, HTML5Translator], node: mermaid_node
+):
     self.body.append("</pre>")
 
 
-def visit_mermaid_node_latex(self, node: mermaid_node):
+def visit_mermaid_node_latex(self: LaTeXTranslator, node: mermaid_node):
     self.body.append("\n\\begin{sphinxVerbatim}[commandchars=\\\\\\{\\}]\n")
 
 
-def depart_mermaid_node_latex(self, node: mermaid_node):
+def depart_mermaid_node_latex(self: LaTeXTranslator, node: mermaid_node):
     self.body.append("\n\\end{sphinxVerbatim}\n")
 
 

@@ -3,6 +3,7 @@ from docutils.parsers.rst import directives
 from docutils import nodes
 from sphinx.util.docutils import SphinxDirective
 from sphinx.directives.code import container_wrapper
+import sphinx.application
 
 
 class ResultsDirective(SphinxDirective):
@@ -49,7 +50,7 @@ class ResultsDirective(SphinxDirective):
         return [container_node]
 
 
-def setup(app):
+def setup(app: sphinx.application.Sphinx):
     app.add_directive("rst-example", ResultsDirective)
     return {
         "parallel_read_safe": True,

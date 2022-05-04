@@ -45,7 +45,7 @@ def _apply_property_documenter_type_annotation_fix():
 
     old_add_directive_header = PropertyDocumenter.add_directive_header
 
-    def add_directive_header(self, sig: str) -> None:
+    def add_directive_header(self: PropertyDocumenter, sig: str) -> None:
         old_add_directive_header(self, sig)
 
         # Check for return annotation
@@ -59,7 +59,7 @@ def _apply_property_documenter_type_annotation_fix():
     PyProperty = sphinx.domains.python.PyProperty
 
     def handle_signature(
-        self, sig: str, signode: sphinx.addnodes.desc_signature
+        self: PyProperty, sig: str, signode: sphinx.addnodes.desc_signature
     ) -> Tuple[str, str]:
         fullname, prefix = super(PyProperty, self).handle_signature(sig, signode)
 

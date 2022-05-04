@@ -7,12 +7,12 @@ from docutils.parsers.rst import directives
 from sphinx.util.docutils import SphinxDirective
 from sphinx.application import Sphinx
 from sphinx.util.logging import getLogger
-from sphinx.writers.html import HTMLTranslator
+from sphinx.writers.html5 import HTML5Translator
 
 LOGGER = getLogger(__name__)
 
 
-def is_md_tab_type(node: nodes.Node, name: str):
+def is_md_tab_type(node: nodes.Node, name: str) -> bool:
     """Check if a node is a certain tabbed component."""
     try:
         return node.get("type") == name
@@ -112,16 +112,16 @@ class content_tab_label(nodes.TextElement, nodes.General):
     pass
 
 
-def visit_tab_label(self, node):
+def visit_tab_label(self: HTML5Translator, node: content_tab_label):
     attributes = {"for": node["input_id"]}
     self.body.append(self.starttag(node, "label", **attributes))
 
 
-def depart_tab_label(self, node):
+def depart_tab_label(self: HTML5Translator, node: content_tab_label):
     self.body.append("</label>")
 
 
-def visit_tab_set(self: HTMLTranslator, node: content_tab_set):
+def visit_tab_set(self: HTML5Translator, node: content_tab_set):
     # increment tab set counter
     self.tab_set_count = getattr(self, "tab_set_count", 0) + 1
 
@@ -167,7 +167,7 @@ def visit_tab_set(self: HTMLTranslator, node: content_tab_set):
     raise nodes.SkipNode()
 
 
-def depart_tab_set(self, node):
+def depart_tab_set(self: HTML5Translator, node: content_tab_set):
     self.body.append("</div>")
 
 

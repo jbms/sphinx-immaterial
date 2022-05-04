@@ -1,9 +1,14 @@
 """Adds synopsis support to the std domain."""
 
-from typing import cast, Optional, List, Iterator, Tuple
+from typing import cast, Optional, List, Iterator, Tuple, Dict, Any
 
 import docutils.nodes
 import sphinx.application
+import sphinx.addnodes
+import sphinx.builders
+import sphinx.domains.std
+import sphinx.util.nodes
+import sphinx.environment
 
 from . import apidoc_formatting
 from . import sphinx_utils
@@ -19,7 +24,9 @@ def _monkey_patch_generic_object_to_support_synopses():
 
     orig_transform_content = object_class.transform_content
 
-    def transform_content(self: object_class, contentnode) -> None:
+    def transform_content(
+        self: object_class, contentnode: sphinx.addnodes.desc_content
+    ) -> None:
         self.contentnode = contentnode
         orig_transform_content(self, contentnode)
 
@@ -47,7 +54,9 @@ def _monkey_patch_generic_object_to_support_synopses():
 
     orig_merge_domaindata = StandardDomain.merge_domaindata
 
-    def merge_domaindata(self, docnames: List[str], otherdata: dict) -> None:
+    def merge_domaindata(
+        self: StandardDomain, docnames: List[str], otherdata: Dict[str, Any]
+    ) -> None:
         orig_merge_domaindata(self, docnames, otherdata)
         self.data["synopses"].update(otherdata["synopses"])
 

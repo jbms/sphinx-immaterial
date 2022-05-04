@@ -12,12 +12,15 @@ from typing import (
     NamedTuple,
     Any,
     Pattern,
+    Union,
 )
 
 import docutils.nodes
 import pydantic
 import sphinx.addnodes
 import sphinx.application
+from sphinx.directives import ObjectDescription
+import sphinx.environment
 import sphinx.locale
 import sphinx.util.logging
 import sphinx.writers.html5
@@ -172,9 +175,9 @@ def _wrap_signatures(
 
 
 def _monkey_patch_object_description_to_include_fields_in_toc():
-    orig_run = sphinx.directives.ObjectDescription.run
+    orig_run = ObjectDescription.run
 
-    def run(self: sphinx.directives.ObjectDescription) -> List[docutils.nodes.Node]:
+    def run(self: ObjectDescription[Any]) -> List[docutils.nodes.Node]:
         nodes = orig_run(self)
 
         options = get_object_description_options(self.env, self.domain, self.objtype)
@@ -205,7 +208,7 @@ def _monkey_patch_object_description_to_include_fields_in_toc():
 
         return nodes
 
-    sphinx.directives.ObjectDescription.run = run
+    ObjectDescription.run = run
 
 
 def format_object_description_tooltip(
@@ -228,7 +231,7 @@ def format_object_description_tooltip(
     return title
 
 
-DEFAULT_OBJECT_DESCRIPTION_OPTIONS: List[Tuple[str, dict]] = [
+DEFAULT_OBJECT_DESCRIPTION_OPTIONS: List[Tuple[str, Dict[str, str]]] = [
     ("std:envvar", {"toc_icon_class": "alias", "toc_icon_text": "$"}),
     ("js:module", {"toc_icon_class": "data", "toc_icon_text": "r"}),
     ("js:function", {"toc_icon_class": "procedure", "toc_icon_text": "M"}),
@@ -316,7 +319,9 @@ DEFAULT_OBJECT_DESCRIPTION_OPTIONS: List[Tuple[str, dict]] = [
 ]
 
 
-def get_object_description_option_registry(app: sphinx.application.Sphinx):
+def get_object_description_option_registry(
+    app: sphinx.application.Sphinx,
+) -> Union[Dict[str, Any], str]:
     key = "sphinx_immaterial_object_description_option_registry"
     registry = getattr(app, key, None)
     if registry is None:
@@ -355,16 +360,17 @@ def _builder_inited(app: sphinx.application.Sphinx) -> None:
 
     registry = get_object_description_option_registry(app)
     options_map: Dict[str, List[Tuple[int, Dict[str, Any]]]] = {}
-    options_patterns: List[Tuple[Pattern, int, Dict[str, Any]]] = []
+    options_patterns: List[Tuple[Pattern[str], int, Dict[str, Any]]] = []
 
     default_options = {}
     for name, registered_option in registry.items():
         default_options[name] = registered_option.default
 
     # Validate options
+    print("validating options")
     for i, (pattern, options) in enumerate(
         pydantic.parse_obj_as(
-            List[Tuple[Pattern, Dict[str, Any]]],
+            List[Tuple[Pattern, Dict[str, Any]]],  # type: ignore
             DEFAULT_OBJECT_DESCRIPTION_OPTIONS + app.config.object_description_options,
         )
     ):
@@ -461,7 +467,7 @@ def setup(app: sphinx.application.Sphinx):
         "object_description_options",
         default=[],
         rebuild="env",
-        types=(List[Tuple[Pattern, Dict[str, Any]]],),
+        types=(List[Tuple[Pattern[str], Dict[str, Any]]],),
     )
     app.connect("builder-inited", _builder_inited)
 

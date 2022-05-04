@@ -55,7 +55,7 @@ class TaskListDirective(SphinxDirective):
         self.state.nested_parse(self.content, self.content_offset, task_list)
         self.set_source_info(task_list)
 
-        def first_matching(obj, cls_t):
+        def first_matching(obj: nodes.Element, cls_t: nodes.Element):
             return obj.first_child_matching_class(cls_t)
 
         for child in task_list.children:

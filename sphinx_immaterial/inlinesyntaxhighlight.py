@@ -28,15 +28,18 @@
 #
 # https://github.com/sphinx-doc/sphinx/pull/6916
 
+from typing import Union, Tuple, List
 import docutils.parsers.rst.roles
 import docutils.parsers.rst
 import docutils.nodes
 import sphinx.application
-import sphinx.writers.html
-import sphinx.writers.html5
+from sphinx.writers.html import HTMLTranslator
+from sphinx.writers.html5 import HTML5Translator
 
 
-def code_role(role, rawtext, text, lineno, inliner, options={}, content=[]):
+def code_role(
+    role, rawtext, text, lineno, inliner, options={}, content=[]  # type: ignore
+) -> Tuple[List[docutils.nodes.Node], List[str]]:
     """code_role override or create if older docutils used.
     This only creates a literal node without parsing the code. This will
     be done later in sphinx. This override is not really needed, but it
@@ -65,15 +68,19 @@ code_role.options = {
 }
 
 
-def _monkey_patch_html_translator(translator_class):
+def _monkey_patch_html_translator(
+    translator_class: Union[HTMLTranslator, HTML5Translator]
+):
     orig_visit_literal = translator_class.visit_literal
 
-    def visit_literal(self, node: docutils.nodes.literal) -> None:
+    def visit_literal(
+        self: Union[HTMLTranslator, HTML5Translator], node: docutils.nodes.literal
+    ) -> None:
         lang = node.get("language", None)
         if "code" not in node["classes"] or not lang:
             return orig_visit_literal(self, node)
 
-        def warner(msg):
+        def warner(msg: str):
             self.builder.warn(msg, (self.builder.current_docname, node.line))
 
         highlight_args = dict(node.get("highlight_args", {}), nowrap=True)
@@ -97,8 +104,8 @@ def _monkey_patch_html_translator(translator_class):
 
 def setup(app: sphinx.application.Sphinx):
     docutils.parsers.rst.roles.register_canonical_role("code", code_role)
-    _monkey_patch_html_translator(sphinx.writers.html.HTMLTranslator)
-    _monkey_patch_html_translator(sphinx.writers.html5.HTML5Translator)
+    _monkey_patch_html_translator(HTMLTranslator)
+    _monkey_patch_html_translator(HTML5Translator)
     return {
         "parallel_read_safe": True,
         "parallel_write_safe": True,

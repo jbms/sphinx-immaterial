@@ -24,6 +24,7 @@ import distutils.command.build
 import os
 import subprocess
 import tempfile
+from typing import Union, List
 
 import setuptools.command.build_py
 import setuptools.command.develop
@@ -41,8 +42,8 @@ root_dir = os.path.dirname(os.path.abspath(__file__))
 package_root = os.path.join(root_dir, "sphinx_immaterial")
 
 
-def _setup_temp_egg_info(cmd):
-    """Use a temporary directory for the `neuroglancer.egg-info` directory.
+def _setup_temp_egg_info(cmd: Union["SdistCommand", "InstallCommand", "BuildCommand"]):
+    """Use a temporary directory for the `sphinx_immaterial.egg-info` directory.
 
     When building an sdist (source distribution) or installing, locate the
     `sphinx_immaterial.egg-info` directory inside a temporary directory so that
@@ -62,7 +63,7 @@ class SdistCommand(setuptools.command.sdist.sdist):
         self.run_command("static_bundles")
         super().run()
 
-    def make_release_tree(self, base_dir, files):
+    def make_release_tree(self, base_dir: str, files: List[str]):
         # Exclude .egg-info from source distribution.  These aren't actually
         # needed, and due to the use of the temporary directory in `run`, the
         # path isn't correct if it gets included.

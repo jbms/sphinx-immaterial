@@ -20,6 +20,8 @@ import urllib.parse
 import docutils.nodes
 import markupsafe
 import sphinx.builders
+import sphinx.builders.html
+import sphinx.config
 import sphinx.application
 import sphinx.environment
 import sphinx.environment.adapters.toctree
@@ -70,7 +72,7 @@ class MkdocsNavEntry:
     # a TOC caption.
     caption_only: bool
 
-    def __init__(self, title_text: str, **kwargs):
+    def __init__(self, title_text: str, **kwargs: Any):
         self.__dict__.update(kwargs)
         self.title = f'<span class="md-ellipsis">{_insert_wbr(title_text)}</span>'
         if not self.aria_label:
@@ -197,8 +199,8 @@ def _get_mkdocs_toc(
     return visitor._children
 
 
-class _NavContextObject(list):
-    homepage: dict
+class _NavContextObject(list):  # type: ignore [reportMissingTypeArgument]
+    homepage: Dict[str, str]
 
 
 def _traverse_mkdocs_toc(toc: List[MkdocsNavEntry]) -> Iterator[MkdocsNavEntry]:
@@ -469,7 +471,7 @@ def _get_global_toc(app: sphinx.application.Sphinx, pagename: str, collapse: boo
 def _get_mkdocs_tocs(
     app: sphinx.application.Sphinx, pagename: str, duplicate_local_toc: bool
 ) -> Tuple[List[MkdocsNavEntry], List[MkdocsNavEntry]]:
-    theme_options = app.config["html_theme_options"]
+    theme_options: Dict[str, Any] = app.config["html_theme_options"]
     global_toc = _get_global_toc(
         app=app,
         pagename=pagename,
@@ -507,10 +509,10 @@ def _html_page_context(
     app: sphinx.application.Sphinx,
     pagename: str,
     templatename: str,
-    context: dict,
+    context: Dict[str, Any],
     doctree: docutils.nodes.Node,
 ) -> None:
-    theme_options: dict = app.config["html_theme_options"]
+    theme_options: Dict[str, Any] = app.config["html_theme_options"]
     page_title = markupsafe.Markup.escape(
         markupsafe.Markup(context.get("title")).striptags()
     )

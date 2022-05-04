@@ -1,6 +1,7 @@
 """Adaptation of pprint.py from the Python standard library to JSON."""
 #  Author:      Fred L. Drake, Jr.
 #               fdrake@acm.org
+# pyright: reportUnknownParameterType=false
 
 import io
 import json

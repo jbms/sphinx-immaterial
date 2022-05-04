@@ -10,7 +10,7 @@
 """
 
 import io
-from typing import cast, Any, Dict, IO, List, Tuple, Union
+from typing import cast, Any, Dict, TextIO, BinaryIO, List, Tuple, Union
 
 import sphinx.search
 import sphinx.application
@@ -130,7 +130,9 @@ class IndexBuilder(sphinx.search.IndexBuilder):
         return result
 
     def load(
-        self, stream: IO, format: Any  # pylint: disable=redefined-builtin
+        self,
+        stream: Union[TextIO, BinaryIO],
+        format: Any,  # pylint: disable=redefined-builtin
     ) -> None:
         if isinstance(format, str):
             format = self.formats[format]

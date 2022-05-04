@@ -17,7 +17,7 @@ def monkey_patch_details_run():
     if DetailsDirective is None:
         return
 
-    def run(self) -> List[nodes.container]:
+    def run(self: DetailsDirective) -> List[nodes.container]:
         admonition = nodes.container(
             "",
             classes=self.options.get("class", []) + self.options.get("classes", []),

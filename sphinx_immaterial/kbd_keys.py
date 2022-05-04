@@ -1,8 +1,10 @@
-from typing import List, Tuple
+from typing import List, Tuple, Dict, Union
 from docutils import nodes
 from sphinx.application import Sphinx
 from sphinx.config import Config
 from sphinx.writers.html import HTMLTranslator
+from sphinx.writers.html5 import HTML5Translator
+from sphinx.writers.latex import LaTeXTranslator
 from sphinx.util.logging import getLogger
 
 LOGGER = getLogger(__name__)
@@ -22,7 +24,7 @@ class kbd_node(nodes.TextElement):
     pass
 
 
-def map_filter(key: str, user_map: dict) -> Tuple[str, str]:
+def map_filter(key: str, user_map: Dict[str, str]) -> Tuple[str, str]:
     display = key.title()
     cls = key.replace("_", "-").replace(" ", "-").lower()
     if key in user_map.keys():
@@ -34,7 +36,7 @@ def map_filter(key: str, user_map: dict) -> Tuple[str, str]:
     return (cls, display)
 
 
-def visit_kbd(self: HTMLTranslator, node: kbd_node):
+def visit_kbd(self: Union[HTMLTranslator, HTML5Translator], node: kbd_node):
     tag = "kbd" if self.builder.config["keys_strict"] else "span"
     self.body.append(f'<{tag} class="' + f'{self.builder.config["keys_class"]}"')
     keys = node.rawsource.split(self.builder.config["keys_separator"])
@@ -48,12 +50,12 @@ def visit_kbd(self: HTMLTranslator, node: kbd_node):
     self.body.append(keys_out)
 
 
-def depart_kbd(self, node):
+def depart_kbd(self: Union[HTMLTranslator, HTML5Translator], node: kbd_node):
     tag = "kbd" if self.builder.config["keys_strict"] else "span"
     self.body.append(f"</{tag}>")
 
 
-def visit_kbd_latex(self, node):
+def visit_kbd_latex(self: LaTeXTranslator, node: kbd_node):
     keys = node.rawsource.split(self.builder.config["keys_separator"])
     for i, key in enumerate(keys):
         _, text = map_filter(key.strip().lower(), self.builder.config["keys_map"])
@@ -62,12 +64,12 @@ def visit_kbd_latex(self, node):
             self.body.append(f' {self.builder.config["keys_separator"]} ')
 
 
-def depart_kbd_latex(self, node):
+def depart_kbd_latex(self: LaTeXTranslator, node: kbd_node):
     pass
 
 
 def keys_role(
-    role, rawtext, text, lineno, inliner, options={}, content=[]
+    role, rawtext, text, lineno, inliner, options={}, content=[]  # type: ignore
 ) -> Tuple[List[nodes.Node], List[str]]:
     keys_div = kbd_node(text)
     return [keys_div], []

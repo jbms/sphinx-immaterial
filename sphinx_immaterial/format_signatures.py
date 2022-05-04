@@ -17,6 +17,7 @@ import sphinx.application
 import sphinx.environment
 import sphinx.transforms
 import sphinx.util.logging
+from sphinx.writers.html5 import HTML5Translator
 
 from . import apidoc_formatting
 
@@ -42,12 +43,12 @@ class SignatureText(docutils.nodes.Text):
     pass
 
 
-def visit_signature_text(self, node: SignatureText) -> None:
+def visit_signature_text(self: HTML5Translator, node: SignatureText) -> None:
     encoded = self.encode(node.astext()).replace(" ", "&nbsp;").replace("\n", "<br>")
     self.body.append(encoded)
 
 
-def depart_signature_text(self, node: SignatureText) -> None:
+def depart_signature_text(self: HTML5Translator, node: SignatureText) -> None:
     pass
 
 

@@ -1,12 +1,13 @@
 """Sphinx-Immaterial theme."""
 
 import os
-from typing import cast, List, Type, Dict, Mapping, Optional
+from typing import cast, List, Type, Dict, Mapping, Optional, Any
 
 import docutils.nodes
 from sphinx.application import Sphinx
 import sphinx.builders
 import sphinx.builders.html
+import sphinx.config
 import sphinx.theming
 import sphinx.util.logging
 import sphinx.util.fileutil
@@ -47,11 +48,11 @@ DEFAULT_THEME_OPTIONS = {
 
 def _get_html_translator(
     base_translator: Type[sphinx.writers.html5.HTML5Translator],
-) -> Type[sphinx.writers.html5.HTML5Translator]:
+) -> sphinx.writers.html5.HTML5Translator:
     class CustomHTMLTranslator(
         apidoc_formatting.HTMLTranslatorMixin, base_translator
     ):  # pylint: disable=abstract-method
-        def __init__(self, *args, **kwargs):
+        def __init__(self, *args: Any, **kwargs: Any):
             super().__init__(*args, **kwargs)
 
             # Ensure pygments uses <code> elements, for compatibility with the
@@ -158,7 +159,7 @@ def _get_html_builder(base_builder: Type[sphinx.builders.html.StandaloneHTMLBuil
         def create_pygments_style_file(self):
             pass
 
-        def copy_theme_static_files(self, context: Dict) -> None:
+        def copy_theme_static_files(self, context: Dict[str, Any]) -> None:
 
             # Modified from version in sphinx.builders.html.__init__.py to
             # exclude copying unused static files from `basic` theme.
@@ -209,9 +210,9 @@ def _get_html_builder(base_builder: Type[sphinx.builders.html.StandaloneHTMLBuil
     return CustomHTMLBuilder
 
 
-def dict_merge(*dicts: Mapping):
+def dict_merge(*dicts: Mapping[Any, Any]):
     """Recursively merges the members of one or more dicts."""
-    result = {}
+    result: Dict[Any, Any] = {}
     for d in dicts:
         for k, v in d.items():
             if isinstance(v, Mapping) and k in result and isinstance(result[k], dict):
@@ -225,7 +226,7 @@ def html_page_context(
     app: Sphinx,
     pagename: str,
     templatename: str,
-    context: dict,
+    context: Dict[str, Any],
     doctree: docutils.nodes.Node,
 ):
     theme_options = app.config["html_theme_options"]
@@ -278,16 +279,14 @@ def html_page_context(
     )
 
 
-def _builder_inited(app: sphinx.application.Sphinx) -> None:
+def _builder_inited(app: Sphinx) -> None:
     # For compatibility with mkdocs
     if isinstance(app.builder, sphinx.builders.html.StandaloneHTMLBuilder):
         # Latex builder does not have a `templates` attribute
         app.builder.templates.environment.filters["url"] = lambda url: url
 
 
-def _config_inited(
-    app: sphinx.application.Sphinx, config: sphinx.config.Config
-) -> None:
+def _config_inited(app: Sphinx, config: sphinx.config.Config) -> None:
     """Merge defaults into theme options."""
     if config["language"] is None:
         config["language"] = "en"  # default to English language
@@ -298,7 +297,7 @@ def _config_inited(
     )
 
 
-def setup(app):
+def setup(app: Sphinx):
     app.connect("config-inited", _config_inited)
     app.setup_extension(apidoc_formatting.__name__)
     app.setup_extension(python_domain_fixes.__name__)
