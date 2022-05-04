@@ -222,8 +222,9 @@ def _monkey_patch_python_domain_to_transform_type_annotations():
     def _parse_annotation(annotation: str, env: sphinx.environment.BuildEnvironment):
         if not env._sphinx_immaterial_python_type_transform:
             return orig_parse_annotation(annotation, env)
+
+        orig_ast_parse = sphinx.domains.python.ast_parse
         try:
-            orig_ast_parse = sphinx.domains.python.ast_parse
 
             def ast_parse(annotation: str) -> ast.AST:
                 tree = orig_ast_parse(annotation)

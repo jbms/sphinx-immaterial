@@ -250,7 +250,7 @@ def html_page_context(
         # Parse old-style analytics config for backwards compatibility
         analytics = {
             "provider": "google",  # Google is the only provider currently supported
-            "property": theme_options.get("google_analytics")[0],
+            "property": theme_options.get("google_analytics", [""])[0],
         }
     if theme_options.get("analytics"):
         analytics = theme_options.get("analytics")

@@ -3,17 +3,17 @@ requires = ["setuptools>=42", "wheel", "setuptools_scm"]
 
 [tool.pyright]
 typeCheckingMode = "basic" # avoid 'strict' because it doesn't allow downgrading checks' severity
-reportGeneralTypeIssues = false  # TODO
+reportGeneralTypeIssues = false # TODO (mostly related to docutils, eg. concatenation of nodes)
 # reportFunctionMemberAccess = "waring" WILL NOT FIX (rST roles conventionally violate this)
 reportMissingTypeStubs = "warning"
-reportImportCycles = false  # TODO
+# reportImportCycles = true # TODO (should be solved during refactor)
 reportUnusedImport = true
 reportUnusedClass = true
 reportUnusedFunction = true
 reportUnusedVariable = true
 reportDuplicateImport = true
 reportWildcardImportFromLibrary = true
-reportOptionalSubscript = false  # TODO (mostly about dict.get() returning None by default)
+reportOptionalSubscript = true
 reportOptionalMemberAccess = false  # TODO (mostly related to sphinx builder env properties)
 reportUntypedFunctionDecorator = true
 reportUntypedClassDecorator = true
@@ -35,12 +35,12 @@ reportUninitializedInstanceVariable = "warning"
 # reportUnknownMemberType = true # BUGGY/WILL NOT FIX (mostly related to "blank" defaults and base class methods)
 # reportMissingParameterType = true # BUGGY (use reportUnknownParameterType instead)
 # reportMissingTypeArgument = "warning" # TODO should be fixed, but work to a solution is a bit complicated
-reportCallInDefaultInitializer = "waring"
+# reportCallInDefaultInitializer = "warning" # WILL NOT FIX (creating rST role functions conventionally violate this)
 reportUnnecessaryIsInstance = true
 reportUnnecessaryCast = "information"
 reportUnnecessaryComparison = true
-reportUnboundVariable = false  # TODO
+reportUnboundVariable = true
 reportUnusedExpression = true
 reportUnnecessaryTypeIgnoreComment = "information"
 include = ["sphinx_immaterial/**"]
-exclude = ["node_modules/**", "setup.py"]
+exclude = ["setup.py"]

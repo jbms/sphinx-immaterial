@@ -14,6 +14,7 @@ from typing import (
     Dict,
     Iterable,
     Set,
+    Any,
 )
 import urllib.parse
 import docutils.nodes
@@ -548,7 +549,7 @@ def _html_page_context(
         local_toc = local_toc[0].children
 
     # Add other context values in mkdocs/mkdocs-material format.
-    page = dict(
+    page: Dict[str, Any] = dict(
         title=page_title,
         is_homepage=(pagename == context["master_doc"]),
         toc=local_toc,

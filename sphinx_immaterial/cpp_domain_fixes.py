@@ -755,6 +755,8 @@ def _add_parameter_documentation_ids(
 
         object_type = None
         synopsis = None
+        param_options = {}
+        param_id_suffix = ""
 
         # Set ids of the parameter node.
         for symbol_i, _ in unique_decls.values():
