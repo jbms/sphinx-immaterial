@@ -412,7 +412,7 @@ def _add_parameter_links_to_signature(
             new_sig_param_node["classes"].append("sig-name")
             break
 
-    for name_node, param_node in replacements:
+    for name_node, _ in replacements:
         name = name_node.astext()
         refnode = sphinx.addnodes.pending_xref(
             "",

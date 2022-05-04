@@ -16,7 +16,6 @@ import sphinx.writers.html5
 import sphinx.jinja2glue
 
 from . import apidoc_formatting
-from . import autodoc_property_type
 from . import cpp_domain_fixes
 from . import inlinesyntaxhighlight
 from . import generic_synopses
@@ -147,9 +146,7 @@ def _get_html_builder(base_builder: Type[sphinx.builders.html.StandaloneHTMLBuil
                 ]
             )
             self.css_files = [
-                x
-                for x in cast(List[sphinx.builders.html.Stylesheet], self.css_files)
-                if x.filename not in excluded
+                x for x in self.css_files if x.filename not in excluded
             ]
 
         def gen_additional_pages(self):

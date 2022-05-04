@@ -21,6 +21,7 @@ import sphinx.directives
 import sphinx.domains.c
 import sphinx.domains.cpp
 import sphinx.util.logging
+import sphinx.util.docfields
 
 from . import apidoc_formatting
 from . import sphinx_utils
@@ -147,7 +148,6 @@ def _monkey_patch_cpp_ast_template_params():
         symbol: sphinx.domains.cpp.Symbol,
         lineSpec: bool,
     ) -> None:
-        fake_parent = sphinx.addnodes.desc_signature("", "")
         signode = desc_cpp_template_params("", "")
         parentNode += signode
         orig_describe_signature_as_introducer(
@@ -648,7 +648,7 @@ def _add_parameter_links_to_signature(
     """
     sig_param_nodes: Dict[str, docutils.nodes.Element] = {}
 
-    replacements = []
+    replacements: List[Tuple[docutils.nodes.Element, docutils.nodes.Element]] = []
     node_identifier_key = "sphinx_immaterial_param_name_identifier"
 
     def add_replacement(
@@ -691,7 +691,7 @@ def _add_parameter_links_to_signature(
 
     lookup_key = symbol.get_lookup_key()
 
-    for name_node, param_node in replacements:
+    for name_node, _ in replacements:
         name = name_node.astext()
         refnode = sphinx.addnodes.pending_xref(
             "",

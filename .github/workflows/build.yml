@@ -34,8 +34,8 @@ jobs:
         path: "**/node_modules"
         key: ${{ runner.os }}-${{ matrix.node-version }}-node_modules-${{ hashFiles('**/package-lock.json') }}
     - run: npm install
-    - name: Install Python packaging tools, linting tools, and docs' dependencies
-      run: python -m pip install wheel pylint black -r requirements.txt -r docs/requirements.txt
+    - name: Install Python dev and docs dependencies
+      run: python -m pip install wheel -r requirements.txt -r requirements-dev.txt -r docs/requirements.txt
     - run: npm run check
     - run: pylint sphinx_immaterial/*.py
     - run: black --check sphinx_immaterial/*.py

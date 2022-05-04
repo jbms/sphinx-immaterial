@@ -387,7 +387,7 @@ def _fix_jsonschema_ids(
                 seen_ids.setdefault(normalized, path)
                 sub_schema[prop] = normalized
 
-    for sub_schema, pointer in _traverse_sub_schemas(schema):
+    for sub_schema, _ in _traverse_sub_schemas(schema):
         _fix_ids(sub_schema)
 
 
@@ -415,6 +415,7 @@ def _schema_to_xref(schema_id: str) -> sphinx.addnodes.pending_xref:
     )
 
 
+# pyright: reportUninitializedInstanceVariable=false
 class JsonSchemaDirective(sphinx.directives.ObjectDescription):
     """json:schema directive."""
 

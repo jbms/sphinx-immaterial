@@ -68,7 +68,6 @@ def _monkey_patch_toc_tree_process_doc(app: sphinx.application.Sphinx):
         source: docutils.nodes.field,
     ) -> Optional[docutils.nodes.section]:
         fieldname = source[0]
-        fieldbody = source[1]
         ids = fieldname["ids"]
         if not ids:
             # Not indexed

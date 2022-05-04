@@ -1,0 +1,4 @@
+black
+pylint
+types-PyYAML
+docutils-stubs

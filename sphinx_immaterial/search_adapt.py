@@ -31,7 +31,6 @@ class IndexBuilder(sphinx.search.IndexBuilder):
         onames = self._objnames
         docindex_to_docname = {i: docname for docname, i in fn2index.items()}
         synopses = {}
-        all_anchors = {}
         for domain_name, domain in self.env.domains.items():
             get_object_synopses = getattr(domain, "get_object_synopses", None)
             if get_object_synopses is not None:
@@ -39,11 +38,11 @@ class IndexBuilder(sphinx.search.IndexBuilder):
                     synopses.setdefault(key, synopsis or "")
             for (
                 name,
-                dispname,
+                _,
                 objtype,
                 docname,
                 anchor,
-                priority,
+                _,
             ) in domain.get_objects():
                 synopses.setdefault((docname, anchor), "")
 
