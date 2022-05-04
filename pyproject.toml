@@ -3,7 +3,7 @@ requires = ["setuptools>=42", "wheel", "setuptools_scm"]
 
 [tool.pyright]
 typeCheckingMode = "basic" # avoid 'strict' because it doesn't allow downgrading checks' severity
-reportGeneralTypeIssues = false # TODO (mostly related to docutils, eg. concatenation of nodes)
+reportGeneralTypeIssues = false # TODO (mostly related to docutils, eg. concatenation of nodes and node.get() calls)
 # reportFunctionMemberAccess = "waring" WILL NOT FIX (rST roles conventionally violate this)
 reportMissingTypeStubs = "warning"
 # reportImportCycles = true # TODO (should be solved during refactor)
@@ -14,7 +14,7 @@ reportUnusedVariable = true
 reportDuplicateImport = true
 reportWildcardImportFromLibrary = true
 reportOptionalSubscript = true
-reportOptionalMemberAccess = false  # TODO (mostly related to sphinx builder env properties)
+reportOptionalMemberAccess = true  # FYI mostly related to sphinx app/builder env properties
 reportUntypedFunctionDecorator = true
 reportUntypedClassDecorator = true
 reportUntypedBaseClass = true

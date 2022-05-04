@@ -21,6 +21,7 @@ import docutils.nodes
 import markupsafe
 import sphinx.builders
 import sphinx.application
+import sphinx.environment
 import sphinx.environment.adapters.toctree
 import sphinx.util.osutil
 
@@ -232,7 +233,7 @@ class DomainAnchorEntry(NamedTuple):
 def _make_domain_anchor_map(
     env: sphinx.environment.BuildEnvironment,
 ) -> Dict[Tuple[str, str], DomainAnchorEntry]:
-    builder = env.app.builder
+    builder: sphinx.builders.Builder = env.app.builder
     docname_to_url = {
         docname: builder.get_target_uri(docname) for docname in env.found_docs
     }
@@ -291,7 +292,8 @@ def _add_domain_info_to_toc(
         objinfo = m.get(refinfo)
         if objinfo is None:
             continue
-        domain = app.env.domains[objinfo.domain_name]
+        app_env: sphinx.environment.BuildEnvironment = app.env
+        domain = app_env.domains[objinfo.domain_name]
         label = domain.get_type_name(domain.object_types[objinfo.objtype])
         options = apidoc_formatting.get_object_description_options(
             app.env, objinfo.domain_name, objinfo.objtype
@@ -425,15 +427,16 @@ def _get_ancestor_keys(keys: Iterable[TocEntryKey]) -> Set[TocEntryKey]:
 def _get_global_toc(app: sphinx.application.Sphinx, pagename: str, collapse: bool):
     """Obtains the global TOC for a given page."""
     cached_data = _get_cached_globaltoc_info(app)
-    url = app.builder.get_target_uri(pagename)
+    app_builder: sphinx.builders.Builder = app.builder
+    url = app_builder.get_target_uri(pagename)
     keys = set(cached_data.url_map[url])
     ancestors = _get_ancestor_keys(keys)
 
     fake_pagename = ""
 
-    fake_page_url = app.builder.get_target_uri(fake_pagename)
+    fake_page_url = app_builder.get_target_uri(fake_pagename)
 
-    real_page_url = app.builder.get_target_uri(pagename)
+    real_page_url = app_builder.get_target_uri(pagename)
 
     def _make_toc_for_page(key: TocEntryKey, children: List[MkdocsNavEntry]):
         children = list(children)
@@ -473,7 +476,8 @@ def _get_mkdocs_tocs(
         collapse=theme_options.get("globaltoc_collapse", False),
     )
     local_toc = []
-    if pagename != app.env.config.master_doc:
+    app_env: sphinx.environment.BuildEnvironment = app.env
+    if pagename != app_env.config.master_doc:
         # Extract entry from `global_toc` corresponding to the current page.
         current_page_toc_entry = _get_current_page_in_toc(global_toc)
         if current_page_toc_entry:
@@ -577,12 +581,14 @@ def _html_page_context(
         }
     repo_url: Optional[str] = theme_options.get("repo_url")
     edit_uri: Optional[str] = theme_options.get("edit_uri")
+    app_builder: sphinx.builders.Builder = app.builder
+    app_builder_env: sphinx.environment.BuildEnvironment = app_builder.env
     if repo_url and edit_uri and not READTHEDOCS:
         page["edit_url"] = "/".join(
             [
                 repo_url.rstrip("/"),
                 edit_uri.strip("/"),
-                app.builder.env.doc2path(pagename, False),
+                app_builder_env.doc2path(pagename, False),
             ]
         )
     context.update(

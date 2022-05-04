@@ -99,7 +99,8 @@ def _missing_reference(
 def get_mappings(app: sphinx.application.Sphinx) -> typing.Dict[str, ObjectInfo]:
     cpp_objects = getattr(app.env, "cppreference_objects", None)
     if cpp_objects is None:
-        cpp_objects = app.env.cppreference_objects = {}
+        app_env: sphinx.environment.BuildEnvironment = app.env
+        cpp_objects = app_env.cppreference_objects = {}
     return cpp_objects
 
 

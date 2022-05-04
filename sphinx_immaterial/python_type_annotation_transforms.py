@@ -268,9 +268,10 @@ def _builder_inited(app: sphinx.application.Sphinx):
             "requires python_transform_type_annotations_pep604=True"
         )
 
-    app.env._sphinx_immaterial_python_type_aliases = aliases
+    app_env: sphinx.environment.BuildEnvironment = app.env
+    app_env._sphinx_immaterial_python_type_aliases = aliases
 
-    app.env._sphinx_immaterial_python_type_transform = (
+    app_env._sphinx_immaterial_python_type_transform = (
         aliases or config.python_transform_type_annotations_pep604
     )
 

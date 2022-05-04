@@ -125,7 +125,7 @@ class IndexBuilder(sphinx.search.IndexBuilder):
 
         docnames = result.pop("docnames")
 
-        builder = self.env.app.builder
+        builder: sphinx.application.Builder = self.env.app.builder
         result.update(docurls=[builder.get_target_uri(docname) for docname in docnames])
         return result
 
@@ -137,7 +137,7 @@ class IndexBuilder(sphinx.search.IndexBuilder):
         frozen = format.load(stream)
         # Reconstruct `docnames` and `filenames` from `docurls` since they are
         # expected by `IndexBuilder`.
-        builder = self.env.app.builder
+        builder: sphinx.application.Builder = self.env.app.builder
         url_to_docname = {
             builder.get_target_uri(docname): docname
             for docname in self.env.all_docs.keys()

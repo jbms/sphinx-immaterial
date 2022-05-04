@@ -259,7 +259,8 @@ def _get_json_schema_files(app: sphinx.application.Sphinx):
 
 def _populate_json_schema_id_map(app: sphinx.application.Sphinx):
     """Finds all schema files and loads them into `_json_schema_id_map`."""
-    schema_data = app.env.json_schema_data = LoadedSchemaData()
+    app_env: sphinx.environment.BuildEnvironment = app.env
+    schema_data = app_env.json_schema_data = LoadedSchemaData()
     seen_ids = {}
     all_paths = list(_get_json_schema_files(app))
     validate = app.config.json_schema_validate

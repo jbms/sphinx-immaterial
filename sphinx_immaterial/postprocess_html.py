@@ -6,6 +6,7 @@ from xml.etree import ElementTree
 import docutils.nodes
 import sphinx.application
 import sphinx.util.console
+import sphinx.builders
 
 
 def add_html_link(
@@ -20,7 +21,8 @@ def add_html_link(
     if base_url:
         if not base_url.endswith("/"):
             base_url += "/"
-        full_url = base_url + app.builder.get_target_uri(pagename)
+        app_builder: sphinx.builders.Builder = app.builder
+        full_url = base_url + app_builder.get_target_uri(pagename)
         cast(Any, app).sitemap_links.append(full_url)
 
 
