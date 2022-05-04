@@ -42,5 +42,4 @@ reportUnnecessaryComparison = true
 reportUnboundVariable = true
 reportUnusedExpression = true
 reportUnnecessaryTypeIgnoreComment = "information"
-include = ["sphinx_immaterial/**"]
-exclude = ["setup.py"]
+include = ["sphinx_immaterial/**", "setup.py", "merge_from_mkdocs_material.py"]

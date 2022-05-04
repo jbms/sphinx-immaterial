@@ -33,6 +33,10 @@ import setuptools.command.sdist
 with open("requirements.txt", encoding="utf-8") as reqs:
     REQUIREMENTS = [reqs.readlines()]
 
+long_description = ""
+with open("README.rst", encoding="utf-8") as readme:
+    long_description = readme.read()
+
 root_dir = os.path.dirname(os.path.abspath(__file__))
 package_root = os.path.join(root_dir, "sphinx_immaterial")
 
@@ -117,6 +121,7 @@ class StaticBundlesCommand(setuptools.command.build_py.build_py):
     ]
 
     def initialize_options(self):
+        # pyright: reportUninitializedInstanceVariable=false
         super().initialize_options()
         self.bundle_type = "min"
         self.skip_npm_reinstall = None
@@ -144,9 +149,9 @@ class StaticBundlesCommand(setuptools.command.build_py.build_py):
                 return
 
         target = {"min": "build", "dev": "build:dev"}
+        tgt = target[self.bundle_type]
 
         try:
-            tgt = target[self.bundle_type]
             node_modules_path = os.path.join(root_dir, "node_modules")
             if self.skip_npm_reinstall and os.path.exists(node_modules_path):
                 print(
@@ -156,8 +161,8 @@ class StaticBundlesCommand(setuptools.command.build_py.build_py):
             else:
                 subprocess.call("npm i", shell=True, cwd=root_dir)
             res = subprocess.call(f"npm run {tgt}", shell=True, cwd=root_dir)
-        except:
-            raise RuntimeError("Could not run 'npm run %s'." % tgt)
+        except Exception as exc:
+            raise RuntimeError("Could not run 'npm run %s'." % tgt) from exc
 
         if res:
             raise RuntimeError("failed to build sphinx-immaterial package.")
@@ -166,7 +171,7 @@ class StaticBundlesCommand(setuptools.command.build_py.build_py):
 setuptools.setup(
     name="sphinx_immaterial",
     description="Adaptation of mkdocs-material theme for the Sphinx documentation system",
-    long_description=open("README.rst").read(),
+    long_description=long_description,
     author="Jeremy Maitin-Shepard",
     author_email="jeremy@jeremyms.com",
     url="https://github.com/jbms/sphinx-immaterial",
