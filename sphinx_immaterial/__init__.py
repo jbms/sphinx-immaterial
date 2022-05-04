@@ -145,9 +145,7 @@ def _get_html_builder(base_builder: Type[sphinx.builders.html.StandaloneHTMLBuil
                     "_static/basic.css",
                 ]
             )
-            self.css_files = [
-                x for x in self.css_files if x.filename not in excluded
-            ]
+            self.css_files = [x for x in self.css_files if x.filename not in excluded]
 
         def gen_additional_pages(self):
             # Prevent the search.html page from being written since this theme provides

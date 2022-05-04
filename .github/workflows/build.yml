@@ -38,7 +38,7 @@ jobs:
       run: python -m pip install wheel -r requirements.txt -r requirements-dev.txt -r docs/requirements.txt
     - run: npm run check
     - run: pylint sphinx_immaterial/*.py
-    - run: black --check sphinx_immaterial/*.py
+    - run: black --diff --color sphinx_immaterial/*.py
     - name: Check for dirty working directory
       run: git diff --exit-code
     - name: Show package version
