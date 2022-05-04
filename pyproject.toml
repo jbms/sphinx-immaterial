@@ -2,6 +2,7 @@
 requires = ["setuptools>=42", "wheel", "setuptools_scm"]
 
 [tool.pyright]
+stubPath = "py_stubs"
 typeCheckingMode = "basic" # avoid 'strict' because it doesn't allow downgrading checks' severity
 reportGeneralTypeIssues = false # TODO (mostly related to docutils, eg. concatenation of nodes and node.get() calls)
 # reportFunctionMemberAccess = "waring" WILL NOT FIX (rST roles conventionally violate this)

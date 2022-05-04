@@ -7,9 +7,11 @@ from typing import (
     Iterator,
     List,
     Dict,
+    Type,
     Optional,
     Union,
     Any,
+    Sequence,
 )
 from types import ModuleType
 
@@ -54,7 +56,7 @@ class CppParamField(sphinx.util.docfields.GroupedField):
         self,
         types: Dict[str, List[docutils.nodes.Node]],
         domain: str,
-        items: Tuple[str, List[docutils.nodes.Node]],
+        items: Sequence[Tuple[str, List[docutils.nodes.Node]]],
         env: Optional[sphinx.environment.BuildEnvironment] = None,
         inliner: Optional[docutils.parsers.rst.states.Inliner] = None,
         location: Optional[docutils.nodes.Node] = None,
@@ -177,7 +179,7 @@ def _monkey_patch_cpp_ast_template_params():
 
 
 def _monkey_patch_cpp_ast_wrap_signature_node(
-    ast_type: sphinx.domains.cpp.ASTBase, wrapper_type: docutils.nodes.Element
+    ast_type: sphinx.domains.cpp.ASTBase, wrapper_type: Type[docutils.nodes.Element]
 ):
     """Patches an AST node type to wrap its signature with a docutils node."""
     orig_describe_signature = ast_type.describe_signature
@@ -201,14 +203,17 @@ last_resolved_symbol = None
 This allows additional customizations of those functions to access the symbol.
 """
 
-DOMAIN_CLS_TYPE = Union[sphinx.domains.c.CDomain, sphinx.domains.cpp.CPPDomain]
-SYMBOL_CLS_TYPE = Union[sphinx.domains.c.Symbol, sphinx.domains.cpp.Symbol]
-DOMAIN_OBJ_TYPE = Union[sphinx.domains.c.CObject, sphinx.domains.cpp.CPPObject]
+AnyDomainType = Union[
+    Type[sphinx.domains.c.CDomain], Type[sphinx.domains.cpp.CPPDomain]
+]
+AnySymbolType = Union[Type[sphinx.domains.c.Symbol], Type[sphinx.domains.cpp.Symbol]]
+AnySymbol = Union[sphinx.domains.c.Symbol, sphinx.domains.cpp.Symbol]
+AnyObjectType = Union[sphinx.domains.c.CObject, sphinx.domains.cpp.CPPObject]
 
 
 def _monkey_patch_resolve_xref_save_symbol(
-    symbol_class: SYMBOL_CLS_TYPE,
-    domain_class: DOMAIN_CLS_TYPE,
+    symbol_class: AnySymbolType,
+    domain_class: AnyDomainType,
 ):
     """Monkey patches C/C++ resolve_xref to save the resolved symbol.
 
@@ -234,7 +239,7 @@ def _monkey_patch_resolve_xref_save_symbol(
 
         if orig_find_name:
 
-            def find_name(self: SYMBOL_CLS_TYPE, *args: Any, **kwargs: Any):
+            def find_name(self: AnySymbol, *args: Any, **kwargs: Any):
                 global last_resolved_symbol
                 symbols, failReason = orig_find_name(self, *args, **kwargs)
                 if symbols:
@@ -245,7 +250,7 @@ def _monkey_patch_resolve_xref_save_symbol(
 
         orig_find_declaration = symbol_class.find_declaration
 
-        def find_declaration(self: SYMBOL_CLS_TYPE, *args: Any, **kwargs: Any):
+        def find_declaration(self: AnySymbol, *args: Any, **kwargs: Any):
             global last_resolved_symbol
             symbol = orig_find_declaration(self, *args, **kwargs)
             if symbol:
@@ -342,7 +347,7 @@ def _monkey_patch_cpp_resolve_c_xrefs():
 SYNOPSIS_ATTR = "_sphinx_immaterial_synopsis"
 
 
-def set_synopsis(symbol: SYMBOL_CLS_TYPE, synopsis: str) -> None:
+def set_synopsis(symbol: AnySymbol, synopsis: str) -> None:
     """Sets the synopsis for a given symbol."""
     setattr(symbol.declaration, SYNOPSIS_ATTR, synopsis)
 
@@ -369,12 +374,12 @@ def _get_precise_template_parameter_object_type(
     return object_type
 
 
-def _monkey_patch_add_object_type_and_synopsis(domain_class: DOMAIN_CLS_TYPE):
+def _monkey_patch_add_object_type_and_synopsis(domain_class: AnyDomainType):
     """Patch C/C++ resolve_xref to add object type-dependent CSS classes."""
     orig_resolve_xref_inner = domain_class._resolve_xref_inner
 
     def _resolve_xref_inner(
-        self: DOMAIN_CLS_TYPE,
+        self: AnyDomainType,
         env: sphinx.environment.BuildEnvironment,
         fromdocname: str,
         builder: sphinx.builders.Builder,
@@ -491,7 +496,7 @@ def _monkey_patch_cpp_expr_role_to_include_c_parent_key():
 ANCHOR_ATTR = "sphinx_immaterial_anchor"
 
 
-def get_symbol_anchor(symbol: SYMBOL_CLS_TYPE):
+def get_symbol_anchor(symbol: AnySymbol):
     anchor = getattr(symbol.declaration, ANCHOR_ATTR, None)
     if anchor is None:
         anchor = symbol.declaration.get_newest_id()
@@ -608,7 +613,7 @@ def _strip_namespaces_from_signatures(
 
 
 def _monkey_patch_domain_to_support_include_directives(
-    object_class: DOMAIN_OBJ_TYPE, language: str
+    object_class: AnyObjectType, language: str
 ):
 
     orig_get_signatures = object_class.get_signatures
@@ -616,14 +621,14 @@ def _monkey_patch_domain_to_support_include_directives(
     def is_include(sig: str) -> bool:
         return sig.startswith("#")
 
-    def get_signatures(self: DOMAIN_OBJ_TYPE) -> List[str]:
+    def get_signatures(self: AnyObjectType) -> List[str]:
         return [sig for sig in orig_get_signatures(self) if not is_include(sig)]
 
     object_class.get_signatures = get_signatures
 
     orig_run = object_class.run
 
-    def run(self: DOMAIN_OBJ_TYPE) -> List[docutils.nodes.Node]:
+    def run(self: AnyObjectType) -> List[docutils.nodes.Node]:
         nodes = orig_run(self)
         include_directives = [
             sig for sig in orig_get_signatures(self) if is_include(sig)
@@ -652,7 +657,7 @@ def _monkey_patch_domain_to_support_include_directives(
 def _add_parameter_links_to_signature(
     env: sphinx.environment.BuildEnvironment,
     signode: sphinx.addnodes.desc_signature,
-    symbol: SYMBOL_CLS_TYPE,
+    symbol: AnySymbolType,
     domain: str,
 ) -> Dict[str, sphinx.addnodes.desc_parameter]:
     """Cross-links parameter names in signature to parameter objects.
@@ -669,7 +674,7 @@ def _add_parameter_links_to_signature(
 
     def add_replacement(
         name_node: sphinx.addnodes.desc_sig_name,
-        param_node: sphinx.addnodes.desc_parameter,
+        param_node: Union[sphinx.addnodes.desc_parameter, desc_cpp_template_param],
     ) -> sphinx.addnodes.desc_sig_name:
         replacements.append((name_node, param_node))
         name = name_node.astext()
@@ -727,8 +732,10 @@ def _add_parameter_links_to_signature(
 def _add_parameter_documentation_ids(
     env: sphinx.environment.BuildEnvironment,
     obj_content: sphinx.addnodes.desc_content,
-    sig_param_nodes_for_signature: List[Dict[str, sphinx.addnodes.desc_parameter]],
-    symbols: SYMBOL_CLS_TYPE,
+    sig_param_nodes_for_signature: List[
+        Dict[str, Union[sphinx.addnodes.desc_parameter, desc_cpp_template_param]]
+    ],
+    symbols: List[AnySymbolType],
     domain_module: ModuleType,  # Union[sphinx.domains.c, sphinx.domains.cpp]
     starting_id_version: int,
 ) -> None:
@@ -772,8 +779,7 @@ def _add_parameter_documentation_ids(
 
         object_type = None
         synopsis = None
-        param_options = {}
-        param_id_suffix = ""
+        param_id_suffix = f"p-{param_name}"
 
         # Set ids of the parameter node.
         for symbol_i, _ in unique_decls.values():
@@ -807,8 +813,6 @@ def _add_parameter_documentation_ids(
 
             if synopsis:
                 set_synopsis(param_symbol, synopsis)
-
-            param_id_suffix = f"p-{param_name}"
 
             # Set symbol id, since by default parameters don't have unique ids,
             # they just use the same id as the parent symbol.  This is
@@ -844,7 +848,7 @@ def _add_parameter_documentation_ids(
                     param_node["ids"].append(param_id)
 
         if object_type is not None:
-            if param_options["include_in_toc"]:
+            if param_options["include_in_toc"]:  # pyright:ignore[reportUnboundVariable]
                 toc_title = param_name
                 if kind:
                     toc_title += f" [{kind}]"
@@ -924,7 +928,7 @@ def _cross_link_parameters(
     app: sphinx.application.Sphinx,
     domain: str,
     content: docutils.nodes.Element,
-    symbols: sphinx.domains.cpp.Symbol,
+    symbols: List[AnySymbol],
 ) -> None:
     obj_desc = content.parent
 
@@ -944,7 +948,7 @@ def _cross_link_parameters(
     # Parameters" fields), these declarations will be copied in to replace the
     # bare parameter name so that the parameter description shows e.g. `int x =
     # 10` or `typename T` rather than just `x` or `T`.
-    sig_param_nodes_for_signature: List[Dict[str, sphinx.addnodes.desc_parameter]] = []
+    sig_param_nodes_for_signature: List[Dict[str, docutils.nodes.Node]] = []
     for signode, symbol in zip(signodes, symbols):
         sig_param_nodes_for_signature.append(
             _add_parameter_links_to_signature(app.env, signode, symbol, domain=domain)
@@ -964,7 +968,7 @@ def _cross_link_parameters(
 
 
 def _monkey_patch_domain_to_cross_link_parameters_and_add_synopses(
-    object_class: DOMAIN_OBJ_TYPE,
+    object_class: AnyObjectType,
     domain: str,
 ):
 
@@ -973,7 +977,7 @@ def _monkey_patch_domain_to_cross_link_parameters_and_add_synopses(
     orig_transform_content = object_class.transform_content
 
     def transform_content(
-        self: DOMAIN_CLS_TYPE,
+        self: AnyDomainType,
         contentnode: sphinx.addnodes.desc_content,
     ) -> None:
         self.contentnode = contentnode
@@ -981,7 +985,7 @@ def _monkey_patch_domain_to_cross_link_parameters_and_add_synopses(
 
     object_class.transform_content = transform_content
 
-    def after_content(self: DOMAIN_CLS_TYPE) -> None:
+    def after_content(self: AnyDomainType) -> None:
         symbols = [self.env.temp_data[f"{domain}:parent_symbol"]]
         while symbols[-1].siblingAbove:
             symbols.append(symbols[-1].siblingAbove)
@@ -1027,11 +1031,11 @@ def _monkey_patch_override_ast_id(ast_declaration_class: AST_DECL_TYPE):
     ast_declaration_class.get_id = get_id
 
 
-def _monkey_patch_domain_get_object_synopses(domain_class: DOMAIN_CLS_TYPE):
+def _monkey_patch_domain_get_object_synopses(domain_class: AnyDomainType):
     def get_object_synopses(
-        self: DOMAIN_CLS_TYPE,
+        self: AnyDomainType,
     ) -> Iterator[Tuple[Tuple[str, str], str]]:
-        domain_symbol: SYMBOL_CLS_TYPE = self.data["root_symbol"]
+        domain_symbol: AnySymbolType = self.data["root_symbol"]
         for symbol in domain_symbol.get_all_symbols():
             if symbol.declaration is None:
                 continue
