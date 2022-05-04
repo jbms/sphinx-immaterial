@@ -11,6 +11,7 @@ from typing import (
     Union,
     Any,
 )
+from types import ModuleType
 
 import docutils.nodes
 import docutils.parsers.rst.states
@@ -728,7 +729,7 @@ def _add_parameter_documentation_ids(
     obj_content: sphinx.addnodes.desc_content,
     sig_param_nodes_for_signature: List[Dict[str, sphinx.addnodes.desc_parameter]],
     symbols: SYMBOL_CLS_TYPE,
-    domain_module,  # type: ignore Union[sphinx.domains.c, sphinx.domains.cpp]
+    domain_module: ModuleType,  # Union[sphinx.domains.c, sphinx.domains.cpp]
     starting_id_version: int,
 ) -> None:
 
