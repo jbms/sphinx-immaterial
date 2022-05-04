@@ -44,12 +44,14 @@ jobs:
     - name: Show package version
       run: python setup.py --version
     - name: Build wheel
-      run: python setup.py bdist_wheel
+      run: python setup.py sdist bdist_wheel
     - name: Upload wheels as artifacts
       uses: actions/upload-artifact@v2
       with:
         name: python-packages
-        path: dist/*.whl
+        path: |
+          dist/*.whl
+          dist/*.tar.*
     - name: Install wheel and docs' dependencies
       run: pip install dist/*.whl -r docs/requirements.txt
     - name: Build html docs
