@@ -14,7 +14,7 @@ __pycache__/
 
 # Sphinx documentation
 docs/_build/
-docs/generated/
+docs/python_apigen_generated/
 
 # mypy
 .mypy_cache/

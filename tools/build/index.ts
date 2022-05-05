@@ -216,7 +216,7 @@ const docs$ = (() => {
   let dirty = false
   return defer(() => process.argv.includes("--watch")
     ? watch(["docs/**", "sphinx_immaterial/**"],
-            { ignored: ["*.pyc", "docs/_build/**", "docs/generated/**"] })
+            { ignored: ["*.pyc", "docs/_build/**", "docs/python_apigen_generated/**"] })
         : EMPTY
   ).pipe(startWith("*"),
     switchMap(async () => {
@@ -237,7 +237,16 @@ const docs$ = (() => {
                         }
                       })
                     })
-                    const child = spawn("sphinx-build", ["docs", "docs/_build", "-a"],
+                    await new Promise((resolve, reject) => {
+                      rimraf("docs/python_apigen_generated", error => {
+                        if (error != null) {
+                          reject(error)
+                        } else {
+                          resolve(undefined)
+                        }
+                      })
+                    })
+                    const child = spawn("sphinx-build", ["docs", "docs/_build", "-a", "-j", "auto"],
                                         {stdio: "inherit"})
                     await new Promise(resolve => {
                       child.on("exit", resolve)

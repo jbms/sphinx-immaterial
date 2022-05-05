@@ -1,11 +1,12 @@
 """Utilities for use with Sphinx."""
 
 import io
-from typing import Optional, Dict, Union, List
+from typing import Optional, Dict, Union, List, Tuple, Mapping, Sequence
 
 import docutils.nodes
 import docutils.parsers.rst.states
 import docutils.statemachine
+import sphinx.addnodes
 import sphinx.util.docutils
 from typing_extensions import Literal
 
@@ -31,13 +32,15 @@ def to_statemachine_stringlist(
 def format_directive(
     name: str,
     *args: str,
+    signatures: Optional[Sequence[str]] = None,
     content: Optional[str] = None,
-    options: Optional[Dict[str, Union[None, str, bool]]] = None,
+    options: Optional[Mapping[str, Union[None, str, bool]]] = None,
 ) -> str:
     """Formats a RST directive into RST syntax.
 
     :param name: Directive name, e.g. "json:schema".
     :param args: List of directive arguments.
+    :param signatures: List of signatures, alternative to ``args``.
     :param content: Directive body content.
     :param options: Directive options.
 
@@ -45,9 +48,15 @@ def format_directive(
     """
     out = io.StringIO()
     out.write("\n\n")
-    out.write(f".. {name}::")
-    for arg in args:
-        out.write(f" {arg}")
+    prefix = f".. {name}:: "
+    out.write(prefix)
+    assert not args or not signatures
+    out.write(" ".join(args))
+    if signatures:
+        for i, signature in enumerate(signatures):
+            if i > 0:
+                out.write("\n" + " " * len(prefix))
+            out.write(signature)
     out.write("\n")
     if options:
         for key, value in options.items():
@@ -156,3 +165,30 @@ def summarize_element_text(
             text = text[: sentence_end + 1]
     text = text.replace("\n", " ")
     return text.strip()
+
+
+def make_toctree_node(
+    state: docutils.parsers.rst.states.RSTState,
+    toc_entries: List[Tuple[str, str]],
+    options: dict,
+    source_path: str,
+    source_line: int = 0,
+) -> List[docutils.nodes.Node]:
+    # The Sphinx `toctree` directive parser cannot handle page names that
+    # include angle brackets.  Therefore, we use the directive to create an
+    # empty toctree node and then add the entries directly.
+    toctree_nodes = parse_rst(
+        state=state,
+        text=format_directive("toctree", options=options),
+        source_path=source_path,
+        source_line=source_line,
+    )
+    toctree: Optional[sphinx.addnodes.toctree] = None
+    for node in toctree_nodes[-1].traverse(condition=sphinx.addnodes.toctree):
+        toctree = node
+        break
+    if toctree is None:
+        raise ValueError("No toctree node found")
+    toctree["entries"].extend(toc_entries)
+    toctree["includefiles"].extend([path for _, path in toc_entries])
+    return toctree_nodes

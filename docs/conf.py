@@ -45,6 +45,7 @@ extensions = [
     "sphinx.ext.doctest",
     "sphinx.ext.extlinks",
     "sphinx.ext.intersphinx",
+    "sphinx.ext.napoleon",
     "sphinx.ext.todo",
     "sphinx.ext.mathjax",
     "sphinx.ext.viewcode",
@@ -54,6 +55,7 @@ extensions = [
     "sphinx_immaterial.format_signatures",
     "sphinx_immaterial.cppreference",
     "sphinx_immaterial.json_domain",
+    "sphinx_immaterial.python_apigen",
     "sphinx_jinja",
 ]
 
@@ -65,9 +67,6 @@ intersphinx_mapping = {
 # The reST default role (used for this markup: `text`) to use for all
 # documents.
 default_role = "any"
-
-autosummary_generate = True
-autoclass_content = "class"
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ["_templates"]
@@ -228,6 +227,10 @@ rst_prolog = """
 .. role:: json(code)
    :language: json
    :class: highlight
+
+.. role:: rst(code)
+   :language: rst
+   :class: highlight
 """
 
 
@@ -276,6 +279,15 @@ jinja_contexts = {
 
 json_schemas = ["index_transform_schema.yml", "inheritance_schema.yml"]
 
+python_apigen_modules = {"tensorstore_demo": "python_apigen_generated/"}
+
+python_apigen_default_groups = [
+    ("class:.*", "Classes"),
+    (r".*:.*\.__(init|new)__", "Constructors"),
+    (r".*:.*\.__eq__", "Comparison operators"),
+    (r".*:.*\.__(str|repr)__", "String representation"),
+]
+
 
 def _validate_parallel_build(app):
     # Verifies that all of the extensions defined by this theme support parallel
@@ -291,7 +303,7 @@ def _parse_object_description_signature(
     registry_option = registry.get(signature)
     node += sphinx.addnodes.desc_name(signature, signature)
     if registry_option is None:
-        logger.error("Invalid object description option: %r", signature)
+        logger.error("Invalid object description option: %r", signature, location=node)
     else:
         node += sphinx.addnodes.desc_sig_punctuation(" : ", " : ")
         annotations = sphinx.domains.python._parse_annotation(
@@ -316,7 +328,7 @@ def _parse_confval_signature(
     registry_option = values.get(signature)
     node += sphinx.addnodes.desc_name(signature, signature)
     if registry_option is None:
-        logger.error("Invalid config option: %r", signature)
+        logger.error("Invalid config option: %r", signature, location=node)
     else:
         default, rebuild, types = registry_option
         if isinstance(types, sphinx.config.ENUM):
@@ -364,5 +376,14 @@ def setup(app):
         objname="object description option",
         indextemplate="pair: %s; object description option",
         parse_node=_parse_object_description_signature,
+    )
+
+    # Add `event` type from Sphinx's own documentation, to allow intersphinx
+    # references to Sphinx events.
+    app.add_object_type(
+        "event",
+        "event",
+        objname="Sphinx event",
+        indextemplate="pair: %s; event",
     )
     app.connect("builder-inited", _validate_parallel_build)

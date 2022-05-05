@@ -81,6 +81,7 @@ or ``theme.conf`` for more details.
     api
     format_signatures
     python
+    python_apigen
     cpp
     external_cpp_references
     cppreference
@@ -91,6 +92,7 @@ or ``theme.conf`` for more details.
     :hidden:
 
     demo_api
+    python_apigen_demo
     specimen
     rst_basics
     rst-cheatsheet/rst-cheatsheet

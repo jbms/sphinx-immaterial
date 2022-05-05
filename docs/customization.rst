@@ -416,10 +416,22 @@ Configuration Options
         configuration option takes precedence over
         :themeconf:`toc_title_is_page_title`.
 
+        .. code-block:: python
+
+            html_theme_options = {
+                "toc_title": "Contents",
+            }
+
     .. themeconf:: toc_title_is_page_title
 
        If set to ``True`` and :themeconf:`toc_title` is unspecified, the table of
        contents is labeled in the side bar by the title of the page itself.
+
+       .. code-block:: python
+
+           html_theme_options = {
+               "toc_title_is_page_title": True,
+           }
 
     .. themeconf:: version_dropdown
 

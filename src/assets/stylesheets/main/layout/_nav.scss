@@ -40,7 +40,11 @@
 
   // Navigation title
   &__title {
-    display: block;
+    // sphinx-immaterial: display object description icon as a
+    // separate column, don't allow title text to wrap underneath it.
+    display: flex;
+    // sphinx-immaterial: ensure icons are centered vertically with text.
+    align-items: center;
     padding: 0 px2rem(12px);
     overflow: hidden;
     font-weight: 700;
@@ -389,6 +393,12 @@
     // are truncated with an ellipsis rather than wrapping.
     .md-nav__title .md-ellipsis {
       white-space: nowrap;
+
+      // In Chrome, <wbr> elements override `white-space: nowrap`, but
+      // setting them to `display: none` prevents that.
+      wbr {
+        display: none;
+      }
     }
   }
 

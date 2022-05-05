@@ -447,7 +447,7 @@ def setup(app: sphinx.application.Sphinx):
     # to apply.
     sphinx.addnodes.desc_signature.classes.append("highlight")
 
-    app.connect("object-description-transform", _wrap_signatures)
+    app.connect("object-description-transform", _wrap_signatures, priority=1000)
     _monkey_patch_object_description_to_include_fields_in_toc()
 
     add_object_description_option(
