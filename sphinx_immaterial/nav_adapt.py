@@ -336,14 +336,36 @@ def _get_current_page_in_toc(toc: List[MkdocsNavEntry]) -> Optional[MkdocsNavEnt
     return None
 
 
-def _collapse_children_not_on_same_page(entry: MkdocsNavEntry) -> MkdocsNavEntry:
+def _prune_toc_by_active(
+    entry: MkdocsNavEntry, active: bool
+) -> Optional[MkdocsNavEntry]:
+    """Prunes entries from the TOC tree according to whether they are active.
+
+    Any TOC entries with a target on the current page (i.e. a section within the
+    current page) are marked active, while entries with a target on a different
+    page are not marked active.
+
+    :param entry: TOC root to recursively prune.
+    :param active: If `True`, prune targets not on the current page.  If
+      `False`, prune targets on the current page, except if they transitively
+      contain children not in the current page.
+    :returns: Pruned copy of `entry`.
+    """
+    if active and not entry.active:
+        return None
+
     entry = copy.copy(entry)
-    if not entry.active:
-        entry.children = []
-    else:
-        entry.children = [
-            _collapse_children_not_on_same_page(child) for child in entry.children
-        ]
+
+    new_children = []
+    for child in entry.children:
+        new_child = _prune_toc_by_active(child, active)
+        if new_child is not None:
+            new_children.append(new_child)
+    entry.children = new_children
+
+    if entry.active and not active and not entry.children:
+        return None
+
     return entry
 
 
@@ -488,7 +510,7 @@ def _get_mkdocs_tocs(
         pagename=pagename,
         collapse=theme_options.get("globaltoc_collapse", False),
     )
-    local_toc = []
+    local_toc: List[MkdocsNavEntry] = []
     env = app.env
     assert env is not None
     builder = app.builder
@@ -497,9 +519,19 @@ def _get_mkdocs_tocs(
         # Extract entry from `global_toc` corresponding to the current page.
         current_page_toc_entry = _get_current_page_in_toc(global_toc)
         if current_page_toc_entry:
-            local_toc = [_collapse_children_not_on_same_page(current_page_toc_entry)]
+            local_toc = cast(
+                List[MkdocsNavEntry],
+                [_prune_toc_by_active(current_page_toc_entry, active=True)],
+            )
             if not duplicate_local_toc:
-                current_page_toc_entry.children = []
+                current_page_toc_entry.children = [
+                    child
+                    for child in [
+                        _prune_toc_by_active(child, active=False)
+                        for child in current_page_toc_entry.children
+                    ]
+                    if child is not None
+                ]
 
     else:
         # Every page is a child of the root page.  We still want a full TOC
