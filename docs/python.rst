@@ -79,12 +79,88 @@ Python domain customization
       The concise syntax is non-standard and not accepted by Python type
       checkers.
 
-.. confval:: python_qualify_parameter_ids
+Overloaded functions
+--------------------
 
-   Specifies whether function parameters should be assigned fully-qualified ids
-   (for cross-linking purposes) of the form ``<parent-id>.<param-name>`` based
-   on the id of the parent declaration.
+The Sphinx Python domain supports documenting multiple signatures together as
+part of the same object description:
 
-   If set to :python:`False`, instead the shorter unqualified id
-   ``p-<param-name>`` is used.  This option should only be set to
-   :python:`False` if each Python declaration is on a separate page.
+.. rst-example::
+
+
+   .. py:function:: overload_example1(a: int) -> int
+                    overload_example1(a: float) -> float
+                    overload_example1(a: str) -> str
+
+      Does something with an `int`, `float`, or `str`.
+
+However, it does not provide a way to document each overload with a separate
+description, except by using the ``:noindex:`` option to avoid a warning from
+duplicate definitions.
+
+This theme extends the Python domain directives with an ``:object-ids:`` option to
+allow multiple overloads of a given function to be documented separately:
+
+The value of the ``:object-ids:`` option must be a JSON-encoded array of
+strings, where each string specifies the full object name (including module
+name) to use for each signature.  The object ids must start with the actual
+module name, if any, but the remainder of the id need not match the name
+specified in the signature.
+
+.. rst-example::
+
+   .. py:function:: overload_example2(a: int) -> int
+                    overload_example2(a: float) -> float
+      :object-ids: ["overload_example2(int)", "overload_example2(float)"]
+
+      Does something with an `int` or `float`.
+
+   .. py:function:: overload_example2(a: str) -> str
+
+      :object-ids: ["overload_example2(str)"]
+
+      Does something with a `str`.
+
+If this option is specified, and :objconf:`generate_synopses` is enabled, then a
+synopsis will be stored even if ``:noindex`` is also specified.
+
+Separate page for object description
+------------------------------------
+
+Normally, the Python domain generates an ``id`` attribute for each object
+description based on its full name.  This may be used in a URL to target a
+specific object description, e.g. ``api/tensorstore.html#tensorstore.IndexDomain``.
+
+If an entire page is dedicated to a single object description, this ``id`` is
+essentially redundant,
+e.g. ``api/tensorstore.IndexDomain.html#tensorstore.IndexDomain``.
+
+This theme extends the Python domain directives (as well as the corresponding
+``auto<objtype>`` directives provided by the `sphinx.ext.autodoc` extension)
+with a ``:nonodeid:`` option:
+
+.. code-block:: python
+
+   .. py:function:: func(a: int) -> int
+      :nonodeid:
+
+If this option is specified, the object description itself will not have an
+``id``, and any cross references to the object will simply target the page.
+Additionally, any table of contents entry for the page will have an associated
+:ref:`icon<object-toc-icons>` if one has been configured for the object type.
+
+.. note::
+
+   Sphinx itself supports two related options for Python domain directives:
+
+   - :rst:`:noindex:`: prevents the creation of a cross-reference target
+     entirely.  The object will not appear in search results (except through
+     text matches).
+
+   - :rst:`:noindexentry:`: prevents inclusion of the object in the "general
+     index" (not normally useful with this theme anyway).  A cross-reference
+     target is still created, and the object still appears in search results.
+
+   In contrast, if the :rst:`:nonodeid:` option is specified, a cross-reference
+   target is still created, and the object is still included in search results.
+   However, any cross references to the object will link to the containing page.
