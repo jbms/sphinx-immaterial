@@ -128,6 +128,11 @@ Python domain customization
 
             Does something with the object.
 
+.. confval:: python_strip_property_prefix
+
+   Strip the ``property`` prefix from :rst:dir:`py:property` object
+   descriptions.
+
 Overloaded functions
 --------------------
 
