@@ -79,6 +79,55 @@ Python domain customization
       The concise syntax is non-standard and not accepted by Python type
       checkers.
 
+.. confval:: python_strip_self_type_annotations
+
+   Strip type annotations from the initial :python:`self` parameter of methods.
+
+   Since the :python:`self` type is usually evident from the context, removing
+   them may improve readability of the documentation.
+
+   .. note::
+
+      This option is useful when generating documentation from `pybind11
+      <https://pybind11.readthedocs.io/en/stable/advanced/misc.html#generating-documentation-using-sphinx>`__
+      modules, as pybind11 adds these type annotations.
+
+   .. rst-example::
+
+      .. py:class:: Example
+         :noindex:
+
+         .. py:method:: foo(self: Example, a: int) -> int
+            :noindex:
+
+            Does something with the object.
+
+.. confval:: python_strip_return_type_annotations
+
+   Regular expression pattern that matches the full name (including module) of
+   functions for which any return type annotations should be stripped.
+
+   Setting this to `None` disables stripping of return type annotations.
+
+   By default, the return type is stripped from :python:`__init__` and
+   :python:`__setitem__` functions (which usually return :python:`None`).
+
+   .. note::
+
+      This option is useful when generating documentation from `pybind11
+      <https://pybind11.readthedocs.io/en/stable/advanced/misc.html#generating-documentation-using-sphinx>`__
+      modules, as pybind11 adds these type annotations.
+
+   .. rst-example::
+
+      .. py:class:: Example
+         :noindex:
+
+         .. py:method:: __setitem__(self, a: int, b: int) -> None
+            :noindex:
+
+            Does something with the object.
+
 Overloaded functions
 --------------------
 
