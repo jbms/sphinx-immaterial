@@ -49,12 +49,22 @@ def _apply_property_documenter_type_annotation_fix():
     old_add_directive_header = PropertyDocumenter.add_directive_header
 
     def add_directive_header(self, sig: str) -> None:
+        start_line = len(self.directive.result.data)
         old_add_directive_header(self, sig)
 
         # Check for return annotation
         retann = self.retann or _get_property_return_type(self.object)
-        if retann is not None:
-            self.add_line("   :type: " + retann, self.get_sourcename())
+        if retann is None:
+            return
+
+        # Check if type annotation has already been added.
+        type_line_prefix = self.indent + "   :type: "
+        for line in self.directive.result.data[start_line:]:
+            if line.startswith(type_line_prefix):
+                return
+
+        # Type annotation not already added.
+        self.add_line("   :type: " + retann, self.get_sourcename())
 
     PropertyDocumenter.add_directive_header = add_directive_header
 
