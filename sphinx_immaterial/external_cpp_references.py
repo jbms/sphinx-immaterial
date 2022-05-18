@@ -115,7 +115,8 @@ def get_mappings(app: sphinx.application.Sphinx) -> Dict[str, ObjectInfo]:
     assert env is not None
     cpp_objects = getattr(env, "cppreference_objects", None)
     if cpp_objects is None:
-        cpp_objects = env.cppreference_objects = {}  # type: ignore
+        setattr(env, "cppreference_objects", {})
+        return {}
     return cpp_objects
 
 

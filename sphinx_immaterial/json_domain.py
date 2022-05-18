@@ -21,7 +21,7 @@ import docutils
 import docutils.parsers.rst.directives
 
 try:
-    import jsonschema.validators  # type: ignore
+    import jsonschema.validators
 
     _jsonschema_validation_supported = True
 except ImportError:
@@ -250,8 +250,8 @@ def _get_json_schema_files(app: sphinx.application.Sphinx):
 
 def _populate_json_schema_id_map(app: sphinx.application.Sphinx):
     """Finds all schema files and loads them into `_json_schema_id_map`."""
-    schema_data: LoadedSchemaData
-    schema_data = app.env.json_schema_data = LoadedSchemaData()  # type: ignore
+    schema_data = LoadedSchemaData()
+    setattr(app.env, "json_schema_data", schema_data)
     seen_ids: Dict[str, str] = {}
     all_paths = list(_get_json_schema_files(app))
     validate = app.config.json_schema_validate
@@ -427,7 +427,7 @@ class JsonSchemaDirective(sphinx.directives.ObjectDescription):
     _rendered_title: Optional[docutils.nodes.inline]
 
     def _get_schema_entry(self) -> JsonSchemaMapEntry:
-        schema_data: LoadedSchemaData = self.env.json_schema_data  # type: ignore
+        schema_data: LoadedSchemaData = getattr(self.env, "json_schema_data")
         return schema_data.id_map[self.arguments[0]]
 
     def _get_schema(self):
@@ -645,7 +645,7 @@ class JsonSchemaDirective(sphinx.directives.ObjectDescription):
         :param properties: Dict to be filled with members.
         :param required: Set to which required members are added.
         """
-        schema_data: LoadedSchemaData = self.env.json_schema_data  # type: ignore
+        schema_data: LoadedSchemaData = getattr(self.env, "json_schema_data")
         if "$ref" in schema_node:
             schema_node = schema_data.id_map[schema_node["$ref"]].schema
         if schema_node.get("type") == "object":
@@ -693,7 +693,7 @@ class JsonSchemaDirective(sphinx.directives.ObjectDescription):
 
         :returns: The rendered result as a list of docutils nodes.
         """
-        schema_data: LoadedSchemaData = self.env.json_schema_data  # type: ignore
+        schema_data: LoadedSchemaData = getattr(self.env, "json_schema_data")
         field_list, body = self._make_field("One of")
         one_ofs = self._schema_entry.schema["oneOf"]
         # If all oneof options are constant strings, generate fully-qualified
@@ -729,7 +729,7 @@ class JsonSchemaDirective(sphinx.directives.ObjectDescription):
         :returns: A tuple (path, line) specifying the source information.
         """
 
-        schema_data: LoadedSchemaData = self.env.json_schema_data  # type: ignore
+        schema_data: LoadedSchemaData = getattr(self.env, "json_schema_data")
         source_info = schema_data.source_info_map.get(id(source_string))
         if source_info is None:
             source_info = (self._schema_entry.path, -1)
@@ -759,7 +759,7 @@ class JsonSchemaDirective(sphinx.directives.ObjectDescription):
 
     def _render_body(self):
         """Renders the body of the schema."""
-        schema_data: LoadedSchemaData = self.env.json_schema_data  # type: ignore
+        schema_data: LoadedSchemaData = getattr(self.env, "json_schema_data")
         schema_node = self._schema_entry.schema
         result = []
 
@@ -1069,8 +1069,8 @@ class JsonSchemaDomain(sphinx.domains.Domain):
         "schema": JsonSchemaDirective,
     }
 
-    initial_data = {  # type: ignore
-        "schemas": {},
+    initial_data: Dict[str, DomainSchemaEntry] = {
+        "schemas": cast(DomainSchemaEntry, {}),
     }
 
     @property

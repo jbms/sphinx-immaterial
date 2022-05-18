@@ -24,7 +24,7 @@ def _monkey_patch_generic_object_to_support_synopses():
     orig_transform_content = GenericObject.transform_content
 
     def transform_content(self: GenericObject, contentnode) -> None:
-        self.contentnode = contentnode  # type: ignore
+        setattr(self, "contentnode", contentnode)
         orig_transform_content(self, contentnode)
 
     GenericObject.transform_content = transform_content
@@ -41,7 +41,7 @@ def _monkey_patch_generic_object_to_support_synopses():
         if generate_synopses is None:
             return
         synopsis = sphinx_utils.summarize_element_text(
-            self.contentnode, generate_synopses  # type: ignore
+            getattr(self, "contentnode"), generate_synopses
         )
         std = cast(StandardDomain, self.env.get_domain("std"))
         for name in self.names:

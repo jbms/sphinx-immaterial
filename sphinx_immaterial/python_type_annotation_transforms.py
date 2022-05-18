@@ -199,7 +199,7 @@ def _monkey_patch_python_domain_to_transform_type_annotations():
     orig_parse_annotation = sphinx.domains.python._parse_annotation
 
     def _parse_annotation(annotation: str, env: sphinx.environment.BuildEnvironment):
-        if not env._sphinx_immaterial_python_type_transform:  # type: ignore
+        if not getattr(env, "_sphinx_immaterial_python_type_transform", False):
             return orig_parse_annotation(annotation, env)
         try:
             orig_ast_parse = sphinx.domains.python.ast_parse
@@ -208,7 +208,9 @@ def _monkey_patch_python_domain_to_transform_type_annotations():
                 tree = orig_ast_parse(annotation)
                 config = env.config
                 transformer = TypeAnnotationTransformer()
-                transformer.aliases = env._sphinx_immaterial_python_type_aliases  # type: ignore
+                transformer.aliases = getattr(
+                    env, "_sphinx_immaterial_python_type_aliases"
+                )
                 transformer.pep604 = config.python_transform_type_annotations_pep604
                 transformer.concise_literal = (
                     config.python_transform_type_annotations_concise_literal
@@ -246,10 +248,12 @@ def _builder_inited(app: sphinx.application.Sphinx):
             "requires python_transform_type_annotations_pep604=True"
         )
 
-    app.env._sphinx_immaterial_python_type_aliases = aliases  # type: ignore
+    setattr(app.env, "_sphinx_immaterial_python_type_aliases", aliases)
 
-    app.env._sphinx_immaterial_python_type_transform = (  # type: ignore
-        aliases or config.python_transform_type_annotations_pep604
+    setattr(
+        app.env,
+        "_sphinx_immaterial_python_type_transform",
+        aliases or config.python_transform_type_annotations_pep604,
     )
 
 

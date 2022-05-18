@@ -152,8 +152,8 @@ def _monkey_patch_python_get_signature_prefix(
     def get_signature_prefix(self, sig: str):
         prefix = orig_get_signature_prefix(self, sig)
         if sphinx.version_info >= (4, 3):
-            return prefix  # type: ignore
-        parts = prefix.strip().split(" ")  # type: ignore
+            return prefix
+        parts = cast(str, prefix).strip().split(" ")
         if "property" in parts:
             parts.remove("property")
         if parts:
@@ -621,18 +621,20 @@ def _monkey_patch_python_domain_to_support_synopses():
     orig_transform_content = PyObject.transform_content
 
     def transform_content(self: PyObject, contentnode) -> None:
-        self.contentnode = contentnode  # type: ignore
+        setattr(self, "contentnode", contentnode)
         orig_transform_content(self, contentnode)
 
     PyObject.transform_content = transform_content
 
     def after_content(self: PyObject) -> None:
         orig_after_content(self)
-        obj_desc = self.contentnode.parent  # type: ignore
+        obj_desc = cast(
+            sphinx.addnodes.desc_content, getattr(self, "contentnode")
+        ).parent
         signodes = obj_desc.children[:-1]
 
         symbols = []
-        for signode in signodes:
+        for signode in cast(List[docutils.nodes.Element], signodes):
             modname = signode["module"]
             fullname = signode["fullname"]
             symbols.append((modname + "." if modname else "") + fullname)
@@ -649,8 +651,8 @@ def _monkey_patch_python_domain_to_support_synopses():
         _cross_link_parameters(
             directive=self,
             app=self.env.app,
-            signodes=signodes,
-            content=self.contentnode,  # type: ignore
+            signodes=cast(List[sphinx.addnodes.desc_signature], signodes),
+            content=getattr(self, "contentnode"),
             symbols=function_symbols,
             noindex=noindex,
         )
@@ -663,7 +665,7 @@ def _monkey_patch_python_domain_to_support_synopses():
         if generate_synopses is None:
             return
         synopsis = sphinx_utils.summarize_element_text(
-            self.contentnode, generate_synopses  # type: ignore
+            getattr(self, "contentnode"), generate_synopses
         )
         if not synopsis:
             return
