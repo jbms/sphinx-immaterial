@@ -9,13 +9,15 @@ LOGGER = getLogger(__name__)
 
 try:
     import pymdownx.keymap_db as keys_db  # pytype: disable=import-error
+
+    HAS_DB = True
 except ImportError:
     LOGGER.info(
         "Could not import `keymap_db` module from `pymdownx` package.\n    "
         "Please ensure `pymdown-extensions` is installed.\n    "
         "The `:keys:` role has no default key map."
     )
-    keys_db = None
+    HAS_DB = True
 
 
 class kbd_node(nodes.TextElement):
@@ -27,7 +29,7 @@ def map_filter(key: str, user_map: dict) -> Tuple[str, str]:
     cls = key.replace("_", "-").replace(" ", "-").lower()
     if key in user_map.keys():
         display = user_map[key]
-    if keys_db is not None:
+    if HAS_DB:
         if key in keys_db.aliases:
             display = keys_db.keymap[keys_db.aliases[key]]
             cls = keys_db.aliases[key]
@@ -75,7 +77,7 @@ def keys_role(
 
 def _config_inited(app: Sphinx, config: Config) -> None:
     """Merge default `keys_db.keymap` with user-specified `keys_map` role option."""
-    if keys_db is not None and app.config["keys_map"].keys():
+    if HAS_DB and app.config["keys_map"].keys():
         keys_db.keymap.update(**app.config["keys_map"])
         app.config["keys_map"] = keys_db.keymap
 

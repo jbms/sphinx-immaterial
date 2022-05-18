@@ -14,15 +14,24 @@ from typing import (
 
 import docutils.nodes
 import docutils.parsers.rst.states
+import sphinx
 import sphinx.addnodes
 import sphinx.application
+import sphinx.builders
+import sphinx.domains
 import sphinx.domains.python
+import sphinx.environment
 import sphinx.ext.napoleon
 import sphinx.util.logging
 import sphinx.util.nodes
 
 from . import apidoc_formatting
 from . import sphinx_utils
+
+PythonDomain = sphinx.domains.python.PythonDomain
+PyTypedField = sphinx.domains.python.PyTypedField
+PyObject = sphinx.domains.python.PyObject
+
 
 logger = sphinx.util.logging.getLogger(__name__)
 
@@ -36,8 +45,6 @@ def _ensure_wrapped_in_desc_type(
 
 
 def _monkey_patch_python_doc_fields():
-    PyTypedField = sphinx.domains.python.PyTypedField
-
     def make_field(
         self: PyTypedField,
         types: Dict[str, List[docutils.nodes.Node]],
@@ -68,7 +75,7 @@ def _monkey_patch_python_doc_fields():
                     fieldtype_node.extend(
                         _ensure_wrapped_in_desc_type(
                             self.make_xrefs(
-                                self.typerolename,
+                                cast(str, self.typerolename),
                                 domain,
                                 typename,
                                 docutils.nodes.Text,
@@ -91,7 +98,7 @@ def _monkey_patch_python_doc_fields():
 
         for fieldarg, content in items:
             bodynode += handle_item(fieldarg, content)
-        fieldname = docutils.nodes.field_name("", self.label)
+        fieldname = docutils.nodes.field_name("", cast(str, self.label))
         fieldbody = docutils.nodes.field_body("", bodynode)
         return docutils.nodes.field("", fieldname, fieldbody)
 
@@ -142,18 +149,18 @@ def _monkey_patch_python_get_signature_prefix(
 ) -> None:
     orig_get_signature_prefix = directive_cls.get_signature_prefix
 
-    def get_signature_prefix(self, sig: str) -> str:
+    def get_signature_prefix(self, sig: str):
         prefix = orig_get_signature_prefix(self, sig)
         if sphinx.version_info >= (4, 3):
             return prefix
-        parts = prefix.strip().split(" ")
+        parts = cast(str, prefix).strip().split(" ")
         if "property" in parts:
             parts.remove("property")
         if parts:
             return " ".join(parts) + " "
         return ""
 
-    directive_cls.get_signature_prefix = get_signature_prefix
+    directive_cls.get_signature_prefix = get_signature_prefix  # type: ignore
 
 
 def _monkey_patch_pyattribute_handle_signature(
@@ -178,22 +185,24 @@ def _monkey_patch_pyattribute_handle_signature(
             )
         return result
 
-    directive_cls.handle_signature = handle_signature
+    directive_cls.handle_signature = handle_signature  # type: ignore
+
+
+desc_parameterlist = sphinx.addnodes.desc_parameterlist
 
 
 def _monkey_patch_parameterlist_to_support_subscript():
-    desc_parameterlist = sphinx.addnodes.desc_parameterlist
-
     def astext(self: desc_parameterlist) -> str:
         open_paren, close_paren = self.get("parens", ("(", ")"))
         return f"{open_paren}{super(desc_parameterlist, self).astext()}{close_paren}"
 
-    desc_parameterlist.astext = astext
+    desc_parameterlist.astext = astext  # type: ignore
+
+
+GoogleDocstring = sphinx.ext.napoleon.docstring.GoogleDocstring
 
 
 def _monkey_patch_napoleon_admonition_classes():
-    GoogleDocstring = sphinx.ext.napoleon.docstring.GoogleDocstring
-
     def _add_admonition_class(method_name: str, class_name: str) -> None:
         orig_method = getattr(GoogleDocstring, method_name)
 
@@ -223,7 +232,6 @@ class PyParamXRefRole(sphinx.domains.python.PyXRefRole):
 def _monkey_patch_python_domain_to_resolve_params():
     """Adds support to the Python domain for resolving parameter references."""
 
-    PythonDomain = sphinx.domains.python.PythonDomain  # pylint: disable=invalid-name
     orig_resolve_xref = PythonDomain.resolve_xref
 
     def resolve_xref(
@@ -278,8 +286,6 @@ def _monkey_patch_python_domain_to_resolve_params():
 
 
 def _monkey_patch_python_domain_to_add_object_synopses_to_references():
-    PythonDomain = sphinx.domains.python.PythonDomain  # pylint: disable=invalid-name
-
     def _add_synopsis(
         self: PythonDomain,
         env: sphinx.environment.BuildEnvironment,
@@ -348,7 +354,6 @@ OBJECT_PRIORITY_EXCLUDE_FROM_SEARCH = -1
 
 def _monkey_patch_python_domain_to_deprioritize_params_in_search():
     """Ensures parameters have OBJECT_PRIORITY_UNIMPORTANT."""
-    PythonDomain = sphinx.domains.python.PythonDomain  # pylint: disable=invalid-name
     orig_get_objects = PythonDomain.get_objects
 
     def get_objects(
@@ -460,6 +465,7 @@ def _add_parameter_documentation_ids(
             desc_param_node = sig_param_nodes.get(param_name)
             if desc_param_node is None:
                 continue
+            desc_param_node = cast(docutils.nodes.Element, desc_param_node)
             decl_text = desc_param_node.astext().strip()
             unique_decls.setdefault(decl_text, (i, desc_param_node))
         if not unique_decls:
@@ -476,10 +482,12 @@ def _add_parameter_documentation_ids(
             return
 
         if not noindex:
+            synopsis: Optional[str]
             generate_synopses = param_options["generate_synopses"]
             if generate_synopses is not None:
                 synopsis = sphinx_utils.summarize_element_text(
-                    param_node.parent[-1], generate_synopses
+                    cast(docutils.nodes.definition, param_node.parent[-1]),
+                    generate_synopses,
                 )
             else:
                 synopsis = None
@@ -545,7 +553,9 @@ def _add_parameter_documentation_ids(
         if not isinstance(child, docutils.nodes.field_list):
             continue
         for field in child:
+            assert isinstance(field, docutils.nodes.field)
             field_body = field[-1]
+            assert isinstance(field_body, docutils.nodes.field_body)
             for field_body_child in field_body.children:
                 if (
                     not isinstance(field_body_child, docutils.nodes.definition_list)
@@ -571,10 +581,13 @@ def _cross_link_parameters(
     directive: sphinx.domains.python.PyObject,
     app: sphinx.application.Sphinx,
     signodes: List[sphinx.addnodes.desc_signature],
-    content: docutils.nodes.Element,
+    content: sphinx.addnodes.desc_content,
     symbols: List[str],
     noindex: bool,
 ) -> None:
+    env = app.env
+    assert isinstance(env, sphinx.environment.BuildEnvironment)
+
     # Collect the docutils nodes corresponding to the declarations of the
     # parameters in each signature, and turn the parameter names into
     # cross-links to the parameter description.
@@ -585,7 +598,7 @@ def _cross_link_parameters(
     sig_param_nodes_for_signature = []
     for signode, symbol in zip(signodes, symbols):
         sig_param_nodes_for_signature.append(
-            _add_parameter_links_to_signature(app.env, signode, symbol)
+            _add_parameter_links_to_signature(env, signode, symbol)
         )
 
     # Find all parameter descriptions in the object description body, and mark
@@ -593,7 +606,7 @@ def _cross_link_parameters(
     # the parameter declaration for the bare parameter name, as described above.
     _add_parameter_documentation_ids(
         directive=directive,
-        env=app.env,
+        env=env,
         obj_content=content,
         sig_param_nodes_for_signature=sig_param_nodes_for_signature,
         symbols=symbols,
@@ -603,27 +616,25 @@ def _cross_link_parameters(
 
 def _monkey_patch_python_domain_to_support_synopses():
 
-    PythonDomain = sphinx.domains.python.PythonDomain
+    orig_after_content = PyObject.after_content
 
-    object_class = sphinx.domains.python.PyObject
+    orig_transform_content = PyObject.transform_content
 
-    orig_after_content = object_class.after_content
-
-    orig_transform_content = object_class.transform_content
-
-    def transform_content(self: object_class, contentnode) -> None:
-        self.contentnode = contentnode
+    def transform_content(self: PyObject, contentnode) -> None:
+        setattr(self, "contentnode", contentnode)
         orig_transform_content(self, contentnode)
 
-    object_class.transform_content = transform_content
+    PyObject.transform_content = transform_content
 
-    def after_content(self: object_class) -> None:
+    def after_content(self: PyObject) -> None:
         orig_after_content(self)
-        obj_desc = self.contentnode.parent
+        obj_desc = cast(
+            sphinx.addnodes.desc_content, getattr(self, "contentnode")
+        ).parent
         signodes = obj_desc.children[:-1]
 
         symbols = []
-        for signode in signodes:
+        for signode in cast(List[docutils.nodes.Element], signodes):
             modname = signode["module"]
             fullname = signode["fullname"]
             symbols.append((modname + "." if modname else "") + fullname)
@@ -640,8 +651,8 @@ def _monkey_patch_python_domain_to_support_synopses():
         _cross_link_parameters(
             directive=self,
             app=self.env.app,
-            signodes=signodes,
-            content=self.contentnode,
+            signodes=cast(List[sphinx.addnodes.desc_signature], signodes),
+            content=getattr(self, "contentnode"),
             symbols=function_symbols,
             noindex=noindex,
         )
@@ -654,7 +665,7 @@ def _monkey_patch_python_domain_to_support_synopses():
         if generate_synopses is None:
             return
         synopsis = sphinx_utils.summarize_element_text(
-            self.contentnode, generate_synopses
+            getattr(self, "contentnode"), generate_synopses
         )
         if not synopsis:
             return
@@ -662,7 +673,7 @@ def _monkey_patch_python_domain_to_support_synopses():
         for symbol in symbols:
             py.data["synopses"][symbol] = synopsis
 
-    object_class.after_content = after_content
+    PyObject.after_content = after_content
 
     orig_merge_domaindata = PythonDomain.merge_domaindata
 

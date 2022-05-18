@@ -1,7 +1,7 @@
 """Sphinx-Immaterial theme."""
 
 import os
-from typing import cast, List, Type, Dict, Mapping, Optional
+from typing import cast, List, Type, Dict, Mapping, Optional, Union
 
 import docutils.nodes
 from sphinx.application import Sphinx
@@ -49,7 +49,7 @@ def _get_html_translator(
     base_translator: Type[sphinx.writers.html5.HTML5Translator],
 ) -> Type[sphinx.writers.html5.HTML5Translator]:
     class CustomHTMLTranslator(
-        apidoc_formatting.HTMLTranslatorMixin, base_translator
+        apidoc_formatting.HTMLTranslatorMixin, base_translator  # type: ignore
     ):  # pylint: disable=abstract-method
         def __init__(self, *args, **kwargs):
             super().__init__(*args, **kwargs)
@@ -71,7 +71,9 @@ def _get_html_translator(
             # `__init__` invocation order it gets overridden.
             self.supported_inline_tags = set()
 
-        def visit_section(self, node: docutils.nodes.section) -> None:
+        def visit_section(
+            self, node: Union[docutils.nodes.section, docutils.nodes.Element]
+        ) -> None:
             # Sphinx normally writes sections with a section heading as:
             #
             #     <div id="identifier" class="section"><hN>...</hN>...</div>
@@ -86,10 +88,14 @@ def _get_html_translator(
             # modifying `visit_title` to insert the `id`.
             self.section_level += 1
 
-        def depart_section(self, node: docutils.nodes.section) -> None:
+        def depart_section(
+            self, node: Union[docutils.nodes.section, docutils.nodes.Element]
+        ) -> None:
             self.section_level -= 1
 
-        def visit_title(self, node: docutils.nodes.title) -> None:
+        def visit_title(
+            self, node: Union[docutils.nodes.title, docutils.nodes.Element]
+        ) -> None:
             if isinstance(node.parent, docutils.nodes.section):
                 if node.parent.get("ids") and not node.get("ids"):
                     node["ids"] = node.parent.get("ids")
@@ -104,7 +110,7 @@ def _get_html_translator(
 def _get_html_builder(base_builder: Type[sphinx.builders.html.StandaloneHTMLBuilder]):
     """Returns a modified HTML translator."""
 
-    class CustomHTMLBuilder(base_builder):
+    class CustomHTMLBuilder(base_builder):  # type: ignore
 
         css_files: List[sphinx.builders.html.Stylesheet]
         theme: sphinx.theming.Theme
@@ -215,7 +221,7 @@ def _get_html_builder(base_builder: Type[sphinx.builders.html.StandaloneHTMLBuil
 
 def dict_merge(*dicts: Mapping):
     """Recursively merges the members of one or more dicts."""
-    result = {}
+    result: dict = {}
     for d in dicts:
         for k, v in d.items():
             if isinstance(v, Mapping) and k in result and isinstance(result[k], dict):

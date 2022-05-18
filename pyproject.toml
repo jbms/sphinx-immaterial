@@ -1,2 +1,7 @@
 [build-system]
 requires = ["setuptools>=42", "wheel", "setuptools_scm"]
+
+[tool.mypy]
+show_error_codes = true
+pretty = true
+mypy_path = "typings_py"

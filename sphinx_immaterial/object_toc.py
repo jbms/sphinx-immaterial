@@ -1,6 +1,6 @@
 """Adds all Sphinx "objects" to the table of contents."""
 
-from typing import Optional
+from typing import cast, Optional, Union, Any
 import docutils.nodes
 import sphinx.addnodes
 import sphinx.application
@@ -23,14 +23,16 @@ def _monkey_patch_toc_tree_process_doc(app: sphinx.application.Sphinx):
     def _make_section_from_desc(
         source: sphinx.addnodes.desc,
     ) -> Optional[docutils.nodes.section]:
+        env = app.env
+        assert env is not None
         options = apidoc_formatting.get_object_description_options(
-            app.env, source["domain"], source["objtype"]
+            env, source["domain"], source["objtype"]
         )
         if not options["include_in_toc"]:
-            return False
+            return None
 
         signature: sphinx.addnodes.desc_signature
-        for child in source._traverse():
+        for child in source.children:
             if not isinstance(child, sphinx.addnodes.desc_signature):
                 continue
             signature = child
@@ -49,10 +51,14 @@ def _monkey_patch_toc_tree_process_doc(app: sphinx.application.Sphinx):
         title = signature.get("toc_title", None)
         if not title:
             title = ""
-            for child in signature._traverse():
+            for child in signature.traverse():
                 if isinstance(
                     child, (sphinx.addnodes.desc_name, sphinx.addnodes.desc_addname)
                 ):
+                    child = cast(
+                        Union[sphinx.addnodes.desc_name, sphinx.addnodes.desc_addname],
+                        child,
+                    )
                     if "sig-name-nonprimary" in child["classes"]:
                         continue
                     title += child.astext()
@@ -67,8 +73,8 @@ def _monkey_patch_toc_tree_process_doc(app: sphinx.application.Sphinx):
     def _make_section_from_field(
         source: docutils.nodes.field,
     ) -> Optional[docutils.nodes.section]:
-        fieldname = source[0]
-        fieldbody = source[1]
+        fieldname = cast(docutils.nodes.field_name, source[0])
+        fieldbody = cast(docutils.nodes.field_body, source[1])
         ids = fieldname["ids"]
         if not ids:
             # Not indexed
@@ -108,6 +114,7 @@ def _monkey_patch_toc_tree_process_doc(app: sphinx.application.Sphinx):
             if not isinstance(source, docutils.nodes.Element):
                 return
             children = iter(source.children)
+            new_node: Any
             if isinstance(source, docutils.nodes.section):
                 new_node = source.copy()
                 # Also copy first child, which sphinx interprets as the title
@@ -150,7 +157,7 @@ def _monkey_patch_toc_tree_process_doc(app: sphinx.application.Sphinx):
         _collect(doctree, new_document)
         return orig_process_doc(self, app, new_document)
 
-    TocTreeCollector.process_doc = _patched_process_doc
+    TocTreeCollector.process_doc = _patched_process_doc  # type: ignore
 
     # TocTreeCollector is registered before our extension is.  In order for the
     # monkey patching to take effect, we need to unregister it and re-register it.

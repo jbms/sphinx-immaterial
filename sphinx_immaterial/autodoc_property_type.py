@@ -8,6 +8,9 @@ import sphinx.domains
 import sphinx.domains.python
 import sphinx.ext.autodoc
 
+PropertyDocumenter = sphinx.ext.autodoc.PropertyDocumenter
+
+
 property_sig_re = re.compile("^(\\(.*)\\)\\s*->\\s*(.*)$")
 
 
@@ -29,7 +32,6 @@ def _get_property_return_type(obj: property) -> Optional[str]:
 def _apply_property_documenter_type_annotation_fix():
 
     # Modify PropertyDocumenter to support obtaining signature from docstring.
-    PropertyDocumenter = sphinx.ext.autodoc.PropertyDocumenter
 
     orig_import_object = PropertyDocumenter.import_object
 
@@ -38,7 +40,7 @@ def _apply_property_documenter_type_annotation_fix():
         if not result:
             return False
         if not self.retann:
-            self.retann = _get_property_return_type(self.object)
+            self.retann = _get_property_return_type(self.object)  # type: ignore
         return True
 
     PropertyDocumenter.import_object = import_object

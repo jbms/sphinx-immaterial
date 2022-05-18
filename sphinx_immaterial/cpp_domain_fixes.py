@@ -10,22 +10,31 @@ from typing import (
     Type,
     Optional,
     Union,
-    Any,
 )
 
 import docutils.nodes
 import docutils.parsers.rst.states
 import sphinx.addnodes
 import sphinx.application
+import sphinx.builders
 import sphinx.directives
+import sphinx.domains
 import sphinx.domains.c
 import sphinx.domains.cpp
+import sphinx.environment
+import sphinx.errors
 import sphinx.util.logging
 
 from . import apidoc_formatting
 from . import sphinx_utils
 
 logger = sphinx.util.logging.getLogger(__name__)
+
+CSymbol = sphinx.domains.c.Symbol
+CPPSymbol = sphinx.domains.cpp.Symbol
+CDomain = sphinx.domains.c.CDomain
+CPPDomain = sphinx.domains.cpp.CPPDomain
+CPPExprRole = sphinx.domains.cpp.CPPExprRole
 
 PARAMETER_OBJECT_TYPES = (
     "functionParam",
@@ -64,6 +73,7 @@ class CppParamField(sphinx.util.docfields.GroupedField):
             node = docutils.nodes.definition_list_item()
             term_node = docutils.nodes.term()
             m = CPP_PARAM_KIND_PATTERN.fullmatch(fieldarg)
+            kind: Optional[str]
             if m is not None:
                 param_name = m.group(1)
                 kind = m.group(2).strip()
@@ -84,7 +94,7 @@ class CppParamField(sphinx.util.docfields.GroupedField):
 
         for fieldarg, content in items:
             bodynode += handle_item(fieldarg, content)
-        fieldname = docutils.nodes.field_name("", self.label)
+        fieldname = docutils.nodes.field_name("", cast(str, self.label))
         fieldbody = docutils.nodes.field_body("", bodynode)
         return docutils.nodes.field("", fieldname, fieldbody)
 
@@ -171,19 +181,23 @@ def _monkey_patch_cpp_ast_template_params():
 
 
 def _monkey_patch_cpp_ast_wrap_signature_node(
-    ast_type: Any, wrapper_type: Type[docutils.nodes.Element]
+    ast_type: Type[sphinx.domains.cpp.ASTBase],
+    wrapper_type: Type[docutils.nodes.TextElement],
 ):
     """Patches an AST node type to wrap its signature with a docutils node."""
-    orig_describe_signature = ast_type.describe_signature
+    orig_describe_signature = ast_type.describe_signature  # type: ignore
 
     def describe_signature(
-        self: ast_type, signode: docutils.nodes.TextElement, *args, **kwargs
+        self: sphinx.domains.cpp.ASTBase,
+        signode: docutils.nodes.TextElement,
+        *args,
+        **kwargs,
     ) -> None:
         wrapper = wrapper_type("", "")
         signode += wrapper
         orig_describe_signature(self, wrapper, *args, **kwargs)
 
-    ast_type.describe_signature = describe_signature
+    ast_type.describe_signature = describe_signature  # type: ignore
 
 
 last_resolved_symbol = None
@@ -193,7 +207,10 @@ This allows additional customizations of those functions to access the symbol.
 """
 
 
-def _monkey_patch_resolve_xref_save_symbol(symbol_class, domain_class):
+def _monkey_patch_resolve_xref_save_symbol(
+    symbol_class: Union[Type[CSymbol], Type[CPPSymbol]],
+    domain_class: Union[Type[CDomain], Type[CPPDomain]],
+):
     """Monkey patches C/C++ resolve_xref to save the resolved symbol.
 
     This also other customizations to make use of the resolved symbol.
@@ -202,7 +219,7 @@ def _monkey_patch_resolve_xref_save_symbol(symbol_class, domain_class):
     orig_resolve_xref_inner = domain_class._resolve_xref_inner
 
     def _resolve_xref_inner(
-        self: sphinx.domains.cpp.CPPDomain,
+        self: Union[CDomain, CPPDomain],
         env: sphinx.environment.BuildEnvironment,
         fromdocname: str,
         builder: sphinx.builders.Builder,
@@ -218,36 +235,36 @@ def _monkey_patch_resolve_xref_save_symbol(symbol_class, domain_class):
 
         if orig_find_name:
 
-            def find_name(self: symbol_class, *args, **kwargs):
+            def find_name(self: Union[CSymbol, CPPSymbol], *args, **kwargs):
                 global last_resolved_symbol
-                symbols, failReason = orig_find_name(self, *args, **kwargs)
+                symbols, failReason = orig_find_name(self, *args, **kwargs)  # type: ignore
                 if symbols:
                     last_resolved_symbol = symbols[0]
                 return symbols, failReason
 
-            symbol_class.find_name = find_name
+            symbol_class.find_name = find_name  # type: ignore
 
         orig_find_declaration = symbol_class.find_declaration
 
-        def find_declaration(self: symbol_class, *args, **kwargs):
+        def find_declaration(self: Union[CSymbol, CPPSymbol], *args, **kwargs):
             global last_resolved_symbol
-            symbol = orig_find_declaration(self, *args, **kwargs)
+            symbol = orig_find_declaration(self, *args, **kwargs)  # type: ignore
             if symbol:
                 last_resolved_symbol = symbol
             return symbol
 
-        symbol_class.find_declaration = find_declaration
+        symbol_class.find_declaration = find_declaration  # type: ignore
 
         try:
             return orig_resolve_xref_inner(
-                self, env, fromdocname, builder, typ, target, node, contnode
+                self, env, fromdocname, builder, typ, target, node, contnode  # type: ignore
             )
         finally:
             if orig_find_name:
-                symbol_class.find_name = orig_find_name
-            symbol_class.find_declaration = orig_find_declaration
+                symbol_class.find_name = orig_find_name  # type: ignore
+            symbol_class.find_declaration = orig_find_declaration  # type: ignore
 
-    domain_class._resolve_xref_inner = _resolve_xref_inner
+    domain_class._resolve_xref_inner = _resolve_xref_inner  # type: ignore
 
 
 POSSIBLE_MACRO_TARGET_PATTERN = re.compile("^[A-Z]+[A-Z_0-9]*(?:::[a-zA-Z0-9_]+)?$")
@@ -364,7 +381,7 @@ def _monkey_patch_add_object_type_and_synopsis(
     orig_resolve_xref_inner = domain_class._resolve_xref_inner
 
     def _resolve_xref_inner(
-        self: domain_class,
+        self: Union[CDomain, CPPDomain],
         env: sphinx.environment.BuildEnvironment,
         fromdocname: str,
         builder: sphinx.builders.Builder,
@@ -374,10 +391,12 @@ def _monkey_patch_add_object_type_and_synopsis(
         contnode: docutils.nodes.Element,
     ) -> Tuple[Optional[docutils.nodes.Element], Optional[str]]:
         refnode, objtype = orig_resolve_xref_inner(
-            self, env, fromdocname, builder, typ, target, node, contnode
+            self, env, fromdocname, builder, typ, target, node, contnode  # type: ignore
         )
         if refnode is None:
             return refnode, objtype
+
+        assert objtype is not None
 
         objtype = _get_precise_template_parameter_object_type(
             objtype, last_resolved_symbol
@@ -406,12 +425,11 @@ def _monkey_patch_add_object_type_and_synopsis(
 
         return refnode, objtype
 
-    domain_class._resolve_xref_inner = _resolve_xref_inner
+    domain_class._resolve_xref_inner = _resolve_xref_inner  # type: ignore
 
 
 def _monkey_patch_c_macro_parameter_symbols():
     """Adds support for the `macroParam` object type to the C domain."""
-    CSymbol = sphinx.domains.c.Symbol
 
     ASTMacro = sphinx.domains.c.ASTMacro
     ASTMacroParameter = sphinx.domains.c.ASTMacroParameter
@@ -458,7 +476,6 @@ def _monkey_patch_cpp_expr_role_to_include_c_parent_key():
     This allows CPPExprRole to be used from the context of C object descriptions,
     in particular macros.
     """
-    CPPExprRole = sphinx.domains.cpp.CPPExprRole
 
     orig_run = CPPExprRole.run
 
@@ -593,6 +610,7 @@ def _strip_namespaces_from_signatures(
 
     signatures = content.parent[:-1]
     for signode in signatures:
+        assert isinstance(signode, sphinx.addnodes.desc_signature)
         _strip_namespaces_from_signature(signode, namespaces)
 
 
@@ -605,20 +623,21 @@ def _monkey_patch_domain_to_support_include_directives(
     def is_include(sig: str) -> bool:
         return sig.startswith("#")
 
-    def get_signatures(self: object_class) -> List[str]:
+    def get_signatures(self: sphinx.directives.ObjectDescription) -> List[str]:
         return [sig for sig in orig_get_signatures(self) if not is_include(sig)]
 
-    object_class.get_signatures = get_signatures
+    object_class.get_signatures = get_signatures  # type: ignore
 
     orig_run = object_class.run
 
-    def run(self: object_class) -> List[docutils.nodes.Node]:
+    def run(self: sphinx.directives.ObjectDescription) -> List[docutils.nodes.Node]:
         nodes = orig_run(self)
         include_directives = [
             sig for sig in orig_get_signatures(self) if is_include(sig)
         ]
         if include_directives:
             obj_desc = nodes[-1]
+            assert isinstance(obj_desc, sphinx.addnodes.desc)
             include_sig = sphinx.addnodes.desc_signature("", "")
             include_sig["classes"].append("api-include-path")
             for directive in include_directives:
@@ -635,7 +654,7 @@ def _monkey_patch_domain_to_support_include_directives(
             obj_desc.insert(0, include_sig)
         return nodes
 
-    object_class.run = run
+    object_class.run = run  # type: ignore
 
 
 def _add_parameter_links_to_signature(
@@ -783,7 +802,8 @@ def _add_parameter_documentation_ids(
                 generate_synopses = param_options["generate_synopses"]
                 if generate_synopses is not None:
                     synopsis = sphinx_utils.summarize_element_text(
-                        param_node.parent[-1], generate_synopses
+                        cast(docutils.nodes.Element, param_node.parent[-1]),
+                        generate_synopses,
                     )
 
             if synopsis:
@@ -868,7 +888,9 @@ def _add_parameter_documentation_ids(
         if not isinstance(child, docutils.nodes.field_list):
             continue
         for field in child:
+            assert isinstance(field, docutils.nodes.field)
             field_body = field[-1]
+            assert isinstance(field_body, docutils.nodes.field_body)
             for field_body_child in field_body.children:
                 if (
                     not isinstance(field_body_child, docutils.nodes.definition_list)
@@ -904,14 +926,16 @@ added to the theme.
 def _cross_link_parameters(
     app: sphinx.application.Sphinx,
     domain: str,
-    content: docutils.nodes.Element,
+    content: sphinx.addnodes.desc_content,
     symbols,
 ) -> None:
     obj_desc = content.parent
 
     signodes = [
         signode
-        for signode in obj_desc.children[:-1]
+        for signode in cast(
+            List[sphinx.addnodes.desc_signature], obj_desc.children[:-1]
+        )
         if "api-include-path" not in signode["classes"]
     ]
 
@@ -953,19 +977,25 @@ def _monkey_patch_domain_to_cross_link_parameters_and_add_synopses(
 
     orig_transform_content = object_class.transform_content
 
-    def transform_content(self: object_class, contentnode) -> None:
-        self.contentnode = contentnode
+    def transform_content(
+        self: sphinx.directives.ObjectDescription,
+        contentnode: sphinx.addnodes.desc_content,
+    ) -> None:
+        setattr(self, "contentnode", contentnode)
         orig_transform_content(self, contentnode)
 
-    object_class.transform_content = transform_content
+    object_class.transform_content = transform_content  # type: ignore
 
-    def after_content(self: object_class) -> None:
+    def after_content(self: sphinx.directives.ObjectDescription) -> None:
         symbols = [self.env.temp_data[f"{domain}:parent_symbol"]]
         while symbols[-1].siblingAbove:
             symbols.append(symbols[-1].siblingAbove)
         symbols.reverse()
         _cross_link_parameters(
-            app=self.env.app, domain=domain, content=self.contentnode, symbols=symbols
+            app=self.env.app,
+            domain=domain,
+            content=getattr(self, "contentnode"),
+            symbols=symbols,
         )
 
         options = apidoc_formatting.get_object_description_options(
@@ -975,35 +1005,45 @@ def _monkey_patch_domain_to_cross_link_parameters_and_add_synopses(
 
         if generate_synopses is not None:
             synopsis = sphinx_utils.summarize_element_text(
-                self.contentnode, generate_synopses
+                getattr(self, "contentnode"), generate_synopses
             )
             if synopsis:
                 for symbol in symbols:
                     set_synopsis(symbol, synopsis)
         orig_after_content(self)
 
-    object_class.after_content = after_content
+    object_class.after_content = after_content  # type: ignore
 
 
 AST_ID_OVERRIDE_ATTR = "_sphinx_immaterial_id"
 
 
-def _monkey_patch_override_ast_id(ast_declaration_class):
+def _monkey_patch_override_ast_id(
+    ast_declaration_class: Union[
+        Type[sphinx.domains.c.ASTDeclaration], Type[sphinx.domains.cpp.ASTDeclaration]
+    ]
+):
     """Allows the Symbol id to be overridden."""
     orig_get_id = ast_declaration_class.get_id
 
-    def get_id(self: ast_declaration_class, version: int, prefixed: bool = True):
+    def get_id(
+        self: Union[sphinx.domains.c.ASTDeclaration, sphinx.domains.cpp.ASTDeclaration],
+        version: int,
+        prefixed: bool = True,
+    ):
         entity_id = getattr(self, AST_ID_OVERRIDE_ATTR, None)
         if entity_id is not None:
             return entity_id
-        return orig_get_id(self, version, prefixed)
+        return orig_get_id(self, version, prefixed)  # type: ignore
 
-    ast_declaration_class.get_id = get_id
+    ast_declaration_class.get_id = get_id  # type: ignore
 
 
-def _monkey_patch_domain_get_object_synopses(domain_class):
+def _monkey_patch_domain_get_object_synopses(
+    domain_class: Union[Type[CDomain], Type[CPPDomain]]
+):
     def get_object_synopses(
-        self: domain_class,
+        self: Union[CDomain, CPPDomain],
     ) -> Iterator[Tuple[Tuple[str, str], str]]:
         for symbol in self.data["root_symbol"].get_all_symbols():
             if symbol.declaration is None:
@@ -1014,7 +1054,7 @@ def _monkey_patch_domain_get_object_synopses(domain_class):
                 continue
             yield ((symbol.docname, symbol.declaration.get_newest_id()), synopsis)
 
-    domain_class.get_object_synopses = get_object_synopses
+    domain_class.get_object_synopses = get_object_synopses  # type: ignore
 
 
 def setup(app: sphinx.application.Sphinx):

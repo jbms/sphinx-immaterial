@@ -7,7 +7,11 @@ from sphinx.application import Sphinx
 from sphinx.writers.html import HTMLTranslator
 
 
-def visit_checkbox_label(self: HTMLTranslator, node: nodes.Node):
+class checkbox_label(nodes.container):
+    pass
+
+
+def visit_checkbox_label(self: HTMLTranslator, node: checkbox_label):
     attributes = {}
     if node["custom"]:
         attributes = {"class": "task-list-control"}
@@ -22,12 +26,8 @@ def visit_checkbox_label(self: HTMLTranslator, node: nodes.Node):
         self.body.append('<span class="task-list-indicator"></span>')
 
 
-def depart_checkbox_label(self: HTMLTranslator, node: nodes.Node):
+def depart_checkbox_label(self: HTMLTranslator, node: checkbox_label):
     self.body.append("</label>")
-
-
-class checkbox_label(nodes.container):
-    pass
 
 
 class TaskListDirective(SphinxDirective):
@@ -61,7 +61,7 @@ class TaskListDirective(SphinxDirective):
         for child in task_list.children:
             if isinstance(child, nodes.list_item):
                 child["classes"] = ["task-list"]
-
+            assert isinstance(child, nodes.Element)
             for li_ in child.children:
                 if isinstance(li_, nodes.list_item):
                     if li_.astext().startswith("["):

@@ -1,6 +1,5 @@
 """Implements the `json` domain and `json:schema` directive."""
 
-import collections
 import dataclasses
 import json
 import os
@@ -193,21 +192,18 @@ class LoadedSchemaData:
 def yaml_load(  # pylint: disable=invalid-name
     stream,
     source_path: str,
-    Loader=yaml.SafeLoader,
-    object_pairs_hook=collections.OrderedDict,
 ) -> Tuple[Any, YamlSourceInfoMap]:
     """Loads a yaml file, preserving object key order and source line information.
 
     :param stream: File-like stream to read from.
     :param source_path: Path to source file for inclusion in source info map.
     :param Loader: YAML loader class.
-    :param object_pairs_hook: Function to obtain object representation.
 
     :returns: Tuple of loaded YAML value and source info map.
     """
     source_info_map: YamlSourceInfoMap = {}
 
-    class OrderedLoader(Loader):
+    class Loader(yaml.SafeLoader):
         def compose_scalar_node(self, anchor):
             line = self.line
             node = super().compose_scalar_node(anchor)
@@ -215,14 +211,7 @@ def yaml_load(  # pylint: disable=invalid-name
                 source_info_map[id(node.value)] = (source_path, line)
             return node
 
-    def construct_mapping(loader, node):
-        loader.flatten_mapping(node)
-        return object_pairs_hook(loader.construct_pairs(node))
-
-    OrderedLoader.add_constructor(
-        yaml.resolver.BaseResolver.DEFAULT_MAPPING_TAG, construct_mapping
-    )
-    result = yaml.load(stream, OrderedLoader)
+    result = yaml.load(stream, Loader)
     return result, source_info_map
 
 
@@ -250,7 +239,9 @@ def _get_json_schema_files(app: sphinx.application.Sphinx):
     exclude_paths = app.config.exclude_patterns + app.config.templates_path
     exclude_re = _globs_to_re(exclude_paths + sphinx.project.EXCLUDE_PATHS)
 
-    matching_files = sphinx.util.get_matching_files(app.srcdir, (exclude_re.fullmatch,))
+    matching_files = sphinx.util.get_matching_files(
+        app.srcdir, (lambda s: exclude_re.fullmatch(s) is not None,)
+    )
     for name in matching_files:
         if not include_re.fullmatch(name):
             continue
@@ -259,8 +250,9 @@ def _get_json_schema_files(app: sphinx.application.Sphinx):
 
 def _populate_json_schema_id_map(app: sphinx.application.Sphinx):
     """Finds all schema files and loads them into `_json_schema_id_map`."""
-    schema_data = app.env.json_schema_data = LoadedSchemaData()
-    seen_ids = {}
+    schema_data = LoadedSchemaData()
+    setattr(app.env, "json_schema_data", schema_data)
+    seen_ids: Dict[str, str] = {}
     all_paths = list(_get_json_schema_files(app))
     validate = app.config.json_schema_validate
     if all_paths and validate and not _jsonschema_validation_supported:
@@ -432,8 +424,10 @@ class JsonSchemaDirective(sphinx.directives.ObjectDescription):
         "noindex": docutils.parsers.rst.directives.flag,
     }
 
+    _rendered_title: Optional[docutils.nodes.inline]
+
     def _get_schema_entry(self) -> JsonSchemaMapEntry:
-        schema_data = self.env.json_schema_data
+        schema_data: LoadedSchemaData = getattr(self.env, "json_schema_data")
         return schema_data.id_map[self.arguments[0]]
 
     def _get_schema(self):
@@ -441,7 +435,7 @@ class JsonSchemaDirective(sphinx.directives.ObjectDescription):
 
     def _inline_text(self, text: str) -> List[docutils.nodes.Node]:
         nodes, messages = self.state.inline_text(text, self.lineno)
-        return nodes + messages
+        return nodes + cast(List[docutils.nodes.Node], messages)
 
     def _parse_rst(
         self, text: str, source_path: str, source_line: int = 0
@@ -460,132 +454,183 @@ class JsonSchemaDirective(sphinx.directives.ObjectDescription):
     def _json_sig_type(self, name: str):
         return sphinx.addnodes.desc_type(name, name)
 
+    def _get_type_description_line_ref(
+        self, schema_node: JsonSchema
+    ) -> Optional[List[docutils.nodes.Node]]:
+        return [
+            sphinx.addnodes.desc_type("", "", _schema_to_xref(schema_node.get("$ref")))
+        ]
+
+    def _get_type_description_line_oneof(
+        self, schema_node: JsonSchema
+    ) -> Optional[List[docutils.nodes.Node]]:
+        result: List[docutils.nodes.Node] = []
+        for x in schema_node.get("oneOf"):
+            if result:
+                result.append(sphinx.addnodes.desc_sig_punctuation("", " | "))
+            part = self._get_type_description_line(x)
+            if part is None:
+                return None
+            result += part
+        return result
+
+    def _get_type_description_line_const(
+        self, schema_node: JsonSchema
+    ) -> Optional[List[docutils.nodes.Node]]:
+        return [self._json_literal(schema_node["const"])]
+
+    def _get_type_description_line_enum(
+        self, schema_node: JsonSchema
+    ) -> Optional[List[docutils.nodes.Node]]:
+        result: List[docutils.nodes.Node] = []
+        for x in schema_node.get("enum"):
+            if result:
+                result.append(sphinx.addnodes.desc_sig_punctuation("", " | "))
+            result.append(self._json_literal(x))
+        return result
+
+    def _get_type_description_line_number(
+        self, schema_node: JsonSchema, t: str
+    ) -> Optional[List[docutils.nodes.Node]]:
+        explicit_lower = True
+        if schema_node.get("minimum") is not None:
+            lower_punct = "["
+            lower_node = self._json_literal(schema_node.get("minimum"))
+        elif schema_node.get("exclusiveMinimum") is not None:
+            lower_punct = "("
+            lower_node = self._json_literal(schema_node.get("exclusiveMinimum"))
+        else:
+            lower_punct = "("
+            lower_node = sphinx.addnodes.desc_sig_operator("", "-∞")
+            explicit_lower = False
+
+        explicit_upper = True
+        if schema_node.get("maximum") is not None:
+            upper_punct = "]"
+            upper_node = self._json_literal(schema_node.get("maximum"))
+        elif schema_node.get("exclusiveMaximum") is not None:
+            upper_punct = ")"
+            upper_node = self._json_literal(schema_node.get("exclusiveMaximum"))
+        else:
+            upper_punct = ")"
+            upper_node = sphinx.addnodes.desc_sig_operator("", "+∞")
+            explicit_upper = False
+
+        result = [self._json_sig_type(t)]
+        if explicit_lower or explicit_upper:
+            result.append(
+                docutils.nodes.subscript(
+                    "",
+                    "",
+                    sphinx.addnodes.desc_sig_punctuation("", lower_punct),
+                    lower_node,
+                    sphinx.addnodes.desc_sig_punctuation("", ", "),
+                    upper_node,
+                    sphinx.addnodes.desc_sig_punctuation("", upper_punct),
+                )
+            )
+        return result
+
+    def _get_type_description_line_boolean(
+        self, schema_node: JsonSchema
+    ) -> Optional[List[docutils.nodes.Node]]:
+        return [self._json_sig_type("boolean")]
+
+    def _get_type_description_line_string(
+        self, schema_node: JsonSchema
+    ) -> Optional[List[docutils.nodes.Node]]:
+        result = [self._json_sig_type("string")]
+        subscript_parts: List[docutils.nodes.Node] = []
+        if (
+            schema_node.get("minLength") is not None
+            or schema_node.get("maxLength") is not None
+        ):
+            subscript_parts.append(sphinx.addnodes.desc_sig_punctuation("", "["))
+            min_length = schema_node.get("minLength")
+            if min_length:
+                subscript_parts.append(self._json_literal(min_length))
+            subscript_parts.append(sphinx.addnodes.desc_sig_punctuation("", ".."))
+            max_length = schema_node.get("maxLength")
+            if max_length:
+                subscript_parts.append(self._json_literal(max_length))
+            subscript_parts.append(sphinx.addnodes.desc_sig_punctuation("", "]"))
+            result.append(docutils.nodes.subscript("", "", *subscript_parts))
+        return result
+
+    def _get_type_description_line_array(
+        self, schema_node: JsonSchema
+    ) -> Optional[List[docutils.nodes.Node]]:
+        items = schema_node.get("items")
+        prefix = [self._json_sig_type("array")]
+        if "minItems" in schema_node or "maxItems" in schema_node:
+            prefix.append(sphinx.addnodes.desc_sig_punctuation("", "["))
+            if schema_node.get("minItems") == schema_node.get("maxItems"):
+                prefix.append(self._json_literal(schema_node["minItems"]))
+            else:
+                if schema_node["minItems"]:
+                    prefix.append(self._json_literal(schema_node["minItems"]))
+                prefix.append(sphinx.addnodes.desc_sig_punctuation("", ".."))
+                if schema_node["maxItems"]:
+                    prefix.append(self._json_literal(schema_node["maxItems"]))
+            prefix.append(sphinx.addnodes.desc_sig_punctuation("", "]"))
+
+        if "items" in schema_node and isinstance(items, dict):
+            items_desc = self._get_type_description_line(items)
+            if items_desc is None:
+                return None
+            return prefix + [docutils.nodes.emphasis("", " of ")] + items_desc
+        if "items" in schema_node and isinstance(items, list):
+            result: List[docutils.nodes.Node] = []
+            result.append(sphinx.addnodes.desc_sig_punctuation("", "["))
+            for i, item in enumerate(items):
+                if i != 0:
+                    result.append(sphinx.addnodes.desc_sig_punctuation("", ","))
+                    result.append(docutils.nodes.Text(" "))
+                item_desc = self._get_type_description_line(item)
+                if item_desc is None:
+                    return prefix
+                result.extend(item_desc)
+            result.append(sphinx.addnodes.desc_sig_punctuation("", "]"))
+            return result
+        return prefix
+
+    def _get_type_description_line_null(
+        self, schema_node: JsonSchema
+    ) -> Optional[List[docutils.nodes.Node]]:
+        return [self._json_literal(None)]
+
+    def _get_type_description_line_object(
+        self, schema_node: JsonSchema
+    ) -> Optional[List[docutils.nodes.Node]]:
+        return [self._json_sig_type("object")]
+
     def _get_type_description_line(
         self, schema_node: JsonSchema
     ) -> Optional[List[docutils.nodes.Node]]:
         """Renders a short type description for use in the signature."""
         if "$ref" in schema_node:
-            return [
-                sphinx.addnodes.desc_type(
-                    "", "", _schema_to_xref(schema_node.get("$ref"))
-                )
-            ]
+            return self._get_type_description_line_ref(schema_node)
         if "oneOf" in schema_node:
-            result = []
-            for x in schema_node.get("oneOf"):
-                if result:
-                    result.append(sphinx.addnodes.desc_sig_punctuation("", " | "))
-                part = self._get_type_description_line(x)
-                if part is None:
-                    return None
-                result += part
-            return result
+            return self._get_type_description_line_oneof(schema_node)
         if "const" in schema_node:
-            return [self._json_literal(schema_node["const"])]
+            return self._get_type_description_line_const(schema_node)
         if "enum" in schema_node:
-            result = []
-            for x in schema_node.get("enum"):
-                if result:
-                    result.append(sphinx.addnodes.desc_sig_punctuation("", " | "))
-                result.append(self._json_literal(x))
-            return result
+            return self._get_type_description_line_enum(schema_node)
         t = schema_node.get("type")
         if "allOf" in schema_node and t is None:
             t = "object"
         if t in ("integer", "number"):
-            explicit_lower = True
-            if schema_node.get("minimum") is not None:
-                lower_punct = "["
-                lower_node = self._json_literal(schema_node.get("minimum"))
-            elif schema_node.get("exclusiveMinimum") is not None:
-                lower_punct = "("
-                lower_node = self._json_literal(schema_node.get("exclusiveMinimum"))
-            else:
-                lower_punct = "("
-                lower_node = sphinx.addnodes.desc_sig_operator("", "-∞")
-                explicit_lower = False
-
-            explicit_upper = True
-            if schema_node.get("maximum") is not None:
-                upper_punct = "]"
-                upper_node = self._json_literal(schema_node.get("maximum"))
-            elif schema_node.get("exclusiveMaximum") is not None:
-                upper_punct = ")"
-                upper_node = self._json_literal(schema_node.get("exclusiveMaximum"))
-            else:
-                upper_punct = ")"
-                upper_node = sphinx.addnodes.desc_sig_operator("", "+∞")
-                explicit_upper = False
-
-            result = [self._json_sig_type(t)]
-            if explicit_lower or explicit_upper:
-                result += [
-                    docutils.nodes.subscript(
-                        "",
-                        "",
-                        sphinx.addnodes.desc_sig_punctuation("", lower_punct),
-                        lower_node,
-                        sphinx.addnodes.desc_sig_punctuation("", ", "),
-                        upper_node,
-                        sphinx.addnodes.desc_sig_punctuation("", upper_punct),
-                    )
-                ]
-            return result
+            return self._get_type_description_line_number(schema_node, t)
         if t == "boolean":
-            return [self._json_sig_type("boolean")]
+            return self._get_type_description_line_boolean(schema_node)
         if t == "string":
-            result = [self._json_sig_type("string")]
-            subscript_parts = []
-            if (
-                schema_node.get("minLength") is not None
-                or schema_node.get("maxLength") is not None
-            ):
-                subscript_parts.append(sphinx.addnodes.desc_sig_punctuation("", "["))
-                min_length = schema_node.get("minLength")
-                if min_length:
-                    subscript_parts.append(self._json_literal(min_length))
-                subscript_parts.append(sphinx.addnodes.desc_sig_punctuation("", ".."))
-                max_length = schema_node.get("maxLength")
-                if max_length:
-                    subscript_parts.append(self._json_literal(max_length))
-                subscript_parts.append(sphinx.addnodes.desc_sig_punctuation("", "]"))
-                result.append(docutils.nodes.subscript("", "", *subscript_parts))
-            return result
+            return self._get_type_description_line_string(schema_node)
         if t == "array":
-            items = schema_node.get("items")
-            prefix = [self._json_sig_type("array")]
-            if "minItems" in schema_node or "maxItems" in schema_node:
-                prefix.append(sphinx.addnodes.desc_sig_punctuation("", "["))
-                if schema_node.get("minItems") == schema_node.get("maxItems"):
-                    prefix.append(self._json_literal(schema_node["minItems"]))
-                else:
-                    if schema_node["minItems"]:
-                        prefix.append(self._json_literal(schema_node["minItems"]))
-                    prefix.append(sphinx.addnodes.desc_sig_punctuation("", ".."))
-                    if schema_node["maxItems"]:
-                        prefix.append(self._json_literal(schema_node["maxItems"]))
-                prefix.append(sphinx.addnodes.desc_sig_punctuation("", "]"))
-
-            if "items" in schema_node and isinstance(items, dict):
-                items_desc = self._get_type_description_line(items)
-                if items_desc is None:
-                    return None
-                return prefix + [docutils.nodes.emphasis("", " of ")] + items_desc
-            if "items" in schema_node and isinstance(items, list):
-                result = []
-                result.append(sphinx.addnodes.desc_sig_punctuation("", "["))
-                for i, item in enumerate(items):
-                    if i != 0:
-                        result.append(sphinx.addnodes.desc_sig_punctuation("", ","))
-                        result.append(docutils.nodes.Text(" "))
-                    result += self._get_type_description_line(item)
-                result.append(sphinx.addnodes.desc_sig_punctuation("", "]"))
-                return result
-            return prefix
+            return self._get_type_description_line_array(schema_node)
         if t == "null":
-            return [self._json_literal(None)]
+            return self._get_type_description_line_null(schema_node)
         if t == "object":
-            return [self._json_sig_type("object")]
+            return self._get_type_description_line_object(schema_node)
         return None
 
     def _collect_object_properties(
@@ -600,7 +645,7 @@ class JsonSchemaDirective(sphinx.directives.ObjectDescription):
         :param properties: Dict to be filled with members.
         :param required: Set to which required members are added.
         """
-        schema_data = self.env.json_schema_data
+        schema_data: LoadedSchemaData = getattr(self.env, "json_schema_data")
         if "$ref" in schema_node:
             schema_node = schema_data.id_map[schema_node["$ref"]].schema
         if schema_node.get("type") == "object":
@@ -628,7 +673,7 @@ class JsonSchemaDirective(sphinx.directives.ObjectDescription):
 
     def _make_field(
         self, label: str
-    ) -> (docutils.nodes.field_list, docutils.nodes.field_body):
+    ) -> Tuple[docutils.nodes.field_list, docutils.nodes.field_body]:
         field_list = docutils.nodes.field_list()
         field = docutils.nodes.field()
         field_list += field
@@ -636,7 +681,7 @@ class JsonSchemaDirective(sphinx.directives.ObjectDescription):
         field += field_name
         if not self._noindex and self._objdesc_options["include_fields_in_toc"]:
             field_name["ids"].append(
-                docutils.nodes.make_id(label) + "-" + self._node_id
+                docutils.nodes.make_id(label) + "-" + cast(str, self._node_id)
             )
             field_name["toc_title"] = label
         body = docutils.nodes.field_body(classes=["noindent"])
@@ -648,7 +693,7 @@ class JsonSchemaDirective(sphinx.directives.ObjectDescription):
 
         :returns: The rendered result as a list of docutils nodes.
         """
-        schema_data = self.env.json_schema_data
+        schema_data: LoadedSchemaData = getattr(self.env, "json_schema_data")
         field_list, body = self._make_field("One of")
         one_ofs = self._schema_entry.schema["oneOf"]
         # If all oneof options are constant strings, generate fully-qualified
@@ -684,7 +729,7 @@ class JsonSchemaDirective(sphinx.directives.ObjectDescription):
         :returns: A tuple (path, line) specifying the source information.
         """
 
-        schema_data = self.env.json_schema_data
+        schema_data: LoadedSchemaData = getattr(self.env, "json_schema_data")
         source_info = schema_data.source_info_map.get(id(source_string))
         if source_info is None:
             source_info = (self._schema_entry.path, -1)
@@ -714,7 +759,7 @@ class JsonSchemaDirective(sphinx.directives.ObjectDescription):
 
     def _render_body(self):
         """Renders the body of the schema."""
-        schema_data = self.env.json_schema_data
+        schema_data: LoadedSchemaData = getattr(self.env, "json_schema_data")
         schema_node = self._schema_entry.schema
         result = []
 
@@ -857,14 +902,15 @@ class JsonSchemaDirective(sphinx.directives.ObjectDescription):
 
     def run(self) -> List[docutils.nodes.Node]:
 
-        schema_data = self.env.json_schema_data
+        schema_data: LoadedSchemaData = self.env.json_schema_data  # type: ignore
         schema_id = self.arguments[0]
-        self._schema_entry = schema_data.id_map.get(schema_id)
-        if self._schema_entry is None:
+        schema_entry = schema_data.id_map.get(schema_id)
+        if schema_entry is None:
             logger.error(
                 "Undefined JSON schema: %r", schema_id, location=self.get_source_info()
             )
             return []
+        self._schema_entry = schema_entry
 
         self._fully_qualified_name = self.options.get("fully_qualified_name")
         self._noindex = "noindex" in self.options
@@ -930,6 +976,7 @@ class JsonSchemaDirective(sphinx.directives.ObjectDescription):
         if self._node_id:
             domain = cast(JsonSchemaDomain, self.env.get_domain("json"))
             generate_synopses = self._objdesc_options["generate_synopses"]
+            synopsis: Optional[str]
             if generate_synopses is not None and self._rendered_title:
                 synopsis = sphinx_utils.summarize_element_text(
                     self._rendered_title, generate_synopses
@@ -1022,8 +1069,8 @@ class JsonSchemaDomain(sphinx.domains.Domain):
         "schema": JsonSchemaDirective,
     }
 
-    initial_data = {
-        "schemas": {},
+    initial_data: Dict[str, DomainSchemaEntry] = {
+        "schemas": cast(DomainSchemaEntry, {}),
     }
 
     @property
@@ -1047,10 +1094,6 @@ class JsonSchemaDomain(sphinx.domains.Domain):
         self, docnames: List[str], otherdata: Dict
     ) -> None:  # pylint: disable=g-bare-generic
         self.schemas.update(otherdata["schemas"])
-
-    def get_fully_qualified_name(self, node: docutils.nodes.Element) -> Optional[str]:
-        schema_id = node.arguments[0]
-        return schema_id
 
     def _find_schema(
         self, target: str, parent_schema: Optional[str], refspecific: bool
@@ -1108,7 +1151,7 @@ class JsonSchemaDomain(sphinx.domains.Domain):
         fromdocname: str,
         contnode: docutils.nodes.Element,
         match: Tuple[str, DomainSchemaEntry],
-    ) -> docutils.nodes.Node:
+    ) -> docutils.nodes.Element:
         full_name, domain_entry = match
         options = apidoc_formatting.get_object_description_options(
             self.env, "json", domain_entry.objtype

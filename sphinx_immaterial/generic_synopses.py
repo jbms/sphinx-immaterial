@@ -4,28 +4,32 @@ from typing import cast, Optional, List, Iterator, Tuple
 
 import docutils.nodes
 import sphinx.application
+import sphinx.builders
+import sphinx.domains
+import sphinx.domains.std
+import sphinx.util.nodes
 
 from . import apidoc_formatting
 from . import sphinx_utils
 
 
+StandardDomain = sphinx.domains.std.StandardDomain
+GenericObject = sphinx.domains.std.GenericObject
+
+
 def _monkey_patch_generic_object_to_support_synopses():
 
-    StandardDomain = sphinx.domains.std.StandardDomain
+    orig_after_content = GenericObject.after_content
 
-    object_class = sphinx.domains.std.GenericObject
+    orig_transform_content = GenericObject.transform_content
 
-    orig_after_content = object_class.after_content
-
-    orig_transform_content = object_class.transform_content
-
-    def transform_content(self: object_class, contentnode) -> None:
-        self.contentnode = contentnode
+    def transform_content(self: GenericObject, contentnode) -> None:
+        setattr(self, "contentnode", contentnode)
         orig_transform_content(self, contentnode)
 
-    object_class.transform_content = transform_content
+    GenericObject.transform_content = transform_content
 
-    def after_content(self: object_class) -> None:
+    def after_content(self: GenericObject) -> None:
         orig_after_content(self)
         noindex = "noindex" in self.options
         if noindex:
@@ -37,13 +41,13 @@ def _monkey_patch_generic_object_to_support_synopses():
         if generate_synopses is None:
             return
         synopsis = sphinx_utils.summarize_element_text(
-            self.contentnode, generate_synopses
+            getattr(self, "contentnode"), generate_synopses
         )
         std = cast(StandardDomain, self.env.get_domain("std"))
         for name in self.names:
             std.data["synopses"][self.objtype, name] = synopsis
 
-    object_class.after_content = after_content
+    GenericObject.after_content = after_content
 
     orig_merge_domaindata = StandardDomain.merge_domaindata
 
@@ -70,7 +74,7 @@ def _monkey_patch_generic_object_to_support_synopses():
             labelid,
             contnode,
             title=apidoc_formatting.format_object_description_tooltip(
-                env=builder.env,
+                env=cast(sphinx.environment.BuildEnvironment, builder.env),
                 options=apidoc_formatting.get_object_description_options(
                     std.env, "std", objtype
                 ),
