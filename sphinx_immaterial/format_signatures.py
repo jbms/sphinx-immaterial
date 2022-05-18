@@ -9,7 +9,7 @@ import io
 import json
 import re
 import subprocess
-from typing import Dict, List, Any, Union, Optional, cast, Tuple
+from typing import Dict, List, Any, Union, Optional, cast, Tuple, Type
 
 import docutils.nodes
 import sphinx.addnodes
@@ -347,7 +347,10 @@ def setup(app: sphinx.application.Sphinx):
 
     app.connect("env-merge-info", merge_info)
     app.connect("env-updated", env_updated)
-    app.add_node(SignatureText, html=(visit_signature_text, depart_signature_text))  # type: ignore
+    app.add_node(
+        cast(Type[docutils.nodes.Element], SignatureText),
+        html=(visit_signature_text, depart_signature_text),
+    )
     app.add_config_value(
         name="clang_format_command",
         default="clang-format",

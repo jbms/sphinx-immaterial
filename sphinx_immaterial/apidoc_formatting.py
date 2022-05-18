@@ -12,6 +12,7 @@ from typing import (
     NamedTuple,
     Any,
     Pattern,
+    Union,
 )
 
 import docutils.nodes
@@ -41,7 +42,9 @@ else:
 class HTMLTranslatorMixin(HTMLTranslatorMixinBase):  # pylint: disable=abstract-method
     """Mixin for HTMLTranslator that adds additional CSS classes."""
 
-    def visit_desc(self, node: docutils.nodes.Element) -> None:
+    def visit_desc(
+        self, node: Union[sphinx.addnodes.desc, docutils.nodes.Element]
+    ) -> None:
         # Object description node
 
         # These are converted to `<dl>` elements with the domain and objtype
@@ -52,29 +55,41 @@ class HTMLTranslatorMixin(HTMLTranslatorMixinBase):  # pylint: disable=abstract-
         node["classes"].append("objdesc")
         super().visit_desc(node)
 
-    def visit_desc_type(self, node: docutils.nodes.Element) -> None:
+    def visit_desc_type(
+        self, node: Union[sphinx.addnodes.desc_type, docutils.nodes.Element]
+    ) -> None:
         self.body.append(
             self.starttag(node, tagname="span", suffix="", CLASS="desctype")
         )
 
-    def depart_desc_type(self, node: docutils.nodes.Element) -> None:
+    def depart_desc_type(
+        self, node: Union[sphinx.addnodes.desc_type, docutils.nodes.Element]
+    ) -> None:
         self.body.append("</span>")
 
-    def visit_desc_parameterlist(self, node: docutils.nodes.Element) -> None:
+    def visit_desc_parameterlist(
+        self, node: Union[sphinx.addnodes.desc_parameterlist, docutils.nodes.Element]
+    ) -> None:
         super().visit_desc_parameterlist(node)
         open_paren, _ = node.get("parens", ("(", ")"))
         self.body[-1] = self.body[-1].replace("(", open_paren)
 
-    def depart_desc_parameterlist(self, node: docutils.nodes.Element) -> None:
+    def depart_desc_parameterlist(
+        self, node: Union[sphinx.addnodes.desc_parameterlist, docutils.nodes.Element]
+    ) -> None:
         super().depart_desc_parameterlist(node)
         _, close_paren = node.get("parens", ("(", ")"))
         self.body[-1] = self.body[-1].replace(")", close_paren)
 
-    def visit_desc_parameter(self, node: docutils.nodes.Element) -> None:
+    def visit_desc_parameter(
+        self, node: Union[sphinx.addnodes.desc_parameter, docutils.nodes.Element]
+    ) -> None:
         self.body.append('<span class="sig-param-decl">')
         super().visit_desc_parameter(node)
 
-    def depart_desc_parameter(self, node: docutils.nodes.Element) -> None:
+    def depart_desc_parameter(
+        self, node: Union[sphinx.addnodes.desc_parameter, docutils.nodes.Element]
+    ) -> None:
         super().depart_desc_parameter(node)
         self.body.append("</span>")
 
@@ -132,12 +147,16 @@ class HTMLTranslatorMixin(HTMLTranslatorMixinBase):  # pylint: disable=abstract-
     #
     # Wrap it in a `<code>` element with the "highlight" class to ensure it
     # displays properly as an inline code literal.
-    def visit_desc_inline(self, node: docutils.nodes.Element) -> None:
+    def visit_desc_inline(
+        self, node: Union[sphinx.addnodes.desc_inline, docutils.nodes.Element]
+    ) -> None:
         self.body.append(
             self.starttag(node, tagname="code", suffix="", CLASS="highlight")
         )
 
-    def depart_desc_inline(self, node: docutils.nodes.Element) -> None:
+    def depart_desc_inline(
+        self, node: Union[sphinx.addnodes.desc_inline, docutils.nodes.Element]
+    ) -> None:
         self.body.append("</code>")
 
 

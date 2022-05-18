@@ -2,11 +2,13 @@ from typing import List
 from docutils import nodes
 
 try:
-    from sphinxcontrib.details.directive import (  # type: ignore # pytype: disable=import-error
+    from sphinxcontrib.details.directive import (  # pytype: disable=import-error
         DetailsDirective,
     )
+
+    IS_INSTALLED = True
 except ImportError:
-    DetailsDirective = None
+    IS_INSTALLED = False
 
 
 def monkey_patch_details_run():
@@ -14,7 +16,7 @@ def monkey_patch_details_run():
     This solution is a temporary fix pending response from
     https://github.com/tk0miya/sphinxcontrib-details-directive/issues/4
     """
-    if DetailsDirective is None:
+    if not IS_INSTALLED:
         return
 
     def run(self) -> List[nodes.container]:

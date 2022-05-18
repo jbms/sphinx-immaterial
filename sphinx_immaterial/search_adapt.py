@@ -40,7 +40,7 @@ def _get_all_synopses(
 
 
 class IndexBuilder(sphinx.search.IndexBuilder):
-    def get_objects(  # type: ignore
+    def get_objects(  # type: ignore[override]
         self, fn2index: Dict[str, int]
     ) -> Dict[
         str,
@@ -64,7 +64,10 @@ class IndexBuilder(sphinx.search.IndexBuilder):
                 # From sphinx 4.3 onwards the children dict is now a list
                 children = prefix_value
             else:
-                children = [(*values, name) for name, values in prefix_value.items()]  # type: ignore
+                children = [
+                    (*values, name)  # type: ignore[misc]
+                    for name, values in cast(dict, prefix_value).items()
+                ]
             for i, (docindex, typeindex, prio, shortanchor, name) in enumerate(
                 children
             ):
@@ -110,7 +113,7 @@ class IndexBuilder(sphinx.search.IndexBuilder):
 
                 if sphinx.version_info >= (4, 3):
                     prefix_value[i] = (  # type: ignore
-                        docindex,  # type: ignore
+                        docindex,
                         typeindex,
                         prio,
                         new_shortanchor,

@@ -981,7 +981,7 @@ def _monkey_patch_domain_to_cross_link_parameters_and_add_synopses(
         self: sphinx.directives.ObjectDescription,
         contentnode: sphinx.addnodes.desc_content,
     ) -> None:
-        self.contentnode = contentnode  # type: ignore
+        setattr(self, "contentnode", contentnode)
         orig_transform_content(self, contentnode)
 
     object_class.transform_content = transform_content  # type: ignore
@@ -994,7 +994,7 @@ def _monkey_patch_domain_to_cross_link_parameters_and_add_synopses(
         _cross_link_parameters(
             app=self.env.app,
             domain=domain,
-            content=self.contentnode,  # type: ignore
+            content=getattr(self, "contentnode"),
             symbols=symbols,
         )
 
@@ -1005,7 +1005,7 @@ def _monkey_patch_domain_to_cross_link_parameters_and_add_synopses(
 
         if generate_synopses is not None:
             synopsis = sphinx_utils.summarize_element_text(
-                self.contentnode, generate_synopses  # type: ignore
+                getattr(self, "contentnode"), generate_synopses
             )
             if synopsis:
                 for symbol in symbols:

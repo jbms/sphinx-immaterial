@@ -60,7 +60,7 @@ def setup(app: sphinx.application.Sphinx):
     app.connect("build-finished", create_sitemap)
     manager = multiprocessing.Manager()
     cast(Any, app).sitemap_links = manager.list()
-    app.multiprocess_manager = manager  # type: ignore
+    setattr(app, "multiprocess_manager", manager)
     return {
         "parallel_read_safe": True,
         "parallel_write_safe": True,

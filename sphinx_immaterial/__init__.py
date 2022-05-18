@@ -1,7 +1,7 @@
 """Sphinx-Immaterial theme."""
 
 import os
-from typing import cast, List, Type, Dict, Mapping, Optional
+from typing import cast, List, Type, Dict, Mapping, Optional, Union
 
 import docutils.nodes
 from sphinx.application import Sphinx
@@ -71,7 +71,9 @@ def _get_html_translator(
             # `__init__` invocation order it gets overridden.
             self.supported_inline_tags = set()
 
-        def visit_section(self, node: docutils.nodes.Element) -> None:
+        def visit_section(
+            self, node: Union[docutils.nodes.section, docutils.nodes.Element]
+        ) -> None:
             # Sphinx normally writes sections with a section heading as:
             #
             #     <div id="identifier" class="section"><hN>...</hN>...</div>
@@ -86,10 +88,14 @@ def _get_html_translator(
             # modifying `visit_title` to insert the `id`.
             self.section_level += 1
 
-        def depart_section(self, node: docutils.nodes.Element) -> None:
+        def depart_section(
+            self, node: Union[docutils.nodes.section, docutils.nodes.Element]
+        ) -> None:
             self.section_level -= 1
 
-        def visit_title(self, node: docutils.nodes.Element) -> None:
+        def visit_title(
+            self, node: Union[docutils.nodes.title, docutils.nodes.Element]
+        ) -> None:
             if isinstance(node.parent, docutils.nodes.section):
                 if node.parent.get("ids") and not node.get("ids"):
                     node["ids"] = node.parent.get("ids")
