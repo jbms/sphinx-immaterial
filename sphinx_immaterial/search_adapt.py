@@ -113,7 +113,7 @@ class IndexBuilder(sphinx.search.IndexBuilder):
 
                 if sphinx.version_info >= (4, 3):
                     prefix_value[i] = (  # type: ignore
-                        docindex,
+                        docindex,  # type: ignore
                         typeindex,
                         prio,
                         new_shortanchor,
