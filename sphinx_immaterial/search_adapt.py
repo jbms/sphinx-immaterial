@@ -10,7 +10,7 @@
 """
 
 import io
-from typing import cast, Any, Dict, IO, List, Tuple, Union, Optional, Sequence
+from typing import cast, Any, Dict, IO, List, Tuple, Union, Optional
 
 import sphinx
 import sphinx.search
