@@ -36,7 +36,7 @@ The following options can be customized for each object type using
       .. code-block:: python
 
          object_description_options = [
-             ("cpp:.*Param": dict(include_in_toc=False)),
+             ("cpp:.*Param", dict(include_in_toc=False)),
          ]
 
 .. objconf:: generate_synopses

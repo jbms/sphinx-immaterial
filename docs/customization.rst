@@ -600,6 +600,42 @@ Finally, edit your override file ``source/_templates/layout.html``:
     {{ super() }}
     {%- endblock %}
 
+Partial Layout
+**************
+
+To override partial html templates in the theme, the documentation project's _template
+folder should imitate the structure of HTML partial templates in this theme's
+`src directory <https://github.com/jbms/sphinx-immaterial/tree/main/src>`_.
+
+For example, this theme (unlike the mkdocs-material theme) still supports a user defined
+``extracopyright`` block. To make use of this, create a file titled ``footer.html`` in the
+project's ``_templates/partials`` folder. So the project's documentation sources are in a
+folder named ``docs``.
+
+.. code-block:: text
+
+    ┌ docs/
+    └┬ _templates/
+     └┬ partials/
+      └─ footer.html
+
+In the ``footer.html`` file, add the necessary code by extending the theme's original
+HTML template of the same name.
+
+.. code-block:: html
+
+    {% extends "!partials/footer.html" %}
+    {# the '!' in "!partials/footer.html" is important #}
+    {% block extracopyright %}
+      <p>EXTRA COPYRIGHT</p>
+    {% endblock %}
+
+Lastly, make sure the project's documentation ``conf.py`` has the following line:
+
+.. code-block:: py
+
+    templates_path = ["_templates"]
+
 New Blocks
 **************
 This theme has a new block inherited from the mkdocs-material theme:
