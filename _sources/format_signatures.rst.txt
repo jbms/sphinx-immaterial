@@ -37,8 +37,8 @@ following to :file:`conf.py`:
 .. code-block:: python
 
    object_description_options = [
-       (".*": dict(wrap_signatures_with_css=False)),
-       ("py:.*": dict(wrap_signatures_with_css=True)),
+       (".*", dict(wrap_signatures_with_css=False)),
+       ("py:.*", dict(wrap_signatures_with_css=True)),
    ]
 
 .. rst-example:: CSS-based wrapping of Python signature
@@ -71,7 +71,7 @@ which the extension should be used.
 
     object_description_options = [
         # ...
-        ("cpp:.*": dict(clang_format_style={"BasedOnStyle": "LLVM"})),
+        ("cpp:.*", dict(clang_format_style={"BasedOnStyle": "LLVM"})),
     ]
 
 .. objconf:: clang_format_style

@@ -802,7 +802,7 @@ the options associated with each matching pattern in order.</p>
 <p>To prevent C++ parameter descriptions from appearing in the TOC, add the
 following to <code class="file docutils literal notranslate"><span class="pre">conf.py</span></code>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="n">object_description_options</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="p">(</span><span class="s2">&quot;cpp:.*Param&quot;</span><span class="p">:</span> <span class="nb">dict</span><span class="p">(</span><span class="n">include_in_toc</span><span class="o">=</span><span class="kc">False</span><span class="p">)),</span>
+    <span class="p">(</span><span class="s2">&quot;cpp:.*Param&quot;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">include_in_toc</span><span class="o">=</span><span class="kc">False</span><span class="p">)),</span>
 <span class="p">]</span>
 </code></pre></div>
 </div>
@@ -962,7 +962,7 @@ indicate a class or <code class="code highlight python docutils literal highligh
   <small>
     
       Last update:
-      May 18, 2022
+      May 21, 2022
     
   </small>
 </div>

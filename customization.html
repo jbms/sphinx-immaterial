@@ -531,6 +531,13 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#partial-layout" class="md-nav__link">
+    <span class="md-ellipsis">Partial Layout</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#new-blocks" class="md-nav__link">
     <span class="md-ellipsis">New Blocks</span>
   </a>
@@ -1150,6 +1157,13 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#partial-layout" class="md-nav__link">
+    <span class="md-ellipsis">Partial Layout</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#new-blocks" class="md-nav__link">
     <span class="md-ellipsis">New Blocks</span>
   </a>
@@ -1739,6 +1753,33 @@ touch source/_templates/layout.html
 <span class="cp">{%</span>- <span class="k">endblock</span> <span class="cp">%}</span><span class="x"></span>
 </code></pre></div>
 </div>
+<h3 id="partial-layout">Partial Layout<a class="headerlink" href="#partial-layout" title="Permalink to this headline">¶</a></h3>
+<p>To override partial html templates in the theme, the documentation project’s _template
+folder should imitate the structure of HTML partial templates in this theme’s
+<a class="reference external" href="https://github.com/jbms/sphinx-immaterial/tree/main/src">src directory</a>.</p>
+<p>For example, this theme (unlike the mkdocs-material theme) still supports a user defined
+<code class="docutils literal notranslate"><span class="pre">extracopyright</span></code> block. To make use of this, create a file titled <code class="docutils literal notranslate"><span class="pre">footer.html</span></code> in the
+project’s <code class="docutils literal notranslate"><span class="pre">_templates/partials</span></code> folder. So the project’s documentation sources are in a
+folder named <code class="docutils literal notranslate"><span class="pre">docs</span></code>.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code>┌ docs/
+└┬ _templates/
+ └┬ partials/
+  └─ footer.html
+</code></pre></div>
+</div>
+<p>In the <code class="docutils literal notranslate"><span class="pre">footer.html</span></code> file, add the necessary code by extending the theme’s original
+HTML template of the same name.</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><code>{% extends &quot;!partials/footer.html&quot; %}
+{# the &#39;!&#39; in &quot;!partials/footer.html&quot; is important #}
+{% block extracopyright %}
+  <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>EXTRA COPYRIGHT<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+{% endblock %}
+</code></pre></div>
+</div>
+<p>Lastly, make sure the project’s documentation <code class="docutils literal notranslate"><span class="pre">conf.py</span></code> has the following line:</p>
+<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><code><span class="n">templates_path</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;_templates&quot;</span><span class="p">]</span>
+</code></pre></div>
+</div>
 <h3 id="new-blocks">New Blocks<a class="headerlink" href="#new-blocks" title="Permalink to this headline">¶</a></h3>
 <p>This theme has a new block inherited from the mkdocs-material theme:</p>
 <dl class="simple">
@@ -1753,7 +1794,7 @@ touch source/_templates/layout.html
   <small>
     
       Last update:
-      May 18, 2022
+      May 21, 2022
     
   </small>
 </div>
