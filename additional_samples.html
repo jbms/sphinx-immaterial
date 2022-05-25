@@ -1226,7 +1226,8 @@ source from this theme in <em>sphinx_immaterial/autodoc_property_type.py</em><a 
 <span class="normal">75</span>
 <span class="normal">76</span>
 <span class="normal">77</span>
-<span class="normal">78</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="sd">&quot;&quot;&quot;Adds support for obtaining property types from docstring signatures, and</span>
+<span class="normal">78</span>
+<span class="normal">79</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="sd">&quot;&quot;&quot;Adds support for obtaining property types from docstring signatures, and</span>
 <span class="sd">improves formatting by PyProperty of type annotations.&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Optional</span>
@@ -1243,9 +1244,10 @@ source from this theme in <em>sphinx_immaterial/autodoc_property_type.py</em><a 
 
 
 <span class="k">def</span> <span class="nf">_get_property_return_type</span><span class="p">(</span><span class="n">obj</span><span class="p">:</span> <span class="nb">property</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
-    <span class="k">if</span> <span class="n">obj</span><span class="o">.</span><span class="n">fget</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">return</span> <span class="kc">None</span>
-    <span class="n">doc</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">fget</span><span class="o">.</span><span class="vm">__doc__</span>
+    <span class="n">fget</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="s2">&quot;fget&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">fget</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">obj</span> <span class="o">=</span> <span class="n">fget</span>
+    <span class="n">doc</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="vm">__doc__</span>
     <span class="k">if</span> <span class="n">doc</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">None</span>
     <span class="n">line</span> <span class="o">=</span> <span class="n">doc</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
@@ -1866,7 +1868,7 @@ source files for one Sphinx project.</p>
   <small>
     
       Last update:
-      May 21, 2022
+      May 25, 2022
     
   </small>
 </div>

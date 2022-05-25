@@ -583,6 +583,7 @@
   <h1>Source code for test_py_module.test</h1><div class="highlight"><pre>
 <span></span><code><span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="sd">&quot;&quot;&quot;Test Module for sphinx_rtd_theme.&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">functools</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span>
 
 
@@ -694,7 +695,18 @@
 <span class="sd">        .. deprecated:: 3.0</span>
 <span class="sd">            This is deprecated since 3.0</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">values</span><span class="p">())</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">kwargs</span><span class="p">),</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span></div></div>
+        <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">values</span><span class="p">())</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">kwargs</span><span class="p">),</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">qux_caps</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Return the instance qux as uppercase.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">capitalize</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">qux</span><span class="p">)</span>
+
+    <span class="nd">@functools</span><span class="o">.</span><span class="n">cached_property</span>
+    <span class="k">def</span> <span class="nf">qux_caps_cached</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Return the cached value of instance qux as uppercase.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">qux_caps</span></div>
+
 
 <div class="viewcode-block" id="func"><a class="viewcode-back" href="../../demo_api.html#test_py_module.test.func">[docs]</a><span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">long</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">param</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> <span class="n">flags</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">lists</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">]):</span>
     <span class="sd">&quot;&quot;&quot;A function with many parameters.&quot;&quot;&quot;</span>
@@ -707,7 +719,7 @@
   <small>
     
       Last update:
-      May 21, 2022
+      May 25, 2022
     
   </small>
 </div>
