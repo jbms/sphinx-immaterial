@@ -15,9 +15,10 @@ property_sig_re = re.compile("^(\\(.*)\\)\\s*->\\s*(.*)$")
 
 
 def _get_property_return_type(obj: property) -> Optional[str]:
-    if obj.fget is None:
-        return None
-    doc = obj.fget.__doc__
+    fget = getattr(obj, "fget", None)
+    if fget is not None:
+        obj = fget
+    doc = obj.__doc__
     if doc is None:
         return None
     line = doc.splitlines()[0]
