@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 """Test Module for sphinx_rtd_theme."""
+import functools
 from typing import Union
 
 
@@ -112,6 +113,17 @@ class Foo:
             This is deprecated since 3.0
         """
         return sum(kwargs.values()) / len(kwargs), a + b
+
+    @property
+    def qux_caps(self) -> str:
+        """Return the instance qux as uppercase."""
+        return self.capitalize(self.qux)
+
+    @functools.cached_property
+    def qux_caps_cached(self) -> str:
+        """Return the cached value of instance qux as uppercase."""
+        return self.qux_caps
+
 
 def func(long: int, param: str, args: None, flags: bool, lists: Union[list, tuple]):
     """A function with many parameters."""
