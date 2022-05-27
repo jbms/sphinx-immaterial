@@ -119,14 +119,6 @@ class desc_cpp_template_param(sphinx.addnodes.desc_sig_element):
     """
 
 
-class desc_cpp_template_params(sphinx.addnodes.desc_sig_element):
-    """Wraps an entire template parameter list.
-
-    This allows template parameter lists to be more easily identified when
-    transforming docutils nodes.
-    """
-
-
 class desc_cpp_requires_clause(sphinx.addnodes.desc_sig_element):
     """Wraps a c++ requires clause.
 
@@ -158,22 +150,14 @@ def _monkey_patch_cpp_ast_template_params():
         lineSpec: bool,
     ) -> None:
         fake_parent = sphinx.addnodes.desc_signature("", "")
-        signode = desc_cpp_template_params("", "")
-        parentNode += signode
         orig_describe_signature_as_introducer(
-            self, signode, mode, env, symbol, lineSpec
+            self, fake_parent, mode, env, symbol, lineSpec
         )
-        # Ensure the requires clause is not wrapped in
-        # `desc_cpp_template_params`.
-        if signode.children:
-            last_child = signode.children[-1]
-            if isinstance(last_child, desc_cpp_requires_clause):
-                del signode.children[-1]
-                parentNode += last_child
-        for x in signode.traverse(condition=sphinx.addnodes.desc_name):
+        for x in fake_parent.traverse(condition=sphinx.addnodes.desc_name):
             # Ensure template parameter names aren't styled as the main entity
             # name.
             x["classes"].append("sig-name-nonprimary")
+        parentNode.extend(fake_parent.children)
 
     ASTTemplateParams.describe_signature_as_introducer = (
         describe_signature_as_introducer
@@ -1084,7 +1068,6 @@ def setup(app: sphinx.application.Sphinx):
     )
     for node in (
         desc_cpp_template_param,
-        desc_cpp_template_params,
         desc_cpp_requires_clause,
         desc_cpp_explicit,
     ):
