@@ -66,9 +66,15 @@ class MkdocsNavEntry:
     # List of children
     children: List["MkdocsNavEntry"]
     # Set to `True` if this page, or a descendent, is the current page.
+    # Excludes links to sections within in an active page.
     active: bool
-    # Set to `True` if this page is the current page.
+    # Set to `True` if this page is the current page.  Excludes links to
+    # sections within in an active page.
     current: bool
+
+    # Set to `True` if `active`, or if this is a link to a section within an `active` page.
+    active_or_section_within_active: bool = False
+
     # Set to `True` if this entry does not refer to a unique page but is merely
     # a TOC caption.
     caption_only: bool
@@ -96,8 +102,6 @@ class _TocVisitor(docutils.nodes.NodeVisitor):
         self._rendered_title_text: Optional[str] = None
         self._url: Optional[str] = None
         self._builder = builder
-        # Indicates if this node or one of its descendents is the current page.
-        self._active = False
         # List of direct children.
         self._children: List[MkdocsNavEntry] = []
 
@@ -145,8 +149,6 @@ class _TocVisitor(docutils.nodes.NodeVisitor):
             title_text = self._render_title(self._prev_caption.children)
             self._prev_caption = None
             child_visitor = _TocVisitor(self.document, self._builder)
-            if node.get("iscurrent", False):
-                child_visitor._active = True
             node.walk(child_visitor)
             url = None
             children = child_visitor._children
@@ -157,7 +159,7 @@ class _TocVisitor(docutils.nodes.NodeVisitor):
                     title_text=title_text,
                     url=url,
                     children=children,
-                    active=child_visitor._active,
+                    active=False,
                     current=False,
                     caption_only=True,
                 )
@@ -170,8 +172,8 @@ class _TocVisitor(docutils.nodes.NodeVisitor):
             title_text=cast(str, self._rendered_title_text),
             url=self._url,
             children=self._children,
-            active=self._active,
-            current=self._active and self._url == "",
+            active=False,
+            current=False,
             caption_only=False,
         )
 
@@ -179,8 +181,6 @@ class _TocVisitor(docutils.nodes.NodeVisitor):
         # Child node.  Collect its url, title, and any children using a separate
         # `_TocVisitor`.
         child_visitor = _TocVisitor(self.document, self._builder)
-        if node.get("iscurrent", False):
-            child_visitor._active = True
         for child in node.children:
             child.walk(child_visitor)
         child_result = child_visitor.get_result()
@@ -351,7 +351,7 @@ def _prune_toc_by_active(
       contain children not in the current page.
     :returns: Pruned copy of `entry`.
     """
-    if active and not entry.active:
+    if active and not entry.active_or_section_within_active:
         return None
 
     entry = copy.copy(entry)
@@ -363,7 +363,7 @@ def _prune_toc_by_active(
             new_children.append(new_child)
     entry.children = new_children
 
-    if entry.active and not active and not entry.children:
+    if entry.active_or_section_within_active and not active and not entry.children:
         return None
 
     return entry
@@ -474,6 +474,7 @@ def _get_global_toc(app: sphinx.application.Sphinx, pagename: str, collapse: boo
     real_page_url = builder.get_target_uri(pagename)
 
     def _make_toc_for_page(key: TocEntryKey, children: List[MkdocsNavEntry]):
+        page_is_current = key in keys
         children = list(children)
         for i, child in enumerate(children):
             child_key = key + (i,)
@@ -488,10 +489,15 @@ def _get_global_toc(app: sphinx.application.Sphinx, pagename: str, collapse: boo
                     if uri.fragment:
                         child.url += f"#{uri.fragment}"
             in_ancestors = child_key in ancestors
+            child_active = False
+            child_current = False
             if in_ancestors:
-                child.active = True
+                child_active = True
                 if child_key in keys:
-                    child.current = True
+                    child_current = True
+            child.active = child_active and not page_is_current
+            child.current = child_current and not page_is_current
+            child.active_or_section_within_active = child_active
             if in_ancestors or child.caption_only:
                 child.children = _make_toc_for_page(child_key, child.children)
             else:
