@@ -167,12 +167,12 @@ def visit_tab_set(self: HTMLTranslator, node: content_tab_set):
 
     tab_label_div.walkabout(self)
     tab_content_div.walkabout(self)
+    self.body.append("</div>")
     raise nodes.SkipNode()
 
 
-def depart_tab_set(self, node):
-    self.body.append("</div>")
-
+def depart_tab_set(self: HTMLTranslator, node: content_tab_set):
+    pass
 
 def setup(app: Sphinx):
     app.add_directive("md-tab-set", MaterialTabSetDirective)
