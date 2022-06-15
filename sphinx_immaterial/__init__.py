@@ -17,7 +17,6 @@ import sphinx.writers.html5
 from . import apidoc_formatting
 from . import autodoc_property_type
 from . import cpp_domain_fixes
-from . import inlinesyntaxhighlight
 from . import generic_synopses
 from . import nav_adapt
 from . import object_toc
@@ -316,7 +315,10 @@ def setup(app):
     app.setup_extension(cpp_domain_fixes.__name__)
     app.setup_extension(nav_adapt.__name__)
     app.setup_extension(postprocess_html.__name__)
-    app.setup_extension(inlinesyntaxhighlight.__name__)
+    if sphinx.version_info < (5, 0):
+        from . import inlinesyntaxhighlight  # pylint: disable=import-outside-toplevel
+
+        app.setup_extension(inlinesyntaxhighlight.__name__)
     app.setup_extension(object_toc.__name__)
     app.setup_extension(search_adapt.__name__)
     app.setup_extension(generic_synopses.__name__)
