@@ -846,6 +846,34 @@ def _monkey_patch_python_domain_to_support_object_ids():
     sphinx.domains.python.PyObject.handle_signature = handle_signature
 
 
+def _monkey_patch_python_domain_to_support_titles():
+    """Enables support for titles in all Python directive types.
+
+    Normally sphinx only supports titles in `automodule`, but the python_apigen
+    extension uses titles to group member summaries.
+    """
+
+    orig_before_content = PyObject.before_content
+
+    def before_content(self: sphinx.domains.python.PyObject) -> None:
+        orig_before_content(self)
+        setattr(self, "_saved_content", self.content)
+        self.content = docutils.statemachine.StringList()
+
+    orig_transform_content = sphinx.domains.python.PyObject.transform_content
+
+    def transform_content(self: PyObject, contentnode: docutils.nodes.Node) -> None:
+        sphinx.util.nodes.nested_parse_with_titles(
+            self.state,
+            getattr(self, "_saved_content"),
+            contentnode,
+        )
+        orig_transform_content(self, contentnode)
+
+    sphinx.domains.python.PyObject.before_content = before_content
+    sphinx.domains.python.PyObject.transform_content = transform_content
+
+
 def _config_inited(
     app: sphinx.application.Sphinx, config: sphinx.config.Config
 ) -> None:
@@ -879,6 +907,7 @@ def setup(app: sphinx.application.Sphinx):
     _monkey_patch_python_domain_to_add_object_synopses_to_references()
     _monkey_patch_python_domain_to_support_synopses()
     _monkey_patch_python_domain_to_support_object_ids()
+    _monkey_patch_python_domain_to_support_titles()
 
     sphinx.domains.python.PythonDomain.initial_data["synopses"] = {}  # name -> synopsis
 
