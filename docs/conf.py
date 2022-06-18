@@ -169,10 +169,16 @@ todo_include_todos = True
 extlinks = {
     "duref": (
         "http://docutils.sourceforge.net/docs/ref/rst/restructuredtext.html#%s",
-        "",
+        "rST %s",
     ),
-    "durole": ("http://docutils.sourceforge.net/docs/ref/rst/roles.html#%s", ""),
-    "dudir": ("http://docutils.sourceforge.net/docs/ref/rst/directives.html#%s", ""),
+    "durole": (
+        "http://docutils.sourceforge.net/docs/ref/rst/roles.html#%s",
+        "rST role %s",
+    ),
+    "dudir": (
+        "http://docutils.sourceforge.net/docs/ref/rst/directives.html#%s",
+        "rST directive %s",
+    ),
 }
 
 object_description_options = []
