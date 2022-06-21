@@ -158,6 +158,20 @@ Each metadata is evaluated as a ``:key: value`` pair.
 
         :tocdepth: 0
 
+.. themeconf:: hide-edit-link
+
+   If specified, hides the "Edit this page" link at the top of the page.  By
+   default, an edit link is shown if :themeconf:`edit_uri` is specified.  This
+   option overrides that for a given page.
+
+   .. code-block:: rst
+      :caption: Hide the "Edit this page" link:
+
+      :hide-edit-link:
+
+   A common use case for this option is to specify it on automatically-generated
+   pages, as for those pages there is no source document to edit.
+
 Configuration Options
 =====================
 

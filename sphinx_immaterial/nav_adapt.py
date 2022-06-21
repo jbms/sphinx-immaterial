@@ -569,13 +569,13 @@ def _html_page_context(
     page_title = markupsafe.Markup.escape(
         markupsafe.Markup(context.get("title")).striptags()
     )
-    meta = context.get("meta", {})
+    meta = context.get("meta")
+    if meta is None:
+        meta = {}
     global_toc, local_toc = _get_mkdocs_tocs(
         app,
         pagename,
-        duplicate_local_toc=bool(
-            meta and isinstance(meta.get("duplicate-local-toc"), str)
-        ),
+        duplicate_local_toc=isinstance(meta.get("duplicate-local-toc"), str),
     )
     context.update(nav=_NavContextObject(global_toc))
     context["nav"].homepage = dict(
@@ -615,11 +615,10 @@ def _html_page_context(
         meta={"hide": [], "revision_date": context.get("last_updated")},
         content=context.get("body"),
     )
-    if meta:
-        if meta.get("tocdepth") == 0 or "hide-toc" in meta.keys():
-            page["meta"]["hide"].append("toc")
-        if "hide-navigation" in meta.keys():
-            page["meta"]["hide"].append("navigation")
+    if meta.get("tocdepth") == 0 or "hide-toc" in meta:
+        page["meta"]["hide"].append("toc")
+    if "hide-navigation" in meta:
+        page["meta"]["hide"].append("navigation")
     if context.get("next"):
         page["next_page"] = {
             "title": markupsafe.Markup.escape(
@@ -636,7 +635,7 @@ def _html_page_context(
         }
     repo_url: Optional[str] = theme_options.get("repo_url")
     edit_uri: Optional[str] = theme_options.get("edit_uri")
-    if repo_url and edit_uri and not READTHEDOCS:
+    if repo_url and edit_uri and not READTHEDOCS and "hide-edit-link" not in meta:
         page["edit_url"] = "/".join(
             [
                 repo_url.rstrip("/"),
