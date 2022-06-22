@@ -189,7 +189,8 @@ class _TocVisitor(docutils.nodes.NodeVisitor):
 
 
 def _get_mkdocs_toc(
-    toc_node: docutils.nodes.Node, builder: sphinx.builders.html.StandaloneHTMLBuilder
+    toc_node: Optional[docutils.nodes.Node],
+    builder: sphinx.builders.html.StandaloneHTMLBuilder,
 ) -> List[MkdocsNavEntry]:
     """Converts a docutils toc node into a mkdocs-format JSON toc."""
     visitor = _TocVisitor(sphinx.util.docutils.new_document(""), builder)
@@ -431,7 +432,6 @@ class CachedTocInfo:
             maxdepth=-1,
             titles_only=False,
         )
-        assert global_toc_node is not None
         global_toc = _get_mkdocs_toc(global_toc_node, builder)
         _add_domain_info_to_toc(app, global_toc, fake_pagename)
         self.entries = global_toc
