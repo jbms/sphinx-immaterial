@@ -111,7 +111,7 @@ html_theme_options = {
     # "google_analytics": ["UA-XXXXX", "auto"],
     "globaltoc_collapse": True,
     "features": [
-        # "navigation.expand",
+        "navigation.expand",
         # "navigation.tabs",
         # "toc.integrate",
         "navigation.sections",
@@ -121,6 +121,7 @@ html_theme_options = {
         # "navigation.tracking",
         # "search.highlight",
         "search.share",
+        "toc.follow",
     ],
     "palette": [
         {

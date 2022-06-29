@@ -103,13 +103,29 @@
     scroll-snap-align: start;
 
     // Navigation link in blurred state
-    &[data-md-state="blur"] {
+    &[data-md-state="blur"]:not(&--in-viewport):not(&--active) {
       color: var(--md-default-fg-color--light);
     }
 
     // Active link
     .md-nav__item &--active {
       color: var(--md-typeset-a-color);
+    }
+
+    // sphinx-immaterial: show nav links corresponding to current viewport
+    &--in-viewport {
+      position: relative;
+
+      &::before {
+        position: absolute;
+        top: 0;
+        right: calc(100% + px2rem(6px));
+        bottom: 0;
+        width: px2rem(1px);
+        height: 100%;
+        background-color: var(--md-primary-fg-color);
+        content: "";
+      }
     }
 
     // Stretch section index link to full width

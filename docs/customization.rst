@@ -270,6 +270,34 @@ Configuration Options
         - `search.highlight <https://squidfunk.github.io/mkdocs-material/setup/setting-up-site-search/#search-highlighting>`_
         - `search.share <https://squidfunk.github.io/mkdocs-material/setup/setting-up-site-search/#search-sharing>`_
         - `toc.integrate <https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#navigation-integration>`_
+        - ``toc.follow``
+
+          This is similar to the `toc.follow
+          <https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#anchor-following>`__
+          feature supported by the mkdocs-material theme, but differs in that
+          both the left and right sidebar are scrolled automatically.
+
+          - The local table-of-contents scrolls automatically to keep the
+            currently-displayed document section in view.  Note that this
+            applies to all three possible locations for the local
+            table-of-contents:
+
+            - in the right sidebar, which is the default location if the browser
+              viewport is sufficiently wide;
+            - in the left sidebar, if the ``toc.integrate`` feature is enabled;
+            - in the "layered" navigation menu, if the browser viewport is
+              sufficiently narrow.
+
+          - If the ``toc.integrate`` feature is disabled, the left sidebar
+            additionally scrolls automatically to keep within view either:
+
+            - the navigation entry for the current document, or
+            - if the current document contains sections with child documents,
+              the navigation entry for the currently-displayed document section.
+
+            Note that if the ``toc.integrate`` feature is enabled, the left
+            sidebar is instead scrolled for the local table-of-contents as
+            described above.
 
         .. hint::
             Sphinx automatically implements the
