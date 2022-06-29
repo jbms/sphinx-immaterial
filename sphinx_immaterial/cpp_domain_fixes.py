@@ -1071,6 +1071,8 @@ def setup(app: sphinx.application.Sphinx):
         desc_cpp_requires_clause,
         desc_cpp_explicit,
     ):
+        if node in sphinx.addnodes.SIG_ELEMENTS:
+            continue
         app.add_node(node)
         sphinx.addnodes.SIG_ELEMENTS.append(node)
 
