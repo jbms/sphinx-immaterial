@@ -134,6 +134,7 @@ def _get_html_builder(base_builder: Type[sphinx.builders.html.StandaloneHTMLBuil
             )
             if nav_adapt.READTHEDOCS is None:
                 excluded_scripts.add("_static/jquery.js")
+                excluded_scripts.add("_static/_sphinx_javascript_frameworks_compat.js")
             self.script_files = [
                 x for x in self.script_files if x.filename not in excluded_scripts
             ]
@@ -190,6 +191,9 @@ def _get_html_builder(base_builder: Type[sphinx.builders.html.StandaloneHTMLBuil
                         ]
                         if nav_adapt.READTHEDOCS is None:
                             excluded_list.append("**/jquery*.js")
+                            excluded_list.append(
+                                "**/_sphinx_javascript_frameworks_compat.js"
+                            )
                         excluded = sphinx.util.matching.Matcher(excluded_list)
                     else:
                         excluded = sphinx.util.matching.DOTFILES
