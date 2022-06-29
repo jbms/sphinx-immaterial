@@ -11,6 +11,8 @@ import os
 import sys
 import typing
 
+from typing_extensions import Literal
+
 sys.path.insert(0, os.path.abspath("."))
 
 import docutils
@@ -317,6 +319,8 @@ def _parse_confval_signature(
         logger.error("Invalid config option: %r", signature)
     else:
         default, rebuild, types = registry_option
+        if isinstance(types, sphinx.config.ENUM):
+            types = (Literal[tuple(types.candidates)],)
         if isinstance(types, type):
             types = (types,)
         if types:
