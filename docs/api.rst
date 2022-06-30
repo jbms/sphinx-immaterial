@@ -15,6 +15,14 @@ domain/object type pair.
    initializing each option to its default value, and then applying as overrides
    the options associated with each matching pattern in order.
 
+   .. details:: Here's the list of supported patterns (and their default configuration)
+      :class: faq
+
+      .. literalinclude:: ../sphinx_immaterial/apidoc_formatting.py
+         :language: python
+         :start-at: DEFAULT_OBJECT_DESCRIPTION_OPTIONS
+         :end-before: # end DEFAULT_OBJECT_DESCRIPTION_OPTIONS
+
 .. _object-description-options:
 
 Object description options

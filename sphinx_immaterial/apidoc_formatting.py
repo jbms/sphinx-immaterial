@@ -335,6 +335,7 @@ DEFAULT_OBJECT_DESCRIPTION_OPTIONS: List[Tuple[str, dict]] = [
     ("rst:directive:option", {"toc_icon_class": "sub-data", "toc_icon_text": "o"}),
     ("rst:role", {"toc_icon_class": "procedure", "toc_icon_text": "R"}),
 ]
+# end DEFAULT_OBJECT_DESCRIPTION_OPTIONS
 
 
 def get_object_description_option_registry(app: sphinx.application.Sphinx):
