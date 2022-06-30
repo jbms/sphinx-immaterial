@@ -135,6 +135,26 @@ The following options can be customized for each object type using
              ("py:.*", dict(include_fields_in_toc=False)),
          ]
 
+.. objconf:: cross_link_parameter_descriptions
+
+   This option can be used to prevent the cross linking of parameter descriptions to their
+   declarations in the a function signature. This was specifically provided for the C/C++
+   domains because omitting parameter names in C/C++ prototypes is conventionally allowed.
+   However, it can also be disabled in the python domain when using non-pythonic optional
+   syntax as seen in our `format_exception()` example.
+
+   .. admonition:: Example
+      :class: example
+
+      By default, this option is enabled (`True`), but it can be disabled by setting this
+      option to `False`.
+
+      .. code-block:: python
+
+         object_description_options = [
+            ("cpp:function", dict(cross_link_parameter_descriptions=False)),
+         ]
+
 Other options described elsewhere include:
 
 - :objconf:`wrap_signatures_with_css`

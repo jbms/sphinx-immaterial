@@ -476,7 +476,7 @@ def _add_parameter_documentation_ids(
                 "Parameter name %r does not match any of the parameters "
                 "defined in the signature: %r",
                 param_name,
-                list(all_params.keys()),
+                obj_content.parent.children[0].astext(),
                 location=param_node,
             )
             return
@@ -544,6 +544,15 @@ def _add_parameter_documentation_ids(
                     child.line = line
                 new_param_nodes.append(new_param_node)
             param_node.parent[:1] = new_param_nodes
+
+    func_options = apidoc_formatting.get_object_description_options(
+        env, "py", "function"
+    )
+    if (
+        not func_options["cross_link_parameter_descriptions"]
+        or not param_options["cross_link_parameter_descriptions"]
+    ):
+        return
 
     # Find all parameter descriptions within the object description body.  Make
     # sure not to find parameter descriptions within neted object descriptions.

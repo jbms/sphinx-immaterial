@@ -477,6 +477,9 @@ def setup(app: sphinx.application.Sphinx):
     add_object_description_option(
         app, "toc_icon_class", type_constraint=Optional[str], default=None
     )
+    add_object_description_option(
+        app, "cross_link_parameter_descriptions", type_constraint=bool, default=True
+    )
 
     app.add_config_value(
         "object_description_options",

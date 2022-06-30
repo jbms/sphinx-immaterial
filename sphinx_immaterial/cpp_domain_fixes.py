@@ -751,7 +751,7 @@ def _add_parameter_documentation_ids(
                 "Parameter name %r does not match any of the parameters "
                 "defined in the signature: %r",
                 param_name,
-                list(all_params.keys()),
+                obj_content.parent.children[0].astext(),
                 location=param_node,
             )
             return
@@ -975,16 +975,19 @@ def _monkey_patch_domain_to_cross_link_parameters_and_add_synopses(
         while symbols[-1].siblingAbove:
             symbols.append(symbols[-1].siblingAbove)
         symbols.reverse()
-        _cross_link_parameters(
-            app=self.env.app,
-            domain=domain,
-            content=getattr(self, "contentnode"),
-            symbols=symbols,
-        )
 
         options = apidoc_formatting.get_object_description_options(
             self.env, self.domain, self.objtype
         )
+
+        if options["cross_link_parameter_descriptions"]:
+            _cross_link_parameters(
+                app=self.env.app,
+                domain=domain,
+                content=getattr(self, "contentnode"),
+                symbols=symbols,
+            )
+
         generate_synopses = options["generate_synopses"]
 
         if generate_synopses is not None:
