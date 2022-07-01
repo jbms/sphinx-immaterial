@@ -146,7 +146,7 @@ The following options can be customized for each object type using
 .. objconf:: cross_link_parameter_descriptions
 
    This option can be used to prevent the cross linking of parameter descriptions to their
-   declarations in the a function signature. This was specifically provided for the C/C++
+   declarations in the a signature. This was specifically provided for the C/C++
    domains because omitting parameter names in C/C++ prototypes is conventionally allowed.
    However, it can also be disabled in the python domain when using non-pythonic optional
    syntax as seen in our `format_exception()` example.
