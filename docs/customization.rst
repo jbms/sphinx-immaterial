@@ -298,6 +298,11 @@ Configuration Options
             Note that if the ``toc.integrate`` feature is enabled, the left
             sidebar is instead scrolled for the local table-of-contents as
             described above.
+        - ``toc.sticky``
+
+          Makes headings in the left and right sidebars "sticky", such that the
+          full path to each heading remains visible even as the sidebars are
+          scrolled.
 
         .. hint::
             Sphinx automatically implements the

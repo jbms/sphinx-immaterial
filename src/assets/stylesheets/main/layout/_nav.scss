@@ -97,10 +97,21 @@
   &__link {
     display: flex;
     align-items: center;
-    margin-top: 0.625em;
+
+    $margin-height: 0.625em;
+
+    margin-top: #{$margin-height};
     cursor: pointer;
     transition: color 125ms;
     scroll-snap-align: start;
+
+    // sphinx-immaterial: used for toc.sticky feature to create a gap between
+    // sticky header and scrolling content
+    &.md-nav__sticky {
+      box-shadow:
+        0 -#{$margin-height} var(--md-default-bg-color),
+        0 #{$margin-height} var(--md-default-bg-color);
+    }
 
     // Navigation link in blurred state
     &[data-md-state="blur"]:not(&--in-viewport):not(&--active) {
@@ -170,6 +181,14 @@
     }
   }
 
+  // sphinx-immaterial: used when `toc.sticky` is enabled
+  &__sticky {
+    position: sticky;
+    top: var(--md-nav__header-height, 0);
+    z-index: var(--md-nav__sticky-zindex);
+    background-color: var(--md-default-bg-color);
+  }
+
   .md-ellipsis {
     // sphinx-immaterial: don't inherit display:flex (flex-grow still applies)
     display: block;
@@ -208,6 +227,13 @@
 
     // Primary navigation
     &--primary {
+
+      // sphinx-immaterial: disable `toc.sticky` behavior for layered navigation
+      .md-nav__sticky {
+        position: static;
+        z-index: auto;
+        background-color: transparent;
+      }
 
       // Navigation title and item
       :is(.md-nav__title, .md-nav__item) {

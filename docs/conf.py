@@ -122,6 +122,7 @@ html_theme_options = {
         # "search.highlight",
         "search.share",
         "toc.follow",
+        "toc.sticky",
     ],
     "palette": [
         {

@@ -369,6 +369,48 @@ export function mountTableOfContents(
             }
           })
 
+    /* sphinx-immaterial: sticky toc headings */
+    if (feature("toc.sticky")) {
+      watchElementSize(document.body).pipe(distinctUntilKeyChanged("width"),
+        debounceTime(0)).subscribe(() =>  {
+          // The `position: sticky` CSS feature by itself is
+          // sufficient to enable a single level of "sticky" headings.
+          // To display multiple levels of sticky headings, it is
+          // necessary to specify a `top` position for each nested
+          // heading that is exactly the sum of the heights of the
+          // ancestor headings.  For fixed-height headings that can be
+          // done statically, but this theme wraps long titles.
+          // Therefore, we must use JavaScript to compute the
+          // necessary top positions for each heading.
+          const existingHeights = new Map<HTMLElement, {height: string, zindex: number}>()
+          const heightProperty = "--md-nav__header-height"
+          for (const link of getElements(".md-nav__link", el)) {
+            const nav = link.nextElementSibling
+            if (!(nav instanceof HTMLElement) || nav.tagName !== "NAV") {
+              continue
+            }
+            let heightStr = ""
+            let zindex = NaN
+            const parentNav = nav.parentElement!.closest("nav")
+            if (parentNav !== null) {
+              const info = existingHeights.get(parentNav)
+              if (info !== undefined) {
+                heightStr = `${info.height} + `
+                zindex = info.zindex - 1
+              }
+            }
+            if (isNaN(zindex)) {
+              zindex = 100
+            }
+            heightStr += `${link.offsetHeight}px + 0.625em`
+            link.classList.add("md-nav__sticky")
+            link.style.setProperty("--md-nav__sticky-zindex", zindex.toString())
+            nav.style.setProperty(heightProperty, `calc(${heightStr})`)
+            existingHeights.set(nav, {height: heightStr, zindex})
+          }
+        })
+    }
+
     const excludedLinks = localToc
       ? undefined
       : new Set(getElements<HTMLElement>("[data-md-component='toc'] a[href]", el))
