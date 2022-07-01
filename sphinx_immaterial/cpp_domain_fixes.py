@@ -749,9 +749,10 @@ def _add_parameter_documentation_ids(
                 all_params.update(sig_param_nodes)
             logger.warning(
                 "Parameter name %r does not match any of the parameters "
-                "defined in the signature(s): %r",
+                "defined in the signature(s): %r\n\tList of known parameters %r",
                 param_name,
                 [n.astext() for n in obj_content.parent.children[:-1]],
+                list(all_params.keys()),
                 location=param_node,
             )
             return
