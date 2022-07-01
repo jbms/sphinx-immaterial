@@ -26,8 +26,8 @@ documentation pages.
 Usage
 -----
 
-To use this extension, add :python:`"sphinx_immaterial.python_apigen"` it to the
-list of extensions in :file:`conf.py` and define the
+To use this extension, add :python:`"sphinx_immaterial.apidoc.python.apigen"` it
+to the list of extensions in :file:`conf.py` and define the
 :confval:`python_apigen_modules` configuration option.
 
 For example:
@@ -36,7 +36,7 @@ For example:
 
     extensions = [
         # other extensions...
-        "sphinx_immaterial.python_apigen",
+        "sphinx_immaterial.apidoc.python.apigen",
     ]
 
     python_apigen_modules = {
@@ -323,7 +323,7 @@ Configuration
             ("my_other_module.Baz", ""),
           ]
       %}
-      {%- set python_apigen_get_docname = sys.modules["sphinx_immaterial.python_apigen"]._get_docname %}
+      {%- set python_apigen_get_docname = sys.modules["sphinx_immaterial.apidoc.python.apigen"]._get_docname %}
 
       .. list-table::
          :widths: auto

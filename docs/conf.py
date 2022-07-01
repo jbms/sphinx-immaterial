@@ -22,7 +22,7 @@ import sphinx.environment
 import sphinx.util.logging
 import sphinx.util.typing
 
-from sphinx_immaterial import apidoc_formatting
+from sphinx_immaterial.apidoc import apidoc_formatting
 
 logger = sphinx.util.logging.getLogger(__name__)
 
@@ -52,10 +52,10 @@ extensions = [
     "sphinxcontrib.details.directive",
     "sphinx_immaterial.theme_result",
     "sphinx_immaterial.kbd_keys",
-    "sphinx_immaterial.format_signatures",
-    "sphinx_immaterial.cppreference",
-    "sphinx_immaterial.json_domain",
-    "sphinx_immaterial.python_apigen",
+    "sphinx_immaterial.apidoc.format_signatures",
+    "sphinx_immaterial.apidoc.cpp.cppreference",
+    "sphinx_immaterial.apidoc.json.domain",
+    "sphinx_immaterial.apidoc.python.apigen",
     "sphinx_jinja",
 ]
 
@@ -186,15 +186,15 @@ extlinks = {
 
 object_description_options = []
 
-# BEGIN: sphinx_immaterial.format_signatures extension options
+# BEGIN: sphinx_immaterial.apidoc.format_signatures extension options
 object_description_options.append(
     ("cpp:.*", dict(clang_format_style={"BasedOnStyle": "LLVM"}))
 )
-# END: sphinx_immaterial.format_signatures extension options
+# END: sphinx_immaterial.apidoc.format_signatures extension options
 
 object_description_options.append(("py:.*", dict(wrap_signatures_with_css=True)))
 
-# BEGIN: sphinx_immaterial.external_cpp_references extension options
+# BEGIN: sphinx_immaterial.apidoc.cpp.external_cpp_references extension options
 external_cpp_references = {
     "nlohmann::json": {
         "url": "https://json.nlohmann.me/api/json/",
@@ -207,7 +207,7 @@ external_cpp_references = {
         "desc": "C++ class",
     },
 }
-# END: sphinx_immaterial.external_cpp_references extension options
+# END: sphinx_immaterial.apidoc.cpp.external_cpp_references extension options
 
 # BEGIN: cpp_strip_namespaces_from_signatures option
 cpp_strip_namespaces_from_signatures = [
@@ -279,7 +279,10 @@ jinja_contexts = {
 }
 
 
-json_schemas = ["index_transform_schema.yml", "inheritance_schema.yml"]
+json_schemas = [
+    "apidoc/json/index_transform_schema.yml",
+    "apidoc/json/inheritance_schema.yml",
+]
 
 python_apigen_modules = {"tensorstore_demo": "python_apigen_generated/"}
 

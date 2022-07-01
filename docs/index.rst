@@ -81,14 +81,14 @@ or ``theme.conf`` for more details.
     :caption: API documentation customization
     :hidden:
 
-    api
-    format_signatures
-    python
-    python_apigen
-    cpp
-    external_cpp_references
-    cppreference
-    json
+    apidoc/index
+    apidoc/format_signatures
+    apidoc/python/index
+    apidoc/python/apigen
+    apidoc/cpp/index
+    apidoc/cpp/external_cpp_references
+    apidoc/cpp/cppreference
+    apidoc/json/domain
 
 .. toctree::
     :caption: Examples and Uses

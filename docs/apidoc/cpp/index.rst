@@ -9,7 +9,7 @@ C++ domain customization
 
    For example, with the following in :file:`conf.py`:
 
-   .. literalinclude:: conf.py
+   .. literalinclude:: /conf.py
       :language: python
       :start-after: # BEGIN: cpp_strip_namespaces_from_signatures option
       :end-before: # END: cpp_strip_namespaces_from_signatures option

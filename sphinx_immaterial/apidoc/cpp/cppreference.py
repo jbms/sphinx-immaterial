@@ -168,13 +168,15 @@ def load_mappings(app: sphinx.application.Sphinx):
             (
                 "C",
                 importlib.resources.read_binary(
-                    "sphinx_immaterial.cppreference_data", "index-functions-c.xml"
+                    "sphinx_immaterial.apidoc.cpp.cppreference_data",
+                    "index-functions-c.xml",
                 ),
             ),
             (
                 "C++",
                 importlib.resources.read_binary(
-                    "sphinx_immaterial.cppreference_data", "index-functions-cpp.xml"
+                    "sphinx_immaterial.apidoc.cpp.cppreference_data",
+                    "index-functions-cpp.xml",
                 ),
             ),
         ]
@@ -183,7 +185,7 @@ def load_mappings(app: sphinx.application.Sphinx):
 
 
 def setup(app: sphinx.application.Sphinx):
-    app.setup_extension("sphinx_immaterial.external_cpp_references")
+    app.setup_extension("sphinx_immaterial.apidoc.cpp.external_cpp_references")
     app.connect("builder-inited", load_mappings)
     app.add_config_value(
         name="cppreference_xml_files",

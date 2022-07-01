@@ -2,7 +2,7 @@ import pathlib
 
 import pytest
 
-from sphinx_immaterial.python_apigen import _get_api_data
+from sphinx_immaterial.apidoc.python.apigen import _get_api_data
 
 from sphinx.testing.path import path as SphinxPath
 
@@ -15,7 +15,7 @@ def apigen_make_app(tmp_path: pathlib.Path, make_app):
     conf = """
 extensions = [
     "sphinx_immaterial",
-    "sphinx_immaterial.python_apigen",
+    "sphinx_immaterial.apidoc.python.apigen",
 ]
 html_theme = "sphinx_immaterial"
 """

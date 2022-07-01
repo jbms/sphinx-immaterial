@@ -39,7 +39,7 @@ def _get_property_return_type(obj: Any) -> Optional[str]:
     return retann
 
 
-def _apply_property_documenter_type_annotation_fix():
+def apply_property_documenter_type_annotation_fix():
 
     # Modify PropertyDocumenter to support obtaining signature from docstring.
 
@@ -112,6 +112,3 @@ def _apply_property_documenter_type_annotation_fix():
         return fullname, prefix
 
     PyProperty.handle_signature = handle_signature
-
-
-_apply_property_documenter_type_annotation_fix()

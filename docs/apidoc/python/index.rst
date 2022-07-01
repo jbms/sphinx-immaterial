@@ -9,7 +9,7 @@ Python domain customization
    For example, to map :python:`MyUnqualifiedType` to :python:`alias_ex.MyUnqualifiedType`, add the following
    to :file:`conf.py`:
 
-   .. literalinclude:: conf.py
+   .. literalinclude:: /conf.py
       :language: python
       :start-after: # BEGIN: python_type_aliases example
       :end-before: # END: python_type_aliases example
@@ -28,7 +28,7 @@ Python domain customization
 
    .. jinja:: sys
 
-      {%- for x in sys.modules["sphinx_immaterial.python_type_annotation_transforms"].TYPING_NAMES %}
+      {%- for x in sys.modules["sphinx_immaterial.apidoc.python.type_annotation_transforms"].TYPING_NAMES %}
       - :python:`{{ x }}` -> :py:obj:`typing.{{ x }}`
       {%- endfor %}
 
@@ -42,7 +42,7 @@ Python domain customization
 
    .. jinja:: sys
 
-      {%- for k, v in sys.modules["sphinx_immaterial.python_type_annotation_transforms"].PEP585_ALIASES.items() %}
+      {%- for k, v in sys.modules["sphinx_immaterial.apidoc.python.type_annotation_transforms"].PEP585_ALIASES.items() %}
       - :py:obj:`{{ k }}` -> :py:obj:`{{ v }}`
       {% endfor %}
 

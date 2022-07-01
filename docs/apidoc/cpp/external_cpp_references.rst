@@ -2,10 +2,10 @@ External C++ symbol links
 =========================
 
 This theme includes an optional
-:python:`sphinx_immaterial.external_cpp_references` extension that allows normal
-C++ symbol references, e.g. through the :rst:role:`cpp:expr` role or in C++
-function signatures, to resolve to externally-defined C++ symbols that are
-manually specified in :file:`conf.py`.  Unlike the `sphinx.ext.intersphinx`
+:python:`sphinx_immaterial.apidoc.cpp.external_cpp_references` extension that
+allows normal C++ symbol references, e.g. through the :rst:role:`cpp:expr` role
+or in C++ function signatures, to resolve to externally-defined C++ symbols that
+are manually specified in :file:`conf.py`.  Unlike the `sphinx.ext.intersphinx`
 extension, template arguments are stripped when resolving references, which
 allows template entities to be resolved based on their base name.
 
@@ -16,13 +16,13 @@ define the :confval:`external_cpp_references` configuration option:
 
     extensions = [
         # other extensions...
-        "sphinx_immaterial.external_cpp_references",
+        "sphinx_immaterial.apidoc.cpp.external_cpp_references",
     ]
 
-.. literalinclude:: conf.py
+.. literalinclude:: /conf.py
    :language: python
-   :start-after: # BEGIN: sphinx_immaterial.external_cpp_references extension options
-   :end-before: # END: sphinx_immaterial.external_cpp_references extension options
+   :start-after: # BEGIN: sphinx_immaterial.apidoc.cpp.external_cpp_references extension options
+   :end-before: # END: sphinx_immaterial.apidoc.cpp.external_cpp_references extension options
 
 .. rst-example::
 

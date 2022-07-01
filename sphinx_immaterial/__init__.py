@@ -14,16 +14,8 @@ import sphinx.util.matching
 import sphinx.util.docutils
 import sphinx.writers.html5
 
-from . import apidoc_formatting
-from . import autodoc_property_type
-from . import cpp_domain_fixes
-from . import generic_synopses
+from .apidoc import apidoc_formatting
 from . import nav_adapt
-from . import object_toc
-from . import postprocess_html
-from . import python_domain_fixes
-from . import python_type_annotation_transforms
-from . import search_adapt
 from .details_patch import monkey_patch_details_run
 
 logger = sphinx.util.logging.getLogger(__name__)
@@ -313,19 +305,21 @@ def _config_inited(
 
 def setup(app):
     app.connect("config-inited", _config_inited)
-    app.setup_extension(apidoc_formatting.__name__)
-    app.setup_extension(python_domain_fixes.__name__)
-    app.setup_extension(python_type_annotation_transforms.__name__)
-    app.setup_extension(cpp_domain_fixes.__name__)
-    app.setup_extension(nav_adapt.__name__)
-    app.setup_extension(postprocess_html.__name__)
-    if sphinx.version_info < (5, 0):
-        from . import inlinesyntaxhighlight  # pylint: disable=import-outside-toplevel
 
-        app.setup_extension(inlinesyntaxhighlight.__name__)
-    app.setup_extension(object_toc.__name__)
-    app.setup_extension(search_adapt.__name__)
-    app.setup_extension(generic_synopses.__name__)
+    app.setup_extension(apidoc_formatting.__name__)
+    app.setup_extension("sphinx_immaterial.apidoc.python.domain_fixes")
+    app.setup_extension("sphinx_immaterial.apidoc.python.type_annotation_transforms")
+    app.setup_extension("sphinx_immaterial.apidoc.cpp.domain_fixes")
+    app.setup_extension(nav_adapt.__name__)
+    app.setup_extension("sphinx_immaterial.postprocess_html")
+
+    if sphinx.version_info < (5, 0):
+        app.setup_extension("sphinx_immaterial.inlinesyntaxhighlight")
+
+    app.setup_extension("sphinx_immaterial.apidoc.object_toc")
+    app.setup_extension("sphinx_immaterial.search_adapt")
+    app.setup_extension("sphinx_immaterial.apidoc.generic_synopses")
+
     app.connect("html-page-context", html_page_context)
     app.connect("builder-inited", _builder_inited)
     app.add_config_value(

@@ -56,8 +56,8 @@ import sphinx.util.inspect
 import sphinx.util.logging
 import sphinx.util.typing
 
-from . import apidoc_formatting
-from . import sphinx_utils
+from .. import apidoc_formatting
+from ... import sphinx_utils
 
 logger = sphinx.util.logging.getLogger(__name__)
 
@@ -626,7 +626,7 @@ def _generate_entity_summary(
         # Insert a link around the `desc_name` field
         for sub_node in sig_node.traverse(condition=sphinx.addnodes.desc_name):
             if include_in_toc:
-                sub_node['classes'].append('pseudo-toc-entry')
+                sub_node["classes"].append("pseudo-toc-entry")
             xref_node = sphinx.addnodes.pending_xref(
                 "",
                 sub_node.deepcopy(),
@@ -662,7 +662,9 @@ def _generate_group_summary(
             include_in_toc = False
         elif member is not member_entity.parents[0]:
             include_in_toc = False
-        node = _generate_entity_summary(env=env, member=member, state=state, include_in_toc=include_in_toc)
+        node = _generate_entity_summary(
+            env=env, member=member, state=state, include_in_toc=include_in_toc
+        )
         if node is None:
             continue
         nodes.append(node)

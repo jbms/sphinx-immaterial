@@ -35,8 +35,8 @@ Here's an included example with line numbers.
 
 .. rst-example::
 
-   .. literalinclude:: ../sphinx_immaterial/autodoc_property_type.py
-      :caption: source from this theme in *sphinx_immaterial/autodoc_property_type.py*
+   .. literalinclude:: ../sphinx_immaterial/apidoc/python/autodoc_property_type.py
+      :caption: source from this theme in *sphinx_immaterial/apidoc/python/autodoc_property_type.py*
       :linenos:
 
 It also works with existing Sphinx highlighting:
@@ -189,7 +189,7 @@ Alignment
    .. list-table:: Center Aligned
       :header-rows: 1
       :align: center
-   
+
       * - Column 1
         - Column 2
       * - Item 1
@@ -202,7 +202,7 @@ Alignment
       :widths: 15 10 30
       :header-rows: 1
       :align: right
-   
+
       * - Treat
         - Quantity
         - Description
@@ -269,7 +269,7 @@ Math
 .. rst-example::
 
    .. math::
-   
+
       (a + b)^2  &=  (a + b)(a + b) \\
                  &=  a^2 + 2ab + b^2
 
@@ -277,7 +277,7 @@ Math
 
    .. math::
       :nowrap:
-   
+
       \begin{eqnarray}
          y    & = & ax^2 + bx + c \\
          f(x) & = & x^2 + 2xy + y^2

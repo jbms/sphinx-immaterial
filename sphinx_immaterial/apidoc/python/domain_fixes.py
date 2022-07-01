@@ -28,8 +28,9 @@ import sphinx.ext.napoleon
 import sphinx.util.logging
 import sphinx.util.nodes
 
-from . import apidoc_formatting
-from . import sphinx_utils
+from .. import apidoc_formatting
+from ... import sphinx_utils
+from . import autodoc_property_type
 
 PythonDomain = sphinx.domains.python.PythonDomain
 PyTypedField = sphinx.domains.python.PyTypedField
@@ -563,7 +564,7 @@ def _add_parameter_documentation_ids(
             param_node.parent[:1] = new_param_nodes
 
     # Find all parameter descriptions within the object description body.  Make
-    # sure not to find parameter descriptions within neted object descriptions.
+    # sure not to find parameter descriptions within nested object descriptions.
     # For example, if this is a class object description, we don't want to find
     # parameter descriptions within a nested function object description.
     for child in obj_content:
@@ -908,6 +909,7 @@ def setup(app: sphinx.application.Sphinx):
     _monkey_patch_python_domain_to_support_synopses()
     _monkey_patch_python_domain_to_support_object_ids()
     _monkey_patch_python_domain_to_support_titles()
+    autodoc_property_type.apply_property_documenter_type_annotation_fix()
 
     sphinx.domains.python.PythonDomain.initial_data["synopses"] = {}  # name -> synopsis
 

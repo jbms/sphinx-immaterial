@@ -66,7 +66,7 @@ which the extension should be used.
 
     extensions = [
         # other extensions...
-        "sphinx_immaterial.format_signatures",
+        "sphinx_immaterial.apidoc.format_signatures",
     ]
 
     object_description_options = [
