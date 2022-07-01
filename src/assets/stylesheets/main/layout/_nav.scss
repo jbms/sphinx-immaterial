@@ -421,6 +421,12 @@
   // [tablet portrait -]: Layered navigation with table of contents
   @include break-to-device(tablet portrait) {
 
+    // sphinx-immaterial: hide nested nav items of current page, since
+    // they are redundant with integrated toc.
+    &__current-nested {
+      display: none;
+    }
+
     // Show link to table of contents
     &--primary &__link[for="__toc"] {
       display: flex;
@@ -476,6 +482,11 @@
 
   // [tablet landscape +]: Tree-like table of contents
   @include break-from-device(tablet landscape) {
+
+    // sphinx-immaterial: hide integreated toc, since it is redundant with any nested items.
+    &__current-toc {
+      display: none;
+    }
 
     // Navigation title
     &--secondary &__title {

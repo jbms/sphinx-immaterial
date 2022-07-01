@@ -30,6 +30,11 @@
 <nav class="md-nav md-nav--secondary">
   {% set toc = page.toc %}
 
+  <!-- sphinx-immaterial: allow nav-item to override toc -->
+  {% if use_integrated_local_toc %}
+    {% set toc = page.integrated_local_toc %}
+  {% endif %}
+
   <!-- Render item list -->
   {% if toc %}
     <label class="md-nav__title" for="__toc">

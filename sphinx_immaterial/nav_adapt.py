@@ -1,4 +1,131 @@
-"""Injects mkdocs-style `nav` and `page` objects into the HTML jinja2 context."""
+"""Injects mkdocs-style `nav` and `page` objects into the HTML jinja2 context.
+
+This generates global and local tables-of-contents (TOCs) usable by (a modified
+version of) the mkdocs-material HTML templates.
+
+In particular, for each document, this module generates three separate TOCs:
+
+`global_toc`:
+    The `global_toc` is the global table of contents.  If the
+    `globaltoc_collapse` theme option is `False`, it contains all documents
+    reachable from the root document, as well as any sections of non-root
+    documents that contain non-empty TOCs.  If the `globaltoc_collapse` theme
+    option is `True`, then the global TOC is restricted to children of:
+
+    - the root,
+    - the current document,
+    - ancestors of the current document.
+
+`local_toc`:
+    The `local_toc` is the local table of contents for the specified document.
+    It contains all sections of the current document, but does not contain any
+    entries that link outside the current document.
+
+`integrated_local_toc`:
+    The `integrated_local_toc` contains all sections of the current document, as
+    well as any child documents referenced by a TOC contained in the current
+    document.  Whether children of the child docuemnts are included depends on
+    the `globaltoc_collapse` theme option.
+
+Background
+----------
+
+The Sphinx document model differs from the mkdocs document model in that
+documents can be organized as children of other documents and sections within
+those documents.
+
+Similar functionality is optionally available in mkdocs-material, through the
+`navigation.indexes` feature, which effectively allows documents to be children
+of other documents (but not sections within those documents).
+
+However, mkdocs-material specifically documents that `navigation.indexes` is
+incompatible with the `toc.integrate` feature.  Furthermore, as noted in
+https://github.com/squidfunk/mkdocs-material/issues/3819, the local TOC is
+inaccessible in the layered navigation menu used with narrow viewports.  This is
+because under the mkdocs-material document model (with `navigation.indexes`
+feature enabled), there is no natural way to combine both the local TOC for a
+page and the nested list of child documents into a single TOC.
+
+With Sphinx, non-leaf documents are the common case, not a special added
+feature, and it is not very reasonable for the TOC to not behave correctly on
+such documents.  Furthermore, under the Sphinx document model, child documents
+are already organized within the sections of their parent document.  Therefore,
+there *is* a natural way to display the local TOC and the nested child documents
+as a single TOC --- this combined toc is the `integrated_local_toc`.
+
+The mkdocs-material package uses the global and local TOCs as follows:
+
+Left sidebar:
+- Doc 1 (from global_toc)
+- Group (from global_toc)
+  - Doc 2 (from global_toc)
+  - Current page (from global_toc)
+    - Section 1 (from local_toc)
+    - Section 2 (from local_toc)
+
+Right side bar:
+- Section 1 (from local_toc)
+- Section 2 (from local_toc)
+
+Note that the local TOC is duplicated into the left sidebar as well, but is
+hidden in the normal non-mobile layout, unless the `toc.integrate` feature is
+enabled (in that case the right side bar is always hidden).  With a sufficiently
+narrow layout, the right side bar is hidden and the duplicate copy of the local
+toc in the left sidebar is shown in the layered "hamburger" navigation menu.
+
+The above example is for the case where the current page is a leaf page.  If the
+`navigation.indexes` feature is in use and the current page is a non-leaf page,
+the sidebars are instead generated as follows:
+
+Left sidebar:
+- Doc 1 (from global_toc)
+- Group (from global_toc)
+  - Doc 2 (from global_toc)
+  - Current page (from global_toc)
+    - Doc 3 (from global_toc)
+    - Doc 4 (from global_toc)
+
+Right side bar:
+- Section 1 (from local_toc)
+- Section 2 (from local_toc)
+
+In order to support a separate `integrated_local_toc`, this theme modifies the
+mkdocs-material templates to generate the sidebars as follows:
+
+Left sidebar:
+- Doc 1 (from global_toc)
+- Group (from global_toc)
+  - Doc 2 (from global_toc)
+  - Current page (from global_toc) [class=md-nav__current-nested]
+    - Doc 3 (from global_toc)
+    - Doc 4 (from global_toc)
+  - Current page (from global_toc) [class=md-nav__current-toc]
+    - Section 1 (from local_toc_integrated)
+    - Section 2 (from local_toc_integrated)
+
+Right side bar:
+- Section 1 (from local_toc)
+- Section 2 (from local_toc)
+
+The left sidebar contains two copies of the local toc, one generated from
+`global_toc` and the other from `local_toc_integrated`, but CSS rules based on
+the added `md-nav__current-nested` and `md-nav__current-toc` ensure that at most
+one copy is shown at a time.
+
+The root document is an exception: in Sphinx the global document structure is
+defined by adding `toctree` nodes to the root document.  Technically those
+`toctree` nodes are still contained within the usual section structure of the
+root document, but the built-in TOC functionality in Sphinx treats the root
+document specially, and extacts any `toctree` nodes into a separate global TOC
+hierarchy, independent of the section structure of the root document.  In
+practice, users often place the `toctree` nodes at the end of the root document,
+effectively making them children of the last section, but it is not intended
+that they are actually a part of any section.  Therefore, for the root document
+there is no natural way to integrate the local and global TOCs, and consequently
+the local TOC is simply unavailable when the `toc.integrate` feature is enabled
+or when using the "layered" navigation menu.
+
+"""
 
 import collections
 import copy
@@ -69,7 +196,7 @@ class MkdocsNavEntry:
     # Excludes links to sections within in an active page.
     active: bool
     # Set to `True` if this page is the current page.  Excludes links to
-    # sections within in an active page.
+    # sections within an active page.
     current: bool
 
     # Set to `True` if `active`, or if this is a link to a section within an `active` page.
@@ -486,7 +613,7 @@ def _get_global_toc(app: sphinx.application.Sphinx, pagename: str, collapse: boo
                     child.url = sphinx.util.osutil.relative_uri(
                         real_page_url, root_relative_url
                     )
-                    if uri.fragment:
+                    if uri.fragment or child.url == "":
                         child.url += f"#{uri.fragment}"
             in_ancestors = child_key in ancestors
             child_active = False
@@ -508,8 +635,19 @@ def _get_global_toc(app: sphinx.application.Sphinx, pagename: str, collapse: boo
 
 
 def _get_mkdocs_tocs(
-    app: sphinx.application.Sphinx, pagename: str, duplicate_local_toc: bool
-) -> Tuple[List[MkdocsNavEntry], List[MkdocsNavEntry]]:
+    app: sphinx.application.Sphinx,
+    pagename: str,
+    duplicate_local_toc: bool,
+    toc_integrate: bool,
+) -> Tuple[List[MkdocsNavEntry], List[MkdocsNavEntry], List[MkdocsNavEntry]]:
+    """Generates the global and local TOCs for a document.
+
+    :param app: The sphinx application object.
+    :param pagename: The name of the document for which to generate the tocs.
+    :param duplicate_local_toc: Duplicate the local toc in the global toc.
+    :param toc_integrate: Indicates if the `toc.integrate` feature is enabled.
+    :returns: A tuple `(global_toc, local_toc, integrated_local_toc)`.
+    """
     theme_options = app.config["html_theme_options"]
     global_toc = _get_global_toc(
         app=app,
@@ -517,6 +655,7 @@ def _get_mkdocs_tocs(
         collapse=theme_options.get("globaltoc_collapse", False),
     )
     local_toc: List[MkdocsNavEntry] = []
+    integrated_local_toc: List[MkdocsNavEntry] = []
     env = app.env
     assert env is not None
     builder = app.builder
@@ -524,12 +663,17 @@ def _get_mkdocs_tocs(
     if pagename != env.config.master_doc:
         # Extract entry from `global_toc` corresponding to the current page.
         current_page_toc_entry = _get_current_page_in_toc(global_toc)
-        if current_page_toc_entry:
-            local_toc = cast(
-                List[MkdocsNavEntry],
-                [_prune_toc_by_active(current_page_toc_entry, active=True)],
-            )
-            if not duplicate_local_toc:
+        if current_page_toc_entry is not None:
+            integrated_local_toc = [copy.copy(current_page_toc_entry)]
+            integrated_local_toc[0].children = list(integrated_local_toc[0].children)
+            if not toc_integrate:
+                local_toc = cast(
+                    List[MkdocsNavEntry],
+                    [_prune_toc_by_active(current_page_toc_entry, active=True)],
+                )
+            if toc_integrate:
+                current_page_toc_entry.children = []
+            elif not duplicate_local_toc:
                 current_page_toc_entry.children = [
                     child
                     for child in [
@@ -538,21 +682,20 @@ def _get_mkdocs_tocs(
                     ]
                     if child is not None
                 ]
-
     else:
         # Every page is a child of the root page.  We still want a full TOC
         # tree, though.
-        local_toc_node = sphinx.environment.adapters.toctree.TocTree(env).get_toc_for(
-            pagename,
-            builder,
-        )
+        local_toc_node = env.tocs[pagename]
         local_toc = _get_mkdocs_toc(local_toc_node, builder)
         _add_domain_info_to_toc(app, local_toc, pagename)
 
     if len(local_toc) == 1 and len(local_toc[0].children) == 0:
         local_toc = []
 
-    return global_toc, local_toc
+    if len(integrated_local_toc) == 1 and len(integrated_local_toc[0].children) == 0:
+        integrated_local_toc = []
+
+    return global_toc, local_toc, integrated_local_toc
 
 
 def _html_page_context(
@@ -566,16 +709,19 @@ def _html_page_context(
     assert env is not None
 
     theme_options: dict = app.config["html_theme_options"]
+    features = theme_options.get("features", ())
+    assert isinstance(features, collections.abc.Sequence)
     page_title = markupsafe.Markup.escape(
         markupsafe.Markup(context.get("title")).striptags()
     )
     meta = context.get("meta")
     if meta is None:
         meta = {}
-    global_toc, local_toc = _get_mkdocs_tocs(
+    global_toc, local_toc, integrated_local_toc = _get_mkdocs_tocs(
         app,
         pagename,
         duplicate_local_toc=isinstance(meta.get("duplicate-local-toc"), str),
+        toc_integrate="toc.integrate" in features,
     )
     context.update(nav=_NavContextObject(global_toc))
     context["nav"].homepage = dict(
@@ -607,11 +753,18 @@ def _html_page_context(
         # the local toc.
         local_toc = local_toc[0].children
 
+    if len(integrated_local_toc) == 1:
+        # If there is a single top-level heading, it is treated as the page
+        # heading, and it would be redundant to also include it as an entry in
+        # the local toc.
+        integrated_local_toc = integrated_local_toc[0].children
+
     # Add other context values in mkdocs/mkdocs-material format.
     page = dict(
         title=page_title,
         is_homepage=(pagename == context["master_doc"]),
         toc=local_toc,
+        integrated_local_toc=integrated_local_toc,
         meta={"hide": [], "revision_date": context.get("last_updated")},
         content=context.get("body"),
     )
