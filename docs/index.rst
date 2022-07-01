@@ -18,6 +18,9 @@ The HTML templates, JavaScript, and styles from the `mkdocs-material
 <https://squidfunk.github.io/mkdocs-material/>`__ theme are incoroprated directly
 with mostly minor modifications.
 
+Independent of the upstream mkdocs-material theme, this theme integrates with
+and significantly extends Sphinx's API documentation functionality.
+
 This theme is a fork of the `sphinx-material
 <https://github.com/bashtage/sphinx-material>`__ theme, which proved the concept
 of a Sphinx theme based on an earlier version of the `mkdocs-material

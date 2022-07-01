@@ -20,14 +20,11 @@ of a Sphinx theme based on an earlier version of the `mkdocs-material
 significantly diverged from the upstream `mkdocs-material
 <https://squidfunk.github.io/mkdocs-material/>`__ repository.
 
-See the `TensorStore documentation <https://google.github.io/tensorstore/>`__
-for a demonstration of this theme.
+See `this theme's own documentation
+<https://jbms.github.io/sphinx-immaterial/>`__ for a demonstration.
 
-WARNING: This theme is currently still a work in progress.  The documentation is
-largely copied from `sphinx-material
-<https://github.com/bashtage/sphinx-material>`__ and is inaccurate for this
-version.  It does not yet integrate well with numpydoc or the built-in
-autosummary.
+WARNING: This theme is still in beta.  While it is already very usable, breaking
+changes will still be made prior to the 1.0 release.
 
 Installation
 ------------
