@@ -26,8 +26,8 @@ documentation pages.
 Usage
 -----
 
-To use this extension, add :python:`"sphinx_immaterial.apidoc.python.apigen"` it
-to the list of extensions in :file:`conf.py` and define the
+To use this extension, add :python:`"sphinx_immaterial.apidoc.python.apigen"` to
+the list of extensions in :file:`conf.py` and define the
 :confval:`python_apigen_modules` configuration option.
 
 For example:
