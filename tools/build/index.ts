@@ -225,6 +225,7 @@ const docs$ = (() => {
                         "docs/.mypy_cache/**",
                         "sphinx_immaterial/.mypy_cache/**",
                         "docs/python_apigen_generated/**",
+                        "docs/cpp_apigen_generated/**",
                        ],
             })
         : EMPTY

@@ -174,6 +174,9 @@ def make_toctree_node(
     source_path: str,
     source_line: int = 0,
 ) -> List[docutils.nodes.Node]:
+    if not toc_entries:
+        return []
+
     # The Sphinx `toctree` directive parser cannot handle page names that
     # include angle brackets.  Therefore, we use the directive to create an
     # empty toctree node and then add the entries directly.

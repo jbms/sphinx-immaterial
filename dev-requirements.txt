@@ -6,3 +6,5 @@ types-PyYAML
 docutils-stubs
 types-jsonschema
 pytest
+libclang
+types-clang
