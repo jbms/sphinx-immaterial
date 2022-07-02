@@ -58,6 +58,7 @@ extensions = [
     "sphinx_immaterial.apidoc.cpp.cppreference",
     "sphinx_immaterial.apidoc.json.domain",
     "sphinx_immaterial.apidoc.python.apigen",
+    "sphinx_immaterial.apidoc.cpp.apigen",
     "sphinx_immaterial.graphviz",
     "sphinx_jinja",
 ]
@@ -313,6 +314,28 @@ python_apigen_default_groups = [
     (r".*:.*\.__(str|repr)__", "String representation"),
 ]
 
+cpp_demo_include_dir = os.path.join(os.path.dirname(__file__))
+
+cpp_apigen_configs = [
+    dict(
+        document_prefix="cpp_apigen_generated/",
+        api_parser_config=dict(
+            input_content="""
+#include "cpp_apigen_demo/index_interval.h"
+#include "cpp_apigen_demo/array.h"
+""",
+            compiler_flags=["-std=c++17", "-I", cpp_demo_include_dir, "-x", "c++"],
+            include_directory_map={
+                f"{cpp_demo_include_dir}/": "",
+            },
+            allow_paths=["^cpp_apigen_demo/"],
+            disallow_namespaces=["^std$"],
+        ),
+    ),
+]
+
+autodoc_class_signature = "separated"
+
 nitpicky = True
 nitpick_ignore = [
     # Python standard library types not present in object inventory.
@@ -341,10 +364,19 @@ nitpick_ignore = [
     ("cpp:identifier", "my_ns2"),
     ("cpp:identifier", "my_ns2::my_nested_ns"),
     ("cpp:identifier", "my_ns3"),
+    ("cpp:identifier", "cpp_apigen_demo"),
+    ("cpp:identifier", "::nlohmann"),
+    ("cpp:identifier", "std"),
+    ("cpp:identifier", "synopses_ex"),
+    ("cpp:identifier", "my_ns1"),
+    ("cpp:identifier", "my_ns2"),
+    ("cpp:identifier", "my_ns2::my_nested_ns"),
+    ("cpp:identifier", "my_ns3"),
     # Example JavaScript types
     ("js:func", "string"),
     ("js:func", "SomeError"),
 ]
+
 
 graphviz_ignore_incorrect_font_metrics = True
 
