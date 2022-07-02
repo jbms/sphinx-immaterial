@@ -6,8 +6,30 @@ Python domain customization
    Maps names or dotted names appearing in type annotations in Python signatures
    to the corresponding fully-qualified name.
 
-   For example, to map :python:`MyUnqualifiedType` to :python:`alias_ex.MyUnqualifiedType`, add the following
-   to :file:`conf.py`:
+   An entire module can be mapped by specifying a source name that ends in
+   :python:`"."`.  The target name must either:
+
+   - end in :python:`"."`, to transform the source module name to a different module
+     name; or
+   - be the empty string :python:`""`, to map the module name to the global
+     namespace.
+
+   .. note::
+
+      This substitution happens *before* cross references are resolved, and
+      affects both the cross-reference target and the displayed text.
+      Therefore, the target name must be a valid cross-reference target if
+      cross-referencing is desired.  In contrast, the
+      :confval:`python_module_names_to_strip_from_xrefs` affects only the
+      displayed text, not the cross-reference target.
+
+   For example, to:
+
+   - map :python:`MyUnqualifiedType` to :python:`alias_ex.MyUnqualifiedType`,
+     and
+   - map the :python:`example_mod._internal` module to :python:`example_mod`,
+
+   add the following to :file:`conf.py`:
 
    .. literalinclude:: /conf.py
       :language: python
@@ -16,7 +38,8 @@ Python domain customization
 
    .. rst-example:: Python signature modified by type alias
 
-      .. py:function:: foo(x: MyUnqualifiedType) -> str
+      .. py:function:: foo(a: MyUnqualifiedType, \
+                           b: example_mod._internal.Foo) -> str
          :noindex:
 
          Function description.
@@ -79,6 +102,11 @@ Python domain customization
       The concise syntax is non-standard and not accepted by Python type
       checkers.
 
+.. confval:: python_transform_typing_extensions
+
+   Transforms a reference to ``typing_extensions.X`` within a type annotation
+   into a reference to ``typing.X``.
+
 .. confval:: python_strip_self_type_annotations
 
    Strip type annotations from the initial :python:`self` parameter of methods.
@@ -101,6 +129,33 @@ Python domain customization
             :noindex:
 
             Does something with the object.
+
+.. confval:: python_module_names_to_strip_from_xrefs
+
+   List of module names to strip from cross references.  This option does not
+   have any effect on the cross-reference target; it only affects what is
+   displayed.
+
+   For example, to hide the :python:`tensorstore_demo` module name in cross
+   references, add the following to :file:`conf.py`:
+
+   .. literalinclude:: /conf.py
+      :language: python
+      :start-after: # BEGIN: python_module_names_to_strip_from_xrefs example
+      :end-before: # END: python_module_names_to_strip_from_xrefs example
+
+   .. rst-example:: Python signature modified by module name stripping
+
+      .. py:function:: foo(a: tensorstore_demo.Dim) -> str
+         :noindex:
+
+         Function description.
+
+   .. seealso::
+
+      To strip *all* modules, rather than a limited set, the built-in
+      :confval:`python_use_unqualified_type_names` configuration option may be
+      used instead.
 
 .. confval:: python_strip_return_type_annotations
 

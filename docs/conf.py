@@ -270,8 +270,13 @@ python_type_aliases = {}
 # BEGIN: python_type_aliases example
 python_type_aliases = {
     "MyUnqualifiedType": "alias_ex.MyUnqualifiedType",
+    "example_mod._internal.": "example_mod.",
 }
 # END: python_type_aliases example
+
+# BEGIN: python_module_names_to_strip_from_xrefs example
+python_module_names_to_strip_from_xrefs = ["tensorstore_demo"]
+# END: python_module_names_to_strip_from_xrefs example
 
 
 jinja_contexts = {
