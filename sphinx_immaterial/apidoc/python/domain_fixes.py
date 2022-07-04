@@ -24,6 +24,7 @@ import sphinx.builders
 import sphinx.domains
 import sphinx.domains.python
 import sphinx.environment
+import sphinx.errors
 import sphinx.ext.napoleon
 import sphinx.util.logging
 import sphinx.util.nodes
@@ -265,20 +266,19 @@ def _monkey_patch_python_domain_to_resolve_params():
         if typ == "param":
             func_name = node.get("py:func")
             if func_name and "." not in target:
-                return orig_resolve_xref(
-                    self,
-                    env,
-                    fromdocname,
-                    builder,
-                    typ,
-                    "%s.%s" % (func_name, target),
-                    node,
-                    contnode,
-                )
-
-        return orig_resolve_xref(
+                target = "%s.%s" % (func_name, target)
+        result = orig_resolve_xref(
             self, env, fromdocname, builder, typ, target, node, contnode
         )
+        if (
+            typ == "param"
+            and result is None
+            and node.get("implicit_sig_param_ref", False)
+        ):
+            # Suppress missing reference warnings for automatically-added
+            # references to parameter descriptions.
+            raise sphinx.errors.NoUri
+        return result
 
     PythonDomain.resolve_xref = resolve_xref
 
@@ -441,10 +441,11 @@ def _add_parameter_links_to_signature(
             "",
             name_node.deepcopy(),
             refdomain="py",
-            reftype="parameter",
+            reftype="param",
             reftarget=f"{symbol}.{name}",
             refwarn=False,
         )
+        refnode["implicit_sig_param_ref"] = True
         name_node.replace_self(refnode)
 
     return sig_param_nodes
