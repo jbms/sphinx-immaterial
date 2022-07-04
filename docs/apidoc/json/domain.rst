@@ -84,7 +84,7 @@ Usage
       Flag option to exclude the schema from search results and the table of
       contents.  Also disables cross linking.
 
-      This option implies :rst:dir:`exclude_from_toc`.
+      This option implies :rst:dir:`json:schema:exclude_from_toc`.
 
    .. rst:directive:option:: title
 
@@ -93,7 +93,7 @@ Usage
    .. rst:directive:option:: toc_title
 
       Specifies the title to use in the table of contents instead of the
-      :rst:dir:`title` or ``$id``.
+      :rst:dir:`json:schema:title` or ``$id``.
 
       Only has an effect if :objconf:`include_in_toc` is :python:`True`.
 

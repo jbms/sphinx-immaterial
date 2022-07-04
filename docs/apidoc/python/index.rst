@@ -52,7 +52,7 @@ Python domain customization
    .. jinja:: sys
 
       {%- for x in sys.modules["sphinx_immaterial.apidoc.python.type_annotation_transforms"].TYPING_NAMES %}
-      - :python:`{{ x }}` -> :py:obj:`typing.{{ x }}`
+      - :python:`{{ x }}` -> :python:`typing.{{ x }}`
       {%- endfor %}
 
    If :confval:`python_transform_type_annotations_pep585` is also set to
@@ -66,7 +66,7 @@ Python domain customization
    .. jinja:: sys
 
       {%- for k, v in sys.modules["sphinx_immaterial.apidoc.python.type_annotation_transforms"].PEP585_ALIASES.items() %}
-      - :py:obj:`{{ k }}` -> :py:obj:`{{ v }}`
+      - :python:`{{ k }}` -> :python:`{{ v }}`
       {% endfor %}
 
 .. confval:: python_transform_type_annotations_pep604

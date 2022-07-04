@@ -76,8 +76,8 @@ class Foo:
         """Return a string as uppercase.
 
         :param myvalue: String to change
-        :type myvalue: string
-        :rtype: string
+        :type myvalue: str
+        :rtype: str
 
         """
 

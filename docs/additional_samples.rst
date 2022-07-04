@@ -216,30 +216,6 @@ Alignment
         - 1.99
         - On a stick!
 
-Code Documentation
-==================
-
-
-.. rst-example:: An example Python function.
-
-   .. py:function:: format_exception(etype, value, tb[, limit=None])
-
-      Format the exception with a traceback.
-
-      :param etype: exception type
-      :param value: exception value
-      :param tb: traceback object
-      :param limit: maximum number of stack frames to show
-      :type limit: integer or None
-      :rtype: list of strings
-
-.. rst-example:: An example JavaScript function.
-
-   .. js:class:: MyAnimal(name[, age])
-
-      :param string name: The name of the animal
-      :param number age: an optional age for the animal
-
 Glossaries
 ==========
 
@@ -283,19 +259,23 @@ Math
          f(x) & = & x^2 + 2xy + y^2
       \end{eqnarray}
 
-Production Lists
-================
 
-.. rst-example::
+..
+   FIXME: Production lists currently do not work.
 
-   .. productionlist::
-      try_stmt: try1_stmt | try2_stmt
-      try1_stmt: "try" ":" `suite`
-               : ("except" [`expression` ["," `target`]] ":" `suite`)+
-               : ["else" ":" `suite`]
-               : ["finally" ":" `suite`]
-      try2_stmt: "try" ":" `suite`
-               : "finally" ":" `suite`
+   Production Lists
+   ================
+
+   .. rst-example::
+
+      .. productionlist::
+         try_stmt: try1_stmt | try2_stmt
+         try1_stmt: "try" ":" `suite`
+                  : ("except" [`expression` ["," `target`]] ":" `suite`)+
+                  : ["else" ":" `suite`]
+                  : ["finally" ":" `suite`]
+         try2_stmt: "try" ":" `suite`
+                  : "finally" ":" `suite`
 
 Sub-pages
 =========

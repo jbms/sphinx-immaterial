@@ -59,10 +59,10 @@ jobs:
       name: Run Python tests
     - name: Build html docs
       working-directory: docs
-      run: sphinx-build . _build/html
+      run: sphinx-build . _build/html -W --keep-going -T
     - name: Build latex docs
       working-directory: docs
-      run: sphinx-build -b latex . _build/latex
+      run: sphinx-build -b latex . _build/latex -W --keep-going -T
     - name: Upload doc builds as artifacts
       if: ${{ matrix.python-version == '3.10' }}
       uses: actions/upload-artifact@v2
