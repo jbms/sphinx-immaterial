@@ -248,6 +248,52 @@ class PyParamXRefRole(sphinx.domains.python.PyXRefRole):
         return super().process_link(env, refnode, has_explicit_title, title, target)
 
 
+def _monkey_patch_python_domain_to_store_func_in_ref_context():
+    orig_before_content = PyObject.before_content
+
+    def before_content(self: PyObject) -> None:
+        orig_before_content(self)
+
+        if not isinstance(
+            self, (sphinx.domains.python.PyFunction, sphinx.domains.python.PyMethod)
+        ):
+            return
+        setattr(
+            self, "_prev_ref_context_py_func", self.env.ref_context.get("py:func", None)
+        )
+        if self.names:
+            fullname = self.names[-1][0]
+        else:
+            fullname = None
+
+        if fullname:
+            classname = self.env.ref_context.get("py:class")
+            if classname and fullname.startswith(classname + "."):
+                fullname = fullname[len(classname) + 1 :]
+            self.env.ref_context["py:func"] = fullname
+        else:
+            self.env.ref_context.pop("py:func", None)
+
+    PyObject.before_content = before_content
+
+    orig_after_content = PyObject.after_content
+
+    def after_content(self: PyObject) -> None:
+        orig_after_content(self)
+        if not isinstance(
+            self, (sphinx.domains.python.PyFunction, sphinx.domains.python.PyMethod)
+        ):
+            return
+
+        prev_py_func = getattr(self, "_prev_ref_context_py_func", None)
+        if prev_py_func is None:
+            self.env.ref_context.pop("py:func", None)
+        else:
+            self.env.ref_context["py:func"] = prev_py_func
+
+    PyObject.after_content = after_content
+
+
 def _monkey_patch_python_domain_to_resolve_params():
     """Adds support to the Python domain for resolving parameter references."""
 
@@ -904,6 +950,7 @@ def setup(app: sphinx.application.Sphinx):
     _monkey_patch_pyattribute_handle_signature(sphinx.domains.python.PyVariable)
     _monkey_patch_parameterlist_to_support_subscript()
     _monkey_patch_napoleon_admonition_classes()
+    _monkey_patch_python_domain_to_store_func_in_ref_context()
     _monkey_patch_python_domain_to_resolve_params()
     _monkey_patch_python_domain_to_deprioritize_params_in_search()
     _monkey_patch_python_domain_to_add_object_synopses_to_references()
