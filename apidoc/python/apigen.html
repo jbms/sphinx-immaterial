@@ -1,0 +1,1651 @@
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="icon" href="../../_static/favicon.ico">
+    
+    
+      
+        <title>Python API documentation generation - Sphinx-Immaterial</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../_static/stylesheets/main.2014a6d7.min.css">
+      
+        
+        <link rel="stylesheet" href="../../_static/stylesheets/palette.92c9fe4a.min.css">
+        
+      
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+        <link rel="stylesheet" type="text/css" href="../../_static/extra_css.css" />
+    <script>__md_scope=new URL("../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="light-green" data-md-color-accent="light-blue">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#usage" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-component="outdated" hidden>
+        <aside class="md-banner md-banner--warning">
+          
+        </aside>
+      </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../index.html" title="Sphinx-Immaterial" class="md-header__button md-logo" aria-label="Sphinx-Immaterial" data-md-component="logo">
+      <img src="../../_static/Ybin.gif" alt="logo">
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Sphinx-Immaterial
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Python API documentation generation
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="light-green" data-md-color-accent="light-blue"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5Z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="deep-orange" data-md-color-accent="lime"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9v1Z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/jbms/sphinx-immaterial/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Sphinx-Immaterial
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../index.html" title="Sphinx-Immaterial" class="md-nav__button md-logo" aria-label="Sphinx-Immaterial" data-md-component="logo">
+      <img src="../../_static/Ybin.gif" alt="logo">
+    </a>
+    Sphinx-Immaterial
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/jbms/sphinx-immaterial/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Sphinx-Immaterial
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../customization.html" class="md-nav__link">
+        <span title="customization (document)" class="md-ellipsis">Customization</span>
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../admonitions.html" class="md-nav__link">
+        <span title="admonitions (document)" class="md-ellipsis">Admonitions</span>
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../content_tabs.html" class="md-nav__link">
+        <span title="content_tabs (document)" class="md-ellipsis">Content tabs</span>
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mermaid_diagrams.html" class="md-nav__link">
+        <span title="mermaid_diagrams (document)" class="md-ellipsis">Mermaid diagrams</span>
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../task_lists.html" class="md-nav__link">
+        <span title="task_lists (document)" class="md-ellipsis">Task Lists</span>
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../keys.html" class="md-nav__link">
+        <span title="keys (document)" class="md-ellipsis">Keys extension</span>
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          <span class="md-ellipsis">API documentation customization</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="API documentation customization" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">API documentation customization</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index.html" class="md-nav__link">
+        <span title="apidoc/index (document)" class="md-ellipsis">General API customization</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../format_signatures.html" class="md-nav__link">
+        <span title="apidoc/format_signatures (document)" class="md-ellipsis">Formatting signatures</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index.html" class="md-nav__link">
+        <span title="apidoc/python/index (document)" class="md-ellipsis">Python domain customization</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          <span title="apidoc/python/apigen (document)" class="md-ellipsis">Python API documentation generation</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="#" class="md-nav__link md-nav__link--active">
+        <span title="apidoc/python/apigen (document)" class="md-ellipsis">Python API documentation generation</span>
+      </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      <span title="apidoc/python/apigen (document)" class="md-ellipsis">Python API documentation generation</span>
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    <span class="md-ellipsis">Usage</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Usage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#groups" class="md-nav__link">
+    <span class="md-ellipsis">Groups</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#member-order" class="md-nav__link">
+    <span class="md-ellipsis">Member order</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rst-directives" class="md-nav__link">
+    <span class="md-ellipsis">r<wbr>ST Directives</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="rST Directives">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#directive-python-apigen-group" class="md-nav__link">
+    <span aria-label="reStructuredText directive" class="objinfo-icon objinfo-icon__data" title="reStructuredText directive">D</span><span title="python-apigen-group (reStructuredText directive)" class="md-ellipsis">..<wbr> python-<wbr>apigen-<wbr>group::<wbr> group-<wbr>name</span>
+  </a>
+  
+    <nav class="md-nav" aria-label=".. python-apigen-group:: group-name">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#directive-option-python-apigen-group-notoc" class="md-nav__link">
+    <span aria-label="reStructuredText directive-option" class="objinfo-icon objinfo-icon__sub-data" title="reStructuredText directive-option">o</span><span title="python-apigen-group:notoc (reStructuredText directive-option)" class="md-ellipsis">:<wbr>notoc:<wbr></span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#directive-python-apigen-entity-summary" class="md-nav__link">
+    <span aria-label="reStructuredText directive" class="objinfo-icon objinfo-icon__data" title="reStructuredText directive">D</span><span title="python-apigen-entity-summary (reStructuredText directive)" class="md-ellipsis">..<wbr> python-<wbr>apigen-<wbr>entity-<wbr>summary::<wbr> entity-<wbr>name</span>
+  </a>
+  
+    <nav class="md-nav" aria-label=".. python-apigen-entity-summary:: entity-name">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#directive-option-python-apigen-entity-summary-notoc" class="md-nav__link">
+    <span aria-label="reStructuredText directive-option" class="objinfo-icon objinfo-icon__sub-data" title="reStructuredText directive-option">o</span><span title="python-apigen-entity-summary:notoc (reStructuredText directive-option)" class="md-ellipsis">:<wbr>notoc:<wbr></span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sections-defined-within-docstrings" class="md-nav__link">
+    <span class="md-ellipsis">Sections defined within docstrings</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#class-member-groups" class="md-nav__link">
+    <span class="md-ellipsis">Class member groups</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    <span class="md-ellipsis">Configuration</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#confval-python_apigen_modules" class="md-nav__link">
+    <span aria-label="configuration value" class="objinfo-icon objinfo-icon__data" title="configuration value">C</span><span title="python_apigen_modules (configuration value) — Maps module names to the output path prefix relative to the source directory." class="md-ellipsis">python_<wbr>apigen_<wbr>modules</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#confval-python_apigen_default_groups" class="md-nav__link">
+    <span aria-label="configuration value" class="objinfo-icon objinfo-icon__data" title="configuration value">C</span><span title="python_apigen_default_groups (configuration value) — list of (pattern, group) pairs, where pattern is a regular expression matching strings of the form &#34;&lt;objtype&gt;:&lt;fully_qualified_member_name&gt;&#34; (e.g." class="md-ellipsis">python_<wbr>apigen_<wbr>default_<wbr>groups</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#confval-python_apigen_default_order" class="md-nav__link">
+    <span aria-label="configuration value" class="objinfo-icon objinfo-icon__data" title="configuration value">C</span><span title="python_apigen_default_order (configuration value) — list of (pattern, order) pairs, where pattern is a regular expression matching strings of the form &#34;&lt;objtype&gt;:&lt;fully_qualified_member_name&gt;&#34; (e.g." class="md-ellipsis">python_<wbr>apigen_<wbr>default_<wbr>order</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#confval-python_apigen_order_tiebreaker" class="md-nav__link">
+    <span aria-label="configuration value" class="objinfo-icon objinfo-icon__data" title="configuration value">C</span><span title="python_apigen_order_tiebreaker (configuration value) — Specifies the relative order of members that have the same associated order value." class="md-ellipsis">python_<wbr>apigen_<wbr>order_<wbr>tiebreaker</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#confval-python_apigen_case_insensitive_filesystem" class="md-nav__link">
+    <span aria-label="configuration value" class="objinfo-icon objinfo-icon__data" title="configuration value">C</span><span title="python_apigen_case_insensitive_filesystem (configuration value) — This extension results in an output file for each documented Python object based on its fully-qualified name." class="md-ellipsis">python_<wbr>apigen_<wbr>case_<wbr>insensitive_<wbr>filesystem</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#subscript-methods" class="md-nav__link">
+    <span class="md-ellipsis">Subscript methods</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Subscript methods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#confval-python_apigen_subscript_method_types" class="md-nav__link">
+    <span aria-label="configuration value" class="objinfo-icon objinfo-icon__data" title="configuration value">C</span><span title="python_apigen_subscript_method_types (configuration value) — Regular expression pattern that matches the return type annotations of properties that define subscript methods." class="md-ellipsis">python_<wbr>apigen_<wbr>subscript_<wbr>method_<wbr>types</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#confval-python_apigen_show_base_classes" class="md-nav__link">
+    <span aria-label="configuration value" class="objinfo-icon objinfo-icon__data" title="configuration value">C</span><span title="python_apigen_show_base_classes (configuration value) — Display the list of base classes when documenting classes." class="md-ellipsis">python_<wbr>apigen_<wbr>show_<wbr>base_<wbr>classes</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cpp/index.html" class="md-nav__link">
+        <span title="apidoc/cpp/index (document)" class="md-ellipsis">C++ domain customization</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cpp/external_cpp_references.html" class="md-nav__link">
+        <span title="apidoc/cpp/external_cpp_references (document)" class="md-ellipsis">External C++ symbol links</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cpp/cppreference.html" class="md-nav__link">
+        <span title="apidoc/cpp/cppreference (document)" class="md-ellipsis">Automatic cross-<wbr>linking to cppreference.<wbr>com</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../json/domain.html" class="md-nav__link">
+        <span title="apidoc/json/domain (document)" class="md-ellipsis">JSON domain</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8" data-md-state="indeterminate" type="checkbox" id="__nav_8" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8">
+          <span class="md-ellipsis">Examples and Uses</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Examples and Uses" data-md-level="1">
+        <label class="md-nav__title" for="__nav_8">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Examples and Uses</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../demo_api.html" class="md-nav__link">
+        <span title="demo_api (document)" class="md-ellipsis">sample API documentation and generated content</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python_apigen_demo.html" class="md-nav__link">
+        <span title="python_apigen_demo (document)" class="md-ellipsis">python_<wbr>apigen demo</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../specimen.html" class="md-nav__link">
+        <span title="specimen (document)" class="md-ellipsis">Specimen</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rst_basics.html" class="md-nav__link">
+        <span title="rst_basics (document)" class="md-ellipsis">re<wbr>Structured<wbr>Text Primer</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rst-cheatsheet/rst-cheatsheet.html" class="md-nav__link">
+        <span title="rst-cheatsheet/rst-cheatsheet (document)" class="md-ellipsis">rst Cheatsheet</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../additional_samples.html" class="md-nav__link">
+        <span title="additional_samples (document)" class="md-ellipsis">Additional Samples</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      <span title="apidoc/python/apigen (document)" class="md-ellipsis">Python API documentation generation</span>
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    <span class="md-ellipsis">Usage</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Usage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#groups" class="md-nav__link">
+    <span class="md-ellipsis">Groups</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#member-order" class="md-nav__link">
+    <span class="md-ellipsis">Member order</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rst-directives" class="md-nav__link">
+    <span class="md-ellipsis">r<wbr>ST Directives</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="rST Directives">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#directive-python-apigen-group" class="md-nav__link">
+    <span aria-label="reStructuredText directive" class="objinfo-icon objinfo-icon__data" title="reStructuredText directive">D</span><span title="python-apigen-group (reStructuredText directive)" class="md-ellipsis">..<wbr> python-<wbr>apigen-<wbr>group::<wbr> group-<wbr>name</span>
+  </a>
+  
+    <nav class="md-nav" aria-label=".. python-apigen-group:: group-name">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#directive-option-python-apigen-group-notoc" class="md-nav__link">
+    <span aria-label="reStructuredText directive-option" class="objinfo-icon objinfo-icon__sub-data" title="reStructuredText directive-option">o</span><span title="python-apigen-group:notoc (reStructuredText directive-option)" class="md-ellipsis">:<wbr>notoc:<wbr></span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#directive-python-apigen-entity-summary" class="md-nav__link">
+    <span aria-label="reStructuredText directive" class="objinfo-icon objinfo-icon__data" title="reStructuredText directive">D</span><span title="python-apigen-entity-summary (reStructuredText directive)" class="md-ellipsis">..<wbr> python-<wbr>apigen-<wbr>entity-<wbr>summary::<wbr> entity-<wbr>name</span>
+  </a>
+  
+    <nav class="md-nav" aria-label=".. python-apigen-entity-summary:: entity-name">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#directive-option-python-apigen-entity-summary-notoc" class="md-nav__link">
+    <span aria-label="reStructuredText directive-option" class="objinfo-icon objinfo-icon__sub-data" title="reStructuredText directive-option">o</span><span title="python-apigen-entity-summary:notoc (reStructuredText directive-option)" class="md-ellipsis">:<wbr>notoc:<wbr></span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sections-defined-within-docstrings" class="md-nav__link">
+    <span class="md-ellipsis">Sections defined within docstrings</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#class-member-groups" class="md-nav__link">
+    <span class="md-ellipsis">Class member groups</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    <span class="md-ellipsis">Configuration</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#confval-python_apigen_modules" class="md-nav__link">
+    <span aria-label="configuration value" class="objinfo-icon objinfo-icon__data" title="configuration value">C</span><span title="python_apigen_modules (configuration value) — Maps module names to the output path prefix relative to the source directory." class="md-ellipsis">python_<wbr>apigen_<wbr>modules</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#confval-python_apigen_default_groups" class="md-nav__link">
+    <span aria-label="configuration value" class="objinfo-icon objinfo-icon__data" title="configuration value">C</span><span title="python_apigen_default_groups (configuration value) — list of (pattern, group) pairs, where pattern is a regular expression matching strings of the form &#34;&lt;objtype&gt;:&lt;fully_qualified_member_name&gt;&#34; (e.g." class="md-ellipsis">python_<wbr>apigen_<wbr>default_<wbr>groups</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#confval-python_apigen_default_order" class="md-nav__link">
+    <span aria-label="configuration value" class="objinfo-icon objinfo-icon__data" title="configuration value">C</span><span title="python_apigen_default_order (configuration value) — list of (pattern, order) pairs, where pattern is a regular expression matching strings of the form &#34;&lt;objtype&gt;:&lt;fully_qualified_member_name&gt;&#34; (e.g." class="md-ellipsis">python_<wbr>apigen_<wbr>default_<wbr>order</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#confval-python_apigen_order_tiebreaker" class="md-nav__link">
+    <span aria-label="configuration value" class="objinfo-icon objinfo-icon__data" title="configuration value">C</span><span title="python_apigen_order_tiebreaker (configuration value) — Specifies the relative order of members that have the same associated order value." class="md-ellipsis">python_<wbr>apigen_<wbr>order_<wbr>tiebreaker</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#confval-python_apigen_case_insensitive_filesystem" class="md-nav__link">
+    <span aria-label="configuration value" class="objinfo-icon objinfo-icon__data" title="configuration value">C</span><span title="python_apigen_case_insensitive_filesystem (configuration value) — This extension results in an output file for each documented Python object based on its fully-qualified name." class="md-ellipsis">python_<wbr>apigen_<wbr>case_<wbr>insensitive_<wbr>filesystem</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#subscript-methods" class="md-nav__link">
+    <span class="md-ellipsis">Subscript methods</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Subscript methods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#confval-python_apigen_subscript_method_types" class="md-nav__link">
+    <span aria-label="configuration value" class="objinfo-icon objinfo-icon__data" title="configuration value">C</span><span title="python_apigen_subscript_method_types (configuration value) — Regular expression pattern that matches the return type annotations of properties that define subscript methods." class="md-ellipsis">python_<wbr>apigen_<wbr>subscript_<wbr>method_<wbr>types</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#confval-python_apigen_show_base_classes" class="md-nav__link">
+    <span aria-label="configuration value" class="objinfo-icon objinfo-icon__data" title="configuration value">C</span><span title="python_apigen_show_base_classes (configuration value) — Display the list of base classes when documenting classes." class="md-ellipsis">python_<wbr>apigen_<wbr>show_<wbr>base_<wbr>classes</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset" role="main">
+                
+  <a href="https://github.com/jbms/sphinx-immaterial/blob/main/docs/apidoc/python/apigen.rst" title="Edit this page" class="md-content__button md-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+  </a>
+
+
+
+  <h1 id="python-api-documentation-generation">Python API documentation generation<a class="headerlink" href="#python-api-documentation-generation" title="Permalink to this heading">¶</a></h1>
+<p>This theme includes an optional extension that generates Python API
+documentation pages.</p>
+<ul class="simple">
+<li><p>A separate page is generated for each documented entity.</p></li>
+<li><p>Top-level module-level entities are organized into <em>groups</em>, specified by the
+<code class="docutils literal notranslate"><span class="pre">:group:</span></code> field within the docstring.  The <a class="reference internal" href="#directive-python-apigen-group" title="python-apigen-group directive"><code class="xref rst rst-dir docutils literal notranslate"><span class="pre">python-apigen-group</span></code></a>
+directive is used to insert a <em>summary</em> of a group into an existing page.</p></li>
+<li><p>The summary of a group shows an abbreviated signature and an abbreviated
+description for each entity in the group; the name portion of the signature is
+a link to the separate page for that entity.</p></li>
+<li><p>Class members are also organized into groups, also using the <code class="docutils literal notranslate"><span class="pre">:group:</span></code> field
+within their docstrings.  Class members without a group are assigned to a
+default group based on their name.  The summaries for each class member group
+are included on the page that documents the class.</p></li>
+<li><p>There is special support for pybind11-defined overloaded functions.  Each
+overload is documented as a separate function; each overload is identified by
+the <code class="docutils literal notranslate"><span class="pre">:overload:</span></code> field specified within its docstring.</p></li>
+</ul>
+<h2 id="usage">Usage<a class="headerlink" href="#usage" title="Permalink to this heading">¶</a></h2>
+<p>To use this extension, add <code class="code highlight python docutils literal highlight-python"><span class="s2">&quot;sphinx_immaterial.apidoc.python.apigen&quot;</span></code> it
+to the list of extensions in <code class="file docutils literal notranslate"><span class="pre">conf.py</span></code> and define the
+<a class="reference internal" href="#confval-python_apigen_modules" title="python_apigen_modules (configuration value) — Maps module names to the output path prefix relative to the source directory."><code class="xref std std-confval docutils literal notranslate"><span class="pre">python_apigen_modules</span></code></a> configuration option.</p>
+<p>For example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="n">extensions</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="c1"># other extensions...</span>
+    <span class="s2">&quot;sphinx_immaterial.apidoc.python.apigen&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+
+<span class="n">python_apigen_modules</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="s2">&quot;my_module&quot;</span><span class="p">:</span> <span class="s2">&quot;api&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+<p>This configuration is sufficient to generate a documentation page for every
+top-level member of the specified modules.  To generate a listing of those
+top-level members and add the generated documentation pages to the global table
+of contents, the <a class="reference internal" href="#directive-python-apigen-group" title="python-apigen-group directive"><code class="xref rst rst-dir docutils literal notranslate"><span class="pre">python-apigen-group</span></code></a> directive may be used.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>This extension works well with the <a class="reference internal" href="../../customization.html#themeconf-toc_title_is_page_title" title="toc_title_is_page_title (theme configuration option) — If set to True and toc_title is unspecified, the table of contents is labeled in the side bar by the title of the page itself."><code class="xref std std-themeconf docutils literal notranslate"><span class="pre">toc_title_is_page_title</span></code></a>
+configuration option.</p>
+</div>
+<h3 id="groups">Groups<a class="headerlink" href="#groups" title="Permalink to this heading">¶</a></h3>
+<p>Each documented module member and class member is assigned to a member group.
+The group is either explicitly specified or determined automatically.</p>
+<p>The group may be specified explicitly using the <code class="code highlight rst docutils literal highlight-rst"><span class="nc">:group:</span></code> field within the
+docstring:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">foo</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="s2">&quot;&quot;&quot;Does something or other.</span>
+
+<span class="s2">    :param x: The parameter.</span>
+<span class="s2">    :group: My group</span>
+</code></pre></div>
+</div>
+<p>When using the <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/extensions/napoleon.html#module-sphinx.ext.napoleon" title="(in Sphinx v6.0.0)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sphinx.ext.napoleon</span></code></a> extension, the group can also be
+specified using the <code class="docutils literal notranslate"><span class="pre">Group:</span></code> section:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">foo</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="s2">&quot;&quot;&quot;Does something or other.</span>
+
+<span class="s2">    Args:</span>
+<span class="s2">      x: The parameter.</span>
+
+<span class="s2">    Group:</span>
+<span class="s2">      My group</span>
+</code></pre></div>
+</div>
+<p>If the group is not specified explicitly, it is determined automatically based
+on the <a class="reference internal" href="#confval-python_apigen_default_groups" title="python_apigen_default_groups (configuration value) — list of (pattern, group) pairs, where pattern is a regular expression matching strings of the form &quot;&lt;objtype&gt;:&lt;fully_qualified_member_name&gt;&quot; (e.g."><code class="xref std std-confval docutils literal notranslate"><span class="pre">python_apigen_default_groups</span></code></a> option.</p>
+<h3 id="member-order"><span id="python-apigen-member-order"></span>Member order<a class="headerlink" href="#member-order" title="Permalink to this heading">¶</a></h3>
+<p>For each each member there is also assigned an associated integer <code class="docutils literal notranslate"><span class="pre">order</span></code>
+value that determines the order in which members are listed: members are listed
+in ascending order by their associated <code class="docutils literal notranslate"><span class="pre">order</span></code> value, and ties are broken
+according to the <a class="reference internal" href="#confval-python_apigen_order_tiebreaker" title="python_apigen_order_tiebreaker (configuration value) — Specifies the relative order of members that have the same associated order value."><code class="xref std std-confval docutils literal notranslate"><span class="pre">python_apigen_order_tiebreaker</span></code></a> option.</p>
+<p>Similarly to the group name, the order value may be specified explicitly using
+the <code class="code highlight rst docutils literal highlight-rst"><span class="nc">:order:</span></code> field within the docstring:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">foo</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="s2">&quot;&quot;&quot;Does something or other.</span>
+
+<span class="s2">    :param x: The parameter.</span>
+<span class="s2">    :group: My group</span>
+<span class="s2">    :order: 1</span>
+</code></pre></div>
+</div>
+<p>When using the <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/extensions/napoleon.html#module-sphinx.ext.napoleon" title="(in Sphinx v6.0.0)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sphinx.ext.napoleon</span></code></a> extension, the group can also be
+specified using the <code class="docutils literal notranslate"><span class="pre">Order:</span></code> section:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">foo</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="s2">&quot;&quot;&quot;Does something or other.</span>
+
+<span class="s2">    Args:</span>
+<span class="s2">      x: The parameter.</span>
+
+<span class="s2">    Group:</span>
+<span class="s2">      My group</span>
+
+<span class="s2">    Order:</span>
+<span class="s2">      1</span>
+</code></pre></div>
+</div>
+<p>If the order value is not specified explicitly, it is determined automatically
+based on the <a class="reference internal" href="#confval-python_apigen_default_order" title="python_apigen_default_order (configuration value) — list of (pattern, order) pairs, where pattern is a regular expression matching strings of the form &quot;&lt;objtype&gt;:&lt;fully_qualified_member_name&gt;&quot; (e.g."><code class="xref std std-confval docutils literal notranslate"><span class="pre">python_apigen_default_order</span></code></a> option.</p>
+<p>The order associated with a member determines both:</p>
+<ul class="simple">
+<li><p>the relative order in which the member is listed within its associated group;</p></li>
+<li><p>for class members, the order of the per-group sections for which an explicit
+section is not already listed in the class docstring (the order value
+associated with a group is the minimum of the order values of all of its
+members).</p></li>
+</ul>
+<h3 id="rst-directives">rST Directives<a class="headerlink" href="#rst-directives" title="Permalink to this heading">¶</a></h3>
+<dl class="rst directive objdesc">
+<dt class="sig sig-object highlight rst" id="directive-python-apigen-group">
+<span class="sig-name descname"><span class="pre">..</span> <span class="pre">python-apigen-group::</span></span><span class="sig-prename descclassname"> <span class="pre">group-name</span></span><a class="headerlink" href="#directive-python-apigen-group" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates a summary of all top-level members that are in the specified group,
+and also inserts a table-of-contents entry for each member at the current
+document position.</p>
+<p>Before matching the specified group name to the group name of every top-level
+member, all the group names are normalized by converting each letter to
+lowercase and converting spaces to <code class="docutils literal notranslate"><span class="pre">-</span></code>.</p>
+<dl class="rst directive:option objdesc">
+<dt class="sig sig-object highlight rst" id="directive-option-python-apigen-group-notoc">
+<span class="sig-name descname"><span class="pre">:notoc:</span></span><a class="headerlink" href="#directive-option-python-apigen-group-notoc" title="Permalink to this definition">¶</a></dt>
+<dd><p>By default, this directive also adds the pages corresponding to the
+members of the specified group to the global table of contents as children
+of the current page/section.  Specifying this flag disables that behavior.</p>
+</dd></dl>
+
+<p>The group namespace for module-level members is global: if module <code class="docutils literal notranslate"><span class="pre">a</span></code>
+defines a member <code class="docutils literal notranslate"><span class="pre">foo</span></code> in group <code class="docutils literal notranslate"><span class="pre">My</span> <span class="pre">group</span></code> and module <code class="docutils literal notranslate"><span class="pre">b</span></code> defines a
+member <code class="docutils literal notranslate"><span class="pre">bar</span></code> that is also in <code class="docutils literal notranslate"><span class="pre">My</span> <span class="pre">group</span></code>, then the following example would
+insert a summary of both <code class="docutils literal notranslate"><span class="pre">a.foo</span></code> and <code class="docutils literal notranslate"><span class="pre">b.bar</span></code>:</p>
+<div class="results docutils container">
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption highlight"><span class="caption-text filename">
+Example usage<a class="headerlink" href="#id1" title="Permalink to this code">¶</a></span></div>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><code><span class="p">..</span> <span class="ow">python-apigen-group</span><span class="p">::</span> Some other group
+   <span class="nc">:notoc:</span>
+</code></pre></div>
+</div>
+</div>
+<div class="result docutils container">
+<dl class="py function summary objdesc">
+<dt class="sig sig-object highlight py">
+<span class="sig-prename descclassname"><span class="pre">tensorstore_demo.</span></span><a class="sig-name descname reference internal" href="../../python_apigen_generated/bar.html" title="tensorstore_demo.bar (Python function) — Returns x."><span class="sig-name descname"><span class="pre">bar</span></span></a><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="../../python_apigen_generated/bar.html#p-x" title="tensorstore_demo.bar.x (Python parameter) — Parameter to bar."><span class="n"><span class="pre">x</span></span></a><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference internal" href="../../python_apigen_generated/Foo.html" title="tensorstore_demo._tensorstore.Foo (Python class)"><span class="pre">Foo</span></a></span></span></em></span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="desctype"><a class="reference internal" href="../../python_apigen_generated/Foo.html" title="tensorstore_demo._tensorstore.Foo (Python class)"><span class="pre">Foo</span></a></span></span></span><a class="reference internal" href="../../_modules/tensorstore_demo/_tensorstore.html#bar"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Returns <a class="reference internal" href="../../python_apigen_generated/bar.html#p-x" title="tensorstore_demo.bar.x (Python parameter) — Parameter to bar."><code class="xref py py-param docutils literal notranslate"><span class="pre">x</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py class summary objdesc">
+<dt class="sig sig-object highlight py">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tensorstore_demo.</span></span><a class="sig-name descname reference internal" href="../../python_apigen_generated/VeryLongClassNameForTestingOutWordWrapping.html" title="tensorstore_demo.VeryLongClassNameForTestingOutWordWrapping (Python class) — This is a class with a very long name."><span class="sig-name descname"><span class="pre">VeryLongClassNameForTestingOutWordWrapping</span></span></a><a class="reference internal" href="../../_modules/tensorstore_demo.html#VeryLongClassNameForTestingOutWordWrapping"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>This is a class with a very long name.</p>
+</dd></dl>
+
+<dl class="py class summary objdesc">
+<dt class="sig sig-object highlight py">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tensorstore_demo.</span></span><a class="sig-name descname reference internal" href="../../python_apigen_generated/Foo.html" title="tensorstore_demo.Foo (Python class) — This is a class defined in the tensorstore_demo._tensorstore module but should appear to be defined in the tensorstore_demo module."><span class="sig-name descname"><span class="pre">Foo</span></span></a><a class="reference internal" href="../../_modules/tensorstore_demo/_tensorstore.html#Foo"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>This is a class defined in the <code class="docutils literal notranslate"><span class="pre">tensorstore_demo._tensorstore</span></code> module
+but should appear to be defined in the <code class="docutils literal notranslate"><span class="pre">tensorstore_demo</span></code> module.</p>
+</dd></dl>
+
+<dl class="py class summary objdesc">
+<dt class="sig sig-object highlight py">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tensorstore_demo.</span></span><a class="sig-name descname reference internal" href="../../python_apigen_generated/FooSubclass.html" title="tensorstore_demo.FooSubclass (Python class) — This is a subclass of Foo."><span class="sig-name descname"><span class="pre">FooSubclass</span></span></a><span class="p"><span class="pre">(</span></span><span class="desctype"><a class="reference internal" href="../../python_apigen_generated/Foo.html" title="tensorstore_demo.Foo (Python class) — This is a class defined in the tensorstore_demo._tensorstore module but should appear to be defined in the tensorstore_demo module."><span class="pre">Foo</span></a></span><span class="p"><span class="pre">)</span></span><a class="reference internal" href="../../_modules/tensorstore_demo/_tensorstore.html#FooSubclass"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>This is a subclass of <a class="reference internal" href="../../python_apigen_generated/Foo.html" title="tensorstore_demo.Foo (Python class) — This is a class defined in the tensorstore_demo._tensorstore module but should appear to be defined in the tensorstore_demo module."><code class="xref py py-obj docutils literal notranslate"><span class="pre">Foo</span></code></a>.</p>
+</dd></dl>
+
+<div class="toctree-wrapper compound">
+</div>
+</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This directive only includes top-level module members (for the modules
+specified by <a class="reference internal" href="#confval-python_apigen_modules" title="python_apigen_modules (configuration value) — Maps module names to the output path prefix relative to the source directory."><code class="xref std std-confval docutils literal notranslate"><span class="pre">python_apigen_modules</span></code></a>).  Class members are also
+organized into groups, but these groups are per-class and are listed
+(along with their members) on the documentation page for the class.</p>
+</div>
+</dd></dl>
+
+<dl class="rst directive objdesc">
+<dt class="sig sig-object highlight rst" id="directive-python-apigen-entity-summary">
+<span class="sig-name descname"><span class="pre">..</span> <span class="pre">python-apigen-entity-summary::</span></span><span class="sig-prename descclassname"> <span class="pre">entity-name</span></span><a class="headerlink" href="#directive-python-apigen-entity-summary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates a summary of a single Python entity.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">entity-name</span></code> should be specified as
+<code class="code highlight python docutils literal highlight-python"><span class="n">module_name</span><span class="o">.</span><span class="n">ClassName</span><span class="o">.</span><span class="n">member</span></code> or
+<code class="code highlight python docutils literal highlight-python"><span class="n">module_name</span><span class="o">.</span><span class="n">ClassName</span><span class="o">.</span><span class="n">member</span><span class="p">(</span><span class="n">overload</span><span class="p">)</span></code>.</p>
+<dl class="rst directive:option objdesc">
+<dt class="sig sig-object highlight rst" id="directive-option-python-apigen-entity-summary-notoc">
+<span class="sig-name descname"><span class="pre">:notoc:</span></span><a class="headerlink" href="#directive-option-python-apigen-entity-summary-notoc" title="Permalink to this definition">¶</a></dt>
+<dd><p>By default, this directive also adds the page corresponding to the
+specified Python entity to the global table of contents as a child of the
+current page/section.  Specifying this flag disables that behavior.</p>
+</dd></dl>
+
+<div class="results docutils container">
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption highlight"><span class="caption-text filename">
+Example usage<a class="headerlink" href="#id2" title="Permalink to this code">¶</a></span></div>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><code><span class="p">..</span> <span class="ow">python-apigen-entity-summary</span><span class="p">::</span> tensorstore_demo.IndexDomain.__init__(json)
+   <span class="nc">:notoc:</span>
+</code></pre></div>
+</div>
+</div>
+<div class="result docutils container">
+<dl class="py method summary objdesc">
+<dt class="sig sig-object highlight py">
+<span class="sig-prename descclassname"><span class="pre">tensorstore_demo.</span></span><a class="sig-name descname reference internal" href="../../python_apigen_generated/IndexDomain.__init__-json.html" title="tensorstore_demo.IndexDomain.__init__(json) (Python method) — Constructs an index domain from its JSON representation."><span class="sig-name descname"><span class="pre">IndexDomain</span></span></a><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, </span><span class="sig-param-decl"><em class="sig-param"><span class="n"><span class="pre">json</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.10)"><span class="pre">Any</span></a></span></span></em></span><span class="sig-paren">)</span></dt>
+<dd><p>Constructs an index domain from its JSON representation.</p>
+</dd></dl>
+
+<div class="toctree-wrapper compound">
+</div>
+</div>
+</div>
+</dd></dl>
+
+<h3 id="sections-defined-within-docstrings">Sections defined within docstrings<a class="headerlink" href="#sections-defined-within-docstrings" title="Permalink to this heading">¶</a></h3>
+<p>When using this extension, docstrings can define sections, including nested
+sections, using the usual <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html#rst-sections" title="(in Sphinx v6.0.0)"><code class="xref any docutils literal notranslate"><span class="pre">reStructedText</span> <span class="pre">section</span> <span class="pre">syntax</span></code></a>.  The
+mapping between punctuation characters and heading levels is local to the
+individual docstring.  Therefore, it is not necessary (though still recommended)
+to use a consistent order of punctuation characters across different docstrings.</p>
+<p>In addition to providing a way to organize any explanatory content, for classes,
+sections can also correspond to member groups, as described below.</p>
+<h3 id="class-member-groups"><span id="python-apigen-class-member-groups"></span>Class member groups<a class="headerlink" href="#class-member-groups" title="Permalink to this heading">¶</a></h3>
+<p>Within the documentation page for a given class, after its normal docstring
+content, a summary is added for each documented member, with a separate section
+per group.</p>
+<p>For each group, if the class docstring defines a section with a title equal to
+the group name (or an id equal to the normalized group name), the member
+summaries are added to the end of the existing section.  Otherwise, a new
+section for the group is added to the end of the class documentation.</p>
+<p>New sections are added in the order of first ocurrence of the group within the
+<a class="reference internal" href="#python-apigen-member-order"><span class="std std-ref">order</span></a> defined for the members.</p>
+<p>For example, consider the following class definition:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Foo</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;This is some class.</span>
+
+<span class="sd">    Constructors</span>
+<span class="sd">    ------------</span>
+
+<span class="sd">    This class defines the following constructors.</span>
+
+<span class="sd">    Operations</span>
+<span class="sd">    ----------</span>
+
+<span class="sd">    This class supports the following operations.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Constructs the class.</span>
+
+<span class="sd">        :group: Consructors</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">foo</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Performs the foo operation.</span>
+
+<span class="sd">        :group: Operations</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">bar</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Performs the bar operation.</span>
+
+<span class="sd">        :group: Operations</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">size</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Returns the size.</span>
+
+<span class="sd">        :group: Accessors</span>
+<span class="sd">        :order: 2</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Set the element at the given position.</span>
+
+<span class="sd">        :group: Indexing</span>
+<span class="sd">        :order: 3</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Returns the element at the given position.</span>
+
+<span class="sd">        :group: Indexing</span>
+<span class="sd">        :order: 1</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+</code></pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">__init__</span></code> method will be documented within the existing <code class="docutils literal notranslate"><span class="pre">Constructors</span></code>
+section, the <code class="docutils literal notranslate"><span class="pre">foo</span></code> and <code class="docutils literal notranslate"><span class="pre">bar</span></code> methods will be documented within the existing
+<code class="docutils literal notranslate"><span class="pre">Operations</span></code> section.  After the <code class="docutils literal notranslate"><span class="pre">Operations</span></code> section, a new <code class="docutils literal notranslate"><span class="pre">Indexing</span></code>
+section will be added that lists the <code class="docutils literal notranslate"><span class="pre">__getitem__</span></code> and <code class="docutils literal notranslate"><span class="pre">__setitem__</span></code>
+members, and then a new <code class="docutils literal notranslate"><span class="pre">Accessors</span></code> section will be added that lists the
+<code class="docutils literal notranslate"><span class="pre">size</span></code> method.</p>
+<h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permalink to this heading">¶</a></h2>
+<dl class="std confval objdesc">
+<dt class="sig sig-object highlight std" id="confval-python_apigen_modules">
+<span class="sig-name descname"><span class="pre">python_apigen_modules</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="p">{}</span></code><a class="headerlink" href="#confval-python_apigen_modules" title="Permalink to this definition">¶</a></dt>
+<dd><p>Maps module names to the output path prefix relative to the source directory.</p>
+<p>All entities defined by the specified modules are documented.</p>
+<p>For example, with the following added to <code class="file docutils literal notranslate"><span class="pre">conf.py</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="n">python_apigen_modules</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;my_module&quot;</span><span class="p">:</span> <span class="s2">&quot;my_api/&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;my_other_module&quot;</span><span class="p">:</span> <span class="s2">&quot;other_api/my_other_module.&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+<p>The following generated documents will be used (depending on the value of
+<a class="reference internal" href="#confval-python_apigen_case_insensitive_filesystem" title="python_apigen_case_insensitive_filesystem (configuration value) — This extension results in an output file for each documented Python object based on its fully-qualified name."><code class="xref std std-confval docutils literal notranslate"><span class="pre">python_apigen_case_insensitive_filesystem</span></code></a>):</p>
+<table class="docutils data align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Python object</p></th>
+<th class="head"><p>Overload</p></th>
+<th class="head"><p>Document (case-sensitive)</p></th>
+<th class="head"><p>Document (case-insensitive)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="code highlight python docutils literal highlight-python"><span class="n">my_module</span><span class="o">.</span><span class="n">foo</span></code></p></td>
+<td></td>
+<td><p><code class="file docutils literal notranslate"><span class="pre">my_api/foo</span></code></p></td>
+<td><p><code class="file docutils literal notranslate"><span class="pre">my_api/foo-2c26b46b</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="code highlight python docutils literal highlight-python"><span class="n">my_module</span><span class="o">.</span><span class="n">Foo</span></code></p></td>
+<td></td>
+<td><p><code class="file docutils literal notranslate"><span class="pre">my_api/Foo</span></code></p></td>
+<td><p><code class="file docutils literal notranslate"><span class="pre">my_api/Foo-1cbec737</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="code highlight python docutils literal highlight-python"><span class="n">my_module</span><span class="o">.</span><span class="n">Foo</span><span class="o">.</span><span class="n">method</span></code></p></td>
+<td></td>
+<td><p><code class="file docutils literal notranslate"><span class="pre">my_api/Foo.method</span></code></p></td>
+<td><p><code class="file docutils literal notranslate"><span class="pre">my_api/Foo.method-14e51ffc</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="code highlight python docutils literal highlight-python"><span class="n">my_module</span><span class="o">.</span><span class="n">Foo</span><span class="o">.</span><span class="fm">__init__</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">json</span></code></p></td>
+<td><p><code class="file docutils literal notranslate"><span class="pre">my_api/Foo.__init__-json</span></code></p></td>
+<td><p><code class="file docutils literal notranslate"><span class="pre">my_api/Foo.__init__-c3eb15a6-json</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="code highlight python docutils literal highlight-python"><span class="n">my_module</span><span class="o">.</span><span class="n">Foo</span><span class="o">.</span><span class="fm">__init__</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">values</span></code></p></td>
+<td><p><code class="file docutils literal notranslate"><span class="pre">my_api/Foo.__init__-values</span></code></p></td>
+<td><p><code class="file docutils literal notranslate"><span class="pre">my_api/Foo.__init__-c3eb15a6-values</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="code highlight python docutils literal highlight-python"><span class="n">my_module</span><span class="o">.</span><span class="n">Bar</span></code></p></td>
+<td></td>
+<td><p><code class="file docutils literal notranslate"><span class="pre">my_api/Bar</span></code></p></td>
+<td><p><code class="file docutils literal notranslate"><span class="pre">my_api/Bar-95d64cac</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="code highlight python docutils literal highlight-python"><span class="n">my_other_module</span><span class="o">.</span><span class="n">Baz</span></code></p></td>
+<td></td>
+<td><p><code class="file docutils literal notranslate"><span class="pre">other_api/my_other_module.Baz</span></code></p></td>
+<td><p><code class="file docutils literal notranslate"><span class="pre">other_api/my_other_module.Baz-e8f1251a</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The specified path prefix for each module is treated as a <em>prefix</em>, not a
+directory.  It should normally end in either <code class="code highlight python docutils literal highlight-python"><span class="s2">&quot;/&quot;</span></code> or some other
+delimiter like <code class="code highlight python docutils literal highlight-python"><span class="s2">&quot;.&quot;</span></code> If you want the generated document name to
+include the module name, choose a prefix of the form
+<code class="code highlight python docutils literal highlight-python"><span class="s2">&quot;api_directory/module_name.&quot;</span></code>.  If you want the generated
+document name to exclude the module name, choose a prefix of the form
+<code class="code highlight python docutils literal highlight-python"><span class="s2">&quot;api_directory/&quot;</span></code>.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Because Sphinx is not designed to process files outside the source tree,
+these files are actually written to the source tree, and are regenerated
+automatically at the start of the build.  These files should not be
+checked into your source repository.  (When using git, you may wish to add
+a suitable pattern to a <code class="file docutils literal notranslate"><span class="pre">.gitignore</span></code> file.)</p>
+<p>The generated files start with a special comment to indicate that they
+were generated by this extension.  Stale files from previous build
+invocations are deleted automatically.  If there is an existing
+non-generated file with the same name as a to-be-generated file, the
+existing file will not be overwritten and the build will fail (showing an
+error message).</p>
+</div>
+</dd></dl>
+
+<dl class="std confval objdesc">
+<dt class="sig sig-object highlight sig-wrap std" id="confval-python_apigen_default_groups">
+<span class="sig-name descname"><span class="pre">python_apigen_default_groups</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.10)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="p">[(</span><span class="s1">&#39;.*&#39;</span><span class="p">,</span> <span class="s1">&#39;Public members&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;class:.*&#39;</span><span class="p">,</span> <span class="s1">&#39;Classes&#39;</span><span class="p">)]</span></code><a class="headerlink" href="#confval-python_apigen_default_groups" title="Permalink to this definition">¶</a></dt>
+<dd><p><code class="code highlight python docutils literal highlight-python"><span class="nb">list</span></code> of <code class="code highlight python docutils literal highlight-python"><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">group</span><span class="p">)</span></code> pairs, where <code class="code highlight python docutils literal highlight-python"><span class="n">pattern</span></code>
+is a regular expression matching strings of the form
+<code class="code highlight python docutils literal highlight-python"><span class="s2">&quot;&lt;objtype&gt;:&lt;fully_qualified_member_name&gt;&quot;</span></code>
+(e.g. <code class="code highlight python docutils literal highlight-python"><span class="s2">&quot;method:module_name.ClassName.member&quot;</span></code>) and <code class="code highlight python docutils literal highlight-python"><span class="n">group</span></code> is
+the group name to assign.</p>
+<p>The group name for a given member is determined by the <em>last</em> matching
+pattern.  If no pattern matches, the group is <code class="docutils literal notranslate"><span class="pre">Public</span> <span class="pre">members</span></code>.</p>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption highlight"><span class="caption-text filename">
+Example addition to <code class="file docutils literal notranslate"><span class="pre">conf.py</span></code><a class="headerlink" href="#id3" title="Permalink to this code">¶</a></span></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="n">python_apigen_default_groups</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s2">&quot;class:.*&quot;</span><span class="p">,</span> <span class="s2">&quot;Classes&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="sa">r</span><span class="s2">&quot;.*\.__(init|new)__&quot;</span><span class="p">,</span> <span class="s2">&quot;Constructors&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="sa">r</span><span class="s2">&quot;.*\.__(str|repr)__&quot;</span><span class="p">,</span> <span class="s2">&quot;String representation&quot;</span><span class="p">),</span>
+<span class="p">]</span>
+</code></pre></div>
+</div>
+</div>
+</dd></dl>
+
+<dl class="std confval objdesc">
+<dt class="sig sig-object highlight std" id="confval-python_apigen_default_order">
+<span class="sig-name descname"><span class="pre">python_apigen_default_order</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.10)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="p">[]</span></code><a class="headerlink" href="#confval-python_apigen_default_order" title="Permalink to this definition">¶</a></dt>
+<dd><p><code class="code highlight python docutils literal highlight-python"><span class="nb">list</span></code> of <code class="code highlight python docutils literal highlight-python"><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">order</span><span class="p">)</span></code> pairs, where <code class="code highlight python docutils literal highlight-python"><span class="n">pattern</span></code>
+is a regular expression matching strings of the form
+<code class="code highlight python docutils literal highlight-python"><span class="s2">&quot;&lt;objtype&gt;:&lt;fully_qualified_member_name&gt;&quot;</span></code>
+(e.g. <code class="code highlight python docutils literal highlight-python"><span class="s2">&quot;method:module_name.ClassName.member&quot;</span></code>) and <code class="code highlight python docutils literal highlight-python"><span class="n">order</span></code> is
+the <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code></a> order to assign.</p>
+<p>The order value for a given member is determined by the <em>last</em> matching
+pattern.  If no pattern matches, the order value is 0.</p>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption highlight"><span class="caption-text filename">
+Example addition to <code class="file docutils literal notranslate"><span class="pre">conf.py</span></code><a class="headerlink" href="#id4" title="Permalink to this code">¶</a></span></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="n">python_apigen_default_order</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s2">&quot;class:.*&quot;</span><span class="p">,</span> <span class="o">-</span><span class="mi">10</span><span class="p">),</span>
+    <span class="p">(</span><span class="sa">r</span><span class="s2">&quot;.*\.__(init|new)__&quot;</span><span class="p">,</span> <span class="o">-</span><span class="mi">5</span><span class="p">),</span>
+    <span class="p">(</span><span class="sa">r</span><span class="s2">&quot;.*\.__(str|repr)__&quot;</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
+<span class="p">]</span>
+</code></pre></div>
+</div>
+</div>
+</dd></dl>
+
+<dl class="std confval objdesc">
+<dt class="sig sig-object highlight sig-wrap std" id="confval-python_apigen_order_tiebreaker">
+<span class="sig-name descname"><span class="pre">python_apigen_order_tiebreaker</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><span class="s"><span class="pre">'definition_order'</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="s"><span class="pre">'alphabetical'</span></span></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="s1">&#39;definition_order&#39;</span></code><a class="headerlink" href="#confval-python_apigen_order_tiebreaker" title="Permalink to this definition">¶</a></dt>
+<dd><p>Specifies the relative order of members that have the same associated
+<code class="docutils literal notranslate"><span class="pre">order</span></code> value.</p>
+<dl class="simple">
+<dt><code class="code highlight python docutils literal highlight-python"><span class="s2">&quot;definition_order&quot;</span></code></dt><dd><ul class="simple">
+<li><p>Top-level members are sorted first by the order their containing module
+is listed in <a class="reference internal" href="#confval-python_apigen_modules" title="python_apigen_modules (configuration value) — Maps module names to the output path prefix relative to the source directory."><code class="xref std std-confval docutils literal notranslate"><span class="pre">python_apigen_modules</span></code></a> and then by the order in
+which they are defined.</p></li>
+<li><p>Class members are sorted by the order in which they are defined.
+Inherited members are listed after direct members, according to the
+method resolution order.</p></li>
+</ul>
+</dd>
+<dt><code class="code highlight python docutils literal highlight-python"><span class="s2">&quot;alphabetical&quot;</span></code></dt><dd><p>All members are sorted alphabetically, first using case-insensitive
+comparison and then breaking ties with case-sensitive comparison.</p>
+</dd>
+</dl>
+<div class="literal-block-wrapper docutils container" id="id5">
+<div class="code-block-caption highlight"><span class="caption-text filename">
+Add to <code class="file docutils literal notranslate"><span class="pre">conf.py</span></code> to specify alphabetical order.<a class="headerlink" href="#id5" title="Permalink to this code">¶</a></span></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="n">python_apigen_order_tiebreaker</span> <span class="o">=</span> <span class="s2">&quot;alphabetical&quot;</span>
+</code></pre></div>
+</div>
+</div>
+</dd></dl>
+
+<dl class="std confval objdesc">
+<dt class="sig sig-object highlight std" id="confval-python_apigen_case_insensitive_filesystem">
+<span class="sig-name descname"><span class="pre">python_apigen_case_insensitive_filesystem</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="kc">None</span></code><a class="headerlink" href="#confval-python_apigen_case_insensitive_filesystem" title="Permalink to this definition">¶</a></dt>
+<dd><p>This extension results in an output file for each documented Python object
+based on its fully-qualified name.  Python names are case-sensitive, meaning
+both <code class="code highlight python docutils literal highlight-python"><span class="n">foo</span></code> and <code class="code highlight python docutils literal highlight-python"><span class="n">Foo</span></code> can be defined within the same scope,
+but some filesystems are case insensitive (e.g. on Windows and macOS), which
+creates the potential for a conflict.</p>
+<p>By default (if <a class="reference internal" href="#confval-python_apigen_case_insensitive_filesystem" title="python_apigen_case_insensitive_filesystem (configuration value) — This extension results in an output file for each documented Python object based on its fully-qualified name."><code class="xref std std-confval docutils literal notranslate"><span class="pre">python_apigen_case_insensitive_filesystem</span></code></a> is
+<code class="code highlight python docutils literal highlight-python"><span class="kc">None</span></code>), this extension detects automatically if the filesystem is
+case-insensitive, but detection is skipped if the option is set to an
+explicit value of <code class="code highlight python docutils literal highlight-python"><span class="kc">True</span></code> or <code class="code highlight python docutils literal highlight-python"><span class="kc">False</span></code>:</p>
+<div class="literal-block-wrapper docutils container" id="id6">
+<div class="code-block-caption highlight"><span class="caption-text filename">
+Add to <code class="file docutils literal notranslate"><span class="pre">conf.py</span></code> to force case-insensitive naming scheme<a class="headerlink" href="#id6" title="Permalink to this code">¶</a></span></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="n">python_apigen_case_insensitive_filesystem</span> <span class="o">=</span> <span class="kc">True</span>
+</code></pre></div>
+</div>
+</div>
+<p>If the filesystem is either detected or specified to be case-insensitive,
+case conflicts are avoided by including a hash in the document name.</p>
+</dd></dl>
+
+<h3 id="subscript-methods">Subscript methods<a class="headerlink" href="#subscript-methods" title="Permalink to this heading">¶</a></h3>
+<p><em>Subscript methods</em> are attributes defined on an object that support subscript
+syntax.  For example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="n">arr</span><span class="o">.</span><span class="n">vindex</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span><span class="mi">5</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]]</span>
+</code></pre></div>
+</div>
+<p>These subscript methods can be implemented as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">MyArray</span><span class="p">:</span>
+    <span class="k">class</span> <span class="nc">_Vindex</span><span class="p">:</span>
+        <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arr</span><span class="p">:</span> <span class="n">MyArray</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">arr</span> <span class="o">=</span> <span class="n">arr</span>
+
+        <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sel</span><span class="p">:</span> <span class="n">Selection</span><span class="p">):</span>
+            <span class="c1"># Do something with `self.arr` and `sel`.</span>
+            <span class="k">return</span> <span class="n">result</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">vindex</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MyArray</span><span class="o">.</span><span class="n">_Vindex</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">MyArray</span><span class="o">.</span><span class="n">_Vindex</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<p>Based on the <a class="reference internal" href="#confval-python_apigen_subscript_method_types" title="python_apigen_subscript_method_types (configuration value) — Regular expression pattern that matches the return type annotations of properties that define subscript methods."><code class="xref std std-confval docutils literal notranslate"><span class="pre">python_apigen_subscript_method_types</span></code></a> option, this
+extension can recognize this pattern and display <code class="code highlight python docutils literal highlight-python"><span class="n">vindex</span></code> as:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="n">vindex</span><span class="p">[</span><span class="n">sel</span><span class="p">:</span> <span class="n">Selection</span><span class="p">]</span>
+</code></pre></div>
+</div>
+<p>rather than as a normal property.</p>
+<dl class="std confval objdesc">
+<dt class="sig sig-object highlight std" id="confval-python_apigen_subscript_method_types">
+<span class="sig-name descname"><span class="pre">python_apigen_subscript_method_types</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><span class="pre">re.Pattern</span></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="s1">&#39;.*</span><span class="se">\\</span><span class="s1">._[^.]*&#39;</span></code><a class="headerlink" href="#confval-python_apigen_subscript_method_types" title="Permalink to this definition">¶</a></dt>
+<dd><p>Regular expression pattern that matches the return type annotations of
+properties that define subscript methods.</p>
+<p>Return type annotations can be specified either as real annotations or in the
+textual signature specified as the first line of the docstring.</p>
+<p>The default value matches any name beginning with an underscore,
+e.g. <code class="code highlight python docutils literal highlight-python"><span class="n">_Vindex</span></code> in the example above.</p>
+</dd></dl>
+
+<dl class="std confval objdesc">
+<dt class="sig sig-object highlight std" id="confval-python_apigen_show_base_classes">
+<span class="sig-name descname"><span class="pre">python_apigen_show_base_classes</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="kc">True</span></code><a class="headerlink" href="#confval-python_apigen_show_base_classes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Display the list of base classes when documenting classes.</p>
+<p>Unlike the built-in <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html#module-sphinx.ext.autodoc" title="(in Sphinx v6.0.0)"><code class="xref any docutils literal notranslate"><span class="pre">sphinx.ext.autodoc</span></code></a> module, base classes are shown using
+the normal Python syntax in a parenthesized list after the class name.</p>
+<p>The list of base classes displayed for each class can be customized by adding
+a listener to the <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html#event-autodoc-process-bases" title="(in Sphinx v6.0.0)"><code class="xref any docutils literal notranslate"><span class="pre">autodoc-process-bases</span></code></a> event.  This is useful for
+excluding base classes that are not intended to be part of the public API.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The built-in <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">object</span></code></a> type is never included as a base class.</p>
+</div>
+</dd></dl>
+
+
+
+
+  <hr>
+<div class="md-source-file">
+  <small>
+    
+      Last update:
+      Jul 05, 2022
+    
+  </small>
+</div>
+
+              
+            </article>
+          </div>
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" data-md-state="hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Back to top
+          </a>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="index.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Python domain customization" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Python domain customization
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../cpp/index.html" class="md-footer__link md-footer__link--next" aria-label="Next: C++ domain customization" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              C++ domain customization
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  
+  
+  <div class="md-footer-meta md-typeset">
+    
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-footer-copyright__highlight">
+        &#169; Copyright 2021 The Sphinx-Immaterial Authors.
+        
+    </div>
+  
+    Created using
+    <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
+    5.0.2.
+     and
+    <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
+  
+</div>
+      
+    </div>
+    
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.expand", "navigation.sections", "navigation.top", "search.share", "toc.follow", "toc.sticky"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": {"provider": "mike", "staticVersions": [{"aliases": [], "title": "ReadTheDocs", "version": "https://sphinx-immaterial.rtfd.io"}, {"aliases": [], "title": "Github Pages", "version": "https://jbms.github.io/sphinx-immaterial"}], "versionPath": null}}</script>
+    
+    
+      <script src="../../_static/javascripts/bundle.dc1bded0.min.js"></script>
+    
+  </body>
+</html>

@@ -7,8 +7,8 @@ sample API documentation and generated content
 Python API
 ==========
 
-:mod:`test_py_module`
----------------------
+``test_py_module``
+------------------
 
 .. rst-example:: autodoc example
 
@@ -109,7 +109,7 @@ C++ API
 
          Description of enumerator B.
 
-   .. cpp:enum-struct:: protected MyScopedVisibilityEnum : std::underlying_type<MySpecificEnum>::type
+   .. cpp:enum-struct:: protected MyScopedVisibilityEnum : std::underlying_type_t<MyScopedEnum>
 
       A scoped enum with non-default visibility, and with a specified underlying type.
 

@@ -158,6 +158,20 @@ Each metadata is evaluated as a ``:key: value`` pair.
 
         :tocdepth: 0
 
+.. themeconf:: hide-edit-link
+
+   If specified, hides the "Edit this page" link at the top of the page.  By
+   default, an edit link is shown if :themeconf:`edit_uri` is specified.  This
+   option overrides that for a given page.
+
+   .. code-block:: rst
+      :caption: Hide the "Edit this page" link:
+
+      :hide-edit-link:
+
+   A common use case for this option is to specify it on automatically-generated
+   pages, as for those pages there is no source document to edit.
+
 Configuration Options
 =====================
 
@@ -256,6 +270,39 @@ Configuration Options
         - `search.highlight <https://squidfunk.github.io/mkdocs-material/setup/setting-up-site-search/#search-highlighting>`_
         - `search.share <https://squidfunk.github.io/mkdocs-material/setup/setting-up-site-search/#search-sharing>`_
         - `toc.integrate <https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#navigation-integration>`_
+        - ``toc.follow``
+
+          This is similar to the `toc.follow
+          <https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#anchor-following>`__
+          feature supported by the mkdocs-material theme, but differs in that
+          both the left and right sidebar are scrolled automatically.
+
+          - The local table-of-contents scrolls automatically to keep the
+            currently-displayed document section in view.  Note that this
+            applies to all three possible locations for the local
+            table-of-contents:
+
+            - in the right sidebar, which is the default location if the browser
+              viewport is sufficiently wide;
+            - in the left sidebar, if the ``toc.integrate`` feature is enabled;
+            - in the "layered" navigation menu, if the browser viewport is
+              sufficiently narrow.
+
+          - If the ``toc.integrate`` feature is disabled, the left sidebar
+            additionally scrolls automatically to keep within view either:
+
+            - the navigation entry for the current document, or
+            - if the current document contains sections with child documents,
+              the navigation entry for the currently-displayed document section.
+
+            Note that if the ``toc.integrate`` feature is enabled, the left
+            sidebar is instead scrolled for the local table-of-contents as
+            described above.
+        - ``toc.sticky``
+
+          Makes headings in the left and right sidebars "sticky", such that the
+          full path to each heading remains visible even as the sidebars are
+          scrolled.
 
         .. hint::
             Sphinx automatically implements the
@@ -402,10 +449,22 @@ Configuration Options
         configuration option takes precedence over
         :themeconf:`toc_title_is_page_title`.
 
+        .. code-block:: python
+
+            html_theme_options = {
+                "toc_title": "Contents",
+            }
+
     .. themeconf:: toc_title_is_page_title
 
        If set to ``True`` and :themeconf:`toc_title` is unspecified, the table of
        contents is labeled in the side bar by the title of the page itself.
+
+       .. code-block:: python
+
+           html_theme_options = {
+               "toc_title_is_page_title": True,
+           }
 
     .. themeconf:: version_dropdown
 

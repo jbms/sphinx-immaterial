@@ -35,8 +35,8 @@ Here's an included example with line numbers.
 
 .. rst-example::
 
-   .. literalinclude:: ../sphinx_immaterial/autodoc_property_type.py
-      :caption: source from this theme in *sphinx_immaterial/autodoc_property_type.py*
+   .. literalinclude:: ../sphinx_immaterial/apidoc/python/autodoc_property_type.py
+      :caption: source from this theme in *sphinx_immaterial/apidoc/python/autodoc_property_type.py*
       :linenos:
 
 It also works with existing Sphinx highlighting:
@@ -189,7 +189,7 @@ Alignment
    .. list-table:: Center Aligned
       :header-rows: 1
       :align: center
-   
+
       * - Column 1
         - Column 2
       * - Item 1
@@ -202,7 +202,7 @@ Alignment
       :widths: 15 10 30
       :header-rows: 1
       :align: right
-   
+
       * - Treat
         - Quantity
         - Description
@@ -215,30 +215,6 @@ Alignment
       * - Gannet Ripple
         - 1.99
         - On a stick!
-
-Code Documentation
-==================
-
-
-.. rst-example:: An example Python function.
-
-   .. py:function:: format_exception(etype, value, tb[, limit=None])
-
-      Format the exception with a traceback.
-
-      :param etype: exception type
-      :param value: exception value
-      :param tb: traceback object
-      :param limit: maximum number of stack frames to show
-      :type limit: integer or None
-      :rtype: list of strings
-
-.. rst-example:: An example JavaScript function.
-
-   .. js:class:: MyAnimal(name[, age])
-
-      :param string name: The name of the animal
-      :param number age: an optional age for the animal
 
 Glossaries
 ==========
@@ -269,7 +245,7 @@ Math
 .. rst-example::
 
    .. math::
-   
+
       (a + b)^2  &=  (a + b)(a + b) \\
                  &=  a^2 + 2ab + b^2
 
@@ -277,25 +253,29 @@ Math
 
    .. math::
       :nowrap:
-   
+
       \begin{eqnarray}
          y    & = & ax^2 + bx + c \\
          f(x) & = & x^2 + 2xy + y^2
       \end{eqnarray}
 
-Production Lists
-================
 
-.. rst-example::
+..
+   FIXME: Production lists currently do not work.
 
-   .. productionlist::
-      try_stmt: try1_stmt | try2_stmt
-      try1_stmt: "try" ":" `suite`
-               : ("except" [`expression` ["," `target`]] ":" `suite`)+
-               : ["else" ":" `suite`]
-               : ["finally" ":" `suite`]
-      try2_stmt: "try" ":" `suite`
-               : "finally" ":" `suite`
+   Production Lists
+   ================
+
+   .. rst-example::
+
+      .. productionlist::
+         try_stmt: try1_stmt | try2_stmt
+         try1_stmt: "try" ":" `suite`
+                  : ("except" [`expression` ["," `target`]] ":" `suite`)+
+                  : ["else" ":" `suite`]
+                  : ["finally" ":" `suite`]
+         try2_stmt: "try" ":" `suite`
+                  : "finally" ":" `suite`
 
 Sub-pages
 =========

@@ -18,6 +18,9 @@ The HTML templates, JavaScript, and styles from the `mkdocs-material
 <https://squidfunk.github.io/mkdocs-material/>`__ theme are incoroprated directly
 with mostly minor modifications.
 
+Independent of the upstream mkdocs-material theme, this theme integrates with
+and significantly extends Sphinx's API documentation functionality.
+
 This theme is a fork of the `sphinx-material
 <https://github.com/bashtage/sphinx-material>`__ theme, which proved the concept
 of a Sphinx theme based on an earlier version of the `mkdocs-material
@@ -78,19 +81,21 @@ or ``theme.conf`` for more details.
     :caption: API documentation customization
     :hidden:
 
-    api
-    format_signatures
-    python
-    cpp
-    external_cpp_references
-    cppreference
-    json
+    apidoc/index
+    apidoc/format_signatures
+    apidoc/python/index
+    apidoc/python/apigen
+    apidoc/cpp/index
+    apidoc/cpp/external_cpp_references
+    apidoc/cpp/cppreference
+    apidoc/json/domain
 
 .. toctree::
     :caption: Examples and Uses
     :hidden:
 
     demo_api
+    python_apigen_demo
     specimen
     rst_basics
     rst-cheatsheet/rst-cheatsheet
