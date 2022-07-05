@@ -45,6 +45,8 @@ export type Flag =
   | "search.share"                     /* Search sharing */
   | "search.suggest"                   /* Search suggestions */
   | "toc.integrate"                    /* Integrated table of contents */
+  | "toc.follow"                       /* sphinx-immaterial: auto-scroll toc */
+  | "toc.sticky"                       /* sphinx-immaterial: sticky toc headings */
 
 /* ------------------------------------------------------------------------- */
 

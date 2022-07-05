@@ -25,8 +25,8 @@ import sphinx.environment
 import sphinx.errors
 import sphinx.util.logging
 
-from . import apidoc_formatting
-from . import sphinx_utils
+from .. import apidoc_formatting
+from ... import sphinx_utils
 
 logger = sphinx.util.logging.getLogger(__name__)
 
@@ -797,7 +797,7 @@ def _add_parameter_documentation_ids(
 
             # Set symbol id, since by default parameters don't have unique ids,
             # they just use the same id as the parent symbol.  This is
-            # neccessary in order for cross links to correctly refer to the
+            # necessary in order for cross links to correctly refer to the
             # parameter description.
             setattr(
                 param_symbol.declaration,
@@ -865,7 +865,7 @@ def _add_parameter_documentation_ids(
         param_node.parent[:1] = new_param_nodes
 
     # Find all parameter descriptions within the object description body.  Make
-    # sure not to find parameter descriptions within neted object descriptions.
+    # sure not to find parameter descriptions within nested object descriptions.
     # For example, if this is a class object description, we don't want to find
     # parameter descriptions within a nested function object description.
     for child in obj_content:
@@ -1071,6 +1071,8 @@ def setup(app: sphinx.application.Sphinx):
         desc_cpp_requires_clause,
         desc_cpp_explicit,
     ):
+        if node in sphinx.addnodes.SIG_ELEMENTS:
+            continue
         app.add_node(node)
         sphinx.addnodes.SIG_ELEMENTS.append(node)
 

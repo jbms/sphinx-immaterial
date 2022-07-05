@@ -40,7 +40,11 @@
 
   // Navigation title
   &__title {
-    display: block;
+    // sphinx-immaterial: display object description icon as a
+    // separate column, don't allow title text to wrap underneath it.
+    display: flex;
+    // sphinx-immaterial: ensure icons are centered vertically with text.
+    align-items: center;
     padding: 0 px2rem(12px);
     overflow: hidden;
     font-weight: 700;
@@ -93,19 +97,46 @@
   &__link {
     display: flex;
     align-items: center;
-    margin-top: 0.625em;
+
+    $margin-height: 0.625em;
+
+    margin-top: #{$margin-height};
     cursor: pointer;
     transition: color 125ms;
     scroll-snap-align: start;
 
+    // sphinx-immaterial: used for toc.sticky feature to create a gap between
+    // sticky header and scrolling content
+    &.md-nav__sticky {
+      box-shadow:
+        0 -#{$margin-height} var(--md-default-bg-color),
+        0 #{$margin-height} var(--md-default-bg-color);
+    }
+
     // Navigation link in blurred state
-    &[data-md-state="blur"] {
+    &[data-md-state="blur"]:not(&--in-viewport):not(&--active) {
       color: var(--md-default-fg-color--light);
     }
 
     // Active link
     .md-nav__item &--active {
       color: var(--md-typeset-a-color);
+    }
+
+    // sphinx-immaterial: show nav links corresponding to current viewport
+    &--in-viewport {
+      position: relative;
+
+      &::before {
+        position: absolute;
+        top: 0;
+        right: calc(100% + px2rem(6px));
+        bottom: 0;
+        width: px2rem(1px);
+        height: 100%;
+        background-color: var(--md-primary-fg-color);
+        content: "";
+      }
     }
 
     // Stretch section index link to full width
@@ -150,6 +181,14 @@
     }
   }
 
+  // sphinx-immaterial: used when `toc.sticky` is enabled
+  &__sticky {
+    position: sticky;
+    top: var(--md-nav__header-height, 0);
+    z-index: var(--md-nav__sticky-zindex);
+    background-color: var(--md-default-bg-color);
+  }
+
   .md-ellipsis {
     // sphinx-immaterial: don't inherit display:flex (flex-grow still applies)
     display: block;
@@ -188,6 +227,13 @@
 
     // Primary navigation
     &--primary {
+
+      // sphinx-immaterial: disable `toc.sticky` behavior for layered navigation
+      .md-nav__sticky {
+        position: static;
+        z-index: auto;
+        background-color: transparent;
+      }
 
       // Navigation title and item
       :is(.md-nav__title, .md-nav__item) {
@@ -389,11 +435,23 @@
     // are truncated with an ellipsis rather than wrapping.
     .md-nav__title .md-ellipsis {
       white-space: nowrap;
+
+      // In Chrome, <wbr> elements override `white-space: nowrap`, but
+      // setting them to `display: none` prevents that.
+      wbr {
+        display: none;
+      }
     }
   }
 
   // [tablet portrait -]: Layered navigation with table of contents
   @include break-to-device(tablet portrait) {
+
+    // sphinx-immaterial: hide nested nav items of current page, since
+    // they are redundant with integrated toc.
+    &__current-nested {
+      display: none;
+    }
 
     // Show link to table of contents
     &--primary &__link[for="__toc"] {
@@ -450,6 +508,11 @@
 
   // [tablet landscape +]: Tree-like table of contents
   @include break-from-device(tablet landscape) {
+
+    // sphinx-immaterial: hide integreated toc, since it is redundant with any nested items.
+    &__current-toc {
+      display: none;
+    }
 
     // Navigation title
     &--secondary &__title {

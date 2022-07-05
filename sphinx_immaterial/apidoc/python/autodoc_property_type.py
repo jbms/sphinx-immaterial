@@ -1,12 +1,14 @@
 """Adds support for obtaining property types from docstring signatures, and
 improves formatting by PyProperty of type annotations."""
 import re
-from typing import Tuple, Optional
+from typing import Tuple, Optional, Any
 
 import sphinx.addnodes
 import sphinx.domains
 import sphinx.domains.python
 import sphinx.ext.autodoc
+import sphinx.util.inspect
+import sphinx.util.typing
 
 PropertyDocumenter = sphinx.ext.autodoc.PropertyDocumenter
 
@@ -14,10 +16,17 @@ PropertyDocumenter = sphinx.ext.autodoc.PropertyDocumenter
 property_sig_re = re.compile("^(\\(.*)\\)\\s*->\\s*(.*)$")
 
 
-def _get_property_return_type(obj: property) -> Optional[str]:
-    fget = getattr(obj, "fget", None)
-    if fget is not None:
-        obj = fget
+def _get_property_getter(obj: Any) -> Any:
+    # property
+    func = sphinx.util.inspect.safe_getattr(obj, "fget", None)
+    if func is None:
+        # cached_property
+        func = sphinx.util.inspect.safe_getattr(obj, "func", None)
+    return func
+
+
+def _get_property_return_type(obj: Any) -> Optional[str]:
+    fget = _get_property_getter(obj)
     doc = obj.__doc__
     if doc is None:
         return None
@@ -30,7 +39,7 @@ def _get_property_return_type(obj: property) -> Optional[str]:
     return retann
 
 
-def _apply_property_documenter_type_annotation_fix():
+def apply_property_documenter_type_annotation_fix():
 
     # Modify PropertyDocumenter to support obtaining signature from docstring.
 
@@ -40,6 +49,25 @@ def _apply_property_documenter_type_annotation_fix():
         result = orig_import_object(self, raiseerror)
         if not result:
             return False
+
+        func = _get_property_getter(self.object)
+
+        if func is not None:
+            try:
+                signature = sphinx.util.inspect.signature(
+                    func, type_aliases=self.config.autodoc_type_aliases
+                )
+                if (
+                    signature.return_annotation
+                    is not sphinx.util.inspect.Parameter.empty
+                ):
+                    self.retann = sphinx.util.typing.stringify(
+                        signature.return_annotation
+                    )
+                return True
+            except TypeError:
+                pass
+
         if not self.retann:
             self.retann = _get_property_return_type(self.object)  # type: ignore
         return True
@@ -49,12 +77,22 @@ def _apply_property_documenter_type_annotation_fix():
     old_add_directive_header = PropertyDocumenter.add_directive_header
 
     def add_directive_header(self, sig: str) -> None:
+        start_line = len(self.directive.result.data)
         old_add_directive_header(self, sig)
 
         # Check for return annotation
         retann = self.retann or _get_property_return_type(self.object)
-        if retann is not None:
-            self.add_line("   :type: " + retann, self.get_sourcename())
+        if retann is None:
+            return
+
+        # Check if type annotation has already been added.
+        type_line_prefix = self.indent + "   :type: "
+        for line in self.directive.result.data[start_line:]:
+            if line.startswith(type_line_prefix):
+                return
+
+        # Type annotation not already added.
+        self.add_line("   :type: " + retann, self.get_sourcename())
 
     PropertyDocumenter.add_directive_header = add_directive_header
 
@@ -74,6 +112,3 @@ def _apply_property_documenter_type_annotation_fix():
         return fullname, prefix
 
     PyProperty.handle_signature = handle_signature
-
-
-_apply_property_documenter_type_annotation_fix()

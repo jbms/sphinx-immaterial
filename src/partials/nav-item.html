@@ -29,6 +29,12 @@
     {% set class = class ~ " md-nav__item--active" %}
   {% endif %}
 
+  <!-- sphinx-immaterial: hide nested items of current page when using layered navigation -->
+  {%- set orig_class = class %}
+  {%- if nav_item.current %}
+    {% set class = class ~ " md-nav__current-nested" %}
+  {%- endif %}
+
   <!-- Main navigation item with nested items -->
   {% if nav_item.children %}
 
@@ -111,9 +117,20 @@
     </li>
 
   <!-- Currently active page -->
-  {% elif nav_item.active %}
+  <!-- sphinx-immaterial: render nested toc for layered navigation even if there are children -->
+  {% endif %}
+  {% if nav_item.current %}
+
+    <!-- sphinx-immaterial: hide nested toc when not using layered navigation -->
+    {%- set class = orig_class %}
+    {%- if nav_item.children %}
+      {% set class = class ~ " md-nav__current-toc" %}
+    {%- endif %}
+
     <li class="{{ class }}">
-      {% set toc = page.toc %}
+      <!-- sphinx-immaterial: use page.integrated_local_toc instead of page.toc -->
+      {% set toc = page.integrated_local_toc %}
+      {% set use_integrated_local_toc = True %}
 
       <!-- Active checkbox expands items contained within nested section -->
       <input
@@ -144,7 +161,8 @@
     </li>
 
   <!-- Main navigation item -->
-  {% else %}
+  <!-- sphinx-immaterial: exclude nested nav items which are handled above -->
+  {% elif not nav_item.children %}
     <li class="{{ class }}">
       <a href="{{ nav_item.url | url }}" class="md-nav__link">
         {{ nav_item.title }}

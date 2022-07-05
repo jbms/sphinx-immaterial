@@ -48,7 +48,7 @@ following to :file:`conf.py`:
                       other_param: list[str], \
                       yet_another: bool = False, \
                       finally_another: str = "some long string goes here"\
-                    ) -> Tuple[A, Very, Long, Return, Type]
+                    ) -> Tuple[str, bool, float, bytes, int]
 
 clang-format-based function parameter wrapping
 -----------------------------------------------
@@ -66,7 +66,7 @@ which the extension should be used.
 
     extensions = [
         # other extensions...
-        "sphinx_immaterial.format_signatures",
+        "sphinx_immaterial.apidoc.format_signatures",
     ]
 
     object_description_options = [

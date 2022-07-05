@@ -111,7 +111,9 @@ disable=raw-checker-failed,
         too-many-instance-attributes,
         bad-option-value,
         too-many-return-statements,
-        line-too-long
+        line-too-long,
+        fixme,
+        cyclic-import
 
 # Enable the message, report, category or checker with the given id(s). You can
 # either give multiple identifier separated by comma (,) or put this option

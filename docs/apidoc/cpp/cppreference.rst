@@ -1,9 +1,10 @@
 Automatic cross-linking to cppreference.com
 ===========================================
 
-This theme provides an optional :python:`sphinx_immaterial.cppreference`
-extension that provides automatic linking to C/C++ standard symbols documented
-at https://cppreference.com.
+This theme provides an optional
+:python:`sphinx_immaterial.apidoc.cpp.cppreference` extension that provides
+automatic linking to C/C++ standard symbols documented at
+https://cppreference.com.
 
 To use this extension, simply add it to the list of extensions in :file:`conf.py`:
 
@@ -11,7 +12,7 @@ To use this extension, simply add it to the list of extensions in :file:`conf.py
 
     extensions = [
         # other extensions...
-        "sphinx_immaterial.cppreference",
+        "sphinx_immaterial.apidoc.cpp.cppreference",
     ]
 
 .. rst-example::

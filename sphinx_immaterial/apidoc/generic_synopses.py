@@ -10,7 +10,7 @@ import sphinx.domains.std
 import sphinx.util.nodes
 
 from . import apidoc_formatting
-from . import sphinx_utils
+from .. import sphinx_utils
 
 
 StandardDomain = sphinx.domains.std.StandardDomain

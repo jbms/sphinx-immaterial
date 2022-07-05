@@ -11,6 +11,8 @@ import os
 import sys
 import typing
 
+from typing_extensions import Literal
+
 sys.path.insert(0, os.path.abspath("."))
 
 import docutils
@@ -20,7 +22,7 @@ import sphinx.environment
 import sphinx.util.logging
 import sphinx.util.typing
 
-from sphinx_immaterial import apidoc_formatting
+from sphinx_immaterial.apidoc import apidoc_formatting
 
 logger = sphinx.util.logging.getLogger(__name__)
 
@@ -43,15 +45,17 @@ extensions = [
     "sphinx.ext.doctest",
     "sphinx.ext.extlinks",
     "sphinx.ext.intersphinx",
+    "sphinx.ext.napoleon",
     "sphinx.ext.todo",
     "sphinx.ext.mathjax",
     "sphinx.ext.viewcode",
     "sphinxcontrib.details.directive",
     "sphinx_immaterial.theme_result",
     "sphinx_immaterial.kbd_keys",
-    "sphinx_immaterial.format_signatures",
-    "sphinx_immaterial.cppreference",
-    "sphinx_immaterial.json_domain",
+    "sphinx_immaterial.apidoc.format_signatures",
+    "sphinx_immaterial.apidoc.cpp.cppreference",
+    "sphinx_immaterial.apidoc.json.domain",
+    "sphinx_immaterial.apidoc.python.apigen",
     "sphinx_jinja",
 ]
 
@@ -63,9 +67,6 @@ intersphinx_mapping = {
 # The reST default role (used for this markup: `text`) to use for all
 # documents.
 default_role = "any"
-
-autosummary_generate = True
-autoclass_content = "class"
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ["_templates"]
@@ -110,7 +111,7 @@ html_theme_options = {
     # "google_analytics": ["UA-XXXXX", "auto"],
     "globaltoc_collapse": True,
     "features": [
-        # "navigation.expand",
+        "navigation.expand",
         # "navigation.tabs",
         # "toc.integrate",
         "navigation.sections",
@@ -120,6 +121,8 @@ html_theme_options = {
         # "navigation.tracking",
         # "search.highlight",
         "search.share",
+        "toc.follow",
+        "toc.sticky",
     ],
     "palette": [
         {
@@ -169,23 +172,29 @@ todo_include_todos = True
 extlinks = {
     "duref": (
         "http://docutils.sourceforge.net/docs/ref/rst/restructuredtext.html#%s",
-        "",
+        "rST %s",
     ),
-    "durole": ("http://docutils.sourceforge.net/docs/ref/rst/roles.html#%s", ""),
-    "dudir": ("http://docutils.sourceforge.net/docs/ref/rst/directives.html#%s", ""),
+    "durole": (
+        "http://docutils.sourceforge.net/docs/ref/rst/roles.html#%s",
+        "rST role %s",
+    ),
+    "dudir": (
+        "http://docutils.sourceforge.net/docs/ref/rst/directives.html#%s",
+        "rST directive %s",
+    ),
 }
 
 object_description_options = []
 
-# BEGIN: sphinx_immaterial.format_signatures extension options
+# BEGIN: sphinx_immaterial.apidoc.format_signatures extension options
 object_description_options.append(
     ("cpp:.*", dict(clang_format_style={"BasedOnStyle": "LLVM"}))
 )
-# END: sphinx_immaterial.format_signatures extension options
+# END: sphinx_immaterial.apidoc.format_signatures extension options
 
 object_description_options.append(("py:.*", dict(wrap_signatures_with_css=True)))
 
-# BEGIN: sphinx_immaterial.external_cpp_references extension options
+# BEGIN: sphinx_immaterial.apidoc.cpp.external_cpp_references extension options
 external_cpp_references = {
     "nlohmann::json": {
         "url": "https://json.nlohmann.me/api/json/",
@@ -198,7 +207,7 @@ external_cpp_references = {
         "desc": "C++ class",
     },
 }
-# END: sphinx_immaterial.external_cpp_references extension options
+# END: sphinx_immaterial.apidoc.cpp.external_cpp_references extension options
 
 # BEGIN: cpp_strip_namespaces_from_signatures option
 cpp_strip_namespaces_from_signatures = [
@@ -219,6 +228,10 @@ rst_prolog = """
 
 .. role:: json(code)
    :language: json
+   :class: highlight
+
+.. role:: rst(code)
+   :language: rst
    :class: highlight
 """
 
@@ -257,8 +270,13 @@ python_type_aliases = {}
 # BEGIN: python_type_aliases example
 python_type_aliases = {
     "MyUnqualifiedType": "alias_ex.MyUnqualifiedType",
+    "example_mod._internal.": "example_mod.",
 }
 # END: python_type_aliases example
+
+# BEGIN: python_module_names_to_strip_from_xrefs example
+python_module_names_to_strip_from_xrefs = ["tensorstore_demo"]
+# END: python_module_names_to_strip_from_xrefs example
 
 
 jinja_contexts = {
@@ -266,8 +284,57 @@ jinja_contexts = {
 }
 
 
-json_schemas = ["index_transform_schema.yml", "inheritance_schema.yml"]
+json_schemas = [
+    "apidoc/json/index_transform_schema.yml",
+    "apidoc/json/inheritance_schema.yml",
+]
 
+python_apigen_modules = {"tensorstore_demo": "python_apigen_generated/"}
+
+python_apigen_default_groups = [
+    ("class:.*", "Classes"),
+    (r".*:.*\.__(init|new)__", "Constructors"),
+    (r".*:.*\.__eq__", "Comparison operators"),
+    (r".*:.*\.__(str|repr)__", "String representation"),
+]
+
+nitpicky = True
+nitpick_ignore = [
+    # Python standard library types not present in object inventory.
+    ('py:class', 'Pattern'),
+    ('py:class', 're.Pattern'),
+
+    # Config option type
+    ('py:class', 'ExternalCppReference'),
+
+    # Example Python types
+    ('py:class', 'example_mod.Foo'),
+    ('py:class', 'alias_ex.MyUnqualifiedType'),
+
+    # Example C++ types
+    ('cpp:identifier', 'Sphinx'),
+    ('cpp:identifier', 'RF24_SPI_SPEED'),
+    ('cpp:identifier', 'RF24_SPI_SPEED'),
+
+    # C++ namespaces referenced in the documentation
+    #
+    # It is a bug in the C++ domain that a reference to `ns::symbol` will
+    # ultimately generate a reference to both `ns` and `ns::symbol`.  However,
+    # because the C++ domain does not actually define "namespace" objects, the
+    # `ns` reference will always fail to be resolved, leading to a spurious
+    # warning.
+    ('cpp:identifier', '::nlohmann'),
+    ('cpp:identifier', 'std'),
+    ('cpp:identifier', 'synopses_ex'),
+    ('cpp:identifier', 'my_ns1'),
+    ('cpp:identifier', 'my_ns2'),
+    ('cpp:identifier', 'my_ns2::my_nested_ns'),
+    ('cpp:identifier', 'my_ns3'),
+
+    # Example JavaScript types
+    ('js:func', 'string'),
+    ('js:func', 'SomeError'),
+]
 
 def _validate_parallel_build(app):
     # Verifies that all of the extensions defined by this theme support parallel
@@ -283,7 +350,7 @@ def _parse_object_description_signature(
     registry_option = registry.get(signature)
     node += sphinx.addnodes.desc_name(signature, signature)
     if registry_option is None:
-        logger.error("Invalid object description option: %r", signature)
+        logger.error("Invalid object description option: %r", signature, location=node)
     else:
         node += sphinx.addnodes.desc_sig_punctuation(" : ", " : ")
         annotations = sphinx.domains.python._parse_annotation(
@@ -308,9 +375,11 @@ def _parse_confval_signature(
     registry_option = values.get(signature)
     node += sphinx.addnodes.desc_name(signature, signature)
     if registry_option is None:
-        logger.error("Invalid config option: %r", signature)
+        logger.error("Invalid config option: %r", signature, location=node)
     else:
         default, rebuild, types = registry_option
+        if isinstance(types, sphinx.config.ENUM):
+            types = (Literal[tuple(types.candidates)],)
         if isinstance(types, type):
             types = (types,)
         if types:
@@ -354,5 +423,14 @@ def setup(app):
         objname="object description option",
         indextemplate="pair: %s; object description option",
         parse_node=_parse_object_description_signature,
+    )
+
+    # Add `event` type from Sphinx's own documentation, to allow intersphinx
+    # references to Sphinx events.
+    app.add_object_type(
+        "event",
+        "event",
+        objname="Sphinx event",
+        indextemplate="pair: %s; event",
     )
     app.connect("builder-inited", _validate_parallel_build)

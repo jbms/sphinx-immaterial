@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """Test Module for sphinx_rtd_theme."""
 import functools
+import sys
 from typing import Union
 
 
@@ -38,7 +39,7 @@ class Foo:
     #: It can have multiple lines.
     bar = 1
 
-    flox = 1.5   #: Doc comment for Foo.flox. One line only.
+    flox = 1.5  #: Doc comment for Foo.flox. One line only.
 
     baz = 2
     """Docstring for class attribute Foo.baz."""
@@ -75,8 +76,8 @@ class Foo:
         """Return a string as uppercase.
 
         :param myvalue: String to change
-        :type myvalue: string
-        :rtype: string
+        :type myvalue: str
+        :rtype: str
 
         """
 
@@ -119,10 +120,12 @@ class Foo:
         """Return the instance qux as uppercase."""
         return self.capitalize(self.qux)
 
-    @functools.cached_property
-    def qux_caps_cached(self) -> str:
-        """Return the cached value of instance qux as uppercase."""
-        return self.qux_caps
+    if sys.version_info >= (3, 8):
+
+        @functools.cached_property
+        def qux_caps_cached(self) -> str:
+            """Return the cached value of instance qux as uppercase."""
+            return self.qux_caps
 
 
 def func(long: int, param: str, args: None, flags: bool, lists: Union[list, tuple]):

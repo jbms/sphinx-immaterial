@@ -174,6 +174,7 @@ def visit_tab_set(self: HTMLTranslator, node: content_tab_set):
 def depart_tab_set(self: HTMLTranslator, node: content_tab_set):
     pass
 
+
 def setup(app: Sphinx):
     app.add_directive("md-tab-set", MaterialTabSetDirective)
     app.add_directive("md-tab-item", MaterialTabItemDirective)

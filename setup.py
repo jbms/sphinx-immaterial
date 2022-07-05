@@ -170,7 +170,7 @@ setuptools.setup(
     author="Jeremy Maitin-Shepard",
     author_email="jeremy@jeremyms.com",
     url="https://github.com/jbms/sphinx-immaterial",
-    packages=["sphinx_immaterial", "sphinx_immaterial.cppreference_data"],
+    packages=setuptools.find_packages(where=".", include=["sphinx_immaterial", "sphinx_immaterial.*"]),
     package_dir={"sphinx_immaterial": "sphinx_immaterial"},
     package_data={
         "sphinx_immaterial": [
@@ -184,7 +184,7 @@ setuptools.setup(
             "*.html",
             "theme.conf",
         ],
-        "sphinx_immaterial.cppreference_data": ["*.xml"],
+        "sphinx_immaterial.apidoc.cpp.cppreference_data": ["*.xml"],
     },
     python_requires=">=3.7",
     install_requires=REQUIREMENTS,

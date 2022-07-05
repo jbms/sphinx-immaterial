@@ -41,9 +41,9 @@ import sphinx.util.logging
 import sphinx.util.matching
 import yaml  # pylint: disable=import-error
 
-from . import apidoc_formatting
+from .. import apidoc_formatting
 from . import json_pprint
-from . import sphinx_utils
+from ... import sphinx_utils
 
 logger = sphinx.util.logging.getLogger(__name__)
 

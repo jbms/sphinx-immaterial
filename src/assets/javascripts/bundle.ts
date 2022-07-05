@@ -220,7 +220,12 @@ const content$ = defer(() => merge(
 
   /* Table of contents */
   ...getComponentElements("toc")
-    .map(el => mountTableOfContents(el, { viewport$, header$, target$ })),
+    .map(el => mountTableOfContents(el, { viewport$, header$, target$, localToc: true })),
+
+  /* Global Table of contents */
+  ...getComponentElements("sidebar")
+    .filter(el => el.getAttribute("data-md-type") === "navigation")
+    .map(el => mountTableOfContents(el, { viewport$, header$, target$, localToc: false })),
 
   /* Back-to-top button */
   ...getComponentElements("top")

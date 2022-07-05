@@ -19,16 +19,16 @@ feature of this package as a dependency:
 Configuration
 -------------
 
-To use this domain, add :python:`sphinx_immaterial.json_domain` to the list of
-:python:`extensions` in :file:`conf.py` and set the :confval:`json_schemas`
-configuration option to a list of glob patterns specifying the JSON schema
-definition files.
+To use this domain, add :python:`sphinx_immaterial.apidoc.json.domain` to the
+list of :python:`extensions` in :file:`conf.py` and set the
+:confval:`json_schemas` configuration option to a list of glob patterns
+specifying the JSON schema definition files.
 
 .. code-block:: python
 
     extensions = [
         # other extensions...
-        "sphinx_immaterial.json_domain",
+        "sphinx_immaterial.apidoc.json.domain",
     ]
 
     json_schemas = [
@@ -84,7 +84,7 @@ Usage
       Flag option to exclude the schema from search results and the table of
       contents.  Also disables cross linking.
 
-      This option implies :rst:dir:`exclude_from_toc`.
+      This option implies :rst:dir:`json:schema:exclude_from_toc`.
 
    .. rst:directive:option:: title
 
@@ -93,7 +93,7 @@ Usage
    .. rst:directive:option:: toc_title
 
       Specifies the title to use in the table of contents instead of the
-      :rst:dir:`title` or ``$id``.
+      :rst:dir:`json:schema:title` or ``$id``.
 
       Only has an effect if :objconf:`include_in_toc` is :python:`True`.
 

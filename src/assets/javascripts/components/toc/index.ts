@@ -82,6 +82,7 @@ export interface TableOfContents {
 interface WatchOptions {
   viewport$: Observable<Viewport>      /* Viewport observable */
   header$: Observable<Header>          /* Header observable */
+  excludedLinks?: Set<HTMLElement>     /* sphinx-immaterial: Links to exclude */
 }
 
 /**
@@ -91,6 +92,7 @@ interface MountOptions {
   viewport$: Observable<Viewport>      /* Viewport observable */
   header$: Observable<Header>          /* Header observable */
   target$: Observable<HTMLElement>     /* Location target observable */
+  localToc: boolean
 }
 
 /* ----------------------------------------------------------------------------
@@ -118,17 +120,28 @@ interface MountOptions {
  * @returns Table of contents observable
  */
 export function watchTableOfContents(
-  el: HTMLElement, { viewport$, header$ }: WatchOptions
+  el: HTMLElement, { viewport$, header$, excludedLinks }: WatchOptions
 ): Observable<TableOfContents> {
   const table = new Map<HTMLAnchorElement, HTMLElement>()
 
   /* Compute anchor-to-target mapping */
-  const anchors = getElements<HTMLAnchorElement>("[href^=\\#]", el)
+  const anchors = getElements<HTMLAnchorElement>("a[href]", el)
   for (const anchor of anchors) {
-    const id = decodeURIComponent(anchor.hash.substring(1))
-    const target = getOptionalElement(`[id="${id}"]`)
-    if (typeof target !== "undefined")
-      table.set(anchor, target)
+    if (excludedLinks?.has(anchor)) continue
+    const href = anchor.getAttribute("href")!
+    let target: HTMLElement|undefined
+    if (href.startsWith("#")) {
+      const id = decodeURIComponent(anchor.hash.substring(1))
+      target = getOptionalElement(`[id="${id}"]`)
+    } else {
+      target = getOptionalElement(`a.pseudo-toc-entry[href=${CSS.escape(href)}]`)
+    }
+    if (typeof target !== "undefined") {
+      const link = anchor.closest(".md-nav__link")
+      if (link !== null) {
+        table.set(link as HTMLAnchorElement, target)
+      }
+    }
   }
 
   /* Compute necessary adjustment for header */
@@ -265,17 +278,19 @@ export function watchTableOfContents(
  * @returns Table of contents component observable
  */
 export function mountTableOfContents(
-  el: HTMLElement, { viewport$, header$, target$ }: MountOptions
+  el: HTMLElement, { viewport$, header$, target$, localToc }: MountOptions
 ): Observable<Component<TableOfContents>> {
   return defer(() => {
     const push$ = new Subject<TableOfContents>()
-    push$.subscribe(({ prev, next }) => {
 
+    /* sphinx-immaterial: use separate active class for local vs global toc */
+    const activeClassName = localToc ? "md-nav__link--active" : "md-nav__link--in-viewport"
+    push$.subscribe(({ prev, next }) => {
       /* Look forward */
       for (const [anchor] of next) {
         anchor.removeAttribute("data-md-state")
         anchor.classList.remove(
-          "md-nav__link--active"
+          activeClassName
         )
       }
 
@@ -283,14 +298,47 @@ export function mountTableOfContents(
       for (const [index, [anchor]] of prev.entries()) {
         anchor.setAttribute("data-md-state", "blur")
         anchor.classList.toggle(
-          "md-nav__link--active",
+          activeClassName,
           index === prev.length - 1
         )
       }
     })
 
+    /* sphinx-immaterial: auto-scroll toc */
+    if (feature("toc.follow") && (localToc || !feature("toc.integrate"))) {
+      let scrollToCurrentPageLinkByDefault = !localToc || feature("toc.integrate")
+      push$.pipe(debounceTime(1)).subscribe(({prev}) => {
+        let curLink: HTMLElement|undefined
+        if (prev.length === 0 && scrollToCurrentPageLinkByDefault) {
+          curLink = (el.querySelector("a[href='#']") ?? el) as HTMLElement| undefined
+        }
+        scrollToCurrentPageLinkByDefault = false
+        if (prev.length !== 0) {
+          curLink = prev[prev.length - 1][0]
+        }
+        if (curLink === undefined) return
+        if (!curLink.offsetHeight) return
+        // Find closest scrollable ancestor.
+        let scrollParent = curLink.parentElement
+        // On Firefox 101, the `scrollHeight` is sometimes 1 pixel
+        // larger than the `clientHeight` on non-scrollable elements.
+        const scrollHeightEpsilon = 5
+        while (scrollParent !== null &&
+               scrollParent.scrollHeight - scrollHeightEpsilon <= scrollParent.clientHeight) {
+          scrollParent = scrollParent.parentElement
+        }
+        if (scrollParent !== null && scrollParent !== document.body &&
+            scrollParent !== document.documentElement) {
+          const linkRect = curLink.getBoundingClientRect()
+          const scrollRect = scrollParent.getBoundingClientRect()
+          scrollParent.scrollTo({
+            top: scrollParent.scrollTop + (linkRect.y - scrollRect.height / 2 - scrollRect.y)})
+        }
+      })
+    }
+
     /* Set up anchor tracking, if enabled */
-    if (feature("navigation.tracking"))
+    if (localToc && feature("navigation.tracking"))
       viewport$
         .pipe(
           takeUntil(push$.pipe(takeLast(1))),
@@ -321,8 +369,54 @@ export function mountTableOfContents(
             }
           })
 
+    /* sphinx-immaterial: sticky toc headings */
+    if (feature("toc.sticky")) {
+      watchElementSize(document.body).pipe(distinctUntilKeyChanged("width"),
+        debounceTime(0)).subscribe(() =>  {
+          // The `position: sticky` CSS feature by itself is
+          // sufficient to enable a single level of "sticky" headings.
+          // To display multiple levels of sticky headings, it is
+          // necessary to specify a `top` position for each nested
+          // heading that is exactly the sum of the heights of the
+          // ancestor headings.  For fixed-height headings that can be
+          // done statically, but this theme wraps long titles.
+          // Therefore, we must use JavaScript to compute the
+          // necessary top positions for each heading.
+          const existingHeights = new Map<HTMLElement, {height: string, zindex: number}>()
+          const heightProperty = "--md-nav__header-height"
+          for (const link of getElements(".md-nav__link", el)) {
+            const nav = link.nextElementSibling
+            if (!(nav instanceof HTMLElement) || nav.tagName !== "NAV") {
+              continue
+            }
+            let heightStr = ""
+            let zindex = NaN
+            const parentNav = nav.parentElement!.closest("nav")
+            if (parentNav !== null) {
+              const info = existingHeights.get(parentNav)
+              if (info !== undefined) {
+                heightStr = `${info.height} + `
+                zindex = info.zindex - 1
+              }
+            }
+            if (isNaN(zindex)) {
+              zindex = 100
+            }
+            heightStr += `${link.offsetHeight}px + 0.625em`
+            link.classList.add("md-nav__sticky")
+            link.style.setProperty("--md-nav__sticky-zindex", zindex.toString())
+            nav.style.setProperty(heightProperty, `calc(${heightStr})`)
+            existingHeights.set(nav, {height: heightStr, zindex})
+          }
+        })
+    }
+
+    const excludedLinks = localToc
+      ? undefined
+      : new Set(getElements<HTMLElement>("[data-md-component='toc'] a[href]", el))
+
     /* Create and return component */
-    return watchTableOfContents(el, { viewport$, header$ })
+    return watchTableOfContents(el, { viewport$, header$, excludedLinks })
       .pipe(
         tap(state => push$.next(state)),
         finalize(() => push$.complete()),

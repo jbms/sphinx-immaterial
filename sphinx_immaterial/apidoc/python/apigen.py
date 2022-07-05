@@ -1,0 +1,1880 @@
+"""Python API documentation generation extension.
+
+A separate page is generated for each class/function/member/constant to be
+documented.
+
+As with sphinx.ext.autosummary, we have to physically write a separate rST file
+to the source tree for each object to document, as an initial preprocesing step,
+since that provides the simplest way to get Sphinx to process those pages.  It
+is recommended to run the build with the source tree copied to a temporary
+directory in order to avoid modifying the real source tree.
+
+Unlike the sphinx.ext.autosummary extension, we use Sphinx Python domain
+directives for the "summaries" as well, rather than a plain table, in order to
+display the signatures nicely.
+"""
+
+import copy
+import dataclasses
+import glob
+import hashlib
+import importlib
+import inspect
+import json
+import os
+import pathlib
+import re
+import secrets
+from typing import (
+    List,
+    Tuple,
+    Any,
+    Optional,
+    Type,
+    cast,
+    Dict,
+    NamedTuple,
+    Iterator,
+    Set,
+)
+
+import docutils.nodes
+import docutils.parsers.rst.states
+import docutils.statemachine
+import sphinx
+import sphinx.addnodes
+import sphinx.application
+import sphinx.domains.python
+import sphinx.environment
+import sphinx.ext.autodoc
+import sphinx.ext.autodoc.directive
+import sphinx.ext.napoleon.docstring
+import sphinx.pycode
+import sphinx.util.docstrings
+import sphinx.util.docutils
+import sphinx.util.inspect
+import sphinx.util.logging
+import sphinx.util.typing
+
+from .. import apidoc_formatting
+from ... import sphinx_utils
+
+logger = sphinx.util.logging.getLogger(__name__)
+
+_UNCONDITIONALLY_DOCUMENTED_MEMBERS = frozenset(
+    [
+        "__init__",
+        "__class_getitem__",
+        "__call__",
+        "__getitem__",
+        "__setitem__",
+    ]
+)
+"""Special members to include even if they have no docstring."""
+
+
+class ParsedOverload(NamedTuple):
+    """Parsed representation of a single overload.
+
+    For non-function types and non-overloaded functions, this just represents the
+    object itself.
+
+    Sphinx does not really support pybind11-style overloaded functions directly.
+    It has minimal support functions with multiple signatures, with a single
+    docstring.  However, pybind11 produces overloaded functions each with their
+    own docstring.  This module adds support for documenting each overload as an
+    independent function.
+
+    Additionally, we need a way to identify each overload, for the purpose of
+    generating a page name, listing in the table of contents sidebar, and
+    cross-referencing.  Sphinx does not have a native solution to this problem
+    because it is not designed to support overloads.  Doxygen uses some sort of
+    hash as the identifier, but that means links break with even minor changes to
+    the signature.
+
+    Instead, we require that a unique id be manually assigned to each overload,
+    and specified as:
+
+        Overload:
+          XXX
+
+    in the docstring.  Then the overload will be identified as
+    `module.Class.function(overload)`, and will be documented using the page name
+    `module.Class.function-overload`.  Typically the overload id should be chosen
+    to be a parameter name that is unique to the overload.
+    """
+
+    doc: Optional[str]
+    """Docstring for individual overload.  First line is the signature."""
+
+    overload_id: Optional[str] = None
+    """Overload id specified in the docstring.
+
+  If there is just a single overload, will be `None`.  Otherwise, if no overload
+  id is specified, a warning is produced and the index of the overload,
+  i.e. "1", "2", etc., is used as the id.
+  """
+
+
+def _extract_field(doc: str, field: str) -> Tuple[str, Optional[str]]:
+    pattern = f"\n\\s*\n{field}:\\s*\n\\s+([^\n]+)\n"
+    m = re.search(pattern, doc)
+    if m is None:
+        return doc, None
+    start, end = m.span()
+    return f"{doc[:start]}\n\n{doc[end:]}", m.group(1).strip()
+
+
+_OVERLOADED_FUNCTION_RE = "^([^(]+)\\([^\n]*\nOverloaded function.\n"
+
+
+def _parse_overloaded_function_docstring(doc: Optional[str]) -> List[ParsedOverload]:
+    """Parses a pybind11 overloaded function docstring.
+
+    If the docstring is not for an overloaded function, just returns the full
+    docstring as a single "overload".
+
+    :param doc: Original docstring.
+    :returns: List of parsed overloads.
+    :raises ValueError: If docstring has unexpected format.
+    """
+
+    if doc is None:
+        return [ParsedOverload(doc=doc, overload_id=None)]
+    m = re.match(_OVERLOADED_FUNCTION_RE, doc)
+    if m is None:
+        # Non-overloaded function
+        doc, overload_id = _extract_field(doc, "Overload")
+        return [ParsedOverload(doc=doc, overload_id=overload_id)]
+
+    display_name = m.group(1)
+    doc = doc[m.end() :]
+    i = 1
+
+    def get_prefix(i: int):
+        return "\n%d. %s(" % (i, display_name)
+
+    prefix = get_prefix(i)
+    parts: List[ParsedOverload] = []
+    while doc:
+        if not doc.startswith(prefix):
+            raise ValueError(
+                "Docstring does not contain %r as expected: %r"
+                % (
+                    prefix,
+                    doc,
+                )
+            )
+        doc = doc[len(prefix) - 1 :]
+        nl_index = doc.index("\n")
+        part_sig = doc[:nl_index]
+        doc = doc[nl_index + 1 :]
+        i += 1
+        prefix = get_prefix(i)
+        end_index = doc.find(prefix)
+        if end_index == -1:
+            part = doc
+            doc = ""
+        else:
+            part = doc[:end_index]
+            doc = doc[end_index:]
+
+        part, overload_id = _extract_field(part, "Overload")
+        if overload_id is None:
+            overload_id = str(i - 1)
+
+        part_doc_with_sig = f"{display_name}{part_sig}\n{part}"
+        parts.append(
+            ParsedOverload(
+                doc=part_doc_with_sig,
+                overload_id=overload_id,
+            )
+        )
+    return parts
+
+
+def _get_overloads_from_documenter(
+    documenter: sphinx.ext.autodoc.Documenter,
+) -> List[ParsedOverload]:
+    docstring = sphinx.util.inspect.getdoc(
+        documenter.object,
+        documenter.get_attr,
+        documenter.env.config.autodoc_inherit_docstrings,
+        documenter.parent,
+        documenter.object_name,
+    )
+    return _parse_overloaded_function_docstring(docstring)
+
+
+def _has_default_value(node: sphinx.addnodes.desc_parameter):
+    for sub_node in node.traverse(condition=docutils.nodes.literal):
+        if "default_value" in sub_node.get("classes"):
+            return True
+    return False
+
+
+def _summarize_signature(
+    env: sphinx.environment.BuildEnvironment, node: sphinx.addnodes.desc_signature
+) -> None:
+    """Shortens a signature line to fit within `wrap_signatures_column_limit."""
+
+    obj_desc = node.parent
+
+    options = apidoc_formatting.get_object_description_options(
+        env, obj_desc["domain"], obj_desc["objtype"]
+    )
+    column_limit = options["wrap_signatures_column_limit"]
+
+    def _must_shorten():
+        return len(node.astext()) > column_limit
+
+    parameterlist: Optional[sphinx.addnodes.desc_parameterlist] = None
+    for parameterlist in node.traverse(condition=sphinx.addnodes.desc_parameterlist):
+        break
+
+    if parameterlist is None:
+        # Can't shorten a signature without a parameterlist
+        return
+
+    # Remove initial `self` parameter
+    if parameterlist.children and parameterlist.children[0].astext() == "self":
+        del parameterlist.children[0]
+
+    added_ellipsis = False
+    for next_parameter_index in range(len(parameterlist.children) - 1, -1, -1):
+        if not _must_shorten():
+            return
+
+        # First remove type annotation of last parameter, but only if it doesn't
+        # have a default value.
+        last_parameter = parameterlist.children[next_parameter_index]
+        if isinstance(
+            last_parameter, sphinx.addnodes.desc_parameter
+        ) and not _has_default_value(last_parameter):
+            del last_parameter.children[1:]
+            if not _must_shorten():
+                return
+
+        # Elide last parameter entirely
+        del parameterlist.children[next_parameter_index]
+        if not added_ellipsis:
+            added_ellipsis = True
+            ellipsis_node = sphinx.addnodes.desc_sig_punctuation("", "...")
+            param = sphinx.addnodes.desc_parameter()
+            param += ellipsis_node
+            parameterlist += param
+
+
+class _MemberDocumenterEntry(NamedTuple):
+    """Represents a member of some outer scope (module/class) to document."""
+
+    documenter: sphinx.ext.autodoc.Documenter
+    is_attr: bool
+    name: str
+    """Member name within parent, e.g. class member name."""
+
+    full_name: str
+    """Full name under which to document the member.
+
+    For example, "modname.ClassName.method".
+    """
+
+    parent_canonical_full_name: str
+
+    overload: Optional[ParsedOverload] = None
+
+    is_inherited: bool = False
+    """Indicates whether this is an inherited member."""
+
+    subscript: bool = False
+    """Whether this is a "subscript" method to be shown with [] instead of ()."""
+
+    @property
+    def overload_suffix(self):
+        if self.overload and self.overload.overload_id:
+            return f"({self.overload.overload_id})"
+        return ""
+
+    @property
+    def toc_title(self):
+        return self.name + self.overload_suffix
+
+
+class _ApiEntityMemberReference(NamedTuple):
+    name: str
+    canonical_object_name: str
+    parent_canonical_object_name: str
+    inherited: bool = False
+
+
+@dataclasses.dataclass
+class _ApiEntity:
+    canonical_full_name: str
+    objtype: str
+    directive: str
+    overload_id: str
+
+    @property
+    def canonical_object_name(self):
+        return self.canonical_full_name + self.overload_suffix
+
+    @property
+    def object_name(self):
+        return self.documented_full_name + self.overload_suffix
+
+    @property
+    def overload_suffix(self) -> str:
+        overload_id = self.overload_id
+        return f"({overload_id})" if overload_id else ""
+
+    signatures: List[str]
+    options: Dict[str, str]
+    content: List[str]
+    group_name: str
+    order: Optional[int]
+    subscript: bool
+
+    members: List[_ApiEntityMemberReference]
+    """Members of this entity."""
+
+    parents: List[_ApiEntityMemberReference]
+    """Parents that reference this entity as a member.
+
+    Inverse of `members`."""
+
+    docname: str = ""
+
+    documented_full_name: str = ""
+    documented_name: str = ""
+    top_level: bool = False
+
+    base_classes: Optional[List[str]] = None
+    """List of base classes, as rST cross references."""
+
+
+def _is_constructor_name(name: str) -> bool:
+    return name in ("__init__", "__new__", "__class_getitem__")
+
+
+class _ApiData:
+
+    entities: Dict[str, _ApiEntity]
+    top_level_groups: Dict[str, List[_ApiEntityMemberReference]]
+
+    def __init__(self):
+        self.entities = {}
+        self.top_level_groups = {}
+
+    def get_name_for_signature(
+        self, entity: _ApiEntity, member: Optional[_ApiEntityMemberReference]
+    ) -> str:
+        if member is not None:
+            assert member.canonical_object_name == entity.canonical_object_name
+            # Get name for summary
+            if _is_constructor_name(member.name):
+                parent_entity = self.entities.get(member.parent_canonical_object_name)
+                if parent_entity is not None and parent_entity.objtype == "class":
+                    # Display as the parent class name.
+                    return parent_entity.documented_name
+            # Display as the member name
+            return member.name
+        full_name = entity.documented_full_name
+        if _is_constructor_name(entity.documented_name):
+            full_name = full_name[: -len(entity.documented_name) - 1]
+        module = entity.options.get("module")
+        if module is not None and full_name.startswith(module + "."):
+            # Strip module name, since it is specified separately.
+            full_name = full_name[len(module) + 1 :]
+        return full_name
+
+    def sort_members(
+        self, members: List[_ApiEntityMemberReference], alphabetical=False
+    ):
+        def get_key(member: _ApiEntityMemberReference):
+            member_entity = self.entities[member.canonical_object_name]
+            order = member_entity.order or 0
+            if alphabetical:
+                return (order, member.name.lower(), member.name)
+            return order
+
+        members.sort(key=get_key)
+
+
+def _ensure_module_name_in_signature(signode: sphinx.addnodes.desc_signature) -> None:
+    """Ensures non-summary objects are documented with the module name.
+
+    Sphinx by default excludes the module name from class members, and does not
+    provide an option to override that.  Since we display all objects on separate
+    pages, we want to include the module name for clarity.
+
+    :param signode: Signature to modify in place.
+    """
+    for node in signode.traverse(condition=sphinx.addnodes.desc_addname):
+        modname = signode.get("module")
+        if modname and not node.astext().startswith(modname + "."):
+            node.insert(0, docutils.nodes.Text(modname + "."))
+        break
+
+
+def _get_group_name(
+    default_groups: List[Tuple[re.Pattern, str]], entity: _ApiEntity
+) -> str:
+    """Returns a default group name for an entry.
+
+    This is used if the group name is not explicitly specified via "Group:" in the
+    docstring.
+
+    :param default_groups: Default group associations.
+    :param entity: Entity to document.
+    :returns: The group name.
+    """
+    s = f"{entity.objtype}:{entity.documented_full_name}"
+    group = "Public members"
+    for pattern, default_group in default_groups:
+        if pattern.fullmatch(s) is not None:
+            group = default_group
+    return group
+
+
+def _get_order(default_order: List[Tuple[re.Pattern, int]], entity: _ApiEntity) -> int:
+    """Returns a default order value for an entry.
+
+    This is used if the order is not explicitly specified via "Order:" in the
+    docstring.
+
+    :param default_order: Default order associations.
+    :param entity: Entity to document.
+    :returns: The order.
+    """
+    s = f"{entity.objtype}:{entity.documented_full_name}"
+    order = 0
+    for pattern, order_value in default_order:
+        if pattern.fullmatch(s) is not None:
+            order = order_value
+    return order
+
+
+def _mark_subscript_parameterlist(signode: sphinx.addnodes.desc_signature) -> None:
+    """Modifies an object description to display as a "subscript method".
+
+    A "subscript method" is a property that defines __getitem__ and is intended to
+    be treated as a method invoked using [] rather than (), in order to allow
+    subscript syntax like ':'.
+
+    :param node: Signature to modify in place.
+    """
+    for sub_node in signode.traverse(condition=sphinx.addnodes.desc_parameterlist):
+        sub_node["parens"] = ("[", "]")
+
+
+def _clean_init_signature(signode: sphinx.addnodes.desc_signature) -> None:
+    """Modifies an object description of an __init__ method.
+
+    Removes the return type (always None) and the self parameter (since these
+    methods are displayed as the class name, without showing __init__).
+
+    :param node: Signature to modify in place.
+    """
+    # Remove first parameter.
+    for param in signode.traverse(condition=sphinx.addnodes.desc_parameter):
+        if param.children[0].astext() == "self":
+            param.parent.remove(param)
+        break
+
+    # Remove return type.
+    for node in signode.traverse(condition=sphinx.addnodes.desc_returns):
+        node.parent.remove(node)
+
+
+def _clean_class_getitem_signature(signode: sphinx.addnodes.desc_signature) -> None:
+    """Modifies an object description of a __class_getitem__ method.
+
+    Removes the `static` prefix since these methods are shown using the class
+    name (i.e. as "subscript" constructors).
+
+    :param node: Signature to modify in place.
+
+    """
+    # Remove `static` prefix
+    for prefix in signode.traverse(condition=sphinx.addnodes.desc_annotation):
+        prefix.parent.remove(prefix)
+        break
+
+
+def _get_api_data(
+    env: sphinx.environment.BuildEnvironment,
+) -> _ApiData:
+    return getattr(env, "_sphinx_immaterial_python_apigen_data")
+
+
+def _generate_entity_desc_node(
+    env: sphinx.environment.BuildEnvironment,
+    entity: _ApiEntity,
+    state: docutils.parsers.rst.states.RSTState,
+    member: Optional[_ApiEntityMemberReference] = None,
+    callback=None,
+):
+    api_data = _get_api_data(env)
+
+    summary = member is not None
+    name = api_data.get_name_for_signature(entity, member)
+
+    def object_description_transform(
+        app: sphinx.application.Sphinx,
+        domain: str,
+        objtype: str,
+        contentnode: sphinx.addnodes.desc_content,
+    ) -> None:
+        env = app.env
+        assert env is not None
+
+        obj_desc = contentnode.parent
+        assert isinstance(obj_desc, sphinx.addnodes.desc)
+        signodes = cast(List[sphinx.addnodes.desc_signature], obj_desc[:-1])
+        if not signodes:
+            return
+
+        for signode in signodes:
+            fullname = signode["fullname"]
+            modname = signode["module"]
+            object_name = (modname + "." if modname else "") + fullname
+            if object_name != entity.object_name:
+                # This callback may be invoked for additional members
+                # documented within the body of `entry`, but we don't want
+                # to transform them here.
+                return
+            assert isinstance(signode, sphinx.addnodes.desc_signature)
+            if entity.subscript:
+                _mark_subscript_parameterlist(signode)
+
+            if entity.documented_name in ("__init__", "__new__"):
+                _clean_init_signature(signode)
+            if entity.documented_name == "__class_getitem__":
+                _clean_class_getitem_signature(signode)
+
+            if summary:
+                obj_desc["classes"].append("summary")
+                assert app.env is not None
+                _summarize_signature(app.env, signode)
+
+            base_classes = entity.base_classes
+            if base_classes:
+                signode += sphinx.addnodes.desc_sig_punctuation("", "(")
+                for i, base_class in enumerate(base_classes):
+                    base_entity = api_data.entities.get(base_class)
+                    if base_entity is not None:
+                        base_class = base_entity.object_name
+                    if i != 0:
+                        signode += sphinx.addnodes.desc_sig_punctuation("", ",")
+                        signode += sphinx.addnodes.desc_sig_space()
+                    signode += sphinx.domains.python._parse_annotation(base_class, env)
+                signode += sphinx.addnodes.desc_sig_punctuation("", ")")
+
+        if callback is not None:
+            callback(contentnode)
+
+    listener_id = env.app.connect(
+        "object-description-transform", object_description_transform, priority=999
+    )
+    content = entity.content
+    options = dict(entity.options)
+    options["nonodeid"] = ""
+    options["object-ids"] = json.dumps([entity.object_name] * len(entity.signatures))
+    if summary:
+        content = _summarize_rst_content(content)
+        options["noindex"] = ""
+        options.pop("canonical", None)
+    else:
+        options["canonical"] = entity.canonical_object_name
+    try:
+        nodes = [
+            x
+            for x in sphinx_utils.parse_rst(
+                state=state,
+                text=sphinx_utils.format_directive(
+                    entity.directive,
+                    signatures=[name + sig for sig in entity.signatures],
+                    content="\n".join(content),
+                    options=options,
+                ),
+                source_path=entity.object_name,
+            )
+            if isinstance(x, sphinx.addnodes.desc)
+        ]
+    finally:
+        env.app.disconnect(listener_id)
+
+    if len(nodes) != 1:
+        raise ValueError("Failed to document entity: %r" % (entity.object_name,))
+    node = nodes[0]
+
+    return node
+
+
+def _generate_entity_summary(
+    env: sphinx.environment.BuildEnvironment,
+    member: _ApiEntityMemberReference,
+    state: docutils.parsers.rst.states.RSTState,
+    include_in_toc: bool,
+) -> sphinx.addnodes.desc:
+    api_data = _get_api_data(env)
+    entity = api_data.entities[member.canonical_object_name]
+    objdesc = _generate_entity_desc_node(
+        env=env, entity=entity, member=member, state=state
+    )
+    for sig_node in cast(List[sphinx.addnodes.desc_signature], objdesc.children[:-1]):
+        # Insert a link around the `desc_name` field
+        for sub_node in sig_node.traverse(condition=sphinx.addnodes.desc_name):
+            if include_in_toc:
+                sub_node["classes"].append("pseudo-toc-entry")
+            xref_node = sphinx.addnodes.pending_xref(
+                "",
+                sub_node.deepcopy(),
+                refdomain="py",
+                reftype="obj",
+                reftarget=entity.object_name,
+                refwarn=True,
+                refexplicit=True,
+            )
+            sub_node.replace_self(xref_node)
+            break
+        # Only mark first signature as a `pseudo-toc-entry`.
+        include_in_toc = False
+    return objdesc
+
+
+def _generate_group_summary(
+    env: sphinx.environment.BuildEnvironment,
+    members: List[_ApiEntityMemberReference],
+    state: docutils.parsers.rst.states.RSTState,
+    notoc: Optional[bool] = None,
+):
+
+    data = _get_api_data(env)
+
+    nodes: List[docutils.nodes.Node] = []
+    toc_entries: List[Tuple[str, str]] = []
+
+    for member in members:
+        member_entity = data.entities[member.canonical_object_name]
+        include_in_toc = True
+        if notoc is True:
+            include_in_toc = False
+        elif member is not member_entity.parents[0]:
+            include_in_toc = False
+        node = _generate_entity_summary(
+            env=env, member=member, state=state, include_in_toc=include_in_toc
+        )
+        if node is None:
+            continue
+        nodes.append(node)
+
+        if include_in_toc:
+            toc_entries.append(
+                (member.name + member_entity.overload_suffix, member_entity.docname)
+            )
+
+    nodes.extend(
+        sphinx_utils.make_toctree_node(
+            state,
+            toc_entries,
+            options={"hidden": True},
+            source_path="sphinx-immaterial-python-apigen",
+        )
+    )
+    return nodes
+
+
+def _add_group_summary(
+    env: sphinx.environment.BuildEnvironment,
+    contentnode: docutils.nodes.Element,
+    sections: Dict[str, docutils.nodes.section],
+    group_name: str,
+    members: List[_ApiEntityMemberReference],
+    state: docutils.parsers.rst.states.RSTState,
+) -> None:
+
+    group_id = docutils.nodes.make_id(group_name)
+    section = sections.get(group_id)
+    if section is None:
+        section = docutils.nodes.section()
+        section["ids"].append(group_id)
+        title = docutils.nodes.title("", group_name)
+        section += title
+        contentnode += section
+        sections[group_id] = section
+
+    section.extend(_generate_group_summary(env=env, members=members, state=state))
+
+
+def _merge_summary_nodes_into(
+    env: sphinx.environment.BuildEnvironment,
+    entity: _ApiEntity,
+    contentnode: docutils.nodes.Element,
+    state: docutils.parsers.rst.states.RSTState,
+) -> None:
+    """Merges the member summary into `contentnode`.
+
+    Members are organized into groups.  The group is either specified explicitly
+    by a `Group:` field in the docstring, or determined automatically by
+    `_get_group_name`.  If there is an existing section, the member summary is
+    appended to it.  Otherwise, a new section is created.
+
+    :param contentnode: The existing container to which the member summaries will be
+        added.  If `contentnode` contains sections, those sections correspond to
+        group names.
+    """
+
+    sections: Dict[str, docutils.nodes.section] = {}
+    for section in contentnode.traverse(condition=docutils.nodes.section):
+        if section["ids"]:
+            sections[section["ids"][0]] = section
+
+    # Maps group name to the list of members.
+    groups: Dict[str, List[_ApiEntityMemberReference]] = {}
+
+    entities = _get_api_data(env).entities
+    for member in entity.members:
+        member_entity = entities[member.canonical_object_name]
+        groups.setdefault(member_entity.group_name, []).append(member)
+
+    for group_name, members in groups.items():
+        _add_group_summary(
+            env=env,
+            contentnode=contentnode,
+            sections=sections,
+            group_name=group_name,
+            members=members,
+            state=state,
+        )
+
+
+class PythonApigenEntityPageDirective(sphinx.util.docutils.SphinxDirective):
+    """Documents an entity and summarizes its members, if applicable."""
+
+    has_content = False
+    final_argument_whitespace = True
+    required_arguments = 1
+    optional_arguments = 0
+
+    def run(self) -> List[docutils.nodes.Node]:
+        entities = _get_api_data(self.env).entities
+        object_name = self.arguments[0]
+        entity = entities[object_name]
+
+        objtype = entity.objtype
+        objdesc = _generate_entity_desc_node(
+            self.env,
+            entity,
+            state=self.state,
+            callback=lambda contentnode: _merge_summary_nodes_into(
+                env=self.env,
+                entity=entity,
+                contentnode=contentnode,
+                state=self.state,
+            ),
+        )
+        if objdesc is None:
+            return []
+
+        for signode in objdesc.children[:-1]:
+            signode = cast(sphinx.addnodes.desc_signature, signode)
+            _ensure_module_name_in_signature(signode)
+
+        # Wrap in a section
+        section = docutils.nodes.section()
+        section["ids"].append("")
+        # Sphinx treates the first child of a `section` node as the title,
+        # regardless of its type.  We use a comment node to avoid adding a title
+        # that would be redundant with the object description.
+        section += docutils.nodes.comment("", entity.object_name)
+        section += objdesc
+        return [section]
+
+
+class PythonApigenTopLevelGroupDirective(sphinx.util.docutils.SphinxDirective):
+    """Summarizes the members of a top-level group."""
+
+    has_content = False
+    final_argument_whitespace = True
+    required_arguments = 1
+    optional_arguments = 0
+
+    option_spec = {
+        "notoc": docutils.parsers.rst.directives.flag,
+    }
+
+    def run(self) -> List[docutils.nodes.Node]:
+        env = self.env
+        data = _get_api_data(env)
+        top_level_groups = data.top_level_groups
+
+        group_id = docutils.nodes.make_id(self.arguments[0])
+        members = data.top_level_groups.get(group_id)
+        if members is None:
+            logger.warning(
+                "No top-level Python API group named: %r, valid groups are: %r",
+                group_id,
+                list(data.top_level_groups.keys()),
+                location=self.state_machine.get_source_and_line(self.lineno),
+            )
+            return []
+        return _generate_group_summary(
+            env=env, members=members, state=self.state, notoc="notoc" in self.options
+        )
+
+
+class PythonApigenEntitySummaryDirective(sphinx.util.docutils.SphinxDirective):
+    """Generates a summary/link to a Python entity."""
+
+    has_content = False
+    final_argument_whitespace = True
+    required_arguments = 1
+    optional_arguments = 0
+
+    option_spec = {
+        "notoc": docutils.parsers.rst.directives.flag,
+    }
+
+    def run(self) -> List[docutils.nodes.Node]:
+        env = self.env
+        data = _get_api_data(env)
+        object_name = self.arguments[0]
+        entity = data.entities.get(object_name)
+        if entity is None:
+            logger.warning(
+                "No Python entity named: %r",
+                object_name,
+                location=self.state_machine.get_source_and_line(self.lineno),
+            )
+            return []
+        return _generate_group_summary(
+            env=env,
+            members=[entity.parents[0]],
+            state=self.state,
+            notoc="notoc" in self.options,
+        )
+
+
+class _FakeBridge(sphinx.ext.autodoc.directive.DocumenterBridge):
+    def __init__(
+        self,
+        env: sphinx.environment.BuildEnvironment,
+        tab_width: int,
+        extra_options: dict,
+    ) -> None:
+        settings = docutils.parsers.rst.states.Struct(tab_width=tab_width)
+        document = docutils.parsers.rst.states.Struct(settings=settings)
+        state = docutils.parsers.rst.states.Struct(document=document)
+        options = sphinx.ext.autodoc.Options()
+        options["undoc-members"] = True
+        options["class-doc-from"] = "class"
+        options.update(extra_options)
+        super().__init__(
+            env=env,
+            reporter=sphinx.util.docutils.NullReporter(),
+            options=options,
+            lineno=0,
+            state=state,
+        )
+
+
+_EXCLUDED_SPECIAL_MEMBERS = frozenset(
+    [
+        "__module__",
+        "__abstractmethods__",
+        "__dict__",
+        "__weakref__",
+        "__class__",
+        "__base__",
+        # Exclude pickling members since they are never documented.
+        "__getstate__",
+        "__setstate__",
+    ]
+)
+
+
+def _create_documenter(
+    env: sphinx.environment.BuildEnvironment,
+    documenter_cls: Type[sphinx.ext.autodoc.Documenter],
+    name: str,
+    tab_width: int = 8,
+) -> sphinx.ext.autodoc.Documenter:
+    """Creates a documenter for the given full object name.
+
+    Since we are using the documenter independent of any autodoc directive, we use
+    a `_FakeBridge` as the documenter bridge, similar to the strategy used by
+    `sphinx.ext.autosummary`.
+
+    :param env: Sphinx build environment.
+    :param documenter_cls: Documenter class to use.
+    :param name: Full object name, e.g. `my_module.MyClass.my_function`.
+    :param tab_width: Tab width setting to use when parsing docstrings.
+    :returns: The documenter object.
+    """
+    extra_options = {}
+    if documenter_cls.objtype == "class":
+        extra_options["special-members"] = sphinx.ext.autodoc.ALL
+    bridge = _FakeBridge(env, tab_width=tab_width, extra_options=extra_options)
+    documenter = documenter_cls(bridge, name)
+    assert documenter.parse_name()
+    assert documenter.import_object()
+    try:
+        documenter.analyzer = sphinx.pycode.ModuleAnalyzer.for_module(
+            documenter.get_real_modname()
+        )
+        # parse right now, to get PycodeErrors on parsing (results will
+        # be cached anyway)
+        documenter.analyzer.find_attr_docs()
+    except sphinx.pycode.PycodeError:
+        # no source file -- e.g. for builtin and C modules
+        documenter.analyzer = None  # type: ignore[assignment]
+    return documenter
+
+
+def _get_member_documenter(
+    parent: sphinx.ext.autodoc.Documenter,
+    member_name: str,
+    member_value: Any,
+    is_attr: bool,
+) -> Optional[sphinx.ext.autodoc.Documenter]:
+    """Creates a documenter for the given member.
+
+    :param parent: Parent documenter.
+    :param member_name: Name of the member.
+    :param member_value: Value of the member.
+    :param is_attr: Whether the member is an attribute.
+    :returns: The documenter object.
+    """
+    classes = [
+        cls
+        for cls in parent.documenters.values()
+        if cls.can_document_member(member_value, member_name, is_attr, parent)
+    ]
+    if not classes:
+        return None
+    # prefer the documenter with the highest priority
+    classes.sort(key=lambda cls: cls.priority)
+    full_mname = parent.modname + "::" + ".".join(parent.objpath + [member_name])
+    documenter = _create_documenter(
+        env=parent.env,
+        documenter_cls=classes[-1],
+        name=full_mname,
+        tab_width=parent.directive.state.document.settings.tab_width,
+    )
+    return documenter
+
+
+def _include_member(member_name: str, member_value: Any, is_attr: bool) -> bool:
+    """Determines whether a member should be documented.
+
+    :param member_name: Name of the member.
+    :param member_value: Value of the member.
+    :param is_attr: Whether the member is an attribute.
+    :returns: True if the member should be documented.
+    """
+    del is_attr
+    if member_name == "__init__":
+        doc = getattr(member_value, "__doc__", None)
+        if isinstance(doc, str) and doc.startswith("Initialize self. "):
+            return False
+    elif member_name in ("__hash__", "__iter__"):
+        if member_value is None:
+            return False
+    return True
+
+
+def _get_subscript_method(
+    parent_documenter: sphinx.ext.autodoc.Documenter, entry: _MemberDocumenterEntry
+) -> Any:
+    """Checks for a property that defines a subscript method.
+
+    A subscript method is a property like `Class.vindex` where `fget` has a return
+    type of `Class._Vindex`, which is a class type.
+
+    :param parent_documenter: Parent documenter for `entry`.
+    :param entry: Entry to check.
+    :returns: The type object (e.g. `Class._Vindex`) representing the subscript
+        method, or None if `entry` does not define a subscript method.
+    """
+    if not isinstance(entry.documenter, sphinx.ext.autodoc.PropertyDocumenter):
+        return None
+    retann = entry.documenter.retann
+    if not retann:
+        return None
+
+    config = entry.documenter.config
+    pattern = config.python_apigen_subscript_method_types
+    match = pattern.fullmatch(retann)
+    if not match:
+        return None
+
+    # Attempt to import value
+    try:
+        mem_documenter = _create_documenter(
+            env=entry.documenter.env,
+            documenter_cls=sphinx.ext.autodoc.ClassDocumenter,
+            name=retann,
+        )
+        mem = mem_documenter.object
+    except ImportError:
+        return None
+    if not mem:
+        return None
+    getitem = getattr(mem, "__getitem__", None)
+    if getitem is None:
+        return None
+
+    return mem
+
+
+def _transform_member(
+    parent_documenter: sphinx.ext.autodoc.Documenter, entry: _MemberDocumenterEntry
+) -> Iterator[_MemberDocumenterEntry]:
+    """Converts an individual member into a sequence of members to document.
+
+    :param parent_documenter: The parent documenter.
+    :param entry: The original entry to document.  For most entries we simply yield the
+        entry unmodified.  For entries that correspond to subscript methods,
+        though, we yield the __getitem__ member (and __setitem__, if applicable)
+        separately.
+    :returns: Iterator over modified entries to document.
+    """
+    if entry.name == "__class_getitem__":
+        entry = entry._replace(subscript=True)
+
+    mem = _get_subscript_method(parent_documenter, entry)
+    if mem is None:
+        yield entry
+        return
+    retann = entry.documenter.retann
+
+    for suffix in ("__getitem__", "__setitem__"):
+        method = getattr(mem, suffix, None)
+        if method is None:
+            continue
+        import_name = f"{retann}.{suffix}"
+        if import_name.startswith(entry.documenter.modname + "."):
+            import_name = (
+                entry.documenter.modname
+                + "::"
+                + import_name[len(entry.documenter.modname) + 1 :]
+            )
+        new_documenter = _create_documenter(
+            env=parent_documenter.env,
+            documenter_cls=sphinx.ext.autodoc.MethodDocumenter,
+            name=import_name,
+            tab_width=parent_documenter.directive.state.document.settings.tab_width,
+        )
+        if suffix != "__getitem__":
+            new_member_name = f"{entry.name}.{suffix}"
+            full_name = f"{entry.full_name}.{suffix}"
+            subscript = False
+        else:
+            new_member_name = f"{entry.name}"
+            full_name = entry.full_name
+            subscript = True
+
+        yield _MemberDocumenterEntry(
+            documenter=new_documenter,
+            name=new_member_name,
+            is_attr=False,
+            full_name=full_name,
+            parent_canonical_full_name=entry.parent_canonical_full_name,
+            subscript=subscript,
+        )
+
+
+def _prepare_documenter_docstring(entry: _MemberDocumenterEntry) -> None:
+    """Initializes `entry.documenter` with the correct docstring.
+
+    This overrides the docstring based on `entry.overload` if applicable.
+
+    This must be called before using `entry.documenter`.
+
+    :param entry: Entry to prepare.
+    """
+
+    if entry.overload and (
+        entry.overload.overload_id is not None
+        or
+        # For methods, we don't need `ModuleAnalyzer`, so it is safe to always
+        # override the normal mechanism of obtaining the docstring.
+        # Additionally, for `__init__` and `__new__` we need to specify the
+        # docstring explicitly to work around
+        # https://github.com/sphinx-doc/sphinx/pull/9518.
+        isinstance(entry.documenter, sphinx.ext.autodoc.MethodDocumenter)
+    ):
+        # Force autodoc to use the overload-specific signature.  autodoc already
+        # has an internal mechanism for overriding the docstrings based on the
+        # `_new_docstrings` member.
+        tab_width = entry.documenter.directive.state.document.settings.tab_width
+        setattr(
+            entry.documenter,
+            "_new_docstrings",
+            [
+                sphinx.util.docstrings.prepare_docstring(
+                    entry.overload.doc or "", tabsize=tab_width
+                )
+            ],
+        )
+    else:
+        # Force autodoc to obtain the docstring through its normal mechanism,
+        # which includes the "ModuleAnalyzer" for reading docstrings of
+        # variables/attributes that are only contained in the source code.
+        setattr(entry.documenter, "_new_docstrings", None)
+
+    # Workaround for https://github.com/sphinx-doc/sphinx/pull/9518
+    orig_get_doc = entry.documenter.get_doc
+
+    def get_doc(*args, **kwargs) -> List[List[str]]:
+        doc_strings = getattr(entry.documenter, "_new_docstrings", None)
+        if doc_strings is not None:
+            return doc_strings
+        return orig_get_doc(*args, **kwargs)  # type: ignore
+
+    entry.documenter.get_doc = get_doc  # type: ignore[assignment]
+
+
+def _is_conditionally_documented_entry(entry: _MemberDocumenterEntry):
+    if entry.name in _UNCONDITIONALLY_DOCUMENTED_MEMBERS:
+        return False
+    return sphinx.ext.autodoc.special_member_re.match(entry.name)
+
+
+def _get_member_overloads(
+    entry: _MemberDocumenterEntry,
+) -> Iterator[_MemberDocumenterEntry]:
+    """Returns the list of overloads for a given entry."""
+
+    if entry.name in _EXCLUDED_SPECIAL_MEMBERS:
+        return
+
+    overloads = _get_overloads_from_documenter(entry.documenter)
+    for overload in overloads:
+        # Shallow copy the documenter.  Certain methods on the documenter mutate it,
+        # and we don't want those mutations to affect other overloads.
+        documenter_copy = copy.copy(entry.documenter)
+        documenter_copy.options = documenter_copy.options.copy()
+        new_entry = entry._replace(
+            overload=overload,
+            documenter=documenter_copy,
+        )
+        if _is_conditionally_documented_entry(new_entry):
+            # Only document this entry if it has a docstring.
+            _prepare_documenter_docstring(new_entry)
+            new_entry.documenter.format_signature()
+            doc = new_entry.documenter.get_doc()
+            if not doc:
+                continue
+            if not any(x for x in doc):
+                # No docstring, skip.
+                continue
+
+            new_entry = entry._replace(
+                overload=overload, documenter=copy.copy(entry.documenter)
+            )
+
+        yield new_entry
+
+
+def _get_documenter_direct_members(
+    documenter: sphinx.ext.autodoc.Documenter,
+    canonical_full_name: str,
+) -> Iterator[_MemberDocumenterEntry]:
+    """Returns the sequence of direct members to document.
+
+    The order is mostly determined by the definition order.
+
+    This excludes inherited members.
+
+    :param documenter: Documenter for which to obtain members.
+    :returns: Iterator over members to document.
+    """
+    if not isinstance(
+        documenter,
+        (sphinx.ext.autodoc.ClassDocumenter, sphinx.ext.autodoc.ModuleDocumenter),
+    ):
+        # Only classes and modules have members.
+        return
+
+    members_check_module, members = documenter.get_object_members(want_all=True)
+    del members_check_module
+    if members:
+        try:
+            # get_object_members does not preserve definition order, but __dict__ does
+            # in Python 3.6 and later.
+            member_dict = sphinx.util.inspect.safe_getattr(
+                documenter.object, "__dict__"
+            )
+            member_order = {k: i for i, k in enumerate(member_dict.keys())}
+            members.sort(key=lambda entry: member_order.get(entry[0], float("inf")))
+        except AttributeError:
+            pass
+    filtered_members = [
+        x
+        for x in documenter.filter_members(members, want_all=True)
+        if _include_member(*x)
+    ]
+    for member_name, member_value, is_attr in filtered_members:
+        member_documenter = _get_member_documenter(
+            parent=documenter,
+            member_name=member_name,
+            member_value=member_value,
+            is_attr=is_attr,
+        )
+        if member_documenter is None:
+            continue
+        full_name = f"{documenter.fullname}.{member_name}"
+        entry = _MemberDocumenterEntry(
+            cast(sphinx.ext.autodoc.Documenter, member_documenter),
+            is_attr,
+            parent_canonical_full_name=canonical_full_name,
+            name=member_name,
+            full_name=full_name,
+        )
+        for transformed_entry in _transform_member(documenter, entry):
+            yield from _get_member_overloads(transformed_entry)
+
+
+def _get_documenter_members(
+    documenter: sphinx.ext.autodoc.Documenter,
+    canonical_full_name: str,
+) -> Iterator[_MemberDocumenterEntry]:
+    """Returns the sequence of members to document, including inherited members.
+
+    :param documenter: Parent documenter for which to find members.
+    :returns: Iterator over members to document.
+    """
+    seen_members: Set[str] = set()
+
+    def _get_unseen_members(
+        members: Iterator[_MemberDocumenterEntry], is_inherited: bool
+    ) -> Iterator[_MemberDocumenterEntry]:
+        for member in members:
+            overload_name = member.toc_title
+            if overload_name in seen_members:
+                continue
+            seen_members.add(overload_name)
+            yield member._replace(is_inherited=is_inherited)
+
+    yield from _get_unseen_members(
+        _get_documenter_direct_members(
+            documenter, canonical_full_name=canonical_full_name
+        ),
+        is_inherited=False,
+    )
+
+    if documenter.objtype != "class":
+        return
+
+    for cls in inspect.getmro(documenter.object):
+        if cls is documenter.object:
+            continue
+        if cls.__module__ in ("builtins", "pybind11_builtins"):
+            continue
+        class_name = f"{cls.__module__}::{cls.__qualname__}"
+        parent_canonical_full_name = f"{cls.__module__}.{cls.__qualname__}"
+        try:
+            superclass_documenter = _create_documenter(
+                env=documenter.env,
+                documenter_cls=sphinx.ext.autodoc.ClassDocumenter,
+                name=class_name,
+                tab_width=documenter.directive.state.document.settings.tab_width,
+            )
+            yield from _get_unseen_members(
+                _get_documenter_direct_members(
+                    superclass_documenter,
+                    canonical_full_name=parent_canonical_full_name,
+                ),
+                is_inherited=True,
+            )
+        except Exception as e:  # pylint: disable=broad-except
+            logger.warning(
+                "Cannot obtain documenter for base class %r of %r: %r",
+                cls,
+                documenter.fullname,
+                e,
+            )
+
+
+_ENTITY_PAGE_INITIAL_COMMENT = (
+    "..\n  DO NOT EDIT. GENERATED by sphinx_immaterial.apidoc.python.apigen.\n"
+)
+
+
+def _is_generated_file(rst_path: str) -> bool:
+    try:
+        if os.path.islink(rst_path) or not os.path.isfile(rst_path):
+            return False
+        content = pathlib.Path(rst_path).read_text(encoding="utf-8")
+        return content.startswith(_ENTITY_PAGE_INITIAL_COMMENT)
+    except:  # pylint: disable=bare-except
+        return False
+
+
+def _write_member_documentation_page(
+    app: sphinx.application.Sphinx, entity: _ApiEntity
+) -> None:
+    """Writes the RST file that documents the given entity.
+
+    This simply writes a `python-apigen-entity-page` directive to the generated
+    file.  The actual documentation is generated by that directive.
+
+    :param app: Sphinx application object.
+    :param entity: Entity to document.
+    """
+
+    rst_path = os.path.join(app.srcdir, entity.docname + ".rst")
+
+    content = _ENTITY_PAGE_INITIAL_COMMENT
+    # Suppress "Edit this page" link since the page is generated.
+    content += "\n\n:hide-edit-link:\n\n"
+    content += sphinx_utils.format_directive(
+        "python-apigen-entity-page",
+        entity.object_name,
+    )
+    if os.path.exists(rst_path):
+        logger.error(
+            "Generated documentation page for %r would overwrite existing source file %r",
+            entity.object_name,
+            rst_path,
+        )
+        return
+    pathlib.Path(rst_path).write_text(content, encoding="utf-8")
+
+
+class SplitAutodocRstOutput(NamedTuple):
+    directive: str
+    options: Dict[str, str]
+    content: List[str]
+    group_name: Optional[str]
+    order: Optional[int]
+
+
+def _split_autodoc_rst_output(
+    rst_strings: docutils.statemachine.StringList,
+) -> SplitAutodocRstOutput:
+    m = re.fullmatch(r"\.\. ([^:]+:[^:]+):: (.*)", rst_strings[1], re.DOTALL)
+    assert m is not None, repr(rst_strings[1])
+    directive = m.group(1)
+    signatures = [m.group(2)]
+    signature_prefix = " " * (6 + len(directive))
+    i = 2
+    while i < len(rst_strings):
+        line = rst_strings[i]
+        if line.startswith(signature_prefix):
+            signatures.append(line[len(signature_prefix) :])
+            i += 1
+        else:
+            break
+    options: Dict[str, str] = {}
+    while i < len(rst_strings):
+        line = rst_strings[i]
+        m = re.fullmatch(r"   :([^:]+):(.*)", line, re.DOTALL)
+        if m is None:
+            break
+        options[m.group(1)] = m.group(2).strip()
+        i += 1
+    assert i < len(rst_strings)
+    assert rst_strings[i] == ""
+
+    i += 1
+
+    while i < len(rst_strings) and not rst_strings[i].strip():
+        i += 1
+
+    content_start_line = i
+
+    def extract_field(name: str) -> Tuple[Optional[str], Optional[Tuple[str, int]]]:
+        field_prefix = f"   :{name}:"
+        for i in range(content_start_line, len(rst_strings)):
+            line = rst_strings[i]
+            if not line.startswith(field_prefix):
+                continue
+            value = line[len(field_prefix) :].strip()
+            location = rst_strings.items[i]
+            del rst_strings[i]
+            return value, location
+        return None, None
+
+    group_name, group_location = extract_field("group")
+
+    order_str, order_location = extract_field("order")
+    order = None
+    if order_str is not None:
+        try:
+            order = int(order_str)
+        except ValueError:
+            logger.error("Invalid order value: %r", order_str, location=order_location)
+
+    # Strip 3 spaces of indent.
+    content = [line[3:] for line in rst_strings.data[content_start_line:]]
+
+    return SplitAutodocRstOutput(
+        directive=directive,
+        options=options,
+        content=content,
+        group_name=group_name,
+        order=order,
+    )
+
+
+def _summarize_rst_content(content: List[str]) -> List[str]:
+    i = 0
+    # Skip over blank lines before start of directive content
+    while i < len(content) and not content[i].strip():
+        i += 1
+    # Skip over first paragraph
+    while i < len(content) and content[i].strip():
+        i += 1
+
+    return content[:i]
+
+
+class _ApiEntityCollector:
+    def __init__(
+        self,
+        entities: Dict[str, _ApiEntity],
+    ):
+        self.entities = entities
+
+    def collect_entity_recursively(
+        self,
+        entry: _MemberDocumenterEntry,
+    ) -> str:
+        canonical_full_name = None
+        if isinstance(entry.documenter, sphinx.ext.autodoc.ClassDocumenter):
+            canonical_full_name = entry.documenter.get_canonical_fullname()
+        if canonical_full_name is None:
+            canonical_full_name = f"{entry.parent_canonical_full_name}.{entry.name}"
+
+        canonical_object_name = canonical_full_name + entry.overload_suffix
+        existing_entity = self.entities.get(canonical_object_name)
+        if existing_entity is not None:
+            return canonical_object_name
+
+        if (
+            entry.overload
+            and entry.overload.overload_id
+            and re.fullmatch("[0-9]+", entry.overload.overload_id)
+        ):
+            logger.warning("Unspecified overload id: %s", canonical_object_name)
+
+        rst_strings = docutils.statemachine.StringList()
+        entry.documenter.directive.result = rst_strings
+        _prepare_documenter_docstring(entry)
+        # Prevent autodoc from also documenting members, since this extension does
+        # that separately.
+        def document_members(*args, **kwargs):
+            return
+
+        entry.documenter.document_members = document_members  # type: ignore[assignment]
+        entry.documenter.generate()
+
+        base_classes: Optional[List[str]] = None
+
+        if isinstance(entry.documenter, sphinx.ext.autodoc.ClassDocumenter):
+            # By default (unless the `autodoc_class_signature` config option is
+            # set to `"separated"`), autodoc will include the `__init__`
+            # parameters in the signature.  Since that convention does not work
+            # well with this extension, we just bypass that here.
+            signatures = [""]
+
+            if entry.documenter.config.python_apigen_show_base_classes:
+                obj = entry.documenter.object
+                bases = sphinx.util.inspect.getorigbases(obj)
+                if bases is None:
+                    bases = getattr(obj, "__bases__", None)
+                if bases:
+                    base_list = list(bases)
+                    entry.documenter.env.events.emit(
+                        "autodoc-process-bases",
+                        entry.documenter.fullname,
+                        obj,
+                        entry.documenter.options,
+                        base_list,
+                    )
+                    base_classes = [
+                        sphinx.util.typing.stringify(base)
+                        for base in base_list
+                        if base is not object
+                    ]
+        else:
+            signatures = entry.documenter.format_signature().split("\n")
+
+        split_result = _split_autodoc_rst_output(rst_strings)
+
+        overload_id: Optional[str] = None
+        if entry.overload is not None:
+            overload_id = entry.overload.overload_id
+
+        entity = _ApiEntity(
+            documented_full_name="",
+            canonical_full_name=canonical_full_name,
+            objtype=entry.documenter.objtype,
+            group_name=split_result.group_name or "",
+            order=split_result.order,
+            directive=split_result.directive,
+            signatures=signatures,
+            options=split_result.options,
+            content=split_result.content,
+            members=[],
+            parents=[],
+            subscript=entry.subscript,
+            overload_id=overload_id or "",
+            base_classes=base_classes,
+        )
+
+        self.entities[canonical_object_name] = entity
+
+        entity.members = self.collect_documenter_members(
+            entry.documenter,
+            canonical_object_name=canonical_object_name,
+        )
+
+        return canonical_object_name
+
+    def collect_documenter_members(
+        self,
+        documenter: sphinx.ext.autodoc.Documenter,
+        canonical_object_name: str,
+    ) -> List[_ApiEntityMemberReference]:
+        members: List[_ApiEntityMemberReference] = []
+
+        for entry in _get_documenter_members(
+            documenter, canonical_full_name=canonical_object_name
+        ):
+            member_canonical_object_name = self.collect_entity_recursively(entry)
+            member = _ApiEntityMemberReference(
+                name=entry.name,
+                parent_canonical_object_name=canonical_object_name,
+                canonical_object_name=member_canonical_object_name,
+                inherited=entry.is_inherited,
+            )
+            members.append(member)
+            child = self.entities[member_canonical_object_name]
+            child.parents.append(member)
+
+        return members
+
+
+def _get_base_docname(output_prefixes: Dict[str, str], full_name: str) -> str:
+    end_idx = len(full_name)
+    while True:
+        output_path = output_prefixes.get(full_name[:end_idx])
+        if output_path is not None:
+            return output_path + full_name[end_idx + 1 :]
+        new_end_idx = full_name.rfind(".", 0, end_idx)
+        if new_end_idx == -1:
+            raise ValueError(
+                f"Could not find output prefix for {full_name!r} in {output_prefixes!r}"
+            )
+        end_idx = new_end_idx
+
+
+def _get_docname(
+    output_prefixes: Dict[str, str],
+    documented_full_name: str,
+    overload_id: str,
+    case_insensitive_filesystem: bool,
+):
+
+    docname = _get_base_docname(output_prefixes, documented_full_name)
+
+    if case_insensitive_filesystem:
+        name_hash = hashlib.sha256(
+            os.path.basename(docname).encode("utf-8")
+        ).hexdigest()[:8]
+        docname += f"-{name_hash}"
+
+    if overload_id:
+        docname += f"-{overload_id}"
+
+    return docname
+
+
+def _assign_documented_full_names(
+    entities: Dict[str, _ApiEntity],
+    default_groups: List[Tuple[re.Pattern, str]],
+    default_order: List[Tuple[re.Pattern, int]],
+    output_prefixes: Dict[str, str],
+    case_insensitive_filesystem: bool,
+) -> None:
+    """Determines the full name under which each entity will be documented."""
+
+    def get_documented_full_name(entity: _ApiEntity) -> str:
+        documented_full_name = entity.documented_full_name
+        if documented_full_name:
+            # Name already assigned
+            return documented_full_name
+
+        parents = entity.parents
+        assert len(parents) > 0
+
+        def parent_sort_key(parent_ref: _ApiEntityMemberReference):
+            canonical_name_from_parent = (
+                parent_ref.parent_canonical_object_name + "." + parent_ref.name
+            )
+            canonical = canonical_name_from_parent == entity.canonical_full_name
+            inherited = parent_ref.inherited
+            return (canonical is False, inherited, canonical_name_from_parent)
+
+        parents.sort(key=parent_sort_key)
+
+        parent_ref = parents[0]
+        parent_entity = entities.get(parent_ref.parent_canonical_object_name)
+        if parent_entity is None:
+            # Parent is a module.
+            parent_documented_name = parent_ref.parent_canonical_object_name
+            entity.top_level = True
+        else:
+            parent_documented_name = get_documented_full_name(parent_entity)
+        documented_full_name = parent_documented_name + "." + parent_ref.name
+        entity.documented_full_name = documented_full_name
+        entity.documented_name = parent_ref.name
+
+        # Assign default group name.
+        if not entity.group_name:
+            entity.group_name = _get_group_name(default_groups, entity)
+
+        if entity.order is None:
+            entity.order = _get_order(default_order, entity)
+
+        entity.docname = _get_docname(
+            output_prefixes,
+            documented_full_name,
+            entity.overload_id,
+            case_insensitive_filesystem,
+        )
+
+        return documented_full_name
+
+    for entity in list(entities.values()):
+        get_documented_full_name(entity)
+        entities[entity.object_name] = entity
+
+
+def _is_case_insensitive_filesystem(path: str) -> bool:
+    suffix = secrets.token_hex(16)
+    temp_path = path + suffix + "a.rst"
+    try:
+        pathlib.Path(temp_path).write_text(
+            _ENTITY_PAGE_INITIAL_COMMENT, encoding="utf-8"
+        )
+        return os.path.exists(path + suffix + "A.rst")
+    finally:
+        os.remove(temp_path)
+
+
+def _builder_inited(app: sphinx.application.Sphinx) -> None:
+    """Generates the rST files for API members."""
+
+    env = app.env
+    assert env is not None
+
+    data = _ApiData()
+
+    setattr(env, "_sphinx_immaterial_python_apigen_data", data)
+
+    apigen_modules = app.config.python_apigen_modules
+    if not apigen_modules:
+        return
+
+    for module_name, output_path in apigen_modules.items():
+        try:
+            importlib.import_module(module_name)
+        except ImportError:
+            logger.warning(
+                "Failed to import module %s specified in python_apigen_modules",
+                module_name,
+                exc_info=True,
+            )
+            continue
+
+        documenter = _create_documenter(
+            env=env,
+            documenter_cls=sphinx.ext.autodoc.ModuleDocumenter,
+            name=module_name,
+        )
+        _ApiEntityCollector(entities=data.entities,).collect_documenter_members(
+            documenter=documenter,
+            canonical_object_name=module_name,
+        )
+
+    # Prepare output directories and determine if the filesystem is case
+    # insensitive.
+    seen_output_dirs = set()
+    case_insensitive_filesystem = app.config.python_apigen_case_insensitive_filesystem
+    for output_path in apigen_modules.values():
+        output_dir = os.path.dirname(os.path.join(app.srcdir, output_path))
+        if output_dir in seen_output_dirs:
+            continue
+        seen_output_dirs.add(output_dir)
+        os.makedirs(output_dir, exist_ok=True)
+        if case_insensitive_filesystem is None:
+            if _is_case_insensitive_filesystem(os.path.join(app.srcdir, output_path)):
+                case_insensitive_filesystem = True
+    if case_insensitive_filesystem is None:
+        case_insensitive_filesystem = False
+
+    default_groups = [
+        (re.compile(pattern), group)
+        for pattern, group in app.config.python_apigen_default_groups
+    ]
+
+    default_order = [
+        (re.compile(pattern), order)
+        for pattern, order in app.config.python_apigen_default_order
+    ]
+
+    _assign_documented_full_names(
+        entities=data.entities,
+        default_groups=default_groups,
+        default_order=default_order,
+        output_prefixes=apigen_modules,
+        case_insensitive_filesystem=case_insensitive_filesystem,
+    )
+
+    # Remove stale generated files.
+    srcdir = app.srcdir
+    for _, output_path in app.config.python_apigen_modules.items():
+        glob_pattern = os.path.join(srcdir, output_path)
+        for p in glob.glob(os.path.join(srcdir, output_path + "*.rst"), recursive=True):
+            if not _is_generated_file(p):
+                continue
+            try:
+                os.remove(p)
+            except OSError as e:
+                logger.warning("Failed to remove stale generated file %r: %s", p, e)
+
+    # Write page for each entity.
+    all_pages: Dict[str, str] = {}
+
+    alphabetical = app.config.python_apigen_order_tiebreaker == "alphabetical"
+
+    for object_name, entity in data.entities.items():
+        if object_name != entity.object_name:
+            # Alias
+            continue
+
+        data.sort_members(entity.members, alphabetical=alphabetical)
+
+        rst_path = entity.docname + ".rst"
+        if rst_path in all_pages:
+            logger.error(
+                "Both %r and %r map to generated path %r",
+                all_pages[rst_path],
+                entity.object_name,
+                rst_path,
+            )
+            continue
+        _write_member_documentation_page(app, entity)
+        all_pages[rst_path] = entity.object_name
+        if entity.top_level:
+            group_id = docutils.nodes.make_id(entity.group_name)
+            data.top_level_groups.setdefault(group_id, []).append(entity.parents[0])
+
+    for members in data.top_level_groups.values():
+        data.sort_members(members, alphabetical=alphabetical)
+
+
+def _monkey_patch_napoleon_to_add_group_field():
+    """Adds support to sphinx.ext.napoleon for the "Group" and "Order" fields.
+
+    This field is used by this module to organize members into groups.
+    """
+    orig_load_custom_sections = (
+        sphinx.ext.napoleon.docstring.GoogleDocstring._load_custom_sections
+    )  # pylint: disable=protected-access
+
+    def parse_section(
+        self: sphinx.ext.napoleon.docstring.GoogleDocstring, section: str
+    ) -> List[str]:
+        lines = self._strip_empty(
+            self._consume_to_next_section()
+        )  # pylint: disable=protected-access
+        lines = self._dedent(lines)  # pylint: disable=protected-access
+        name = section.lower()
+        if len(lines) != 1:
+            raise ValueError(f"Expected exactly one {name} in {section} section")
+        return [f":{name}: " + lines[0], ""]
+
+    def load_custom_sections(
+        self: sphinx.ext.napoleon.docstring.GoogleDocstring,
+    ) -> None:
+        orig_load_custom_sections(self)
+        self._sections["group"] = lambda section: parse_section(
+            self, section
+        )  # pylint: disable=protected-access
+        self._sections["order"] = lambda section: parse_section(
+            self, section
+        )  # pylint: disable=protected-access
+
+    sphinx.ext.napoleon.docstring.GoogleDocstring._load_custom_sections = (
+        load_custom_sections  # pylint: disable=protected-access
+    )
+
+
+def _config_inited(
+    app: sphinx.application.Sphinx, config: sphinx.config.Config
+) -> None:
+    if isinstance(config.python_apigen_subscript_method_types, str):
+        setattr(
+            config,
+            "python_apigen_subscript_method_types",
+            re.compile(config.python_apigen_subscript_method_types),
+        )
+
+
+def setup(app: sphinx.application.Sphinx):
+    """Initializes the extension."""
+    _monkey_patch_napoleon_to_add_group_field()
+    app.connect("builder-inited", _builder_inited)
+    app.connect("config-inited", _config_inited)
+    app.setup_extension("sphinx.ext.autodoc")
+    app.add_directive("python-apigen-entity-page", PythonApigenEntityPageDirective)
+    app.add_directive("python-apigen-group", PythonApigenTopLevelGroupDirective)
+    app.add_directive(
+        "python-apigen-entity-summary", PythonApigenEntitySummaryDirective
+    )
+    app.add_config_value(
+        "python_apigen_modules", types=(Dict[str, str],), default={}, rebuild="env"
+    )
+    app.add_config_value(
+        "python_apigen_default_groups",
+        types=(List[Tuple[str, str]],),
+        default=[(".*", "Public members"), ("class:.*", "Classes")],
+        rebuild="env",
+    )
+    app.add_config_value(
+        "python_apigen_default_order",
+        types=(List[Tuple[str, int]],),
+        default=[],
+        rebuild="env",
+    )
+    app.add_config_value(
+        "python_apigen_order_tiebreaker",
+        types=sphinx.config.ENUM("definition_order", "alphabetical"),
+        default="definition_order",
+        rebuild="env",
+    )
+    app.add_config_value(
+        "python_apigen_subscript_method_types",
+        default=r".*\._[^.]*",
+        types=(re.Pattern,),
+        rebuild="env",
+    )
+    app.add_config_value(
+        "python_apigen_case_insensitive_filesystem",
+        default=None,
+        types=(bool, type(None)),
+        rebuild="env",
+    )
+    app.add_config_value(
+        "python_apigen_show_base_classes",
+        default=True,
+        types=(bool,),
+        rebuild="env",
+    )
+    return {"parallel_read_safe": True, "parallel_write_safe": True}

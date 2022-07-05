@@ -141,6 +141,8 @@ Other options described elsewhere include:
 - :objconf:`wrap_signatures_column_limit`
 - :objconf:`clang_format_style`
 
+.. _object-toc-icons:
+
 Table of contents icons
 ^^^^^^^^^^^^^^^^^^^^^^^
 

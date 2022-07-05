@@ -631,7 +631,7 @@ for details.
 If you want to use some substitutions for all documents, put them into
 :confval:`rst_prolog` or :confval:`rst_epilog` or put them into a separate file
 and include it into all documents you want to use them in, using the
-:rst:dir:`include` directive.  (Be sure to give the include file a file name
+:dudir:`include` directive.  (Be sure to give the include file a file name
 extension differing from that of other source files, to avoid Sphinx finding it
 as a standalone document.)
 
@@ -661,9 +661,8 @@ You can indent text after a comment start to form multiline comments::
 HTML Metadata
 -------------
 
-The :rst:dir:`meta` directive (:dudir:`ref <meta>`) allows specifying the HTML
-`metadata element`_ of a Sphinx documentation page.  For example, the
-directive::
+The :dudir:`meta<metadata>` directive allows specifying the HTML `metadata
+element`_ of a Sphinx documentation page.  For example, the directive::
 
     .. meta::
         :description: The Sphinx documentation builder
@@ -720,6 +719,6 @@ There are some problems one commonly runs into while authoring reST documents:
 
 .. rubric:: Footnotes
 
-.. [1] When the default domain contains a :rst:dir:`class` directive, this
-       directive will be shadowed.  Therefore, Sphinx re-exports it as
-       :rst:dir:`rst-class`.
+.. [1] When the default domain contains a ``class`` directive, this directive
+       will be shadowed.  Therefore, Sphinx re-exports it as
+       ``rst-class``.
