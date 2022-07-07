@@ -1,5 +1,6 @@
 import sphinx.application
 
+from . import ast_fixes  # type: ignore[unused-import]
 from . import cpp_resolve_c_xrefs  # type: ignore[unused-import]
 from . import include_directives_in_signatures  # type: ignore[unused-import]
 from . import last_resolved_symbol  # type: ignore[unused-import]
