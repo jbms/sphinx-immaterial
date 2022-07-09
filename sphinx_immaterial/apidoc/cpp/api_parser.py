@@ -318,7 +318,7 @@ class Config:
         if mapped is not None:
             return mapped
         if os.name == "nt":
-            path = path.replace("/", "\\")
+            path = path.replace("\\", "/")
         if path.startswith("./"):
             path = path[2:]
         new_mapped = self.include_directory_map_pattern.sub(
