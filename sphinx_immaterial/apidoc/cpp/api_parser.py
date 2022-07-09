@@ -58,13 +58,15 @@ from typing import (
 import ctypes
 
 import clang.cindex
-from clang.cindex import Cursor
-from clang.cindex import CursorKind
-from clang.cindex import Token
-from clang.cindex import TokenKind
-from clang.cindex import TranslationUnit
-from clang.cindex import SourceLocation
-from clang.cindex import SourceRange
+from clang.cindex import (
+    Cursor,
+    CursorKind,
+    Token,
+    TokenKind,
+    TranslationUnit,
+    SourceLocation,
+    SourceRange,
+)
 import docutils.nodes
 import pydantic.dataclasses
 import sphinx.domains.cpp
