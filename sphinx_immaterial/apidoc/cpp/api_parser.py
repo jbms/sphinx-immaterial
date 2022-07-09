@@ -130,7 +130,7 @@ class Config:
     """
 
     input_content: Optional[bytes] = None
-    """Specifies the content of `.input_path`.
+    """Specifies the content of `input_path`.
 
     If unspecified, the content is read from filesystem.
     """
@@ -181,7 +181,7 @@ class Config:
     )
     """List of regular expressions matching *allowed* symbols.
 
-    Only symbols matching one of the `.allow_symbols` patterns, and not matching
+    Only symbols matching one of the `allow_symbols` patterns, and not matching
     `disallow_symbols`, are documented.  By default, all symbols are allowed.
     """
 
@@ -196,8 +196,8 @@ class Config:
     )
     """List of regular expressions matching *allowed* macros.
 
-    Only macros names matching `.allow_macros`, and not matching
-    `.disallow_macros`, are documented.
+    Only macros names matching `allow_macros`, and not matching
+    `disallow_macros`, are documented.
     """
 
     disallow_macros: List[Pattern] = dataclasses.field(default_factory=list)
