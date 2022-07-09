@@ -2182,6 +2182,8 @@ def organize_entities(config: Config, entities: Dict[EntityId, CppApiEntity]):
 
 def _get_output_json(extractor: Extractor):
     generator = JsonApiGenerator(extractor)
+    if extractor.config.verbose:
+        logger.info("Found %d C++ declarations", len(extractor.decls))
     for decl in extractor.decls:
         generator.add(decl)
     return organize_entities(extractor.config, generator.seen_decls)
