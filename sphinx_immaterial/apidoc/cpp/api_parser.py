@@ -164,12 +164,21 @@ class Config:
     but this default is not normally usable, because it will include entities
     defined in the standard library and third-party libraries.
 
+    .. important::
+        Because this is used as a Regular Expression patterns, this should end in
+        (and exclusively use) the Linux path separator :python:`"/"` (even if
+        building on Windows).
     """
 
     disallow_paths: List[Pattern] = dataclasses.field(default_factory=list)
     """List of regular expressions matching *disallowed* paths.
 
     Entities defined in files matching any of these patterns are not documented.
+
+    .. important::
+        Because this is used as a Regular Expression patterns, this should end in
+        (and exclusively use) the Linux path separator :python:`"/"` (even if
+        building on Windows).
     """
 
     disallow_namespaces: List[Pattern] = dataclasses.field(default_factory=list)

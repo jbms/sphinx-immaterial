@@ -44,8 +44,10 @@ class ApigenConfig:
     document_prefix: str
     """Sphinx document path prefix for the per-entity documentation pages.
 
-    Because this is used as a Regular Expression pattern, this should end in
-    (and exclusively use) the Linux path separator :python:`"/"` (even if building on Windows).
+    .. important::
+        Because this is used as a Regular Expression pattern, this should end in
+        (and exclusively use) the Linux path separator :python:`"/"` (even if
+        building on Windows).
     """
 
     api_parser_config: Optional[api_parser.Config] = None
