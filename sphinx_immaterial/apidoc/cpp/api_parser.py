@@ -124,16 +124,16 @@ class Config:
     input_path: str = "__input.cpp"
     """Path to the input file to parse.
 
-    This may either be a path to an existing file, or `input_content` may
+    This may either be a path to an existing file, or :py:attr:`input_content` may
     specify its content, in which case the filesystem is not accessed.
 
-    If `input_content` is specified and merely contains :cpp:`#include`
+    If :py:attr:`input_content` is specified and merely contains :cpp:`#include`
     directives, then the actual path does not matter and may be left as the
     default value.
     """
 
     input_content: Optional[bytes] = None
-    """Specifies the content of `input_path`.
+    """Specifies the content of :py:attr:`input_path`.
 
     If unspecified, the content is read from filesystem.
     """
@@ -184,8 +184,8 @@ class Config:
     )
     """List of regular expressions matching *allowed* symbols.
 
-    Only symbols matching one of the `allow_symbols` patterns, and not matching
-    `disallow_symbols`, are documented.  By default, all symbols are allowed.
+    Only symbols matching one of the :py:attr:`allow_symbols` patterns, and not matching
+    :py:attr:`disallow_symbols`, are documented.  By default, all symbols are allowed.
     """
 
     disallow_symbols: List[Pattern] = dataclasses.field(default_factory=list)
@@ -199,8 +199,8 @@ class Config:
     )
     """List of regular expressions matching *allowed* macros.
 
-    Only macros names matching `allow_macros`, and not matching
-    `disallow_macros`, are documented.
+    Only macros names matching :py:attr:`allow_macros`, and not matching
+    :py:attr:`disallow_macros`, are documented.
     """
 
     disallow_macros: List[Pattern] = dataclasses.field(default_factory=list)
