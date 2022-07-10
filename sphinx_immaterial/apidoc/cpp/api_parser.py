@@ -54,6 +54,7 @@ from typing import (
     ClassVar,
     Pattern,
 )
+from textwrap import dedent
 
 import ctypes
 
@@ -109,7 +110,7 @@ TEMPLATE_PARAMETER_ENABLE_IF_NON_TYPE_PATTERN = re.compile(
 )
 
 SPECIAL_GROUP_COMMAND_PATTERN = re.compile(
-    r"^\\(ingroup|relates|membergroup|id)\s+(.+[^\s])\s*$", re.MULTILINE
+    r"^(?:\\|@)(ingroup|relates|membergroup|id)\s+(.+[^\s])\s*$", re.MULTILINE
 )
 
 
@@ -430,6 +431,38 @@ def _get_all_decls(config: Config, cursor: Cursor, allow_file):
         if kind in CLASS_KINDS:
             yield from _get_all_decls(config, child, None)
 
+def strip_comment(cmt: str = None) -> Optional[List[str]]:
+    """Strip the raw string of an object's comment into lines.
+    :param cmt: the comment to parse.
+    :returns: A list of the lines without the surrounding C++ comment syntax.
+    """
+    if cmt is None:
+        return None
+    # the first line is never indented (in clang-parsed form)
+    # so dedent all subsequent lines only
+    first_line_end = cmt.find("\n")
+    cmt = cmt[:first_line_end] + dedent(cmt[first_line_end:])
+    # split into a list of lines & account for CRLF and LF line endings
+    body = [line.rstrip("\r") for line in cmt.splitlines()]
+
+    # strip all the comment syntax out
+    if body[0].startswith("//"):
+        body = [line.lstrip("/").lstrip("!").lstrip("<") for line in body]
+    elif body[0].startswith("/*"):
+        body[0] = body[0].lstrip("/").lstrip("*").lstrip("!")
+        multi_lined_asterisk = True  # works also for single-line comments blocks
+        if len(body) > 1:
+            line_has_asterisk = [line.startswith("*") for line in body[1:]]
+            multi_lined_asterisk = line_has_asterisk.count(True) == len(body) - 1
+        body = [
+            (line.lstrip("*").lstrip("<") if multi_lined_asterisk else line)
+            for line in body
+        ]
+        body[-1] = body[-1].rstrip("*/").rstrip()
+    body = dedent("\n".join(body)).splitlines()
+    return body
+
+DOC_COMMENT_PREFIX = re.compile(r"/(//|/\!|\*\*|\*\!)\<?")
 
 def get_doc_comment(config: Config, cursor: Cursor):
     translation_unit = cursor.translation_unit
@@ -463,7 +496,7 @@ def get_doc_comment(config: Config, cursor: Cursor):
                 stop = True
                 break
             spelling = token.spelling
-            if not spelling.startswith("///"):
+            if DOC_COMMENT_PREFIX.match(spelling) is None:
                 stop = True
                 break
             (
@@ -478,10 +511,8 @@ def get_doc_comment(config: Config, cursor: Cursor):
                 stop = True
                 break
             presumed_line = new_presumed_line
-            if spelling.startswith("/// "):
-                comment_lines.append(spelling[4:])
-            else:
-                comment_lines.append(spelling[3:])
+            if DOC_COMMENT_PREFIX.match(spelling) is not None:
+                comment_lines.extend(strip_comment(spelling))
             got_line = True
             break
         if stop or not got_line:
@@ -1661,19 +1692,19 @@ def _get_default_member_group(entity: CppApiEntity) -> str:
 
 
 def _normalize_doc_text(text: str) -> str:
-    text = re.sub(r"^\\brief\s", "", text)
+    text = re.sub(r"^((?:\\|@)(?:brief|details)\s+)", "", text)
     text = re.sub(
-        r"^\\(t?param) ([a-zA-Z_][^ ]*)", ":\\1 \\2:", text, flags=re.MULTILINE
+        r"^(?:\\|@)(t?param)(\[(?:in|out|in,\sout)\])?\s+([a-zA-Z_][^ ]*)", ":\\1 \\3\\2:", text, flags=re.MULTILINE
     )
-    text = re.sub(r"^\\(error)\s+`([^`]+)`", ":\\1 \\2:", text, flags=re.MULTILINE)
+    text = re.sub(r"^(?:\\|@)(error)\s+`([^`]+)`", ":\\1 \\2:", text, flags=re.MULTILINE)
     text = re.sub(
-        r"^\\(returns?|pre|post|checks|dchecks|schecks|invariant|requires)(?: |\n )",
+        r"^(?:\\|@)(returns?|pre|post|[ds]?checks|invariant|requires)(?: |\n )",
         ":\\1: ",
         text,
         flags=re.MULTILINE,
     )
+    text = re.sub(r"^(?:\\|@)(retval)\s+(\S+)", ":\\1 \\2:", text, flags=re.MULTILINE)
     text = SPECIAL_GROUP_COMMAND_PATTERN.sub("", text)
-    text = text.lstrip(" ")
     return text
 
 

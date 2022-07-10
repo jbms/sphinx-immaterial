@@ -20,6 +20,8 @@ class IndexInterval {
   friend std::ostream& operator<<(std::ostream& os, IndexInterval x);
 
   /// Returns the lower bound.
+  ///
+  //! @retval int The lower bound.
   int lower() const;
 
   /// Returns the upper bound.
