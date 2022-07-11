@@ -57,6 +57,48 @@ specifying the JSON schema definition files.
 
       pip install sphinx-immaterial[json,jsonschema_validation]
 
+.. confval:: json_schema_rst_prolog
+
+   A string of rST that will be prepended to the ``title`` and ``description``
+   fields of a schema before parsing them as rST.
+
+   This may be used to set the :dudir:`default-role`, :rst:dir:`highlight`
+   language, or :rst:dir:`default-literal-role`.
+
+   .. note::
+
+      The prior default role, default literal role, and default highlight
+      langauge are automatically restored after processing the
+      :confval:`json_schema_rst_epilog`.  Therefore, it is not necessary to
+      manually add anything to :confval:`json_schema_rst_epilog` to restore the
+      prior roles or highlight language.
+
+   .. code-block:: python
+      :caption: Setting default roles and highlight language in :file:`conf.py`
+
+      rst_prolog = """
+      .. role json(code)
+         :language: json
+         :class: highlight
+
+      json_schema_rst_prolog = """
+      .. default-role:: json:schema
+
+      .. default-literal-role:: json
+
+      .. highlight:: json
+      """
+
+.. confval:: json_schema_rst_epilog
+
+   A string of rST that will be appended to the ``title`` and ``description``
+   fields of a schema before parsing them as rST.
+
+   This option is supported for symmetry with :confval:`json_schema_rst_prolog`,
+   but in most cases is not needed because any changes to the default role,
+   default literal role, and default highlight language due to
+   :confval:`json_schema_rst_prolog` are undone automatically.
+
 All of the `object-description-options` also apply to this domain.  Any
 top-level schemas have an object type of ``json:schema`` and any members have an
 object type of ``json:subschema``.
@@ -72,8 +114,9 @@ Usage
 
       It is not possible to refer to a schema without an ``$id``.
 
-   The ``title`` property and the ``description`` properties are parsed as
-   reStructedText, with a `default_role` of :rst:role:`json:schema`.
+   The ``title`` and ``description`` properties are parsed as reStructedText (in
+   the context specified by :confval:`json_schema_rst_prolog` and
+   :confval:`json_schema_rst_epilog`).
 
    If :objconf:`generate_synopses` is not disabled, the synopsis is generated
    from the ``title`` property.  If there is no ``title`` property, no synopsis

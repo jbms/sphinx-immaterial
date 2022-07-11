@@ -449,6 +449,48 @@ Configuration
    If the filesystem is either detected or specified to be case-insensitive,
    case conflicts are avoided by including a hash in the document name.
 
+.. confval:: python_apigen_rst_prolog
+
+   A string of reStructuredText that will be included at the beginning of every
+   docstring.
+
+   This may be used to set the :dudir:`default-role`, :rst:dir:`highlight`
+   language, or :rst:dir:`default-literal-role`.
+
+   .. note::
+
+      The prior default role, default literal role, and default highlight
+      langauge are automatically restored after processing the
+      :confval:`python_apigen_rst_epilog`.  Therefore, it is not necessary to
+      manually add anything to :confval:`python_apigen_rst_epilog` to restore the
+      prior roles or highlight language.
+
+   .. code-block:: python
+      :caption: Setting default roles and highlight language in :file:`conf.py`
+
+      rst_prolog = """
+      .. role python(code)
+         :language: python
+         :class: highlight
+
+      python_apigen_rst_prolog = """
+      .. default-role:: py:obj
+
+      .. default-literal-role:: python
+
+      .. highlight:: python
+      """
+
+.. confval:: python_apigen_rst_epilog
+
+   A string of reStructuredText that will be included at the end of every
+   docstring.
+
+   This option is supported for symmetry with
+   :confval:`python_apigen_rst_prolog`, but in most cases is not needed because
+   any changes to the default role, default literal role, and default highlight
+   language due to :confval:`python_apigen_rst_prolog` are undone automatically.
+
 Subscript methods
 ^^^^^^^^^^^^^^^^^
 

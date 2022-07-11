@@ -1,6 +1,7 @@
 """C++ API documentation generation extension."""
 
 import collections
+import contextlib
 import dataclasses
 import json
 import os
@@ -61,41 +62,6 @@ class ApigenConfig:
 
 CppApiEntity = Any
 EntityId = str
-
-PARAM_OBJ_TYPES = (
-    "functionParam",
-    "macroParam",
-    "templateParam",
-    "templateTypeParam",
-    "templateTemplateParam",
-    "templateNonTypeParam",
-)
-
-
-def _get_path_component_from_special_id(special_id: str) -> str:
-    special_id = re.sub("[^a-zA-Z0-9_]+", "-", special_id)
-    return special_id.strip("-")
-
-
-def _collect_sections(
-    node: docutils.nodes.Element,
-) -> Dict[str, docutils.nodes.section]:
-    sections: Dict[str, docutils.nodes.section] = {}
-    for target in node.traverse(condition=docutils.nodes.target):
-        ids = target["ids"]
-        next_node: docutils.nodes.Node = target.next_node(ascend=True)
-        if not isinstance(next_node, docutils.nodes.section):
-            continue
-        for section_id in ids:
-            sections[section_id] = next_node
-
-    for section in node.traverse(condition=docutils.nodes.section):
-        ids = section["ids"]
-        if not ids:
-            continue
-        for section_id in ids:
-            sections[section_id] = section
-    return sections
 
 
 @dataclasses.dataclass
@@ -209,7 +175,7 @@ def _get_cpp_api_data(
 
 
 def _transform_doc_comment(
-    doc, summary: bool
+    env: sphinx.environment.BuildEnvironment, doc, summary: bool
 ) -> Optional[docutils.statemachine.StringList]:
     if not doc:
         return None
@@ -225,16 +191,18 @@ def _transform_doc_comment(
             text = text[: first_blank_line.start()]
 
     out = docutils.statemachine.StringList()
-    sphinx_utils.append_directive_to_stringlist(
-        out, "default-role", "cpp:expr", source_path=filename, source_line=lineno
+    sphinx_utils.append_multiline_string_to_stringlist(
+        out,
+        ".. highlight-push::\n\n" + env.config.cpp_apigen_rst_prolog + "\n\n",
+        "<cpp_apigen_rst_prolog>",
+        -2,
     )
-    sphinx_utils.append_directive_to_stringlist(
-        out, "highlight", "cpp", source_path=filename, source_line=lineno
-    )
-    for i, line in enumerate(text.splitlines()):
-        out.append(line, filename, lineno + i)
-    sphinx_utils.append_directive_to_stringlist(
-        out, "default-role", source_path=filename, source_line=lineno
+    sphinx_utils.append_multiline_string_to_stringlist(out, text, filename, lineno)
+    sphinx_utils.append_multiline_string_to_stringlist(
+        out,
+        "\n\n" + env.config.cpp_apigen_rst_epilog + "\n\n.. highlight-pop::\n\n",
+        "<cpp_apigen_rst_epilog>",
+        -2,
     )
     return out
 
@@ -456,7 +424,34 @@ def _format_entity(
     return cpp_directive, signature_line
 
 
+@contextlib.contextmanager
+def save_cpp_scope(env: sphinx.environment.BuildEnvironment):
+    parent_symbol = env.temp_data.get("cpp:parent_symbol", False)
+    namespace_stack = env.temp_data.get("cpp:namespace_stack", False)
+    if namespace_stack:
+        namespace_stack = list(namespace_stack)
+    parent_key = env.ref_context.get("cpp:parent_key", False)
+
+    yield
+
+    if parent_symbol is not False:
+        env.temp_data["cpp:parent_symbol"] = parent_symbol
+    else:
+        env.temp_data.pop("cpp:parent_symbol", None)
+
+    if namespace_stack is not False:
+        env.temp_data["cpp:namespace_stack"] = namespace_stack
+    else:
+        env.temp_data.pop("cpp:namespace_stack", None)
+
+    if parent_key is not False:
+        env.ref_context["cpp:parent_key"] = parent_key
+    else:
+        env.ref_context.pop("cpp:parent_key", None)
+
+
 def _add_entity_description(
+    env: sphinx.environment.BuildEnvironment,
     api_data: CppApiData,
     entity: CppApiEntity,
     contentnode: docutils.nodes.Element,
@@ -517,7 +512,7 @@ def _add_entity_description(
             signature_lines.append(other_signature_line)
             entity_ids.append(sibling["id"])
 
-    body = _transform_doc_comment(entity["doc"], summary=summary)
+    body = _transform_doc_comment(env, entity["doc"], summary=summary)
     sphinx_utils.append_directive_to_stringlist(
         out,
         cpp_directive,
@@ -533,7 +528,7 @@ def _add_entity_description(
         content=body,
     )
 
-    with default_literal_role.overridden_default_literal_role("cpp"):
+    with apigen_utils.save_rst_defaults(env), save_cpp_scope(env):
         nodes = [
             x
             for x in sphinx_utils.parse_rst(state=state, text=out)
@@ -587,6 +582,7 @@ def _add_entity_description(
     else:
         if entity["kind"] == "enum":
             _add_enumerators(
+                env=env,
                 api_data=api_data,
                 entity=entity,
                 obj_content=obj_content,
@@ -595,6 +591,7 @@ def _add_entity_description(
             )
         member_groups = api_data.get_entity_sub_groups(entity["id"], member=True)
         _merge_summary_nodes_into(
+            env=env,
             api_data=api_data,
             state=state,
             contentnode=obj_content,
@@ -606,6 +603,7 @@ def _add_entity_description(
 
 
 def _add_enumerators(
+    env: sphinx.environment.BuildEnvironment,
     api_data: CppApiData,
     entity: CppApiEntity,
     parent_scope: str,
@@ -636,9 +634,9 @@ def _add_enumerators(
             },
             source_path=location["file"],
             source_line=location["line"],
-            content=_transform_doc_comment(child["doc"], summary=False),
+            content=_transform_doc_comment(env, child["doc"], summary=False),
         )
-        with default_literal_role.overridden_default_literal_role("cpp"):
+        with apigen_utils.save_rst_defaults(env), save_cpp_scope(env):
             nodes = [
                 x
                 for x in sphinx_utils.parse_rst(state=state, text=out)
@@ -653,6 +651,7 @@ def _add_enumerators(
 
 
 def _add_group_summary(
+    env: sphinx.environment.BuildEnvironment,
     api_data: CppApiData,
     state: docutils.parsers.rst.states.RSTState,
     entities: List[EntityId],
@@ -669,6 +668,7 @@ def _add_group_summary(
         entity = api_data.entities[entity_id]
         path = api_data.get_entity_page_path(entity)
         _add_entity_description(
+            env=env,
             api_data=api_data,
             entity=entity,
             contentnode=parent,
@@ -693,29 +693,8 @@ def _add_group_summary(
     )
 
 
-def _add_group_summary_to_section(
-    api_data: CppApiData,
-    state: docutils.parsers.rst.states.RSTState,
-    entities: List[EntityId],
-    section: docutils.nodes.section,
-) -> None:
-    target_start_index = len(section.children)
-    while target_start_index > 0 and isinstance(
-        section[target_start_index - 1], docutils.nodes.target
-    ):
-        target_start_index -= 1
-
-    final_targets = section[target_start_index:]
-    del section[target_start_index:]
-
-    _add_group_summary(
-        api_data=api_data, state=state, entities=entities, parent=section
-    )
-
-    section.extend(final_targets)
-
-
 def _merge_summary_nodes_into(
+    env: sphinx.environment.BuildEnvironment,
     api_data: CppApiData,
     state: docutils.parsers.rst.states.RSTState,
     contentnode: docutils.nodes.Element,
@@ -735,24 +714,14 @@ def _merge_summary_nodes_into(
         group names.
     """
 
-    sections = _collect_sections(contentnode)
-
-    group_id_prefix = APIDOC_SECTION_ID_PREFIX if top_level_group else ""
-
-    for group_name, entities in groups.items():
-        group_id = group_id_prefix + docutils.nodes.make_id(group_name)
-        section = sections.get(group_id)
-        if section is None:
-            section = docutils.nodes.section()
-            section["ids"].append(group_id)
-            title = docutils.nodes.title("", group_name)
-            section += title
-            contentnode += section
-            sections[group_id] = section
-
-        _add_group_summary(
-            api_data=api_data, state=state, entities=entities, parent=section
-        )
+    apigen_utils.merge_groups_into(
+        parent=contentnode,
+        group_id_prefix=APIDOC_SECTION_ID_PREFIX if top_level_group else "",
+        groups=groups,
+        insert_group=lambda entities, section: _add_group_summary(
+            env=env, api_data=api_data, state=state, entities=entities, parent=section
+        ),
+    )
 
 
 class CppApigenEntityPageDirective(sphinx.util.docutils.SphinxDirective):
@@ -785,6 +754,7 @@ class CppApigenEntityPageDirective(sphinx.util.docutils.SphinxDirective):
             return []
 
         _add_entity_description(
+            env=self.env,
             api_data=api_data,
             entity=entity,
             contentnode=section,
@@ -797,6 +767,7 @@ class CppApigenEntityPageDirective(sphinx.util.docutils.SphinxDirective):
 
         non_member_groups = api_data.get_entity_sub_groups(entity_id, member=False)
         _merge_summary_nodes_into(
+            env=self.env,
             api_data=api_data,
             state=self.state,
             contentnode=section,
@@ -832,6 +803,7 @@ class CppApigenTopLevelGroupDirective(sphinx.util.docutils.SphinxDirective):
             return []
         contentnode = docutils.nodes.section()
         _add_group_summary(
+            env=self.env,
             api_data=api_data,
             state=self.state,
             entities=entities,
@@ -867,6 +839,7 @@ class CppApigenEntitySummaryDirective(sphinx.util.docutils.SphinxDirective):
             return []
         contentnode = docutils.nodes.section()
         _add_group_summary(
+            env=self.env,
             api_data=api_data,
             state=self.state,
             entities=[entity_id],
@@ -951,5 +924,10 @@ def setup(app: sphinx.application.Sphinx):
         types=(bool, type(None)),
         rebuild="env",
     )
-
+    app.add_config_value(
+        "cpp_apigen_rst_prolog", types=(str,), default="", rebuild="env"
+    )
+    app.add_config_value(
+        "cpp_apigen_rst_epilog", types=(str,), default="", rebuild="env"
+    )
     return {"parallel_read_safe": True, "parallel_write_safe": True}

@@ -156,8 +156,8 @@ class Config:
     )
     """List of regular expressions matching *allowed* paths.
 
-    Only entities defined in files that match `allowed_paths`, and don't match
-    `disallow_paths`, are documented.  By default all entities are documented,
+    Only entities defined in files that match `.allow_paths`, and don't match
+    `.disallow_paths`, are documented.  By default all entities are documented,
     but this default is not normally usable, because it will include entities
     defined in the standard library and third-party libraries.
 

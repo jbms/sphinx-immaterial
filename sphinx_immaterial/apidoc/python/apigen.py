@@ -56,6 +56,7 @@ import sphinx.util.typing
 from .. import apidoc_formatting
 from ... import sphinx_utils
 from .. import apigen_utils
+from ... import default_literal_role
 
 logger = sphinx.util.logging.getLogger(__name__)
 
@@ -585,20 +586,41 @@ def _generate_entity_desc_node(
     else:
         options["canonical"] = entity.canonical_object_name
     try:
-        nodes = [
-            x
-            for x in sphinx_utils.parse_rst(
-                state=state,
-                text=sphinx_utils.format_directive(
-                    entity.directive,
-                    signatures=[name + sig for sig in entity.signatures],
-                    content="\n".join(content),
-                    options=options,
-                ),
-                source_path=entity.object_name,
+        with apigen_utils.save_rst_defaults(env):
+            rst_input = docutils.statemachine.StringList()
+            sphinx_utils.append_multiline_string_to_stringlist(
+                rst_input,
+                ".. highlight-push::\n\n"
+                + env.config.python_apigen_rst_prolog
+                + "\n\n",
+                "<python_apigen_rst_prolog>",
+                -2,
             )
-            if isinstance(x, sphinx.addnodes.desc)
-        ]
+            sphinx_utils.append_directive_to_stringlist(
+                rst_input,
+                entity.directive,
+                signatures=[name + sig for sig in entity.signatures],
+                content="\n".join(content),
+                source_path=entity.object_name,
+                source_line=0,
+                options=options,
+            )
+            sphinx_utils.append_multiline_string_to_stringlist(
+                rst_input,
+                "\n\n"
+                + env.config.python_apigen_rst_epilog
+                + "\n\n.. highlight-pop::\n\n",
+                "<python_apigen_rst_epilog>",
+                -2,
+            )
+            nodes = [
+                x
+                for x in sphinx_utils.parse_rst(
+                    state=state,
+                    text=rst_input,
+                )
+                if isinstance(x, sphinx.addnodes.desc)
+            ]
     finally:
         env.app.disconnect(listener_id)
 
@@ -1790,5 +1812,11 @@ def setup(app: sphinx.application.Sphinx):
         default=True,
         types=(bool,),
         rebuild="env",
+    )
+    app.add_config_value(
+        "python_apigen_rst_prolog", types=(str,), default="", rebuild="env"
+    )
+    app.add_config_value(
+        "python_apigen_rst_epilog", types=(str,), default="", rebuild="env"
     )
     return {"parallel_read_safe": True, "parallel_write_safe": True}
