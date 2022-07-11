@@ -281,6 +281,8 @@ def setup(app):
     app.setup_extension("sphinx_immaterial.content_tabs")
     app.setup_extension("sphinx_immaterial.mermaid_diagrams")
     app.setup_extension("sphinx_immaterial.task_lists")
+    app.setup_extension("sphinx_immaterial.default_literal_role")
+    app.setup_extension("sphinx_immaterial.highlight_push_pop")
 
     return {
         "parallel_read_safe": True,

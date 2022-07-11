@@ -1,9 +1,11 @@
 """Utilities for use with Sphinx."""
 
+import contextlib
 import io
 from typing import Optional, Dict, Union, List, Tuple, Mapping, Sequence
 
 import docutils.nodes
+import docutils.parsers.rst.roles
 import docutils.parsers.rst.states
 import docutils.statemachine
 import sphinx.addnodes
@@ -211,3 +213,18 @@ def remove_css_file(app: sphinx.application.Sphinx, filename: str):
         ]
         for i in reversed(builder_indices):
             del builder_css_files[i]
+
+
+@contextlib.contextmanager
+def save_default_role(env: sphinx.environment.BuildEnvironment):
+    orig_role_fn = docutils.parsers.rst.roles._roles.get("")  # type: ignore[attr-defined]
+    orig_role_name = env.temp_data["default_role"]
+
+    try:
+        yield
+    finally:
+        if orig_role_fn is not None:
+            docutils.parsers.rst.roles._roles[""] = orig_role_fn  # type: ignore[attr-defined]
+        else:
+            docutils.parsers.rst.roles._roles.pop("", None)  # type: ignore[attr-defined]
+        env.temp_data["default_role"] = orig_role_name
