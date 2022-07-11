@@ -165,9 +165,9 @@ class Config:
     defined in the standard library and third-party libraries.
 
     .. important::
-        Because this is used as a Regular Expression patterns, this should end in
-        (and exclusively use) the Linux path separator :python:`"/"` (even if
-        building on Windows).
+        When building on Windows, all path separators are normalized to :python:`"/"`. 
+        Therefore, in the specified regular expressions, always use :python:`"/"` to
+        match a path separator.
     """
 
     disallow_paths: List[Pattern] = dataclasses.field(default_factory=list)
@@ -176,9 +176,9 @@ class Config:
     Entities defined in files matching any of these patterns are not documented.
 
     .. important::
-        Because this is used as a Regular Expression patterns, this should end in
-        (and exclusively use) the Linux path separator :python:`"/"` (even if
-        building on Windows).
+        When building on Windows, all path separators are normalized to :python:`"/"`. 
+        Therefore, in the specified regular expressions, always use :python:`"/"` to
+        match a path separator.
     """
 
     disallow_namespaces: List[Pattern] = dataclasses.field(default_factory=list)
