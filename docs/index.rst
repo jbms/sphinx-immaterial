@@ -76,6 +76,7 @@ or ``theme.conf`` for more details.
     mermaid_diagrams
     task_lists
     keys
+    code_syntax_highlighting
 
 .. toctree::
     :caption: API documentation customization
