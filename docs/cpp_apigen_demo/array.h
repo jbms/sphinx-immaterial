@@ -56,6 +56,7 @@ class Array {
   ///
   /// \param index The index vector, or an integer index in the case that
   ///     `Rank == 1`.
+  ///
   template <int SfinaeRank = Rank, typename = std::enable_if_t<SfinaeRank == 1>>
   T operator[](int index);
   T operator[](std::array<int, Rank> index);
