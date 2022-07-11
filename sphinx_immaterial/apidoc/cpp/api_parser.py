@@ -440,13 +440,14 @@ def _get_all_decls(config: Config, cursor: Cursor, allow_file):
         if kind in CLASS_KINDS:
             yield from _get_all_decls(config, child, None)
 
-def strip_comment(cmt: str = None) -> Optional[List[str]]:
+
+def strip_comment(cmt: str = None) -> List[str]:
     """Strip the raw string of an object's comment into lines.
     :param cmt: the comment to parse.
     :returns: A list of the lines without the surrounding C++ comment syntax.
     """
     if cmt is None:
-        return None
+        return [""]
     # the first line is never indented (in clang-parsed form)
     # so dedent all subsequent lines only
     first_line_end = cmt.find("\n")
@@ -469,9 +470,11 @@ def strip_comment(cmt: str = None) -> Optional[List[str]]:
         ]
         body[-1] = body[-1].rstrip("*/").rstrip()
     body = dedent("\n".join(body)).splitlines()
-    return body
+    return [""] if not body else body
+
 
 DOC_COMMENT_PREFIX = re.compile(r"/(//|/\!|\*\*|\*\!)\<?")
+
 
 def get_doc_comment(config: Config, cursor: Cursor):
     translation_unit = cursor.translation_unit
@@ -1701,11 +1704,16 @@ def _get_default_member_group(entity: CppApiEntity) -> str:
 
 
 def _normalize_doc_text(text: str) -> str:
-    text = re.sub(r"^((?:\\|@)(?:brief|details)\s+)", "", text)
+    text = re.sub(r"^((?:\\|@)(?:brief|details)\s+)", "", text, flags=re.MULTILINE)
     text = re.sub(
-        r"^(?:\\|@)(t?param)(\[(?:in|out|in,\sout)\])?\s+([a-zA-Z_][^ ]*)", ":\\1 \\3\\2:", text, flags=re.MULTILINE
+        r"^(?:\\|@)(t?param)(\[(?:in|out|in,\sout)\])?\s+([a-zA-Z_][^ ]*)",
+        ":\\1 \\3\\2:",
+        text,
+        flags=re.MULTILINE,
     )
-    text = re.sub(r"^(?:\\|@)(error)\s+`([^`]+)`", ":\\1 \\2:", text, flags=re.MULTILINE)
+    text = re.sub(
+        r"^(?:\\|@)(error)\s+`([^`]+)`", ":\\1 \\2:", text, flags=re.MULTILINE
+    )
     text = re.sub(
         r"^(?:\\|@)(returns?|pre|post|[ds]?checks|invariant|requires)(?: |\n )",
         ":\\1: ",
