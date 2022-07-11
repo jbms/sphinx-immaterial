@@ -305,6 +305,14 @@ json_schemas = [
     "apidoc/json/inheritance_schema.yml",
 ]
 
+json_schema_rst_prolog = """
+.. default-role:: json:schema
+
+.. default-literal-role:: json
+
+.. highlight:: json
+"""
+
 python_apigen_modules = {"tensorstore_demo": "python_apigen_generated/"}
 
 python_apigen_default_groups = [
@@ -313,6 +321,14 @@ python_apigen_default_groups = [
     (r".*:.*\.__eq__", "Comparison operators"),
     (r".*:.*\.__(str|repr)__", "String representation"),
 ]
+
+python_apigen_rst_prolog = """
+.. default-role:: py:obj
+
+.. default-literal-role:: python
+
+.. highlight:: python
+"""
 
 cpp_demo_include_dir = os.path.join(os.path.dirname(__file__))
 
@@ -333,6 +349,14 @@ cpp_apigen_configs = [
         ),
     ),
 ]
+
+cpp_apigen_rst_prolog = """
+.. default-role:: cpp:expr
+
+.. default-literal-role:: cpp
+
+.. highlight:: cpp
+"""
 
 autodoc_class_signature = "separated"
 

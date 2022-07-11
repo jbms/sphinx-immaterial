@@ -64,7 +64,6 @@ of contents, the :rst:dir:`cpp-apigen-group` directive may be used.
    This extension works well with the :themeconf:`toc_title_is_page_title`
    configuration option.
 
-
 rST Directives
 ^^^^^^^^^^^^^^
 
@@ -116,6 +115,8 @@ Configuration
    Specifies the C++ API parsing and documentation generation configurations to
    use.
 
+   .. default-role:: py:obj
+
    .. autoclass:: sphinx_immaterial.apidoc.cpp.apigen.ApigenConfig
       :members:
       :member-order: bysource
@@ -125,6 +126,8 @@ Configuration
       :members:
       :member-order: bysource
       :exclude-members: __init__
+
+   .. default-role:: any
 
 .. confval:: cpp_apigen_case_insensitive_filesystem
 
@@ -146,3 +149,45 @@ Configuration
 
    If the filesystem is either detected or specified to be case-insensitive,
    case conflicts are avoided by including a hash in the document name.
+
+.. confval:: cpp_apigen_rst_prolog
+
+   A string of reStructuredText that will be included at the beginning of the
+   documentation text for each entity.
+
+   This may be used to set the :dudir:`default-role`, :rst:dir:`highlight`
+   language, or :rst:dir:`default-literal-role`.
+
+   .. note::
+
+      The prior default role, default literal role, and default highlight
+      langauge are automatically restored after processing the
+      :confval:`cpp_apigen_rst_epilog`.  Therefore, it is not necessary to
+      manually add anything to :confval:`cpp_apigen_rst_epilog` to restore the
+      prior roles or highlight language.
+
+   .. code-block:: python
+      :caption: Setting default roles and highlight language in :file:`conf.py`
+
+      rst_prolog = """
+      .. role cpp(code)
+         :language: cpp
+         :class: highlight
+
+      cpp_apigen_rst_prolog = """
+      .. default-role:: cpp:expr
+
+      .. default-literal-role:: cpp
+
+      .. highlight:: cpp
+      """
+
+.. confval:: cpp_apigen_rst_epilog
+
+   A string of reStructuredText that will be included at the end of the
+   documentation text for each entity.
+
+   This option is supported for symmetry with
+   :confval:`cpp_apigen_rst_prolog`, but in most cases is not needed because
+   any changes to the default role, default literal role, and default highlight
+   language due to :confval:`cpp_apigen_rst_prolog` are undone automatically.

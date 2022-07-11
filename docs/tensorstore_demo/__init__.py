@@ -91,7 +91,7 @@ Overload:
 3. __init__(self: tensorstore_demo.Dim, inclusive_min: Optional[int] = -inf, exclusive_max: Optional[int] = +inf, *, label: Optional[str] = None, implicit_lower: Optional[bool] = None, implicit_upper: Optional[bool] = None) -> None
 
 
-Constructs a half-open interval ``[inclusive_min, exclusive_max)```.
+Constructs a half-open interval ``[inclusive_min, exclusive_max)``.
 
 Args:
   inclusive_min: Inclusive lower bound.

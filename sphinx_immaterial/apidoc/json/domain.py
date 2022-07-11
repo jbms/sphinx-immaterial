@@ -44,6 +44,8 @@ import yaml  # pylint: disable=import-error
 from .. import object_description_options
 from . import json_pprint
 from ... import sphinx_utils
+from ... import default_literal_role
+from .. import apigen_utils
 
 logger = sphinx.util.logging.getLogger(__name__)
 
@@ -407,6 +409,14 @@ def _schema_to_xref(schema_id: str) -> sphinx.addnodes.pending_xref:
     )
 
 
+def _json_literal(self, j: Any) -> docutils.nodes.Node:
+    return docutils.nodes.literal(
+        text=json.dumps(j),
+        classes=["code", "json"],
+        language="json",
+    )
+
+
 class JsonSchemaDirective(sphinx.directives.ObjectDescription):
     """json:schema directive."""
 
@@ -437,20 +447,6 @@ class JsonSchemaDirective(sphinx.directives.ObjectDescription):
         nodes, messages = self.state.inline_text(text, self.lineno)
         return nodes + cast(List[docutils.nodes.Node], messages)
 
-    def _parse_rst(
-        self, text: str, source_path: str, source_line: int = 0
-    ) -> List[docutils.nodes.Node]:
-        return sphinx_utils.parse_rst(
-            state=self.state,
-            text=text,
-            source_path=source_path,
-            source_line=source_line,
-        )
-
-    def _json_literal(self, j: Any) -> docutils.nodes.Node:
-        (node,) = self._inline_text(":json:`" + json.dumps(j) + "`")
-        return node
-
     def _json_sig_type(self, name: str):
         return sphinx.addnodes.desc_type(name, name)
 
@@ -477,7 +473,7 @@ class JsonSchemaDirective(sphinx.directives.ObjectDescription):
     def _get_type_description_line_const(
         self, schema_node: JsonSchema
     ) -> Optional[List[docutils.nodes.Node]]:
-        return [self._json_literal(schema_node["const"])]
+        return [_json_literal(self.state, schema_node["const"])]
 
     def _get_type_description_line_enum(
         self, schema_node: JsonSchema
@@ -486,7 +482,7 @@ class JsonSchemaDirective(sphinx.directives.ObjectDescription):
         for x in schema_node.get("enum"):
             if result:
                 result.append(sphinx.addnodes.desc_sig_punctuation("", " | "))
-            result.append(self._json_literal(x))
+            result.append(_json_literal(self.state, x))
         return result
 
     def _get_type_description_line_number(
@@ -495,10 +491,10 @@ class JsonSchemaDirective(sphinx.directives.ObjectDescription):
         explicit_lower = True
         if schema_node.get("minimum") is not None:
             lower_punct = "["
-            lower_node = self._json_literal(schema_node.get("minimum"))
+            lower_node = _json_literal(self.state, schema_node.get("minimum"))
         elif schema_node.get("exclusiveMinimum") is not None:
             lower_punct = "("
-            lower_node = self._json_literal(schema_node.get("exclusiveMinimum"))
+            lower_node = _json_literal(self.state, schema_node.get("exclusiveMinimum"))
         else:
             lower_punct = "("
             lower_node = sphinx.addnodes.desc_sig_operator("", "-∞")
@@ -507,10 +503,10 @@ class JsonSchemaDirective(sphinx.directives.ObjectDescription):
         explicit_upper = True
         if schema_node.get("maximum") is not None:
             upper_punct = "]"
-            upper_node = self._json_literal(schema_node.get("maximum"))
+            upper_node = _json_literal(self.state, schema_node.get("maximum"))
         elif schema_node.get("exclusiveMaximum") is not None:
             upper_punct = ")"
-            upper_node = self._json_literal(schema_node.get("exclusiveMaximum"))
+            upper_node = _json_literal(self.state, schema_node.get("exclusiveMaximum"))
         else:
             upper_punct = ")"
             upper_node = sphinx.addnodes.desc_sig_operator("", "+∞")
@@ -548,11 +544,11 @@ class JsonSchemaDirective(sphinx.directives.ObjectDescription):
             subscript_parts.append(sphinx.addnodes.desc_sig_punctuation("", "["))
             min_length = schema_node.get("minLength")
             if min_length:
-                subscript_parts.append(self._json_literal(min_length))
+                subscript_parts.append(_json_literal(self.state, min_length))
             subscript_parts.append(sphinx.addnodes.desc_sig_punctuation("", ".."))
             max_length = schema_node.get("maxLength")
             if max_length:
-                subscript_parts.append(self._json_literal(max_length))
+                subscript_parts.append(_json_literal(self.state, max_length))
             subscript_parts.append(sphinx.addnodes.desc_sig_punctuation("", "]"))
             result.append(docutils.nodes.subscript("", "", *subscript_parts))
         return result
@@ -565,13 +561,13 @@ class JsonSchemaDirective(sphinx.directives.ObjectDescription):
         if "minItems" in schema_node or "maxItems" in schema_node:
             prefix.append(sphinx.addnodes.desc_sig_punctuation("", "["))
             if schema_node.get("minItems") == schema_node.get("maxItems"):
-                prefix.append(self._json_literal(schema_node["minItems"]))
+                prefix.append(_json_literal(self.state, schema_node["minItems"]))
             else:
                 if schema_node["minItems"]:
-                    prefix.append(self._json_literal(schema_node["minItems"]))
+                    prefix.append(_json_literal(self.state, schema_node["minItems"]))
                 prefix.append(sphinx.addnodes.desc_sig_punctuation("", ".."))
                 if schema_node["maxItems"]:
-                    prefix.append(self._json_literal(schema_node["maxItems"]))
+                    prefix.append(_json_literal(self.state, schema_node["maxItems"]))
             prefix.append(sphinx.addnodes.desc_sig_punctuation("", "]"))
 
         if "items" in schema_node and isinstance(items, dict):
@@ -597,7 +593,7 @@ class JsonSchemaDirective(sphinx.directives.ObjectDescription):
     def _get_type_description_line_null(
         self, schema_node: JsonSchema
     ) -> Optional[List[docutils.nodes.Node]]:
-        return [self._json_literal(None)]
+        return [_json_literal(self.state, None)]
 
     def _get_type_description_line_object(
         self, schema_node: JsonSchema
@@ -666,7 +662,8 @@ class JsonSchemaDirective(sphinx.directives.ObjectDescription):
         :param kwargs: Options for the json:schema directive.
         :returns: The rendered result as a list of docutils nodes.
         """
-        return self._parse_rst(
+        return sphinx_utils.parse_rst(
+            self.state,
             sphinx_utils.format_directive("json:schema", entry.id, options=kwargs),
             *self.get_source_info(),
         )
@@ -736,26 +733,40 @@ class JsonSchemaDirective(sphinx.directives.ObjectDescription):
         return source_info
 
     def _parse_rst_from_schema_string(
-        self, source_string: str, prefix: str = "", suffix: str = ""
+        self, source_string: str
     ) -> List[docutils.nodes.Node]:
         """Renders RST markup obtained from a schema.
 
         :param source_string: String literal obtained from a JSON schema.
-        :param prefix: Additional prefix to include before source_string.
-        :param suffix: Additional suffix to include after source_string.
 
         :returns: The rendered result as a list of docutils nodes.
         """
-        adjusted_source = (
-            sphinx_utils.format_directive("default-role", "json:schema")
-            + prefix
-            + source_string
-            + suffix
-            + sphinx_utils.format_directive("default-role")
+        rst_input = docutils.statemachine.StringList()
+        sphinx_utils.append_multiline_string_to_stringlist(
+            rst_input,
+            ".. highlight-push::\n\n" + self.env.config.json_schema_rst_prolog + "\n\n",
+            "<json_schema_rst_prolog>",
+            -2,
         )
-        return self._parse_rst(
-            adjusted_source, *self._get_source_info_from_schema_string(source_string)
+        sphinx_utils.append_multiline_string_to_stringlist(
+            rst_input,
+            source_string,
+            *self._get_source_info_from_schema_string(source_string),
         )
+        sphinx_utils.append_multiline_string_to_stringlist(
+            rst_input,
+            "\n\n"
+            + self.env.config.json_schema_rst_epilog
+            + "\n\n.. highlight-pop::\n\n",
+            "<json_schema_rst_prolog>",
+            -2,
+        )
+        with apigen_utils.save_rst_defaults(self.env):
+            return sphinx_utils.parse_rst(
+                self.state,
+                rst_input,
+                *self._get_source_info_from_schema_string(source_string),
+            )
 
     def _render_body(self):
         """Renders the body of the schema."""
@@ -832,7 +843,8 @@ class JsonSchemaDirective(sphinx.directives.ObjectDescription):
 
         def add_example(value, caption, admonition_class="example"):
             nonlocal result
-            result += self._parse_rst(
+            result += sphinx_utils.parse_rst(
+                self.state,
                 sphinx_utils.format_directive(
                     "admonition",
                     caption,
@@ -887,7 +899,11 @@ class JsonSchemaDirective(sphinx.directives.ObjectDescription):
         signode += type_line
         if self._short_default_value:
             signode += sphinx.addnodes.desc_sig_punctuation("", " = ")
-            signode += self._inline_text(":json:`" + self._short_default_value + "`")
+            signode += docutils.nodes.literal(
+                text=self._short_default_value,
+                classes=["code", "json"],
+                language="json",
+            )
         if not self._exclude_from_toc and self._toc_title:
             signode["toc_title"] = self._toc_title
         return schema_entry.id
@@ -1213,6 +1229,12 @@ def setup(app: sphinx.application.Sphinx):
     app.add_config_value("json_schemas", types=(List[str],), default=[], rebuild="env")
     app.add_config_value(
         "json_schema_validate", types=(bool,), default=False, rebuild="env"
+    )
+    app.add_config_value(
+        "json_schema_rst_prolog", types=(str,), default="", rebuild="env"
+    )
+    app.add_config_value(
+        "json_schema_rst_epilog", types=(str,), default="", rebuild="env"
     )
     app.connect("builder-inited", _builder_inited)
     return {"parallel_read_safe": True, "parallel_write_safe": True}

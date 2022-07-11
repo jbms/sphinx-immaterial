@@ -1,16 +1,24 @@
 """Common utilities needed by the language-specific apigen modules."""
 
+import contextlib
 import glob
 import hashlib
 import os
 import pathlib
 import secrets
-from typing import Optional, List, Dict, Iterator, Tuple
+from typing import Optional, List, Dict, Iterator, Tuple, TypeVar, Callable
 
+import docutils.nodes
 import sphinx.application
+import sphinx.environment
 import sphinx.util.logging
 
+from .. import default_literal_role
+from .. import sphinx_utils
+
 logger = sphinx.util.logging.getLogger(__name__)
+
+T = TypeVar("T")
 
 
 def _is_case_insensitive_filesystem(path: str, initial_comment: str) -> bool:
@@ -124,3 +132,66 @@ class GeneratedDocumentWriter:
         self.clear_existing_generated_files()
         for docname, object_name, entity_content in entities:
             self.write_file(docname, object_name, entity_content)
+
+
+def collect_sections(
+    node: docutils.nodes.Element,
+) -> Dict[str, docutils.nodes.section]:
+    sections: Dict[str, docutils.nodes.section] = {}
+    for target in node.findall(condition=docutils.nodes.target):
+        ids = target["ids"]
+        next_node: docutils.nodes.Node = target.next_node(ascend=True)
+        if not isinstance(next_node, docutils.nodes.section):
+            continue
+        for section_id in ids:
+            sections[section_id] = next_node
+
+    for section in node.findall(condition=docutils.nodes.section):
+        ids = section["ids"]
+        if not ids:
+            continue
+        for section_id in ids:
+            sections[section_id] = section
+    return sections
+
+
+def merge_groups_into(
+    parent: docutils.nodes.Element,
+    groups: Dict[str, T],
+    insert_group: Callable[[T, docutils.nodes.section], None],
+    group_id_prefix: str = "",
+):
+
+    sections = collect_sections(parent)
+
+    for group_name, group_data in groups.items():
+        group_id = group_id_prefix + docutils.nodes.make_id(group_name)
+        section = sections.get(group_id)
+        if section is None:
+            section = docutils.nodes.section()
+            section["ids"].append(group_id)
+            title = docutils.nodes.title("", group_name)
+            section += title
+            parent += section
+            sections[group_id] = section
+
+        target_start_index = len(section.children)
+        while target_start_index > 0 and isinstance(
+            section[target_start_index - 1], docutils.nodes.target
+        ):
+            target_start_index -= 1
+
+        final_targets = section[target_start_index:]
+        del section[target_start_index:]
+        try:
+            insert_group(group_data, section)
+        finally:
+            section.extend(final_targets)
+
+
+@contextlib.contextmanager
+def save_rst_defaults(env: sphinx.environment.BuildEnvironment):
+    with default_literal_role.save_default_literal_role(), sphinx_utils.save_default_role(
+        env
+    ):
+        yield
