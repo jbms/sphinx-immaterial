@@ -441,7 +441,7 @@ def _get_all_decls(config: Config, cursor: Cursor, allow_file):
             yield from _get_all_decls(config, child, None)
 
 
-def strip_comment(cmt: str = None) -> List[str]:
+def split_doc_comment_into_lines(cmt: str) -> List[str]:
     """Strip the raw string of an object's comment into lines.
     :param cmt: the comment to parse.
     :returns: A list of the lines without the surrounding C++ comment syntax.
@@ -524,7 +524,7 @@ def get_doc_comment(config: Config, cursor: Cursor):
                 break
             presumed_line = new_presumed_line
             if DOC_COMMENT_PREFIX.match(spelling) is not None:
-                comment_lines.extend(strip_comment(spelling))
+                comment_lines.extend(split_doc_comment_into_lines(spelling))
             got_line = True
             break
         if stop or not got_line:
