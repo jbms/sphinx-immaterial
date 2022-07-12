@@ -173,6 +173,7 @@ Configuration
       .. role cpp(code)
          :language: cpp
          :class: highlight
+      """
 
       cpp_apigen_rst_prolog = """
       .. default-role:: cpp:expr
