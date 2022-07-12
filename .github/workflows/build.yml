@@ -69,7 +69,7 @@ jobs:
       run: sphinx-build . _build/html -W --keep-going -T
     - name: Build dirhtml docs
       working-directory: docs
-      run: sphinx-build . _build/dirhtml -W --keep-going -T
+      run: sphinx-build . _build/dirhtml -W --keep-going -T -b dirhtml
     - name: Build latex docs
       working-directory: docs
       run: sphinx-build -b latex . _build/latex -W --keep-going -T
