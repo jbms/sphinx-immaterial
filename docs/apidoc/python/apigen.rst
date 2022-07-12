@@ -472,6 +472,7 @@ Configuration
       .. role python(code)
          :language: python
          :class: highlight
+      """
 
       python_apigen_rst_prolog = """
       .. default-role:: py:obj
