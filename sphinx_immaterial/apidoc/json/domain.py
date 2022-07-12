@@ -259,7 +259,7 @@ def _populate_json_schema_id_map(app: sphinx.application.Sphinx):
         logger.error("jsonschema package required for json_schema_validate option")
         validate = False
     for i, path in enumerate(all_paths):
-        logger.info("[%d/%d] Loading JSON schema: %s", i, len(all_paths), path)
+        logger.info("[%d/%d] Loading JSON schema: %s", i + 1, len(all_paths), path)
         schema_data.load_json_schema(
             path=path,
             full_path=os.path.join(app.srcdir, path),
