@@ -80,6 +80,7 @@ specifying the JSON schema definition files.
       .. role json(code)
          :language: json
          :class: highlight
+      """
 
       json_schema_rst_prolog = """
       .. default-role:: json:schema
