@@ -170,7 +170,9 @@ setuptools.setup(
     author="Jeremy Maitin-Shepard",
     author_email="jeremy@jeremyms.com",
     url="https://github.com/jbms/sphinx-immaterial",
-    packages=setuptools.find_packages(where=".", include=["sphinx_immaterial", "sphinx_immaterial.*"]),
+    packages=setuptools.find_packages(
+        where=".", include=["sphinx_immaterial", "sphinx_immaterial.*"]
+    ),
     package_dir={"sphinx_immaterial": "sphinx_immaterial"},
     package_data={
         "sphinx_immaterial": [

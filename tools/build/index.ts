@@ -184,11 +184,14 @@ const templates$ = manifest$
 
         /* If necessary, apply manifest */
         if (process.argv.includes("--optimize"))
-          for (const [key, value] of manifest)
+          for (let [key, value] of manifest) {
+            key = key.replace("\\", "/")
+            value = value.replace("\\", "/")
             data = data.replace(
               new RegExp(`('|")_static/${key}\\1`, "g"),
               `$1_static/${value}$1`
             )
+          }
 
         /* Normalize line feeds and minify HTML */
         const html = data.replace(/\r\n/gm, "\n")

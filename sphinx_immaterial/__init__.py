@@ -327,6 +327,7 @@ def setup(app):
     )
 
     app.add_builder(_get_html_builder(app.registry.builders["html"]), override=True)
+    app.add_builder(_get_html_builder(app.registry.builders["dirhtml"]), override=True)
     app.add_html_theme("sphinx_immaterial", os.path.abspath(os.path.dirname(__file__)))
 
     # register our custom adminition directive that are tied to the theme's CSS
