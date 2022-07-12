@@ -521,6 +521,9 @@ def _build_toc_index(toc: List[MkdocsNavEntry]) -> Dict[str, List[TocEntryKey]]:
     return url_map
 
 
+_FAKE_DOCNAME = "fakedoc"
+
+
 class CachedTocInfo:
     """Cached representation of the global TOC.
 
@@ -545,7 +548,6 @@ class CachedTocInfo:
         # relative to the base URL.  When generating the per-page TOCs from this
         # cached data structure the URLs will be converted to be relative to the
         # current page.
-        fake_pagename = ""
         env = app.env
         assert env is not None
         builder = app.builder
@@ -553,14 +555,14 @@ class CachedTocInfo:
         global_toc_node = sphinx.environment.adapters.toctree.TocTree(
             env
         ).get_toctree_for(
-            fake_pagename,
+            _FAKE_DOCNAME,
             builder,
             collapse=False,
             maxdepth=-1,
             titles_only=False,
         )
         global_toc = _get_mkdocs_toc(global_toc_node, builder)
-        _add_domain_info_to_toc(app, global_toc, fake_pagename)
+        _add_domain_info_to_toc(app, global_toc, _FAKE_DOCNAME)
         self.entries = global_toc
         self.url_map = _build_toc_index(global_toc)
 
@@ -590,14 +592,12 @@ def _get_global_toc(app: sphinx.application.Sphinx, pagename: str, collapse: boo
     cached_data = _get_cached_globaltoc_info(app)
     builder = app.builder
     assert isinstance(builder, StandaloneHTMLBuilder)
-    url = builder.get_target_uri(pagename)
-    keys = set(cached_data.url_map[url])
+    fake_page_url = builder.get_target_uri(_FAKE_DOCNAME)
+    fake_relative_url = sphinx.util.osutil.relative_uri(
+        fake_page_url, builder.get_target_uri(pagename)
+    )
+    keys = set(cached_data.url_map[fake_relative_url])
     ancestors = _get_ancestor_keys(keys)
-
-    fake_pagename = ""
-
-    fake_page_url = builder.get_target_uri(fake_pagename)
-
     real_page_url = builder.get_target_uri(pagename)
 
     def _make_toc_for_page(key: TocEntryKey, children: List[MkdocsNavEntry]):

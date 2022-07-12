@@ -8,6 +8,8 @@ jobs:
       matrix:
         os:
           - 'ubuntu-latest'
+          - 'windows-latest'
+          - 'macos-latest'
         python-version:
           - '3.7'
           - '3.8'
@@ -38,8 +40,11 @@ jobs:
     - name: Install Python packaging & linting tools
       run: python -m pip install -r dev-requirements.txt -r requirements.txt
     - run: mypy sphinx_immaterial/**/*.py
+      shell: bash
     - run: pylint sphinx_immaterial/**/*.py
+      shell: bash
     - run: black --diff --color sphinx_immaterial/**/*.py
+      shell: bash
     - name: Check for dirty working directory
       run: git diff --exit-code
     - name: Show package version
@@ -48,18 +53,23 @@ jobs:
       run: python setup.py sdist bdist_wheel
     - name: Upload wheels as artifacts
       uses: actions/upload-artifact@v2
+      if: ${{ matrix.python-version == '3.10' }}
       with:
-        name: python-packages
+        name: python-packages-${{ runner.os }}
         path: |
           dist/*.whl
           dist/*.tar.*
     - name: Install wheel and docs' dependencies
       run: pip install dist/*.whl -r docs/requirements.txt
+      shell: bash
     - run: pytest -vv -s tests/
       name: Run Python tests
     - name: Build html docs
       working-directory: docs
       run: sphinx-build . _build/html -W --keep-going -T
+    - name: Build dirhtml docs
+      working-directory: docs
+      run: sphinx-build . _build/dirhtml -W --keep-going -T
     - name: Build latex docs
       working-directory: docs
       run: sphinx-build -b latex . _build/latex -W --keep-going -T
@@ -67,11 +77,11 @@ jobs:
       if: ${{ matrix.python-version == '3.10' }}
       uses: actions/upload-artifact@v2
       with:
-        name: doc-builds
+        name: doc-builds-${{ runner.os }}
         path: docs/_build/
     - name: upload docs to github pages
       # if: ${{ github.event_name == 'release'}}
-      if: ${{ matrix.python-version == '3.10' && github.event_name != 'pull_request' && github.ref == 'refs/heads/main' }}
+      if: ${{ matrix.python-version == '3.10' && github.event_name != 'pull_request' && github.ref == 'refs/heads/main' && runner.os == 'Linux' }}
       uses: peaceiris/actions-gh-pages@068dc23d9710f1ba62e86896f84735d869951305 # pinned to v3.8.0
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
@@ -86,7 +96,7 @@ jobs:
     steps:
     - uses: actions/download-artifact@v2
       with:
-        name: python-packages
+        name: python-packages-Linux
         path: dist
     - name: Publish to PyPI (test server)
       uses: pypa/gh-action-pypi-publish@54b39fb9371c0b3a6f9f14bb8a67394defc7a806 # 2020-09-25
