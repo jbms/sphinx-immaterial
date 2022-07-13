@@ -194,10 +194,10 @@ class TypeAnnotationTransformer(ast.NodeTransformer):
         value = self.visit(node.value)
         id_str = _get_ast_dotted_name(value)
         if id_str in ("typing.Optional", "typing.Union", "typing.Literal"):
-            slice_expr = node.slice
+            slice_expr: ast.AST = node.slice
             elts: Sequence[ast.AST]
             if isinstance(slice_expr, ast.Index):
-                elts = slice_expr.value  # type: ignore
+                slice_expr = slice_expr.value  # type: ignore
             if isinstance(slice_expr, ast.Tuple):
                 elts = slice_expr.elts
             else:
