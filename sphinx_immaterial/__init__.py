@@ -236,7 +236,10 @@ def html_page_context(
     theme_options = app.config["html_theme_options"]
     theme_options = dict_merge(DEFAULT_THEME_OPTIONS, theme_options)
 
-    num_slashes = pagename.count("/")
+    builder = app.builder
+    assert isinstance(builder, sphinx.builders.html.StandaloneHTMLBuilder)
+
+    num_slashes = builder.get_target_uri(pagename).count("/")
     if num_slashes == 0:
         base_url = "."
     else:
