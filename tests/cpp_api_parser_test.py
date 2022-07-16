@@ -53,35 +53,82 @@ int foo(T x);
     assert requires
 
 
-def test_comment_strip():
-    # this test can also be used for trailing doc strings (though it isn't supported yet)
+class TestCommentStrip:
     config = api_parser.Config(
         input_path="a.cpp",
-        input_content="""
-//! This is a docstring.
-int var = 0;
-
-/// This is a docstring.
-int arr[1];
-
-// Do not show this.
-bool internal = true;  ///< This is a docstring.
-
-/** This is a docstring. */
-bool is_used = false;
-
-/*! This is a docstring. */
-bool is_useful = false;
-""",
     )
 
-    output = api_parser.generate_output(config)
-    doc_strings = [
-        v["doc"]["text"] for v in output.get("entities", {}).values()
-    ]
-    assert "Do not show this." not in doc_strings
-    # count changes to 5 when supporting trailing doc strings
-    assert doc_strings.count("This is a docstring.") >= 4
+    def assert_output(self, expected: str):
+        output = api_parser.generate_output(self.config)
+        doc_strings = [v["doc"]["text"] for v in output.get("entities", {}).values()]
+        assert expected in doc_strings
+
+    def test1(self):
+        self.config.input_content = b"\n".join(
+            [
+                b"//! This is a docstring.",
+                b"int var = 0;",
+            ]
+        )
+        self.assert_output("This is a docstring.")
+
+    def test2(self):
+        self.config.input_content = b"\n".join(
+            [
+                b"/// This is a docstring.",
+                b"int var = 0;",
+            ]
+        )
+        self.assert_output("This is a docstring.")
+
+    def test3(self):
+        self.config.input_content = b"\n".join(
+            [
+                b"/** This is a docstring. */",
+                b"int var = 0;",
+            ]
+        )
+        self.assert_output("This is a docstring.")
+
+    def test4(self):
+        self.config.input_content = b"\n".join(
+            [
+                b"/*! This is a docstring. */",
+                b"int var = 0;",
+            ]
+        )
+        self.assert_output("This is a docstring.")
+
+    def test5(self):
+        self.config.input_content = b"\n".join(
+            [
+                b"int var = 0; ///< This is a docstring.",
+            ]
+        )
+        self.assert_output("This is a docstring.")
+
+    def test6(self):
+        self.config.input_content = b"\n".join(
+            [
+                b"/**",
+                b" * This is a docstring.",
+                b" */",
+                b"int var = 0;",
+            ]
+        )
+        self.assert_output("\nThis is a docstring.")
+
+    def test7(self):
+        self.config.input_content = b"\n".join(
+            [
+                b"/*!",
+                b" * This is a docstring.",
+                b" */",
+                b"int var = 0;",
+            ]
+        )
+        self.assert_output("\nThis is a docstring.")
+
 
 def test_function_fields():
     config = api_parser.Config(
@@ -99,7 +146,7 @@ def test_function_fields():
 /// \\tparam T A template parameter.
 template<typename T>
 int function(T arg1, T &arg2, T &arg3);
-"""
+""",
     )
 
     output = api_parser.generate_output(config)
