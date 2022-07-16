@@ -446,9 +446,7 @@ def split_doc_comment_into_lines(cmt: str) -> List[str]:
     :param cmt: the comment to parse.
     :returns: A list of the lines without the surrounding C++ comment syntax.
     """
-    if cmt is None:
-        return [""]
-    # the first line is never indented (in clang-parsed form)
+    # the first line is never indented (in `raw_comment` form)
     # so dedent all subsequent lines only
     first_line_end = cmt.find("\n")
     cmt = cmt[:first_line_end] + dedent(cmt[first_line_end:])
