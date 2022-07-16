@@ -70,7 +70,7 @@ class TestCommentStrip:
                 b"int var = 0;",
             ]
         )
-        self.assert_output("This is a docstring.")
+        self.assert_output(" This is a docstring.")
 
     def test2(self):
         self.config.input_content = b"\n".join(
@@ -79,7 +79,7 @@ class TestCommentStrip:
                 b"int var = 0;",
             ]
         )
-        self.assert_output("This is a docstring.")
+        self.assert_output(" This is a docstring.")
 
     def test3(self):
         self.config.input_content = b"\n".join(
@@ -88,7 +88,7 @@ class TestCommentStrip:
                 b"int var = 0;",
             ]
         )
-        self.assert_output("This is a docstring.")
+        self.assert_output(" This is a docstring.")
 
     def test4(self):
         self.config.input_content = b"\n".join(
@@ -97,7 +97,7 @@ class TestCommentStrip:
                 b"int var = 0;",
             ]
         )
-        self.assert_output("This is a docstring.")
+        self.assert_output(" This is a docstring.")
 
     def test5(self):
         self.config.input_content = b"\n".join(
@@ -105,7 +105,7 @@ class TestCommentStrip:
                 b"int var = 0; ///< This is a docstring.",
             ]
         )
-        self.assert_output("This is a docstring.")
+        self.assert_output(" This is a docstring.")
 
     def test6(self):
         self.config.input_content = b"\n".join(

@@ -469,7 +469,8 @@ def split_doc_comment_into_lines(cmt: str) -> List[str]:
             for line in body
         ]
         body[-1] = body[-1].rstrip("*/").rstrip()
-    body = dedent("\n".join(body)).splitlines()
+    if len(body) > 1:
+        body = dedent("\n".join(body)).splitlines()
     return [""] if not body else body
 
 
