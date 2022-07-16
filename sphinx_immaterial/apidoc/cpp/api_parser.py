@@ -483,11 +483,16 @@ def get_doc_comment(config: Config, cursor: Cursor):
         break
     else:
         location = cursor.location
-    initial_location = location
     f = location.file
     line = location.line
-    presumed_file, presumed_line, presumed_column = get_presumed_location(location)
     end_location = SourceLocation.from_position(translation_unit, f, line, 1)
+    if cursor.raw_comment and DOC_COMMENT_PREFIX.match(cursor.raw_comment):
+        return {
+            "text": "\n".join(split_doc_comment_into_lines(cursor.raw_comment)),
+            "location": _get_location_json(config, end_location),
+        }
+    initial_location = location
+    presumed_file, presumed_line, presumed_column = get_presumed_location(location)
     comment_lines = []
     COMMENT = TokenKind.COMMENT
     while True:
