@@ -97,6 +97,10 @@ class HTMLTranslatorMixin(HTMLTranslatorMixinBase):  # pylint: disable=abstract-
         self.add_permalink_ref(node, _("Permalink to this headline"))
         super().depart_field_name(node)
 
+    def depart_rubric(self, node: docutils.nodes.Element) -> None:
+        self.add_permalink_ref(node, _("Permalink to this headline"))
+        super().depart_rubric(node)
+
     def depart_term(self, node: docutils.nodes.Element) -> None:
         if "ids" in node.attributes:
             self.add_permalink_ref(node, _("Permalink to this definition"))
@@ -223,6 +227,32 @@ def _monkey_patch_object_description_to_include_fields_in_toc():
                 if obj_id:
                     field_id = f"{obj_id}-{field_id}"
                 field_name["ids"].append(field_id)
+
+        return nodes
+
+    sphinx.directives.ObjectDescription.run = run
+
+
+def _monkey_patch_object_description_to_include_rubrics_in_toc():
+    orig_run = sphinx.directives.ObjectDescription.run
+
+    def run(self: sphinx.directives.ObjectDescription) -> List[docutils.nodes.Node]:
+        nodes = orig_run(self)
+
+        options = get_object_description_options(self.env, self.domain, self.objtype)
+        if not options["include_rubrics_in_toc"]:
+            return nodes
+
+        obj_desc = nodes[-1]
+        obj_content = obj_desc[-1]
+        for child in obj_content:
+            if not isinstance(child, docutils.nodes.rubric):
+                continue
+            rubric = cast(docutils.nodes.rubric, child)
+            if rubric["ids"]:
+                continue
+            rubric_id = docutils.nodes.make_id(rubric.astext())
+            rubric["ids"].append(rubric_id)
 
         return nodes
 
@@ -449,6 +479,7 @@ def setup(app: sphinx.application.Sphinx):
 
     app.connect("object-description-transform", _wrap_signatures, priority=1000)
     _monkey_patch_object_description_to_include_fields_in_toc()
+    _monkey_patch_object_description_to_include_rubrics_in_toc()
 
     add_object_description_option(
         app, "wrap_signatures_with_css", type_constraint=bool, default=True
@@ -461,6 +492,9 @@ def setup(app: sphinx.application.Sphinx):
     )
     add_object_description_option(
         app, "include_fields_in_toc", type_constraint=bool, default=True
+    )
+    add_object_description_option(
+        app, "include_rubrics_in_toc", type_constraint=bool, default=False
     )
     add_object_description_option(
         app,
