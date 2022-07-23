@@ -436,6 +436,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#objconf-include_rubrics_in_toc" class="md-nav__link">
+    <span aria-label="object description option" class="objinfo-icon objinfo-icon__data" title="object description option">O</span><span title="include_rubrics_in_toc (object description option)" class="md-ellipsis">include_<wbr>rubrics_<wbr>in_<wbr>toc</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#table-of-contents-icons" class="md-nav__link">
     <span class="md-ellipsis">Table of contents icons</span>
   </a>
@@ -783,6 +790,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#objconf-include_rubrics_in_toc" class="md-nav__link">
+    <span aria-label="object description option" class="objinfo-icon objinfo-icon__data" title="object description option">O</span><span title="include_rubrics_in_toc (object description option)" class="md-ellipsis">include_<wbr>rubrics_<wbr>in_<wbr>toc</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#table-of-contents-icons" class="md-nav__link">
     <span class="md-ellipsis">Table of contents icons</span>
   </a>
@@ -935,7 +949,7 @@ to <code class="file docutils literal notranslate"><span class="pre">conf.py</sp
 <dt class="sig sig-object highlight std" id="objconf-include_fields_in_toc">
 <span class="sig-name descname"><span class="pre">include_fields_in_toc</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="kc">True</span></code><a class="headerlink" href="#objconf-include_fields_in_toc" title="Permalink to this definition">¶</a></dt>
 <dd><p>Indicates whether to include fields, like “Parameters”, “Returns”, “Raises”,
-etc. in the table of contents.</p>
+etc., in the table of contents.</p>
 <p>For an example, see: <code class="cpp-expr sig sig-inline cpp highlight"><span class="n">synopses_ex</span><span class="p">::</span><a class="reference internal" href="../demo_api.html#_CPPv4I0_iEN11synopses_ex3FooEN11synopses_ex8SomeTypeE1TRA1N_Ki" title="synopses_ex::Foo (C++ function) — Synopsis for this function, shown when hovering over cross references as well as in the TOC."><span class="n">Foo</span></a></code> and note the <code class="docutils literal notranslate"><span class="pre">Template</span>
 <span class="pre">Parameters</span></code>, <code class="docutils literal notranslate"><span class="pre">Parameters</span></code>, and <code class="docutils literal notranslate"><span class="pre">Returns</span></code> headings shown in the
 right-side table of contents.</p>
@@ -953,6 +967,29 @@ option.</p>
 <code class="docutils literal notranslate"><span class="pre">py</span></code> domain objects, add the following to <code class="file docutils literal notranslate"><span class="pre">conf.py</span></code>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="n">object_description_options</span> <span class="o">=</span> <span class="p">[</span>
     <span class="p">(</span><span class="s2">&quot;py:.*&quot;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">include_fields_in_toc</span><span class="o">=</span><span class="kc">False</span><span class="p">)),</span>
+<span class="p">]</span>
+</code></pre></div>
+</div>
+</div>
+</dd></dl>
+
+<dl class="std objconf objdesc">
+<dt class="sig sig-object highlight std" id="objconf-include_rubrics_in_toc">
+<span class="sig-name descname"><span class="pre">include_rubrics_in_toc</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="kc">False</span></code><a class="headerlink" href="#objconf-include_rubrics_in_toc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Indicates whether to include rubrics in object descriptions, like “Notes”, “References”, “Examples”,
+etc., in the table of contents.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Traditionally, rubrics are not intended to be included in the table of contents. However with
+<a class="reference internal" href="#objconf-include_fields_in_toc" title="include_fields_in_toc (object description option)"><code class="xref std std-objconf docutils literal notranslate"><span class="pre">include_fields_in_toc</span></code></a>, rubric-like fields may be included in the TOC. Including
+other rubrics from the object description in the TOC is provided for visual consistency.</p>
+</div>
+<div class="example admonition">
+<p class="admonition-title">Example</p>
+<p>To include object description rubrics in the table of contents for all
+<code class="docutils literal notranslate"><span class="pre">py</span></code> domain objects, add the following to <code class="file docutils literal notranslate"><span class="pre">conf.py</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="n">object_description_options</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s2">&quot;py:.*&quot;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">include_rubrics_in_toc</span><span class="o">=</span><span class="kc">True</span><span class="p">)),</span>
 <span class="p">]</span>
 </code></pre></div>
 </div>
@@ -1018,7 +1055,7 @@ indicate a class or <code class="code highlight python docutils literal highligh
   <small>
     
       Last update:
-      Jul 15, 2022
+      Jul 23, 2022
     
   </small>
 </div>
