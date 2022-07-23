@@ -87,6 +87,22 @@ def _monkey_patch_toc_tree_process_doc(app: sphinx.application.Sphinx):
         section += titlenode
         return section
 
+    def _make_section_from_rubric(
+        source: docutils.nodes.rubric,
+    ) -> Optional[docutils.nodes.section]:
+        rubric = cast(docutils.nodes.rubric, source)
+        ids = rubric["ids"]
+        if not ids:
+            # Not indexed
+            return None
+        section = docutils.nodes.section()
+        section["ids"] = ids
+        title = rubric.astext()
+        # Sphinx uses the first child of the section node as the title.
+        titlenode = docutils.nodes.comment(title, title)
+        section += titlenode
+        return section
+
     def _make_section_from_term(
         source: docutils.nodes.term,
     ) -> Optional[docutils.nodes.section]:
@@ -143,6 +159,13 @@ def _monkey_patch_toc_tree_process_doc(app: sphinx.application.Sphinx):
                 if new_node is not None:
                     target += new_node
                     target = new_node
+            elif isinstance(source, docutils.nodes.rubric):
+                # Rubric.  Try to create synthetic section.
+                new_node = _make_section_from_rubric(source)
+                if new_node is not None:
+                    target += new_node
+                # Rubrics cannot contain sub-sections
+                return
             elif isinstance(source, docutils.nodes.term) and source.get("toc_title"):
                 # Term with toc title.  Try to create synthetic section.
                 new_node = _make_section_from_term(source)

@@ -108,7 +108,7 @@ The following options can be customized for each object type using
 .. objconf:: include_fields_in_toc
 
    Indicates whether to include fields, like "Parameters", "Returns", "Raises",
-   etc. in the table of contents.
+   etc., in the table of contents.
 
    For an example, see: :cpp:expr:`synopses_ex::Foo` and note the ``Template
    Parameters``, ``Parameters``, and ``Returns`` headings shown in the
@@ -133,6 +133,29 @@ The following options can be customized for each object type using
 
          object_description_options = [
              ("py:.*", dict(include_fields_in_toc=False)),
+         ]
+
+.. objconf:: include_rubrics_in_toc
+
+   Indicates whether to include rubrics in object descriptions, like "Notes", "References", "Examples",
+   etc., in the table of contents.
+
+   .. note::
+
+      Traditionally, rubrics are not intended to be included in the table of contents. However with
+      :objconf:`include_fields_in_toc`, rubric-like fields may be included in the TOC. Including
+      other rubrics from the object description in the TOC is provided for visual consistency.
+
+   .. admonition:: Example
+      :class: example
+
+      To include object description rubrics in the table of contents for all
+      ``py`` domain objects, add the following to :file:`conf.py`:
+
+      .. code-block:: python
+
+         object_description_options = [
+             ("py:.*", dict(include_rubrics_in_toc=True)),
          ]
 
 Other options described elsewhere include:
