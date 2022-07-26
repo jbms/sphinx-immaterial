@@ -54,7 +54,7 @@ def _monkey_patch_cpp_ast_template_params():
         orig_describe_signature_as_introducer(
             self, fake_parent, mode, env, symbol, lineSpec
         )
-        for x in fake_parent.traverse(condition=sphinx.addnodes.desc_name):
+        for x in fake_parent.findall(condition=sphinx.addnodes.desc_name):
             # Ensure template parameter names aren't styled as the main entity
             # name.
             x["classes"].append("sig-name-nonprimary")

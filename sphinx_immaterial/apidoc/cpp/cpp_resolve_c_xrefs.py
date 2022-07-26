@@ -107,7 +107,7 @@ def _monkey_patch_cpp_expr_role_to_include_c_parent_key():
         c_parent_key = self.env.ref_context.get("c:parent_key")
         if c_parent_key is not None:
             for node in nodes:
-                for refnode in node.traverse(condition=sphinx.addnodes.pending_xref):
+                for refnode in node.findall(condition=sphinx.addnodes.pending_xref):
                     if refnode.get("refdomain") == "cpp":
                         refnode["c:parent_key"] = c_parent_key
         return nodes, messages

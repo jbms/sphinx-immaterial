@@ -134,7 +134,7 @@ def _monkey_patch_python_parse_arglist():
         arglist: str, env: Optional[sphinx.environment.BuildEnvironment] = None
     ) -> sphinx.addnodes.desc_parameterlist:
         result = orig_parse_arglist(arglist, env)
-        for node in result.traverse(condition=docutils.nodes.inline):
+        for node in result.findall(condition=docutils.nodes.inline):
             if "default_value" not in node["classes"]:
                 continue
             node.replace_self(
@@ -468,12 +468,12 @@ def _add_parameter_links_to_signature(
         param_node_copy.line = line
         sig_param_nodes[name] = param_node_copy
         del name_node[node_identifier_key]
-        for name_node_copy in param_node_copy.traverse(condition=type(name_node)):
+        for name_node_copy in param_node_copy.findall(condition=type(name_node)):
             if name_node_copy.get(node_identifier_key):
                 return name_node_copy
         raise ValueError("Could not locate name node within parameter")
 
-    for desc_param_node in signode.traverse(condition=sphinx.addnodes.desc_parameter):
+    for desc_param_node in signode.findall(condition=sphinx.addnodes.desc_parameter):
         for sig_param_node in desc_param_node:
             if not isinstance(sig_param_node, sphinx.addnodes.desc_sig_name):
                 continue
@@ -814,7 +814,7 @@ def _maybe_strip_type_annotations(
     for signode in obj_desc[:-1]:
         assert isinstance(signode, sphinx.addnodes.desc_signature)
         if strip_self_type_annotations:
-            for param in signode.traverse(condition=sphinx.addnodes.desc_parameter):
+            for param in signode.findall(condition=sphinx.addnodes.desc_parameter):
                 if param.children[0].astext() == "self":
                     # Remove any annotations on `self`
                     del param.children[1:]
@@ -829,7 +829,7 @@ def _maybe_strip_type_annotations(
                 fullname = modname + "." + fullname
             if strip_return_type_annotations.fullmatch(fullname):
                 # Remove return type.
-                for node in signode.traverse(condition=sphinx.addnodes.desc_returns):
+                for node in signode.findall(condition=sphinx.addnodes.desc_returns):
                     node.parent.remove(node)
 
 

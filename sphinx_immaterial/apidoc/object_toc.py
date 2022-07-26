@@ -51,7 +51,7 @@ def _monkey_patch_toc_tree_process_doc(app: sphinx.application.Sphinx):
         title = signature.get("toc_title", None)
         if not title:
             title = ""
-            for child in signature.traverse():
+            for child in signature.findall():
                 if isinstance(
                     child, (sphinx.addnodes.desc_name, sphinx.addnodes.desc_addname)
                 ):

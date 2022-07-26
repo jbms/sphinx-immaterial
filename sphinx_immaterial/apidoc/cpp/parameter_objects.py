@@ -198,12 +198,12 @@ def _add_parameter_links_to_signature(
         param_node_copy.line = line
         sig_param_nodes[name] = param_node_copy
         del name_node[node_identifier_key]
-        for name_node_copy in param_node_copy.traverse(condition=type(name_node)):
+        for name_node_copy in param_node_copy.findall(condition=type(name_node)):
             if name_node_copy.get(node_identifier_key):
                 return name_node_copy
         raise ValueError("Could not locate name node within parameter")
 
-    for sig_param_node in signode.traverse(condition=sphinx.addnodes.desc_sig_name):
+    for sig_param_node in signode.findall(condition=sphinx.addnodes.desc_sig_name):
         desc_param_node = sig_param_node.parent
         if not isinstance(desc_param_node, sphinx.addnodes.desc_parameter):
             continue
@@ -212,7 +212,7 @@ def _add_parameter_links_to_signature(
         new_sig_param_node = add_replacement(sig_param_node, sig_param_node.parent)
         new_sig_param_node["classes"].append("sig-name")
 
-    for desc_sig_name_node in signode.traverse(condition=sphinx.addnodes.desc_sig_name):
+    for desc_sig_name_node in signode.findall(condition=sphinx.addnodes.desc_sig_name):
         parent = desc_sig_name_node.parent
         if not isinstance(parent, sphinx.addnodes.desc_name):
             continue
