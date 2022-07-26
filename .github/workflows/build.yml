@@ -39,11 +39,11 @@ jobs:
     - run: npm run check
     - name: Install Python packaging & linting tools
       run: python -m pip install -r dev-requirements.txt -r requirements.txt
-    - run: mypy sphinx_immaterial/**/*.py
+    - run: mypy sphinx_immaterial/**/*.py tests/**/*.py
       shell: bash
     - run: pylint sphinx_immaterial/**/*.py
       shell: bash
-    - run: black --diff --color sphinx_immaterial/**/*.py
+    - run: black --diff --color sphinx_immaterial/**/*.py tests/**/*.py
       shell: bash
     - name: Check for dirty working directory
       run: git diff --exit-code

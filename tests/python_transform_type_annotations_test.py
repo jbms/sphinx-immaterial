@@ -34,9 +34,9 @@ def test_transform_type_annotations_pep604(theme_make_app):
     )
 
     for annotation, expected_text in [
-            ('Union[int, float]', 'int | float'),
-            ('Literal[1, 2, None]', '1 | 2 | None'),
+        ("Union[int, float]", "int | float"),
+        ("Literal[1, 2, None]", "1 | 2 | None"),
     ]:
-        parent = docutils.nodes.TextElement('','')
+        parent = docutils.nodes.TextElement("", "")
         parent.extend(sphinx.domains.python._parse_annotation(annotation, app.env))
         assert parent.astext() == expected_text
