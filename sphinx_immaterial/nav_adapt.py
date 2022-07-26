@@ -248,6 +248,10 @@ class _TocVisitor(docutils.nodes.NodeVisitor):
         self._url = node.get("refuri")
         raise docutils.nodes.SkipChildren
 
+    # `only` directives can result in `comment` nodes.
+    def visit_comment(self, node: docutils.nodes.comment):
+        raise docutils.nodes.SkipChildren
+
     def visit_compact_paragraph(self, node: docutils.nodes.Element):
         pass
 
