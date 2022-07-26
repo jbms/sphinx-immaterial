@@ -383,6 +383,9 @@ def _make_domain_anchor_map(
             anchor,
             priority,
         ) in domain.get_objects():
+            if domain_name == "std" and objtype == "doc":
+                # Don't add an extra tooltip for plain documents.
+                continue
             url = docname_to_url.get(docname)
             if url is None:
                 continue
