@@ -1,0 +1,99 @@
+global_toc:
+- active: true
+  active_or_section_within_active: true
+  aria_label: A page
+  caption_only: false
+  children:
+  - active: false
+    active_or_section_within_active: true
+    aria_label: Section 1
+    caption_only: false
+    children:
+    - active: false
+      active_or_section_within_active: false
+      aria_label: B page
+      caption_only: false
+      children: []
+      current: false
+      title: <span class="md-ellipsis">B page</span>
+      url: b.html
+    current: false
+    title: <span class="md-ellipsis">Section 1</span>
+    url: '#section-1'
+  current: true
+  title: <span class="md-ellipsis">A page</span>
+  url: '#'
+- active: false
+  active_or_section_within_active: false
+  aria_label: TOC caption
+  caption_only: true
+  children:
+  - active: false
+    active_or_section_within_active: false
+    aria_label: C page
+    caption_only: false
+    children: []
+    current: false
+    title: <span class="md-ellipsis">C page</span>
+    url: c.html
+  current: false
+  title: <span class="md-ellipsis">TOC caption</span>
+  url: c.html
+integrated_local_toc:
+- active: true
+  active_or_section_within_active: true
+  aria_label: A page
+  caption_only: false
+  children:
+  - active: false
+    active_or_section_within_active: true
+    aria_label: Section 1
+    caption_only: false
+    children:
+    - active: false
+      active_or_section_within_active: false
+      aria_label: B page
+      caption_only: false
+      children: []
+      current: false
+      title: <span class="md-ellipsis">B page</span>
+      url: b.html
+    current: false
+    title: <span class="md-ellipsis">Section 1</span>
+    url: '#section-1'
+  - active: false
+    active_or_section_within_active: true
+    aria_label: Section 2
+    caption_only: false
+    children: []
+    current: false
+    title: <span class="md-ellipsis">Section 2</span>
+    url: '#section-2'
+  current: true
+  title: <span class="md-ellipsis">A page</span>
+  url: '#'
+local_toc:
+- active: true
+  active_or_section_within_active: true
+  aria_label: A page
+  caption_only: false
+  children:
+  - active: false
+    active_or_section_within_active: true
+    aria_label: Section 1
+    caption_only: false
+    children: []
+    current: false
+    title: <span class="md-ellipsis">Section 1</span>
+    url: '#section-1'
+  - active: false
+    active_or_section_within_active: true
+    aria_label: Section 2
+    caption_only: false
+    children: []
+    current: false
+    title: <span class="md-ellipsis">Section 2</span>
+    url: '#section-2'
+  current: true
+  title: <span class="md-ellipsis">A page</span>
+  url: '#'

@@ -1,0 +1,64 @@
+global_toc:
+- active: false
+  active_or_section_within_active: false
+  aria_label: A page
+  caption_only: false
+  children:
+  - active: false
+    active_or_section_within_active: false
+    aria_label: Section 1
+    caption_only: false
+    children:
+    - active: false
+      active_or_section_within_active: false
+      aria_label: B page
+      caption_only: false
+      children: []
+      current: false
+      title: <span class="md-ellipsis">B page</span>
+      url: b.html
+    current: false
+    title: <span class="md-ellipsis">Section 1</span>
+    url: a.html#section-1
+  current: false
+  title: <span class="md-ellipsis">A page</span>
+  url: a.html
+- active: false
+  active_or_section_within_active: false
+  aria_label: TOC caption
+  caption_only: true
+  children:
+  - active: false
+    active_or_section_within_active: false
+    aria_label: C page
+    caption_only: false
+    children: []
+    current: false
+    title: <span class="md-ellipsis">C page</span>
+    url: c.html
+  current: false
+  title: <span class="md-ellipsis">TOC caption</span>
+  url: c.html
+integrated_local_toc: []
+local_toc:
+- active: false
+  aria_label: Overall title
+  caption_only: false
+  children:
+  - active: false
+    aria_label: Getting started
+    caption_only: false
+    children: []
+    current: false
+    title: <span class="md-ellipsis">Getting started</span>
+    url: '#getting-started'
+  - active: false
+    aria_label: Another section
+    caption_only: false
+    children: []
+    current: false
+    title: <span class="md-ellipsis">Another section</span>
+    url: '#another-section'
+  current: false
+  title: <span class="md-ellipsis">Overall title</span>
+  url: '#'

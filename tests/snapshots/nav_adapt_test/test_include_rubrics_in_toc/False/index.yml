@@ -1,0 +1,19 @@
+global_toc: []
+integrated_local_toc: []
+local_toc:
+- active: false
+  aria_label: Overall title
+  caption_only: false
+  children:
+  - active: false
+    aria_label: Foo
+    caption_only: false
+    children: []
+    current: false
+    title: "<span aria-label=\"Python class\" class=\"objinfo-icon objinfo-icon__data\"\
+      \ title=\"Python class\">C</span><span title=\"Foo (Python class) \u2014 Some\
+      \ text.\" class=\"md-ellipsis\">Foo</span>"
+    url: '#Foo'
+  current: false
+  title: <span class="md-ellipsis">Overall title</span>
+  url: '#'
