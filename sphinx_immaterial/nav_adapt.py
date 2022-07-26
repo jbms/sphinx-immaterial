@@ -685,7 +685,10 @@ def _get_mkdocs_tocs(
     else:
         # Every page is a child of the root page.  We still want a full TOC
         # tree, though.
-        local_toc_node = env.tocs[pagename]
+        local_toc_node = sphinx.environment.adapters.toctree.TocTree(env).get_toc_for(
+            pagename,
+            builder,
+        )
         local_toc = _get_mkdocs_toc(local_toc_node, builder)
         _add_domain_info_to_toc(app, local_toc, pagename)
 
