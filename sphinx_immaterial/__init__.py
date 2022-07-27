@@ -310,8 +310,7 @@ def setup(app):
     app.connect("config-inited", _config_inited)
 
     app.setup_extension(apidoc_formatting.__name__)
-    app.setup_extension("sphinx_immaterial.apidoc.python.domain_fixes")
-    app.setup_extension("sphinx_immaterial.apidoc.python.type_annotation_transforms")
+    app.setup_extension("sphinx_immaterial.apidoc.python.default")
     app.setup_extension("sphinx_immaterial.apidoc.cpp.default")
     app.setup_extension(nav_adapt.__name__)
     app.setup_extension("sphinx_immaterial.postprocess_html")

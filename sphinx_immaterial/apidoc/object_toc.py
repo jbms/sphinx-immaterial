@@ -4,23 +4,19 @@ from typing import cast, Optional, Union, Any
 import docutils.nodes
 import sphinx.addnodes
 import sphinx.application
-import sphinx.environment.collectors.toctree
+from sphinx.environment.collectors.toctree import TocTreeCollector
 
 from . import apidoc_formatting
 
 
-def _monkey_patch_toc_tree_process_doc(app: sphinx.application.Sphinx):
-    """Enables support for also finding Sphinx domain objects.
-
-    Args:
-      app: Sphinx application.
-    """
-    TocTreeCollector = sphinx.environment.collectors.toctree.TocTreeCollector
+def _monkey_patch_toc_tree_process_doc():
+    """Enables support for also finding Sphinx domain objects."""
 
     # Apply the monkey patch
     orig_process_doc = TocTreeCollector.process_doc
 
     def _make_section_from_desc(
+        app: sphinx.application.Sphinx,
         source: sphinx.addnodes.desc,
     ) -> Optional[docutils.nodes.section]:
         env = app.env
@@ -118,7 +114,7 @@ def _monkey_patch_toc_tree_process_doc(app: sphinx.application.Sphinx):
         return section
 
     def _patched_process_doc(
-        self: sphinx.environment.collectors.toctree.TocTreeCollector,
+        self: TocTreeCollector,
         app: sphinx.application.Sphinx,
         doctree: docutils.nodes.document,
     ) -> None:
@@ -149,7 +145,7 @@ def _monkey_patch_toc_tree_process_doc(app: sphinx.application.Sphinx):
                 return
             elif isinstance(source, sphinx.addnodes.desc):
                 # Object description.  Try to create synthetic section.
-                new_node = _make_section_from_desc(source)
+                new_node = _make_section_from_desc(app, source)
                 if new_node is not None:
                     target += new_node
                     target = new_node
@@ -182,6 +178,10 @@ def _monkey_patch_toc_tree_process_doc(app: sphinx.application.Sphinx):
 
     TocTreeCollector.process_doc = _patched_process_doc  # type: ignore
 
+_monkey_patch_toc_tree_process_doc()
+
+def setup(app: sphinx.application.Sphinx):
+
     # TocTreeCollector is registered before our extension is.  In order for the
     # monkey patching to take effect, we need to unregister it and re-register it.
     for read_listener in app.events.listeners["doctree-read"]:
@@ -190,10 +190,6 @@ def _monkey_patch_toc_tree_process_doc(app: sphinx.application.Sphinx):
             obj.disable(app)
             app.add_env_collector(TocTreeCollector)
             break
-
-
-def setup(app: sphinx.application.Sphinx):
-    _monkey_patch_toc_tree_process_doc(app)
     return {
         "parallel_read_safe": True,
         "parallel_write_safe": True,
