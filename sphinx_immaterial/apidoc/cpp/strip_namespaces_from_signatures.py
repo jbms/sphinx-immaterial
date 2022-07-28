@@ -12,7 +12,7 @@ def _strip_namespaces_from_signature(
 ):
     # Collect nodes to remove first, then remove them in reverse order.
     removals = []
-    for child in node.traverse(condition=sphinx.addnodes.desc_sig_name):
+    for child in node.findall(condition=sphinx.addnodes.desc_sig_name):
         parent = child.parent
         if not isinstance(parent, sphinx.addnodes.pending_xref):
             continue

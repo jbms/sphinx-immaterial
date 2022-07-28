@@ -150,7 +150,7 @@ def summarize_element_text(
 
     # Recurisvely extract first paragraph
     while True:
-        for p in node.traverse(condition=docutils.nodes.paragraph):
+        for p in node.findall(condition=docutils.nodes.paragraph):
             if p is node:
                 continue
             node = p
@@ -184,7 +184,7 @@ def make_toctree_node(
         source_line=source_line,
     )
     toctree: Optional[sphinx.addnodes.toctree] = None
-    for node in toctree_nodes[-1].traverse(condition=sphinx.addnodes.toctree):
+    for node in toctree_nodes[-1].findall(condition=sphinx.addnodes.toctree):
         toctree = node
         break
     if toctree is None:

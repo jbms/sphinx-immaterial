@@ -207,7 +207,7 @@ def _get_overloads_from_documenter(
 
 
 def _has_default_value(node: sphinx.addnodes.desc_parameter):
-    for sub_node in node.traverse(condition=docutils.nodes.literal):
+    for sub_node in node.findall(condition=docutils.nodes.literal):
         if "default_value" in sub_node.get("classes"):
             return True
     return False
@@ -229,7 +229,7 @@ def _summarize_signature(
         return len(node.astext()) > column_limit
 
     parameterlist: Optional[sphinx.addnodes.desc_parameterlist] = None
-    for parameterlist in node.traverse(condition=sphinx.addnodes.desc_parameterlist):
+    for parameterlist in node.findall(condition=sphinx.addnodes.desc_parameterlist):
         break
 
     if parameterlist is None:
@@ -409,7 +409,7 @@ def _ensure_module_name_in_signature(signode: sphinx.addnodes.desc_signature) ->
 
     :param signode: Signature to modify in place.
     """
-    for node in signode.traverse(condition=sphinx.addnodes.desc_addname):
+    for node in signode.findall(condition=sphinx.addnodes.desc_addname):
         modname = signode.get("module")
         if modname and not node.astext().startswith(modname + "."):
             node.insert(0, docutils.nodes.Text(modname + "."))
@@ -463,7 +463,7 @@ def _mark_subscript_parameterlist(signode: sphinx.addnodes.desc_signature) -> No
 
     :param node: Signature to modify in place.
     """
-    for sub_node in signode.traverse(condition=sphinx.addnodes.desc_parameterlist):
+    for sub_node in signode.findall(condition=sphinx.addnodes.desc_parameterlist):
         sub_node["parens"] = ("[", "]")
 
 
@@ -476,13 +476,13 @@ def _clean_init_signature(signode: sphinx.addnodes.desc_signature) -> None:
     :param node: Signature to modify in place.
     """
     # Remove first parameter.
-    for param in signode.traverse(condition=sphinx.addnodes.desc_parameter):
+    for param in signode.findall(condition=sphinx.addnodes.desc_parameter):
         if param.children[0].astext() == "self":
             param.parent.remove(param)
         break
 
     # Remove return type.
-    for node in signode.traverse(condition=sphinx.addnodes.desc_returns):
+    for node in signode.findall(condition=sphinx.addnodes.desc_returns):
         node.parent.remove(node)
 
 
@@ -496,7 +496,7 @@ def _clean_class_getitem_signature(signode: sphinx.addnodes.desc_signature) -> N
 
     """
     # Remove `static` prefix
-    for prefix in signode.traverse(condition=sphinx.addnodes.desc_annotation):
+    for prefix in signode.findall(condition=sphinx.addnodes.desc_annotation):
         prefix.parent.remove(prefix)
         break
 
@@ -624,7 +624,7 @@ def _generate_entity_summary(
     )
     for sig_node in cast(List[sphinx.addnodes.desc_signature], objdesc.children[:-1]):
         # Insert a link around the `desc_name` field
-        for sub_node in sig_node.traverse(condition=sphinx.addnodes.desc_name):
+        for sub_node in sig_node.findall(condition=sphinx.addnodes.desc_name):
             if include_in_toc:
                 sub_node["classes"].append("pseudo-toc-entry")
             xref_node = sphinx.addnodes.pending_xref(
@@ -726,7 +726,7 @@ def _merge_summary_nodes_into(
     """
 
     sections: Dict[str, docutils.nodes.section] = {}
-    for section in contentnode.traverse(condition=docutils.nodes.section):
+    for section in contentnode.findall(condition=docutils.nodes.section):
         if section["ids"]:
             sections[section["ids"][0]] = section
 

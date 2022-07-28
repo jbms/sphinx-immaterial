@@ -112,3 +112,6 @@ def apply_property_documenter_type_annotation_fix():
         return fullname, prefix
 
     PyProperty.handle_signature = handle_signature
+
+
+apply_property_documenter_type_annotation_fix()

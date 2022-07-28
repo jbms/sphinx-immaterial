@@ -58,7 +58,7 @@ class CollectSignaturesTransform(sphinx.transforms.SphinxTransform):
 
     def apply(self, **kwargs: Any) -> None:
         collected_signatures = _get_collected_signatures(self.env)
-        for node in self.document.traverse(sphinx.addnodes.desc_signature):
+        for node in self.document.findall(sphinx.addnodes.desc_signature):
             parent = node.parent
             domain: str = parent.get("domain")
             objtype: str = parent.get("objtype")
@@ -249,7 +249,7 @@ class FormatSignaturesTransform(sphinx.transforms.SphinxTransform):
         formatted_signatures = getattr(self.env, _FORMATTED_SIGNATURES, None)
         if formatted_signatures is None:
             return
-        for node in self.document.traverse(sphinx.addnodes.desc_signature):
+        for node in self.document.findall(sphinx.addnodes.desc_signature):
             signature_id = node.get(_SIGNATURE_FORMAT_ID)
             if signature_id is None:
                 continue
