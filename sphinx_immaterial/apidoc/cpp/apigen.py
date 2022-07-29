@@ -52,13 +52,13 @@ class ApigenConfig:
     api_parser_config: Optional[api_parser.Config] = None
     """Configuration for generating an API description.
 
-    This option and :py:attr:`api_data` are mutually exclusive.
+    This option and `.api_data` are mutually exclusive.
     """
 
     api_data: Optional[str] = None
     """Path to already-parsed API description.
 
-    This option and :py:attr:`api_parser_config` are mutually exclusive.
+    This option and `.api_parser_config` are mutually exclusive.
     """
 
 

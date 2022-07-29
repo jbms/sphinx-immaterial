@@ -124,16 +124,16 @@ class Config:
     input_path: str = "__input.cpp"
     """Path to the input file to parse.
 
-    This may either be a path to an existing file, or :py:attr:`input_content` may
+    This may either be a path to an existing file, or `.input_content` may
     specify its content, in which case the filesystem is not accessed.
 
-    If :py:attr:`input_content` is specified and merely contains :cpp:`#include`
+    If `.input_content` is specified and merely contains :cpp:`#include`
     directives, then the actual path does not matter and may be left as the
     default value.
     """
 
     input_content: Optional[bytes] = None
-    """Specifies the content of :py:attr:`input_path`.
+    """Specifies the content of `.input_path`.
 
     If unspecified, the content is read from filesystem.
     """
@@ -165,7 +165,7 @@ class Config:
     defined in the standard library and third-party libraries.
 
     .. important::
-        When building on Windows, all path separators are normalized to :python:`"/"`. 
+        When building on Windows, all path separators are normalized to :python:`"/"`.
         Therefore, in the specified regular expressions, always use :python:`"/"` to
         match a path separator.
     """
@@ -176,7 +176,7 @@ class Config:
     Entities defined in files matching any of these patterns are not documented.
 
     .. important::
-        When building on Windows, all path separators are normalized to :python:`"/"`. 
+        When building on Windows, all path separators are normalized to :python:`"/"`.
         Therefore, in the specified regular expressions, always use :python:`"/"` to
         match a path separator.
     """
@@ -193,8 +193,8 @@ class Config:
     )
     """List of regular expressions matching *allowed* symbols.
 
-    Only symbols matching one of the :py:attr:`allow_symbols` patterns, and not matching
-    :py:attr:`disallow_symbols`, are documented.  By default, all symbols are allowed.
+    Only symbols matching one of the `.allow_symbols` patterns, and not matching
+    `.disallow_symbols`, are documented.  By default, all symbols are allowed.
     """
 
     disallow_symbols: List[Pattern] = dataclasses.field(default_factory=list)
@@ -208,8 +208,8 @@ class Config:
     )
     """List of regular expressions matching *allowed* macros.
 
-    Only macros names matching :py:attr:`allow_macros`, and not matching
-    :py:attr:`disallow_macros`, are documented.
+    Only macros names matching `.allow_macros`, and not matching
+    `.disallow_macros`, are documented.
     """
 
     disallow_macros: List[Pattern] = dataclasses.field(default_factory=list)
@@ -441,6 +441,11 @@ def _get_all_decls(config: Config, cursor: Cursor, allow_file):
             yield from _get_all_decls(config, child, None)
 
 
+NON_DOC_COMMENT = re.compile(
+    r"(^//[^/\!].*$)|(^/\*[^\*\!](?:.|\n)*?\*/$)", re.MULTILINE
+)
+
+
 def split_doc_comment_into_lines(cmt: str) -> List[str]:
     """Strip the raw string of an object's comment into lines.
     :param cmt: the comment to parse.
@@ -450,6 +455,10 @@ def split_doc_comment_into_lines(cmt: str) -> List[str]:
     # so dedent all subsequent lines only
     first_line_end = cmt.find("\n")
     cmt = cmt[:first_line_end] + dedent(cmt[first_line_end:])
+
+    # remove any non-docstring comments
+    cmt = NON_DOC_COMMENT.sub("", cmt)
+
     # split into a list of lines & account for CRLF and LF line endings
     body = [line.rstrip("\r") for line in cmt.splitlines()]
 
@@ -467,12 +476,8 @@ def split_doc_comment_into_lines(cmt: str) -> List[str]:
             for line in body
         ]
         body[-1] = body[-1].rstrip("*/").rstrip()
-    if len(body) > 1:
-        body = dedent("\n".join(body)).splitlines()
+    body = dedent("\n".join(body)).splitlines()
     return [""] if not body else body
-
-
-DOC_COMMENT_PREFIX = re.compile(r"/(//|/\!|\*\*|\*\!)\<?")
 
 
 def get_doc_comment(config: Config, cursor: Cursor):
@@ -485,61 +490,11 @@ def get_doc_comment(config: Config, cursor: Cursor):
     f = location.file
     line = location.line
     end_location = SourceLocation.from_position(translation_unit, f, line, 1)
-    if cursor.raw_comment and DOC_COMMENT_PREFIX.match(cursor.raw_comment):
-        return {
-            "text": "\n".join(split_doc_comment_into_lines(cursor.raw_comment)),
-            "location": _get_location_json(config, end_location),
-        }
-    initial_location = location
-    presumed_file, presumed_line, presumed_column = get_presumed_location(location)
-    comment_lines = []
-    COMMENT = TokenKind.COMMENT
-    while True:
-        prev_location = SourceLocation.from_position(translation_unit, f, line - 1, 1)
-        # `cast` below is workaround for: https://github.com/tgockel/types-clang/pull/2
-        tokens = translation_unit.get_tokens(
-            extent=SourceRange.from_locations(
-                cast(int, prev_location), cast(int, end_location)
-            )
-        )
-        stop = False
-        got_line = False
-        for token in tokens:
-            if token.location == initial_location:
-                stop = True
-                break
-            if token.kind != COMMENT:
-                stop = True
-                break
-            spelling = token.spelling
-            if DOC_COMMENT_PREFIX.match(spelling) is None:
-                stop = True
-                break
-            (
-                new_presumed_file,
-                new_presumed_line,
-                new_presumed_column,
-            ) = get_presumed_location(token.location)
-            if (
-                new_presumed_file != presumed_file
-                or new_presumed_line != presumed_line - 1
-            ):
-                stop = True
-                break
-            presumed_line = new_presumed_line
-            if DOC_COMMENT_PREFIX.match(spelling) is not None:
-                comment_lines.extend(split_doc_comment_into_lines(spelling))
-            got_line = True
-            break
-        if stop or not got_line:
-            break
-        line = line - 1
-        end_location = prev_location
-    if not comment_lines:
-        return None
-    comment_lines.reverse()
+    comment = ""
+    if cursor.raw_comment:
+        comment = "\n".join(split_doc_comment_into_lines(cursor.raw_comment))
     return {
-        "text": "\n".join(comment_lines),
+        "text": comment,
         "location": _get_location_json(config, end_location),
     }
 

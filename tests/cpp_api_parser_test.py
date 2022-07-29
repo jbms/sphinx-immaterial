@@ -1,5 +1,5 @@
 import re
-
+import pytest
 from sphinx_immaterial.apidoc.cpp import api_parser
 
 
@@ -63,71 +63,42 @@ class TestCommentStrip:
         doc_strings = [v["doc"]["text"] for v in output.get("entities", {}).values()]
         assert expected in doc_strings
 
-    def test1(self):
-        self.config.input_content = b"\n".join(
-            [
-                b"//! This is a docstring.",
-                b"int var = 0;",
-            ]
-        )
-        self.assert_output(" This is a docstring.")
-
-    def test2(self):
-        self.config.input_content = b"\n".join(
-            [
-                b"/// This is a docstring.",
-                b"int var = 0;",
-            ]
-        )
-        self.assert_output(" This is a docstring.")
-
-    def test3(self):
-        self.config.input_content = b"\n".join(
-            [
-                b"/** This is a docstring. */",
-                b"int var = 0;",
-            ]
-        )
-        self.assert_output(" This is a docstring.")
-
-    def test4(self):
-        self.config.input_content = b"\n".join(
-            [
-                b"/*! This is a docstring. */",
-                b"int var = 0;",
-            ]
-        )
-        self.assert_output(" This is a docstring.")
-
-    def test5(self):
-        self.config.input_content = b"\n".join(
-            [
+    @pytest.mark.parametrize(
+        argnames="doc_str,expected",
+        argvalues=[
+            (b"//! This is a docstring.\nint var = 0;", "This is a docstring."),
+            (b"/// This is a docstring.\nint var = 0;", "This is a docstring."),
+            (b"/** This is a docstring. */\nint var = 0;", "This is a docstring."),
+            (
+                b"/*! This is a docstring. */\nint var = 0;",
+                "This is a docstring.",
+            ),
+            (
                 b"int var = 0; ///< This is a docstring.",
-            ]
-        )
-        self.assert_output(" This is a docstring.")
-
-    def test6(self):
-        self.config.input_content = b"\n".join(
-            [
-                b"/**",
-                b" * This is a docstring.",
-                b" */",
-                b"int var = 0;",
-            ]
-        )
-        self.assert_output("\nThis is a docstring.")
-
-    def test7(self):
-        self.config.input_content = b"\n".join(
-            [
-                b"/*!",
-                b" * This is a docstring.",
-                b" */",
-                b"int var = 0;",
-            ]
-        )
-        self.assert_output("\nThis is a docstring.")
+                "This is a docstring.",
+            ),
+            (
+                b"/**\n * This is a docstring.\n */\nint var = 0;",
+                "\nThis is a docstring.",
+            ),
+            (
+                b"/*!\n * This is a docstring.\n */\nint var = 0;",
+                "\nThis is a docstring.",
+            ),
+            (
+                b"// Skip this.\n/// This is a docstring.\n// Skip this.\nint var = 0;",
+                "This is a docstring.",
+            ),
+            (
+                b"/* Skip\n * this.*/\n/**This is a docstring.*/\n"
+                b"/*Skip this.*/\nint var = 0;",
+                "This is a docstring.",
+            ),
+        ],
+    )
+    def test_comment_styles(self, doc_str: bytes, expected: str):
+        self.config.input_content = doc_str
+        self.assert_output(expected)
 
 
 def test_function_fields():
@@ -141,7 +112,7 @@ def test_function_fields():
 /// @param arg1 An arg passed by value.
 /// \\param[in] arg2 An unaltered arg passed by reference.
 /// @param[in, out] arg3 An arg passed by reference that gets altered.
-/// @retval int A negative number indicating a specific error, otherwise 0.
+/// @retval NULL If unsuccessful.
 /// @returns A flag indicating success.
 /// \\tparam T A template parameter.
 template<typename T>
@@ -167,7 +138,7 @@ int function(T arg1, T &arg2, T &arg3);
             ":param arg1: An arg passed by value.",
             ":param arg2[in]: An unaltered arg passed by reference.",
             ":param arg3[in, out]: An arg passed by reference that gets altered.",
-            ":retval int: A negative number indicating a specific error, otherwise 0.",
+            ":retval NULL: If unsuccessful.",
             ":returns: A flag indicating success.",
             ":tparam T: A template parameter.",
         ]
