@@ -331,6 +331,7 @@ cpp_apigen_configs = [
             },
             allow_paths=["^cpp_apigen_demo/"],
             disallow_namespaces=["^std$"],
+            verbose=True,
         ),
     ),
 ]

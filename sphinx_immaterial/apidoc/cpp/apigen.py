@@ -44,7 +44,9 @@ class ApigenConfig:
     document_prefix: str
     """Sphinx document path prefix for the per-entity documentation pages.
 
-    This should end in :python:`"/"`.
+    .. important::
+        This should use the Linux path separator :python:`"/"` (even if
+        building on Windows).
     """
 
     api_parser_config: Optional[api_parser.Config] = None
