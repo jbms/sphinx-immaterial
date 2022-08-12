@@ -95,6 +95,17 @@ class TestCommentStrip:
                 "This is a docstring.",
             ),
         ],
+        ids=[
+            "///",
+            "//!",
+            "/**",
+            "/*!",
+            "///<",
+            "/** \n * \n */",
+            "/*! \n * \n */",
+            "// \n /// \n //",
+            "/* \n * \n */\n /** */\n /* */",
+        ],
     )
     def test_comment_styles(self, doc_str: bytes, expected: str):
         self.config.input_content = doc_str

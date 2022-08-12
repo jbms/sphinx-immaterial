@@ -441,24 +441,11 @@ def _get_all_decls(config: Config, cursor: Cursor, allow_file):
             yield from _get_all_decls(config, child, None)
 
 
-NON_DOC_COMMENT = re.compile(
-    r"(^//[^/\!].*$)|(^/\*[^\*\!](?:.|\n)*?\*/$)", re.MULTILINE
-)
-
-
 def split_doc_comment_into_lines(cmt: str) -> List[str]:
     """Strip the raw string of an object's comment into lines.
     :param cmt: the comment to parse.
     :returns: A list of the lines without the surrounding C++ comment syntax.
     """
-    # the first line is never indented (in `raw_comment` form)
-    # so dedent all subsequent lines only
-    first_line_end = cmt.find("\n")
-    cmt = cmt[:first_line_end] + dedent(cmt[first_line_end:])
-
-    # remove any non-docstring comments
-    cmt = NON_DOC_COMMENT.sub("", cmt)
-
     # split into a list of lines & account for CRLF and LF line endings
     body = [line.rstrip("\r") for line in cmt.splitlines()]
 
@@ -480,6 +467,11 @@ def split_doc_comment_into_lines(cmt: str) -> List[str]:
     return [""] if not body else body
 
 
+NON_DOC_COMMENT = re.compile(
+    r"(^//[^/\!].*$\n)|(^/\*[^\*\!](?:.|\n)*?\*/$\n)", re.MULTILINE
+)
+
+
 def get_doc_comment(config: Config, cursor: Cursor):
     translation_unit = cursor.translation_unit
     for token in cursor.get_tokens():
@@ -490,12 +482,32 @@ def get_doc_comment(config: Config, cursor: Cursor):
     f = location.file
     line = location.line
     end_location = SourceLocation.from_position(translation_unit, f, line, 1)
-    if cursor.raw_comment:
-        return {
-            "text": "\n".join(split_doc_comment_into_lines(cursor.raw_comment)),
-            "location": _get_location_json(config, end_location),
-        }
-    return None
+    comment = cursor.raw_comment
+    if not comment:
+        return None
+    comment_lines = []
+    # The first line is never indented (in `raw_comment` form).
+    # Clang doesn't strip indentation from subsequent lines in an indented block.
+    # So, dedent all subsequent lines only
+    first_line_end = comment.find("\n")
+    comment = comment[:first_line_end] + dedent(comment[first_line_end:])
+
+    # remove any non-docstring comments
+    match = NON_DOC_COMMENT.search(comment)
+    while match is not None:
+        # strip comment syntax from the block before non-doc comment
+        comment_lines.extend(split_doc_comment_into_lines(comment[: match.start()]))
+        # Append blank lines as replacement of non-doc comment.
+        # This should retain the src's line numbers
+        comment_lines.extend(["\n"] * match.group(0).count("\n"))
+        comment = comment[match.end() :]
+        match = NON_DOC_COMMENT.search(comment)
+    if comment:  # strip comment from any block that remains after non-doc comment
+        comment_lines.extend(split_doc_comment_into_lines(comment))
+    return {
+        "text": "\n".join(comment_lines),
+        "location": _get_location_json(config, end_location),
+    }
 
 
 class Extractor:
