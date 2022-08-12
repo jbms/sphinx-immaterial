@@ -490,13 +490,12 @@ def get_doc_comment(config: Config, cursor: Cursor):
     f = location.file
     line = location.line
     end_location = SourceLocation.from_position(translation_unit, f, line, 1)
-    comment = ""
     if cursor.raw_comment:
-        comment = "\n".join(split_doc_comment_into_lines(cursor.raw_comment))
-    return {
-        "text": comment,
-        "location": _get_location_json(config, end_location),
-    }
+        return {
+            "text": "\n".join(split_doc_comment_into_lines(cursor.raw_comment)),
+            "location": _get_location_json(config, end_location),
+        }
+    return None
 
 
 class Extractor:
