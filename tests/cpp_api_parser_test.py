@@ -1,5 +1,5 @@
 import re
-
+import pytest
 from sphinx_immaterial.apidoc.cpp import api_parser
 
 
@@ -12,7 +12,8 @@ def test_basic():
 /// This is the doc.
 int foo(bool x, int y);
 
-""")
+""",
+    )
 
     output = api_parser.generate_output(config)
     entities = list(output["entities"].values())
@@ -41,7 +42,8 @@ int foo(T x);
         allow_paths=[re.escape(input_path)],
         disallow_namespaces=[re.compile("^std$")],
         compiler_flags=["-std=c++17"],
-        input_content=input_content)
+        input_content=input_content,
+    )
 
     output = api_parser.generate_output(config)
 
@@ -49,3 +51,107 @@ int foo(T x);
     assert len(entities) == 1
     requires = entities[0].get("requires")
     assert requires
+
+
+class TestCommentStrip:
+    config = api_parser.Config(
+        input_path="a.cpp",
+    )
+
+    def assert_output(self, expected: str):
+        output = api_parser.generate_output(self.config)
+        doc_strings = [v["doc"]["text"] for v in output.get("entities", {}).values()]
+        assert expected in doc_strings
+
+    @pytest.mark.parametrize(
+        argnames="doc_str,expected",
+        argvalues=[
+            (b"//! This is a docstring.\nint var = 0;", "This is a docstring."),
+            (b"/// This is a docstring.\nint var = 0;", "This is a docstring."),
+            (b"/** This is a docstring. */\nint var = 0;", "This is a docstring."),
+            (
+                b"/*! This is a docstring. */\nint var = 0;",
+                "This is a docstring.",
+            ),
+            (
+                b"int var = 0; ///< This is a docstring.",
+                "This is a docstring.",
+            ),
+            (
+                b"/**\n * This is a docstring.\n */\nint var = 0;",
+                "\nThis is a docstring.",
+            ),
+            (
+                b"/*!\n * This is a docstring.\n */\nint var = 0;",
+                "\nThis is a docstring.",
+            ),
+            (
+                b"// Skip this.\n/// This is a docstring.\n// Skip this.\nint var = 0;",
+                "This is a docstring.",
+            ),
+            (
+                b"/* Skip\n * this.*/\n/**This is a docstring.*/\n"
+                b"/*Skip this.*/\nint var = 0;",
+                "This is a docstring.",
+            ),
+        ],
+        ids=[
+            "///",
+            "//!",
+            "/**",
+            "/*!",
+            "///<",
+            "/** \n * \n */",
+            "/*! \n * \n */",
+            "// \n /// \n //",
+            "/* \n * \n */\n /** */\n /* */",
+        ],
+    )
+    def test_comment_styles(self, doc_str: bytes, expected: str):
+        self.config.input_content = doc_str
+        self.assert_output(expected)
+
+
+def test_function_fields():
+    config = api_parser.Config(
+        input_path="a.cpp",
+        input_content="""
+/// @brief A dummy function for tests.
+///
+/// \\details A more detailed paragraph.
+///
+/// @param arg1 An arg passed by value.
+/// \\param[in] arg2 An unaltered arg passed by reference.
+/// @param[in, out] arg3 An arg passed by reference that gets altered.
+/// @retval NULL If unsuccessful.
+/// @returns A flag indicating success.
+/// \\tparam T A template parameter.
+template<typename T>
+int function(T arg1, T &arg2, T &arg3);
+""",
+    )
+
+    output = api_parser.generate_output(config)
+    entities = output.get("entities", {})
+    doc_str = ""
+    for entity in entities.values():  # type: dict
+        if entity.get("doc"):
+            doc_str = entity["doc"]["text"]
+            break
+    else:
+        raise AttributeError("no doc string found.")
+    expected = "\n".join(
+        [
+            "A dummy function for tests.",
+            "",
+            "A more detailed paragraph.",
+            "",
+            ":param arg1: An arg passed by value.",
+            ":param arg2[in]: An unaltered arg passed by reference.",
+            ":param arg3[in, out]: An arg passed by reference that gets altered.",
+            ":retval NULL: If unsuccessful.",
+            ":returns: A flag indicating success.",
+            ":tparam T: A template parameter.",
+        ]
+    )
+    assert expected == doc_str

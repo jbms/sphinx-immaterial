@@ -54,17 +54,20 @@ from typing import (
     ClassVar,
     Pattern,
 )
+from textwrap import dedent
 
 import ctypes
 
 import clang.cindex
-from clang.cindex import Cursor
-from clang.cindex import CursorKind
-from clang.cindex import Token
-from clang.cindex import TokenKind
-from clang.cindex import TranslationUnit
-from clang.cindex import SourceLocation
-from clang.cindex import SourceRange
+from clang.cindex import (
+    Cursor,
+    CursorKind,
+    Token,
+    TokenKind,
+    TranslationUnit,
+    SourceLocation,
+    SourceRange,
+)
 import docutils.nodes
 import pydantic.dataclasses
 import sphinx.domains.cpp
@@ -107,7 +110,7 @@ TEMPLATE_PARAMETER_ENABLE_IF_NON_TYPE_PATTERN = re.compile(
 )
 
 SPECIAL_GROUP_COMMAND_PATTERN = re.compile(
-    r"^\\(ingroup|relates|membergroup|id)\s+(.+[^\s])\s*$", re.MULTILINE
+    r"^(?:\\|@)(ingroup|relates|membergroup|id)\s+(.+[^\s])\s*$", re.MULTILINE
 )
 
 
@@ -121,10 +124,10 @@ class Config:
     input_path: str = "__input.cpp"
     """Path to the input file to parse.
 
-    This may either be a path to an existing file, or `input_content` may
+    This may either be a path to an existing file, or `.input_content` may
     specify its content, in which case the filesystem is not accessed.
 
-    If `input_content` is specified and merely contains :cpp:`#include`
+    If `.input_content` is specified and merely contains :cpp:`#include`
     directives, then the actual path does not matter and may be left as the
     default value.
     """
@@ -161,12 +164,21 @@ class Config:
     but this default is not normally usable, because it will include entities
     defined in the standard library and third-party libraries.
 
+    .. important::
+        When building on Windows, all path separators are normalized to :python:`"/"`.
+        Therefore, in the specified regular expressions, always use :python:`"/"` to
+        match a path separator.
     """
 
     disallow_paths: List[Pattern] = dataclasses.field(default_factory=list)
     """List of regular expressions matching *disallowed* paths.
 
     Entities defined in files matching any of these patterns are not documented.
+
+    .. important::
+        When building on Windows, all path separators are normalized to :python:`"/"`.
+        Therefore, in the specified regular expressions, always use :python:`"/"` to
+        match a path separator.
     """
 
     disallow_namespaces: List[Pattern] = dataclasses.field(default_factory=list)
@@ -182,7 +194,7 @@ class Config:
     """List of regular expressions matching *allowed* symbols.
 
     Only symbols matching one of the `.allow_symbols` patterns, and not matching
-    `disallow_symbols`, are documented.  By default, all symbols are allowed.
+    `.disallow_symbols`, are documented.  By default, all symbols are allowed.
     """
 
     disallow_symbols: List[Pattern] = dataclasses.field(default_factory=list)
@@ -316,7 +328,7 @@ class Config:
         if mapped is not None:
             return mapped
         if os.name == "nt":
-            path = path.replace("/", "\\")
+            path = path.replace("\\", "/")
         if path.startswith("./"):
             path = path[2:]
         new_mapped = self.include_directory_map_pattern.sub(
@@ -429,6 +441,37 @@ def _get_all_decls(config: Config, cursor: Cursor, allow_file):
             yield from _get_all_decls(config, child, None)
 
 
+def split_doc_comment_into_lines(cmt: str) -> List[str]:
+    """Strip the raw string of an object's comment into lines.
+    :param cmt: the comment to parse.
+    :returns: A list of the lines without the surrounding C++ comment syntax.
+    """
+    # split into a list of lines & account for CRLF and LF line endings
+    body = [line.rstrip("\r") for line in cmt.splitlines()]
+
+    # strip all the comment syntax out
+    if body[0].startswith("//"):
+        body = [line.lstrip("/").lstrip("!").lstrip("<") for line in body]
+    elif body[0].startswith("/*"):
+        body[0] = body[0].lstrip("/").lstrip("*").lstrip("!")
+        multi_lined_asterisk = True  # works also for single-line comments blocks
+        if len(body) > 1:
+            line_has_asterisk = [line.startswith("*") for line in body[1:]]
+            multi_lined_asterisk = line_has_asterisk.count(True) == len(body) - 1
+        body = [
+            (line.lstrip("*").lstrip("<") if multi_lined_asterisk else line)
+            for line in body
+        ]
+        body[-1] = body[-1].rstrip("*/").rstrip()
+    body = dedent("\n".join(body)).splitlines()
+    return [""] if not body else body
+
+
+NON_DOC_COMMENT = re.compile(
+    r"(^//[^/\!].*$\n)|(^/\*[^\*\!](?:.|\n)*?\*/$\n)", re.MULTILINE
+)
+
+
 def get_doc_comment(config: Config, cursor: Cursor):
     translation_unit = cursor.translation_unit
     for token in cursor.get_tokens():
@@ -436,59 +479,31 @@ def get_doc_comment(config: Config, cursor: Cursor):
         break
     else:
         location = cursor.location
-    initial_location = location
     f = location.file
     line = location.line
-    presumed_file, presumed_line, presumed_column = get_presumed_location(location)
     end_location = SourceLocation.from_position(translation_unit, f, line, 1)
-    comment_lines = []
-    COMMENT = TokenKind.COMMENT
-    while True:
-        prev_location = SourceLocation.from_position(translation_unit, f, line - 1, 1)
-        # `cast` below is workaround for: https://github.com/tgockel/types-clang/pull/2
-        tokens = translation_unit.get_tokens(
-            extent=SourceRange.from_locations(
-                cast(int, prev_location), cast(int, end_location)
-            )
-        )
-        stop = False
-        got_line = False
-        for token in tokens:
-            if token.location == initial_location:
-                stop = True
-                break
-            if token.kind != COMMENT:
-                stop = True
-                break
-            spelling = token.spelling
-            if not spelling.startswith("///"):
-                stop = True
-                break
-            (
-                new_presumed_file,
-                new_presumed_line,
-                new_presumed_column,
-            ) = get_presumed_location(token.location)
-            if (
-                new_presumed_file != presumed_file
-                or new_presumed_line != presumed_line - 1
-            ):
-                stop = True
-                break
-            presumed_line = new_presumed_line
-            if spelling.startswith("/// "):
-                comment_lines.append(spelling[4:])
-            else:
-                comment_lines.append(spelling[3:])
-            got_line = True
-            break
-        if stop or not got_line:
-            break
-        line = line - 1
-        end_location = prev_location
-    if not comment_lines:
+    comment = cursor.raw_comment
+    if not comment:
         return None
-    comment_lines.reverse()
+    comment_lines = []
+    # The first line is never indented (in `raw_comment` form).
+    # Clang doesn't strip indentation from subsequent lines in an indented block.
+    # So, dedent all subsequent lines only
+    first_line_end = comment.find("\n")
+    comment = comment[:first_line_end] + dedent(comment[first_line_end:])
+
+    # remove any non-docstring comments
+    match = NON_DOC_COMMENT.search(comment)
+    while match is not None:
+        # strip comment syntax from the block before non-doc comment
+        comment_lines.extend(split_doc_comment_into_lines(comment[: match.start()]))
+        # Append blank lines as replacement of non-doc comment.
+        # This should retain the src's line numbers
+        comment_lines.extend(["\n"] * match.group(0).count("\n"))
+        comment = comment[match.end() :]
+        match = NON_DOC_COMMENT.search(comment)
+    if comment:  # strip comment from any block that remains after non-doc comment
+        comment_lines.extend(split_doc_comment_into_lines(comment))
     return {
         "text": "\n".join(comment_lines),
         "location": _get_location_json(config, end_location),
@@ -1659,19 +1674,24 @@ def _get_default_member_group(entity: CppApiEntity) -> str:
 
 
 def _normalize_doc_text(text: str) -> str:
-    text = re.sub(r"^\\brief\s", "", text)
+    text = re.sub(r"^((?:\\|@)(?:brief|details)\s+)", "", text, flags=re.MULTILINE)
     text = re.sub(
-        r"^\\(t?param) ([a-zA-Z_][^ ]*)", ":\\1 \\2:", text, flags=re.MULTILINE
+        r"^(?:\\|@)(t?param)(\[(?:in|out|in,\sout)\])?\s+([a-zA-Z_][^ ]*)",
+        ":\\1 \\3\\2:",
+        text,
+        flags=re.MULTILINE,
     )
-    text = re.sub(r"^\\(error)\s+`([^`]+)`", ":\\1 \\2:", text, flags=re.MULTILINE)
     text = re.sub(
-        r"^\\(returns?|pre|post|checks|dchecks|schecks|invariant|requires)(?: |\n )",
+        r"^(?:\\|@)(error)\s+`([^`]+)`", ":\\1 \\2:", text, flags=re.MULTILINE
+    )
+    text = re.sub(
+        r"^(?:\\|@)(returns?|pre|post|[ds]?checks|invariant|requires)(?: |\n )",
         ":\\1: ",
         text,
         flags=re.MULTILINE,
     )
+    text = re.sub(r"^(?:\\|@)(retval)\s+(\S+)", ":\\1 \\2:", text, flags=re.MULTILINE)
     text = SPECIAL_GROUP_COMMAND_PATTERN.sub("", text)
-    text = text.lstrip(" ")
     return text
 
 
@@ -2182,6 +2202,8 @@ def organize_entities(config: Config, entities: Dict[EntityId, CppApiEntity]):
 
 def _get_output_json(extractor: Extractor):
     generator = JsonApiGenerator(extractor)
+    if extractor.config.verbose:
+        logger.info("Found %d C++ declarations", len(extractor.decls))
     for decl in extractor.decls:
         generator.add(decl)
     return organize_entities(extractor.config, generator.seen_decls)
