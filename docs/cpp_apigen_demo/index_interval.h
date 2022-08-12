@@ -21,7 +21,7 @@ class IndexInterval {
 
   /// Returns the lower bound.
   ///
-  //! @retval int The lower bound.
+  //! @returns The lower bound.
   int lower() const;
 
   /// Returns the upper bound.
