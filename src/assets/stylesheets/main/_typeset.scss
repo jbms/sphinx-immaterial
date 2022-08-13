@@ -456,7 +456,14 @@ kbd {
 
   // Data table
   table.data:not(.plain) {
-    display: table;
+    // sphinx-immaterial: set `display: block` rather than `display:
+    // inline-block` in order to allow center and right alignment to
+    // work.
+    display: block;
+    // sphinx-immaterial: set `width: max-content;` to ensure the
+    // table doesn't always fill the full width of its parent, as
+    // happens by default with `display: block`.
+    width: max-content;
     max-width: 100%;
     overflow: auto;
     font-size: px2rem(12.8px);
