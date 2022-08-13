@@ -35,6 +35,8 @@ jobs:
       with:
         path: "**/node_modules"
         key: ${{ runner.os }}-${{ matrix.node-version }}-node_modules-${{ hashFiles('**/package-lock.json') }}
+    - name: Setup Graphviz
+      uses: ts-graphviz/setup-graphviz@f1590cf4e989dd1429bff4fd6339e098050a1657 # v1
     - run: npm install
     - run: npm run check
     - name: Install Python packaging & linting tools
