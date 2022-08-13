@@ -65,7 +65,7 @@ def apply_property_documenter_type_annotation_fix():
                         signature.return_annotation
                     )
                 return True
-            except TypeError:
+            except:  # pylint: disable=bare-except
                 pass
 
         if not self.retann:
