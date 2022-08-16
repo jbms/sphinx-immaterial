@@ -5,3 +5,10 @@ requires = ["setuptools>=42", "wheel", "setuptools_scm"]
 show_error_codes = true
 pretty = true
 mypy_path = "typings_py"
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "-vv -s"
+testpaths = [
+    "tests",
+]

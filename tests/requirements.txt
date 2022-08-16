@@ -1,0 +1,3 @@
+pytest
+pytest-snapshot
+tests/issue_134/sphinx-immaterial-pybind11-issue-134
