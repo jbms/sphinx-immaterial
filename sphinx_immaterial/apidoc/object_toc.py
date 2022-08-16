@@ -178,7 +178,9 @@ def _monkey_patch_toc_tree_process_doc():
 
     TocTreeCollector.process_doc = _patched_process_doc  # type: ignore
 
+
 _monkey_patch_toc_tree_process_doc()
+
 
 def setup(app: sphinx.application.Sphinx):
 
