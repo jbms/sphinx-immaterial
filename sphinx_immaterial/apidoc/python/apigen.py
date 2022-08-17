@@ -1505,6 +1505,8 @@ class _ApiEntityCollector:
 
         split_result = _split_autodoc_rst_output(rst_strings)
 
+        split_result.options.pop("module", None)
+
         overload_id: Optional[str] = None
         if entry.overload is not None:
             overload_id = entry.overload.overload_id
@@ -1628,8 +1630,10 @@ def _assign_documented_full_names(
             # Parent is a module.
             parent_documented_name = parent_ref.parent_canonical_object_name
             entity.top_level = True
+            entity.options["module"] = parent_ref.parent_canonical_object_name
         else:
             parent_documented_name = get_documented_full_name(parent_entity)
+            entity.options["module"] = parent_entity.options["module"]
         documented_full_name = parent_documented_name + "." + parent_ref.name
         entity.documented_full_name = documented_full_name
         entity.documented_name = parent_ref.name
