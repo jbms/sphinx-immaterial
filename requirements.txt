@@ -2,3 +2,5 @@ sphinx>=4.0
 markupsafe
 pydantic
 typing-extensions
+appdirs
+requests

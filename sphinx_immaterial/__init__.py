@@ -309,6 +309,8 @@ def _config_inited(
 def setup(app):
     app.connect("config-inited", _config_inited)
 
+    app.setup_extension("sphinx_immaterial.external_resource_cache")
+
     app.setup_extension(apidoc_formatting.__name__)
     app.setup_extension("sphinx_immaterial.apidoc.python.default")
     app.setup_extension("sphinx_immaterial.apidoc.cpp.default")
