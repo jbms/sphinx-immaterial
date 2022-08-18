@@ -11,8 +11,14 @@ namespace py = pybind11;
 
 PYBIND11_MODULE(sphinx_immaterial_pybind11_issue_134, m)
 {
+    py::options options;
+    options.disable_function_signatures();
+
     py::class_<Example>(m, "Example")
         .def(py::init<>(), R"docstr(
+            __init__()
+            __init__(value: bool)
+
             The default constructor takes no args.
         )docstr")
         .def(py::init<const bool>(), R"docstr(

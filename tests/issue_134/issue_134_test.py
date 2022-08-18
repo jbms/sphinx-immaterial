@@ -25,7 +25,7 @@ def test_autoclass_members(immaterial_make_app):
                     "========",
                     ".. autoclass:: sphinx_immaterial_pybind11_issue_134.Example",
                     "    :members: is_set_by_init",
-                    # "    :special-members: __init__", not needed to test issue #134
+                    "    :special-members: __init__",  # tests overloads in pybind11 (for good measure)
                 ]
             )
         },
