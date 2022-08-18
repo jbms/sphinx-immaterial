@@ -80,3 +80,21 @@ def test_classmethod(apigen_make_app):
     assert data.entities[f"{testmod}.Foo.my_method"].group_name == "Methods"
     assert data.entities[f"{testmod}.Foo.my_staticmethod"].group_name == "Methods"
     assert data.entities[f"{testmod}.Foo.my_classmethod"].group_name == "Methods"
+
+
+def test_issue_147(apigen_make_app):
+    testmod = "python_apigen_test_modules.issue147"
+    app = apigen_make_app(
+        confoverrides=dict(
+            python_apigen_modules={
+                testmod: "api/",
+            },
+        ),
+    )
+    print(app._status.getvalue())
+    print(app._warning.getvalue())
+
+    data = _get_api_data(app.env)
+
+    for entity in data.entities.values():
+        assert entity.options["module"] == testmod
