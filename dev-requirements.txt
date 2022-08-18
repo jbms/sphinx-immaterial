@@ -2,6 +2,7 @@ wheel
 pylint
 black
 mypy
+pyyaml
 types-PyYAML
 docutils-stubs
 types-jsonschema
