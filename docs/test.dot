@@ -1,4 +1,4 @@
-graph D {
+graph {
   // use a radial layout (because mermaid.js cannot)
   layout=twopi
 
