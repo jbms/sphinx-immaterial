@@ -7,7 +7,7 @@ import pathlib
 import re
 import subprocess
 import tempfile
-from typing import Optional, Any, Tuple, Dict, Type, Sequence, cast, NamedTuple
+from typing import Optional, Any, Tuple, Dict, Type, Sequence, NamedTuple
 import xml.etree.ElementTree as ET
 
 import docutils.nodes
@@ -19,9 +19,6 @@ from sphinx.writers.html import HTMLTranslator
 
 from . import external_resource_cache
 from . import sphinx_utils
-
-if os.name == "nt":
-    import _winapi  # pylint: disable=import-error
 
 logger = sphinx.util.logging.getLogger(__name__)
 
@@ -273,18 +270,15 @@ def render_dot_html(
     with tempfile.TemporaryDirectory() as tempdir:
         env = os.environ.copy()
         if config_info is not None:
-            orig_lib_dir = os.path.dirname(config_info.orig_config_path)
-            new_lib_dir = os.path.join(tempdir, "plugins")
-            pathlib.Path(
-                os.path.join(tempdir, os.path.basename(config_info.orig_config_path))
-            ).write_bytes(config_info.new_config)
+            orig_lib_path = pathlib.PurePath(config_info.orig_config_path)
+            new_lib_dir = pathlib.Path(tempdir, "plugins")
+            pathlib.Path(tempdir, orig_lib_path.name).write_bytes(
+                config_info.new_config
+            )
 
             env["GVBINDIR"] = tempdir
-            if os.name == "nt":
-                _winapi.CreateJunction(orig_lib_dir, new_lib_dir)  # type: ignore[attr-defined]
-            else:
-                os.symlink(orig_lib_dir, new_lib_dir)
-            cwd = os.path.dirname(config_info.orig_config_path)
+            new_lib_dir.symlink_to(orig_lib_path.parent, target_is_directory=True)
+            cwd = str(orig_lib_path.parent)
         dot_result = subprocess.run(
             dot_cmd,
             input=code,
