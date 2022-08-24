@@ -37,6 +37,25 @@ options from :py:mod:`sphinx.ext.graphviz` are supported.
    The :confval:`graphviz_output_format` configuration option is not supported;
    instead, the graph is always included as inline SVG in the HTML output.
 
+.. confval:: graphviz_ignore_incorrect_font_metrics
+
+   This extension relies on the LibGD graphviz plugin to load the same font used
+   by this theme, in order to correctly determine the size of text labels.
+   While the LibGD plugin is normally included in the Linux and macOS graphviz
+   builds, the official x86_64 Windows build does not include it.  If the plugin
+   is not found, by default this theme logs a warning.  This option may be set
+   to :python:`True` silence that warning.
+
+   .. rst-example:: Add to :file:`conf.py` to silence the warning
+
+      graphviz_ignore_incorrect_font_metrics = True
+
+   .. warning::
+
+      If LibGD is not available, graphviz will compute the size of labels using
+      a default system font.  Labels will still be rendered in the browser using
+      the correct font; the layout may just be slightly incorrect.
+
 Usage
 -----
 

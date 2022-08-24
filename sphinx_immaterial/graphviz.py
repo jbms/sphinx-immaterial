@@ -80,16 +80,16 @@ class GraphvizConfigInfo(NamedTuple):
     document text, there is no added complication there.  But making the font
     available to Graphviz is non-trivial:
 
-    - Graphviz supports two mechanisms for text layout:
+    - Graphviz supports several mechanisms for text layout:
 
-      - LibGD, always available, and allows TTF font paths to be specified
-        directly;
+      - LibGD, always available on Linux, sometimes on Windows, and allows TTF
+        font paths to be specified directly;
 
-      - Pango, usually available, relies on systems-specific font paths and does
-        not allow paths to TTF fonts to be specified directly.
+      - Pango and/or GDI+ (Windows only), relies on systems-specific font paths
+        and does not allow paths to TTF fonts to be specified directly.
 
       Therefore, LibGD must be used, but unfortunately, depending on how
-      Graphviz is built, Pango is normally used by default.
+      Graphviz is built, Pango and/or GDI+ is normally used by default.
 
     - Graphviz does not provide any command-line options for controlling which
       plugins are loaded.  Instead, plugins can only be loaded through a config
@@ -98,6 +98,7 @@ class GraphvizConfigInfo(NamedTuple):
     Therefore, to ensure LibGD is used for fonts, it is necessary to locate the
     original config file, parse it and remove the section that loads Pango, if
     present, and write it to a new temporary directory.
+
     """
 
     orig_config_path: str
@@ -120,9 +121,9 @@ def get_adjusted_graphviz_config(
     if configs is None:
         configs = {}
         setattr(app, key, configs)
-    config = configs.get(dot_command)
-    if config is None:
-        config = _make_adjusted_graphviz_config(dot_command)
+    config = configs.get(dot_command, False)
+    if config is False:
+        config = _make_adjusted_graphviz_config(app, dot_command)
         configs[dot_command] = config
     return config
 
@@ -146,7 +147,9 @@ def _get_orig_config_path(dot_command: str) -> Optional[str]:
     return m.group(1)
 
 
-def _make_adjusted_graphviz_config(dot_command: str) -> Optional[GraphvizConfigInfo]:
+def _make_adjusted_graphviz_config(
+    app: sphinx.application.Sphinx, dot_command: str
+) -> Optional[GraphvizConfigInfo]:
     """Determines the graphviz libdir and generates an adjusted config.
 
     This is called by `get_adjusted_graphviz_config`.
@@ -172,6 +175,8 @@ def _make_adjusted_graphviz_config(dot_command: str) -> Optional[GraphvizConfigI
             config_content[prev_index:],
         )
 
+    found_gd = False
+
     # Match plugins
     for m in re.finditer(
         rb"\s*([^\s{}]+)\s+([^\s{}]+)\s*(\{\s*(?:[^{}\s]+\s*\{[^{}]*\}\s*)*\s*\})\s*",
@@ -183,18 +188,33 @@ def _make_adjusted_graphviz_config(dot_command: str) -> Optional[GraphvizConfigI
         prev_index = m.end()
         plugin_path = m.group(1)
         plugin_name = m.group(2)
-        if b"_pango." in plugin_path or b"cairo" == plugin_name:
-            continue
+        plugin_config = m.group(3)
+        if plugin_name == b"gd":
+            found_gd = True
+        else:
+            plugin_config = re.sub(rb"\btextlayout\s*\{[^}]*\}", b"", plugin_config)
         if not os.path.isabs(plugin_path):
             plugin_path = os.path.join(b"plugins", plugin_path)
         new_config.write(plugin_path)
         new_config.write(b" ")
         new_config.write(plugin_name)
         new_config.write(b" ")
-        new_config.write(m.group(3))
+        new_config.write(plugin_config)
 
     if prev_index != len(config_content):
         parse_error()
+        return None
+
+    if not found_gd:
+        if not app.config.graphviz_ignore_incorrect_font_metrics:
+            logger.warning(
+                "Incorrect font metrics will be used because "
+                "graphviz binary %r does not have LibGD support.  This warning is expected on x86_64 Windows "
+                "(https://gitlab.com/graphviz/graphviz/-/issues/2267). "
+                "Set `graphviz_ignore_incorrect_font_metrics = True` in `conf.py` "
+                "to silence this warning.",
+                dot_command,
+            )
         return None
 
     return GraphvizConfigInfo(
@@ -239,6 +259,12 @@ def render_dot_html(
     fontcolor = replace_var("var(--md-code-fg-color)")
     fontsize = "12"
 
+    graphviz_dot = options.get("graphviz_dot", self.builder.config.graphviz_dot)
+    config_info = get_adjusted_graphviz_config(self.builder.app, graphviz_dot)
+
+    if config_info is None:
+        ttf_font = font
+
     command_line_options = [
         "-Ncolor=" + replace_var("var(--md-graphviz-node-fg-color)"),
         "-Nstyle=solid,filled",
@@ -259,18 +285,15 @@ def render_dot_html(
 
     code = re.sub(r'"((?:var|calc)\s*\(.*?\))"', replace_var_in_code, code)
 
-    graphviz_dot = options.get("graphviz_dot", self.builder.config.graphviz_dot)
-
     dot_cmd = [graphviz_dot]
     dot_cmd.extend(command_line_options)
     dot_cmd.extend(self.builder.config.graphviz_dot_args)
     dot_cmd.append("-Tsvg")
 
-    config_info = get_adjusted_graphviz_config(self.builder.app, graphviz_dot)
     with tempfile.TemporaryDirectory() as tempdir:
         env = os.environ.copy()
         if config_info is not None:
-            orig_lib_path = pathlib.PurePath(config_info.orig_config_path)
+            orig_lib_path = pathlib.Path(config_info.orig_config_path)
             new_lib_dir = pathlib.Path(tempdir, "plugins")
             pathlib.Path(tempdir, orig_lib_path.name).write_bytes(
                 config_info.new_config
@@ -279,6 +302,8 @@ def render_dot_html(
             env["GVBINDIR"] = tempdir
             new_lib_dir.symlink_to(orig_lib_path.parent, target_is_directory=True)
             cwd = str(orig_lib_path.parent)
+        else:
+            cwd = None
         dot_result = subprocess.run(
             dot_cmd,
             input=code,
@@ -291,6 +316,10 @@ def render_dot_html(
         )
         svg_output = dot_result.stdout
         errors = dot_result.stderr.strip()
+        if config_info is None:
+            # Filter warnings about fonts
+            errors = re.sub(r"^.*couldn\'t load font .*$", "", errors, re.MULTILINE)
+        errors = errors.strip()
         if errors or dot_result.returncode != 0:
             error_func = logger.warning if dot_result.returncode == 0 else logger.error
             error_func(
@@ -473,5 +502,11 @@ _monkey_patch_render_dot("render_dot_latex")
 
 def setup(app: sphinx.application.Sphinx) -> Dict[str, Any]:
     app.setup_extension("sphinx.ext.graphviz")
+    app.add_config_value(
+        "graphviz_ignore_incorrect_font_metrics",
+        types=(bool,),
+        default=False,
+        rebuild="env",
+    )
     sphinx_utils.remove_css_file(app, "graphviz.css")
     return {"parallel_read_safe": True, "parallel_write_safe": True}

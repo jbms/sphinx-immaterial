@@ -121,7 +121,7 @@ def add_google_fonts(app: sphinx.application.Sphinx, fonts: List[str]):
 
     with concurrent.futures.ThreadPoolExecutor(max_workers=32) as executor:
 
-        def to_thread(fn, *args, **kwargs) -> concurrent.futures.Future:
+        def to_thread(fn, *args, **kwargs) -> asyncio.Future:
             return asyncio.wrap_future(executor.submit(fn, *args, **kwargs))
 
         async def fetch_font(font: str, style: str):

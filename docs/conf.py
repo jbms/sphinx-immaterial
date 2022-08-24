@@ -349,6 +349,9 @@ nitpick_ignore = [
     ('js:func', 'SomeError'),
 ]
 
+graphviz_ignore_incorrect_font_metrics = True
+
+
 def _validate_parallel_build(app):
     # Verifies that all of the extensions defined by this theme support parallel
     # building.
