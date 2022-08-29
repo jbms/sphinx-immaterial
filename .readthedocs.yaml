@@ -11,6 +11,8 @@ build:
   tools:
     python: "3.9"
     nodejs: "16"
+  apt_packages:
+    - graphviz
 
 # Build documentation in the docs/ directory with Sphinx
 sphinx:

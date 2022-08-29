@@ -2,8 +2,11 @@ wheel
 pylint
 black
 mypy
+pyyaml
 types-PyYAML
 docutils-stubs
 types-jsonschema
+types-appdirs
+types-requests
 pytest
 pytest-snapshot

@@ -56,6 +56,7 @@ extensions = [
     "sphinx_immaterial.apidoc.cpp.cppreference",
     "sphinx_immaterial.apidoc.json.domain",
     "sphinx_immaterial.apidoc.python.apigen",
+    "sphinx_immaterial.graphviz",
     "sphinx_jinja",
 ]
 
@@ -182,6 +183,10 @@ extlinks = {
         "http://docutils.sourceforge.net/docs/ref/rst/directives.html#%s",
         "rST directive %s",
     ),
+    "graphvizattr": (
+        "https://graphviz.org/docs/attrs/%s/",
+        "%s attribute",
+    ),
 }
 
 object_description_options = []
@@ -232,6 +237,14 @@ rst_prolog = """
 
 .. role:: rst(code)
    :language: rst
+   :class: highlight
+
+.. role:: css(code)
+   :language: css
+   :class: highlight
+
+.. role:: dot(code)
+   :language: dot
    :class: highlight
 """
 
@@ -335,6 +348,9 @@ nitpick_ignore = [
     ('js:func', 'string'),
     ('js:func', 'SomeError'),
 ]
+
+graphviz_ignore_incorrect_font_metrics = True
+
 
 def _validate_parallel_build(app):
     # Verifies that all of the extensions defined by this theme support parallel

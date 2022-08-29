@@ -419,6 +419,10 @@ Configuration Options
 
         You can specify any of the available `Google Fonts <https://fonts.google.com/>`_.
 
+        The specified fonts will be downloaded automatically (using the cache
+        specified by :confval:`sphinx_immaterial_external_resource_cache_dir`)
+        and included in the built documentation.
+
     .. themeconf:: analytics
 
         Set to enable site analytics.
@@ -480,6 +484,22 @@ Configuration Options
     .. themeconf:: version_info
 
         A list of dictionaries used to populate the :ref:`version_dropdown` selector.
+
+.. confval:: sphinx_immaterial_external_resource_cache_dir
+
+   Specifies the local directory used to cache external resources, such as
+   Google Fonts.  If this config option is not specified, defaults to:
+
+   - the value of the :envvar:`SPHINX_IMMATERIAL_EXTERNAL_RESOURCE_CACHE_DIR`
+     environment variable, if specified; or
+   - a platform-dependent cache directory
+     (e.g. :file:`~/.cache/sphinx_immaterial/external_resources` on Linux).
+
+.. envvar:: SPHINX_IMMATERIAL_EXTERNAL_RESOURCE_CACHE_DIR
+
+   Environment variable that specifies a default value for the
+   :confval:`sphinx_immaterial_external_resource_cache_dir` configuration
+   option.
 
 .. _version_dropdown:
 

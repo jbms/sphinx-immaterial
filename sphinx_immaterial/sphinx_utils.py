@@ -192,3 +192,19 @@ def make_toctree_node(
     toctree["entries"].extend(toc_entries)
     toctree["includefiles"].extend([path for _, path in toc_entries])
     return toctree_nodes
+
+
+def remove_css_file(app: sphinx.application.Sphinx, filename: str):
+    """Removes a CSS file added by another extension."""
+    app_css_files = app.registry.css_files
+    app_indices = [i for i, x in enumerate(app_css_files) if x[0] == filename]
+    for i in reversed(app_indices):
+        del app_css_files[i]
+
+    if hasattr(app, "builder") and hasattr(app.builder, "add_css_file"):
+        builder_css_files = app.builder.css_files  # type: ignore[attr-defined]
+        builder_indices = [
+            i for i, x in enumerate(builder_css_files) if x.filename == filename
+        ]
+        for i in reversed(builder_indices):
+            del builder_css_files[i]

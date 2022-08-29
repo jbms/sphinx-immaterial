@@ -1,0 +1,19 @@
+// All definitions
+:root > * {
+  // Colors
+  --md-graphviz-edge-color:             var(--md-default-fg-color);
+  --md-graphviz-node-bg-color:          var(--md-accent-fg-color--transparent);
+  --md-graphviz-node-fg-color:          var(--md-accent-fg-color);
+  --md-graphviz-label-bg-color:         var(--md-default-bg-color);
+  --md-graphviz-label-fg-color:         var(--md-code-fg-color);
+  --md-graphviz-a-hover-color:          var(--md-primary-fg-color);
+}
+
+// Mermaid container
+.graphviz {
+  margin: 1em 0;
+}
+
+.graphviz a:hover > text {
+  fill: var(--md-graphviz-hover-color) !important; // stylelint-disable-line declaration-no-important
+}

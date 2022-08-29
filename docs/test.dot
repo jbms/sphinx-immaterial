@@ -1,0 +1,14 @@
+graph {
+  // use a radial layout (because mermaid.js cannot)
+  layout=twopi
+
+  A [shape=diamond]
+  B [shape=box]
+  C [shape=circle]
+
+  A -- B [style=dashed]
+  // edge using a static color with transparent fill
+  A -- C [color="black:invis:black"]
+  A -- D [penwidth=5, arrowhead=none]
+
+}
