@@ -34,7 +34,9 @@ def get_url(
         pass
 
     logger.info("Fetching: %s with %r", url, headers)
-    r = requests.get(url, headers=headers, stream=True)
+    r = requests.get(  # pylint: disable=missing-timeout
+        url, headers=headers, stream=True
+    )
     r.raise_for_status()
 
     response_content = r.content
