@@ -14,10 +14,9 @@ exclude = "setup.py"
 [tool.black]
 include = '\.py$'
 # 'extend-exclude' excludes files or directories in addition to the defaults
-extend-exclude = 'setup\.py$|^/docs'
-check=true
-diff=true
-color=true
+extend-exclude = '^/docs/tensorstore_demo/__init__\.py$'
+# Note: Don't add options like `--diff` here since then `black` cannot
+# easily be used from the command line to reformat files.
 
 [tool.pytest.ini_options]
 minversion = "6.0"

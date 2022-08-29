@@ -40,3 +40,5 @@ dmypy.json
 # pybind11 tests' build artifacts
 tests/**/build/
 tests/**/*.egg-info/
+tests/**/*.so
+tests/**/*.pyd

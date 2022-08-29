@@ -1,5 +1,6 @@
 from ._bravo import Bravo
 
+
 class Alpha(Bravo):
     """
     Class Alpha docstring.
