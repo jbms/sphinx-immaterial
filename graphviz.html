@@ -1,0 +1,1182 @@
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="icon" href="_static/favicon.ico">
+    
+    
+      
+        <title>Graphviz - Sphinx-Immaterial</title>
+      
+    
+    
+      <link rel="stylesheet" href="_static/stylesheets/main.b0359c04.min.css">
+      
+        
+        <link rel="stylesheet" href="_static/stylesheets/palette.92c9fe4a.min.css">
+        
+      
+    
+    
+    
+      
+        
+        
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+        <link rel="stylesheet" type="text/css" href="_static/google_fonts.css" />
+        <link rel="stylesheet" type="text/css" href="_static/extra_css.css" />
+    <script>__md_scope=new URL(".",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="light-green" data-md-color-accent="light-blue">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#configuration" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-component="outdated" hidden>
+        <aside class="md-banner md-banner--warning">
+          
+        </aside>
+      </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="index.html" title="Sphinx-Immaterial" class="md-header__button md-logo" aria-label="Sphinx-Immaterial" data-md-component="logo">
+      <img src="_static/Ybin.gif" alt="logo">
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Sphinx-Immaterial
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Graphviz
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="light-green" data-md-color-accent="light-blue"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5Z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="deep-orange" data-md-color-accent="lime"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9v1Z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/jbms/sphinx-immaterial/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Sphinx-Immaterial
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="index.html" title="Sphinx-Immaterial" class="md-nav__button md-logo" aria-label="Sphinx-Immaterial" data-md-component="logo">
+      <img src="_static/Ybin.gif" alt="logo">
+    </a>
+    Sphinx-Immaterial
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/jbms/sphinx-immaterial/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Sphinx-Immaterial
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="customization.html" class="md-nav__link">
+        <span class="md-ellipsis">Customization</span>
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="admonitions.html" class="md-nav__link">
+        <span class="md-ellipsis">Admonitions</span>
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="content_tabs.html" class="md-nav__link">
+        <span class="md-ellipsis">Content tabs</span>
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="task_lists.html" class="md-nav__link">
+        <span class="md-ellipsis">Task Lists</span>
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="keys.html" class="md-nav__link">
+        <span class="md-ellipsis">Keys extension</span>
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" data-md-state="indeterminate" type="checkbox" id="__nav_6" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          <span class="md-ellipsis">API documentation customization</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="API documentation customization" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">API documentation customization</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="apidoc/index.html" class="md-nav__link">
+        <span class="md-ellipsis">General API customization</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="apidoc/format_signatures.html" class="md-nav__link">
+        <span class="md-ellipsis">Formatting signatures</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="apidoc/python/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Python domain customization</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="apidoc/python/apigen.html" class="md-nav__link">
+        <span class="md-ellipsis">Python API documentation generation</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="apidoc/cpp/index.html" class="md-nav__link">
+        <span class="md-ellipsis">C++ domain customization</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="apidoc/cpp/external_cpp_references.html" class="md-nav__link">
+        <span class="md-ellipsis">External C++ symbol links</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="apidoc/cpp/cppreference.html" class="md-nav__link">
+        <span class="md-ellipsis">Automatic cross-<wbr>linking to cppreference.<wbr>com</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="apidoc/json/domain.html" class="md-nav__link">
+        <span class="md-ellipsis">JSON domain</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          <span class="md-ellipsis">Diagrams/graphs</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Diagrams/graphs" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Diagrams/graphs</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          <span class="md-ellipsis">Graphviz</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="#" class="md-nav__link md-nav__link--active">
+        <span class="md-ellipsis">Graphviz</span>
+      </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      <span class="md-ellipsis">Graphviz</span>
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    <span class="md-ellipsis">Configuration</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#confval-graphviz_ignore_incorrect_font_metrics" class="md-nav__link">
+    <span aria-label="configuration value" class="objinfo-icon objinfo-icon__data" title="configuration value">C</span><span title="graphviz_ignore_incorrect_font_metrics (configuration value) — This extension relies on the LibGD graphviz plugin to load the same font used by this theme, in order to correctly determine the size of text labels. While the LibGD plugin is normally included in the Linux and macOS graphviz builds, the official x86_64 Windows build does not include it." class="md-ellipsis">graphviz_<wbr>ignore_<wbr>incorrect_<wbr>font_<wbr>metrics</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    <span class="md-ellipsis">Usage</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#colors-specified-using-css-variables" class="md-nav__link">
+    <span class="md-ellipsis">Colors specified using CSS variables</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cross-references" class="md-nav__link">
+    <span class="md-ellipsis">Cross-<wbr>references</span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="mermaid_diagrams.html" class="md-nav__link">
+        <span class="md-ellipsis">Mermaid diagrams</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8" data-md-state="indeterminate" type="checkbox" id="__nav_8" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8">
+          <span class="md-ellipsis">Examples and Uses</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Examples and Uses" data-md-level="1">
+        <label class="md-nav__title" for="__nav_8">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Examples and Uses</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="demo_api.html" class="md-nav__link">
+        <span class="md-ellipsis">sample API documentation and generated content</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="python_apigen_demo.html" class="md-nav__link">
+        <span class="md-ellipsis">python_<wbr>apigen demo</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="specimen.html" class="md-nav__link">
+        <span class="md-ellipsis">Specimen</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="rst_basics.html" class="md-nav__link">
+        <span class="md-ellipsis">re<wbr>Structured<wbr>Text Primer</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="rst-cheatsheet/rst-cheatsheet.html" class="md-nav__link">
+        <span class="md-ellipsis">rst Cheatsheet</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="additional_samples.html" class="md-nav__link">
+        <span class="md-ellipsis">Additional Samples</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      <span class="md-ellipsis">Graphviz</span>
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    <span class="md-ellipsis">Configuration</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#confval-graphviz_ignore_incorrect_font_metrics" class="md-nav__link">
+    <span aria-label="configuration value" class="objinfo-icon objinfo-icon__data" title="configuration value">C</span><span title="graphviz_ignore_incorrect_font_metrics (configuration value) — This extension relies on the LibGD graphviz plugin to load the same font used by this theme, in order to correctly determine the size of text labels. While the LibGD plugin is normally included in the Linux and macOS graphviz builds, the official x86_64 Windows build does not include it." class="md-ellipsis">graphviz_<wbr>ignore_<wbr>incorrect_<wbr>font_<wbr>metrics</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    <span class="md-ellipsis">Usage</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#colors-specified-using-css-variables" class="md-nav__link">
+    <span class="md-ellipsis">Colors specified using CSS variables</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cross-references" class="md-nav__link">
+    <span class="md-ellipsis">Cross-<wbr>references</span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset" role="main">
+                
+  <a href="https://github.com/jbms/sphinx-immaterial/blob/main/docs/graphviz.rst" title="Edit this page" class="md-content__button md-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+  </a>
+
+
+
+  <h1 id="graphviz">Graphviz<a class="headerlink" href="#graphviz" title="Permalink to this heading">¶</a></h1>
+<p>This theme adds several improvements to the built-in <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/extensions/graphviz.html#module-sphinx.ext.graphviz" title="(in Sphinx v6.0.0)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sphinx.ext.graphviz</span></code></a> extension:</p>
+<ul class="simple">
+<li><p>default fonts and colors are set to match the fonts and colors used by the
+theme, including support for both light and dark mode;</p></li>
+<li><p>the rendered diagram is included as inline svg content to allow hyperlinks to
+work;</p></li>
+<li><p>colors can be manually specified in terms of CSS variables defined by the
+theme, such as <code class="code highlight css docutils literal highlight-css"><span class="nt">var</span><span class="o">(</span><span class="nt">--md-primary-fg-color</span><span class="o">)</span><span class="w"></span></code>;</p></li>
+<li><p>labels can be specified as Sphinx cross references (rather than just plain
+URLs).</p></li>
+</ul>
+<h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permalink to this heading">¶</a></h2>
+<p>This functionality is available as a separate optional extension included with
+this theme, which must be specified manually in your <code class="file docutils literal notranslate"><span class="pre">conf.py</span></code> file:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="n">extensions</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;sphinx_immaterial&quot;</span><span class="p">,</span>
+    <span class="c1"># other extensions...</span>
+    <span class="s2">&quot;sphinx_immaterial.graphviz&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+</code></pre></div>
+</div>
+<p>The <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/extensions/graphviz.html#confval-graphviz_dot" title="(in Sphinx v6.0.0)"><code class="xref std std-confval docutils literal notranslate"><span class="pre">graphviz_dot</span></code></a> and <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/extensions/graphviz.html#confval-graphviz_dot_args" title="(in Sphinx v6.0.0)"><code class="xref std std-confval docutils literal notranslate"><span class="pre">graphviz_dot_args</span></code></a> configuration
+options from <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/extensions/graphviz.html#module-sphinx.ext.graphviz" title="(in Sphinx v6.0.0)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sphinx.ext.graphviz</span></code></a> are supported.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/extensions/graphviz.html#confval-graphviz_output_format" title="(in Sphinx v6.0.0)"><code class="xref std std-confval docutils literal notranslate"><span class="pre">graphviz_output_format</span></code></a> configuration option is not supported;
+instead, the graph is always included as inline SVG in the HTML output.</p>
+</div>
+<dl class="std confval objdesc">
+<dt class="sig sig-object highlight std" id="confval-graphviz_ignore_incorrect_font_metrics">
+<span class="sig-name descname"><span class="pre">graphviz_ignore_incorrect_font_metrics</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="kc">False</span></code><a class="headerlink" href="#confval-graphviz_ignore_incorrect_font_metrics" title="Permalink to this definition">¶</a></dt>
+<dd><p>This extension relies on the LibGD graphviz plugin to load the same font used
+by this theme, in order to correctly determine the size of text labels.
+While the LibGD plugin is normally included in the Linux and macOS graphviz
+builds, the official x86_64 Windows build does not include it.  If the plugin
+is not found, by default this theme logs a warning.  This option may be set
+to <code class="code highlight python docutils literal highlight-python"><span class="kc">True</span></code> silence that warning.</p>
+<div class="results docutils container">
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption highlight"><span class="caption-text filename">
+Add to <code class="file docutils literal notranslate"><span class="pre">conf.py</span></code> to silence the warning<a class="headerlink" href="#id1" title="Permalink to this code">¶</a></span></div>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><code>graphviz_ignore_incorrect_font_metrics = True
+</code></pre></div>
+</div>
+</div>
+<div class="result docutils container">
+<p>graphviz_ignore_incorrect_font_metrics = True</p>
+</div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If LibGD is not available, graphviz will compute the size of labels using
+a default system font.  Labels will still be rendered in the browser using
+the correct font; the layout may just be slightly incorrect.</p>
+</div>
+</dd></dl>
+
+<h2 id="usage">Usage<a class="headerlink" href="#usage" title="Permalink to this heading">¶</a></h2>
+<p>Using the <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/extensions/graphviz.html#directive-graphviz" title="(in Sphinx v6.0.0)"><code class="xref rst rst-dir docutils literal notranslate"><span class="pre">graphviz</span></code></a> directive, graphs can be specified either inline
+or included from an external file.</p>
+<div class="results docutils container">
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption highlight"><span class="caption-text filename">
+Example of a graph defined inline<a class="headerlink" href="#id2" title="Permalink to this code">¶</a></span></div>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><code><span class="p">..</span> <span class="ow">graphviz</span><span class="p">::</span>
+
+   digraph {
+     graph [
+       rankdir = LR
+     ]
+
+     node [
+       shape=rectangle
+     ]
+
+     A [label=&quot;Start&quot;]
+     B [label=&quot;Error?&quot;, shape=diamond]
+     C [
+       label=&quot;Hmm...&quot;,
+       style=&quot;solid,filled&quot;,
+       fillcolor=&quot;var(--md-primary-fg-color, green)&quot;
+     ]
+     D [label=&quot;Debug&quot;]
+     E [xref=&quot;<span class="na">:py:obj:</span><span class="nv">`~tensorstore_demo.DimensionSelection`</span>&quot;]
+
+     A -&gt; B
+     B -&gt; C [label=&quot;Yes&quot;]
+     C -&gt; D
+     D -&gt; B
+     B -&gt; E [label=&quot;No&quot;]
+     D -&gt; E [style=invis]
+   }
+</code></pre></div>
+</div>
+</div>
+<div class="result docutils container">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0.00 0.00 556.97 89.34" class="graphviz" style="width: 34.8125rem;height: 5.5625rem;">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 85.34)">
+<title>%3</title>
+
+<g id="node1" class="node">
+<title>A</title>
+<polygon points="54,-70 0,-70 0,-34 54,-34 54,-70" style="fill: var(--md-graphviz-node-bg-color);stroke: var(--md-graphviz-node-fg-color);" />
+<text text-anchor="middle" x="27" y="-48.2" font-family="Roboto" font-size="12.00" style="fill: var(--md-code-fg-color);">Start</text>
+</g>
+
+<g id="node2" class="node">
+<title>B</title>
+<polygon points="132.99,-70 91.01,-52 132.99,-34 174.96,-52 132.99,-70" style="fill: var(--md-graphviz-node-bg-color);stroke: var(--md-graphviz-node-fg-color);" />
+<text text-anchor="middle" x="132.99" y="-48.2" font-family="Roboto" font-size="12.00" style="fill: var(--md-code-fg-color);">Error?</text>
+</g>
+
+<g id="edge1" class="edge">
+<title>A-&gt;B</title>
+<path fill="none" d="M54.24,-52C62.28,-52 71.43,-52 80.55,-52" style="stroke: var(--md-graphviz-edge-color);" />
+<polygon points="80.78,-55.5 90.78,-52 80.78,-48.5 80.78,-55.5" style="fill: var(--md-graphviz-edge-color);stroke: var(--md-graphviz-edge-color);" />
+</g>
+
+<g id="node3" class="node">
+<title>C</title>
+<polygon points="284.97,-70 229.97,-70 229.97,-34 284.97,-34 284.97,-70" style="fill: var(--md-primary-fg-color, green);stroke: var(--md-graphviz-node-fg-color);" />
+<text text-anchor="middle" x="257.47" y="-48.2" font-family="Roboto" font-size="12.00" style="fill: var(--md-code-fg-color);">Hmm...</text>
+</g>
+
+<g id="edge2" class="edge">
+<title>B-&gt;C</title>
+<path fill="none" d="M175.11,-52C189.51,-52 205.58,-52 219.61,-52" style="stroke: var(--md-graphviz-edge-color);" />
+<polygon points="219.88,-55.5 229.88,-52 219.88,-48.5 219.88,-55.5" style="fill: var(--md-graphviz-edge-color);stroke: var(--md-graphviz-edge-color);" />
+<text text-anchor="middle" x="202.47" y="-55.2" font-family="Roboto" font-size="12.00" style="fill: var(--md-code-fg-color);">Yes</text>
+</g>
+
+<g id="node5" class="node">
+<title>E</title>
+<g id="a_node5"><a href="python_apigen_generated/DimensionSelection.html">
+<polygon points="548.97,-36 426.97,-36 426.97,0 548.97,0 548.97,-36" style="fill: var(--md-graphviz-node-bg-color);stroke: var(--md-graphviz-node-fg-color);" />
+<text text-anchor="start" x="434.97" y="-14.2" font-family="Roboto" font-size="12.00" style="fill: var(--md-code-fg-color);--md-graphviz-hover-color: var(--md-graphviz-a-hover-color);">DimensionSelection</text>
+<title>tensorstore_demo.DimensionSelection (Python class) — This extends DimExpression.</title></a>
+</g>
+</g>
+
+<g id="edge5" class="edge">
+<title>B-&gt;E</title>
+<path fill="none" d="M156.52,-43.95C175.76,-37.5 204.3,-28.9 229.97,-25 292.65,-15.48 364.89,-14.37 416.78,-15.27" style="stroke: var(--md-graphviz-edge-color);" />
+<polygon points="416.81,-18.77 426.88,-15.47 416.96,-11.77 416.81,-18.77" style="fill: var(--md-graphviz-edge-color);stroke: var(--md-graphviz-edge-color);" />
+<text text-anchor="middle" x="310.47" y="-21.2" font-family="Roboto" font-size="12.00" style="fill: var(--md-code-fg-color);">No</text>
+</g>
+
+<g id="node4" class="node">
+<title>D</title>
+<polygon points="389.97,-70 335.97,-70 335.97,-34 389.97,-34 389.97,-70" style="fill: var(--md-graphviz-node-bg-color);stroke: var(--md-graphviz-node-fg-color);" />
+<text text-anchor="middle" x="362.97" y="-48.2" font-family="Roboto" font-size="12.00" style="fill: var(--md-code-fg-color);">Debug</text>
+</g>
+
+<g id="edge3" class="edge">
+<title>C-&gt;D</title>
+<path fill="none" d="M285.13,-52C297.41,-52 312.19,-52 325.49,-52" style="stroke: var(--md-graphviz-edge-color);" />
+<polygon points="325.77,-55.5 335.77,-52 325.77,-48.5 325.77,-55.5" style="fill: var(--md-graphviz-edge-color);stroke: var(--md-graphviz-edge-color);" />
+</g>
+
+<g id="edge4" class="edge">
+<title>D-&gt;B</title>
+<path fill="none" d="M335.83,-63.64C321.2,-69.52 302.43,-76.03 284.97,-79 243.46,-86.07 195.63,-74.1 165.12,-63.92" style="stroke: var(--md-graphviz-edge-color);" />
+<polygon points="166.06,-60.54 155.47,-60.57 163.77,-67.16 166.06,-60.54" style="fill: var(--md-graphviz-edge-color);stroke: var(--md-graphviz-edge-color);" />
+</g>
+
+</g>
+</svg></div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption highlight"><span class="caption-text filename">
+Contents of <code class="file docutils literal notranslate"><span class="pre">test.dot</span></code><a class="headerlink" href="#id3" title="Permalink to this code">¶</a></span></div>
+<div class="highlight-dot notranslate"><div class="highlight"><pre><span></span><code><span class="k">graph</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="c1">// use a radial layout (because mermaid.js cannot)</span><span class="w"></span>
+<span class="w">  </span><span class="na">layout</span><span class="p">=</span><span class="s">twopi</span><span class="w"></span>
+
+<span class="w">  </span><span class="nt">A</span><span class="w"> </span><span class="p">[</span><span class="na">shape</span><span class="p">=</span><span class="s">diamond</span><span class="p">]</span><span class="w"></span>
+<span class="w">  </span><span class="nt">B</span><span class="w"> </span><span class="p">[</span><span class="na">shape</span><span class="p">=</span><span class="s">box</span><span class="p">]</span><span class="w"></span>
+<span class="w">  </span><span class="nt">C</span><span class="w"> </span><span class="p">[</span><span class="na">shape</span><span class="p">=</span><span class="s">circle</span><span class="p">]</span><span class="w"></span>
+
+<span class="w">  </span><span class="nt">A</span><span class="w"> </span><span class="o">--</span><span class="w"> </span><span class="nt">B</span><span class="w"> </span><span class="p">[</span><span class="na">style</span><span class="p">=</span><span class="s">dashed</span><span class="p">]</span><span class="w"></span>
+<span class="w">  </span><span class="c1">// edge using a static color with transparent fill</span><span class="w"></span>
+<span class="w">  </span><span class="nt">A</span><span class="w"> </span><span class="o">--</span><span class="w"> </span><span class="nt">C</span><span class="w"> </span><span class="p">[</span><span class="na">color</span><span class="p">=</span><span class="s2">&quot;black:invis:black&quot;</span><span class="p">]</span><span class="w"></span>
+<span class="w">  </span><span class="nt">A</span><span class="w"> </span><span class="o">--</span><span class="w"> </span><span class="nt">D</span><span class="w"> </span><span class="p">[</span><span class="na">penwidth</span><span class="p">=</span><span class="m">5</span><span class="p">,</span><span class="w"> </span><span class="na">arrowhead</span><span class="p">=</span><span class="s">none</span><span class="p">]</span><span class="w"></span>
+
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+</div>
+</div>
+<div class="results docutils container">
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption highlight"><span class="caption-text filename">
+Example of a graph defined in an external file<a class="headerlink" href="#id4" title="Permalink to this code">¶</a></span></div>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><code><span class="p">..</span> <span class="ow">graphviz</span><span class="p">::</span> test.dot
+</code></pre></div>
+</div>
+</div>
+<div class="result docutils container">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0.00 0.00 161.00 168.71" class="graphviz" style="width: 10.0625rem;height: 10.5625rem;">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 164.71)">
+<title>%3</title>
+
+<g id="node1" class="node">
+<title>A</title>
+<polygon points="90,-98.35 63,-80.35 90,-62.35 117,-80.35 90,-98.35" style="fill: var(--md-graphviz-node-bg-color);stroke: var(--md-graphviz-node-fg-color);" />
+<text text-anchor="middle" x="90" y="-76.55" font-family="Roboto" font-size="12.00" style="fill: var(--md-code-fg-color);">A</text>
+</g>
+
+<g id="node2" class="node">
+<title>B</title>
+<polygon points="153,-160.71 99,-160.71 99,-124.71 153,-124.71 153,-160.71" style="fill: var(--md-graphviz-node-bg-color);stroke: var(--md-graphviz-node-fg-color);" />
+<text text-anchor="middle" x="126" y="-138.91" font-family="Roboto" font-size="12.00" style="fill: var(--md-code-fg-color);">B</text>
+</g>
+
+<g id="edge1" class="edge">
+<title>A--B</title>
+<path fill="none" stroke-dasharray="5,2" d="M97.63,-93.58C102.84,-102.59 109.79,-114.63 115.51,-124.54" style="stroke: var(--md-graphviz-edge-color);" />
+</g>
+
+<g id="node3" class="node">
+<title>C</title>
+<ellipse cx="18" cy="-80.35" rx="18" ry="18" style="fill: var(--md-graphviz-node-bg-color);stroke: var(--md-graphviz-node-fg-color);" />
+<text text-anchor="middle" x="18" y="-76.55" font-family="Roboto" font-size="12.00" style="fill: var(--md-code-fg-color);">C</text>
+</g>
+
+<g id="edge2" class="edge">
+<title>A--C</title>
+<path fill="none" stroke="black" d="M62.78,-82.35C53.86,-82.35 44.17,-82.35 36.1,-82.35" />
+<path fill="none" stroke="transparent" d="M62.78,-80.35C53.86,-80.35 44.17,-80.35 36.1,-80.35" />
+<path fill="none" stroke="black" d="M62.78,-78.35C53.86,-78.35 44.17,-78.35 36.1,-78.35" />
+</g>
+
+<g id="node4" class="node">
+<title>D</title>
+<ellipse cx="126" cy="-18" rx="27" ry="18" style="fill: var(--md-graphviz-node-bg-color);stroke: var(--md-graphviz-node-fg-color);" />
+<text text-anchor="middle" x="126" y="-14.2" font-family="Roboto" font-size="12.00" style="fill: var(--md-code-fg-color);">D</text>
+</g>
+
+<g id="edge3" class="edge">
+<title>A--D</title>
+<path fill="none" stroke-width="5" d="M97.63,-67.13C103,-57.84 110.23,-45.31 116.05,-35.23" style="stroke: var(--md-graphviz-edge-color);" />
+</g>
+</g>
+</svg></div>
+</div>
+<h2 id="colors-specified-using-css-variables">Colors specified using CSS variables<a class="headerlink" href="#colors-specified-using-css-variables" title="Permalink to this heading">¶</a></h2>
+<p>As demonstrated in the example above, this extension adds support for specifying
+color attributes using the CSS syntax <code class="code highlight dot docutils literal highlight-dot"><span class="nt">&quot;var(--css-var)&quot;</span><span class="w"></span></code> or
+<code class="code highlight dot docutils literal highlight-dot"><span class="nt">&quot;var(--css-var, fallback)&quot;</span><span class="w"></span></code>.  This may be used to specify colors defined
+by the theme that vary depending on whether light or dark mode is enabled.  When
+the <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/builders/index.html#sphinx.builders.latex.LaTeXBuilder" title="(in Sphinx v6.0.0)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">latex</span> <span class="pre">builder</span></code></a> is used, the
+fallback color, if specified, will be used instead.  If no fallback value is
+specified, only HTML builders may be used.</p>
+<h2 id="cross-references">Cross-references<a class="headerlink" href="#cross-references" title="Permalink to this heading">¶</a></h2>
+<p>This extension adds support for a special <code class="docutils literal notranslate"><span class="pre">xref</span></code> attribute, which may be set
+to a string value containing reStructuredText.  This is demonstrated in the
+example above.</p>
+<p>The reStructuredText will be parsed, and after resolving any cross references,
+will be substituted back into the graph definition as follows:</p>
+<ul class="simple">
+<li><p>A <a class="reference external" href="https://graphviz.org/docs/attrs/label/">label attribute</a> will be generated from the text content.</p></li>
+<li><p>If there is at least one <code class="docutils literal notranslate"><span class="pre">reference</span></code> node, only the last such node is
+considered, and:</p>
+<ul>
+<li><p>an <a class="reference external" href="https://graphviz.org/docs/attrs/href/">href attribute</a> will be generated from its URL.</p></li>
+<li><p>a <a class="reference external" href="https://graphviz.org/docs/attrs/tooltip/">tooltip attribute</a> will be generated from its title/tooltip, if any.</p></li>
+<li><p>a <a class="reference external" href="https://graphviz.org/docs/attrs/target/">target attribute</a> will be generated from its target, if any.</p></li>
+</ul>
+</li>
+</ul>
+
+
+
+  <hr>
+<div class="md-source-file">
+  <small>
+    
+      Last update:
+      Aug 29, 2022
+    
+  </small>
+</div>
+
+              
+            </article>
+          </div>
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" data-md-state="hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Back to top
+          </a>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="apidoc/json/domain.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: JSON domain" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              JSON domain
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="mermaid_diagrams.html" class="md-footer__link md-footer__link--next" aria-label="Next: Mermaid diagrams" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Mermaid diagrams
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  
+  
+  <div class="md-footer-meta md-typeset">
+    
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-footer-copyright__highlight">
+        &#169; Copyright 2021 The Sphinx-Immaterial Authors.
+        
+    </div>
+  
+    Created using
+    <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
+    5.1.1.
+     and
+    <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
+  
+</div>
+      
+    </div>
+    
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": ".", "features": ["navigation.expand", "navigation.sections", "navigation.top", "search.share", "toc.follow", "toc.sticky"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": {"provider": "mike", "staticVersions": [{"aliases": [], "title": "ReadTheDocs", "version": "https://sphinx-immaterial.rtfd.io"}, {"aliases": [], "title": "Github Pages", "version": "https://jbms.github.io/sphinx-immaterial"}], "versionPath": null}}</script>
+    
+    
+      <script src="_static/javascripts/bundle.dc1bded0.min.js"></script>
+    
+  </body>
+</html>

@@ -17,7 +17,7 @@
       
     
     
-      <link rel="stylesheet" href="_static/stylesheets/main.5aa58769.min.css">
+      <link rel="stylesheet" href="_static/stylesheets/main.b0359c04.min.css">
       
         
         <link rel="stylesheet" href="_static/stylesheets/palette.92c9fe4a.min.css">
@@ -29,11 +29,10 @@
       
         
         
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
         <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
       
     
+        <link rel="stylesheet" type="text/css" href="_static/google_fonts.css" />
         <link rel="stylesheet" type="text/css" href="_static/extra_css.css" />
     <script>__md_scope=new URL(".",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -278,22 +277,6 @@
   
   
     <li class="md-nav__item">
-      <a href="mermaid_diagrams.html" class="md-nav__link">
-        <span class="md-ellipsis">Mermaid diagrams</span>
-      </a>
-    </li>
-  
-
-    
-      
-      
-      
-
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="task_lists.html" class="md-nav__link">
         <span class="md-ellipsis">Task Lists</span>
       </a>
@@ -330,17 +313,17 @@
     <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" data-md-state="indeterminate" type="checkbox" id="__nav_7" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" data-md-state="indeterminate" type="checkbox" id="__nav_6" checked>
       
       
       
-        <label class="md-nav__link" for="__nav_7">
+        <label class="md-nav__link" for="__nav_6">
           <span class="md-ellipsis">API documentation customization</span>
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <nav class="md-nav" aria-label="API documentation customization" data-md-level="1">
-        <label class="md-nav__title" for="__nav_7">
+        <label class="md-nav__title" for="__nav_6">
           <span class="md-nav__icon md-icon"></span>
           <span class="md-ellipsis">API documentation customization</span>
         </label>
@@ -460,6 +443,72 @@
     <li class="md-nav__item">
       <a href="apidoc/json/domain.html" class="md-nav__link">
         <span class="md-ellipsis">JSON domain</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" data-md-state="indeterminate" type="checkbox" id="__nav_7" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          <span class="md-ellipsis">Diagrams/graphs</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Diagrams/graphs" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Diagrams/graphs</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="graphviz.html" class="md-nav__link">
+        <span class="md-ellipsis">Graphviz</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="mermaid_diagrams.html" class="md-nav__link">
+        <span class="md-ellipsis">Mermaid diagrams</span>
       </a>
     </li>
   
@@ -794,6 +843,8 @@
 </li>
         <li><a href="apidoc/cpp/external_cpp_references.html#confval-external_cpp_references">external_cpp_references</a>
 </li>
+        <li><a href="graphviz.html#confval-graphviz_ignore_incorrect_font_metrics">graphviz_ignore_incorrect_font_metrics</a>
+</li>
         <li><a href="customization.html#confval-html_logo">html_logo</a>
 </li>
         <li><a href="customization.html#confval-html_theme_options">html_theme_options</a>
@@ -845,6 +896,8 @@
         <li><a href="apidoc/python/index.html#confval-python_transform_typing_extensions">python_transform_typing_extensions</a>
 </li>
         <li><a href="apidoc/python/index.html#confval-python_type_aliases">python_type_aliases</a>
+</li>
+        <li><a href="customization.html#confval-sphinx_immaterial_external_resource_cache_dir">sphinx_immaterial_external_resource_cache_dir</a>
 </li>
       </ul></li>
   </ul></td>
@@ -922,10 +975,17 @@
         <li><a href="customization.html#themeconf-edit_uri">theme option</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="additional_samples.html#term-environment"><strong>environment</strong></a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    environment variable
+
+      <ul>
+        <li><a href="customization.html#envvar-SPHINX_IMMATERIAL_EXTERNAL_RESOURCE_CACHE_DIR">SPHINX_IMMATERIAL_EXTERNAL_RESOURCE_CACHE_DIR</a>, <a href="customization.html#index-0">[1]</a>
+</li>
+      </ul></li>
       <li>
     external_cpp_references
 
@@ -994,6 +1054,13 @@
 
       <ul>
         <li><a href="customization.html#themeconf-globaltoc_collapse">theme option</a>
+</li>
+      </ul></li>
+      <li>
+    graphviz_ignore_incorrect_font_metrics
+
+      <ul>
+        <li><a href="graphviz.html#confval-graphviz_ignore_incorrect_font_metrics">configuration value</a>
 </li>
       </ul></li>
   </ul></td>
@@ -1598,8 +1665,17 @@
 </li>
       <li><a href="demo_api.html#_CPPv4N6Sphinx7versionE">Sphinx::version (C++ member)</a>
 </li>
+      <li><a href="customization.html#index-0">SPHINX_IMMATERIAL_EXTERNAL_RESOURCE_CACHE_DIR</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    sphinx_immaterial_external_resource_cache_dir
+
+      <ul>
+        <li><a href="customization.html#confval-sphinx_immaterial_external_resource_cache_dir">configuration value</a>
+</li>
+      </ul></li>
       <li><a href="demo_api.html#_CPPv4I0000_NSt6size_tEENSt5arrayE">std::array (C++ class)</a>
 </li>
       <li>
@@ -1814,7 +1890,7 @@
   <small>
     
       Last update:
-      Aug 18, 2022
+      Aug 29, 2022
     
   </small>
 </div>

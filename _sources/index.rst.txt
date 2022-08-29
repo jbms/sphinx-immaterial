@@ -73,7 +73,6 @@ or ``theme.conf`` for more details.
     customization
     admonitions
     content_tabs
-    mermaid_diagrams
     task_lists
     keys
 
@@ -89,6 +88,13 @@ or ``theme.conf`` for more details.
     apidoc/cpp/external_cpp_references
     apidoc/cpp/cppreference
     apidoc/json/domain
+
+.. toctree::
+    :caption: Diagrams/graphs
+    :hidden:
+
+    graphviz
+    mermaid_diagrams
 
 .. toctree::
     :caption: Examples and Uses

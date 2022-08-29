@@ -4,8 +4,8 @@ Mermaid diagrams
 ================
 
 .. note::
-    Use of this feature has no affect or affiliation with sphinx's
-    :py:mod:`graphviz <sphinx.ext.graphviz>` implementation.
+
+   This feature provides an alternative to :doc:`graphviz` for including diagrams.
 
 The mkdocs-material theme is equipped to make use of diagrams generated (during page load time)
 with `mermaid.js`_. Although, its implementation relies on a markdown extension that does not get
@@ -24,9 +24,9 @@ directive that exposes the underlying implementation in mkdocs-material theme.
             You can use this option to specify ``text-align`` property via the following
             CSS classes:
 
-            - ``align-right`` sets the ``text-align`` property to ``right``. 
-            - ``align-left`` sets the ``text-align`` property to ``left``. 
-            - ``align-center`` sets the ``text-align`` property to ``center``. 
+            - ``align-right`` sets the ``text-align`` property to ``right``.
+            - ``align-left`` sets the ``text-align`` property to ``left``.
+            - ``align-center`` sets the ``text-align`` property to ``center``.
 
 
     .. rst:directive:option:: name
