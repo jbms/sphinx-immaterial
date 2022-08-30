@@ -1260,7 +1260,11 @@ source from this theme in <em>sphinx_immaterial/apidoc/python/autodoc_property_t
 <span class="normal">114</span>
 <span class="normal">115</span>
 <span class="normal">116</span>
-<span class="normal">117</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="sd">&quot;&quot;&quot;Adds support for obtaining property types from docstring signatures, and</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="sd">&quot;&quot;&quot;Adds support for obtaining property types from docstring signatures, and</span>
 <span class="sd">improves formatting by PyProperty of type annotations.&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Any</span>
@@ -1287,9 +1291,11 @@ source from this theme in <em>sphinx_immaterial/apidoc/python/autodoc_property_t
     <span class="k">return</span> <span class="n">func</span>
 
 
-<span class="k">def</span> <span class="nf">_get_property_return_type</span><span class="p">(</span><span class="n">obj</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="k">def</span> <span class="nf">_get_return_type_from_fget_doc</span><span class="p">(</span><span class="n">obj</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
     <span class="n">fget</span> <span class="o">=</span> <span class="n">_get_property_getter</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
-    <span class="n">doc</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="vm">__doc__</span>
+    <span class="k">if</span> <span class="n">fget</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="n">doc</span> <span class="o">=</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">inspect</span><span class="o">.</span><span class="n">safe_getattr</span><span class="p">(</span><span class="n">fget</span><span class="p">,</span> <span class="s2">&quot;__doc__&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">doc</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">None</span>
     <span class="n">line</span> <span class="o">=</span> <span class="n">doc</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
@@ -1327,11 +1333,13 @@ source from this theme in <em>sphinx_immaterial/apidoc/python/autodoc_property_t
                         <span class="n">signature</span><span class="o">.</span><span class="n">return_annotation</span>
                     <span class="p">)</span>
                 <span class="k">return</span> <span class="kc">True</span>
-            <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+            <span class="k">except</span><span class="p">:</span>  <span class="c1"># pylint: disable=bare-except</span>
                 <span class="k">pass</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">retann</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">retann</span> <span class="o">=</span> <span class="n">_get_property_return_type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
+            <span class="n">new_retann</span> <span class="o">=</span> <span class="n">_get_return_type_from_fget_doc</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">new_retann</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">retann</span> <span class="o">=</span> <span class="n">new_retann</span>
         <span class="k">return</span> <span class="kc">True</span>
 
     <span class="n">PropertyDocumenter</span><span class="o">.</span><span class="n">import_object</span> <span class="o">=</span> <span class="n">import_object</span>
@@ -1343,7 +1351,7 @@ source from this theme in <em>sphinx_immaterial/apidoc/python/autodoc_property_t
         <span class="n">old_add_directive_header</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sig</span><span class="p">)</span>
 
         <span class="c1"># Check for return annotation</span>
-        <span class="n">retann</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">retann</span> <span class="ow">or</span> <span class="n">_get_property_return_type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="p">)</span>
+        <span class="n">retann</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">retann</span> <span class="ow">or</span> <span class="n">_get_return_type_from_fget_doc</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">retann</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span>
 
@@ -1823,7 +1831,7 @@ source files for one Sphinx project.</p>
   <small>
     
       Last update:
-      Aug 29, 2022
+      Aug 30, 2022
     
   </small>
 </div>
