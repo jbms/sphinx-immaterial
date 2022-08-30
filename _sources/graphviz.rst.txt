@@ -46,7 +46,8 @@ options from :py:mod:`sphinx.ext.graphviz` are supported.
    is not found, by default this theme logs a warning.  This option may be set
    to :python:`True` silence that warning.
 
-   .. rst-example:: Add to :file:`conf.py` to silence the warning
+   .. code-block:: python
+      :caption: Add to :file:`conf.py` to silence the warning
 
       graphviz_ignore_incorrect_font_metrics = True
 

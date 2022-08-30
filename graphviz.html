@@ -850,16 +850,11 @@ While the LibGD plugin is normally included in the Linux and macOS graphviz
 builds, the official x86_64 Windows build does not include it.  If the plugin
 is not found, by default this theme logs a warning.  This option may be set
 to <code class="code highlight python docutils literal highlight-python"><span class="kc">True</span></code> silence that warning.</p>
-<div class="results docutils container">
 <div class="literal-block-wrapper docutils container" id="id1">
 <div class="code-block-caption highlight"><span class="caption-text filename">
 Add to <code class="file docutils literal notranslate"><span class="pre">conf.py</span></code> to silence the warning<a class="headerlink" href="#id1" title="Permalink to this code">¶</a></span></div>
-<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><code>graphviz_ignore_incorrect_font_metrics = True
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="n">graphviz_ignore_incorrect_font_metrics</span> <span class="o">=</span> <span class="kc">True</span>
 </code></pre></div>
-</div>
-</div>
-<div class="result docutils container">
-<p>graphviz_ignore_incorrect_font_metrics = True</p>
 </div>
 </div>
 <div class="admonition warning">
