@@ -8,5 +8,3 @@ docutils-stubs
 types-jsonschema
 types-appdirs
 types-requests
-pytest
-pytest-snapshot

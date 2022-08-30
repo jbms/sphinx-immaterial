@@ -98,3 +98,43 @@ def test_issue_147(apigen_make_app):
 
     for entity in data.entities.values():
         assert entity.options["module"] == testmod
+
+
+def test_pybind11_property(apigen_make_app):
+    testmod = "sphinx_immaterial_pybind11_issue_134"
+    app = apigen_make_app(
+        confoverrides=dict(
+            python_apigen_modules={
+                testmod: "api/",
+            },
+        ),
+    )
+    print(app._status.getvalue())
+    print(app._warning.getvalue())
+
+    data = _get_api_data(app.env)
+
+    options = data.entities[f"{testmod}.Example.is_set_by_init"].options
+    assert options["type"] == "bool"
+
+    options = data.entities[f"{testmod}.Example.no_signature"].options
+    assert "type" not in options
+
+
+def test_pure_python_property(apigen_make_app):
+    testmod = "python_apigen_test_modules.property"
+    app = apigen_make_app(
+        confoverrides=dict(
+            python_apigen_modules={
+                testmod: "api/",
+            },
+        ),
+    )
+
+    print(app._status.getvalue())
+    print(app._warning.getvalue())
+
+    data = _get_api_data(app.env)
+
+    options = data.entities[f"{testmod}.Example.foo"].options
+    assert options["type"] == "int"

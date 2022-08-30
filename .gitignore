@@ -36,3 +36,9 @@ dmypy.json
 
 # user specific
 .vscode/
+
+# pybind11 tests' build artifacts
+tests/**/build/
+tests/**/*.egg-info/
+tests/**/*.so
+tests/**/*.pyd

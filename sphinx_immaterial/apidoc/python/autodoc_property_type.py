@@ -25,9 +25,11 @@ def _get_property_getter(obj: Any) -> Any:
     return func
 
 
-def _get_property_return_type(obj: Any) -> Optional[str]:
+def _get_return_type_from_fget_doc(obj: Any) -> Optional[str]:
     fget = _get_property_getter(obj)
-    doc = obj.__doc__
+    if fget is None:
+        return None
+    doc = sphinx.util.inspect.safe_getattr(fget, "__doc__", None)
     if doc is None:
         return None
     line = doc.splitlines()[0]
@@ -65,11 +67,13 @@ def apply_property_documenter_type_annotation_fix():
                         signature.return_annotation
                     )
                 return True
-            except TypeError:
+            except:  # pylint: disable=bare-except
                 pass
 
         if not self.retann:
-            self.retann = _get_property_return_type(self.object)  # type: ignore
+            new_retann = _get_return_type_from_fget_doc(self.object)
+            if new_retann is not None:
+                self.retann = new_retann
         return True
 
     PropertyDocumenter.import_object = import_object
@@ -81,7 +85,7 @@ def apply_property_documenter_type_annotation_fix():
         old_add_directive_header(self, sig)
 
         # Check for return annotation
-        retann = self.retann or _get_property_return_type(self.object)
+        retann = self.retann or _get_return_type_from_fget_doc(self.object)
         if retann is None:
             return
 

@@ -314,21 +314,17 @@ python_apigen_default_groups = [
 nitpicky = True
 nitpick_ignore = [
     # Python standard library types not present in object inventory.
-    ('py:class', 'Pattern'),
-    ('py:class', 're.Pattern'),
-
+    ("py:class", "Pattern"),
+    ("py:class", "re.Pattern"),
     # Config option type
-    ('py:class', 'ExternalCppReference'),
-
+    ("py:class", "ExternalCppReference"),
     # Example Python types
-    ('py:class', 'example_mod.Foo'),
-    ('py:class', 'alias_ex.MyUnqualifiedType'),
-
+    ("py:class", "example_mod.Foo"),
+    ("py:class", "alias_ex.MyUnqualifiedType"),
     # Example C++ types
-    ('cpp:identifier', 'Sphinx'),
-    ('cpp:identifier', 'RF24_SPI_SPEED'),
-    ('cpp:identifier', 'RF24_SPI_SPEED'),
-
+    ("cpp:identifier", "Sphinx"),
+    ("cpp:identifier", "RF24_SPI_SPEED"),
+    ("cpp:identifier", "RF24_SPI_SPEED"),
     # C++ namespaces referenced in the documentation
     #
     # It is a bug in the C++ domain that a reference to `ns::symbol` will
@@ -336,17 +332,16 @@ nitpick_ignore = [
     # because the C++ domain does not actually define "namespace" objects, the
     # `ns` reference will always fail to be resolved, leading to a spurious
     # warning.
-    ('cpp:identifier', '::nlohmann'),
-    ('cpp:identifier', 'std'),
-    ('cpp:identifier', 'synopses_ex'),
-    ('cpp:identifier', 'my_ns1'),
-    ('cpp:identifier', 'my_ns2'),
-    ('cpp:identifier', 'my_ns2::my_nested_ns'),
-    ('cpp:identifier', 'my_ns3'),
-
+    ("cpp:identifier", "::nlohmann"),
+    ("cpp:identifier", "std"),
+    ("cpp:identifier", "synopses_ex"),
+    ("cpp:identifier", "my_ns1"),
+    ("cpp:identifier", "my_ns2"),
+    ("cpp:identifier", "my_ns2::my_nested_ns"),
+    ("cpp:identifier", "my_ns3"),
     # Example JavaScript types
-    ('js:func', 'string'),
-    ('js:func', 'SomeError'),
+    ("js:func", "string"),
+    ("js:func", "SomeError"),
 ]
 
 graphviz_ignore_incorrect_font_metrics = True
