@@ -17,7 +17,7 @@
       
     
     
-      <link rel="stylesheet" href="../_static/stylesheets/main.b0359c04.min.css">
+      <link rel="stylesheet" href="../_static/stylesheets/main.30c392bc.min.css">
       
         
         <link rel="stylesheet" href="../_static/stylesheets/palette.92c9fe4a.min.css">
@@ -60,6 +60,11 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
+      
+        
+        <a href="#example" class="md-skip">
+          Skip to content
+        </a>
       
     </div>
     <div data-md-component="announce">
@@ -815,9 +820,41 @@
       
       <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          <span aria-label="Python property" class="objinfo-icon objinfo-icon__alias" title="Python property">P</span><span title="tensorstore_demo.IndexDomain.inclusive_min (Python property) — Inclusive lower bound of the domain, alias of origin." class="md-ellipsis">inclusive_<wbr>min</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="#" class="md-nav__link md-nav__link--active">
         <span aria-label="Python property" class="objinfo-icon objinfo-icon__alias" title="Python property">P</span><span title="tensorstore_demo.IndexDomain.inclusive_min (Python property) — Inclusive lower bound of the domain, alias of origin." class="md-ellipsis">inclusive_<wbr>min</span>
       </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      <span aria-label="Python property" class="objinfo-icon objinfo-icon__alias" title="Python property">P</span><span title="tensorstore_demo.IndexDomain.inclusive_min (Python property) — Inclusive lower bound of the domain, alias of origin." class="md-ellipsis">inclusive_<wbr>min</span>
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#example" class="md-nav__link">
+    <span class="md-ellipsis">Example</span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1041,9 +1078,26 @@
                   <div class="md-sidebar__inner">
                     
 
+  
+
 <nav class="md-nav md-nav--secondary">
   
   
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      <span aria-label="Python property" class="objinfo-icon objinfo-icon__alias" title="Python property">P</span><span title="tensorstore_demo.IndexDomain.inclusive_min (Python property) — Inclusive lower bound of the domain, alias of origin." class="md-ellipsis">inclusive_<wbr>min</span>
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#example" class="md-nav__link">
+    <span class="md-ellipsis">Example</span>
+  </a>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -1060,7 +1114,7 @@
 <dt class="sig sig-object highlight py">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tensorstore_demo.</span><span class="pre">IndexDomain.</span></span><span class="sig-name descname"><span class="pre">inclusive_min</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.10)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></dt>
 <dd><p>Inclusive lower bound of the domain, alias of <a class="reference internal" href="IndexDomain.origin.html" title="tensorstore_demo.IndexDomain.origin (Python property) — Inclusive lower bound of the domain."><code class="xref py py-obj docutils literal notranslate"><span class="pre">origin</span></code></a>.</p>
-<p class="example rubric">Example</p>
+<p class="example rubric" id="example">Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">domain</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">IndexDomain</span><span class="p">(</span><span class="n">inclusive_min</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">shape</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">domain</span><span class="o">.</span><span class="n">inclusive_min</span>
 <span class="go">(1, 2, 3)</span>
@@ -1076,7 +1130,7 @@
   <small>
     
       Last update:
-      Aug 30, 2022
+      Aug 31, 2022
     
   </small>
 </div>

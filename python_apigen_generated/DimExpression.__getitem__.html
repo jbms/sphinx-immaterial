@@ -17,7 +17,7 @@
       
     
     
-      <link rel="stylesheet" href="../_static/stylesheets/main.b0359c04.min.css">
+      <link rel="stylesheet" href="../_static/stylesheets/main.30c392bc.min.css">
       
         
         <link rel="stylesheet" href="../_static/stylesheets/palette.92c9fe4a.min.css">
@@ -763,6 +763,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    <span class="md-ellipsis">Examples</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#integer-indexing" class="md-nav__link">
     <span class="md-ellipsis">Integer indexing</span>
   </a>
@@ -1050,6 +1057,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    <span class="md-ellipsis">Examples</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#integer-indexing" class="md-nav__link">
     <span class="md-ellipsis">Integer indexing</span>
   </a>
@@ -1112,11 +1126,11 @@
 dimensions must be consumed by a term of the indexing spec; there is no implicit
 addition of an <a class="reference external" href="https://docs.python.org/3/library/constants.html#Ellipsis" title="(in Python v3.10)"><code class="xref any docutils literal notranslate"><span class="pre">Ellipsis</span></code></a> term to consume any remaining dimensions.</p>
 <dl class="field-list simple">
-<dt class="field-odd" id="returns">Returns<a class="headerlink" href="#returns" title="Permalink to this headline">¶</a><span class="colon">:</span></dt>
+<dt class="field-odd" id="returns">Returns<span class="colon">:</span><a class="headerlink" href="#returns" title="Permalink to this headline">¶</a></dt>
 <dd class="field-odd"><p>Dimension expression with the indexing operation added.</p>
 </dd>
 </dl>
-<p class="example rubric">Examples</p>
+<p class="example rubric" id="examples">Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></p>
 <h2 id="integer-indexing">Integer indexing<a class="headerlink" href="#integer-indexing" title="Permalink to this heading">¶</a></h2>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">transform</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">IndexTransform</span><span class="p">(</span><span class="n">input_labels</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;z&#39;</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">transform</span><span class="p">[</span><span class="n">ts</span><span class="o">.</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">][</span><span class="mi">5</span><span class="p">]]</span>
@@ -1441,7 +1455,7 @@ added to the beginning of the result domain, i.e. exactly the behavior of
   <small>
     
       Last update:
-      Aug 30, 2022
+      Aug 31, 2022
     
   </small>
 </div>
