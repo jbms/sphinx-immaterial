@@ -16,8 +16,6 @@ def monkey_patch_details_run():
     This solution is a temporary fix pending response from
     https://github.com/tk0miya/sphinxcontrib-details-directive/issues/4
     """
-    if not IS_INSTALLED:
-        return
 
     def run(self) -> List[nodes.container]:
         admonition = nodes.container(
@@ -34,3 +32,7 @@ def monkey_patch_details_run():
         return [admonition]
 
     DetailsDirective.run = run
+
+
+if IS_INSTALLED:
+    monkey_patch_details_run()

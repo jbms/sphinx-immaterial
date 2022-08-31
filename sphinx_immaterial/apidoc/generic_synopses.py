@@ -8,8 +8,9 @@ import sphinx.builders
 import sphinx.domains
 import sphinx.domains.std
 import sphinx.util.nodes
+from typing_extensions import Literal
 
-from . import apidoc_formatting
+from . import object_description_options
 from .. import sphinx_utils
 
 
@@ -34,7 +35,7 @@ def _monkey_patch_generic_object_to_support_synopses():
         noindex = "noindex" in self.options
         if noindex:
             return
-        options = apidoc_formatting.get_object_description_options(
+        options = object_description_options.get_object_description_options(
             self.env, self.domain, self.objtype
         )
         generate_synopses = options["generate_synopses"]
@@ -73,9 +74,9 @@ def _monkey_patch_generic_object_to_support_synopses():
             docname,
             labelid,
             contnode,
-            title=apidoc_formatting.format_object_description_tooltip(
+            title=object_description_options.format_object_description_tooltip(
                 env=cast(sphinx.environment.BuildEnvironment, builder.env),
-                options=apidoc_formatting.get_object_description_options(
+                options=object_description_options.get_object_description_options(
                     std.env, "std", objtype
                 ),
                 base_title=target,
@@ -172,10 +173,18 @@ def _monkey_patch_generic_object_to_support_synopses():
 
 
 def setup(app: sphinx.application.Sphinx):
+    app.setup_extension("sphinx_immaterial.apidoc.object_description_options")
     sphinx.domains.std.StandardDomain.initial_data[
         "synopses"
     ] = {}  # (type, name) -> synopsis
     _monkey_patch_generic_object_to_support_synopses()
+
+    object_description_options.add_object_description_option(
+        app,
+        "generate_synopses",
+        type_constraint=Optional[Literal["first_paragraph", "first_sentence"]],
+        default="first_paragraph",
+    )
 
     return {
         "parallel_read_safe": True,

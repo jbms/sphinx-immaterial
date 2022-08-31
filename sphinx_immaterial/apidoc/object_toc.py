@@ -1,12 +1,14 @@
 """Adds all Sphinx "objects" to the table of contents."""
 
-from typing import cast, Optional, Union, Any
+from typing import cast, Optional, Union, Any, List
 import docutils.nodes
 import sphinx.addnodes
 import sphinx.application
 from sphinx.environment.collectors.toctree import TocTreeCollector
+from sphinx.locale import _
 
-from . import apidoc_formatting
+from . import object_description_options
+from .. import html_translator_mixin
 
 
 def _monkey_patch_toc_tree_process_doc():
@@ -21,7 +23,7 @@ def _monkey_patch_toc_tree_process_doc():
     ) -> Optional[docutils.nodes.section]:
         env = app.env
         assert env is not None
-        options = apidoc_formatting.get_object_description_options(
+        options = object_description_options.get_object_description_options(
             env, source["domain"], source["objtype"]
         )
         if not options["include_in_toc"]:
@@ -182,7 +184,131 @@ def _monkey_patch_toc_tree_process_doc():
 _monkey_patch_toc_tree_process_doc()
 
 
+@html_translator_mixin.override
+def depart_field_name(
+    self,
+    node: docutils.nodes.field_name,
+    super_func: html_translator_mixin.BaseVisitCallback[docutils.nodes.field_name],
+) -> None:
+    super_func(self, node)
+    last_part = self.body[-1]
+    end_tag_index = last_part.index("</dt>")
+    self.body[-1] = last_part[:end_tag_index]
+    self.add_permalink_ref(node, _("Permalink to this headline"))
+    self.body.append(last_part[end_tag_index:])
+
+
+def _monkey_patch_object_description_to_include_fields_in_toc():
+    orig_run = sphinx.directives.ObjectDescription.run
+
+    def run(self: sphinx.directives.ObjectDescription) -> List[docutils.nodes.Node]:
+        nodes = orig_run(self)
+
+        options = object_description_options.get_object_description_options(
+            self.env, self.domain, self.objtype
+        )
+        if not options["include_fields_in_toc"]:
+            return nodes
+
+        obj_desc = nodes[-1]
+
+        obj_id = None
+        for sig in obj_desc[:-1]:
+            ids = sig["ids"]
+            if ids and ids[0]:
+                obj_id = ids[0]
+                break
+
+        obj_content = obj_desc[-1]
+        for child in obj_content:
+            if not isinstance(child, docutils.nodes.field_list):
+                continue
+            for field in child:
+                assert isinstance(field, docutils.nodes.field)
+                field_name = cast(docutils.nodes.field_name, field[0])
+                if field_name["ids"]:
+                    continue
+                field_id = docutils.nodes.make_id(field_name.astext())
+                if obj_id:
+                    field_id = f"{obj_id}-{field_id}"
+                field_name["ids"].append(field_id)
+
+        return nodes
+
+    sphinx.directives.ObjectDescription.run = run
+
+
+_monkey_patch_object_description_to_include_fields_in_toc()
+
+
+@html_translator_mixin.override
+def depart_rubric(
+    self,
+    node: docutils.nodes.rubric,
+    super_func: html_translator_mixin.BaseVisitCallback[docutils.nodes.rubric],
+) -> None:
+    self.add_permalink_ref(node, _("Permalink to this headline"))
+    super_func(self, node)
+
+
+def _monkey_patch_object_description_to_include_rubrics_in_toc():
+    orig_run = sphinx.directives.ObjectDescription.run
+
+    def run(self: sphinx.directives.ObjectDescription) -> List[docutils.nodes.Node]:
+        nodes = orig_run(self)
+
+        options = object_description_options.get_object_description_options(
+            self.env, self.domain, self.objtype
+        )
+        if not options["include_rubrics_in_toc"]:
+            return nodes
+
+        obj_desc = nodes[-1]
+        obj_content = obj_desc[-1]
+        for child in obj_content:
+            if not isinstance(child, docutils.nodes.rubric):
+                continue
+            rubric = cast(docutils.nodes.rubric, child)
+            if rubric["ids"]:
+                continue
+            rubric_id = docutils.nodes.make_id(rubric.astext())
+            rubric["ids"].append(rubric_id)
+
+        return nodes
+
+    sphinx.directives.ObjectDescription.run = run
+
+
+_monkey_patch_object_description_to_include_rubrics_in_toc()
+
+
+@html_translator_mixin.override
+def depart_term(
+    self: html_translator_mixin.HTMLTranslatorMixin,
+    node: docutils.nodes.term,
+    super_func: html_translator_mixin.BaseVisitCallback[docutils.nodes.term],
+) -> None:
+    self.add_permalink_ref(node, _("Permalink to this definition"))
+    super_func(self, node)
+
+
 def setup(app: sphinx.application.Sphinx):
+    app.setup_extension("sphinx_immaterial.apidoc.object_description_options")
+    object_description_options.add_object_description_option(
+        app, "include_in_toc", type_constraint=bool, default=True
+    )
+    object_description_options.add_object_description_option(
+        app, "toc_icon_text", type_constraint=Optional[str], default=None
+    )
+    object_description_options.add_object_description_option(
+        app, "toc_icon_class", type_constraint=Optional[str], default=None
+    )
+    object_description_options.add_object_description_option(
+        app, "include_fields_in_toc", type_constraint=bool, default=True
+    )
+    object_description_options.add_object_description_option(
+        app, "include_rubrics_in_toc", type_constraint=bool, default=True
+    )
 
     # TocTreeCollector is registered before our extension is.  In order for the
     # monkey patching to take effect, we need to unregister it and re-register it.

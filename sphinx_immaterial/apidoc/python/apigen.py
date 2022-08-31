@@ -56,7 +56,7 @@ import sphinx.util.inspect
 import sphinx.util.logging
 import sphinx.util.typing
 
-from .. import apidoc_formatting
+from .. import object_description_options
 from ... import sphinx_utils
 
 logger = sphinx.util.logging.getLogger(__name__)
@@ -220,7 +220,7 @@ def _summarize_signature(
 
     obj_desc = node.parent
 
-    options = apidoc_formatting.get_object_description_options(
+    options = object_description_options.get_object_description_options(
         env, obj_desc["domain"], obj_desc["objtype"]
     )
     column_limit = options["wrap_signatures_column_limit"]

@@ -22,7 +22,9 @@ import sphinx.environment
 import sphinx.util.logging
 import sphinx.util.typing
 
-from sphinx_immaterial.apidoc import apidoc_formatting
+from sphinx_immaterial.apidoc import (
+    object_description_options as _object_description_options,
+)
 
 logger = sphinx.util.logging.getLogger(__name__)
 
@@ -357,7 +359,9 @@ def _validate_parallel_build(app):
 def _parse_object_description_signature(
     env: sphinx.environment.BuildEnvironment, signature: str, node: docutils.nodes.Node
 ) -> str:
-    registry = apidoc_formatting.get_object_description_option_registry(env.app)
+    registry = _object_description_options.get_object_description_option_registry(
+        env.app
+    )
     registry_option = registry.get(signature)
     node += sphinx.addnodes.desc_name(signature, signature)
     if registry_option is None:

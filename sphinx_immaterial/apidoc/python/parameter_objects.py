@@ -7,7 +7,7 @@ from sphinx.domains.python import PyObject
 import sphinx.util.logging
 
 from . import annotation_style
-from .. import apidoc_formatting
+from .. import object_description_options
 from ... import sphinx_utils
 
 
@@ -287,7 +287,7 @@ def _add_parameter_documentation_ids(
 
     qualify_parameter_ids = "nonodeid" not in directive.options
 
-    param_options = apidoc_formatting.get_object_description_options(
+    param_options = object_description_options.get_object_description_options(
         env, "py", "parameter"
     )
 

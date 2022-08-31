@@ -14,9 +14,11 @@ import sphinx.util.matching
 import sphinx.util.docutils
 import sphinx.writers.html5
 
+from . import html_translator_mixin
 from .apidoc import apidoc_formatting
 from . import nav_adapt
-from .details_patch import monkey_patch_details_run
+from . import details_patch
+from . import sections
 
 logger = sphinx.util.logging.getLogger(__name__)
 
@@ -36,68 +38,6 @@ DEFAULT_THEME_OPTIONS = {
 }
 
 
-def _get_html_translator(
-    base_translator: Type[sphinx.writers.html5.HTML5Translator],
-) -> Type[sphinx.writers.html5.HTML5Translator]:
-    class CustomHTMLTranslator(
-        apidoc_formatting.HTMLTranslatorMixin, base_translator  # type: ignore
-    ):  # pylint: disable=abstract-method
-        def __init__(self, *args, **kwargs):
-            super().__init__(*args, **kwargs)
-
-            # Ensure pygments uses <code> elements, for compatibility with the
-            # mkdocs-material CSS which expects that.
-            self.highlighter.formatter_args.update(wrapcode=True)
-
-            # Ensure all tables are marked as data tables.  The material CSS only
-            # applies to tables with this class, in order to leave tables used for
-            # layout purposes alone.
-            self.settings.table_style = ",".join(
-                self.settings.table_style.split(",") + ["data"]
-            )
-
-            # Ensure classes like `s` (used for string literals in code
-            # highlighting) aren't converted to `<s>` elements (strikethrough).
-            # Sphinx already overrides this, but for some reason due to
-            # `__init__` invocation order it gets overridden.
-            self.supported_inline_tags = set()
-
-        def visit_section(
-            self, node: Union[docutils.nodes.section, docutils.nodes.Element]
-        ) -> None:
-            # Sphinx normally writes sections with a section heading as:
-            #
-            #     <div id="identifier" class="section"><hN>...</hN>...</div>
-            #
-            # but that is incompatible with the way scroll-margin-top and the
-            # `:target` selector are used in the mkdocs-material CSS.  For
-            # compatibility with mkdocs-material, we strip the outer `<div>` and
-            # instead add the `id` to the inner `<hN>` element.
-            #
-            # That is accomplished by overriding `visit_section` and
-            # `depart_section` not to add the `<div>` and `</div>` tags, and also
-            # modifying `visit_title` to insert the `id`.
-            self.section_level += 1
-
-        def depart_section(
-            self, node: Union[docutils.nodes.section, docutils.nodes.Element]
-        ) -> None:
-            self.section_level -= 1
-
-        def visit_title(
-            self, node: Union[docutils.nodes.title, docutils.nodes.Element]
-        ) -> None:
-            if isinstance(node.parent, docutils.nodes.section):
-                if node.parent.get("ids") and not node.get("ids"):
-                    node["ids"] = node.parent.get("ids")
-                    super().visit_title(node)
-                    del node["ids"]
-                    return
-            super().visit_title(node)
-
-    return CustomHTMLTranslator
-
-
 def _get_html_builder(base_builder: Type[sphinx.builders.html.StandaloneHTMLBuilder]):
     """Returns a modified HTML translator."""
 
@@ -109,7 +49,9 @@ def _get_html_builder(base_builder: Type[sphinx.builders.html.StandaloneHTMLBuil
 
         @property
         def default_translator_class(self):
-            return _get_html_translator(super().default_translator_class)
+            return html_translator_mixin.get_html_translator(
+                super().default_translator_class
+            )
 
         def init_js_files(self):
             super().init_js_files()
@@ -299,8 +241,6 @@ def _config_inited(
     """Merge defaults into theme options."""
     if config["language"] is None:
         config["language"] = "en"  # default to English language
-    # make code-blocks' line numbers be a separate column of a 1-row table
-    config["html_codeblock_linenos_style"] = "table"  # default is "inline"
     config["html_theme_options"] = dict_merge(
         DEFAULT_THEME_OPTIONS, config["html_theme_options"]
     )
@@ -322,6 +262,8 @@ def setup(app):
 
     app.setup_extension("sphinx_immaterial.apidoc.object_toc")
     app.setup_extension("sphinx_immaterial.search_adapt")
+    app.setup_extension("sphinx_immaterial.apidoc.object_description_options")
+    app.setup_extension("sphinx_immaterial.apidoc.wrap_signatures")
     app.setup_extension("sphinx_immaterial.apidoc.generic_synopses")
 
     app.connect("html-page-context", html_page_context)
@@ -339,9 +281,6 @@ def setup(app):
     app.setup_extension("sphinx_immaterial.content_tabs")
     app.setup_extension("sphinx_immaterial.mermaid_diagrams")
     app.setup_extension("sphinx_immaterial.task_lists")
-
-    # patch the details directive's run method
-    monkey_patch_details_run()
 
     return {
         "parallel_read_safe": True,
