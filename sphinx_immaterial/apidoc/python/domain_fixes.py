@@ -29,7 +29,6 @@ import sphinx.ext.napoleon
 import sphinx.util.logging
 import sphinx.util.nodes
 
-from .. import apidoc_formatting
 from ... import sphinx_utils
 from . import autodoc_property_type
 

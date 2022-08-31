@@ -9,7 +9,7 @@ from sphinx.domains.cpp import CPPDomain
 from . import last_resolved_symbol
 from . import parameter_objects
 from . import symbol_ids
-from .. import apidoc_formatting
+from .. import object_description_options
 
 SYNOPSIS_ATTR = "_sphinx_immaterial_synopsis"
 
@@ -65,9 +65,11 @@ def _monkey_patch_add_object_type_and_synopsis(
             refnode["classes"].append("desctype")
 
         if last_symbol is not None:
-            refnode["reftitle"] = apidoc_formatting.format_object_description_tooltip(
+            refnode[
+                "reftitle"
+            ] = object_description_options.format_object_description_tooltip(
                 env,
-                apidoc_formatting.get_object_description_options(
+                object_description_options.get_object_description_options(
                     env, self.name, objtype
                 ),
                 base_title=refnode["reftitle"],

@@ -18,7 +18,7 @@ import sphinx.environment
 import sphinx.transforms
 import sphinx.util.logging
 
-from . import apidoc_formatting
+from . import object_description_options
 
 logger = sphinx.util.logging.getLogger(__name__)
 
@@ -62,7 +62,7 @@ class CollectSignaturesTransform(sphinx.transforms.SphinxTransform):
             parent = node.parent
             domain: str = parent.get("domain")
             objtype: str = parent.get("objtype")
-            options = apidoc_formatting.get_object_description_options(
+            options = object_description_options.get_object_description_options(
                 self.env, domain, objtype
             )
             if options.get("clang_format_style") is None:
@@ -286,7 +286,9 @@ def env_updated(
     signatures_for_style: Dict[str, Dict[str, str]] = collections.defaultdict(dict)
 
     for (domain, objtype), signatures in all_signatures.items():
-        options = apidoc_formatting.get_object_description_options(env, domain, objtype)
+        options = object_description_options.get_object_description_options(
+            env, domain, objtype
+        )
 
         style: ClangFormatStyle = options["clang_format_style"]
         if isinstance(style, str):
@@ -336,9 +338,10 @@ def env_updated(
 
 
 def setup(app: sphinx.application.Sphinx):
+    app.setup_extension("sphinx_immaterial.apidoc.object_description_options")
     app.add_transform(CollectSignaturesTransform)
     app.add_post_transform(FormatSignaturesTransform)
-    apidoc_formatting.add_object_description_option(
+    object_description_options.add_object_description_option(
         app,
         "clang_format_style",
         default=None,

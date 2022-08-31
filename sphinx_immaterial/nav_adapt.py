@@ -153,7 +153,7 @@ import sphinx.environment.adapters.toctree
 import sphinx.util.docutils
 import sphinx.util.osutil
 
-from . import apidoc_formatting
+from .apidoc import object_description_options
 
 StandaloneHTMLBuilder = sphinx.builders.html.StandaloneHTMLBuilder
 
@@ -434,10 +434,10 @@ def _add_domain_info_to_toc(
             continue
         domain = env.domains[objinfo.domain_name]
         label = domain.get_type_name(domain.object_types[objinfo.objtype])
-        options = apidoc_formatting.get_object_description_options(
+        options = object_description_options.get_object_description_options(
             env, objinfo.domain_name, objinfo.objtype
         )
-        tooltip = apidoc_formatting.format_object_description_tooltip(
+        tooltip = object_description_options.format_object_description_tooltip(
             env, options, objinfo.name, objinfo.synopsis
         )
         toc_icon_text = options["toc_icon_text"]

@@ -41,7 +41,7 @@ import sphinx.util.logging
 import sphinx.util.matching
 import yaml  # pylint: disable=import-error
 
-from .. import apidoc_formatting
+from .. import object_description_options
 from . import json_pprint
 from ... import sphinx_utils
 
@@ -917,8 +917,10 @@ class JsonSchemaDirective(sphinx.directives.ObjectDescription):
         self._exclude_from_toc = "exclude_from_toc" in self.options
         self._nested = "nested" in self.options
         self._objtype = "schema" if not self._nested else "subschema"
-        self._objdesc_options = apidoc_formatting.get_object_description_options(
-            self.env, "json", self._objtype
+        self._objdesc_options = (
+            object_description_options.get_object_description_options(
+                self.env, "json", self._objtype
+            )
         )
         if self._fully_qualified_name:
             schema_data.id_map.setdefault(
@@ -1153,10 +1155,10 @@ class JsonSchemaDomain(sphinx.domains.Domain):
         match: Tuple[str, DomainSchemaEntry],
     ) -> docutils.nodes.Element:
         full_name, domain_entry = match
-        options = apidoc_formatting.get_object_description_options(
+        options = object_description_options.get_object_description_options(
             self.env, "json", domain_entry.objtype
         )
-        tooltip = apidoc_formatting.format_object_description_tooltip(
+        tooltip = object_description_options.format_object_description_tooltip(
             self.env, options, full_name, domain_entry.synopsis
         )
         return sphinx.util.nodes.make_refnode(

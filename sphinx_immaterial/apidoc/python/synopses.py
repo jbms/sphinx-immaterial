@@ -7,7 +7,7 @@ from sphinx.domains.python import PythonDomain
 from sphinx.domains.python import PyObject
 import sphinx.environment
 
-from .. import apidoc_formatting
+from .. import object_description_options
 from ... import sphinx_utils
 
 
@@ -21,9 +21,11 @@ def _monkey_patch_python_domain_to_add_object_synopses_to_references():
         obj = self.objects.get(name)
         if obj is None:
             return
-        refnode["reftitle"] = apidoc_formatting.format_object_description_tooltip(
+        refnode[
+            "reftitle"
+        ] = object_description_options.format_object_description_tooltip(
             env,
-            apidoc_formatting.get_object_description_options(
+            object_description_options.get_object_description_options(
                 env, self.name, obj.objtype
             ),
             base_title=name,
@@ -107,7 +109,7 @@ def _monkey_patch_python_domain_to_support_synopses():
         if not symbols:
             return
 
-        options = apidoc_formatting.get_object_description_options(
+        options = object_description_options.get_object_description_options(
             self.env, self.domain, self.objtype
         )
         generate_synopses = options["generate_synopses"]

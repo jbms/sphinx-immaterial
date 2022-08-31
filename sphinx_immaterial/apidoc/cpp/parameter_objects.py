@@ -14,7 +14,7 @@ from . import last_resolved_symbol
 from . import symbol_ids
 from .signodes import desc_cpp_template_param
 
-from .. import apidoc_formatting
+from .. import object_description_options
 from ... import sphinx_utils
 from . import synopses
 
@@ -311,8 +311,10 @@ def _add_parameter_documentation_ids(
                 object_type = get_precise_template_parameter_object_type(
                     param_symbol.declaration.objectType, param_symbol
                 )
-                param_options = apidoc_formatting.get_object_description_options(
-                    env, domain, object_type
+                param_options = (
+                    object_description_options.get_object_description_options(
+                        env, domain, object_type
+                    )
                 )
                 generate_synopses = param_options["generate_synopses"]
                 if generate_synopses is not None:
@@ -517,7 +519,7 @@ def _monkey_patch_domain_to_cross_link_parameters_and_add_synopses(
             symbols=symbols,
         )
 
-        options = apidoc_formatting.get_object_description_options(
+        options = object_description_options.get_object_description_options(
             self.env, self.domain, self.objtype
         )
         generate_synopses = options["generate_synopses"]

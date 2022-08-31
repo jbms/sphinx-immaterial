@@ -60,6 +60,11 @@ $objinfo-icon-size: 16px;
     }
   }
 
+  // Hide the colon added in docutils 0.18
+  dl.objdesc > dd > dl.field-list > dt > .colon {
+    display: none;
+  }
+
   // Rules for coloring cross-references in signatures.
   :is(dl.objdesc, dl.api-field) > dt,
   .sig-inline {
