@@ -307,7 +307,7 @@ def setup(app: sphinx.application.Sphinx):
         app, "include_fields_in_toc", type_constraint=bool, default=True
     )
     object_description_options.add_object_description_option(
-        app, "include_rubrics_in_toc", type_constraint=bool, default=True
+        app, "include_rubrics_in_toc", type_constraint=bool, default=False
     )
 
     # TocTreeCollector is registered before our extension is.  In order for the
