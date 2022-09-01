@@ -222,7 +222,7 @@ setuptools.setup(
         "jsonschema_validation": ["jsonschema"],
         "clang-format": ["clang-format"],
         "keys": ["pymdown-extensions"],
-        "libclang": ["libclang"],
+        "cpp": ["libclang"],
     },
     cmdclass=dict(
         sdist=SdistCommand,
