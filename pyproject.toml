@@ -10,6 +10,7 @@ files = [
     "tests/**/*.py",
 ]
 exclude = "setup.py"
+plugins = ["pydantic.mypy"]
 
 [tool.black]
 include = '\.py$'
