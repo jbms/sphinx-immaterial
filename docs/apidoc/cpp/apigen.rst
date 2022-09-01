@@ -1,6 +1,11 @@
 C++ API documentation generation
 ================================
 
+.. warning::
+
+   This functionality is experimental, incomplete and subject to
+   backwards-incompatible changes.
+
 This theme includes an optional extension that generates C++ API documentation
 pages.
 

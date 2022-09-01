@@ -1,6 +1,12 @@
 cpp_apigen demo
 ===============
 
+.. warning::
+
+   This functionality is experimental, incomplete and subject to
+   backwards-incompatible changes.
+
+
 Indexing
 --------
 
