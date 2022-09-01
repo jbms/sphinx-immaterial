@@ -9,3 +9,4 @@ types-jsonschema
 libclang
 types-appdirs
 types-requests
+types-clang
