@@ -1,9 +1,11 @@
 """Utilities for use with Sphinx."""
 
+import contextlib
 import io
-from typing import Optional, Dict, Union, List, Tuple, Mapping, Sequence
+from typing import Optional, Union, List, Tuple, Mapping, Sequence
 
 import docutils.nodes
+import docutils.parsers.rst.roles
 import docutils.parsers.rst.states
 import docutils.statemachine
 import sphinx.addnodes
@@ -48,16 +50,14 @@ def format_directive(
     """
     out = io.StringIO()
     out.write("\n\n")
-    prefix = f".. {name}:: "
-    out.write(prefix)
     assert not args or not signatures
-    out.write(" ".join(args))
-    if signatures:
-        for i, signature in enumerate(signatures):
-            if i > 0:
-                out.write("\n" + " " * len(prefix))
-            out.write(signature)
-    out.write("\n")
+    if not signatures:
+        signatures = ["".join(f" {arg}" for arg in args)]
+    prefix = f".. {name}:: "
+    for i, signature in enumerate(signatures):
+        if i == 1:
+            prefix = " " * len(prefix)
+        out.write(prefix + signature + "\n")
     if options:
         for key, value in options.items():
             if value is False or value is None:  # pylint: disable=g-bool-id-comparison
@@ -80,8 +80,9 @@ def append_directive_to_stringlist(
     source_path: str,
     source_line: int,
     indent: int = 0,
+    signatures: Optional[Sequence[str]] = None,
     content: Union[str, docutils.statemachine.StringList, None] = None,
-    options: Optional[Dict[str, Union[None, str, bool]]] = None,
+    options: Optional[Mapping[str, Union[None, str, bool]]] = None,
 ) -> None:
     """Formats a RST directive into RST syntax and appends to a StringList.
 
@@ -99,11 +100,14 @@ def append_directive_to_stringlist(
     base_indent_str = " " * indent
     # Blank line at beginning to start new directive.
     out.append(base_indent_str, source_path, source_line)
-    out.append(
-        f"{base_indent_str}.. {name}::" + "".join(f" {arg}" for arg in args),
-        source_path,
-        source_line,
-    )
+    prefix = f"{base_indent_str}.. {name}:: "
+    assert not args or not signatures
+    if not signatures:
+        signatures = ["".join(f" {arg}" for arg in args)]
+    for i, signature in enumerate(signatures):
+        if i == 1:
+            prefix = " " * len(prefix)
+        out.append(prefix + signature, source_path, source_line)
     content_indent_str = base_indent_str + "   "
     if options:
         for key, value in options.items():
@@ -112,15 +116,28 @@ def append_directive_to_stringlist(
             if value is True:  # pylint: disable=g-bool-id-comparison
                 value = ""
             out.append(f"{content_indent_str}:{key}: {value}", source_path, source_line)
-    if isinstance(content, str):
+    if content is not None:
         out.append(base_indent_str, source_path, source_line)
-        for line in content.splitlines():
-            out.append(content_indent_str + line, source_path, source_line)
-    elif content is not None:
-        for source, offset, line in content.xitems():
-            out.append(content_indent_str + line, source, offset)
+        if isinstance(content, str):
+            append_multiline_string_to_stringlist(
+                out, content, source_path, source_line, prefix=content_indent_str
+            )
+        else:
+            for source, offset, line in content.xitems():
+                out.append(content_indent_str + line, source, offset)
     # Blank line at end to denote end of directive.
     out.append(base_indent_str, source_path, source_line)
+
+
+def append_multiline_string_to_stringlist(
+    out: docutils.statemachine.StringList,
+    text: str,
+    source_path: str,
+    source_line: int,
+    prefix: str = "",
+) -> None:
+    for i, line in enumerate(text.splitlines()):
+        out.append(prefix + line, source_path, source_line + i)
 
 
 def parse_rst(
@@ -174,6 +191,9 @@ def make_toctree_node(
     source_path: str,
     source_line: int = 0,
 ) -> List[docutils.nodes.Node]:
+    if not toc_entries:
+        return []
+
     # The Sphinx `toctree` directive parser cannot handle page names that
     # include angle brackets.  Therefore, we use the directive to create an
     # empty toctree node and then add the entries directly.
@@ -208,3 +228,18 @@ def remove_css_file(app: sphinx.application.Sphinx, filename: str):
         ]
         for i in reversed(builder_indices):
             del builder_css_files[i]
+
+
+@contextlib.contextmanager
+def save_default_role(env: sphinx.environment.BuildEnvironment):
+    orig_role_fn = docutils.parsers.rst.roles._roles.get("")  # type: ignore[attr-defined]
+    orig_role_name = env.temp_data["default_role"]
+
+    try:
+        yield
+    finally:
+        if orig_role_fn is not None:
+            docutils.parsers.rst.roles._roles[""] = orig_role_fn  # type: ignore[attr-defined]
+        else:
+            docutils.parsers.rst.roles._roles.pop("", None)  # type: ignore[attr-defined]
+        env.temp_data["default_role"] = orig_role_name

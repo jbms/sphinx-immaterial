@@ -75,6 +75,7 @@ or ``theme.conf`` for more details.
     content_tabs
     task_lists
     keys
+    code_syntax_highlighting
 
 .. toctree::
     :caption: API documentation customization
@@ -87,6 +88,7 @@ or ``theme.conf`` for more details.
     apidoc/cpp/index
     apidoc/cpp/external_cpp_references
     apidoc/cpp/cppreference
+    apidoc/cpp/apigen
     apidoc/json/domain
 
 .. toctree::
@@ -102,6 +104,7 @@ or ``theme.conf`` for more details.
 
     demo_api
     python_apigen_demo
+    cpp_apigen_demo
     specimen
     rst_basics
     rst-cheatsheet/rst-cheatsheet
