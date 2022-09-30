@@ -166,6 +166,18 @@ html_theme_options = {
     ],
     # END: version_dropdown
     "toc_title_is_page_title": True,
+    # BEGIN: social icons
+    "social": [
+        {
+            "icon": "fontawesome/brands/github",
+            "link": "https://github.com/jbms/sphinx-immaterial",
+        },
+        {
+            "icon": "fontawesome/brands/python",
+            "link": "https://pypi.org/project/sphinx-immaterial/",
+        },
+    ],
+    # END: social icons
 }
 # end html_theme_options
 

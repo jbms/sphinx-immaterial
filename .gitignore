@@ -9,6 +9,10 @@ __pycache__/
 /*.egg-info
 /dist
 
+# python virtual env
+.env/
+.venv/
+
 # Unit test / coverage reports
 .pytest_cache/
 

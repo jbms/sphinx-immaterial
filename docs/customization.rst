@@ -98,6 +98,8 @@
 .. role:: accent-blue-grey
 .. role:: accent-white
 
+.. _any of the icons bundled with this theme: https://github.com/squidfunk/mkdocs-material/tree/master/material/.icons
+
 .. _customization:
 
 =============
@@ -212,7 +214,7 @@ Configuration Options
 
         The icon that represents the source code repository can be changed using the ``repo`` field of the
         ``icon`` `dict` (within the `html_theme_options` `dict`). Although this icon can be
-        `any of the icons bundled with this theme <https://github.com/squidfunk/mkdocs-material/tree/master/material/.icons>`_,
+        `any of the icons bundled with this theme`_,
         popular choices are:
 
         - |fa-git| ``fontawesome/brands/git``
@@ -361,7 +363,7 @@ Configuration Options
             - The ``name`` field specifies the text in the tooltip.
             - The ``icon`` field specifies an icon to use that visually indicates which scheme is
               currently used.
-              Options must be `any of the icons bundled with this theme <https://github.com/squidfunk/mkdocs-material/tree/master/material/.icons>`_.
+              Options must be `any of the icons bundled with this theme`_.
               Popular combinations are
 
               .. csv-table::
@@ -469,6 +471,19 @@ Configuration Options
            html_theme_options = {
                "toc_title_is_page_title": True,
            }
+
+    .. themeconf:: social
+
+        A `list` of `dict`\ s that define iconic links in the site's footer. Each `dict` shall
+        have a :python:`"icon"` and a :python:`"link"` field.
+
+        - The :python:`"icon"` field can be specifed as `any of the icons bundled with this theme`_
+        - The :python:`"link"` field is simply the hyperlink target added to the icon specified.
+
+        .. literalinclude:: conf.py
+            :caption: This theme uses the following configuration:
+            :start-after: # BEGIN: social icons
+            :end-before: # END: social icons
 
     .. themeconf:: version_dropdown
 
