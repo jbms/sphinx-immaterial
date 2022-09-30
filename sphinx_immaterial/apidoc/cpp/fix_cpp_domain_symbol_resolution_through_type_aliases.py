@@ -37,6 +37,7 @@ def _monkey_patch_cpp_domain_symbol_resolution_through_type_aliases():
             nested_name = trailing_type_spec.name
         else:
             return None
+        assert self.parent is not None
         symbols, failReason = self.parent.find_name(
             nested_name,
             templateDecls=[],

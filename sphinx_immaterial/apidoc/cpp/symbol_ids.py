@@ -38,6 +38,7 @@ def get_symbol_anchor(
 ) -> str:
     anchor = getattr(symbol.declaration, ANCHOR_ATTR, None)
     if anchor is None:
+        assert symbol.declaration is not None
         anchor = symbol.declaration.get_newest_id()
     return anchor
 
