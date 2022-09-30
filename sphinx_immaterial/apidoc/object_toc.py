@@ -4,6 +4,7 @@ from typing import cast, Optional, Union, Any, List
 import docutils.nodes
 import sphinx.addnodes
 import sphinx.application
+import sphinx.directives
 from sphinx.environment.collectors.toctree import TocTreeCollector
 from sphinx.locale import _
 

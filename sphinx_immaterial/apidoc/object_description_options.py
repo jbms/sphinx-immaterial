@@ -4,6 +4,7 @@ from typing import List, Tuple, Pattern, Dict, Any, Optional, NamedTuple
 
 import pydantic
 import sphinx.application
+import sphinx.environment
 import sphinx.util.logging
 
 logger = sphinx.util.logging.getLogger(__name__)
@@ -146,7 +147,9 @@ def add_object_description_option(
 
 
 def get_object_description_options(
-    env: sphinx.environment.BuildEnvironment, domain: str, object_type: str
+    env: Optional[sphinx.environment.BuildEnvironment],
+    domain: Optional[str],
+    object_type: Optional[str],
 ) -> ObjectDescriptionOptions:
 
     return env.app._sphinx_immaterial_get_object_description_options(  # type: ignore

@@ -110,14 +110,16 @@ def _monkey_patch_python_domain_to_support_object_ids():
                     strip_object_entry_node_id(orig_node_id, canonical_name)
 
                 if noindexentry:
-                    entries = self.indexnode["entries"]
+                    entries = cast(docutils.nodes.Element, self.indexnode)["entries"]
                     new_entries = []
                     for entry in entries:
                         new_entry = list(entry)
                         if new_entry[2] == orig_node_id:
                             new_entry[2] = ""
                         new_entries.append(tuple(new_entry))
-                    self.indexnode["entries"] = new_entries
+                    cast(docutils.nodes.Element, self.indexnode)[
+                        "entries"
+                    ] = new_entries
 
     PyObject.after_content = after_content
 

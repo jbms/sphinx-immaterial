@@ -106,6 +106,7 @@ def get_precise_template_parameter_object_type(
     if object_type == "templateParam":
         # Determine more precise object type.
         if symbol is not None:
+            assert symbol.declaration is not None
             if isinstance(
                 symbol.declaration.declaration,
                 sphinx.domains.cpp.ASTTemplateParamNonType,

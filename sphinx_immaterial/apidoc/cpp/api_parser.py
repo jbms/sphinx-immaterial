@@ -1203,15 +1203,22 @@ def _transform_unexposed_decl(config: Config, decl: Cursor):
         parser.skip_ws()
         parser.assert_end(allowSemicolon=True)
 
-        template_args = ast.declaration.type.name.names[-1].templateArgs
-        name = str(ast.declaration.type.name.names[-1])
-        name_substitute = _substitute_name(ast, ast.declaration.type, source_code)
+        declaration = cast(
+            Union[
+                sphinx.domains.cpp.ASTTypeWithInit,
+                sphinx.domains.cpp.ASTTemplateParamConstrainedTypeWithInit,
+            ],
+            ast.declaration,
+        )
+        template_args = declaration.type.name.names[-1].templateArgs
+        name = str(declaration.type.name.names[-1])
+        name_substitute = _substitute_name(ast, declaration.type, source_code)
 
-        decl_string = _substitute_internal_type_names(config, str(ast.declaration.type))
+        decl_string = _substitute_internal_type_names(config, str(declaration.type))
         decl_string = re.sub("(^| )inline ", " ", decl_string)
 
         initializer: Optional[str] = _substitute_internal_type_names(
-            config, str(ast.declaration.init).strip().rstrip(";").strip()
+            config, str(declaration.init).strip().rstrip(";").strip()
         )
         assert initializer is not None
         if _is_internal_initializer(config, initializer):
@@ -1224,7 +1231,11 @@ def _transform_unexposed_decl(config: Config, decl: Cursor):
                 _sphinx_ast_template_parameter_to_json(
                     config, cast(sphinx.domains.cpp.ASTTemplateParam, t)
                 )
-                for t in ast.templatePrefix.templates[-1].params
+                for t in cast(
+                    sphinx.domains.cpp.ASTTemplateDeclarationPrefix, ast.templatePrefix
+                )
+                .templates[-1]
+                .params
             ],
             "declaration": decl_string,
             "name_substitute": name_substitute,
