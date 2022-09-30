@@ -6,5 +6,5 @@
 
 
 
-.. python-apigen-entity-page:: tensorstore_demo.DimExpression.__getitem__
+.. python-apigen-entity-page::  tensorstore_demo.DimExpression.__getitem__
 

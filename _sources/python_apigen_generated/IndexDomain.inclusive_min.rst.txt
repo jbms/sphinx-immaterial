@@ -6,5 +6,5 @@
 
 
 
-.. python-apigen-entity-page:: tensorstore_demo.IndexDomain.inclusive_min
+.. python-apigen-entity-page::  tensorstore_demo.IndexDomain.inclusive_min
 

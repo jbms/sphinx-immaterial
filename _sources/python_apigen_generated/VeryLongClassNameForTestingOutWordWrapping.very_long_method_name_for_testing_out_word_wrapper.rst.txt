@@ -6,5 +6,5 @@
 
 
 
-.. python-apigen-entity-page:: tensorstore_demo.VeryLongClassNameForTestingOutWordWrapping.very_long_method_name_for_testing_out_word_wrapper
+.. python-apigen-entity-page::  tensorstore_demo.VeryLongClassNameForTestingOutWordWrapping.very_long_method_name_for_testing_out_word_wrapper
 

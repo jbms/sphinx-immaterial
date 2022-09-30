@@ -6,5 +6,5 @@
 
 
 
-.. python-apigen-entity-page:: tensorstore_demo.IndexDomain.__getitem__(expr)
+.. python-apigen-entity-page::  tensorstore_demo.IndexDomain.__getitem__(expr)
 

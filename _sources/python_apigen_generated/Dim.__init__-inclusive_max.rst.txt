@@ -6,5 +6,5 @@
 
 
 
-.. python-apigen-entity-page:: tensorstore_demo.Dim.__init__(inclusive_max)
+.. python-apigen-entity-page::  tensorstore_demo.Dim.__init__(inclusive_max)
 

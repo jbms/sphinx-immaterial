@@ -6,5 +6,5 @@
 
 
 
-.. python-apigen-entity-page:: tensorstore_demo.FooSubclass
+.. python-apigen-entity-page::  tensorstore_demo.FooSubclass
 

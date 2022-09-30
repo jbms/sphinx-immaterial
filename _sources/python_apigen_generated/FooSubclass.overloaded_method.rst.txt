@@ -6,5 +6,5 @@
 
 
 
-.. python-apigen-entity-page:: tensorstore_demo.FooSubclass.overloaded_method
+.. python-apigen-entity-page::  tensorstore_demo.FooSubclass.overloaded_method
 

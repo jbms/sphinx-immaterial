@@ -6,5 +6,5 @@
 
 
 
-.. python-apigen-entity-page:: tensorstore_demo.Dim.label
+.. python-apigen-entity-page::  tensorstore_demo.Dim.label
 

@@ -6,5 +6,5 @@
 
 
 
-.. python-apigen-entity-page:: tensorstore_demo.Foo
+.. python-apigen-entity-page::  tensorstore_demo.Foo
 

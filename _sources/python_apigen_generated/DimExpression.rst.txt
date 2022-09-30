@@ -6,5 +6,5 @@
 
 
 
-.. python-apigen-entity-page:: tensorstore_demo.DimExpression
+.. python-apigen-entity-page::  tensorstore_demo.DimExpression
 

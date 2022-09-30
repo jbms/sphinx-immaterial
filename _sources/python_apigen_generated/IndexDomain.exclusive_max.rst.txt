@@ -6,5 +6,5 @@
 
 
 
-.. python-apigen-entity-page:: tensorstore_demo.IndexDomain.exclusive_max
+.. python-apigen-entity-page::  tensorstore_demo.IndexDomain.exclusive_max
 

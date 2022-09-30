@@ -6,5 +6,5 @@
 
 
 
-.. python-apigen-entity-page:: tensorstore_demo.IndexDomain.__init__(json)
+.. python-apigen-entity-page::  tensorstore_demo.IndexDomain.__init__(json)
 

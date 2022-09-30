@@ -6,5 +6,5 @@
 
 
 
-.. python-apigen-entity-page:: tensorstore_demo.IndexDomain.to_json
+.. python-apigen-entity-page::  tensorstore_demo.IndexDomain.to_json
 

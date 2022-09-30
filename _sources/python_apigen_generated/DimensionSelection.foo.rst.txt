@@ -6,5 +6,5 @@
 
 
 
-.. python-apigen-entity-page:: tensorstore_demo.DimensionSelection.foo
+.. python-apigen-entity-page::  tensorstore_demo.DimensionSelection.foo
 

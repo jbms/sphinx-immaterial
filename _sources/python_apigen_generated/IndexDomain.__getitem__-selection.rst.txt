@@ -6,5 +6,5 @@
 
 
 
-.. python-apigen-entity-page:: tensorstore_demo.IndexDomain.__getitem__(selection)
+.. python-apigen-entity-page::  tensorstore_demo.IndexDomain.__getitem__(selection)
 

@@ -6,5 +6,5 @@
 
 
 
-.. python-apigen-entity-page:: tensorstore_demo.IndexDomain.__init__(dimensions)
+.. python-apigen-entity-page::  tensorstore_demo.IndexDomain.__init__(dimensions)
 
