@@ -10,17 +10,6 @@ Use of `content tabs in the mkdocs-material <https://squidfunk.github.io/mkdocs-
 theme relies on a markdown extension that isn't used in the world of Sphinx. Instead,
 the sphinx-immaterial theme provides its own directives to make use of content tabs.
 
-.. admonition:: Linked Tabs
-    :class: missing
-
-    The `linked content tabs <https://squidfunk.github.io/mkdocs-material/reference/content-tabs/#linked-content-tabs>`_
-    feature seen in mkdocs-material is not supported until that feature transitions from the mkdocs-material theme's insider
-    releases to its public releases.
-
-    You can use other sphinx extensions (like `sphinx-design tabs`_) to achieve this functionality.
-    However, other extensions will require some custom CSS styling to match the mkdocs-material
-    theme's styling for content tabs.
-
 .. rst:directive:: md-tab-set
 
     Each set of tabs on a page must begin with a `md-tab-set` directive. This directive
@@ -100,7 +89,80 @@ the sphinx-immaterial theme provides its own directives to make use of content t
                         :start-after: /* *********************** custom-tab-item-style
                         :end-before: /* ************************* inline icon stuff
 
+.. _linked_tabs:
 
-Typical examples are seen in this documentations'
-`Custom admonitions <admonitions.html#custom-admonitions>`_ and
-:ref:`Version Information Structure <version_info_example>` sections.
+Linked tabs
+-----------
+
+Content tabs that share the same label can be selected synchronously by adding
+:python:`"content.tabs.link"` to the list of :themeconf:`features` in conf.py.
+
+.. code-block:: python
+    :caption: in conf.py
+
+    html_theme_options = {
+        "features": [
+            "content.tabs.link",
+        ],
+
+Include :python:`"navigation.instant"` in the list of :themeconf:`features` to have the
+synchronized selection persist across separate pages.
+
+.. important::
+    Linked content tabs must share the same **exact** label. Meaning, the argument given to the
+    :rst:dir:`md-tab-item` must be exactly the same (case sensitive) across all content tabs that
+    shall be synchronized.
+
+.. rst-example:: Linked content tabs example
+
+    .. md-tab-set::
+
+        .. md-tab-item:: Python
+
+            .. code-block:: python
+
+                def main():
+                    print("Hello world!")
+
+        .. md-tab-item:: C++
+
+            .. code-block:: cpp
+
+                #include <iostream>
+
+                int main(void) {
+                    std::cout << "Hello world!" << std::endl;
+                    return 0;
+                }
+    
+
+    .. md-tab-set::
+
+        .. md-tab-item:: C only
+
+            .. code-block:: c
+
+                #include <stdio.h>
+
+                int main(void) {
+                    printf("Hello world!\n");
+                    return 0;
+                }
+
+        .. md-tab-item:: C++
+
+            .. code-block:: cpp
+
+                #include <iostream>
+
+                int main(void) {
+                    std::cout << "Hello world!" << std::endl;
+                    return 0;
+                }
+
+        .. md-tab-item:: Python
+
+            .. code-block:: python
+
+                def main():
+                    print("Hello world!")

@@ -127,6 +127,7 @@ html_theme_options = {
         "search.share",
         "toc.follow",
         "toc.sticky",
+        "content.tabs.link",
     ],
     "palette": [
         {
