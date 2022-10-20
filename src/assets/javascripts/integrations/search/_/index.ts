@@ -48,6 +48,7 @@ export interface SearchIndexDocument {
   title: string                        /* Document title */
   text: string                         /* Document text */
   tags?: string[]                      /* Document tags */
+  boost?: number                       /* Document boost */
 }
 
 /* ------------------------------------------------------------------------- */

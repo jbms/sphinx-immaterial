@@ -32,14 +32,14 @@
       <meta name="viewport" content="width=device-width,initial-scale=1" />
 
       <!-- Page description -->
-      {% if page and page.meta and page.meta.description %}
+      {% if page.meta and page.meta.description %}
         <meta name="description" content="{{ page.meta.description }}" />
       {% elif config.site_description %}
         <meta name="description" content="{{ config.site_description }}" />
       {% endif %}
 
       <!-- Page author -->
-      {% if page and page.meta and page.meta.author %}
+      {% if page.meta and page.meta.author %}
         <meta name="author" content="{{ page.meta.author }}" />
       {% elif config.site_author %}
         <meta name="author" content="{{ config.site_author }}" />
@@ -56,9 +56,9 @@
 
     <!-- Site title -->
     {% block htmltitle %}
-      {% if page and page.meta and page.meta.title %}
+      {% if page.meta and page.meta.title %}
         <title>{{ page.meta.title }} - {{ config.site_name }}</title>
-      {% elif page and page.title and not page.is_homepage %}
+      {% elif page.title and not page.is_homepage %}
         <title>{{ page.title | striptags }} - {{ config.site_name }}</title>
       {% else %}
         <title>{{ config.site_name }}</title>
@@ -86,6 +86,9 @@
           <meta name="theme-color" content="{{ primary }}" />
         {% endif %}
       {% endif %}
+
+      <!-- Custom icons -->
+      {% include "partials/icons.html" %}
     {% endblock %}
 
     <!-- JavaScript libraries -->
@@ -124,6 +127,17 @@
       {% include "partials/integrations/analytics.html" %}
     {% endblock %}
 
+    <!-- Meta tags from front matter or plugins -->
+    {% if page.meta and page.meta.meta %}
+      {% for tag in page.meta.meta %}
+        <meta
+          {% for key, value in tag.items() %}
+            {{ key }}="{{value}}"
+          {% endfor %}
+        />
+      {% endfor %}
+    {% endif %}
+
     <!-- Custom front matter -->
     {% block extrahead %}{% endblock %}
   </head>
@@ -147,8 +161,6 @@
   {% else %}
     <body dir="{{ direction }}">
   {% endif %}
-
-    <!-- Retrieve features from configuration -->
     {% set features = config.theme.features or [] %}
 
     <!-- User preference: color palette -->
@@ -193,8 +205,23 @@
       {% if self.announce() %}
         <aside class="md-banner">
           <div class="md-banner__inner md-grid md-typeset">
+
+            <!-- Button to dismiss announcement -->
+            {% if "announce.dismiss" in features %}
+              <button
+                class="md-banner__button md-icon"
+                aria-label="{{ lang.t('announce.dismiss') }}"
+              >
+                {% include ".icons/material/close.svg" %}
+              </button>
+            {% endif %}
+
+            <!-- Announcement bar content -->
             {% block announce %}{% endblock %}
           </div>
+          {% if "announce.dismiss" in features %}
+            {% include "partials/javascripts/announce.html" %}
+          {% endif %}
         </aside>
       {% endif %}
     </div>
@@ -202,14 +229,14 @@
     <!-- Version warning -->
     {% if config.extra.version %}
       <div data-md-component="outdated" hidden>
-        <aside class="md-banner md-banner--warning">
-          {% if self.outdated() %}
+        {% if self.outdated() %}
+          <aside class="md-banner md-banner--warning">
             <div class="md-banner__inner md-grid md-typeset">
               {% block outdated %}{% endblock %}
             </div>
             {% include "partials/javascripts/outdated.html" %}
-          {% endif %}
-        </aside>
+          </aside>
+        {% endif %}
       </div>
     {% endif %}
 
@@ -239,12 +266,12 @@
       <main class="md-main" data-md-component="main">
         <div class="md-main__inner md-grid">
 
-          <!-- Navigation -->
+          <!-- Sidebars -->
           {% block site_nav %}
 
-            <!-- Main navigation -->
+            <!-- Navigation -->
             {% if nav %}
-              {% if page and page.meta and page.meta.hide %}
+              {% if page.meta and page.meta.hide %}
                 {% set hidden = "hidden" if "navigation" in page.meta.hide %}
               {% endif %}
               <div
@@ -263,7 +290,7 @@
 
             <!-- Table of contents -->
             {% if not "toc.integrate" in features %}
-              {% if page and page.meta and page.meta.hide %}
+              {% if page.meta and page.meta.hide %}
                 {% set hidden = "hidden" if "toc" in page.meta.hide %}
               {% endif %}
               <div
@@ -282,17 +309,22 @@
           {% endblock %}
 
           <!-- Page content -->
-          <div class="md-content" data-md-component="content">
-            <!-- sphinx-immaterial: Include role="main" for sphinx search -->
-            <article class="md-content__inner md-typeset" role="main">
-              <!-- sphinx-immaterial: make content of `body` block visible to `content.html` -->
-              {%- if False %}{% block body %}{% endblock body %}{% endif %}
-              {%- set sphinx_rendered_body = self.body() -%}
-              {% block content %}
-                {% include "partials/content.html" %}
-              {% endblock %}
-            </article>
-          </div>
+          {% block container %}
+            <div class="md-content" data-md-component="content">
+              <!-- sphinx-immaterial: Include role="main" for sphinx search -->
+              <article class="md-content__inner md-typeset" role="main">
+                <!-- sphinx-immaterial: make content of `body` block visible to `content.html` -->
+                {%- if False %}{% block body %}{% endblock body %}{% endif %}
+                {%- set sphinx_rendered_body = self.body() -%}
+                {% block content %}
+                  {% include "partials/content.html" %}
+                {% endblock %}
+              </article>
+            </div>
+          {% endblock %}
+
+          <!-- User preference: content -->
+          {% include "partials/javascripts/content.html" %}
         </div>
 
         <!-- Back-to-top button -->
@@ -301,7 +333,7 @@
             href="#"
             class="md-top md-icon"
             data-md-component="top"
-            data-md-state="hidden"
+            hidden
           >
             {% include ".icons/material/arrow-up.svg" %}
             {{ lang.t('top.title') }}
@@ -320,6 +352,21 @@
       <div class="md-dialog__inner md-typeset"></div>
     </div>
 
+    <!-- Consent -->
+    {% if config.extra.consent %}
+      <div class="md-consent" data-md-component="consent" id="__consent" hidden>
+        <div class="md-consent__overlay"></div>
+        <aside class="md-consent__inner">
+          <form class="md-consent__form md-grid md-typeset" name="consent">
+            {% include "partials/consent.html" %}
+          </form>
+        </aside>
+      </div>
+
+      <!-- User preference: consent -->
+      {% include "partials/javascripts/consent.html" %}
+    {% endif %}
+
     <!-- Theme-related configuration -->
     {% block config %}
       {%- set app = {
@@ -331,6 +378,11 @@
       <!-- Versioning -->
       {%- if config.extra.version -%}
         {%- set _ = app.update({ "version": config.extra.version }) -%}
+      {%- endif -%}
+
+      <!-- Tags -->
+      {%- if config.extra.tags -%}
+        {%- set _ = app.update({ "tags": config.extra.tags }) -%}
       {%- endif -%}
 
       <!-- Translations -->

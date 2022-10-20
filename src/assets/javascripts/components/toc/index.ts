@@ -296,7 +296,7 @@ export function mountTableOfContents(
 
       /* Look backward */
       for (const [index, [anchor]] of prev.entries()) {
-        anchor.setAttribute("data-md-state", "blur")
+        anchor.classList.add("md-nav__link--passed")
         anchor.classList.toggle(
           activeClassName,
           index === prev.length - 1
