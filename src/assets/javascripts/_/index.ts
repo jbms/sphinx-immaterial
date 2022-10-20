@@ -49,7 +49,6 @@ export type Flag =
   | "search.suggest"                   /* Search suggestions */
   | "toc.follow"                       /* Following table of contents */
   | "toc.integrate"                    /* Integrated table of contents */
-  | "toc.follow"                       /* sphinx-immaterial: auto-scroll toc */
   | "toc.sticky"                       /* sphinx-immaterial: sticky toc headings */
 
 /* ------------------------------------------------------------------------- */
@@ -97,7 +96,6 @@ export interface Config {
   base: string                         /* Base URL */
   features: Flag[]                     /* Feature flags */
   translations: Translations           /* Translations */
-  search: string                       /* Search worker URL */
   tags?: Record<string, string>        /* Tags mapping */
   version?: Versioning                 /* Versioning */
 }
