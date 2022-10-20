@@ -2,7 +2,7 @@
 Admonitions
 ===========
 
-The theme uses the ``admonition`` directives for Sphinx admonitions.
+This theme uses the ``admonition`` directives for Sphinx admonitions.
 
 rST and Sphinx
 **************
@@ -206,3 +206,83 @@ folder and add the new CSS to an additional style sheet.
 
          html_static_path = ["_static"]
          html_css_files = ["extra_css.css"]
+
+.. _change_admonition_icon:
+
+Changing the Admonition Icon
+----------------------------
+
+Any of the above builtin admonitions' icons can be changed using the :themeconf:`icon`\ [:themeconf:`admonition`\ ] field in
+:confval:`html_theme_options` configuration.
+
+.. code-block:: python
+   :caption: Changing the `note` icon in conf.py
+
+   html_theme_options = {
+       "icon": {
+           "admonition": {
+               "note": "material/file-document-outline",
+           },
+       },
+   },
+
+.. admonition:: ``seealso`` uses the ``note`` icon
+   :class: missing
+
+   The `seealso` admonition (which is specific to Sphinx - not reStructuredText) will use the same
+   icon set for the `note` admonition. If you want to override the icon for the `seealso`
+   admonition, then use the tactic shown in the `Custom admonitions`_ section (with regard to
+   only the icon changes in CSS).
+
+.. details:: Alternate icon sets
+   :class: example
+
+   Here's some recipes for use in conf.py
+
+   .. md-tab-set::
+
+      .. md-tab-item:: Octicons
+
+         .. code-block:: python
+
+            html_theme_options = {
+                "icon": {
+                    "admonition": {
+                        "note": "octicons/tag-16",
+                        "abstract": "octicons/checklist-16",
+                        "info": "octicons/info-16",
+                        "tip": "octicons/squirrel-16",
+                        "success": "octicons/check-16",
+                        "question": "octicons/question-16",
+                        "warning": "octicons/alert-16",
+                        "failure": "octicons/x-circle-16",
+                        "danger": "octicons/zap-16",
+                        "bug": "octicons/bug-16",
+                        "example": "octicons/beaker-16",
+                        "quote": "octicons/quote-16",
+                    },
+                },
+            }
+
+      .. md-tab-item:: FontAwesome
+
+         .. code-block:: python
+
+            html_theme_options = {
+                "icon": {
+                    "admonition": {
+                        "note": "fontawesome/solid/note-sticky",
+                        "abstract": "fontawesome/solid/book",
+                        "info": "fontawesome/solid/circle-info",
+                        "tip": "fontawesome/solid/bullhorn",
+                        "success": "fontawesome/solid/check",
+                        "question": "fontawesome/solid/circle-question",
+                        "warning": "fontawesome/solid/triangle-exclamation",
+                        "failure": "fontawesome/solid/bomb",
+                        "danger": "fontawesome/solid/skull",
+                        "bug": "fontawesome/solid/robot",
+                        "example": "fontawesome/solid/flask",
+                        "quote": "fontawesome/solid/quote-left",
+                     },
+                 },
+            }

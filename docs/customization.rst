@@ -237,6 +237,15 @@ Configuration Options
 
             .. important::
                 This option has no effect if the :themeconf:`repo_url` option is not specified.
+        
+        .. themeconf:: admonition
+
+            The default icons for admonitions can be changed by setting this field to a `dict` in
+            which the keys are CSS classes (see :doc:`admonitions`) and the values are
+            `any of the icons bundled with this theme`_.
+            
+            .. seealso::
+                Refer to the :ref:`change_admonition_icon` section for more detail.
 
         .. themeconf:: edit
 

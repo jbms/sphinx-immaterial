@@ -105,8 +105,9 @@ Content tabs that share the same label can be selected synchronously by adding
             "content.tabs.link",
         ],
 
-Include :python:`"navigation.instant"` in the list of :themeconf:`features` to have the
-synchronized selection persist across separate pages.
+Synchronized selection will automatically persist across separate pages. Contradictory to the
+equivalent implementation in mkdocs-material theme, the :python:`"navigation.instant"` feature
+does not need to be explicitly specified.
 
 .. important::
     Linked content tabs must share the same **exact** label. Meaning, the argument given to the
