@@ -106,6 +106,7 @@ html_theme = "sphinx_immaterial"
 html_theme_options = {
     "icon": {
         "repo": "fontawesome/brands/github",
+        "edit": "material/file-edit-outline",
     },
     "site_url": "https://jbms.github.io/sphinx-immaterial/",
     "repo_url": "https://github.com/jbms/sphinx-immaterial/",

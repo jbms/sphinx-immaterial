@@ -210,31 +210,42 @@ Configuration Options
 
         Must be one of github, gitlab or bitbucket.
 
-    .. themeconf:: icon["repo"]
-
-        The icon that represents the source code repository can be changed using the ``repo`` field of the
-        ``icon`` `dict` (within the `html_theme_options` `dict`). Although this icon can be
-        `any of the icons bundled with this theme`_,
-        popular choices are:
-
-        - |fa-git| ``fontawesome/brands/git``
-        - |fa-git-alt| ``fontawesome/brands/git-alt``
-        - |fa-git-square| ``fontawesome/brands/git-square``
-        - |fa-github| ``fontawesome/brands/github``
-        - |fa-github-alt| ``fontawesome/brands/github-alt``
-        - |fa-github-square| ``fontawesome/brands/github-square``
-        - |fa-gitlab| ``fontawesome/brands/gitlab``
-        - |fa-gitkraken| ``fontawesome/brands/gitkraken``
-        - |fa-bitbucket| ``fontawesome/brands/bitbucket``
-
-        .. important::
-            This option has no effect if the :themeconf:`repo_url` option is not specified.
+    .. themeconf:: icon
 
         .. literalinclude:: conf.py
             :language: python
             :caption: This is the setting currently used by this documentation.
             :start-at: "icon": {
             :end-before: "site_url":
+
+        .. themeconf:: repo
+
+            The icon that represents the source code repository can be changed using the ``repo`` field of the
+            ``icon`` `dict` (within the `html_theme_options` `dict`). Although this icon can be
+            `any of the icons bundled with this theme`_,
+            popular choices are:
+
+            - |fa-git| ``fontawesome/brands/git``
+            - |fa-git-alt| ``fontawesome/brands/git-alt``
+            - |fa-git-square| ``fontawesome/brands/git-square``
+            - |fa-github| ``fontawesome/brands/github``
+            - |fa-github-alt| ``fontawesome/brands/github-alt``
+            - |fa-github-square| ``fontawesome/brands/github-square``
+            - |fa-gitlab| ``fontawesome/brands/gitlab``
+            - |fa-gitkraken| ``fontawesome/brands/gitkraken``
+            - |fa-bitbucket| ``fontawesome/brands/bitbucket``
+
+            .. important::
+                This option has no effect if the :themeconf:`repo_url` option is not specified.
+
+        .. themeconf:: edit
+
+            The icon used for the generated "edit this page" button at the top of the document.
+            This is only used if :themeconf:`edit_uri` is configured and when not explicitly hidden
+            using :themeconf:`hide-edit-link`.
+
+            As usual, `any of the icons bundled with this theme`_ can be used here. While the default is
+            ``material/pencil``, this documentation uses ``material/file-edit-outline``
 
     .. themeconf:: edit_uri
 
