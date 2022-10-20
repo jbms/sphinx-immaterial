@@ -19,24 +19,24 @@ jobs:
           - '16.x'
     runs-on: ${{ matrix.os }}
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
       with:
         # Need full history to determine version number.
         fetch-depth: 0
     - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
+      uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
     - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4
       with:
         python-version: ${{ matrix.python-version }}
-    - uses: actions/cache@v2
+    - uses: actions/cache@v3
       with:
         path: "**/node_modules"
         key: ${{ runner.os }}-${{ matrix.node-version }}-node_modules-${{ hashFiles('**/package-lock.json') }}
     - name: Setup Graphviz
-      uses: ts-graphviz/setup-graphviz@f1590cf4e989dd1429bff4fd6339e098050a1657 # v1
+      uses: ts-graphviz/setup-graphviz@79ea24a21263f792011acd62689c7ea2141feafa # v1.1.0
     - run: npm install
     - run: npm run check
     - name: Install Python packaging, linting, & testing tools
@@ -51,7 +51,7 @@ jobs:
     - name: Build wheel
       run: python setup.py sdist bdist_wheel
     - name: Upload wheels as artifacts
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       if: ${{ matrix.python-version == '3.10' }}
       with:
         name: python-packages-${{ runner.os }}
@@ -74,7 +74,7 @@ jobs:
       run: sphinx-build -b latex . _build/latex -W --keep-going -T
     - name: Upload doc builds as artifacts
       if: ${{ matrix.python-version == '3.10' }}
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: doc-builds-${{ runner.os }}
         path: docs/_build/
@@ -92,17 +92,17 @@ jobs:
       - build
     steps:
     - name: Download Linux package
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v3
       with:
         name: python-packages-Linux
         path: dist-Linux
     - name: Download macOS package
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v3
       with:
         name: python-packages-macOS
         path: dist-macOS
     - name: Download Windows package
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v3
       with:
         name: python-packages-Windows
         path: dist-Windows
@@ -123,7 +123,7 @@ jobs:
     needs:
       - build
     steps:
-    - uses: actions/download-artifact@v2
+    - uses: actions/download-artifact@v3
       with:
         name: python-packages-Linux
         path: dist
