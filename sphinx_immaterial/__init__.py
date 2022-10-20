@@ -32,6 +32,7 @@ DEFAULT_THEME_OPTIONS = {
         "search": {},
     },
     "icon": {},
+    "pdf_url": "",
     "repo_url": "",
     "edit_uri": "",
     "globaltoc_collapse": True,
@@ -214,6 +215,7 @@ def html_page_context(
                 "theme": theme_options,
                 "site_url": theme_options.get("site_url"),
                 "site_name": context["docstitle"],
+                "pdf_url": theme_options.get("pdf_url"),
                 "repo_url": theme_options.get("repo_url"),
                 "repo_name": theme_options.get("repo_name", None),
                 "extra": {
