@@ -130,7 +130,7 @@ Each metadata is evaluated as a ``:key: value`` pair.
 
         :hero: Configuration options to personalize your site.
 
-.. themeconf:: hide-navigation
+.. themeconf:: hide_navigation
 
     If specified, hides the global navigation sidebar shown on the left side of the page.
     By default, the navigation menu is shown if the browser viewport is sufficiently wide.
@@ -138,9 +138,9 @@ Each metadata is evaluated as a ``:key: value`` pair.
     .. code-block:: rst
         :caption: Hide the navigation menu like so:
 
-        :hide-navigation:
+        :hide_navigation:
 
-.. themeconf:: hide-toc
+.. themeconf:: hide_toc
 
     If specified, hides the local table of contents shown on the right side of the page.
     By default the local table of contents is shown if the page contains sub-sections and the
@@ -150,9 +150,9 @@ Each metadata is evaluated as a ``:key: value`` pair.
     .. code-block:: rst
         :caption: Hide the Table of Contents like so:
 
-        :hide-toc:
+        :hide_toc:
 
-    Instead of using ``:hide-toc:``, this theme can also use the ``:tocdepth:`` metadata to hide the
+    Instead of using ``:hide_toc:``, this theme can also use the ``:tocdepth:`` metadata to hide the
     page's Table of Contents.
 
     .. code-block:: rst
@@ -160,19 +160,38 @@ Each metadata is evaluated as a ``:key: value`` pair.
 
         :tocdepth: 0
 
-.. themeconf:: hide-edit-link
+.. themeconf:: hide_edit_link
 
-   If specified, hides the "Edit this page" link at the top of the page.  By
-   default, an edit link is shown if :themeconf:`edit_uri` is specified.  This
-   option overrides that for a given page.
+    If specified, hides the "Edit this page" link at the top of the page.  By
+    default, an edit link is shown if :themeconf:`edit_uri` is specified.  This
+    option overrides that for a given page.
 
-   .. code-block:: rst
-      :caption: Hide the "Edit this page" link:
+    .. code-block:: rst
+        :caption: Hide the "Edit this page" link:
 
-      :hide-edit-link:
+        :hide_edit_link:
 
-   A common use case for this option is to specify it on automatically-generated
-   pages, as for those pages there is no source document to edit.
+    A common use case for this option is to specify it on automatically-generated
+    pages, as for those pages there is no source document to edit.
+
+.. themeconf:: hide_footer
+
+    If specified, hides the current page's footer (specifically the part containing the
+    "Previous" and "Next" links).
+
+    .. code-block:: rst
+        :caption: Hide the "Previous" and "Next" links at the bottom of the page:
+
+        :hide_footer:
+
+.. themeconf:: hide_feedback
+
+    If specified, hides the user :themeconf:`feedback` buttons at the bottom of the current page.
+
+    .. code-block:: rst
+        :caption: Hide the feedback buttons at the bottom of the page:
+
+        :hide_feedback:
 
 Configuration Options
 =====================
@@ -251,7 +270,7 @@ Configuration Options
 
             The icon used for the generated "edit this page" button at the top of the document.
             This is only used if :themeconf:`edit_uri` is configured and when not explicitly hidden
-            using :themeconf:`hide-edit-link`.
+            using :themeconf:`hide_edit_link`.
 
             As usual, `any of the icons bundled with this theme`_ can be used here. While the default is
             ``material/pencil``, this documentation uses ``material/file-edit-outline``
@@ -455,16 +474,71 @@ Configuration Options
 
     .. themeconf:: analytics
 
-        Set to enable site analytics.
+        To enable site analytics, a ``provider`` and ``property`` fields **must** be specified in this dict.
 
         .. code-block:: python
 
             html_theme_options = {
                 "analytics": {
                     "provider": "google",
-                    "property": "G-XXXXXXXXXX"  # Or "UA-XXXXXXXX-X"
+                    "property": "G-XXXXXXXXXX"
                 }
             }
+        
+        .. themeconf:: feedback
+
+            This theme also supports user feedback using site analytics. Along with the required
+            ``provider`` and ``property`` fields, the :themeconf:`feedback` `dict` also requires
+            the following fields:
+
+            ``title``
+                The text used to invite user feedback (placed just above the feedback buttons).
+            ``ratings``
+                This `list` of `dict` objects specifies the user's options for feedback. Each `dict`
+                will represent a button and requires the following fields:
+
+                ``icon``
+                    As usual, `any of the icons bundled with this theme`_ can be specified here.
+                ``name``
+                    The text shown in the tooltip when hovering over a feedback button.
+                ``data``
+                    The data transmitted to your analytics provider upon submission of user feedback.
+                ``note``
+                    The text displayed after the user feedback is submitted. You can use a HTML hyperlink
+                    element :html:`<a href="a_url">link text</a>` to encourage further user interaction (see
+                    example snippet below).
+
+            .. code-block:: python
+                :caption: using Google analytics to collect user feedback for each page
+
+                html_theme_options = {
+                    "analytics": {
+                        "provider": "google",
+                        "property": "G-XXXXXXXXXX",
+                        "feedback": {
+                            "title": "Was this page helpful?",
+                            "ratings": [
+                                {
+                                    "icon": "material/emoticon-happy-outline",
+                                    "name": "This page was helpful",
+                                    "data": 1,
+                                    "note": "Thanks for the feedback!",
+                                },
+                                {
+                                    "icon": "material/emoticon-sad-outline",
+                                    "name": "This page could be improved",
+                                    "data": 0,
+                                    "note": "Thanks for the feedback! Help us improve this page by "
+                                    '<a href="https://github.com/jbms/sphinx-immaterial/issues">opening an issue</a>.',
+                                },
+                            ],
+                        },
+                    },
+                }
+
+            .. seealso::
+                User feedback can be hidden for a certain page by using the :themeconf:`hide_feedback`
+                metadata tag in the document's source.
 
     .. themeconf:: globaltoc_collapse
 

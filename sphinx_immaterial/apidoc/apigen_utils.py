@@ -116,7 +116,7 @@ class GeneratedDocumentWriter:
 
         content = self.initial_comment
         # Suppress "Edit this page" link since the page is generated.
-        content += "\n\n:hide-edit-link:\n\n"
+        content += "\n\n:hide_edit_link:\n\n"
         content += entity_content
         rst_path = os.path.join(self.app.srcdir, docname + ".rst")
         if os.path.exists(rst_path):

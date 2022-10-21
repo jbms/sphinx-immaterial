@@ -792,10 +792,14 @@ def _html_page_context(
         meta={"hide": [], "revision_date": context.get("last_updated")},
         content=context.get("body"),
     )
-    if meta.get("tocdepth") == 0 or "hide-toc" in meta:
+    if meta.get("tocdepth") == 0 or "hide_toc" in meta:
         page["meta"]["hide"].append("toc")
-    if "hide-navigation" in meta:
+    if "hide_navigation" in meta:
         page["meta"]["hide"].append("navigation")
+    if "hide_footer" in meta:
+        page["meta"]["hide"].append("footer")
+    if "hide_feedback" in meta:
+        page["meta"]["hide"].append("feedback")
     if context.get("next"):
         page["next_page"] = {
             "title": markupsafe.Markup.escape(
@@ -812,7 +816,7 @@ def _html_page_context(
         }
     repo_url: Optional[str] = theme_options.get("repo_url")
     edit_uri: Optional[str] = theme_options.get("edit_uri")
-    if repo_url and edit_uri and not READTHEDOCS and "hide-edit-link" not in meta:
+    if repo_url and edit_uri and not READTHEDOCS and "hide_edit_link" not in meta:
         page["edit_url"] = "/".join(
             [
                 repo_url.rstrip("/"),

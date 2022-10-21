@@ -113,7 +113,6 @@ html_theme_options = {
     "repo_name": "Sphinx-Immaterial",
     "repo_type": "github",
     "edit_uri": "blob/main/docs",
-    # "google_analytics": ["UA-XXXXX", "auto"],
     "globaltoc_collapse": True,
     "features": [
         "navigation.expand",
@@ -263,6 +262,10 @@ rst_prolog = """
 
 .. role:: dot(code)
    :language: dot
+   :class: highlight
+
+.. role:: html(code)
+   :language: html
    :class: highlight
 """
 
