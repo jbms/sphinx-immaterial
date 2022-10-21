@@ -297,6 +297,9 @@ Configuration Options
         - `search.highlight <https://squidfunk.github.io/mkdocs-material/setup/setting-up-site-search/#search-highlighting>`_
         - `search.share <https://squidfunk.github.io/mkdocs-material/setup/setting-up-site-search/#search-sharing>`_
         - `toc.integrate <https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#navigation-integration>`_
+        - `announce.dismiss <https://squidfunk.github.io/mkdocs-material/setup/setting-up-the-header/?h=ann#mark-as-read>`_
+          
+          See `New blocks`_ section below about how to add an announcement banner.
         - ``toc.follow``
 
           This is similar to the `toc.follow
@@ -741,7 +744,7 @@ folder named ``docs``.
 In the ``footer.html`` file, add the necessary code by extending the theme's original
 HTML template of the same name.
 
-.. code-block:: html
+.. code-block:: jinja
 
     {% extends "!partials/footer.html" %}
     {# the '!' in "!partials/footer.html" is important #}
@@ -761,3 +764,15 @@ This theme has a new block inherited from the mkdocs-material theme:
 
 ``footerrel``
     Previous and next in the footer.
+
+``announce``
+    An announcement can be added to the top of the page using by extending this theme's base.html
+    template. For example, this theme uses the following custom template to add an announcement
+    (`scroll to top to see it in action <#>`_).
+
+    .. literalinclude:: _templates/base.html
+        :caption: docs/_templates/base.html
+        :language: jinja
+
+    Optionally, add the ``announce.dismiss`` in the :themeconf:`features` list to let readers
+    dismiss the announcement banner.
