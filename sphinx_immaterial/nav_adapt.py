@@ -768,6 +768,7 @@ def _html_page_context(
             "mdx_configs": {
                 "toc": {"title": toc_title},
             },
+            "extra": {"consent": theme_options.get("consent")},
         }
     )
 
