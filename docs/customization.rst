@@ -130,7 +130,7 @@ Each metadata is evaluated as a :rst:`:key: value` pair.
 
         :hero: Configuration options to personalize your site.
 
-.. themeconf:: hide_navigation
+.. themeconf:: hide-navigation
 
     If specified, hides the global navigation sidebar shown on the left side of the page.
     By default, the navigation menu is shown if the browser viewport is sufficiently wide.
@@ -138,9 +138,9 @@ Each metadata is evaluated as a :rst:`:key: value` pair.
     .. code-block:: rst
         :caption: Hide the navigation menu like so:
 
-        :hide_navigation:
+        :hide-navigation:
 
-.. themeconf:: hide_toc
+.. themeconf:: hide-toc
 
     If specified, hides the local table of contents shown on the right side of the page.
     By default the local table of contents is shown if the page contains sub-sections and the
@@ -150,9 +150,9 @@ Each metadata is evaluated as a :rst:`:key: value` pair.
     .. code-block:: rst
         :caption: Hide the Table of Contents like so:
 
-        :hide_toc:
+        :hide-toc:
 
-    Instead of using :rst:`:hide_toc:`, this theme can also use the :rst:`:tocdepth:` metadata to hide the
+    Instead of using :rst:`:hide-toc:`, this theme can also use the :rst:`:tocdepth:` metadata to hide the
     page's Table of Contents.
 
     .. code-block:: rst
@@ -160,7 +160,7 @@ Each metadata is evaluated as a :rst:`:key: value` pair.
 
         :tocdepth: 0
 
-.. themeconf:: hide_edit_link
+.. themeconf:: hide-edit-link
 
     If specified, hides the "Edit this page" link at the top of the page.  By
     default, an edit link is shown if :themeconf:`edit_uri` is specified.  This
@@ -169,12 +169,12 @@ Each metadata is evaluated as a :rst:`:key: value` pair.
     .. code-block:: rst
         :caption: Hide the "Edit this page" link:
 
-        :hide_edit_link:
+        :hide-edit-link:
 
     A common use case for this option is to specify it on automatically-generated
     pages, as for those pages there is no source document to edit.
 
-.. themeconf:: hide_footer
+.. themeconf:: hide-footer
 
     If specified, hides the current page's footer (specifically the part containing the
     "Previous" and "Next" links).
@@ -182,16 +182,16 @@ Each metadata is evaluated as a :rst:`:key: value` pair.
     .. code-block:: rst
         :caption: Hide the "Previous" and "Next" links at the bottom of the page:
 
-        :hide_footer:
+        :hide-footer:
 
-.. themeconf:: hide_feedback
+.. themeconf:: hide-feedback
 
     If specified, hides the user :themeconf:`feedback` buttons at the bottom of the current page.
 
     .. code-block:: rst
         :caption: Hide the feedback buttons at the bottom of the page:
 
-        :hide_feedback:
+        :hide-feedback:
 
 Configuration Options
 =====================
@@ -270,7 +270,7 @@ Configuration Options
 
             The icon used for the generated "edit this page" button at the top of the document.
             This is only used if :themeconf:`edit_uri` is configured and when not explicitly hidden
-            using :themeconf:`hide_edit_link`.
+            using :themeconf:`hide-edit-link`.
 
             As usual, `any of the icons bundled with this theme`_ can be used here. While the default is
             ``material/pencil``, this documentation uses ``material/file-edit-outline``
@@ -538,7 +538,7 @@ Configuration Options
                 }
 
             .. seealso::
-                User feedback can be hidden for a certain page by using the :themeconf:`hide_feedback`
+                User feedback can be hidden for a certain page by using the :themeconf:`hide-feedback`
                 metadata tag in the document's source.
 
     .. themeconf:: globaltoc_collapse
