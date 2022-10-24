@@ -110,7 +110,7 @@ Metadata for a single page
 ==========================
 
 Each page can support a set of page-specific options. These are configured using metadata roles.
-Each metadata is evaluated as a ``:key: value`` pair.
+Each metadata is evaluated as a :rst:`:key: value` pair.
 
 .. seealso::
     Review the
@@ -122,7 +122,7 @@ Each metadata is evaluated as a ``:key: value`` pair.
     Unlike, newer versions of mkdocs-material theme, this theme also supports the use of a textual
     "hero" section.
 
-    To set the hero's text for an individual page, use the ``:hero:`` metadata field for the desired page.
+    To set the hero's text for an individual page, use the :rst:`:hero:` metadata field for the desired page.
     If not specified, then the page will not have a hero section.
 
     .. code-block:: rst
@@ -152,7 +152,7 @@ Each metadata is evaluated as a ``:key: value`` pair.
 
         :hide_toc:
 
-    Instead of using ``:hide_toc:``, this theme can also use the ``:tocdepth:`` metadata to hide the
+    Instead of using :rst:`:hide_toc:`, this theme can also use the :rst:`:tocdepth:` metadata to hide the
     page's Table of Contents.
 
     .. code-block:: rst
@@ -239,9 +239,9 @@ Configuration Options
 
         .. themeconf:: repo
 
-            The icon that represents the source code repository can be changed using the ``repo`` field of the
-            ``icon`` `dict` (within the `html_theme_options` `dict`). Although this icon can be
-            `any of the icons bundled with this theme`_,
+            The icon that represents the source code repository can be changed using the
+            :themeconf:`icon`\ [:themeconf:`repo`] field in the :confval:`html_theme_options`
+            settings. Although this icon can be `any of the icons bundled with this theme`_,
             popular choices are:
 
             - |fa-git| ``fontawesome/brands/git``
@@ -318,7 +318,8 @@ Configuration Options
         - `toc.integrate <https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#navigation-integration>`_
         - `announce.dismiss <https://squidfunk.github.io/mkdocs-material/setup/setting-up-the-header/?h=ann#mark-as-read>`_
           
-          See `New blocks`_ section below about how to add an announcement banner.
+          .. seealso::
+              Refer to the `New blocks`_ section below about how to add an announcement banner.
         - ``toc.follow``
 
           This is similar to the `toc.follow
@@ -834,19 +835,19 @@ Lastly, make sure the project's documentation ``conf.py`` has the following line
 
 New Blocks
 **************
-This theme has a new block inherited from the mkdocs-material theme:
+This theme has a few new block inherited from the mkdocs-material theme:
 
 ``footerrel``
     Previous and next in the footer.
 
 ``announce``
-    An announcement can be added to the top of the page using by extending this theme's base.html
-    template. For example, this theme uses the following custom template to add an announcement
-    (`scroll to top to see it in action <#>`_).
+    An announcement can be added to the top of the page by extending this theme's base.html
+    template. For example, this documentation uses the following custom template to add an
+    announcement (`scroll to top to see it in action <#>`_).
 
     .. literalinclude:: _templates/base.html
         :caption: docs/_templates/base.html
         :language: jinja
 
-    Optionally, add the ``announce.dismiss`` in the :themeconf:`features` list to let readers
+    Optionally, add the :python:`"announce.dismiss"` in the :themeconf:`features` list to let readers
     dismiss the announcement banner.

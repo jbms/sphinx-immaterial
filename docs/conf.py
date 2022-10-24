@@ -204,6 +204,10 @@ extlinks = {
         "https://graphviz.org/docs/attrs/%s/",
         "%s attribute",
     ),
+    "dutree": (
+        "https://docutils.sourceforge.io/docs/ref/doctree.html#%s",
+        "%s",
+    ),
 }
 
 object_description_options = []
