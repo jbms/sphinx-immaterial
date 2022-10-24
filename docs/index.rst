@@ -76,6 +76,7 @@ or ``theme.conf`` for more details.
     task_lists
     keys
     code_syntax_highlighting
+    code_annotations
 
 .. toctree::
     :caption: API documentation customization
