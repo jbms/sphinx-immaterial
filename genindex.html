@@ -17,12 +17,14 @@
       
     
     
-      <link rel="stylesheet" href="_static/stylesheets/main.30c392bc.min.css">
+      <link rel="stylesheet" href="_static/stylesheets/main.84570fc2.min.css">
       
         
-        <link rel="stylesheet" href="_static/stylesheets/palette.92c9fe4a.min.css">
+        <link rel="stylesheet" href="_static/stylesheets/palette.ae371752.min.css">
         
       
+      
+
     
     
     
@@ -34,10 +36,11 @@
     
         <link rel="stylesheet" type="text/css" href="_static/google_fonts.css" />
         <link rel="stylesheet" type="text/css" href="_static/extra_css.css" />
-    <script>__md_scope=new URL(".",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
+    
     
     
   </head>
@@ -64,12 +67,30 @@
     </div>
     <div data-md-component="announce">
       
+        <aside class="md-banner">
+          <div class="md-banner__inner md-grid md-typeset">
+            
+              <button class="md-banner__button md-icon" aria-label="Don't show this again">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+              </button>
+            
+            
+  <p>
+    Now includes
+    <a href="https://squidfunk.github.io/mkdocs-material/changelog/">changes from mkdocs-material theme</a>
+    v8.5.6
+  </p>
+
+          </div>
+          
+            <script>var content,el=document.querySelector("[data-md-component=announce]");el&&(content=el.querySelector(".md-typeset"),__md_hash(content.innerHTML)===__md_get("__announce")&&(el.hidden=!0))</script>
+          
+        </aside>
+      
     </div>
     
       <div data-md-component="outdated" hidden>
-        <aside class="md-banner md-banner--warning">
-          
-        </aside>
+        
       </div>
     
     
@@ -138,11 +159,11 @@
       </label>
       <nav class="md-search__options" aria-label="Search">
         
-          <a href="javascript:void(0)" class="md-search__icon md-icon" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
           </a>
         
-        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
         </button>
       </nav>
@@ -166,7 +187,7 @@
         <a href="https://github.com/jbms/sphinx-immaterial/" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
   </div>
   <div class="md-source__repository">
     Sphinx-Immaterial
@@ -210,7 +231,7 @@
       <a href="https://github.com/jbms/sphinx-immaterial/" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
   </div>
   <div class="md-source__repository">
     Sphinx-Immaterial
@@ -329,7 +350,7 @@
     <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" data-md-state="indeterminate" type="checkbox" id="__nav_7" checked>
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" checked>
       
       
       
@@ -500,7 +521,7 @@
     <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8" data-md-state="indeterminate" type="checkbox" id="__nav_8" checked>
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" checked>
       
       
       
@@ -566,7 +587,7 @@
     <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_9" data-md-state="indeterminate" type="checkbox" id="__nav_9" checked>
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_9" type="checkbox" id="__nav_9" checked>
       
       
       
@@ -717,1381 +738,43 @@
               </div>
             
           
-          <div class="md-content" data-md-component="content">
-            <article class="md-content__inner md-typeset" role="main">
-                
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset" role="main">
+                  
+
+
   <a href="https://github.com/jbms/sphinx-immaterial/blob/main/docs/genindex.rst" title="Edit this page" class="md-content__button md-icon">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"/></svg>
   </a>
 
-
-
-
-<h1 id="index">Index</h1>
-
-<div class="genindex-jumpbox">
- <a href="#_"><strong>_</strong></a>
- | <a href="#A"><strong>A</strong></a>
- | <a href="#B"><strong>B</strong></a>
- | <a href="#C"><strong>C</strong></a>
- | <a href="#D"><strong>D</strong></a>
- | <a href="#E"><strong>E</strong></a>
- | <a href="#F"><strong>F</strong></a>
- | <a href="#G"><strong>G</strong></a>
- | <a href="#H"><strong>H</strong></a>
- | <a href="#I"><strong>I</strong></a>
- | <a href="#J"><strong>J</strong></a>
- | <a href="#K"><strong>K</strong></a>
- | <a href="#L"><strong>L</strong></a>
- | <a href="#M"><strong>M</strong></a>
- | <a href="#N"><strong>N</strong></a>
- | <a href="#O"><strong>O</strong></a>
- | <a href="#P"><strong>P</strong></a>
- | <a href="#Q"><strong>Q</strong></a>
- | <a href="#R"><strong>R</strong></a>
- | <a href="#S"><strong>S</strong></a>
- | <a href="#T"><strong>T</strong></a>
- | <a href="#V"><strong>V</strong></a>
- | <a href="#W"><strong>W</strong></a>
- 
-</div>
-<h2 id="_">_</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="demo_api.html#test_py_module.test.Foo.__init__">__init__() (test_py_module.test.Foo method)</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="demo_api.html#test_py_module.test.Foo.__weakref__">__weakref__ (test_py_module.test.Foo attribute)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="A">A</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li>
-    accent
-
-      <ul>
-        <li><a href="customization.html#themeconf-accent">theme option</a>
-</li>
-      </ul></li>
-      <li><a href="demo_api.html#test_py_module.test.Foo.add">add() (test_py_module.test.Foo method)</a>
-</li>
-      <li><a href="apidoc/cpp/apigen.html#sphinx_immaterial.apidoc.cpp.api_parser.Config.allow_macros">allow_macros (sphinx_immaterial.apidoc.cpp.api_parser.Config attribute)</a>
-</li>
-      <li><a href="apidoc/cpp/apigen.html#sphinx_immaterial.apidoc.cpp.api_parser.Config.allow_paths">allow_paths (sphinx_immaterial.apidoc.cpp.api_parser.Config attribute)</a>
-</li>
-      <li><a href="apidoc/cpp/apigen.html#sphinx_immaterial.apidoc.cpp.api_parser.Config.allow_symbols">allow_symbols (sphinx_immaterial.apidoc.cpp.api_parser.Config attribute)</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li>
-    analytics
-
-      <ul>
-        <li><a href="customization.html#themeconf-analytics">theme option</a>
-</li>
-      </ul></li>
-      <li><a href="demo_api.html#test_py_module.test.Foo.another_function">another_function() (test_py_module.test.Foo method)</a>
-</li>
-      <li><a href="apidoc/cpp/apigen.html#sphinx_immaterial.apidoc.cpp.apigen.ApigenConfig.api_data">api_data (sphinx_immaterial.apidoc.cpp.apigen.ApigenConfig attribute)</a>
-</li>
-      <li><a href="apidoc/cpp/apigen.html#sphinx_immaterial.apidoc.cpp.apigen.ApigenConfig.api_parser_config">api_parser_config (sphinx_immaterial.apidoc.cpp.apigen.ApigenConfig attribute)</a>
-</li>
-      <li><a href="apidoc/cpp/apigen.html#sphinx_immaterial.apidoc.cpp.apigen.ApigenConfig">ApigenConfig (class in sphinx_immaterial.apidoc.cpp.apigen)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="B">B</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="demo_api.html#test_py_module.test.Foo.bar">bar (test_py_module.test.Foo attribute)</a>
-</li>
-      <li><a href="demo_api.html#test_py_module.test.Foo.baz">baz (test_py_module.test.Foo attribute)</a>
-</li>
-      <li>
-    built-in function
-
-      <ul>
-        <li><a href="apidoc/format_signatures.html#long_function_signature_example">long_function_signature_example()</a>
-</li>
-        <li><a href="apidoc/python/index.html#overload_example1">overload_example1()</a>
-</li>
-        <li><a href="apidoc/python/index.html#overload_example2">overload_example2()</a>
-</li>
-        <li><a href="apidoc/python/index.html#overload_example2-float">overload_example2(float)()</a>
-</li>
-        <li><a href="apidoc/python/index.html#overload_example2-int">overload_example2(int)()</a>
-</li>
-      </ul></li>
-  </ul></td>
-</tr></table>
-
-<h2 id="C">C</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li>
-    :class: (directive option)
-
-      <ul>
-        <li><a href="mermaid_diagrams.html#directive-option-md-mermaid-class">md-mermaid (directive)</a>
-</li>
-        <li><a href="content_tabs.html#directive-option-md-tab-item-class">md-tab-item (directive)</a>
-</li>
-        <li><a href="content_tabs.html#directive-option-md-tab-set-class">md-tab-set (directive)</a>
-</li>
-        <li><a href="task_lists.html#directive-option-task-list-class">task-list (directive)</a>
-</li>
-      </ul></li>
-      <li>
-    :clickable: (directive option)
-
-      <ul>
-        <li><a href="task_lists.html#directive-option-task-list-clickable">task-list (directive)</a>
-</li>
-      </ul></li>
-      <li>
-    :custom: (directive option)
-
-      <ul>
-        <li><a href="task_lists.html#directive-option-task-list-custom">task-list (directive)</a>
-</li>
-      </ul></li>
-      <li><a href="demo_api.html#test_py_module.test.Foo.capitalize">capitalize() (test_py_module.test.Foo method)</a>
-</li>
-      <li>
-    clang_format_command
-
-      <ul>
-        <li><a href="apidoc/format_signatures.html#confval-clang_format_command">configuration value</a>
-</li>
-      </ul></li>
-      <li>
-    clang_format_style
-
-      <ul>
-        <li><a href="apidoc/format_signatures.html#objconf-clang_format_style">object description option</a>
-</li>
-      </ul></li>
-      <li>
-    clickable_checkbox
-
-      <ul>
-        <li><a href="task_lists.html#confval-clickable_checkbox">configuration value</a>
-</li>
-      </ul></li>
-      <li><a href="apidoc/cpp/apigen.html#sphinx_immaterial.apidoc.cpp.api_parser.Config.compiler_flags">compiler_flags (sphinx_immaterial.apidoc.cpp.api_parser.Config attribute)</a>
-</li>
-      <li><a href="apidoc/cpp/apigen.html#sphinx_immaterial.apidoc.cpp.api_parser.Config">Config (class in sphinx_immaterial.apidoc.cpp.api_parser)</a>
-</li>
-      <li>
-    configuration value
-
-      <ul>
-        <li><a href="apidoc/format_signatures.html#confval-clang_format_command">clang_format_command</a>
-</li>
-        <li><a href="task_lists.html#confval-clickable_checkbox">clickable_checkbox</a>
-</li>
-        <li><a href="apidoc/cpp/apigen.html#confval-cpp_apigen_case_insensitive_filesystem">cpp_apigen_case_insensitive_filesystem</a>
-</li>
-        <li><a href="apidoc/cpp/apigen.html#confval-cpp_apigen_configs">cpp_apigen_configs</a>
-</li>
-        <li><a href="apidoc/cpp/apigen.html#confval-cpp_apigen_rst_epilog">cpp_apigen_rst_epilog</a>
-</li>
-        <li><a href="apidoc/cpp/apigen.html#confval-cpp_apigen_rst_prolog">cpp_apigen_rst_prolog</a>
-</li>
-        <li><a href="apidoc/cpp/index.html#confval-cpp_strip_namespaces_from_signatures">cpp_strip_namespaces_from_signatures</a>
-</li>
-        <li><a href="apidoc/cpp/index.html#confval-cpp_xref_resolve_c_macro_pattern">cpp_xref_resolve_c_macro_pattern</a>
-</li>
-        <li><a href="apidoc/cpp/cppreference.html#confval-cppreference_xml_files">cppreference_xml_files</a>
-</li>
-        <li><a href="task_lists.html#confval-custom_checkbox">custom_checkbox</a>
-</li>
-        <li><a href="apidoc/cpp/external_cpp_references.html#confval-external_cpp_references">external_cpp_references</a>
-</li>
-        <li><a href="graphviz.html#confval-graphviz_ignore_incorrect_font_metrics">graphviz_ignore_incorrect_font_metrics</a>
-</li>
-        <li><a href="customization.html#confval-html_logo">html_logo</a>
-</li>
-        <li><a href="customization.html#confval-html_theme_options">html_theme_options</a>
-</li>
-        <li><a href="apidoc/json/domain.html#confval-json_schema_rst_epilog">json_schema_rst_epilog</a>
-</li>
-        <li><a href="apidoc/json/domain.html#confval-json_schema_rst_prolog">json_schema_rst_prolog</a>
-</li>
-        <li><a href="apidoc/json/domain.html#confval-json_schema_validate">json_schema_validate</a>
-</li>
-        <li><a href="apidoc/json/domain.html#confval-json_schemas">json_schemas</a>
-</li>
-        <li><a href="keys.html#confval-keys_class">keys_class</a>
-</li>
-        <li><a href="keys.html#confval-keys_map">keys_map</a>
-</li>
-        <li><a href="keys.html#confval-keys_separator">keys_separator</a>
-</li>
-        <li><a href="keys.html#confval-keys_strict">keys_strict</a>
-</li>
-        <li><a href="apidoc/index.html#confval-object_description_options">object_description_options</a>
-</li>
-        <li><a href="apidoc/python/apigen.html#confval-python_apigen_case_insensitive_filesystem">python_apigen_case_insensitive_filesystem</a>
-</li>
-        <li><a href="apidoc/python/apigen.html#confval-python_apigen_default_groups">python_apigen_default_groups</a>
-</li>
-        <li><a href="apidoc/python/apigen.html#confval-python_apigen_default_order">python_apigen_default_order</a>
-</li>
-        <li><a href="apidoc/python/apigen.html#confval-python_apigen_modules">python_apigen_modules</a>
-</li>
-        <li><a href="apidoc/python/apigen.html#confval-python_apigen_order_tiebreaker">python_apigen_order_tiebreaker</a>
-</li>
-        <li><a href="apidoc/python/apigen.html#confval-python_apigen_rst_epilog">python_apigen_rst_epilog</a>
-</li>
-        <li><a href="apidoc/python/apigen.html#confval-python_apigen_rst_prolog">python_apigen_rst_prolog</a>
-</li>
-        <li><a href="apidoc/python/apigen.html#confval-python_apigen_show_base_classes">python_apigen_show_base_classes</a>
-</li>
-        <li><a href="apidoc/python/apigen.html#confval-python_apigen_subscript_method_types">python_apigen_subscript_method_types</a>
-</li>
-        <li><a href="apidoc/python/index.html#confval-python_module_names_to_strip_from_xrefs">python_module_names_to_strip_from_xrefs</a>
-</li>
-        <li><a href="apidoc/python/index.html#confval-python_resolve_unqualified_typing">python_resolve_unqualified_typing</a>
-</li>
-        <li><a href="apidoc/python/index.html#confval-python_strip_property_prefix">python_strip_property_prefix</a>
-</li>
-        <li><a href="apidoc/python/index.html#confval-python_strip_return_type_annotations">python_strip_return_type_annotations</a>
-</li>
-        <li><a href="apidoc/python/index.html#confval-python_strip_self_type_annotations">python_strip_self_type_annotations</a>
-</li>
-        <li><a href="apidoc/python/index.html#confval-python_transform_type_annotations_concise_literal">python_transform_type_annotations_concise_literal</a>
-</li>
-        <li><a href="apidoc/python/index.html#confval-python_transform_type_annotations_pep585">python_transform_type_annotations_pep585</a>
-</li>
-        <li><a href="apidoc/python/index.html#confval-python_transform_type_annotations_pep604">python_transform_type_annotations_pep604</a>
-</li>
-        <li><a href="apidoc/python/index.html#confval-python_transform_typing_extensions">python_transform_typing_extensions</a>
-</li>
-        <li><a href="apidoc/python/index.html#confval-python_type_aliases">python_type_aliases</a>
-</li>
-        <li><a href="customization.html#confval-sphinx_immaterial_external_resource_cache_dir">sphinx_immaterial_external_resource_cache_dir</a>
-</li>
-      </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="apidoc/cpp/cppreference.html#_CPPv4I0E21ConvertVectorToStringNSt11enable_if_tIXooNSt9is_same_vI1TcEENSt9is_same_vI1T7uint8_tEEENSt6stringEEENSt6vectorI1TEE">ConvertVectorToString (C++ function)</a>
-</li>
-      <li><a href="apidoc/cpp/apigen.html#directive-cpp-apigen-entity-summary">cpp-apigen-entity-summary (directive)</a>
-
-      <ul>
-        <li><a href="apidoc/cpp/apigen.html#directive-option-cpp-apigen-entity-summary-notoc">:notoc: (directive option)</a>
-</li>
-      </ul></li>
-      <li><a href="apidoc/cpp/apigen.html#directive-cpp-apigen-group">cpp-apigen-group (directive)</a>
-
-      <ul>
-        <li><a href="apidoc/cpp/apigen.html#directive-option-cpp-apigen-group-notoc">:notoc: (directive option)</a>
-</li>
-      </ul></li>
-      <li>
-    cpp_apigen_case_insensitive_filesystem
-
-      <ul>
-        <li><a href="apidoc/cpp/apigen.html#confval-cpp_apigen_case_insensitive_filesystem">configuration value</a>
-</li>
-      </ul></li>
-      <li>
-    cpp_apigen_configs
-
-      <ul>
-        <li><a href="apidoc/cpp/apigen.html#confval-cpp_apigen_configs">configuration value</a>
-</li>
-      </ul></li>
-      <li>
-    cpp_apigen_rst_epilog
-
-      <ul>
-        <li><a href="apidoc/cpp/apigen.html#confval-cpp_apigen_rst_epilog">configuration value</a>
-</li>
-      </ul></li>
-      <li>
-    cpp_apigen_rst_prolog
-
-      <ul>
-        <li><a href="apidoc/cpp/apigen.html#confval-cpp_apigen_rst_prolog">configuration value</a>
-</li>
-      </ul></li>
-      <li>
-    cpp_strip_namespaces_from_signatures
-
-      <ul>
-        <li><a href="apidoc/cpp/index.html#confval-cpp_strip_namespaces_from_signatures">configuration value</a>
-</li>
-      </ul></li>
-      <li>
-    cpp_xref_resolve_c_macro_pattern
-
-      <ul>
-        <li><a href="apidoc/cpp/index.html#confval-cpp_xref_resolve_c_macro_pattern">configuration value</a>
-</li>
-      </ul></li>
-      <li>
-    cppreference_xml_files
-
-      <ul>
-        <li><a href="apidoc/cpp/cppreference.html#confval-cppreference_xml_files">configuration value</a>
-</li>
-      </ul></li>
-      <li>
-    custom_checkbox
-
-      <ul>
-        <li><a href="task_lists.html#confval-custom_checkbox">configuration value</a>
-</li>
-      </ul></li>
-  </ul></td>
-</tr></table>
-
-<h2 id="D">D</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="demo_api.html#test_py_module.test.Data_item_1">Data_item_1 (in module test_py_module.test)</a>
-</li>
-      <li><a href="demo_api.html#test_py_module.test.Data_item_2">Data_item_2 (in module test_py_module.test)</a>
-</li>
-      <li><a href="demo_api.html#test_py_module.test.Data_item_3">Data_item_3 (in module test_py_module.test)</a>
-</li>
-      <li><a href="code_syntax_highlighting.html#directive-default-literal-role">default-literal-role (directive)</a>
-</li>
-      <li><a href="demo_api.html#c.DEFAULT_LENGTH">DEFAULT_LENGTH (C macro)</a>
-</li>
-      <li>
-    direction
-
-      <ul>
-        <li><a href="customization.html#themeconf-direction">theme option</a>
-</li>
-      </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="apidoc/cpp/apigen.html#sphinx_immaterial.apidoc.cpp.api_parser.Config.disallow_macros">disallow_macros (sphinx_immaterial.apidoc.cpp.api_parser.Config attribute)</a>
-</li>
-      <li><a href="apidoc/cpp/apigen.html#sphinx_immaterial.apidoc.cpp.api_parser.Config.disallow_namespaces">disallow_namespaces (sphinx_immaterial.apidoc.cpp.api_parser.Config attribute)</a>
-</li>
-      <li><a href="apidoc/cpp/apigen.html#sphinx_immaterial.apidoc.cpp.api_parser.Config.disallow_paths">disallow_paths (sphinx_immaterial.apidoc.cpp.api_parser.Config attribute)</a>
-</li>
-      <li><a href="apidoc/cpp/apigen.html#sphinx_immaterial.apidoc.cpp.api_parser.Config.disallow_symbols">disallow_symbols (sphinx_immaterial.apidoc.cpp.api_parser.Config attribute)</a>
-</li>
-      <li><a href="apidoc/cpp/apigen.html#sphinx_immaterial.apidoc.cpp.apigen.ApigenConfig.document_prefix">document_prefix (sphinx_immaterial.apidoc.cpp.apigen.ApigenConfig attribute)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="E">E</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li>
-    :exclude_from_toc: (directive option)
-
-      <ul>
-        <li><a href="apidoc/json/domain.html#directive-option-json-schema-exclude_from_toc">json:schema (directive)</a>
-</li>
-      </ul></li>
-      <li>
-    edit_uri
-
-      <ul>
-        <li><a href="customization.html#themeconf-edit_uri">theme option</a>
-</li>
-      </ul></li>
-      <li><a href="additional_samples.html#term-environment"><strong>environment</strong></a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li>
-    environment variable
-
-      <ul>
-        <li><a href="customization.html#envvar-SPHINX_IMMATERIAL_EXTERNAL_RESOURCE_CACHE_DIR">SPHINX_IMMATERIAL_EXTERNAL_RESOURCE_CACHE_DIR</a>, <a href="customization.html#index-0">[1]</a>
-</li>
-      </ul></li>
-      <li>
-    external_cpp_references
-
-      <ul>
-        <li><a href="apidoc/cpp/external_cpp_references.html#confval-external_cpp_references">configuration value</a>
-</li>
-      </ul></li>
-      <li><a href="apidoc/cpp/external_cpp_references.html#_CPPv420ExtractValueFromJsonN8nlohmann4jsonE">ExtractValueFromJson (C++ function)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="F">F</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li>
-    features
-
-      <ul>
-        <li><a href="customization.html#themeconf-features">theme option</a>
-</li>
-      </ul></li>
-      <li><a href="demo_api.html#test_py_module.test.Foo.flox">flox (test_py_module.test.Foo attribute)</a>
-</li>
-      <li>
-    font
-
-      <ul>
-        <li><a href="customization.html#themeconf-font">theme option</a>
-</li>
-      </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="demo_api.html#_CPPv43FooK6MyTypeP8uint16_tjb">Foo (C++ function)</a>, <a href="demo_api.html#_CPPv4I0_iE3FooK6MyTypeK6MyTypeP7uint8_tjb">[1]</a>
-</li>
-      <li><a href="apidoc/cpp/index.html#_CPPv43fooi">foo (C++ function)</a>
-</li>
-      <li><a href="demo_api.html#test_py_module.test.Foo">Foo (class in test_py_module.test)</a>
-</li>
-      <li><a href="demo_api.html#test_py_module.test.func">func() (in module test_py_module.test)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="G">G</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li>
-    generate_synopses
-
-      <ul>
-        <li><a href="apidoc/index.html#objconf-generate_synopses">object description option</a>
-</li>
-      </ul></li>
-      <li>
-    global
-
-      <ul>
-        <li><a href="rst_basics.html#index-0"><strong>substitutions</strong></a>
-</li>
-      </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li>
-    globaltoc_collapse
-
-      <ul>
-        <li><a href="customization.html#themeconf-globaltoc_collapse">theme option</a>
-</li>
-      </ul></li>
-      <li>
-    graphviz_ignore_incorrect_font_metrics
-
-      <ul>
-        <li><a href="graphviz.html#confval-graphviz_ignore_incorrect_font_metrics">configuration value</a>
-</li>
-      </ul></li>
-  </ul></td>
-</tr></table>
-
-<h2 id="H">H</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li>
-    hero
-
-      <ul>
-        <li><a href="customization.html#themeconf-hero">theme option</a>
-</li>
-      </ul></li>
-      <li>
-    hide-edit-link
-
-      <ul>
-        <li><a href="customization.html#themeconf-hide-edit-link">theme option</a>
-</li>
-      </ul></li>
-      <li>
-    hide-navigation
-
-      <ul>
-        <li><a href="customization.html#themeconf-hide-navigation">theme option</a>
-</li>
-      </ul></li>
-      <li>
-    hide-toc
-
-      <ul>
-        <li><a href="customization.html#themeconf-hide-toc">theme option</a>
-</li>
-      </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="apidoc/cpp/apigen.html#sphinx_immaterial.apidoc.cpp.api_parser.Config.hide_initializers">hide_initializers (sphinx_immaterial.apidoc.cpp.api_parser.Config attribute)</a>
-</li>
-      <li><a href="apidoc/cpp/apigen.html#sphinx_immaterial.apidoc.cpp.api_parser.Config.hide_types">hide_types (sphinx_immaterial.apidoc.cpp.api_parser.Config attribute)</a>
-</li>
-      <li><a href="code_syntax_highlighting.html#directive-highlight-pop">highlight-pop (directive)</a>
-</li>
-      <li><a href="code_syntax_highlighting.html#directive-highlight-push">highlight-push (directive)</a>
-</li>
-      <li>
-    html_logo
-
-      <ul>
-        <li><a href="customization.html#confval-html_logo">configuration value</a>
-</li>
-      </ul></li>
-      <li>
-    html_theme_options
-
-      <ul>
-        <li><a href="customization.html#confval-html_theme_options">configuration value</a>
-</li>
-      </ul></li>
-  </ul></td>
-</tr></table>
-
-<h2 id="I">I</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li>
-    icon[&#34;repo&#34;]
-
-      <ul>
-        <li><a href="customization.html#themeconf-icon-repo">theme option</a>
-</li>
-      </ul></li>
-      <li><a href="apidoc/cpp/apigen.html#sphinx_immaterial.apidoc.cpp.api_parser.Config.ignore_diagnostics">ignore_diagnostics (sphinx_immaterial.apidoc.cpp.api_parser.Config attribute)</a>
-</li>
-      <li><a href="apidoc/cpp/apigen.html#sphinx_immaterial.apidoc.cpp.api_parser.Config.ignore_template_parameters">ignore_template_parameters (sphinx_immaterial.apidoc.cpp.api_parser.Config attribute)</a>
-</li>
-      <li><a href="apidoc/cpp/apigen.html#sphinx_immaterial.apidoc.cpp.api_parser.Config.include_directory_map">include_directory_map (sphinx_immaterial.apidoc.cpp.api_parser.Config attribute)</a>
-</li>
-      <li>
-    include_fields_in_toc
-
-      <ul>
-        <li><a href="apidoc/index.html#objconf-include_fields_in_toc">object description option</a>
-</li>
-      </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li>
-    include_in_toc
-
-      <ul>
-        <li><a href="apidoc/index.html#objconf-include_in_toc">object description option</a>
-</li>
-      </ul></li>
-      <li>
-    include_object_type_in_xref_tooltip
-
-      <ul>
-        <li><a href="apidoc/index.html#objconf-include_object_type_in_xref_tooltip">object description option</a>
-</li>
-      </ul></li>
-      <li>
-    include_rubrics_in_toc
-
-      <ul>
-        <li><a href="apidoc/index.html#objconf-include_rubrics_in_toc">object description option</a>
-</li>
-      </ul></li>
-      <li><a href="apidoc/cpp/apigen.html#sphinx_immaterial.apidoc.cpp.api_parser.Config.input_content">input_content (sphinx_immaterial.apidoc.cpp.api_parser.Config attribute)</a>
-</li>
-      <li><a href="apidoc/cpp/apigen.html#sphinx_immaterial.apidoc.cpp.api_parser.Config.input_path">input_path (sphinx_immaterial.apidoc.cpp.api_parser.Config attribute)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="J">J</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="apidoc/json/domain.html#directive-json-schema">json:schema (directive)</a>
-
-      <ul>
-        <li><a href="apidoc/json/domain.html#directive-option-json-schema-exclude_from_toc">:exclude_from_toc: (directive option)</a>
-</li>
-        <li><a href="apidoc/json/domain.html#directive-option-json-schema-noindex">:noindex: (directive option)</a>
-</li>
-        <li><a href="apidoc/json/domain.html#directive-option-json-schema-title">:title: (directive option)</a>
-</li>
-        <li><a href="apidoc/json/domain.html#directive-option-json-schema-toc_title">:toc_title: (directive option)</a>
-</li>
-      </ul></li>
-      <li><a href="apidoc/json/domain.html#role-json-schema">json:schema (role)</a>
-</li>
-      <li>
-    json_schema_rst_epilog
-
-      <ul>
-        <li><a href="apidoc/json/domain.html#confval-json_schema_rst_epilog">configuration value</a>
-</li>
-      </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li>
-    json_schema_rst_prolog
-
-      <ul>
-        <li><a href="apidoc/json/domain.html#confval-json_schema_rst_prolog">configuration value</a>
-</li>
-      </ul></li>
-      <li>
-    json_schema_validate
-
-      <ul>
-        <li><a href="apidoc/json/domain.html#confval-json_schema_validate">configuration value</a>
-</li>
-      </ul></li>
-      <li>
-    json_schemas
-
-      <ul>
-        <li><a href="apidoc/json/domain.html#confval-json_schemas">configuration value</a>
-</li>
-      </ul></li>
-  </ul></td>
-</tr></table>
-
-<h2 id="K">K</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="keys.html#role-keys">keys (role)</a>
-</li>
-      <li>
-    keys_class
-
-      <ul>
-        <li><a href="keys.html#confval-keys_class">configuration value</a>
-</li>
-      </ul></li>
-      <li>
-    keys_map
-
-      <ul>
-        <li><a href="keys.html#confval-keys_map">configuration value</a>
-</li>
-      </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li>
-    keys_separator
-
-      <ul>
-        <li><a href="keys.html#confval-keys_separator">configuration value</a>
-</li>
-      </ul></li>
-      <li>
-    keys_strict
-
-      <ul>
-        <li><a href="keys.html#confval-keys_strict">configuration value</a>
-</li>
-      </ul></li>
-  </ul></td>
-</tr></table>
-
-<h2 id="L">L</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="demo_api.html#_CPPv44List">List (C++ type)</a>
-</li>
-      <li>
-    long_function_signature_example()
-
-      <ul>
-        <li><a href="apidoc/format_signatures.html#long_function_signature_example">built-in function</a>
-</li>
-      </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="apidoc/format_signatures.html#_CPPv4I00_iEIQNSt10is_const_vI1TEEE28LongFunctionSignatureExampleK6MyTypeK6MyTypeP7uint8_tjb">LongFunctionSignatureExample (C++ function)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="M">M</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="mermaid_diagrams.html#directive-md-mermaid">md-mermaid (directive)</a>
-
-      <ul>
-        <li><a href="mermaid_diagrams.html#directive-option-md-mermaid-class">:class: (directive option)</a>
-</li>
-        <li><a href="mermaid_diagrams.html#directive-option-md-mermaid-name">:name: (directive option)</a>
-</li>
-      </ul></li>
-      <li><a href="content_tabs.html#directive-md-tab-item">md-tab-item (directive)</a>
-
-      <ul>
-        <li><a href="content_tabs.html#directive-option-md-tab-item-class">:class: (directive option)</a>
-</li>
-      </ul></li>
-      <li><a href="content_tabs.html#directive-md-tab-set">md-tab-set (directive)</a>
-
-      <ul>
-        <li><a href="content_tabs.html#directive-option-md-tab-set-class">:class: (directive option)</a>
-</li>
-        <li><a href="content_tabs.html#directive-option-md-tab-set-name">:name: (directive option)</a>
-</li>
-      </ul></li>
-      <li>
-    media (palette preference)
-
-      <ul>
-        <li><a href="customization.html#themeconf-media-palette-preference">theme option</a>
-</li>
-      </ul></li>
-      <li><a href="demo_api.html#module_b.submodule.ModNested">ModNested() (class)</a>
-</li>
-      <li><a href="demo_api.html#module_a.submodule.ModTopLevel">ModTopLevel() (class)</a>
-</li>
-      <li>
-    module
-
-      <ul>
-        <li><a href="demo_api.html#module-test_py_module.test">test_py_module.test</a>
-</li>
-      </ul></li>
-      <li><a href="demo_api.html#module-module_a.submodule">module_a.submodule (module)</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="demo_api.html#module-module_b.submodule">module_b.submodule (module)</a>
-</li>
-      <li><a href="apidoc/cpp/index.html#_CPPv411my_functioni">my_function (C++ function)</a>
-</li>
-      <li><a href="apidoc/cpp/index.html#my_custom_id">my_function_with_custom_identifier (C++ function)</a>
-</li>
-      <li><a href="demo_api.html#c.MY_MACRO">MY_MACRO (C macro)</a>
-</li>
-      <li><a href="apidoc/cpp/index.html#_CPPv4N6my_ns11AE">my_ns1::A (C++ type)</a>
-</li>
-      <li><a href="apidoc/cpp/index.html#_CPPv4N6my_ns110MyFunctionEN6my_ns11AEN6my_ns212my_nested_ns1BEN6my_ns31CE">my_ns1::MyFunction (C++ function)</a>
-</li>
-      <li><a href="apidoc/cpp/index.html#_CPPv4N6my_ns212my_nested_ns1BE">my_ns2::my_nested_ns::B (C++ type)</a>
-</li>
-      <li><a href="apidoc/cpp/index.html#_CPPv4N6my_ns31CE">my_ns3::C (C++ type)</a>
-</li>
-      <li><a href="demo_api.html#_CPPv46MyEnum">MyEnum (C++ enum)</a>
-</li>
-      <li><a href="demo_api.html#_CPPv4N6MyEnum1AE">MyEnum::A (C++ enumerator)</a>
-</li>
-      <li><a href="demo_api.html#_CPPv412MyScopedEnum">MyScopedEnum (C++ enum)</a>
-</li>
-      <li><a href="demo_api.html#_CPPv4N12MyScopedEnum1BE">MyScopedEnum::B (C++ enumerator)</a>
-</li>
-      <li><a href="demo_api.html#_CPPv422MyScopedVisibilityEnum">MyScopedVisibilityEnum (C++ enum)</a>
-</li>
-      <li><a href="demo_api.html#_CPPv4N22MyScopedVisibilityEnum1BE">MyScopedVisibilityEnum::B (C++ enumerator)</a>
-</li>
-      <li><a href="demo_api.html#_CPPv46MyType">MyType (C++ type)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="N">N</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li>
-    :name: (directive option)
-
-      <ul>
-        <li><a href="mermaid_diagrams.html#directive-option-md-mermaid-name">md-mermaid (directive)</a>
-</li>
-        <li><a href="content_tabs.html#directive-option-md-tab-set-name">md-tab-set (directive)</a>
-</li>
-        <li><a href="task_lists.html#directive-option-task-list-name">task-list (directive)</a>
-</li>
-      </ul></li>
-      <li>
-    :noindex: (directive option)
-
-      <ul>
-        <li><a href="apidoc/json/domain.html#directive-option-json-schema-noindex">json:schema (directive)</a>
-</li>
-      </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li>
-    :notoc: (directive option)
-
-      <ul>
-        <li><a href="apidoc/cpp/apigen.html#directive-option-cpp-apigen-entity-summary-notoc">cpp-apigen-entity-summary (directive)</a>
-</li>
-        <li><a href="apidoc/cpp/apigen.html#directive-option-cpp-apigen-group-notoc">cpp-apigen-group (directive)</a>
-</li>
-        <li><a href="apidoc/python/apigen.html#directive-option-python-apigen-entity-summary-notoc">python-apigen-entity-summary (directive)</a>
-</li>
-        <li><a href="apidoc/python/apigen.html#directive-option-python-apigen-group-notoc">python-apigen-group (directive)</a>
-</li>
-      </ul></li>
-  </ul></td>
-</tr></table>
-
-<h2 id="O">O</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li>
-    object description option
-
-      <ul>
-        <li><a href="apidoc/format_signatures.html#objconf-clang_format_style">clang_format_style</a>
-</li>
-        <li><a href="apidoc/index.html#objconf-generate_synopses">generate_synopses</a>
-</li>
-        <li><a href="apidoc/index.html#objconf-include_fields_in_toc">include_fields_in_toc</a>
-</li>
-        <li><a href="apidoc/index.html#objconf-include_in_toc">include_in_toc</a>
-</li>
-        <li><a href="apidoc/index.html#objconf-include_object_type_in_xref_tooltip">include_object_type_in_xref_tooltip</a>
-</li>
-        <li><a href="apidoc/index.html#objconf-include_rubrics_in_toc">include_rubrics_in_toc</a>
-</li>
-        <li><a href="apidoc/index.html#objconf-toc_icon_class">toc_icon_class</a>
-</li>
-        <li><a href="apidoc/index.html#objconf-toc_icon_text">toc_icon_text</a>
-</li>
-        <li><a href="apidoc/format_signatures.html#objconf-wrap_signatures_column_limit">wrap_signatures_column_limit</a>
-</li>
-        <li><a href="apidoc/format_signatures.html#objconf-wrap_signatures_with_css">wrap_signatures_with_css</a>
-</li>
-      </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li>
-    object_description_options
-
-      <ul>
-        <li><a href="apidoc/index.html#confval-object_description_options">configuration value</a>
-</li>
-      </ul></li>
-      <li>
-    overload_example1()
-
-      <ul>
-        <li><a href="apidoc/python/index.html#overload_example1">built-in function</a>
-</li>
-      </ul></li>
-      <li>
-    overload_example2()
-
-      <ul>
-        <li><a href="apidoc/python/index.html#overload_example2">built-in function</a>
-</li>
-      </ul></li>
-      <li>
-    overload_example2(float)()
-
-      <ul>
-        <li><a href="apidoc/python/index.html#overload_example2-float">built-in function</a>
-</li>
-      </ul></li>
-      <li>
-    overload_example2(int)()
-
-      <ul>
-        <li><a href="apidoc/python/index.html#overload_example2-int">built-in function</a>
-</li>
-      </ul></li>
-      <li><a href="demo_api.html#test_py_module.test.overloaded_func">overloaded_func() (in module test_py_module.test)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="P">P</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li>
-    palette
-
-      <ul>
-        <li><a href="customization.html#themeconf-palette">theme option</a>
-</li>
-      </ul></li>
-      <li>
-    primary
-
-      <ul>
-        <li><a href="customization.html#themeconf-primary">theme option</a>
-</li>
-      </ul></li>
-      <li>
-    Python Enhancement Proposals
-
-      <ul>
-        <li><a href="apidoc/python/index.html#index-0">PEP 585</a>
-</li>
-        <li><a href="apidoc/python/index.html#index-1">PEP 604</a>
-</li>
-      </ul></li>
-      <li><a href="apidoc/python/apigen.html#directive-python-apigen-entity-summary">python-apigen-entity-summary (directive)</a>
-
-      <ul>
-        <li><a href="apidoc/python/apigen.html#directive-option-python-apigen-entity-summary-notoc">:notoc: (directive option)</a>
-</li>
-      </ul></li>
-      <li><a href="apidoc/python/apigen.html#directive-python-apigen-group">python-apigen-group (directive)</a>
-
-      <ul>
-        <li><a href="apidoc/python/apigen.html#directive-option-python-apigen-group-notoc">:notoc: (directive option)</a>
-</li>
-      </ul></li>
-      <li>
-    python_apigen_case_insensitive_filesystem
-
-      <ul>
-        <li><a href="apidoc/python/apigen.html#confval-python_apigen_case_insensitive_filesystem">configuration value</a>
-</li>
-      </ul></li>
-      <li>
-    python_apigen_default_groups
-
-      <ul>
-        <li><a href="apidoc/python/apigen.html#confval-python_apigen_default_groups">configuration value</a>
-</li>
-      </ul></li>
-      <li>
-    python_apigen_default_order
-
-      <ul>
-        <li><a href="apidoc/python/apigen.html#confval-python_apigen_default_order">configuration value</a>
-</li>
-      </ul></li>
-      <li>
-    python_apigen_modules
-
-      <ul>
-        <li><a href="apidoc/python/apigen.html#confval-python_apigen_modules">configuration value</a>
-</li>
-      </ul></li>
-      <li>
-    python_apigen_order_tiebreaker
-
-      <ul>
-        <li><a href="apidoc/python/apigen.html#confval-python_apigen_order_tiebreaker">configuration value</a>
-</li>
-      </ul></li>
-      <li>
-    python_apigen_rst_epilog
-
-      <ul>
-        <li><a href="apidoc/python/apigen.html#confval-python_apigen_rst_epilog">configuration value</a>
-</li>
-      </ul></li>
-      <li>
-    python_apigen_rst_prolog
-
-      <ul>
-        <li><a href="apidoc/python/apigen.html#confval-python_apigen_rst_prolog">configuration value</a>
-</li>
-      </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li>
-    python_apigen_show_base_classes
-
-      <ul>
-        <li><a href="apidoc/python/apigen.html#confval-python_apigen_show_base_classes">configuration value</a>
-</li>
-      </ul></li>
-      <li>
-    python_apigen_subscript_method_types
-
-      <ul>
-        <li><a href="apidoc/python/apigen.html#confval-python_apigen_subscript_method_types">configuration value</a>
-</li>
-      </ul></li>
-      <li>
-    python_module_names_to_strip_from_xrefs
-
-      <ul>
-        <li><a href="apidoc/python/index.html#confval-python_module_names_to_strip_from_xrefs">configuration value</a>
-</li>
-      </ul></li>
-      <li>
-    python_resolve_unqualified_typing
-
-      <ul>
-        <li><a href="apidoc/python/index.html#confval-python_resolve_unqualified_typing">configuration value</a>
-</li>
-      </ul></li>
-      <li>
-    python_strip_property_prefix
-
-      <ul>
-        <li><a href="apidoc/python/index.html#confval-python_strip_property_prefix">configuration value</a>
-</li>
-      </ul></li>
-      <li>
-    python_strip_return_type_annotations
-
-      <ul>
-        <li><a href="apidoc/python/index.html#confval-python_strip_return_type_annotations">configuration value</a>
-</li>
-      </ul></li>
-      <li>
-    python_strip_self_type_annotations
-
-      <ul>
-        <li><a href="apidoc/python/index.html#confval-python_strip_self_type_annotations">configuration value</a>
-</li>
-      </ul></li>
-      <li>
-    python_transform_type_annotations_concise_literal
-
-      <ul>
-        <li><a href="apidoc/python/index.html#confval-python_transform_type_annotations_concise_literal">configuration value</a>
-</li>
-      </ul></li>
-      <li>
-    python_transform_type_annotations_pep585
-
-      <ul>
-        <li><a href="apidoc/python/index.html#confval-python_transform_type_annotations_pep585">configuration value</a>
-</li>
-      </ul></li>
-      <li>
-    python_transform_type_annotations_pep604
-
-      <ul>
-        <li><a href="apidoc/python/index.html#confval-python_transform_type_annotations_pep604">configuration value</a>
-</li>
-      </ul></li>
-      <li>
-    python_transform_typing_extensions
-
-      <ul>
-        <li><a href="apidoc/python/index.html#confval-python_transform_typing_extensions">configuration value</a>
-</li>
-      </ul></li>
-      <li>
-    python_type_aliases
-
-      <ul>
-        <li><a href="apidoc/python/index.html#confval-python_type_aliases">configuration value</a>
-</li>
-      </ul></li>
-  </ul></td>
-</tr></table>
-
-<h2 id="Q">Q</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="demo_api.html#test_py_module.test.Foo.qux">qux (test_py_module.test.Foo attribute)</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="demo_api.html#test_py_module.test.Foo.qux_caps">qux_caps (test_py_module.test.Foo property)</a>
-</li>
-      <li><a href="demo_api.html#test_py_module.test.Foo.qux_caps_cached">qux_caps_cached (test_py_module.test.Foo property)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="R">R</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li>
-    repo_name
-
-      <ul>
-        <li><a href="customization.html#themeconf-repo_name">theme option</a>
-</li>
-      </ul></li>
-      <li>
-    repo_type
-
-      <ul>
-        <li><a href="customization.html#themeconf-repo_type">theme option</a>
-</li>
-      </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li>
-    repo_url
-
-      <ul>
-        <li><a href="customization.html#themeconf-repo_url">theme option</a>
-</li>
-      </ul></li>
-  </ul></td>
-</tr></table>
-
-<h2 id="S">S</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li>
-    scheme
-
-      <ul>
-        <li><a href="customization.html#themeconf-scheme">theme option</a>
-</li>
-      </ul></li>
-      <li>
-    site_url
-
-      <ul>
-        <li><a href="customization.html#themeconf-site_url">theme option</a>
-</li>
-      </ul></li>
-      <li>
-    social
-
-      <ul>
-        <li><a href="customization.html#themeconf-social">theme option</a>
-</li>
-      </ul></li>
-      <li><a href="additional_samples.html#term-source-directory"><strong>source directory</strong></a>
-</li>
-      <li><a href="demo_api.html#test_py_module.test.Foo.spam">spam (test_py_module.test.Foo attribute)</a>
-</li>
-      <li><a href="demo_api.html#_CPPv4N6Sphinx7versionE">Sphinx::version (C++ member)</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="customization.html#index-0">SPHINX_IMMATERIAL_EXTERNAL_RESOURCE_CACHE_DIR</a>
-</li>
-      <li>
-    sphinx_immaterial_external_resource_cache_dir
-
-      <ul>
-        <li><a href="customization.html#confval-sphinx_immaterial_external_resource_cache_dir">configuration value</a>
-</li>
-      </ul></li>
-      <li><a href="demo_api.html#_CPPv4I0000_NSt6size_tEENSt5arrayE">std::array (C++ class)</a>
-</li>
-      <li>
-    substitutions
-
-      <ul>
-        <li><a href="rst_basics.html#index-0"><strong>global</strong></a>
-</li>
-      </ul></li>
-      <li><a href="demo_api.html#_CPPv4N11synopses_ex5ClassE">synopses_ex::Class (C++ class)</a>
-</li>
-      <li><a href="demo_api.html#_CPPv4N11synopses_ex5Class5ClassE8uint16_t8uint16_t8uint32_t">synopses_ex::Class::Class (C++ function)</a>
-</li>
-      <li><a href="demo_api.html#_CPPv4I0_iEN11synopses_ex3FooEN11synopses_ex8SomeTypeE1TRA1N_Ki">synopses_ex::Foo (C++ function)</a>
-</li>
-      <li><a href="demo_api.html#_CPPv4N11synopses_ex8SomeTypeE">synopses_ex::SomeType (C++ type)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="T">T</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li>
-    :title: (directive option)
-
-      <ul>
-        <li><a href="apidoc/json/domain.html#directive-option-json-schema-title">json:schema (directive)</a>
-</li>
-      </ul></li>
-      <li>
-    :toc_title: (directive option)
-
-      <ul>
-        <li><a href="apidoc/json/domain.html#directive-option-json-schema-toc_title">json:schema (directive)</a>
-</li>
-      </ul></li>
-      <li><a href="task_lists.html#directive-task-list">task-list (directive)</a>
-
-      <ul>
-        <li><a href="task_lists.html#directive-option-task-list-class">:class: (directive option)</a>
-</li>
-        <li><a href="task_lists.html#directive-option-task-list-clickable">:clickable: (directive option)</a>
-</li>
-        <li><a href="task_lists.html#directive-option-task-list-custom">:custom: (directive option)</a>
-</li>
-        <li><a href="task_lists.html#directive-option-task-list-name">:name: (directive option)</a>
-</li>
-      </ul></li>
-      <li>
-    test_py_module.test
-
-      <ul>
-        <li><a href="demo_api.html#module-test_py_module.test">module</a>
-</li>
-      </ul></li>
-      <li>
-    theme option
-
-      <ul>
-        <li><a href="customization.html#themeconf-accent">accent</a>
-</li>
-        <li><a href="customization.html#themeconf-analytics">analytics</a>
-</li>
-        <li><a href="customization.html#themeconf-direction">direction</a>
-</li>
-        <li><a href="customization.html#themeconf-edit_uri">edit_uri</a>
-</li>
-        <li><a href="customization.html#themeconf-features">features</a>
-</li>
-        <li><a href="customization.html#themeconf-font">font</a>
-</li>
-        <li><a href="customization.html#themeconf-globaltoc_collapse">globaltoc_collapse</a>
-</li>
-        <li><a href="customization.html#themeconf-hero">hero</a>
-</li>
-        <li><a href="customization.html#themeconf-hide-edit-link">hide-edit-link</a>
-</li>
-        <li><a href="customization.html#themeconf-hide-navigation">hide-navigation</a>
-</li>
-        <li><a href="customization.html#themeconf-hide-toc">hide-toc</a>
-</li>
-        <li><a href="customization.html#themeconf-icon-repo">icon[&#34;repo&#34;]</a>
-</li>
-        <li><a href="customization.html#themeconf-media-palette-preference">media (palette preference)</a>
-</li>
-        <li><a href="customization.html#themeconf-palette">palette</a>
-</li>
-        <li><a href="customization.html#themeconf-primary">primary</a>
-</li>
-        <li><a href="customization.html#themeconf-repo_name">repo_name</a>
-</li>
-        <li><a href="customization.html#themeconf-repo_type">repo_type</a>
-</li>
-        <li><a href="customization.html#themeconf-repo_url">repo_url</a>
-</li>
-        <li><a href="customization.html#themeconf-scheme">scheme</a>
-</li>
-        <li><a href="customization.html#themeconf-site_url">site_url</a>
-</li>
-        <li><a href="customization.html#themeconf-social">social</a>
-</li>
-        <li><a href="customization.html#themeconf-toc_title">toc_title</a>
-</li>
-        <li><a href="customization.html#themeconf-toc_title_is_page_title">toc_title_is_page_title</a>
-</li>
-        <li><a href="customization.html#themeconf-toggle">toggle</a>
-</li>
-        <li><a href="customization.html#themeconf-version_dropdown">version_dropdown</a>
-</li>
-        <li><a href="customization.html#themeconf-version_info">version_info</a>
-</li>
-        <li><a href="customization.html#themeconf-version_json">version_json</a>
-</li>
-      </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li>
-    toc_icon_class
-
-      <ul>
-        <li><a href="apidoc/index.html#objconf-toc_icon_class">object description option</a>
-</li>
-      </ul></li>
-      <li>
-    toc_icon_text
-
-      <ul>
-        <li><a href="apidoc/index.html#objconf-toc_icon_text">object description option</a>
-</li>
-      </ul></li>
-      <li>
-    toc_title
-
-      <ul>
-        <li><a href="customization.html#themeconf-toc_title">theme option</a>
-</li>
-      </ul></li>
-      <li>
-    toc_title_is_page_title
-
-      <ul>
-        <li><a href="customization.html#themeconf-toc_title_is_page_title">theme option</a>
-</li>
-      </ul></li>
-      <li>
-    toggle
-
-      <ul>
-        <li><a href="customization.html#themeconf-toggle">theme option</a>
-</li>
-      </ul></li>
-  </ul></td>
-</tr></table>
-
-<h2 id="V">V</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="apidoc/cpp/apigen.html#sphinx_immaterial.apidoc.cpp.api_parser.Config.verbose">verbose (sphinx_immaterial.apidoc.cpp.api_parser.Config attribute)</a>
-</li>
-      <li><a href="demo_api.html#_CPPv47version">version (C++ member)</a>
-</li>
-      <li>
-    version_dropdown
-
-      <ul>
-        <li><a href="customization.html#themeconf-version_dropdown">theme option</a>
-</li>
-      </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li>
-    version_info
-
-      <ul>
-        <li><a href="customization.html#themeconf-version_info">theme option</a>
-</li>
-      </ul></li>
-      <li>
-    version_json
-
-      <ul>
-        <li><a href="customization.html#themeconf-version_json">theme option</a>
-</li>
-      </ul></li>
-  </ul></td>
-</tr></table>
-
-<h2 id="W">W</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li>
-    wrap_signatures_column_limit
-
-      <ul>
-        <li><a href="apidoc/format_signatures.html#objconf-wrap_signatures_column_limit">object description option</a>
-</li>
-      </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li>
-    wrap_signatures_with_css
-
-      <ul>
-        <li><a href="apidoc/format_signatures.html#objconf-wrap_signatures_with_css">object description option</a>
-</li>
-      </ul></li>
-  </ul></td>
-</tr></table>
-
-
-
+None
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      Sep 30, 2022
+      Oct 24, 2022
     
   </small>
 </div>
 
-              
-            </article>
-          </div>
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var tab,labels=set.querySelector(".tabbed-labels");for(tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
         </div>
         
-          <a href="#" class="md-top md-icon" data-md-component="top" data-md-state="hidden">
+          <a href="#" class="md-top md-icon" data-md-component="top" hidden>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
             Back to top
           </a>
@@ -2114,7 +797,7 @@
   
     Created using
     <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
-    5.2.2.
+    5.3.0.
      and
     <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
   
@@ -2128,7 +811,7 @@
       
     
     <a href="https://github.com/jbms/sphinx-immaterial" target="_blank" rel="noopener" title="github.com" class="md-social__link">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
     </a>
   
     
@@ -2137,7 +820,7 @@
       
     
     <a href="https://pypi.org/project/sphinx-immaterial/" target="_blank" rel="noopener" title="pypi.org" class="md-social__link">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.8 200.5c-7.7-30.9-22.3-54.2-53.4-54.2h-40.1v47.4c0 36.8-31.2 67.8-66.8 67.8H172.7c-29.2 0-53.4 25-53.4 54.3v101.8c0 29 25.2 46 53.4 54.3 33.8 9.9 66.3 11.7 106.8 0 26.9-7.8 53.4-23.5 53.4-54.3v-40.7H226.2v-13.6h160.2c31.1 0 42.6-21.7 53.4-54.2 11.2-33.5 10.7-65.7 0-108.6zM286.2 404c11.1 0 20.1 9.1 20.1 20.3 0 11.3-9 20.4-20.1 20.4-11 0-20.1-9.2-20.1-20.4.1-11.3 9.1-20.3 20.1-20.3zM167.8 248.1h106.8c29.7 0 53.4-24.5 53.4-54.3V91.9c0-29-24.4-50.7-53.4-55.6-35.8-5.9-74.7-5.6-106.8.1-45.2 8-53.4 24.7-53.4 55.6v40.7h106.9v13.6h-147c-31.1 0-58.3 18.7-66.8 54.2-9.8 40.7-10.2 66.1 0 108.6 7.6 31.6 25.7 54.2 56.8 54.2H101v-48.8c0-35.3 30.5-66.4 66.8-66.4zm-6.7-142.6c-11.1 0-20.1-9.1-20.1-20.3.1-11.3 9-20.4 20.1-20.4 11 0 20.1 9.2 20.1 20.4s-9 20.3-20.1 20.3z"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.8 200.5c-7.7-30.9-22.3-54.2-53.4-54.2h-40.1v47.4c0 36.8-31.2 67.8-66.8 67.8H172.7c-29.2 0-53.4 25-53.4 54.3v101.8c0 29 25.2 46 53.4 54.3 33.8 9.9 66.3 11.7 106.8 0 26.9-7.8 53.4-23.5 53.4-54.3v-40.7H226.2v-13.6h160.2c31.1 0 42.6-21.7 53.4-54.2 11.2-33.5 10.7-65.7 0-108.6zM286.2 404c11.1 0 20.1 9.1 20.1 20.3 0 11.3-9 20.4-20.1 20.4-11 0-20.1-9.2-20.1-20.4.1-11.3 9.1-20.3 20.1-20.3zM167.8 248.1h106.8c29.7 0 53.4-24.5 53.4-54.3V91.9c0-29-24.4-50.7-53.4-55.6-35.8-5.9-74.7-5.6-106.8.1-45.2 8-53.4 24.7-53.4 55.6v40.7h106.9v13.6h-147c-31.1 0-58.3 18.7-66.8 54.2-9.8 40.7-10.2 66.1 0 108.6 7.6 31.6 25.7 54.2 56.8 54.2H101v-48.8c0-35.3 30.5-66.4 66.8-66.4zm-6.7-142.6c-11.1 0-20.1-9.1-20.1-20.3.1-11.3 9-20.4 20.1-20.4 11 0 20.1 9.2 20.1 20.4s-9 20.3-20.1 20.3z"/></svg>
     </a>
   
 </div>
@@ -2151,10 +834,11 @@
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": ".", "features": ["navigation.expand", "navigation.sections", "navigation.top", "search.share", "toc.follow", "toc.sticky"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": {"provider": "mike", "staticVersions": [{"aliases": [], "title": "ReadTheDocs", "version": "https://sphinx-immaterial.rtfd.io"}, {"aliases": [], "title": "Github Pages", "version": "https://jbms.github.io/sphinx-immaterial"}], "versionPath": null}}</script>
+    
+    <script id="__config" type="application/json">{"base": ".", "features": ["navigation.expand", "navigation.sections", "navigation.top", "search.share", "toc.follow", "toc.sticky", "content.tabs.link", "announce.dismiss"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": {"provider": "mike", "staticVersions": [{"aliases": [], "title": "ReadTheDocs", "version": "https://sphinx-immaterial.rtfd.io"}, {"aliases": [], "title": "Github Pages", "version": "https://jbms.github.io/sphinx-immaterial"}], "versionPath": null}}</script>
     
     
-      <script src="_static/javascripts/bundle.dc1bded0.min.js"></script>
+      <script src="_static/javascripts/bundle.309d5c42.min.js"></script>
         <script src="_static/sphinx_highlight.js"></script>
     
   </body>

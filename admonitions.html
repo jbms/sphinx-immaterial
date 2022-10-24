@@ -17,12 +17,14 @@
       
     
     
-      <link rel="stylesheet" href="_static/stylesheets/main.30c392bc.min.css">
+      <link rel="stylesheet" href="_static/stylesheets/main.84570fc2.min.css">
       
         
-        <link rel="stylesheet" href="_static/stylesheets/palette.92c9fe4a.min.css">
+        <link rel="stylesheet" href="_static/stylesheets/palette.ae371752.min.css">
         
       
+      
+
     
     
     
@@ -34,10 +36,11 @@
     
         <link rel="stylesheet" type="text/css" href="_static/google_fonts.css" />
         <link rel="stylesheet" type="text/css" href="_static/extra_css.css" />
-    <script>__md_scope=new URL(".",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
+    
     
     
   </head>
@@ -69,12 +72,30 @@
     </div>
     <div data-md-component="announce">
       
+        <aside class="md-banner">
+          <div class="md-banner__inner md-grid md-typeset">
+            
+              <button class="md-banner__button md-icon" aria-label="Don't show this again">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+              </button>
+            
+            
+  <p>
+    Now includes
+    <a href="https://squidfunk.github.io/mkdocs-material/changelog/">changes from mkdocs-material theme</a>
+    v8.5.6
+  </p>
+
+          </div>
+          
+            <script>var content,el=document.querySelector("[data-md-component=announce]");el&&(content=el.querySelector(".md-typeset"),__md_hash(content.innerHTML)===__md_get("__announce")&&(el.hidden=!0))</script>
+          
+        </aside>
+      
     </div>
     
       <div data-md-component="outdated" hidden>
-        <aside class="md-banner md-banner--warning">
-          
-        </aside>
+        
       </div>
     
     
@@ -143,11 +164,11 @@
       </label>
       <nav class="md-search__options" aria-label="Search">
         
-          <a href="javascript:void(0)" class="md-search__icon md-icon" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
           </a>
         
-        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
         </button>
       </nav>
@@ -171,7 +192,7 @@
         <a href="https://github.com/jbms/sphinx-immaterial/" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
   </div>
   <div class="md-source__repository">
     Sphinx-Immaterial
@@ -215,7 +236,7 @@
       <a href="https://github.com/jbms/sphinx-immaterial/" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
   </div>
   <div class="md-source__repository">
     Sphinx-Immaterial
@@ -315,6 +336,19 @@
     <span class="md-ellipsis">Custom admonitions</span>
   </a>
   
+    <nav class="md-nav" aria-label="Custom admonitions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#changing-the-admonition-icon" class="md-nav__link">
+    <span class="md-ellipsis">Changing the Admonition Icon</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -402,7 +436,7 @@
     <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" data-md-state="indeterminate" type="checkbox" id="__nav_7" checked>
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" checked>
       
       
       
@@ -573,7 +607,7 @@
     <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8" data-md-state="indeterminate" type="checkbox" id="__nav_8" checked>
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" checked>
       
       
       
@@ -639,7 +673,7 @@
     <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_9" data-md-state="indeterminate" type="checkbox" id="__nav_9" checked>
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_9" type="checkbox" id="__nav_9" checked>
       
       
       
@@ -825,6 +859,19 @@
     <span class="md-ellipsis">Custom admonitions</span>
   </a>
   
+    <nav class="md-nav" aria-label="Custom admonitions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#changing-the-admonition-icon" class="md-nav__link">
+    <span class="md-ellipsis">Changing the Admonition Icon</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -835,17 +882,19 @@
               </div>
             
           
-          <div class="md-content" data-md-component="content">
-            <article class="md-content__inner md-typeset" role="main">
-                
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset" role="main">
+                  
+
+
   <a href="https://github.com/jbms/sphinx-immaterial/blob/main/docs/admonitions.rst" title="Edit this page" class="md-content__button md-icon">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"/></svg>
   </a>
 
-
-
-  <h1 id="admonitions">Admonitions<a class="headerlink" href="#admonitions" title="Permalink to this heading">¶</a></h1>
-<p>The theme uses the <code class="docutils literal notranslate"><span class="pre">admonition</span></code> directives for Sphinx admonitions.</p>
+<h1 id="admonitions">Admonitions<a class="headerlink" href="#admonitions" title="Permalink to this heading">¶</a></h1>
+<p>This theme uses the <a class="reference external" href="https://docutils.sourceforge.io/docs/ref/doctree.html#admonition">admonition</a> directives for Sphinx admonitions.</p>
 <h2 id="rst-and-sphinx">rST and Sphinx<a class="headerlink" href="#rst-and-sphinx" title="Permalink to this heading">¶</a></h2>
 <p>Most of the admonitions that the mkdocs-material theme supports were “borrowed” from
 admonitions defined in the reStructuredText specifications. You may recognize them from
@@ -855,19 +904,19 @@ usage in other sphinx-based themes. They are:</p>
 <div class="code-block-caption highlight"><span class="caption-text filename">
 <code class="docutils literal notranslate"><span class="pre">note</span></code>, <code class="docutils literal notranslate"><span class="pre">todo</span></code>, <code class="docutils literal notranslate"><span class="pre">seealso</span></code><a class="headerlink" href="#id1" title="Permalink to this code">¶</a></span></div>
 <div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><code><span class="p">..</span> <span class="ow">seealso</span><span class="p">::</span>
-   This admonition is specific to Sphinx directives and not defined in the rST specifications
-   as you can <span class="nv">`seealso`</span>.
+   This admonition is specific to Sphinx directives and not defined in the reStructuredText
+   specifications as you can <span class="nv">`seealso`</span>. The <span class="nv">`todo`</span> admonition is also defined by Sphinx.
 
-   <span class="s">``note``</span> and <span class="s">``todo``</span> are admonitions defined by the rST specifications.
+   The <span class="na">:dutree:</span><span class="nv">`note`</span> admonition <span class="ge">*is*</span> defined by the reStructuredText specifications.
 </code></pre></div>
 </div>
 </div>
 <div class="result docutils container">
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
-<p>This admonition is specific to Sphinx directives and not defined in the rST specifications
-as you can <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/directives.html#directive-seealso" title="(in Sphinx v6.0.0)"><code class="xref any docutils literal notranslate"><span class="pre">seealso</span></code></a>.</p>
-<p><code class="docutils literal notranslate"><span class="pre">note</span></code> and <code class="docutils literal notranslate"><span class="pre">todo</span></code> are admonitions defined by the rST specifications.</p>
+<p>This admonition is specific to Sphinx directives and not defined in the reStructuredText
+specifications as you can <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/directives.html#directive-seealso" title="(in Sphinx v6.0.0b3)"><code class="xref any docutils literal notranslate"><span class="pre">seealso</span></code></a>. The <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/extensions/todo.html#directive-todo" title="(in Sphinx v6.0.0b3)"><code class="xref any docutils literal notranslate"><span class="pre">todo</span></code></a> admonition is also defined by Sphinx.</p>
+<p>The <a class="reference external" href="https://docutils.sourceforge.io/docs/ref/doctree.html#note">note</a> admonition <em>is</em> defined by the reStructuredText specifications.</p>
 </div>
 </div>
 </div>
@@ -876,14 +925,14 @@ as you can <a class="reference external" href="https://www.sphinx-doc.org/en/mas
 <div class="code-block-caption highlight"><span class="caption-text filename">
 <code class="docutils literal notranslate"><span class="pre">tip</span></code>, <code class="docutils literal notranslate"><span class="pre">hint</span></code>, <code class="docutils literal notranslate"><span class="pre">important</span></code><a class="headerlink" href="#id2" title="Permalink to this code">¶</a></span></div>
 <div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><code><span class="p">..</span> <span class="ow">important</span><span class="p">::</span>
-   It is <span class="gs">**important**</span> to correctly use admonitions.
+   It is <span class="na">:dutree:</span><span class="nv">`important`</span> to correctly use admonitions.
 </code></pre></div>
 </div>
 </div>
 <div class="result docutils container">
 <div class="admonition important">
 <p class="admonition-title">Important</p>
-<p>It is <strong>important</strong> to correctly use admonitions.</p>
+<p>It is <a class="reference external" href="https://docutils.sourceforge.io/docs/ref/doctree.html#important">important</a> to correctly use admonitions.</p>
 </div>
 </div>
 </div>
@@ -892,14 +941,14 @@ as you can <a class="reference external" href="https://www.sphinx-doc.org/en/mas
 <div class="code-block-caption highlight"><span class="caption-text filename">
 <code class="docutils literal notranslate"><span class="pre">attention</span></code>, <code class="docutils literal notranslate"><span class="pre">caution</span></code>, <code class="docutils literal notranslate"><span class="pre">warning</span></code><a class="headerlink" href="#id3" title="Permalink to this code">¶</a></span></div>
 <div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><code><span class="p">..</span> <span class="ow">warning</span><span class="p">::</span>
-   This is a <span class="gs">**warning**</span>.
+   This is a <span class="na">:dutree:</span><span class="nv">`warning`</span>.
 </code></pre></div>
 </div>
 </div>
 <div class="result docutils container">
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>This is a <strong>warning</strong>.</p>
+<p>This is a <a class="reference external" href="https://docutils.sourceforge.io/docs/ref/doctree.html#warning">warning</a>.</p>
 </div>
 </div>
 </div>
@@ -908,89 +957,89 @@ as you can <a class="reference external" href="https://www.sphinx-doc.org/en/mas
 <div class="code-block-caption highlight"><span class="caption-text filename">
 <code class="docutils literal notranslate"><span class="pre">danger</span></code>, <code class="docutils literal notranslate"><span class="pre">error</span></code><a class="headerlink" href="#id4" title="Permalink to this code">¶</a></span></div>
 <div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><code><span class="p">..</span> <span class="ow">error</span><span class="p">::</span>
-   You have made a grave <span class="gs">**error**</span>.
+   You have made a grave <span class="na">:dutree:</span><span class="nv">`error`</span>.
 </code></pre></div>
 </div>
 </div>
 <div class="result docutils container">
 <div class="admonition error">
 <p class="admonition-title">Error</p>
-<p>You have made a grave <strong>error</strong>.</p>
+<p>You have made a grave <a class="reference external" href="https://docutils.sourceforge.io/docs/ref/doctree.html#error">error</a>.</p>
 </div>
 </div>
 </div>
 <h2 id="admonitions-from-mkdocs-material">Admonitions from mkdocs-material<a class="headerlink" href="#admonitions-from-mkdocs-material" title="Permalink to this heading">¶</a></h2>
 <p>Some additional admonitions are supported via the source code from the mkdocs-material theme.
 These admonitions can still be used, but the syntax is a little different because it relies
-on the generic admonition defined in the reStructuredText specifications.</p>
+on the generic <a class="reference external" href="https://docutils.sourceforge.io/docs/ref/doctree.html#admonition">admonition</a> defined in the reStructuredText specifications.</p>
 <p>To use the following admonitions’ styles from the mkdocs-material theme, the rST syntax is
-shown to demonstrate using the <code class="docutils literal notranslate"><span class="pre">:class:</span></code> option of generic admonitions.</p>
+shown to demonstrate using the <code class="code highlight rst docutils literal highlight-rst"><span class="nc">:class:</span></code> option of generic admonitions.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">:class:</span></code> options below (in the rST code blocks) must use lower case letters for the
-styling to work. Otherwise, the admonition will look like a <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/directives.html#directive-note" title="(in Sphinx v6.0.0)"><code class="xref any docutils literal notranslate"><span class="pre">note</span></code></a> (as that is the
+<p>The <code class="code highlight rst docutils literal highlight-rst"><span class="nc">:class:</span></code> options below (in the rST code blocks) must use lower case letters for the
+styling to work. Otherwise, the admonition will look like a <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/directives.html#directive-note" title="(in Sphinx v6.0.0b3)"><code class="xref any docutils literal notranslate"><span class="pre">note</span></code></a> (as that is the
 default fallback style).</p>
 </div>
 <div class="results docutils container">
 <div class="literal-block-wrapper docutils container" id="id5">
 <div class="code-block-caption highlight"><span class="caption-text filename">
-<code class="docutils literal notranslate"><span class="pre">todo</span></code>, <code class="docutils literal notranslate"><span class="pre">info</span></code><a class="headerlink" href="#id5" title="Permalink to this code">¶</a></span></div>
+<code class="code highlight css docutils literal highlight-css"><span class="nt">todo</span><span class="w"></span></code>, <code class="code highlight css docutils literal highlight-css"><span class="nt">info</span><span class="w"></span></code><a class="headerlink" href="#id5" title="Permalink to this code">¶</a></span></div>
 <div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><code><span class="p">..</span> <span class="ow">admonition</span><span class="p">::</span> Info
    <span class="nc">:class:</span> info
 
-   Thanks to the mkdocs-material theme, the <span class="s">``todo``</span> class is also an alias of the
-   <span class="s">``info``</span> class when not using the <span class="nv">`.. todo:: &lt;todo&gt;`</span> directive.
+   Thanks to the mkdocs-material theme, the <span class="na">:css:</span><span class="nv">`todo`</span> class is also an alias of
+   the <span class="na">:css:</span><span class="nv">`info`</span> class when not using the <span class="nv">`todo`</span> directive.
 </code></pre></div>
 </div>
 </div>
 <div class="result docutils container">
 <div class="info admonition">
 <p class="admonition-title">Info</p>
-<p>Thanks to the mkdocs-material theme, the <code class="docutils literal notranslate"><span class="pre">todo</span></code> class is also an alias of the
-<code class="docutils literal notranslate"><span class="pre">info</span></code> class when not using the <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/extensions/todo.html#directive-todo" title="(in Sphinx v6.0.0)"><code class="xref any docutils literal notranslate"><span class="pre">..</span> <span class="pre">todo::</span></code></a> directive.</p>
+<p>Thanks to the mkdocs-material theme, the <code class="code highlight css docutils literal highlight-css"><span class="nt">todo</span><span class="w"></span></code> class is also an alias of
+the <code class="code highlight css docutils literal highlight-css"><span class="nt">info</span><span class="w"></span></code> class when not using the <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/extensions/todo.html#directive-todo" title="(in Sphinx v6.0.0b3)"><code class="xref any docutils literal notranslate"><span class="pre">todo</span></code></a> directive.</p>
 </div>
 </div>
 </div>
 <div class="results docutils container">
 <div class="literal-block-wrapper docutils container" id="id6">
 <div class="code-block-caption highlight"><span class="caption-text filename">
-<code class="docutils literal notranslate"><span class="pre">abstract</span></code>, <code class="docutils literal notranslate"><span class="pre">summary</span></code>, <code class="docutils literal notranslate"><span class="pre">tldr</span></code><a class="headerlink" href="#id6" title="Permalink to this code">¶</a></span></div>
+<code class="code highlight css docutils literal highlight-css"><span class="nt">abstract</span><span class="w"></span></code>, <code class="code highlight css docutils literal highlight-css"><span class="nt">summary</span><span class="w"></span></code>, <code class="code highlight css docutils literal highlight-css"><span class="nt">tldr</span><span class="w"></span></code><a class="headerlink" href="#id6" title="Permalink to this code">¶</a></span></div>
 <div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><code><span class="p">..</span> <span class="ow">admonition</span><span class="p">::</span> TL;DR
    <span class="nc">:class:</span> tldr
 
-   The <span class="s">``:class: tldr``</span> part is important.
+   The <span class="na">:rst:</span><span class="nv">`:class: tldr`</span> part is important.
 </code></pre></div>
 </div>
 </div>
 <div class="result docutils container">
 <div class="tldr admonition">
 <p class="admonition-title">TL;DR</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">:class:</span> <span class="pre">tldr</span></code> part is important.</p>
+<p>The <code class="code highlight rst docutils literal highlight-rst"><span class="nc">:class:</span> tldr</code> part is important.</p>
 </div>
 </div>
 </div>
 <div class="results docutils container">
 <div class="literal-block-wrapper docutils container" id="id7">
 <div class="code-block-caption highlight"><span class="caption-text filename">
-<code class="docutils literal notranslate"><span class="pre">success</span></code>, <code class="docutils literal notranslate"><span class="pre">check</span></code>, <code class="docutils literal notranslate"><span class="pre">done</span></code><a class="headerlink" href="#id7" title="Permalink to this code">¶</a></span></div>
+<code class="code highlight css docutils literal highlight-css"><span class="nt">success</span><span class="w"></span></code>, <code class="code highlight css docutils literal highlight-css"><span class="nt">check</span><span class="w"></span></code>, <code class="code highlight css docutils literal highlight-css"><span class="nt">done</span><span class="w"></span></code><a class="headerlink" href="#id7" title="Permalink to this code">¶</a></span></div>
 <div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><code><span class="p">..</span> <span class="ow">admonition</span><span class="p">::</span> Accomplished
    <span class="nc">:class:</span> done
 
-   This style is used for <span class="s">``success``</span>, <span class="s">``check``</span>, <span class="s">``done``</span> CSS classes.
+   This style is used for <span class="na">:css:</span><span class="nv">`success`</span>, <span class="na">:css:</span><span class="nv">`check`</span>, <span class="na">:css:</span><span class="nv">`done`</span> CSS classes.
 </code></pre></div>
 </div>
 </div>
 <div class="result docutils container">
 <div class="done admonition">
 <p class="admonition-title">Accomplished</p>
-<p>This style is used for <code class="docutils literal notranslate"><span class="pre">success</span></code>, <code class="docutils literal notranslate"><span class="pre">check</span></code>, <code class="docutils literal notranslate"><span class="pre">done</span></code> CSS classes.</p>
+<p>This style is used for <code class="code highlight css docutils literal highlight-css"><span class="nt">success</span><span class="w"></span></code>, <code class="code highlight css docutils literal highlight-css"><span class="nt">check</span><span class="w"></span></code>, <code class="code highlight css docutils literal highlight-css"><span class="nt">done</span><span class="w"></span></code> CSS classes.</p>
 </div>
 </div>
 </div>
 <div class="results docutils container">
 <div class="literal-block-wrapper docutils container" id="id8">
 <div class="code-block-caption highlight"><span class="caption-text filename">
-<code class="docutils literal notranslate"><span class="pre">question</span></code>, <code class="docutils literal notranslate"><span class="pre">help</span></code>, <code class="docutils literal notranslate"><span class="pre">faq</span></code><a class="headerlink" href="#id8" title="Permalink to this code">¶</a></span></div>
+<code class="code highlight css docutils literal highlight-css"><span class="nt">question</span><span class="w"></span></code>, <code class="code highlight css docutils literal highlight-css"><span class="nt">help</span><span class="w"></span></code>, <code class="code highlight css docutils literal highlight-css"><span class="nt">faq</span><span class="w"></span></code><a class="headerlink" href="#id8" title="Permalink to this code">¶</a></span></div>
 <div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><code><span class="p">..</span> <span class="ow">admonition</span><span class="p">::</span> FAQ
    <span class="nc">:class:</span> faq
 
@@ -1008,7 +1057,7 @@ default fallback style).</p>
 <div class="results docutils container">
 <div class="literal-block-wrapper docutils container" id="id9">
 <div class="code-block-caption highlight"><span class="caption-text filename">
-<code class="docutils literal notranslate"><span class="pre">failure</span></code>, <code class="docutils literal notranslate"><span class="pre">fail</span></code>, <code class="docutils literal notranslate"><span class="pre">missing</span></code><a class="headerlink" href="#id9" title="Permalink to this code">¶</a></span></div>
+<code class="code highlight css docutils literal highlight-css"><span class="nt">failure</span><span class="w"></span></code>, <code class="code highlight css docutils literal highlight-css"><span class="nt">fail</span><span class="w"></span></code>, <code class="code highlight css docutils literal highlight-css"><span class="nt">missing</span><span class="w"></span></code><a class="headerlink" href="#id9" title="Permalink to this code">¶</a></span></div>
 <div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><code><span class="p">..</span> <span class="ow">admonition</span><span class="p">::</span> Something Missing
    <span class="nc">:class:</span> missing
 
@@ -1026,7 +1075,7 @@ default fallback style).</p>
 <div class="results docutils container">
 <div class="literal-block-wrapper docutils container" id="id10">
 <div class="code-block-caption highlight"><span class="caption-text filename">
-<code class="docutils literal notranslate"><span class="pre">bug</span></code><a class="headerlink" href="#id10" title="Permalink to this code">¶</a></span></div>
+<code class="code highlight css docutils literal highlight-css"><span class="nt">bug</span><span class="w"></span></code><a class="headerlink" href="#id10" title="Permalink to this code">¶</a></span></div>
 <div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><code><span class="p">..</span> <span class="ow">admonition</span><span class="p">::</span> Known Bug
    <span class="nc">:class:</span> bug
 
@@ -1044,7 +1093,7 @@ default fallback style).</p>
 <div class="results docutils container">
 <div class="literal-block-wrapper docutils container" id="id11">
 <div class="code-block-caption highlight"><span class="caption-text filename">
-<code class="docutils literal notranslate"><span class="pre">example</span></code><a class="headerlink" href="#id11" title="Permalink to this code">¶</a></span></div>
+<code class="code highlight css docutils literal highlight-css"><span class="nt">example</span><span class="w"></span></code><a class="headerlink" href="#id11" title="Permalink to this code">¶</a></span></div>
 <div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><code><span class="p">..</span> <span class="ow">admonition</span><span class="p">::</span> Example Admonition
    <span class="nc">:class:</span> example
 
@@ -1062,7 +1111,7 @@ default fallback style).</p>
 <div class="results docutils container">
 <div class="literal-block-wrapper docutils container" id="id12">
 <div class="code-block-caption highlight"><span class="caption-text filename">
-<code class="docutils literal notranslate"><span class="pre">cite</span></code>, <code class="docutils literal notranslate"><span class="pre">quote</span></code><a class="headerlink" href="#id12" title="Permalink to this code">¶</a></span></div>
+<code class="code highlight css docutils literal highlight-css"><span class="nt">cite</span><span class="w"></span></code>, <code class="code highlight css docutils literal highlight-css"><span class="nt">quote</span><span class="w"></span></code><a class="headerlink" href="#id12" title="Permalink to this code">¶</a></span></div>
 <div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><code><span class="p">..</span> <span class="ow">admonition</span><span class="p">::</span> Unknown Quote
    <span class="nc">:class:</span> quote
 
@@ -1086,33 +1135,33 @@ to get similar results.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="n">extensions</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;sphinx_immaterial&quot;</span><span class="p">,</span> <span class="s2">&quot;sphinxcontrib.details.directive&quot;</span><span class="p">]</span>
 </code></pre></div>
 </div>
-<p>If the <code class="docutils literal notranslate"><span class="pre">:class:</span></code> option is not supplied to the <code class="docutils literal notranslate"><span class="pre">details</span></code> directive then the admonition
-style falls back to a <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/directives.html#directive-note" title="(in Sphinx v6.0.0)"><code class="xref any docutils literal notranslate"><span class="pre">note</span></code></a> admonition style.</p>
+<p>If the <code class="code highlight rst docutils literal highlight-rst"><span class="nc">:class:</span></code> option is not supplied to the <code class="docutils literal notranslate"><span class="pre">details</span></code> directive then the admonition
+style falls back to a <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/directives.html#directive-note" title="(in Sphinx v6.0.0b3)"><code class="xref any docutils literal notranslate"><span class="pre">note</span></code></a> admonition style.</p>
 <div class="results docutils container">
 <div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><code><span class="p">..</span> <span class="ow">details</span><span class="p">::</span> Open by default
    <span class="nc">:class:</span> example
    <span class="nc">:open:</span>
 
-   Use the <span class="s">``:open:``</span> option as a flag to expand the admonition by default.
+   Use the <span class="na">:rst:</span><span class="nv">`:open:`</span> option as a flag to expand the admonition by default.
 </code></pre></div>
 </div>
 <div class="result docutils container">
 <details class="example" open="open">
 <summary>
-Open by default</summary><p>Use the <code class="docutils literal notranslate"><span class="pre">:open:</span></code> option as a flag to expand the admonition by default.</p>
+Open by default</summary><p>Use the <code class="code highlight rst docutils literal highlight-rst"><span class="nc">:open:</span></code> option as a flag to expand the admonition by default.</p>
 </details></div>
 </div>
 <div class="results docutils container">
 <div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><code><span class="p">..</span> <span class="ow">details</span><span class="p">::</span> Closed by default
    <span class="nc">:class:</span> help
 
-   Without the <span class="s">``:open:``</span> flag, the admonition is collapsed by default.
+   Without the <span class="na">:rst:</span><span class="nv">`:open:`</span> flag, the admonition is collapsed by default.
 </code></pre></div>
 </div>
 <div class="result docutils container">
 <details class="help">
 <summary>
-Closed by default</summary><p>Without the <code class="docutils literal notranslate"><span class="pre">:open:</span></code> flag, the admonition is collapsed by default.</p>
+Closed by default</summary><p>Without the <code class="code highlight rst docutils literal highlight-rst"><span class="nc">:open:</span></code> flag, the admonition is collapsed by default.</p>
 </details></div>
 </div>
 <h2 id="removing-the-title">Removing the title<a class="headerlink" href="#removing-the-title" title="Permalink to this heading">¶</a></h2>
@@ -1120,17 +1169,17 @@ Closed by default</summary><p>Without the <code class="docutils literal notransl
 from an admonition, this theme has an added directive to do just that: <code class="docutils literal notranslate"><span class="pre">md-admonition</span></code>.</p>
 <p>The admonition’s title can be removed if the <code class="docutils literal notranslate"><span class="pre">md-admonition</span></code> directive is not provided
 any arguments. Because the <code class="docutils literal notranslate"><span class="pre">md-admonition</span></code> directive is an adaptation of the generic
-<code class="docutils literal notranslate"><span class="pre">admonition</span></code> directive, the <code class="docutils literal notranslate"><span class="pre">class</span></code> option is still respected.</p>
+<a class="reference external" href="https://docutils.sourceforge.io/docs/ref/doctree.html#admonition">admonition</a> directive, the <code class="code highlight rst docutils literal highlight-rst"><span class="nc">:class:</span></code> option is still respected.</p>
 <div class="results docutils container">
 <div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><code><span class="p">..</span> <span class="ow">md-admonition</span><span class="p">::</span>
    <span class="nc">:class:</span> error
 
-   This example uses the styling of the <span class="s">``error``</span> admonition
+   This example uses the styling of the <span class="na">:css:</span><span class="nv">`error`</span> admonition
 </code></pre></div>
 </div>
 <div class="result docutils container">
 <div class="error admonition">
-<p>This example uses the styling of the <code class="docutils literal notranslate"><span class="pre">error</span></code> admonition</p>
+<p>This example uses the styling of the <code class="code highlight css docutils literal highlight-css"><span class="nt">error</span><span class="w"></span></code> admonition</p>
 </div>
 </div>
 </div>
@@ -1138,20 +1187,20 @@ any arguments. Because the <code class="docutils literal notranslate"><span clas
 <div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><code><span class="p">..</span> <span class="ow">md-admonition</span><span class="p">::</span> Using a title
    <span class="nc">:class:</span> help
 
-   This example uses the styling of the <span class="s">``help``</span> admonition
+   This example uses the styling of the <span class="na">:css:</span><span class="nv">`help`</span> admonition
 </code></pre></div>
 </div>
 <div class="result docutils container">
 <div class="help admonition">
 <p class="admonition-title">Using a title</p>
-<p>This example uses the styling of the <code class="docutils literal notranslate"><span class="pre">help</span></code> admonition</p>
+<p>This example uses the styling of the <code class="code highlight css docutils literal highlight-css"><span class="nt">help</span><span class="w"></span></code> admonition</p>
 </div>
 </div>
 </div>
 <div class="admonition hint">
 <p class="admonition-title">Hint</p>
-<p>You can use the <code class="docutils literal notranslate"><span class="pre">md-admonition</span></code> directive in other themes by adding the theme’s module to your
-<code class="docutils literal notranslate"><span class="pre">extensions</span></code> list in <em>conf.py</em></p>
+<p>You can use the <code class="docutils literal notranslate"><span class="pre">md-admonition</span></code> directive in other Sphinx themes by adding the theme’s module to
+your <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/configuration.html#confval-extensions" title="(in Sphinx v6.0.0b3)"><code class="xref any docutils literal notranslate"><span class="pre">extensions</span></code></a> list in <em>conf.py</em></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="n">extensions</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;sphinx_immaterial.md_admonition&quot;</span><span class="p">]</span>
 </code></pre></div>
 </div>
@@ -1226,25 +1275,109 @@ docs/conf.py<a class="headerlink" href="#id15" title="Permalink to this code">¶
 </div>
 </div>
 </div>
+</div><h3 id="changing-the-admonition-icon"><span id="change-admonition-icon"></span>Changing the Admonition Icon<a class="headerlink" href="#changing-the-admonition-icon" title="Permalink to this heading">¶</a></h3>
+<p>Any of the above builtin admonitions’ icons can be changed using the
+<a class="reference internal" href="customization.html#themeconf-icon" title="icon (theme configuration option) — The icon that represents the source code repository can be changed using the icon[repo] field in the html_theme_options settings."><code class="xref std std-themeconf docutils literal notranslate"><span class="pre">icon</span></code></a>[<a class="reference internal" href="customization.html#themeconf-admonition" title="admonition (theme configuration option) — The default icons for admonitions can be changed by setting this field to a dict in which the keys are CSS classes (see admonitions) and the values are any of the icons bundled with this theme."><code class="xref std std-themeconf docutils literal notranslate"><span class="pre">admonition</span></code></a>] field in <a class="reference internal" href="customization.html#confval-html_theme_options" title="html_theme_options (configuration value) — This theme is configured using a html_theme_options dict in the conf.py file."><code class="xref std std-confval docutils literal notranslate"><span class="pre">html_theme_options</span></code></a> settings.</p>
+<div class="literal-block-wrapper docutils container" id="id16">
+<div class="code-block-caption highlight"><span class="caption-text filename">
+Changing the <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/directives.html#directive-note" title="(in Sphinx v6.0.0b3)"><code class="xref any docutils literal notranslate"><span class="pre">note</span></code></a> icon in conf.py<a class="headerlink" href="#id16" title="Permalink to this code">¶</a></span></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="n">html_theme_options</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;icon&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;admonition&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;note&quot;</span><span class="p">:</span> <span class="s2">&quot;material/file-document-outline&quot;</span><span class="p">,</span>
+        <span class="p">},</span>
+    <span class="p">},</span>
+<span class="p">}</span>
+</code></pre></div>
 </div>
-
+</div>
+<div class="missing admonition">
+<p class="admonition-title"><code class="docutils literal notranslate"><span class="pre">seealso</span></code> uses the <code class="docutils literal notranslate"><span class="pre">note</span></code> icon</p>
+<p>The <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/directives.html#directive-seealso" title="(in Sphinx v6.0.0b3)"><code class="xref any docutils literal notranslate"><span class="pre">seealso</span></code></a> admonition (which is specific to Sphinx - not reStructuredText) will use the same
+icon set for the <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/directives.html#directive-note" title="(in Sphinx v6.0.0b3)"><code class="xref any docutils literal notranslate"><span class="pre">note</span></code></a> admonition. If you want to override the icon for the <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/directives.html#directive-seealso" title="(in Sphinx v6.0.0b3)"><code class="xref any docutils literal notranslate"><span class="pre">seealso</span></code></a>
+admonition, then use the tactic shown in the <a class="reference internal" href="#custom-admonitions">Custom admonitions</a> section (with regard to
+only the icon changes in CSS).</p>
+</div>
+<details class="example">
+<summary>
+Alternate icon sets</summary><p>Here’s some recipes for use in conf.py</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2">
+<input checked type="radio" id="__tabbed_2_1" name="__tabbed_2"><input type="radio" id="__tabbed_2_2" name="__tabbed_2"><div class="tabbed-labels docutils container">
+<label class="tabbed-label" for="__tabbed_2_1">
+Octicons</label><label class="tabbed-label" for="__tabbed_2_2">
+FontAwesome</label></div>
+<div class="tabbed-content docutils container">
+<div class="tabbed-block docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="n">html_theme_options</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;icon&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;admonition&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;note&quot;</span><span class="p">:</span> <span class="s2">&quot;octicons/tag-16&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;abstract&quot;</span><span class="p">:</span> <span class="s2">&quot;octicons/checklist-16&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;info&quot;</span><span class="p">:</span> <span class="s2">&quot;octicons/info-16&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;tip&quot;</span><span class="p">:</span> <span class="s2">&quot;octicons/squirrel-16&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;success&quot;</span><span class="p">:</span> <span class="s2">&quot;octicons/check-16&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;question&quot;</span><span class="p">:</span> <span class="s2">&quot;octicons/question-16&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;warning&quot;</span><span class="p">:</span> <span class="s2">&quot;octicons/alert-16&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;failure&quot;</span><span class="p">:</span> <span class="s2">&quot;octicons/x-circle-16&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;danger&quot;</span><span class="p">:</span> <span class="s2">&quot;octicons/zap-16&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;bug&quot;</span><span class="p">:</span> <span class="s2">&quot;octicons/bug-16&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;example&quot;</span><span class="p">:</span> <span class="s2">&quot;octicons/beaker-16&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;quote&quot;</span><span class="p">:</span> <span class="s2">&quot;octicons/quote-16&quot;</span><span class="p">,</span>
+        <span class="p">},</span>
+    <span class="p">},</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+</div>
+<div class="tabbed-block docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="n">html_theme_options</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;icon&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;admonition&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;note&quot;</span><span class="p">:</span> <span class="s2">&quot;fontawesome/solid/note-sticky&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;abstract&quot;</span><span class="p">:</span> <span class="s2">&quot;fontawesome/solid/book&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;info&quot;</span><span class="p">:</span> <span class="s2">&quot;fontawesome/solid/circle-info&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;tip&quot;</span><span class="p">:</span> <span class="s2">&quot;fontawesome/solid/bullhorn&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;success&quot;</span><span class="p">:</span> <span class="s2">&quot;fontawesome/solid/check&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;question&quot;</span><span class="p">:</span> <span class="s2">&quot;fontawesome/solid/circle-question&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;warning&quot;</span><span class="p">:</span> <span class="s2">&quot;fontawesome/solid/triangle-exclamation&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;failure&quot;</span><span class="p">:</span> <span class="s2">&quot;fontawesome/solid/bomb&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;danger&quot;</span><span class="p">:</span> <span class="s2">&quot;fontawesome/solid/skull&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;bug&quot;</span><span class="p">:</span> <span class="s2">&quot;fontawesome/solid/robot&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;example&quot;</span><span class="p">:</span> <span class="s2">&quot;fontawesome/solid/flask&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;quote&quot;</span><span class="p">:</span> <span class="s2">&quot;fontawesome/solid/quote-left&quot;</span><span class="p">,</span>
+        <span class="p">},</span>
+    <span class="p">},</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+</div></details>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      Sep 30, 2022
+      Oct 24, 2022
     
   </small>
 </div>
 
-              
-            </article>
-          </div>
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var tab,labels=set.querySelector(".tabbed-labels");for(tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
         </div>
         
-          <a href="#" class="md-top md-icon" data-md-component="top" data-md-state="hidden">
+          <a href="#" class="md-top md-icon" data-md-component="top" hidden>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
             Back to top
           </a>
@@ -1253,7 +1386,8 @@ docs/conf.py<a class="headerlink" href="#id15" title="Permalink to this code">¶
       
         <footer class="md-footer">
   
-    <nav class="md-footer__inner md-grid" aria-label="Footer">
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
       
         
         <a href="customization.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Customization" rel="prev">
@@ -1302,7 +1436,7 @@ docs/conf.py<a class="headerlink" href="#id15" title="Permalink to this code">¶
   
     Created using
     <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
-    5.2.2.
+    5.3.0.
      and
     <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
   
@@ -1316,7 +1450,7 @@ docs/conf.py<a class="headerlink" href="#id15" title="Permalink to this code">¶
       
     
     <a href="https://github.com/jbms/sphinx-immaterial" target="_blank" rel="noopener" title="github.com" class="md-social__link">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
     </a>
   
     
@@ -1325,7 +1459,7 @@ docs/conf.py<a class="headerlink" href="#id15" title="Permalink to this code">¶
       
     
     <a href="https://pypi.org/project/sphinx-immaterial/" target="_blank" rel="noopener" title="pypi.org" class="md-social__link">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.8 200.5c-7.7-30.9-22.3-54.2-53.4-54.2h-40.1v47.4c0 36.8-31.2 67.8-66.8 67.8H172.7c-29.2 0-53.4 25-53.4 54.3v101.8c0 29 25.2 46 53.4 54.3 33.8 9.9 66.3 11.7 106.8 0 26.9-7.8 53.4-23.5 53.4-54.3v-40.7H226.2v-13.6h160.2c31.1 0 42.6-21.7 53.4-54.2 11.2-33.5 10.7-65.7 0-108.6zM286.2 404c11.1 0 20.1 9.1 20.1 20.3 0 11.3-9 20.4-20.1 20.4-11 0-20.1-9.2-20.1-20.4.1-11.3 9.1-20.3 20.1-20.3zM167.8 248.1h106.8c29.7 0 53.4-24.5 53.4-54.3V91.9c0-29-24.4-50.7-53.4-55.6-35.8-5.9-74.7-5.6-106.8.1-45.2 8-53.4 24.7-53.4 55.6v40.7h106.9v13.6h-147c-31.1 0-58.3 18.7-66.8 54.2-9.8 40.7-10.2 66.1 0 108.6 7.6 31.6 25.7 54.2 56.8 54.2H101v-48.8c0-35.3 30.5-66.4 66.8-66.4zm-6.7-142.6c-11.1 0-20.1-9.1-20.1-20.3.1-11.3 9-20.4 20.1-20.4 11 0 20.1 9.2 20.1 20.4s-9 20.3-20.1 20.3z"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.8 200.5c-7.7-30.9-22.3-54.2-53.4-54.2h-40.1v47.4c0 36.8-31.2 67.8-66.8 67.8H172.7c-29.2 0-53.4 25-53.4 54.3v101.8c0 29 25.2 46 53.4 54.3 33.8 9.9 66.3 11.7 106.8 0 26.9-7.8 53.4-23.5 53.4-54.3v-40.7H226.2v-13.6h160.2c31.1 0 42.6-21.7 53.4-54.2 11.2-33.5 10.7-65.7 0-108.6zM286.2 404c11.1 0 20.1 9.1 20.1 20.3 0 11.3-9 20.4-20.1 20.4-11 0-20.1-9.2-20.1-20.4.1-11.3 9.1-20.3 20.1-20.3zM167.8 248.1h106.8c29.7 0 53.4-24.5 53.4-54.3V91.9c0-29-24.4-50.7-53.4-55.6-35.8-5.9-74.7-5.6-106.8.1-45.2 8-53.4 24.7-53.4 55.6v40.7h106.9v13.6h-147c-31.1 0-58.3 18.7-66.8 54.2-9.8 40.7-10.2 66.1 0 108.6 7.6 31.6 25.7 54.2 56.8 54.2H101v-48.8c0-35.3 30.5-66.4 66.8-66.4zm-6.7-142.6c-11.1 0-20.1-9.1-20.1-20.3.1-11.3 9-20.4 20.1-20.4 11 0 20.1 9.2 20.1 20.4s-9 20.3-20.1 20.3z"/></svg>
     </a>
   
 </div>
@@ -1339,10 +1473,11 @@ docs/conf.py<a class="headerlink" href="#id15" title="Permalink to this code">¶
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": ".", "features": ["navigation.expand", "navigation.sections", "navigation.top", "search.share", "toc.follow", "toc.sticky"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": {"provider": "mike", "staticVersions": [{"aliases": [], "title": "ReadTheDocs", "version": "https://sphinx-immaterial.rtfd.io"}, {"aliases": [], "title": "Github Pages", "version": "https://jbms.github.io/sphinx-immaterial"}], "versionPath": null}}</script>
+    
+    <script id="__config" type="application/json">{"base": ".", "features": ["navigation.expand", "navigation.sections", "navigation.top", "search.share", "toc.follow", "toc.sticky", "content.tabs.link", "announce.dismiss"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": {"provider": "mike", "staticVersions": [{"aliases": [], "title": "ReadTheDocs", "version": "https://sphinx-immaterial.rtfd.io"}, {"aliases": [], "title": "Github Pages", "version": "https://jbms.github.io/sphinx-immaterial"}], "versionPath": null}}</script>
     
     
-      <script src="_static/javascripts/bundle.dc1bded0.min.js"></script>
+      <script src="_static/javascripts/bundle.309d5c42.min.js"></script>
         <script src="_static/sphinx_highlight.js"></script>
     
   </body>

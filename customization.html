@@ -17,12 +17,14 @@
       
     
     
-      <link rel="stylesheet" href="_static/stylesheets/main.30c392bc.min.css">
+      <link rel="stylesheet" href="_static/stylesheets/main.84570fc2.min.css">
       
         
-        <link rel="stylesheet" href="_static/stylesheets/palette.92c9fe4a.min.css">
+        <link rel="stylesheet" href="_static/stylesheets/palette.ae371752.min.css">
         
       
+      
+
     
     
     
@@ -34,10 +36,11 @@
     
         <link rel="stylesheet" type="text/css" href="_static/google_fonts.css" />
         <link rel="stylesheet" type="text/css" href="_static/extra_css.css" />
-    <script>__md_scope=new URL(".",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
+    
     
     
   </head>
@@ -69,12 +72,30 @@
     </div>
     <div data-md-component="announce">
       
+        <aside class="md-banner">
+          <div class="md-banner__inner md-grid md-typeset">
+            
+              <button class="md-banner__button md-icon" aria-label="Don't show this again">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+              </button>
+            
+            
+  <p>
+    Now includes
+    <a href="https://squidfunk.github.io/mkdocs-material/changelog/">changes from mkdocs-material theme</a>
+    v8.5.6
+  </p>
+
+          </div>
+          
+            <script>var content,el=document.querySelector("[data-md-component=announce]");el&&(content=el.querySelector(".md-typeset"),__md_hash(content.innerHTML)===__md_get("__announce")&&(el.hidden=!0))</script>
+          
+        </aside>
+      
     </div>
     
       <div data-md-component="outdated" hidden>
-        <aside class="md-banner md-banner--warning">
-          
-        </aside>
+        
       </div>
     
     
@@ -143,11 +164,11 @@
       </label>
       <nav class="md-search__options" aria-label="Search">
         
-          <a href="javascript:void(0)" class="md-search__icon md-icon" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
           </a>
         
-        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
         </button>
       </nav>
@@ -171,7 +192,7 @@
         <a href="https://github.com/jbms/sphinx-immaterial/" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
   </div>
   <div class="md-source__repository">
     Sphinx-Immaterial
@@ -222,7 +243,7 @@
       <a href="https://github.com/jbms/sphinx-immaterial/" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
   </div>
   <div class="md-source__repository">
     Sphinx-Immaterial
@@ -309,6 +330,20 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#themeconf-hide-footer" class="md-nav__link">
+    <span aria-label="theme configuration option" class="objinfo-icon objinfo-icon__data" title="theme configuration option">T</span><span title="hide-footer (theme configuration option) — If specified, hides the current page&#39;s footer (specifically the part containing the &#34;Previous&#34; and &#34;Next&#34; links)." class="md-ellipsis">hide-<wbr>footer</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#themeconf-hide-feedback" class="md-nav__link">
+    <span aria-label="theme configuration option" class="objinfo-icon objinfo-icon__data" title="theme configuration option">T</span><span title="hide-feedback (theme configuration option) — If specified, hides the user feedback buttons at the bottom of the current page." class="md-ellipsis">hide-<wbr>feedback</span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -366,9 +401,36 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#themeconf-icon-repo" class="md-nav__link">
-    <span aria-label="theme configuration option" class="objinfo-icon objinfo-icon__data" title="theme configuration option">T</span><span title="icon[&#34;repo&#34;] (theme configuration option) — The icon that represents the source code repository can be changed using the repo field of the icon dict (within the html_theme_options dict)." class="md-ellipsis">icon<wbr>[&#34;repo&#34;]</span>
+  <a href="#themeconf-icon" class="md-nav__link">
+    <span aria-label="theme configuration option" class="objinfo-icon objinfo-icon__data" title="theme configuration option">T</span><span title="icon (theme configuration option) — The icon that represents the source code repository can be changed using the icon[repo] field in the html_theme_options settings." class="md-ellipsis">icon</span>
   </a>
+  
+    <nav class="md-nav" aria-label="icon">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#themeconf-repo" class="md-nav__link">
+    <span aria-label="theme configuration option" class="objinfo-icon objinfo-icon__data" title="theme configuration option">T</span><span title="repo (theme configuration option) — The icon that represents the source code repository can be changed using the icon[repo] field in the html_theme_options settings." class="md-ellipsis">repo</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#themeconf-admonition" class="md-nav__link">
+    <span aria-label="theme configuration option" class="objinfo-icon objinfo-icon__data" title="theme configuration option">T</span><span title="admonition (theme configuration option) — The default icons for admonitions can be changed by setting this field to a dict in which the keys are CSS classes (see admonitions) and the values are any of the icons bundled with this theme." class="md-ellipsis">admonition</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#themeconf-edit" class="md-nav__link">
+    <span aria-label="theme configuration option" class="objinfo-icon objinfo-icon__data" title="theme configuration option">T</span><span title="edit (theme configuration option) — The icon used for the generated &#34;edit this page&#34; button at the top of the document. This is only used if edit_uri is configured and when not explicitly hidden using hide-edit-link." class="md-ellipsis">edit</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -450,8 +512,21 @@
         
           <li class="md-nav__item">
   <a href="#themeconf-analytics" class="md-nav__link">
-    <span aria-label="theme configuration option" class="objinfo-icon objinfo-icon__data" title="theme configuration option">T</span><span title="analytics (theme configuration option) — Set to enable site analytics." class="md-ellipsis">analytics</span>
+    <span aria-label="theme configuration option" class="objinfo-icon objinfo-icon__data" title="theme configuration option">T</span><span title="analytics (theme configuration option) — To enable site analytics, a provider and property fields must be specified in this dict." class="md-ellipsis">analytics</span>
   </a>
+  
+    <nav class="md-nav" aria-label="analytics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#themeconf-feedback" class="md-nav__link">
+    <span aria-label="theme configuration option" class="objinfo-icon objinfo-icon__data" title="theme configuration option">T</span><span title="feedback (theme configuration option) — This theme also supports user feedback using site analytics." class="md-ellipsis">feedback</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -683,7 +758,7 @@
     <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" data-md-state="indeterminate" type="checkbox" id="__nav_7" checked>
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" checked>
       
       
       
@@ -854,7 +929,7 @@
     <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8" data-md-state="indeterminate" type="checkbox" id="__nav_8" checked>
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" checked>
       
       
       
@@ -920,7 +995,7 @@
     <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_9" data-md-state="indeterminate" type="checkbox" id="__nav_9" checked>
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_9" type="checkbox" id="__nav_9" checked>
       
       
       
@@ -1109,6 +1184,20 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#themeconf-hide-footer" class="md-nav__link">
+    <span aria-label="theme configuration option" class="objinfo-icon objinfo-icon__data" title="theme configuration option">T</span><span title="hide-footer (theme configuration option) — If specified, hides the current page&#39;s footer (specifically the part containing the &#34;Previous&#34; and &#34;Next&#34; links)." class="md-ellipsis">hide-<wbr>footer</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#themeconf-hide-feedback" class="md-nav__link">
+    <span aria-label="theme configuration option" class="objinfo-icon objinfo-icon__data" title="theme configuration option">T</span><span title="hide-feedback (theme configuration option) — If specified, hides the user feedback buttons at the bottom of the current page." class="md-ellipsis">hide-<wbr>feedback</span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1166,9 +1255,36 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#themeconf-icon-repo" class="md-nav__link">
-    <span aria-label="theme configuration option" class="objinfo-icon objinfo-icon__data" title="theme configuration option">T</span><span title="icon[&#34;repo&#34;] (theme configuration option) — The icon that represents the source code repository can be changed using the repo field of the icon dict (within the html_theme_options dict)." class="md-ellipsis">icon<wbr>[&#34;repo&#34;]</span>
+  <a href="#themeconf-icon" class="md-nav__link">
+    <span aria-label="theme configuration option" class="objinfo-icon objinfo-icon__data" title="theme configuration option">T</span><span title="icon (theme configuration option) — The icon that represents the source code repository can be changed using the icon[repo] field in the html_theme_options settings." class="md-ellipsis">icon</span>
   </a>
+  
+    <nav class="md-nav" aria-label="icon">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#themeconf-repo" class="md-nav__link">
+    <span aria-label="theme configuration option" class="objinfo-icon objinfo-icon__data" title="theme configuration option">T</span><span title="repo (theme configuration option) — The icon that represents the source code repository can be changed using the icon[repo] field in the html_theme_options settings." class="md-ellipsis">repo</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#themeconf-admonition" class="md-nav__link">
+    <span aria-label="theme configuration option" class="objinfo-icon objinfo-icon__data" title="theme configuration option">T</span><span title="admonition (theme configuration option) — The default icons for admonitions can be changed by setting this field to a dict in which the keys are CSS classes (see admonitions) and the values are any of the icons bundled with this theme." class="md-ellipsis">admonition</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#themeconf-edit" class="md-nav__link">
+    <span aria-label="theme configuration option" class="objinfo-icon objinfo-icon__data" title="theme configuration option">T</span><span title="edit (theme configuration option) — The icon used for the generated &#34;edit this page&#34; button at the top of the document. This is only used if edit_uri is configured and when not explicitly hidden using hide-edit-link." class="md-ellipsis">edit</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -1250,8 +1366,21 @@
         
           <li class="md-nav__item">
   <a href="#themeconf-analytics" class="md-nav__link">
-    <span aria-label="theme configuration option" class="objinfo-icon objinfo-icon__data" title="theme configuration option">T</span><span title="analytics (theme configuration option) — Set to enable site analytics." class="md-ellipsis">analytics</span>
+    <span aria-label="theme configuration option" class="objinfo-icon objinfo-icon__data" title="theme configuration option">T</span><span title="analytics (theme configuration option) — To enable site analytics, a provider and property fields must be specified in this dict." class="md-ellipsis">analytics</span>
   </a>
+  
+    <nav class="md-nav" aria-label="analytics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#themeconf-feedback" class="md-nav__link">
+    <span aria-label="theme configuration option" class="objinfo-icon objinfo-icon__data" title="theme configuration option">T</span><span title="feedback (theme configuration option) — This theme also supports user feedback using site analytics." class="md-ellipsis">feedback</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -1390,19 +1519,21 @@
               </div>
             
           
-          <div class="md-content" data-md-component="content">
-            <article class="md-content__inner md-typeset" role="main">
-                
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset" role="main">
+                  
+
+
   <a href="https://github.com/jbms/sphinx-immaterial/blob/main/docs/customization.rst" title="Edit this page" class="md-content__button md-icon">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"/></svg>
   </a>
 
-
-
-  <h1 id="customization"><span id="id1"></span>Customization<a class="headerlink" href="#customization" title="Permalink to this heading">¶</a></h1>
+<h1 id="customization"><span id="id1"></span>Customization<a class="headerlink" href="#customization" title="Permalink to this heading">¶</a></h1>
 <h2 id="metadata-for-a-single-page">Metadata for a single page<a class="headerlink" href="#metadata-for-a-single-page" title="Permalink to this heading">¶</a></h2>
 <p>Each page can support a set of page-specific options. These are configured using metadata roles.
-Each metadata is evaluated as a <code class="docutils literal notranslate"><span class="pre">:key:</span> <span class="pre">value</span></code> pair.</p>
+Each metadata is evaluated as a <code class="code highlight rst docutils literal highlight-rst"><span class="nc">:key:</span> value</code> pair.</p>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
 <p>Review the
@@ -1414,7 +1545,7 @@ section in the sphinx docs.</p>
 <span class="sig-name descname"><span class="pre">hero</span></span><a class="headerlink" href="#themeconf-hero" title="Permalink to this definition">¶</a></dt>
 <dd><p>Unlike, newer versions of mkdocs-material theme, this theme also supports the use of a textual
 “hero” section.</p>
-<p>To set the hero’s text for an individual page, use the <code class="docutils literal notranslate"><span class="pre">:hero:</span></code> metadata field for the desired page.
+<p>To set the hero’s text for an individual page, use the <code class="code highlight rst docutils literal highlight-rst"><span class="nc">:hero:</span></code> metadata field for the desired page.
 If not specified, then the page will not have a hero section.</p>
 <div class="literal-block-wrapper docutils container" id="id3">
 <div class="code-block-caption highlight"><span class="caption-text filename">
@@ -1453,7 +1584,7 @@ Hide the Table of Contents like so:<a class="headerlink" href="#id5" title="Perm
 </code></pre></div>
 </div>
 </div>
-<p>Instead of using <code class="docutils literal notranslate"><span class="pre">:hide-toc:</span></code>, this theme can also use the <code class="docutils literal notranslate"><span class="pre">:tocdepth:</span></code> metadata to hide the
+<p>Instead of using <code class="code highlight rst docutils literal highlight-rst"><span class="nc">:hide-toc:</span></code>, this theme can also use the <code class="code highlight rst docutils literal highlight-rst"><span class="nc">:tocdepth:</span></code> metadata to hide the
 page’s Table of Contents.</p>
 <div class="literal-block-wrapper docutils container" id="id6">
 <div class="code-block-caption highlight"><span class="caption-text filename">
@@ -1481,6 +1612,33 @@ Hide the “Edit this page” link:<a class="headerlink" href="#id7" title="Perm
 pages, as for those pages there is no source document to edit.</p>
 </dd></dl>
 
+<dl class="std themeconf objdesc">
+<dt class="sig sig-object highlight std" id="themeconf-hide-footer">
+<span class="sig-name descname"><span class="pre">hide-footer</span></span><a class="headerlink" href="#themeconf-hide-footer" title="Permalink to this definition">¶</a></dt>
+<dd><p>If specified, hides the current page’s footer (specifically the part containing the
+“Previous” and “Next” links).</p>
+<div class="literal-block-wrapper docutils container" id="id8">
+<div class="code-block-caption highlight"><span class="caption-text filename">
+Hide the “Previous” and “Next” links at the bottom of the page:<a class="headerlink" href="#id8" title="Permalink to this code">¶</a></span></div>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><code><span class="nc">:hide-footer:</span>
+</code></pre></div>
+</div>
+</div>
+</dd></dl>
+
+<dl class="std themeconf objdesc">
+<dt class="sig sig-object highlight std" id="themeconf-hide-feedback">
+<span class="sig-name descname"><span class="pre">hide-feedback</span></span><a class="headerlink" href="#themeconf-hide-feedback" title="Permalink to this definition">¶</a></dt>
+<dd><p>If specified, hides the user <a class="reference internal" href="#themeconf-feedback" title="feedback (theme configuration option) — This theme also supports user feedback using site analytics."><code class="xref std std-themeconf docutils literal notranslate"><span class="pre">feedback</span></code></a> buttons at the bottom of the current page.</p>
+<div class="literal-block-wrapper docutils container" id="id9">
+<div class="code-block-caption highlight"><span class="caption-text filename">
+Hide the feedback buttons at the bottom of the page:<a class="headerlink" href="#id9" title="Permalink to this code">¶</a></span></div>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><code><span class="nc">:hide-feedback:</span>
+</code></pre></div>
+</div>
+</div>
+</dd></dl>
+
 <h2 id="configuration-options">Configuration Options<a class="headerlink" href="#configuration-options" title="Permalink to this heading">¶</a></h2>
 <dl class="std confval objdesc">
 <dt class="sig sig-object highlight std" id="confval-html_logo">
@@ -1490,8 +1648,8 @@ by specifying the <code class="docutils literal notranslate"><span class="pre">h
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
 <p>This option is documented with more detail in the Sphinx documentation.
-However, the size constraints for <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/configuration.html#confval-html_logo" title="(in Sphinx v6.0.0)"><code class="xref std std-confval docutils literal notranslate"><span class="pre">html_logo</span></code></a>
-and <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/configuration.html#confval-html_favicon" title="(in Sphinx v6.0.0)"><code class="xref any docutils literal notranslate"><span class="pre">html_favicon</span></code></a> are not as strict for this theme.</p>
+However, the size constraints for <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/configuration.html#confval-html_logo" title="(in Sphinx v6.0.0b3)"><code class="xref std std-confval docutils literal notranslate"><span class="pre">html_logo</span></code></a>
+and <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/configuration.html#confval-html_favicon" title="(in Sphinx v6.0.0b3)"><code class="xref any docutils literal notranslate"><span class="pre">html_favicon</span></code></a> are not as strict for this theme.</p>
 </div>
 </dd></dl>
 
@@ -1527,11 +1685,24 @@ no sitemap will be built.</p>
 </dd></dl>
 
 <dl class="std themeconf objdesc">
-<dt class="sig sig-object highlight std" id="themeconf-icon-repo">
-<span class="sig-name descname"><span class="pre">icon[&quot;repo&quot;]</span></span><a class="headerlink" href="#themeconf-icon-repo" title="Permalink to this definition">¶</a></dt>
-<dd><p>The icon that represents the source code repository can be changed using the <code class="docutils literal notranslate"><span class="pre">repo</span></code> field of the
-<code class="docutils literal notranslate"><span class="pre">icon</span></code> <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><code class="xref any docutils literal notranslate"><span class="pre">dict</span></code></a> (within the <a class="reference internal" href="#confval-html_theme_options" title="html_theme_options (configuration value) — This theme is configured using a html_theme_options dict in the conf.py file."><code class="xref any std std-confval docutils literal notranslate"><span class="pre">html_theme_options</span></code></a> <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><code class="xref any docutils literal notranslate"><span class="pre">dict</span></code></a>). Although this icon can be
-<a class="reference external" href="https://github.com/squidfunk/mkdocs-material/tree/master/material/.icons">any of the icons bundled with this theme</a>,
+<dt class="sig sig-object highlight std" id="themeconf-icon">
+<span class="sig-name descname"><span class="pre">icon</span></span><a class="headerlink" href="#themeconf-icon" title="Permalink to this definition">¶</a></dt>
+<dd><div class="literal-block-wrapper docutils container" id="id10">
+<div class="code-block-caption highlight"><span class="caption-text filename">
+This is the setting currently used by this documentation.<a class="headerlink" href="#id10" title="Permalink to this code">¶</a></span></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code>    <span class="s2">&quot;icon&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;repo&quot;</span><span class="p">:</span> <span class="s2">&quot;fontawesome/brands/github&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;edit&quot;</span><span class="p">:</span> <span class="s2">&quot;material/file-edit-outline&quot;</span><span class="p">,</span>
+    <span class="p">},</span>
+</code></pre></div>
+</div>
+</div>
+<dl class="std themeconf objdesc">
+<dt class="sig sig-object highlight std" id="themeconf-repo">
+<span class="sig-name descname"><span class="pre">repo</span></span><a class="headerlink" href="#themeconf-repo" title="Permalink to this definition">¶</a></dt>
+<dd><p>The icon that represents the source code repository can be changed using the
+<a class="reference internal" href="#themeconf-icon" title="icon (theme configuration option) — The icon that represents the source code repository can be changed using the icon[repo] field in the html_theme_options settings."><code class="xref std std-themeconf docutils literal notranslate"><span class="pre">icon</span></code></a>[<a class="reference internal" href="#themeconf-repo" title="repo (theme configuration option) — The icon that represents the source code repository can be changed using the icon[repo] field in the html_theme_options settings."><code class="xref std std-themeconf docutils literal notranslate"><span class="pre">repo</span></code></a>] field in the <a class="reference internal" href="#confval-html_theme_options" title="html_theme_options (configuration value) — This theme is configured using a html_theme_options dict in the conf.py file."><code class="xref std std-confval docutils literal notranslate"><span class="pre">html_theme_options</span></code></a>
+settings. Although this icon can be <a class="reference external" href="https://github.com/squidfunk/mkdocs-material/tree/master/material/.icons">any of the icons bundled with this theme</a>,
 popular choices are:</p>
 <ul class="simple">
 <li><p><img alt="fa-git" class="inline-icon fa-git" src="_images/blank.png" /> <code class="docutils literal notranslate"><span class="pre">fontawesome/brands/git</span></code></p></li>
@@ -1548,15 +1719,30 @@ popular choices are:</p>
 <p class="admonition-title">Important</p>
 <p>This option has no effect if the <a class="reference internal" href="#themeconf-repo_url" title="repo_url (theme configuration option) — Set the repo url for the link to appear."><code class="xref std std-themeconf docutils literal notranslate"><span class="pre">repo_url</span></code></a> option is not specified.</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id8">
-<div class="code-block-caption highlight"><span class="caption-text filename">
-This is the setting currently used by this documentation.<a class="headerlink" href="#id8" title="Permalink to this code">¶</a></span></div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code>    <span class="s2">&quot;icon&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s2">&quot;repo&quot;</span><span class="p">:</span> <span class="s2">&quot;fontawesome/brands/github&quot;</span><span class="p">,</span>
-    <span class="p">},</span>
-</code></pre></div>
+</dd></dl>
+
+<dl class="std themeconf objdesc">
+<dt class="sig sig-object highlight std" id="themeconf-admonition">
+<span class="sig-name descname"><span class="pre">admonition</span></span><a class="headerlink" href="#themeconf-admonition" title="Permalink to this definition">¶</a></dt>
+<dd><p>The default icons for admonitions can be changed by setting this field to a <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><code class="xref any docutils literal notranslate"><span class="pre">dict</span></code></a> in
+which the keys are CSS classes (see <a class="reference internal" href="admonitions.html"><span class="doc">Admonitions</span></a>) and the values are
+<a class="reference external" href="https://github.com/squidfunk/mkdocs-material/tree/master/material/.icons">any of the icons bundled with this theme</a>.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Refer to the <a class="reference internal" href="admonitions.html#change-admonition-icon"><span class="std std-ref">Changing the Admonition Icon</span></a> section for more detail.</p>
 </div>
-</div>
+</dd></dl>
+
+<dl class="std themeconf objdesc">
+<dt class="sig sig-object highlight std" id="themeconf-edit">
+<span class="sig-name descname"><span class="pre">edit</span></span><a class="headerlink" href="#themeconf-edit" title="Permalink to this definition">¶</a></dt>
+<dd><p>The icon used for the generated “edit this page” button at the top of the document.
+This is only used if <a class="reference internal" href="#themeconf-edit_uri" title="edit_uri (theme configuration option) — This is the url segment that is concatenated with repo_url to point readers to the document's source file."><code class="xref std std-themeconf docutils literal notranslate"><span class="pre">edit_uri</span></code></a> is configured and when not explicitly hidden
+using <a class="reference internal" href="#themeconf-hide-edit-link" title="hide-edit-link (theme configuration option) — If specified, hides the &quot;Edit this page&quot; link at the top of the page."><code class="xref std std-themeconf docutils literal notranslate"><span class="pre">hide-edit-link</span></code></a>.</p>
+<p>As usual, <a class="reference external" href="https://github.com/squidfunk/mkdocs-material/tree/master/material/.icons">any of the icons bundled with this theme</a> can be used here. While the default is
+<code class="docutils literal notranslate"><span class="pre">material/pencil</span></code>, this documentation uses <code class="docutils literal notranslate"><span class="pre">material/file-edit-outline</span></code></p>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="std themeconf objdesc">
@@ -1576,6 +1762,12 @@ commit.</p>
 of strings. The following features are supported:</p>
 <ul>
 <li><p><a class="reference external" href="https://squidfunk.github.io/mkdocs-material/reference/code-blocks/#code-annotations">content.code.annotate</a></p></li>
+<li><p><a class="reference external" href="https://squidfunk.github.io/mkdocs-material/reference/content-tabs/#linked-content-tabs">content.tabs.link</a></p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Please refer to the <a class="reference internal" href="content_tabs.html#linked-tabs"><span class="std std-ref">Linked tabs</span></a> section for more information.</p>
+</div>
+</li>
 <li><p><a class="reference external" href="https://squidfunk.github.io/mkdocs-material/setup/setting-up-the-header/#automatic-hiding">header.autohide</a></p></li>
 <li><p><a class="reference external" href="https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#navigation-expansion">navigation.expand</a></p></li>
 <li><p><a class="reference external" href="https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#instant-loading">navigation.instant</a></p></li>
@@ -1585,10 +1777,10 @@ of strings. The following features are supported:</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Due to a difference in general document structure between mkdocs and sphinx, any
-<a class="reference external" href="https://www.sphinx-doc.org/en/master/templating.html#toctree" title="(in Sphinx v6.0.0)"><code class="xref any docutils literal notranslate"><span class="pre">toctree</span></code></a> entry should start with a page entity (that contains a section header).
-Sphinx does allow <a class="reference external" href="https://www.sphinx-doc.org/en/master/templating.html#toctree" title="(in Sphinx v6.0.0)"><code class="xref any docutils literal notranslate"><span class="pre">toctree</span></code></a> entries to be a list of only hyperlinks, but a
+<a class="reference external" href="https://www.sphinx-doc.org/en/master/templating.html#toctree" title="(in Sphinx v6.0.0b3)"><code class="xref any docutils literal notranslate"><span class="pre">toctree</span></code></a> entry should start with a page entity (that contains a section header).
+Sphinx does allow <a class="reference external" href="https://www.sphinx-doc.org/en/master/templating.html#toctree" title="(in Sphinx v6.0.0b3)"><code class="xref any docutils literal notranslate"><span class="pre">toctree</span></code></a> entries to be a list of only hyperlinks, but a
 navigation tab created from such an entry will only lead to the first hyperlink in
-the <a class="reference external" href="https://www.sphinx-doc.org/en/master/templating.html#toctree" title="(in Sphinx v6.0.0)"><code class="xref any docutils literal notranslate"><span class="pre">toctree</span></code></a>.</p>
+the <a class="reference external" href="https://www.sphinx-doc.org/en/master/templating.html#toctree" title="(in Sphinx v6.0.0b3)"><code class="xref any docutils literal notranslate"><span class="pre">toctree</span></code></a>.</p>
 <p>See <a class="reference external" href="https://github.com/jbms/sphinx-immaterial/issues/33">issue #33</a> for a
 problematic demonstration.</p>
 </div>
@@ -1599,6 +1791,12 @@ problematic demonstration.</p>
 <li><p><a class="reference external" href="https://squidfunk.github.io/mkdocs-material/setup/setting-up-site-search/#search-highlighting">search.highlight</a></p></li>
 <li><p><a class="reference external" href="https://squidfunk.github.io/mkdocs-material/setup/setting-up-site-search/#search-sharing">search.share</a></p></li>
 <li><p><a class="reference external" href="https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#navigation-integration">toc.integrate</a></p></li>
+<li><p><a class="reference external" href="https://squidfunk.github.io/mkdocs-material/setup/setting-up-the-header/?h=ann#mark-as-read">announce.dismiss</a></p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Refer to the <a class="reference internal" href="#new-blocks">New blocks</a> section below about how to add an announcement banner.</p>
+</div>
+</li>
 <li><p><code class="docutils literal notranslate"><span class="pre">toc.follow</span></code></p>
 <p>This is similar to the <a class="reference external" href="https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#anchor-following">toc.follow</a>
 feature supported by the mkdocs-material theme, but differs in that
@@ -1780,15 +1978,77 @@ and included in the built documentation.</p>
 <dl class="std themeconf objdesc">
 <dt class="sig sig-object highlight std" id="themeconf-analytics">
 <span class="sig-name descname"><span class="pre">analytics</span></span><a class="headerlink" href="#themeconf-analytics" title="Permalink to this definition">¶</a></dt>
-<dd><p>Set to enable site analytics.</p>
+<dd><p>To enable site analytics, a <code class="docutils literal notranslate"><span class="pre">provider</span></code> and <code class="docutils literal notranslate"><span class="pre">property</span></code> fields <strong>must</strong> be specified in this dict.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="n">html_theme_options</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s2">&quot;analytics&quot;</span><span class="p">:</span> <span class="p">{</span>
         <span class="s2">&quot;provider&quot;</span><span class="p">:</span> <span class="s2">&quot;google&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;property&quot;</span><span class="p">:</span> <span class="s2">&quot;G-XXXXXXXXXX&quot;</span>  <span class="c1"># Or &quot;UA-XXXXXXXX-X&quot;</span>
+        <span class="s2">&quot;property&quot;</span><span class="p">:</span> <span class="s2">&quot;G-XXXXXXXXXX&quot;</span>
     <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
 </div>
+<dl class="std themeconf objdesc">
+<dt class="sig sig-object highlight std" id="themeconf-feedback">
+<span class="sig-name descname"><span class="pre">feedback</span></span><a class="headerlink" href="#themeconf-feedback" title="Permalink to this definition">¶</a></dt>
+<dd><p>This theme also supports user feedback using site analytics. Along with the required
+<code class="docutils literal notranslate"><span class="pre">provider</span></code> and <code class="docutils literal notranslate"><span class="pre">property</span></code> fields, the <a class="reference internal" href="#themeconf-feedback" title="feedback (theme configuration option) — This theme also supports user feedback using site analytics."><code class="xref std std-themeconf docutils literal notranslate"><span class="pre">feedback</span></code></a> <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><code class="xref any docutils literal notranslate"><span class="pre">dict</span></code></a> also requires
+the following fields:</p>
+<dl>
+<dt><code class="docutils literal notranslate"><span class="pre">title</span></code></dt><dd><p>The text used to invite user feedback (placed just above the feedback buttons).</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">ratings</span></code></dt><dd><p>This <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><code class="xref any docutils literal notranslate"><span class="pre">list</span></code></a> of <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><code class="xref any docutils literal notranslate"><span class="pre">dict</span></code></a> objects specifies the user’s options for feedback. Each <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><code class="xref any docutils literal notranslate"><span class="pre">dict</span></code></a>
+will represent a button and requires the following fields:</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">icon</span></code></dt><dd><p>As usual, <a class="reference external" href="https://github.com/squidfunk/mkdocs-material/tree/master/material/.icons">any of the icons bundled with this theme</a> can be specified here.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">name</span></code></dt><dd><p>The text shown in the tooltip when hovering over a feedback button.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">data</span></code></dt><dd><p>The data transmitted to your analytics provider upon submission of user feedback.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">note</span></code></dt><dd><p>The text displayed after the user feedback is submitted. You can use a HTML hyperlink
+element <code class="code highlight html docutils literal highlight-html"><span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;a_url&quot;</span><span class="p">&gt;</span>link text<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span></code> to encourage further user interaction (see
+example snippet below).</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="literal-block-wrapper docutils container" id="id11">
+<div class="code-block-caption highlight"><span class="caption-text filename">
+using Google analytics to collect user feedback for each page<a class="headerlink" href="#id11" title="Permalink to this code">¶</a></span></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="n">html_theme_options</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;analytics&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;provider&quot;</span><span class="p">:</span> <span class="s2">&quot;google&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;property&quot;</span><span class="p">:</span> <span class="s2">&quot;G-XXXXXXXXXX&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;feedback&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Was this page helpful?&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;ratings&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;icon&quot;</span><span class="p">:</span> <span class="s2">&quot;material/emoticon-happy-outline&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;This page was helpful&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                    <span class="s2">&quot;note&quot;</span><span class="p">:</span> <span class="s2">&quot;Thanks for the feedback!&quot;</span><span class="p">,</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;icon&quot;</span><span class="p">:</span> <span class="s2">&quot;material/emoticon-sad-outline&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;This page could be improved&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                    <span class="s2">&quot;note&quot;</span><span class="p">:</span> <span class="s2">&quot;Thanks for the feedback! Help us improve this page by &quot;</span>
+                    <span class="s1">&#39;&lt;a href=&quot;https://github.com/jbms/sphinx-immaterial/issues&quot;&gt;opening an issue&lt;/a&gt;.&#39;</span><span class="p">,</span>
+                <span class="p">},</span>
+            <span class="p">],</span>
+        <span class="p">},</span>
+    <span class="p">},</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>User feedback can be hidden for a certain page by using the <a class="reference internal" href="#themeconf-hide-feedback" title="hide-feedback (theme configuration option) — If specified, hides the user feedback buttons at the bottom of the current page."><code class="xref std std-themeconf docutils literal notranslate"><span class="pre">hide-feedback</span></code></a>
+metadata tag in the document’s source.</p>
+</div>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="std themeconf objdesc">
@@ -1839,9 +2099,9 @@ have a <code class="code highlight python docutils literal highlight-python"><sp
 <li><p>The <code class="code highlight python docutils literal highlight-python"><span class="s2">&quot;icon&quot;</span></code> field can be specifed as <a class="reference external" href="https://github.com/squidfunk/mkdocs-material/tree/master/material/.icons">any of the icons bundled with this theme</a></p></li>
 <li><p>The <code class="code highlight python docutils literal highlight-python"><span class="s2">&quot;link&quot;</span></code> field is simply the hyperlink target added to the icon specified.</p></li>
 </ul>
-<div class="literal-block-wrapper docutils container" id="id9">
+<div class="literal-block-wrapper docutils container" id="id12">
 <div class="code-block-caption highlight"><span class="caption-text filename">
-This theme uses the following configuration:<a class="headerlink" href="#id9" title="Permalink to this code">¶</a></span></div>
+This theme uses the following configuration:<a class="headerlink" href="#id12" title="Permalink to this code">¶</a></span></div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code>    <span class="s2">&quot;social&quot;</span><span class="p">:</span> <span class="p">[</span>
         <span class="p">{</span>
             <span class="s2">&quot;icon&quot;</span><span class="p">:</span> <span class="s2">&quot;fontawesome/brands/github&quot;</span><span class="p">,</span>
@@ -1991,9 +2251,9 @@ called “3.0-rc1”.</p>
 </div>
 </li>
 </ul>
-<div class="literal-block-wrapper docutils container" id="id10">
+<div class="literal-block-wrapper docutils container" id="id13">
 <div class="code-block-caption highlight"><span class="caption-text filename">
-This is the version dropdown selector settings used by this theme:<a class="headerlink" href="#id10" title="Permalink to this code">¶</a></span></div>
+This is the version dropdown selector settings used by this theme:<a class="headerlink" href="#id13" title="Permalink to this code">¶</a></span></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code>    <span class="s2">&quot;version_dropdown&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
     <span class="s2">&quot;version_info&quot;</span><span class="p">:</span> <span class="p">[</span>
         <span class="p">{</span>
@@ -2085,11 +2345,11 @@ folder named <code class="docutils literal notranslate"><span class="pre">docs</
 </div>
 <p>In the <code class="docutils literal notranslate"><span class="pre">footer.html</span></code> file, add the necessary code by extending the theme’s original
 HTML template of the same name.</p>
-<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><code>{% extends &quot;!partials/footer.html&quot; %}
-{# the &#39;!&#39; in &quot;!partials/footer.html&quot; is important #}
-{% block extracopyright %}
-  <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>EXTRA COPYRIGHT<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
-{% endblock %}
+<div class="highlight-jinja notranslate"><div class="highlight"><pre><span></span><code><span class="cp">{%</span> <span class="k">extends</span> <span class="s2">&quot;!partials/footer.html&quot;</span> <span class="cp">%}</span><span class="x"></span>
+<span class="c">{# the &#39;!&#39; in &quot;!partials/footer.html&quot; is important #}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">block</span> <span class="nv">extracopyright</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">  &lt;p&gt;EXTRA COPYRIGHT&lt;/p&gt;</span>
+<span class="cp">{%</span> <span class="k">endblock</span> <span class="cp">%}</span><span class="x"></span>
 </code></pre></div>
 </div>
 <p>Lastly, make sure the project’s documentation <code class="docutils literal notranslate"><span class="pre">conf.py</span></code> has the following line:</p>
@@ -2097,12 +2357,31 @@ HTML template of the same name.</p>
 </code></pre></div>
 </div>
 <h3 id="new-blocks">New Blocks<a class="headerlink" href="#new-blocks" title="Permalink to this heading">¶</a></h3>
-<p>This theme has a new block inherited from the mkdocs-material theme:</p>
-<dl class="simple">
+<p>This theme has a few new block inherited from the mkdocs-material theme:</p>
+<dl>
 <dt><code class="docutils literal notranslate"><span class="pre">footerrel</span></code></dt><dd><p>Previous and next in the footer.</p>
 </dd>
+<dt><code class="docutils literal notranslate"><span class="pre">announce</span></code></dt><dd><p>An announcement can be added to the top of the page by extending this theme’s base.html
+template. For example, this documentation uses the following custom template to add an
+announcement (<a class="reference external" href="#">scroll to top to see it in action</a>).</p>
+<div class="literal-block-wrapper docutils container" id="id14">
+<div class="code-block-caption highlight"><span class="caption-text filename">
+docs/_templates/base.html<a class="headerlink" href="#id14" title="Permalink to this code">¶</a></span></div>
+<div class="highlight-jinja notranslate"><div class="highlight"><pre><span></span><code><span class="cp">{%</span> <span class="k">extends</span> <span class="s2">&quot;!base.html&quot;</span> <span class="cp">%}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">block</span> <span class="nv">announce</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">  &lt;p&gt;</span>
+<span class="x">    Now includes</span>
+<span class="x">    &lt;a href=&quot;https://squidfunk.github.io/mkdocs-material/changelog/&quot;&gt;changes from mkdocs-material theme&lt;/a&gt;</span>
+<span class="x">    v8.5.6</span>
+<span class="x">  &lt;/p&gt;</span>
+<span class="cp">{%</span> <span class="k">endblock</span> <span class="cp">%}</span><span class="x"></span>
+</code></pre></div>
+</div>
+</div>
+<p>Optionally, add the <code class="code highlight python docutils literal highlight-python"><span class="s2">&quot;announce.dismiss&quot;</span></code> in the <a class="reference internal" href="#themeconf-features" title="features (theme configuration option) — Some features that have been ported from the mkdocs-material theme and can be enabled by specifying the features name in a list of strings."><code class="xref std std-themeconf docutils literal notranslate"><span class="pre">features</span></code></a> list to let readers
+dismiss the announcement banner.</p>
+</dd>
 </dl>
-
 
 
   <hr>
@@ -2110,17 +2389,25 @@ HTML template of the same name.</p>
   <small>
     
       Last update:
-      Sep 30, 2022
+      Oct 24, 2022
     
   </small>
 </div>
 
-              
-            </article>
-          </div>
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var tab,labels=set.querySelector(".tabbed-labels");for(tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
         </div>
         
-          <a href="#" class="md-top md-icon" data-md-component="top" data-md-state="hidden">
+          <a href="#" class="md-top md-icon" data-md-component="top" hidden>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
             Back to top
           </a>
@@ -2129,7 +2416,8 @@ HTML template of the same name.</p>
       
         <footer class="md-footer">
   
-    <nav class="md-footer__inner md-grid" aria-label="Footer">
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
       
         
         <a href="index.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Material for Sphinx" rel="prev">
@@ -2178,7 +2466,7 @@ HTML template of the same name.</p>
   
     Created using
     <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
-    5.2.2.
+    5.3.0.
      and
     <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
   
@@ -2192,7 +2480,7 @@ HTML template of the same name.</p>
       
     
     <a href="https://github.com/jbms/sphinx-immaterial" target="_blank" rel="noopener" title="github.com" class="md-social__link">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
     </a>
   
     
@@ -2201,7 +2489,7 @@ HTML template of the same name.</p>
       
     
     <a href="https://pypi.org/project/sphinx-immaterial/" target="_blank" rel="noopener" title="pypi.org" class="md-social__link">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.8 200.5c-7.7-30.9-22.3-54.2-53.4-54.2h-40.1v47.4c0 36.8-31.2 67.8-66.8 67.8H172.7c-29.2 0-53.4 25-53.4 54.3v101.8c0 29 25.2 46 53.4 54.3 33.8 9.9 66.3 11.7 106.8 0 26.9-7.8 53.4-23.5 53.4-54.3v-40.7H226.2v-13.6h160.2c31.1 0 42.6-21.7 53.4-54.2 11.2-33.5 10.7-65.7 0-108.6zM286.2 404c11.1 0 20.1 9.1 20.1 20.3 0 11.3-9 20.4-20.1 20.4-11 0-20.1-9.2-20.1-20.4.1-11.3 9.1-20.3 20.1-20.3zM167.8 248.1h106.8c29.7 0 53.4-24.5 53.4-54.3V91.9c0-29-24.4-50.7-53.4-55.6-35.8-5.9-74.7-5.6-106.8.1-45.2 8-53.4 24.7-53.4 55.6v40.7h106.9v13.6h-147c-31.1 0-58.3 18.7-66.8 54.2-9.8 40.7-10.2 66.1 0 108.6 7.6 31.6 25.7 54.2 56.8 54.2H101v-48.8c0-35.3 30.5-66.4 66.8-66.4zm-6.7-142.6c-11.1 0-20.1-9.1-20.1-20.3.1-11.3 9-20.4 20.1-20.4 11 0 20.1 9.2 20.1 20.4s-9 20.3-20.1 20.3z"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.8 200.5c-7.7-30.9-22.3-54.2-53.4-54.2h-40.1v47.4c0 36.8-31.2 67.8-66.8 67.8H172.7c-29.2 0-53.4 25-53.4 54.3v101.8c0 29 25.2 46 53.4 54.3 33.8 9.9 66.3 11.7 106.8 0 26.9-7.8 53.4-23.5 53.4-54.3v-40.7H226.2v-13.6h160.2c31.1 0 42.6-21.7 53.4-54.2 11.2-33.5 10.7-65.7 0-108.6zM286.2 404c11.1 0 20.1 9.1 20.1 20.3 0 11.3-9 20.4-20.1 20.4-11 0-20.1-9.2-20.1-20.4.1-11.3 9.1-20.3 20.1-20.3zM167.8 248.1h106.8c29.7 0 53.4-24.5 53.4-54.3V91.9c0-29-24.4-50.7-53.4-55.6-35.8-5.9-74.7-5.6-106.8.1-45.2 8-53.4 24.7-53.4 55.6v40.7h106.9v13.6h-147c-31.1 0-58.3 18.7-66.8 54.2-9.8 40.7-10.2 66.1 0 108.6 7.6 31.6 25.7 54.2 56.8 54.2H101v-48.8c0-35.3 30.5-66.4 66.8-66.4zm-6.7-142.6c-11.1 0-20.1-9.1-20.1-20.3.1-11.3 9-20.4 20.1-20.4 11 0 20.1 9.2 20.1 20.4s-9 20.3-20.1 20.3z"/></svg>
     </a>
   
 </div>
@@ -2215,10 +2503,11 @@ HTML template of the same name.</p>
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": ".", "features": ["navigation.expand", "navigation.sections", "navigation.top", "search.share", "toc.follow", "toc.sticky"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": {"provider": "mike", "staticVersions": [{"aliases": [], "title": "ReadTheDocs", "version": "https://sphinx-immaterial.rtfd.io"}, {"aliases": [], "title": "Github Pages", "version": "https://jbms.github.io/sphinx-immaterial"}], "versionPath": null}}</script>
+    
+    <script id="__config" type="application/json">{"base": ".", "features": ["navigation.expand", "navigation.sections", "navigation.top", "search.share", "toc.follow", "toc.sticky", "content.tabs.link", "announce.dismiss"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": {"provider": "mike", "staticVersions": [{"aliases": [], "title": "ReadTheDocs", "version": "https://sphinx-immaterial.rtfd.io"}, {"aliases": [], "title": "Github Pages", "version": "https://jbms.github.io/sphinx-immaterial"}], "versionPath": null}}</script>
     
     
-      <script src="_static/javascripts/bundle.dc1bded0.min.js"></script>
+      <script src="_static/javascripts/bundle.309d5c42.min.js"></script>
         <script src="_static/sphinx_highlight.js"></script>
     
   </body>
