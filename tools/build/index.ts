@@ -28,9 +28,9 @@ import {
   EMPTY,
   Observable,
   concat,
-  concatMap,
   defer,
   merge,
+  mergeMap,
   of,
   scan,
   startWith,
@@ -115,6 +115,14 @@ const assets$ = concat(
       to: `${base}/.icons/fontawesome`,
       transform: async data => minsvg(data)
     })),
+
+  /* Copy Simple icons */
+  ...["**/*.svg", "../LICENSE.md"]
+    .map(pattern => copyAll(pattern, {
+      from: "node_modules/simple-icons/icons",
+      to: `${base}/.icons/simple`,
+      transform: async data => minsvg(data)
+    }))
 )
 
 /* ------------------------------------------------------------------------- */
@@ -122,7 +130,7 @@ const assets$ = concat(
 /* Transform styles */
 const stylesheets$ = resolve("**/[!_]*.scss", { cwd: "src/assets" })
   .pipe(
-    concatMap(file => zip(
+    mergeMap(file => zip(
       of(ext(file, ".css")),
       transformStyle({
         from: `src/assets/${file}`,
@@ -134,7 +142,7 @@ const stylesheets$ = resolve("**/[!_]*.scss", { cwd: "src/assets" })
 /* Transform scripts */
 const javascripts$ = resolve("**/bundle.ts", { cwd: "src/assets" })
   .pipe(
-    concatMap(file => zip(
+    mergeMap(file => zip(
       of(ext(file, ".js")),
       transformScript({
         from: `src/assets/${file}`,

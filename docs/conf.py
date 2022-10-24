@@ -106,13 +106,13 @@ html_theme = "sphinx_immaterial"
 html_theme_options = {
     "icon": {
         "repo": "fontawesome/brands/github",
+        "edit": "material/file-edit-outline",
     },
     "site_url": "https://jbms.github.io/sphinx-immaterial/",
     "repo_url": "https://github.com/jbms/sphinx-immaterial/",
     "repo_name": "Sphinx-Immaterial",
     "repo_type": "github",
     "edit_uri": "blob/main/docs",
-    # "google_analytics": ["UA-XXXXX", "auto"],
     "globaltoc_collapse": True,
     "features": [
         "navigation.expand",
@@ -127,6 +127,8 @@ html_theme_options = {
         "search.share",
         "toc.follow",
         "toc.sticky",
+        "content.tabs.link",
+        "announce.dismiss",
     ],
     "palette": [
         {
@@ -202,6 +204,10 @@ extlinks = {
         "https://graphviz.org/docs/attrs/%s/",
         "%s attribute",
     ),
+    "dutree": (
+        "https://docutils.sourceforge.io/docs/ref/doctree.html#%s",
+        "%s",
+    ),
 }
 
 object_description_options = []
@@ -260,6 +266,10 @@ rst_prolog = """
 
 .. role:: dot(code)
    :language: dot
+   :class: highlight
+
+.. role:: html(code)
+   :language: html
    :class: highlight
 """
 

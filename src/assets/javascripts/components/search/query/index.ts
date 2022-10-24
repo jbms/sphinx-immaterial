@@ -33,6 +33,7 @@ import {
   map,
   merge,
   of,
+  share,
   shareReplay,
   startWith,
   take,
@@ -145,6 +146,7 @@ export function mountSearchQuery(
   el: HTMLInputElement,
 ): Observable<Component<SearchQuery, HTMLInputElement>> {
   const push$ = new Subject<SearchQuery>()
+  const done$ = push$.pipe(takeLast(1))
 
   /* Handle focus changes */
   push$
@@ -163,7 +165,7 @@ export function mountSearchQuery(
   /* Handle reset */
   fromEvent(el.form!, "reset")
     .pipe(
-      takeUntil(push$.pipe(takeLast(1)))
+      takeUntil(done$)
     )
       .subscribe(() => el.focus())
 
@@ -172,6 +174,7 @@ export function mountSearchQuery(
     .pipe(
       tap(state => push$.next(state)),
       finalize(() => push$.complete()),
-      map(state => ({ ref: el, ...state }))
+      map(state => ({ ref: el, ...state })),
+      share()
     )
 }

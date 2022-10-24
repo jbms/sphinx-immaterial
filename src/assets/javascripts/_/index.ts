@@ -31,7 +31,10 @@ import { Version } from "~/templates/version"
  * Feature flag
  */
 export type Flag =
+  | "announce.dismiss"                 /* Dismissable announcement bar */
   | "content.code.annotate"            /* Code annotations */
+  | "content.lazy"                     /* Lazy content elements */
+  | "content.tabs.link"                /* Link content tabs */
   | "header.autohide"                  /* Hide header */
   | "navigation.expand"                /* Automatic expansion */
   | "navigation.indexes"               /* Section pages */
@@ -44,8 +47,8 @@ export type Flag =
   | "search.highlight"                 /* Search highlighting */
   | "search.share"                     /* Search sharing */
   | "search.suggest"                   /* Search suggestions */
+  | "toc.follow"                       /* Following table of contents */
   | "toc.integrate"                    /* Integrated table of contents */
-  | "toc.follow"                       /* sphinx-immaterial: auto-scroll toc */
   | "toc.sticky"                       /* sphinx-immaterial: sticky toc headings */
 
 /* ------------------------------------------------------------------------- */
@@ -93,6 +96,7 @@ export interface Config {
   base: string                         /* Base URL */
   features: Flag[]                     /* Feature flags */
   translations: Translations           /* Translations */
+  tags?: Record<string, string>        /* Tags mapping */
   version?: Versioning                 /* Versioning */
 }
 

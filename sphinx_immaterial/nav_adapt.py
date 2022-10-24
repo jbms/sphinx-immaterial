@@ -768,6 +768,7 @@ def _html_page_context(
             "mdx_configs": {
                 "toc": {"title": toc_title},
             },
+            "extra": {"consent": theme_options.get("consent")},
         }
     )
 
@@ -796,6 +797,10 @@ def _html_page_context(
         page["meta"]["hide"].append("toc")
     if "hide-navigation" in meta:
         page["meta"]["hide"].append("navigation")
+    if "hide-footer" in meta:
+        page["meta"]["hide"].append("footer")
+    if "hide-feedback" in meta:
+        page["meta"]["hide"].append("feedback")
     if context.get("next"):
         page["next_page"] = {
             "title": markupsafe.Markup.escape(

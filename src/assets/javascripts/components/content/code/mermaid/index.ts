@@ -54,9 +54,9 @@ export interface Mermaid {}
 let mermaid$: Observable<void>
 
 /**
- * Global index for Mermaid integration
+ * Global sequence number for diagrams
  */
-let index = 0
+let sequence = 0
 
 /* ----------------------------------------------------------------------------
  * Helper functions
@@ -69,7 +69,7 @@ let index = 0
  */
 function fetchScripts(): Observable<void> {
   return typeof mermaid === "undefined" || mermaid instanceof Element
-    ? watchScript("https://unpkg.com/mermaid@9.0.1/dist/mermaid.min.js")
+    ? watchScript("https://unpkg.com/mermaid@9.1.7/dist/mermaid.min.js")
     : of(undefined)
 }
 
@@ -92,7 +92,12 @@ export function mountMermaid(
     .pipe(
       tap(() => mermaid.initialize({
         startOnLoad: false,
-        themeCSS
+        themeCSS,
+        sequence: {
+          actorFontSize: "16px", // Hack: mitigate https://bit.ly/3y0NEi3
+          messageFontSize: "16px",
+          noteFontSize: "16px"
+        }
       })),
       map(() => undefined),
       shareReplay(1)
@@ -101,7 +106,7 @@ export function mountMermaid(
   /* Render diagram */
   mermaid$.subscribe(() => {
     el.classList.add("mermaid") // Hack: mitigate https://bit.ly/3CiN6Du
-    const id = `__mermaid_${index++}`
+    const id = `__mermaid_${sequence++}`
     const host = h("div", { class: "mermaid" })
     mermaid.mermaidAPI.render(id, el.textContent, (svg: string) => {
 
