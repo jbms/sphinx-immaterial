@@ -50,12 +50,12 @@ def _replace_resolved_xrefs(node: sphinx.ext.graphviz.graphviz, code: str) -> st
             else:
                 url = "#" + ref_node["refid"]
             title = ref_node.get("reftitle")
-            replacement_text += f', href="{url}"'
+            replacement_text += f' href="{url}"'
             if title is not None:
-                replacement_text += f", tooltip=<{html.escape(title)}>"
+                replacement_text += f" tooltip=<{html.escape(title)}>"
             target = ref_node.get("target")
             if target is not None:
-                replacement_text += f', target="{target}"'
+                replacement_text += f' target="{target}"'
 
         ref_replacements[xref_id] = replacement_text
 
