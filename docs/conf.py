@@ -173,6 +173,7 @@ html_theme_options = {
         {
             "icon": "fontawesome/brands/github",
             "link": "https://github.com/jbms/sphinx-immaterial",
+            "name": "Source on github.com",
         },
         {
             "icon": "fontawesome/brands/python",
