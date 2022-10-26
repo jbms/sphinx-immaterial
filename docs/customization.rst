@@ -680,8 +680,8 @@ There are two approaches:
 
    .. warning::
        The JSON approach only works if your documentation is served from a webserver; it does not
-       work if you use ``file://`` url). When serving the docs from a webserver the
-       :themeconf:`version_json` file is resolved relative to the *parent* directory that contains
+       work if you use ``file://`` url. When serving the docs from a webserver the
+       :themeconf:`version_json` file is resolved relative to the directory that contains
        the sphinx builder's HTML output. For example, if the builder's output is ``2.0``, you
        should have directory structure like so:
 
