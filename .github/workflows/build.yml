@@ -81,7 +81,7 @@ jobs:
     - name: upload docs to github pages
       # if: ${{ github.event_name == 'release'}}
       if: ${{ matrix.python-version == '3.10' && github.event_name != 'pull_request' && github.ref == 'refs/heads/main' && runner.os == 'Linux' }}
-      uses: peaceiris/actions-gh-pages@068dc23d9710f1ba62e86896f84735d869951305 # pinned to v3.8.0
+      uses: peaceiris/actions-gh-pages@de7ea6f8efb354206b205ef54722213d99067935 # pinned to v3.9.0
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./docs/_build/html
