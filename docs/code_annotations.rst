@@ -9,9 +9,11 @@ feature.
 
     This directive shall hold an :duref:`enumerated list <enumerated-lists>` of annotations that can be used in a
     `code-block` immediately prior to this directive. The given list will not be rendered in the
-    generated output (even if there is no code snippet to annotate).
+    generated output (even if there is no code snippet to annotate). Additionally, all annotations will be
+    excluded when using the "copy to clipboard" button for an annotated `code-block`; the annotated
+    comments' text will still be copied (if not `Hiding the annotated comment`_).
 
-    :throws: A `ValueError` will be raised if the given list is not recognized as a
+    :throws: A `ValueError` will be raised if the given list is not recognized as an
         :duref:`enumerated list <enumerated-lists>`.
 
     .. note::
@@ -34,7 +36,7 @@ Each annotation in the code snippet should be a comment starting with the identi
     All annotations are hyperlinked. This means you can right click the annotation's button and
     open it as a link in a new tab (or copy the link to sharing).
 
-.. error::
+.. warning::
     Using the same annotation for multiple comments will essentially turn all but the last button
     into hyperlinks to the last button.
 
@@ -72,12 +74,14 @@ Each annotation in the code snippet should be a comment starting with the identi
 Hiding the annotated comment
 ----------------------------
 
-The annotated comment can be hidden in `code-block` if the annotation's identifying number ends with a exclamation mark (``!``) after the closing parenthesis.
+The annotated comment can be hidden in the `code-block` if the annotation's identifying number
+ends with a exclamation mark (``!``) after the closing parenthesis.
 
 .. rst-example::
 
     .. code-block:: cmake
         :caption: Erroneous example!
+        :linenos:
 
         # (1)! remove me
 
@@ -94,9 +98,9 @@ The annotated comment can be hidden in `code-block` if the annotation's identify
 
 .. error::
     For technical reasons, this hiding mechanism will only work with 1 annotation per code comment.
-    In the above example, you should notice that the third annotation is removed because the second
-    annotation has the ``!`` appended in the comment. And all text is removed from the third
-    comment because the fifth annotation has the ``!`` appended to it.
+    In the above example, you should notice that, on line 3, the third annotation is removed
+    because the second annotation has the ``!`` appended in the comment. And all text is removed
+    from the third comment, on line 5, because the fifth annotation has the ``!`` appended to it.
 
 Custom tooltip width
 --------------------
@@ -110,13 +114,12 @@ annotations' tooltip using by changing the following CSS variable:
       --md-tooltip-width: 600px;
     }
 
-With the above value a tooltip would be rendered like so:
+With the above CSS changes, a tooltip would be rendered like so:
 
 .. rst-example::
     :class: very-large-tooltip
 
     .. code-block:: yaml
-        :linenos:
 
         # (1)!
 
@@ -126,7 +129,7 @@ With the above value a tooltip would be rendered like so:
 Annotation buttons with numbers
 -------------------------------
 
-The mkdocs-material legacy behavior waas to use the anotation items list number in the button
+The mkdocs-material legacy behavior was to use the annotation items list number in the button
 that was rendered. To enable this, use the following custom CSS rules:
 
 .. code-block:: css
