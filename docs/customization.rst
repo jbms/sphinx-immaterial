@@ -583,7 +583,7 @@ Configuration Options
         - The :python:`"icon"` field can be specifed as `any of the icons bundled with this theme`_
         - The :python:`"link"` field is simply the hyperlink target added to the icon specified.
         
-        Optionally, custom text used for the icon's tooltip by specifying a :python:`"name"`
+        Optionally, custom text may be specified for the icon's tooltip with the :python:`"name"`
         field. If the :python:`"name"` is not specified, then the domain of the :python:`"link"`
         is used automatically.
 
