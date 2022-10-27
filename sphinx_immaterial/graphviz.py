@@ -27,7 +27,7 @@ def _replace_resolved_xrefs(node: sphinx.ext.graphviz.graphviz, code: str) -> st
     """Extracts any resolved references, and uses them to replace `xref`
     attributes in the DOT code.
     """
-    ref_replacements = {}
+    ref_replacements: Dict[str, str] = {}
 
     for child in node.children:
         if not isinstance(child, docutils.nodes.container):
@@ -59,9 +59,11 @@ def _replace_resolved_xrefs(node: sphinx.ext.graphviz.graphviz, code: str) -> st
 
         ref_replacements[xref_id] = replacement_text
 
-    if ref_replacements:
-        ref_pattern = "|".join(ref_replacements.keys())
-        code = re.sub(ref_pattern, lambda m: ref_replacements[m.group(0)], code)
+    for ref_id, replacement in ref_replacements.items():
+        next_attr = re.search(ref_id + "[\\s,;]*\\w+", code)
+        if next_attr is not None and next_attr.group(0).endswith("label"):
+            replacement = replacement[replacement.find(">") + 1 :].lstrip()
+        code = re.sub(ref_id, replacement, code)
     return code
 
 
