@@ -75,6 +75,10 @@ or ``theme.conf`` for more details.
     content_tabs
     task_lists
     keys
+
+.. toctree::
+    :caption: Code Blocks
+
     code_syntax_highlighting
     code_annotations
 
