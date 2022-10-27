@@ -3,7 +3,10 @@ from docutils import nodes
 from sphinx.application import Sphinx
 from sphinx.util.docutils import SphinxDirective
 from sphinx.writers.html import HTMLTranslator
+from sphinx.util.logging import getLogger
 from . import html_translator_mixin
+
+LOGGER = getLogger(__name__)
 
 
 class annotations_list(nodes.container):
@@ -21,9 +24,11 @@ class CodeAnnotations(SphinxDirective):
 
         div = annotations_list("")
         self.state.nested_parse(self.content, self.content_offset, div)
+        self.set_source_info(div)
         if not isinstance(div.children[0], nodes.enumerated_list):
-            raise ValueError(
-                "The code-annotations directive only accepts an enumerated list."
+            LOGGER.error(
+                "The code-annotations directive only accepts an enumerated list.",
+                location=div,
             )
         return [div]
 
