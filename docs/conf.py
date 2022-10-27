@@ -127,7 +127,8 @@ html_theme_options = {
         "search.share",
         "toc.follow",
         "toc.sticky",
-        # "content.code.annotate",
+        "content.tabs.link",
+        "announce.dismiss",
     ],
     "palette": [
         {
