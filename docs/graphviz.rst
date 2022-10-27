@@ -123,10 +123,60 @@ example above.
 The reStructuredText will be parsed, and after resolving any cross references,
 will be substituted back into the graph definition as follows:
 
-- A :graphvizattr:`label` will be generated from the text content.
-- If there is at least one ``reference`` node, only the last such node is
+- A :graphvizattr:`label` will be generated from the cross reference's text content.
+- If there is at least one cross referable target, only the last such target is
   considered, and:
 
   - an :graphvizattr:`href` will be generated from its URL.
   - a :graphvizattr:`tooltip` will be generated from its title/tooltip, if any.
   - a :graphvizattr:`target` will be generated from its target, if any.
+
+Overriding the cross-reference label
+************************************
+
+The :graphvizattr:`label` generated with the new ``xref`` attribute uses escaped HTML characters.
+In some graphs, it is preferable to use unescaped HTML characters in the :graphvizattr:`label`.
+In this case, the generated :graphvizattr:`label` can be overridden by manually specifying the
+:graphvizattr:`label` immediately after the ``xref`` attribute.
+
+.. rst-example:: A graph of "record" nodes
+   
+   .. graphviz::
+
+      digraph {
+          graph [rankdir = "LR"]
+          "module" [
+              xref=":py:mod:`test_py_module.test`"
+              label="<f0> test_py_module.test | <f1> functions | <f2> classes"
+              shape = "record"
+          ]
+          "class" [
+              xref = ":py:class:`test_py_module.test.Foo`"
+              label = "<f0> Foo | <f1> attributes | <f2> methods"
+              shape = "record"
+          ]
+          "method" [
+              xref = ":py:meth:`test_py_module.test.Foo.capitalize()`"
+              label = "<f0> capitalize() | <f1> variables"
+              shape = "record"
+          ]
+          "function" [
+              xref = ":py:func:`test_py_module.test.func()`"
+              label = "<f0> func() | <f1> variables"
+              shape = "record"
+          ]
+          "class_attr" [
+              xref = ":py:attr:`~test_py_module.test.Foo.spam`"
+              shape = "record"
+          ]
+          "module":f2 -> "class":f0
+          "module":f1 -> "function":f0
+          "class":f2 -> "method":f0
+          "class":f1 -> "class_attr"
+      }      
+
+.. admonition:: Implementation note
+   :class: info
+
+   Using cross references in a single field of a record node (with multiple fields) is unsupported
+   because the manually specified :graphvizattr:`label` is used as is.
