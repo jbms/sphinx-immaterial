@@ -13,8 +13,8 @@ feature.
     excluded when using the "copy to clipboard" button for an annotated `code-block`; the annotated
     comments' text will still be copied (if not `Hiding the annotated comment`_).
 
-    :throws: A `ValueError` will be raised if the given list is not recognized as an
-        :duref:`enumerated list <enumerated-lists>`.
+    An error will be shown in the build log if the given list is not recognized as an
+    :duref:`enumerated list <enumerated-lists>`.
 
     .. note::
         When using this directive the :python:`"content.code.annotate"` does not need to be
@@ -57,7 +57,8 @@ Each annotation in the code snippet should be a comment starting with the identi
                This has no special affect because the :rst:dir:`code-annotations` directive already
                enables the feature accordingly.
 
-:duref:`Enumerated lists' <enumerated-lists>` markers in reStructuredText are normalized according to the list's nested level.
+:duref:`Enumerated lists' <enumerated-lists>` markers in reStructuredText can be uniformed with the
+``#`` character instead of numbers/letters.
 
 .. rst-example:: 
 
@@ -67,9 +68,15 @@ Each annotation in the code snippet should be a comment starting with the identi
         /* (2) */
     
     .. code-annotations::
-        A. The tooltip for the first annotation.
-        #. 1. First item in a nested list
-           2. Second item in a nested list.
+        #. These annotations can have anything that Sphinx supports:
+           
+           .. image:: desert-flower.jpg
+        #. Indentation for lists' items that span multiple lines can
+           be tricky in reStructuredText.
+
+           0. First item in a nested list that starts with ``0``.
+           #. Checkout the `sphinxemoji <https://sphinxemojicodes.rtfd.io>`_ extension to
+              put emojis here.
 
 Hiding the annotated comment
 ----------------------------
@@ -96,7 +103,9 @@ ends with a exclamation mark (``!``) after the closing parenthesis.
         4. I'm the forth annotation.
         5. I'm the fifth annotation.
 
-.. error::
+.. admonition:: Limitations
+    :class: bug
+
     For technical reasons, this hiding mechanism will only work with 1 annotation per code comment.
     In the above example, you should notice that, on line 3, the third annotation is removed
     because the second annotation has the ``!`` appended in the comment. And all text is removed
@@ -149,8 +158,9 @@ Using the above CSS would render annotations like so:
     .. code-block:: python
 
         def my_func(param)  # (1)!
+            """A doc string."""
             return param + 1  # (2)!
 
     .. code-annotations::
-        1. data goes in here.
-        2. data comes out here
+        1. Data goes in here.
+        2. Data comes out here.
