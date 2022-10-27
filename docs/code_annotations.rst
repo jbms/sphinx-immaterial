@@ -54,8 +54,8 @@ Each annotation in the code snippet should be a comment starting with the identi
         1. .. admonition:: Obsolete
                :class: failure
 
-               This has no special affect because the :rst:dir:`code-annotations` directive already
-               enables the feature accordingly.
+               This has no special effect because the :rst:dir:`code-annotations` directive
+               automatically enables the feature.
 
 :duref:`Enumerated lists' <enumerated-lists>` markers in reStructuredText can be uniformed with the
 ``#`` character instead of numbers/letters.
