@@ -40,15 +40,15 @@ def visit_literal_block(
     super_func: html_translator_mixin.BaseVisitCallback[nodes.literal_block],
 ):
     #  we need to be sure that the annotated_list is the next node
-    annotation_node = node.next_node(annotations_list, siblings=True, descend=False)
+    next_element = node.next_node(nodes.Element, siblings=True, descend=False)
     parent = node.parent
     if isinstance(parent.children[0], nodes.caption):
         # literal blocks with a caption have added parent
         parent = parent.parent
-        annotation_node = node.parent.next_node(
-            annotations_list, siblings=True, descend=False
+        next_element = node.parent.next_node(
+            nodes.Element, siblings=True, descend=False
         )
-    if annotation_node is not None:
+    if isinstance(next_element, annotations_list):
         try:
             super_func(self, node)
         except nodes.SkipNode:
@@ -58,7 +58,7 @@ def visit_literal_block(
         self.body[-1] = self.body[-1][:-7].replace(
             '<div class="highlight">', '<div class="annotate highlight">'
         )
-        annotation_node.children[0].walkabout(self)  # add annotations' enumerated_list
+        next_element.children[0].walkabout(self)  # add annotations' enumerated_list
         self.body.append("</div>\n")  # re-add the closing div for the parent
         raise nodes.SkipNode()  # now we're done
     # else no annotations list found; proceed like normal
