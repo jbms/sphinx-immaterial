@@ -36,10 +36,6 @@ Each annotation in the code snippet should be a comment starting with the identi
     All annotations are hyperlinked. This means you can right click the annotation's button and
     open it as a link in a new tab (or copy the link to sharing).
 
-.. warning::
-    Using the same annotation for multiple comments will essentially turn all but the last button
-    into hyperlinks to the last button.
-
 .. rst-example:: Example of code annotations
 
     .. code-block:: python
@@ -57,8 +53,17 @@ Each annotation in the code snippet should be a comment starting with the identi
                This has no special effect because the :rst:dir:`code-annotations` directive
                automatically enables the feature.
 
-:duref:`Enumerated lists' <enumerated-lists>` markers in reStructuredText can be uniformed with the
-``#`` character instead of numbers/letters.
+Arbitrary list markers
+----------------------
+
+The :duref:`enumerated lists' <enumerated-lists>` markers are arbitrary to the identifying numbers
+used in the annotated comment. Because of this ambiguity, the identifying numbers in the annotated
+comments must always start counting from ``1`` (for each `code-block`). Remember, the ``#``
+character can be used instead of numbers/letters in the
+:duref:`enumerated lists' <enumerated-lists>` markers.
+
+The below example demonstrates this ambiguity as the annotated comment ``// (1)`` corresponds to
+the first annotated list item (beginning with the marker ``3.``).
 
 .. rst-example:: 
 
@@ -68,7 +73,7 @@ Each annotation in the code snippet should be a comment starting with the identi
         /* (2) */
     
     .. code-annotations::
-        #. These annotations can have anything that Sphinx supports:
+        3. These annotations can have anything that Sphinx supports:
            
            .. image:: desert-flower.jpg
         #. Indentation for lists' items that span multiple lines can
@@ -77,6 +82,22 @@ Each annotation in the code snippet should be a comment starting with the identi
            0. First item in a nested list that starts with ``0``.
            #. Checkout the `sphinxemoji <https://sphinxemojicodes.rtfd.io>`_ extension to
               put emojis here.
+
+.. warning::
+    Using the same identifying number to annotate multiple comments will essentially turn all but the last button
+    into hyperlinks that target to the last button.
+
+    .. rst-example::
+
+        .. code-block:: lua
+
+            -- (1) some text, and (1)
+            
+            local var_name = 0
+            -- (1)
+
+        .. code-annotations::
+            1. Should've used :duref:`footnotes <footnotes>` instead.
 
 Hiding the annotated comment
 ----------------------------
@@ -138,8 +159,12 @@ With the above CSS changes, a tooltip would be rendered like so:
 Annotation buttons with numbers
 -------------------------------
 
-The mkdocs-material legacy behavior was to use the annotation items list number in the button
-that was rendered. To enable this, use the following custom CSS rules:
+The mkdocs-material legacy behavior was to use the annotated comment's identifying number in the
+button that was rendered. However, this behavior was removed because annotated comment's
+identifying number is arbitrary to the annotated list item's numeric marker -- see example snippet
+in `Arbitrary list markers`_.
+
+To enable this legacy behavior, use the following custom CSS rules:
 
 .. code-block:: css
 
