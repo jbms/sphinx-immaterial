@@ -24,9 +24,9 @@ feature.
 Using annotations
 *****************
 
-Each annotation in the code snippet should be a comment starting with the identifying number
-(in parenthesis) of the corresponding annotation specified in the list of
-:rst:dir:`code-annotations`.
+Each annotation in the code snippet should be a comment containing the identifying number in
+parentheses (``(1)``) that corresponds to the sequential order of annotations specified in the
+list of :rst:dir:`code-annotations`.
 
 .. note::
     Remember to specify the language syntax for pygments to highlight the `code-block`. Without
@@ -57,13 +57,13 @@ Each annotation in the code snippet should be a comment starting with the identi
 Arbitrary list markers
 ----------------------
 
-The :duref:`enumerated lists' <enumerated-lists>` markers are arbitrary to the identifying numbers
-used in the annotated comment. Because of this ambiguity, the identifying numbers in the annotated
-comments must always start counting from ``1`` (for each `code-block`). Remember, the ``#``
-character can be used instead of numbers/letters in the
+The :duref:`enumerated lists' <enumerated-lists>` markers are arbitrary and do not directly
+correspond to the identifying numbers used in the annotated comment. Because of this arbitration,
+the identifying numbers in the annotated comments **must always start counting from ``1``** (for
+each `code-block`). Remember, the ``#`` character can be used instead of numbers/letters in the
 :duref:`enumerated lists' <enumerated-lists>` markers.
 
-The below example demonstrates this ambiguity as the annotated comment ``// (1)`` corresponds to
+The below example demonstrates this arbitration as the annotated comment ``// (1)`` corresponds to
 the first annotated list item (beginning with the marker ``3.``).
 
 .. rst-example:: 
@@ -85,8 +85,8 @@ the first annotated list item (beginning with the marker ``3.``).
               put emojis here.
 
 .. warning::
-    Using the same identifying number to annotate multiple comments will essentially turn all but the last button
-    into hyperlinks that target to the last button.
+    Using the same identifying number to annotate multiple comments will essentially turn all but
+    the last button into hyperlinks that target to the last button.
 
     .. rst-example::
 
@@ -98,7 +98,7 @@ the first annotated list item (beginning with the marker ``3.``).
             -- (1)
 
         .. code-annotations::
-            1. Should've used :duref:`footnotes <footnotes>` instead.
+            #. Should've used :duref:`footnotes <footnotes>` instead.
 
 Hiding the annotated comment
 ----------------------------
