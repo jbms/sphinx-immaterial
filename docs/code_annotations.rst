@@ -35,7 +35,7 @@ list of :rst:dir:`code-annotations`.
 
 .. hint::
     All annotations are hyperlinked. This means you can right click the annotation's button and
-    open it as a link in a new tab (or copy the link to sharing).
+    open it as a link in a new tab (or copy the link to share it).
 
 .. rst-example:: Example of code annotations
 
