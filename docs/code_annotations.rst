@@ -9,7 +9,8 @@ feature.
 
     This directive shall hold an :duref:`enumerated list <enumerated-lists>` of annotations that can be used in a
     `code-block` immediately prior to this directive. The given list will not be rendered in the
-    generated output (even if there is no code snippet to annotate). Additionally, all annotations will be
+    generated output, unless there is no immediately prior `code-block` to annotate or there are no
+    annotated comments in the immediately prior `code-block`. Additionally, all annotations will be
     excluded when using the "copy to clipboard" button for an annotated `code-block`; the annotated
     comments' text will still be copied (if not `Hiding the annotated comment`_).
 

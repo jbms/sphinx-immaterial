@@ -22,7 +22,7 @@ class CodeAnnotations(SphinxDirective):
         """Run the directive."""
         self.assert_has_content()
 
-        div = annotations_list("")
+        div = annotations_list("", used=False)
         self.state.nested_parse(self.content, self.content_offset, div)
         self.set_source_info(div)
         if not isinstance(div.children[0], nodes.enumerated_list):
@@ -35,7 +35,9 @@ class CodeAnnotations(SphinxDirective):
 
 def visit_annotations_list(self: HTMLTranslator, node: annotations_list):
     # the content should have been moved into the literal block before calling this
-    raise nodes.SkipNode()  # see visit_literal_block() override
+    if not node["used"]:  # see visit_literal_block() override below
+        node.children[0].walkabout(self)
+    raise nodes.SkipNode()
 
 
 @html_translator_mixin.override
@@ -74,6 +76,7 @@ def visit_literal_block(
         )
         next_element.children[0].walkabout(self)  # add annotations' enumerated_list
         self.body.append("</div>\n")  # re-add the closing div for the parent
+        next_element["used"] = True
         raise nodes.SkipNode()  # now we're done
     # else no annotations list found; proceed like normal
     super_func(self, node)
