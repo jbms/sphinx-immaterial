@@ -137,7 +137,7 @@ Overriding the cross-reference label
 The :graphvizattr:`label` generated with the new ``xref`` attribute uses escaped HTML characters.
 In some graphs, it is preferable to use unescaped HTML characters in the :graphvizattr:`label`.
 In this case, the generated :graphvizattr:`label` can be overridden by manually specifying the
-:graphvizattr:`label` immediately after the ``xref`` attribute.
+:graphvizattr:`label` after the ``xref`` attribute.
 
 .. rst-example:: A graph of "record" nodes
    
@@ -178,5 +178,5 @@ In this case, the generated :graphvizattr:`label` can be overridden by manually 
 .. admonition:: Implementation note
    :class: info
 
-   Using cross references in a single field of a record node (with multiple fields) is unsupported
+   Using a cross reference in a single field of a record node (with multiple fields) is unsupported
    because the manually specified :graphvizattr:`label` is used as is.
