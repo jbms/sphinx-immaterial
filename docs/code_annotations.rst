@@ -59,26 +59,30 @@ Arbitrary list markers
 
 The :duref:`enumerated lists' <enumerated-lists>` markers are arbitrary and do not directly
 correspond to the identifying numbers used in the annotated comment. Because of this arbitration,
-the identifying numbers in the annotated comments **must always start counting from ``1``** (for
+the identifying numbers in the annotated comments **must always start counting from** ``1`` (for
 each `code-block`). Remember, the ``#`` character can be used instead of numbers/letters in the
 :duref:`enumerated lists' <enumerated-lists>` markers.
 
-The below example demonstrates this arbitration as the annotated comment ``// (1)`` corresponds to
+The below example demonstrates this arbitration as the annotated comment ``(1)`` corresponds to
 the first annotated list item (beginning with the marker ``3.``).
 
 .. rst-example:: 
 
     .. code-block:: cpp
 
-        // (1)
-        /* (2) */
+        // What can I put in an annotation? (1)
+        /* What about nested lists and emojis? (2) */
     
     .. code-annotations::
-        3. These annotations can have anything that Sphinx supports:
-           
+        3. These annotations can have anything that Sphinx supports (including extensions).
+
+           .. graphviz::
+            
+               digraph { A -> B }
            .. image:: desert-flower.jpg
-        #. Indentation for lists' items that span multiple lines can
-           be tricky in reStructuredText.
+               :width: 75%
+        #. Indentation for lists' items that span multiple lines can be tricky in
+           reStructuredText.
 
            0. First item in a nested list that starts with ``0``.
            #. Checkout the `sphinxemoji <https://sphinxemojicodes.rtfd.io>`_ extension to
