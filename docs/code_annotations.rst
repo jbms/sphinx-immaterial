@@ -18,7 +18,7 @@ feature.
     :duref:`enumerated list <enumerated-lists>`.
 
     .. note::
-        When using this directive the :python:`"content.code.annotate"` does not need to be
+        When using this directive, the :python:`"content.code.annotate"` does not need to be
         specified in the :themeconf:`features` list.
 
 Using annotations
