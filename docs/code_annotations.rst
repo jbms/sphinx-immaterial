@@ -58,12 +58,12 @@ Arbitrary list markers
 ----------------------
 
 The :duref:`enumerated lists' <enumerated-lists>` markers are arbitrary and do not directly
-correspond to the identifying numbers used in the annotated comment. Because of this arbitration,
+correspond to the identifying numbers used in the annotated comment. Because of this arbitrariness,
 the identifying numbers in the annotated comments **must always start counting from** ``1`` (for
 each `code-block`). Remember, the ``#`` character can be used instead of numbers/letters in the
 :duref:`enumerated lists' <enumerated-lists>` markers.
 
-The below example demonstrates this arbitration as the annotated comment ``(1)`` corresponds to
+The below example demonstrates this arbitrariness as the annotated comment ``(1)`` corresponds to
 the first annotated list item (beginning with the marker ``3.``).
 
 .. rst-example:: 
