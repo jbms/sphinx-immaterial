@@ -47,12 +47,13 @@ def visit_literal_block(
     super_func: html_translator_mixin.BaseVisitCallback[nodes.literal_block],
 ):
     #  we need to be sure that the annotated_list is the next node
-    next_element = node.next_node(nodes.Element, siblings=True, descend=False)
+    annotation_parent = node
     if isinstance(node.parent.children[0], nodes.caption):
         # literal blocks with a caption have added parent
-        next_element = node.parent.next_node(
-            nodes.Element, siblings=True, descend=False
-        )
+        annotation_parent = node.parent
+    next_element = annotation_parent.next_node(
+        nodes.Element, siblings=True, descend=False
+    )
     if isinstance(next_element, annotations_list):
         try:
             super_func(self, node)
