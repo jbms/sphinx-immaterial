@@ -1,4 +1,7 @@
-from typing import List
+"""Adds a new directive for using upstream's code annotations feature.
+See comments in visit_literal_block() override below for detailed explanation about
+why this directive is needed."""
+from typing import List, cast
 from docutils import nodes
 from sphinx.application import Sphinx
 from sphinx.util.docutils import SphinxDirective
@@ -47,7 +50,7 @@ def visit_literal_block(
     super_func: html_translator_mixin.BaseVisitCallback[nodes.literal_block],
 ):
     #  we need to be sure that the annotated_list is the next node
-    annotation_parent = node
+    annotation_parent = cast(nodes.Element, node)
     if isinstance(node.parent.children[0], nodes.caption):
         # literal blocks with a caption have added parent
         annotation_parent = node.parent
