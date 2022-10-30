@@ -289,6 +289,9 @@ Configuration Options
         of strings. The following features are supported:
 
         - `content.code.annotate <https://squidfunk.github.io/mkdocs-material/reference/code-blocks/#code-annotations>`_
+
+          .. seealso:: Refer to the :doc:`code_annotations` document for more detail.
+
         - `content.tabs.link <https://squidfunk.github.io/mkdocs-material/reference/content-tabs/#linked-content-tabs>`_
 
           .. seealso::
