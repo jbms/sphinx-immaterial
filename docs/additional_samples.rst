@@ -260,22 +260,36 @@ Math
       \end{eqnarray}
 
 
-..
-   FIXME: Production lists currently do not work.
 
-   Production Lists
-   ================
+Production Lists
+================
 
-   .. rst-example::
+The following `productionlist` is a modified example taken from
+`the Graphviz documentation <https://graphviz.org/doc/info/lang.html>`_
 
-      .. productionlist::
-         try_stmt: try1_stmt | try2_stmt
-         try1_stmt: "try" ":" `suite`
-                  : ("except" [`expression` ["," `target`]] ":" `suite`)+
-                  : ["else" ":" `suite`]
-                  : ["finally" ":" `suite`]
-         try2_stmt: "try" ":" `suite`
-                  : "finally" ":" `suite`
+.. rst-example:: Grammar for dot syntax
+
+    .. productionlist::
+       graph      : [ strict ] (`graph` | digraph) [ ID ] '{' `stmt_list` '}'
+       stmt_list  : [ `stmt` [ ';' ] `stmt_list` ]
+       stmt       : `node_stmt`
+                  : `edge_stmt`
+                  : `attr_stmt`
+                  : ID '=' ID
+                  : `subgraph`
+       attr_stmt  : (`graph` | node | edge) `attr_list`
+       attr_list  : '[' [ `a_list` ] ']' [ `attr_list` ]
+       a_list     : ID '=' ID [ (';' | ',') ] [ `a_list` ]
+       edge_stmt  : (`node_id` | `subgraph`) `edgeRHS` [ `attr_list` ]
+       edgeRHS    : edgeop (`node_id` | `subgraph`) [ `edgeRHS` ]
+       node_stmt  : `node_id` [ `attr_list` ]
+       node_id    : ID [ `port` ]
+       port       : ':' ID [ ':' `compass_pt` ]
+                  : ':' `compass_pt`
+       subgraph   : [ `subgraph` [ ID ] ] '{' `stmt_list` '}'
+       compass_pt : (n | ne | e | se | s | sw | w | nw | c | _)
+
+    This is a reference to the grammar for a :token:`graph` in dot syntax.
 
 Sub-pages
 =========
