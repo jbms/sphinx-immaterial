@@ -1010,6 +1010,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#production-lists" class="md-nav__link">
+    <span class="md-ellipsis">Production Lists</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#sub-pages" class="md-nav__link">
     <span class="md-ellipsis">Sub-<wbr>pages</span>
   </a>
@@ -1195,6 +1202,13 @@
         <li class="md-nav__item">
   <a href="#math" class="md-nav__link">
     <span class="md-ellipsis">Math</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#production-lists" class="md-nav__link">
+    <span class="md-ellipsis">Production Lists</span>
   </a>
   
 </li>
@@ -1925,6 +1939,61 @@ source files for one Sphinx project.</p>
    y    &amp; = &amp; ax^2 + bx + c \\
    f(x) &amp; = &amp; x^2 + 2xy + y^2
 \end{eqnarray}</div></div>
+</div>
+<h2 id="production-lists">Production Lists<a class="headerlink" href="#production-lists" title="Permalink to this heading">¶</a></h2>
+<p>The following <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/directives.html#directive-productionlist" title="(in Sphinx v6.0.0b3)"><code class="xref any docutils literal notranslate"><span class="pre">productionlist</span></code></a> is a modified example taken from
+<a class="reference external" href="https://graphviz.org/doc/info/lang.html">the Graphviz documentation</a></p>
+<div class="results docutils container">
+<div class="literal-block-wrapper docutils container" id="id12">
+<div class="code-block-caption highlight"><span class="caption-text filename">
+Grammar for dot syntax<a class="headerlink" href="#id12" title="Permalink to this code">¶</a></span></div>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><code><span class="p">..</span> <span class="ow">productionlist</span><span class="p">::</span>
+   graph      : [ strict ] (<span class="nv">`graph`</span> | digraph) [ ID ] &#39;{&#39; <span class="nv">`stmt_list`</span> &#39;}&#39;
+   stmt_list  : [ <span class="nv">`stmt`</span> [ &#39;;&#39; ] <span class="nv">`stmt_list`</span> ]
+   stmt       : <span class="nv">`node_stmt`</span>
+              : <span class="nv">`edge_stmt`</span>
+              : <span class="nv">`attr_stmt`</span>
+              : ID &#39;=&#39; ID
+              : <span class="nv">`subgraph`</span>
+   attr_stmt  : (<span class="nv">`graph`</span> | node | edge) <span class="nv">`attr_list`</span>
+   attr_list  : &#39;[&#39; [ <span class="nv">`a_list`</span> ] &#39;]&#39; [ <span class="nv">`attr_list`</span> ]
+   a_list     : ID &#39;=&#39; ID [ (&#39;;&#39; | &#39;,&#39;) ] [ <span class="nv">`a_list`</span> ]
+   edge_stmt  : (<span class="nv">`node_id`</span> | <span class="nv">`subgraph`</span>) <span class="nv">`edgeRHS`</span> [ <span class="nv">`attr_list`</span> ]
+   edgeRHS    : edgeop (<span class="nv">`node_id`</span> | <span class="nv">`subgraph`</span>) [ <span class="nv">`edgeRHS`</span> ]
+   node_stmt  : <span class="nv">`node_id`</span> [ <span class="nv">`attr_list`</span> ]
+   node_id    : ID [ <span class="nv">`port`</span> ]
+   port       : &#39;:&#39; ID [ &#39;:&#39; <span class="nv">`compass_pt`</span> ]
+              : &#39;:&#39; <span class="nv">`compass_pt`</span>
+   subgraph   : [ <span class="nv">`subgraph`</span> [ ID ] ] &#39;{&#39; <span class="nv">`stmt_list`</span> &#39;}&#39;
+   compass_pt : (n | ne | e | se | s | sw | w | nw | c | _)
+
+This is a reference to the grammar for a <span class="na">:token:</span><span class="nv">`graph`</span> in dot syntax.
+</code></pre></div>
+</div>
+</div>
+<div class="result docutils container">
+<pre>
+<code><strong id="grammar-token-graph">graph     </strong> ::=  [ strict ] (<a class="reference internal" href="#grammar-token-graph" title="graph (grammar token)"><code class="xref docutils literal notranslate"><span class="pre">graph</span></code></a> | digraph) [ ID ] '{' <a class="reference internal" href="#grammar-token-stmt_list" title="stmt_list (grammar token)"><code class="xref docutils literal notranslate"><span class="pre">stmt_list</span></code></a> '}'
+<strong id="grammar-token-stmt_list">stmt_list </strong> ::=  [ <a class="reference internal" href="#grammar-token-stmt" title="stmt (grammar token)"><code class="xref docutils literal notranslate"><span class="pre">stmt</span></code></a> [ ';' ] <a class="reference internal" href="#grammar-token-stmt_list" title="stmt_list (grammar token)"><code class="xref docutils literal notranslate"><span class="pre">stmt_list</span></code></a> ]
+<strong id="grammar-token-stmt">stmt      </strong> ::=  <a class="reference internal" href="#grammar-token-node_stmt" title="node_stmt (grammar token)"><code class="xref docutils literal notranslate"><span class="pre">node_stmt</span></code></a>
+                <a class="reference internal" href="#grammar-token-edge_stmt" title="edge_stmt (grammar token)"><code class="xref docutils literal notranslate"><span class="pre">edge_stmt</span></code></a>
+                <a class="reference internal" href="#grammar-token-attr_stmt" title="attr_stmt (grammar token)"><code class="xref docutils literal notranslate"><span class="pre">attr_stmt</span></code></a>
+                ID '=' ID
+                <a class="reference internal" href="#grammar-token-subgraph" title="subgraph (grammar token)"><code class="xref docutils literal notranslate"><span class="pre">subgraph</span></code></a>
+<strong id="grammar-token-attr_stmt">attr_stmt </strong> ::=  (<a class="reference internal" href="#grammar-token-graph" title="graph (grammar token)"><code class="xref docutils literal notranslate"><span class="pre">graph</span></code></a> | node | edge) <a class="reference internal" href="#grammar-token-attr_list" title="attr_list (grammar token)"><code class="xref docutils literal notranslate"><span class="pre">attr_list</span></code></a>
+<strong id="grammar-token-attr_list">attr_list </strong> ::=  '[' [ <a class="reference internal" href="#grammar-token-a_list" title="a_list (grammar token)"><code class="xref docutils literal notranslate"><span class="pre">a_list</span></code></a> ] ']' [ <a class="reference internal" href="#grammar-token-attr_list" title="attr_list (grammar token)"><code class="xref docutils literal notranslate"><span class="pre">attr_list</span></code></a> ]
+<strong id="grammar-token-a_list">a_list    </strong> ::=  ID '=' ID [ (';' | ',') ] [ <a class="reference internal" href="#grammar-token-a_list" title="a_list (grammar token)"><code class="xref docutils literal notranslate"><span class="pre">a_list</span></code></a> ]
+<strong id="grammar-token-edge_stmt">edge_stmt </strong> ::=  (<a class="reference internal" href="#grammar-token-node_id" title="node_id (grammar token)"><code class="xref docutils literal notranslate"><span class="pre">node_id</span></code></a> | <a class="reference internal" href="#grammar-token-subgraph" title="subgraph (grammar token)"><code class="xref docutils literal notranslate"><span class="pre">subgraph</span></code></a>) <a class="reference internal" href="#grammar-token-edgeRHS" title="edgeRHS (grammar token)"><code class="xref docutils literal notranslate"><span class="pre">edgeRHS</span></code></a> [ <a class="reference internal" href="#grammar-token-attr_list" title="attr_list (grammar token)"><code class="xref docutils literal notranslate"><span class="pre">attr_list</span></code></a> ]
+<strong id="grammar-token-edgeRHS">edgeRHS   </strong> ::=  edgeop (<a class="reference internal" href="#grammar-token-node_id" title="node_id (grammar token)"><code class="xref docutils literal notranslate"><span class="pre">node_id</span></code></a> | <a class="reference internal" href="#grammar-token-subgraph" title="subgraph (grammar token)"><code class="xref docutils literal notranslate"><span class="pre">subgraph</span></code></a>) [ <a class="reference internal" href="#grammar-token-edgeRHS" title="edgeRHS (grammar token)"><code class="xref docutils literal notranslate"><span class="pre">edgeRHS</span></code></a> ]
+<strong id="grammar-token-node_stmt">node_stmt </strong> ::=  <a class="reference internal" href="#grammar-token-node_id" title="node_id (grammar token)"><code class="xref docutils literal notranslate"><span class="pre">node_id</span></code></a> [ <a class="reference internal" href="#grammar-token-attr_list" title="attr_list (grammar token)"><code class="xref docutils literal notranslate"><span class="pre">attr_list</span></code></a> ]
+<strong id="grammar-token-node_id">node_id   </strong> ::=  ID [ <a class="reference internal" href="#grammar-token-port" title="port (grammar token)"><code class="xref docutils literal notranslate"><span class="pre">port</span></code></a> ]
+<strong id="grammar-token-port">port      </strong> ::=  ':' ID [ ':' <a class="reference internal" href="#grammar-token-compass_pt" title="compass_pt (grammar token)"><code class="xref docutils literal notranslate"><span class="pre">compass_pt</span></code></a> ]
+                ':' <a class="reference internal" href="#grammar-token-compass_pt" title="compass_pt (grammar token)"><code class="xref docutils literal notranslate"><span class="pre">compass_pt</span></code></a>
+<strong id="grammar-token-subgraph">subgraph  </strong> ::=  [ <a class="reference internal" href="#grammar-token-subgraph" title="subgraph (grammar token)"><code class="xref docutils literal notranslate"><span class="pre">subgraph</span></code></a> [ ID ] ] '{' <a class="reference internal" href="#grammar-token-stmt_list" title="stmt_list (grammar token)"><code class="xref docutils literal notranslate"><span class="pre">stmt_list</span></code></a> '}'
+<strong id="grammar-token-compass_pt">compass_pt</strong> ::=  (n | ne | e | se | s | sw | w | nw | c | _)
+</code></pre>
+<p>This is a reference to the grammar for a <a class="reference internal" href="#grammar-token-graph" title="graph (grammar token)"><code class="xref std std-token docutils literal notranslate"><span class="pre">graph</span></code></a> in dot syntax.</p>
+</div>
 </div>
 <h2 id="sub-pages">Sub-pages<a class="headerlink" href="#sub-pages" title="Permalink to this heading">¶</a></h2>
 <div class="toctree-wrapper compound">
