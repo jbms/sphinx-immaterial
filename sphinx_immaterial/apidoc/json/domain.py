@@ -236,11 +236,21 @@ def _get_json_schema_files(app: sphinx.application.Sphinx):
     if not include_globs:
         return
 
+    exclude_globs = (
+        app.config.exclude_patterns
+        + app.config.templates_path
+        + sphinx.project.EXCLUDE_PATHS
+    )
+
+    if sphinx.version_info >= (6, 0):
+        yield from sphinx.util.matching.get_matching_files(
+            app.srcdir, include_patterns=include_globs, exclude_patterns=exclude_globs
+        )
+        return
+
+    # Use older predicate-based `get_matching_files`.
     include_re = _globs_to_re(include_globs)
-
-    exclude_paths = app.config.exclude_patterns + app.config.templates_path
-    exclude_re = _globs_to_re(exclude_paths + sphinx.project.EXCLUDE_PATHS)
-
+    exclude_re = _globs_to_re(exclude_globs)
     matching_files = sphinx.util.get_matching_files(
         app.srcdir, (lambda s: exclude_re.fullmatch(s) is not None,)
     )
