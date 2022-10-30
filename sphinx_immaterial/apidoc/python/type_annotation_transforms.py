@@ -1,5 +1,6 @@
 """Optional type annotation transformations."""
 
+import ast
 import functools
 import re
 import sys
@@ -19,8 +20,31 @@ import docutils.nodes
 import sphinx.application
 import sphinx.domains.python
 import sphinx.environment
-from sphinx.pycode.ast import ast
 import sphinx.util.logging
+
+# `ast.unparse` added in Python 3.9
+if sys.version_info >= (3, 9):
+    from ast import unparse as ast_unparse
+else:
+    from sphinx.pycode.ast import unparse as ast_unparse
+    from sphinx.pycode.ast import _UnparseVisitor
+
+    def _monkey_patch_sphinx_ast_unparse():
+        """Monkey patch Sphinx's `ast_unparse`.
+
+        This adds support for some additional ast nodes that we require.
+        """
+
+        def visit_Module(self: _UnparseVisitor, node: ast.Module) -> str:
+            return "\n".join(self.visit(el) for el in node.body)
+
+        def visit_Expr(self: _UnparseVisitor, node: ast.Expr) -> str:
+            return self.visit(node.value)
+
+        _UnparseVisitor.visit_Module = visit_Module  # type: ignore[assignment]
+        _UnparseVisitor.visit_Expr = visit_Expr  # type: ignore[assignment]
+
+    _monkey_patch_sphinx_ast_unparse()
 
 logger = sphinx.util.logging.getLogger(__name__)
 
@@ -230,19 +254,17 @@ def _monkey_patch_python_domain_to_transform_type_annotations():
         transformer_config = getattr(env, _CONFIG_ATTR, None)
         if transformer_config is None or not transformer_config.transform:
             return orig_parse_annotation(annotation, env)
+
         try:
-            orig_ast_parse = sphinx.domains.python.ast_parse
-
-            def ast_parse(annotation: str) -> ast.AST:
-                tree = orig_ast_parse(annotation)
-                transformer = TypeAnnotationTransformer()
-                transformer.config = cast(TypeTransformConfig, transformer_config)
-                return ast.fix_missing_locations(transformer.visit(tree))
-
-            sphinx.domains.python.ast_parse = ast_parse  # type: ignore
+            tree = ast.parse(annotation, type_comments=True)
+        except SyntaxError:
             return orig_parse_annotation(annotation, env)
-        finally:
-            sphinx.domains.python.ast_parse = orig_ast_parse
+
+        transformer = TypeAnnotationTransformer()
+        transformer.config = cast(TypeTransformConfig, transformer_config)
+        tree = ast.fix_missing_locations(transformer.visit(tree))
+        annotation = ast_unparse(tree)
+        return orig_parse_annotation(annotation, env)
 
     sphinx.domains.python._parse_annotation = _parse_annotation
 
