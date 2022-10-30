@@ -11,10 +11,10 @@ jobs:
           - 'windows-latest'
           - 'macos-latest'
         python-version:
-          - '3.7'
           - '3.8'
           - '3.9'
           - '3.10'
+          - '3.11'
         node-version:
           - '16.x'
     runs-on: ${{ matrix.os }}
