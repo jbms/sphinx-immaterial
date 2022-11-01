@@ -43,13 +43,13 @@ def icons_role(
     path, classes = (text, "")
     if ";" in text:
         path, classes = text.split(";")
-    div = md_icon(path, classes=["md-icon", "md-icon-inline"] + classes.split(","))
+    div = md_icon(path, classes=["md-icon", "si-icon-inline"] + classes.split(","))
     return [div], []
 
 
 def setup(app: Sphinx):
 
-    app.add_role("md-icon", icons_role)
+    app.add_role("si-icon", icons_role)
     app.add_node(md_icon, html=(visit_md_icon, None))
     return {
         "parallel_read_safe": True,

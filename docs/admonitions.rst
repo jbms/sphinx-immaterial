@@ -248,7 +248,7 @@ This will only work with `any of the icons bundled with this theme
       }
 
    .. code-annotations::
-      #. Uses the icon :md-icon:`octicons/eye-24`
+      #. Uses the icon :si-icon:`octicons/eye-24`
 
    Then, use the the generated CSS variable :css:`--md-admonition-icon--seealso` in the custom CSS for
    the :css:`mask-image` rules.

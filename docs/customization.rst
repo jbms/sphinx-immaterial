@@ -189,13 +189,11 @@ Configuration Options
             settings. Although this icon can be `any of the icons bundled with this theme`_,
             popular choices are:
 
-            - :md-icon:`fontawesome/brands/git` ``fontawesome/brands/git``
-            - :md-icon:`fontawesome/brands/git-alt` ``fontawesome/brands/git-alt``
-            - :md-icon:`fontawesome/brands/github` ``fontawesome/brands/github``
-            - :md-icon:`fontawesome/brands/github-alt` ``fontawesome/brands/github-alt``
-            - :md-icon:`fontawesome/brands/gitlab` ``fontawesome/brands/gitlab``
-            - :md-icon:`fontawesome/brands/gitkraken` ``fontawesome/brands/gitkraken``
-            - :md-icon:`fontawesome/brands/bitbucket` ``fontawesome/brands/bitbucket``
+            .. jinja:: repo_icons
+
+                {% for icon in repo_icons %}
+                - :si-icon:`{{icon}}` ``{{icon}}``
+                {% endfor %}
 
             .. important::
                 This option has no effect if the :themeconf:`repo_url` option is not specified.
@@ -362,10 +360,10 @@ Configuration Options
 
               .. csv-table::
 
-                  :md-icon:`material/toggle-switch-off-outline` ``material/toggle-switch-off-outline``, :md-icon:`material/toggle-switch` ``material/toggle-switch``
-                  :md-icon:`material/weather-sunny` ``material/weather-sunny``, :md-icon:`material/weather-night` ``material/weather-night``
-                  :md-icon:`material/eye-outline` ``material/eye-outline``, :md-icon:`material/eye` ``material/eye``
-                  :md-icon:`material/lightbulb-outline` ``material/lightbulb-outline``, :md-icon:`material/lightbulb` ``material/lightbulb``
+                  :si-icon:`material/toggle-switch-off-outline` ``material/toggle-switch-off-outline``, :si-icon:`material/toggle-switch` ``material/toggle-switch``
+                  :si-icon:`material/weather-sunny` ``material/weather-sunny``, :si-icon:`material/weather-night` ``material/weather-night``
+                  :si-icon:`material/eye-outline` ``material/eye-outline``, :si-icon:`material/eye` ``material/eye``
+                  :si-icon:`material/lightbulb-outline` ``material/lightbulb-outline``, :si-icon:`material/lightbulb` ``material/lightbulb``
 
         .. themeconf:: media (palette preference)
 

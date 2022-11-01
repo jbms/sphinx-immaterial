@@ -9,7 +9,7 @@ This theme has a builtin role to use icons within lines of text.
 .. warning::
     Using icons in the table of contents or navigation menu is not supported.
 
-.. rst:role:: md-icon
+.. rst:role:: si-icon
 
     Set the content of this role to a relative path of an SVG image (excluding the ``.svg`` file
     extension). This path shall be relative to
@@ -29,10 +29,10 @@ The following sets of icons are bundled with this theme:
 
 .. rst-example:: Using a builtin icon
 
-    - :md-icon:`material/material-design` `Material Design <https://materialdesignicons.com/>`_
-    - :md-icon:`fontawesome/regular/font-awesome` `Font Awesome <https://fontawesome.com/search?m=free>`_
-    - :md-icon:`octicons/mark-github-16` `Octicons <https://octicons.github.com/>`_
-    - :md-icon:`simple/simpleicons` `Simple Icons <https://simpleicons.org/>`_
+    - :si-icon:`material/material-design` `Material Design <https://materialdesignicons.com/>`_
+    - :si-icon:`fontawesome/regular/font-awesome` `Font Awesome <https://fontawesome.com/search?m=free>`_
+    - :si-icon:`octicons/mark-github-16` `Octicons <https://octicons.github.com/>`_
+    - :si-icon:`simple/simpleicons` `Simple Icons <https://simpleicons.org/>`_
 
 You can also browse these icons locally from the sphinx-immaterial theme's install path under
 ``path/to/sphinx-immaterial/sphinx_immaterial/.icons/``.
@@ -46,7 +46,7 @@ list of CSS classes, and don't forget to separate the icon's path and CSS classe
 
 .. rst-example:: Using an icon with custom CSS
 
-    This is a paragraph with :md-icon:`fontawesome/solid/heart;pulsing-heart` an animated icon
+    This is a paragraph with :si-icon:`fontawesome/solid/heart;pulsing-heart` an animated icon
     using the following CSS rules:
 
     .. literalinclude:: _static/extra_css.css
@@ -80,6 +80,6 @@ folder (which is specified using `html_static_path`).
 
 .. rst-example::
 
-    This icon :md-icon:`sphinx_logo` is located in
+    This icon :si-icon:`sphinx_logo` is located in
     `docs/_static/sphinx_logo.svg
     <https://github.com/jbms/sphinx-immaterial/blob/main/docs/_static/sphinx_logo.svg>`_
