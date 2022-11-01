@@ -78,6 +78,7 @@ or ``theme.conf`` for more details.
 
 .. toctree::
     :caption: Code Blocks
+    :hidden:
 
     code_syntax_highlighting
     code_annotations
@@ -95,6 +96,11 @@ or ``theme.conf`` for more details.
     apidoc/cpp/cppreference
     apidoc/cpp/apigen
     apidoc/json/domain
+
+.. toctree::
+    :hidden:
+
+    inline_icons
 
 .. toctree::
     :caption: Diagrams/graphs

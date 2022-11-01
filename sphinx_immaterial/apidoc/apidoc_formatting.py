@@ -96,7 +96,8 @@ def depart_caption(
         "literal_block"
     ):
         self.body.append("</div>\n")
-    else:
+    elif not isinstance(node.parent, docutils.nodes.figure):
+        # calling super_func() on a figure results in 2 permalinks in caption
         super_func(self, node)
 
 

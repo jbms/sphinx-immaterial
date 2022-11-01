@@ -276,7 +276,7 @@ def setup(app):
     app.add_builder(_get_html_builder(app.registry.builders["dirhtml"]), override=True)
     app.add_html_theme("sphinx_immaterial", os.path.abspath(os.path.dirname(__file__)))
 
-    # register our custom adminition directive that are tied to the theme's CSS
+    # register our custom directives/roles that are tied to this theme
     app.setup_extension("sphinx_immaterial.md_admonition")
     app.setup_extension("sphinx_immaterial.content_tabs")
     app.setup_extension("sphinx_immaterial.mermaid_diagrams")
@@ -284,6 +284,7 @@ def setup(app):
     app.setup_extension("sphinx_immaterial.code_annotations")
     app.setup_extension("sphinx_immaterial.default_literal_role")
     app.setup_extension("sphinx_immaterial.highlight_push_pop")
+    app.setup_extension("sphinx_immaterial.inline_icons")
 
     return {
         "parallel_read_safe": True,
