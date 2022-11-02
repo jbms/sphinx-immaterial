@@ -5,7 +5,28 @@ from pathlib import Path
 from typing import Tuple, List
 from docutils import nodes
 from sphinx.application import Sphinx
+from sphinx.builders import Builder
 from sphinx.writers.html5 import HTML5Translator
+
+
+def read_svg_into_span(builder: Builder, icon_name: str, classes: List[str]) -> str:
+    """Reads the SVG data into a HTML span element."""
+    svg = Path(__file__).parent / ".icons" / icon_name
+    if not svg.exists():
+        static_paths: str = getattr(builder.config, "html_static_path")
+        if not static_paths:
+            raise FileNotFoundError(f"{icon_name} not found in bundled theme icons")
+        for path in static_paths:
+            svg = Path(builder.srcdir) / path / icon_name
+            if svg.exists():
+                break
+        else:
+            raise FileNotFoundError(
+                f"{icon_name} not found in html_static_path and not bundled with theme"
+            )
+    svg_data = svg.read_text(encoding="utf-8")
+    css_classes = " ".join(classes)
+    return f'<span class="{css_classes}">{svg_data}</span>'
 
 
 class md_icon(nodes.container):
@@ -16,24 +37,14 @@ def visit_md_icon(self: HTML5Translator, node: md_icon):
     """read icon data and put it into a span element"""
     # in case this node was created from another extension
     assert node.rawsource, "icon node's rawsource must be a relative path"
-    icon_name = node.rawsource + ".svg"
-    svg = Path(__file__).parent / ".icons" / icon_name
-    if not svg.exists():
-        static_paths: str = getattr(self.builder.config, "html_static_path")
-        if not static_paths:
-            raise FileNotFoundError(f"{icon_name} not found in bundled theme icons")
-        for path in static_paths:
-            svg = Path(self.builder.srcdir) / path / icon_name
-            if svg.exists():
-                break
-        else:
-            raise FileNotFoundError(
-                f"{icon_name} not found in html_static_path and not bundled with theme"
-            )
-    svg_data = svg.read_text(encoding="utf-8")
 
-    css_classes = " ".join(node["classes"])
-    self.body.append(f'<span class="{css_classes}">{svg_data}</span>')
+    self.body.append(
+        read_svg_into_span(
+            builder=self.builder,
+            icon_name=node.rawsource + ".svg",
+            classes=node["classes"],
+        )
+    )
     raise nodes.SkipNode()
 
 
