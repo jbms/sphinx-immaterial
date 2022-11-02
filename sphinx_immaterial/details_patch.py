@@ -4,6 +4,7 @@ from docutils import nodes
 try:
     from sphinxcontrib.details.directive import (  # pytype: disable=import-error
         DetailsDirective,
+        DetailsTransform,
     )
 
     IS_INSTALLED = True
@@ -36,3 +37,4 @@ def monkey_patch_details_run():
 
 if IS_INSTALLED:
     monkey_patch_details_run()
+    DetailsTransform.builders = ("html", "dirhtml")
