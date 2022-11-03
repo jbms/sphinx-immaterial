@@ -179,6 +179,11 @@ If you want to add a custom admonition type, all you need is a color and an \*.s
 Copy the icon's code from the `.icons <https://github.com/squidfunk/mkdocs-material/tree/master/material/.icons>`_
 folder and add the new CSS to an additional style sheet.
 
+.. pied-piper::
+   :collapsible: Open
+
+   This is a test.
+
 .. md-tab-set::
 
    .. md-tab-item:: rST code

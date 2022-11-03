@@ -9,22 +9,27 @@ from sphinx.builders import Builder
 from sphinx.writers.html5 import HTML5Translator
 
 
-def read_svg_into_span(builder: Builder, icon_name: str, classes: List[str]) -> str:
-    """Reads the SVG data into a HTML span element."""
-    svg = Path(__file__).parent / ".icons" / icon_name
-    if not svg.exists():
-        static_paths: List[str] = getattr(builder.config, "html_static_path")
-        for path in static_paths:
-            svg = Path(builder.srcdir) / path / icon_name
-            if svg.exists():
-                break
-        else:
-            raise FileNotFoundError(
-                f"{icon_name} not found in html_static_path and not bundled with theme"
-            )
-    svg_data = svg.read_text(encoding="utf-8")
-    css_classes = " ".join(classes)
-    return f'<span class="{css_classes}">{svg_data}</span>'
+def load_svg_into_builder_env(builder: Builder, icon_name: str) -> str:
+    """Reads the SVG data into a builder env variable for CSS generation."""
+    css_icon_name = icon_name.replace("/", "_").replace("\\", "_")
+    custom_icons = getattr(builder.env, "sphinx_immaterial_custom_icons", {})
+    icon_name += ".svg"
+    if css_icon_name not in custom_icons:
+        svg = Path(__file__).parent / ".icons" / icon_name
+        if not svg.exists():
+            static_paths: List[str] = getattr(builder.config, "html_static_path")
+            for path in static_paths:
+                svg = Path(builder.srcdir) / path / icon_name
+                if svg.exists():
+                    break
+            else:
+                raise FileNotFoundError(
+                    f"{icon_name} not found in html_static_path and"
+                    " not bundled with theme"
+                )
+        custom_icons[css_icon_name] = svg.read_text(encoding="utf-8")
+        setattr(builder.env, "sphinx_immaterial_custom_icons", custom_icons)
+    return css_icon_name
 
 
 class si_icon(nodes.container):
@@ -36,12 +41,12 @@ def visit_si_icon(self: HTML5Translator, node: si_icon):
     # in case this node was created from another extension
     assert node.rawsource, "icon node's rawsource must be a relative path"
 
+    css_icon_name = load_svg_into_builder_env(
+        builder=self.builder,
+        icon_name=node.rawsource,
+    )
     self.body.append(
-        read_svg_into_span(
-            builder=self.builder,
-            icon_name=node.rawsource + ".svg",
-            classes=node["classes"],
-        )
+        f'<span class="{" ".join(node["classes"])} {css_icon_name}"></span>'
     )
     raise nodes.SkipNode()
 

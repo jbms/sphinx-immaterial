@@ -184,6 +184,7 @@ setuptools.setup(
             "partials/*/*/*/*.html",
             "static/*/**",
             "*.html",
+            "custom_admonitions.css",
             "theme.conf",
         ],
         "sphinx_immaterial.apidoc.cpp.cppreference_data": ["*.xml"],

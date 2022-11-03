@@ -37,8 +37,13 @@
 }
 
 // sphinx-immaterial: change display for inline icons
-.si-icon-inline {
-  display: inline-block;
-  padding: 0 0.2rem;
+.si-icon-inline::before {
+  display: inline-flex;
+  width: 1rem;
+  height: 1rem;
+  margin: 0 0.2rem;
   vertical-align: middle;
+  background-color: var(--md-default-fg-color);
+  content: "";
+  mask-repeat: no-repeat;
 }

@@ -25,6 +25,7 @@ import sphinx.util.typing
 from sphinx_immaterial.apidoc import (
     object_description_options as _object_description_options,
 )
+from sphinx_immaterial.custom_admonitions import CustomAdmonition
 
 logger = sphinx.util.logging.getLogger(__name__)
 
@@ -61,6 +62,22 @@ extensions = [
     "sphinx_immaterial.apidoc.cpp.apigen",
     "sphinx_immaterial.graphviz",
     "sphinx_jinja",
+]
+
+sphinx_immaterial_custom_admonitions = [
+    CustomAdmonition(
+        name="pied-piper",
+        color=(43, 155, 70),
+        icon="fontawesome/brands/pied-piper-alt",
+        title="Pied Piper",
+    ),
+    CustomAdmonition(
+        name="seealso",
+        color=(174, 15, 175),
+        icon="octicons/eye-24",
+        title="See Also",
+        override=True,
+    ),
 ]
 
 intersphinx_mapping = {
