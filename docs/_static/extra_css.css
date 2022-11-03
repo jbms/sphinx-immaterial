@@ -85,7 +85,6 @@
 }
 
 /* *********************** inline icon pulsing-heart style **************************** */
-
 @keyframes heart {
   0%, 40%, 80%, 100% {
     transform: scale(1);
@@ -97,9 +96,10 @@
 
 .pulsing-heart::before {
   background-color: red;
-  height: 1.5rem;
-  width: 1.5rem;
+  height: 1.5rem; /* default is 1rem */
+  width: 1.5rem;  /* default is 1rem */
   animation: heart 1s infinite;
+  vertical-align: middle; /* default is text-bottom */
 }
 
 /* ************************* badge style inline stuff ****************************** */

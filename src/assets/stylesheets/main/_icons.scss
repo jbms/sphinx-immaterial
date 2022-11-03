@@ -42,8 +42,9 @@
   width: 1rem;
   height: 1rem;
   margin: 0 0.2rem;
-  vertical-align: middle;
+  vertical-align: text-bottom;
   background-color: var(--md-default-fg-color);
   content: "";
   mask-repeat: no-repeat;
+  mask-position: center;
 }
