@@ -188,6 +188,72 @@ documentation's conf.py.
    :no-special-members:
    :no-undoc-members:
 
+Custom Admonition Example 
+-------------------------
+
+.. _custom_admonition_example:
+
+As an demonstration, we will be using the following configuration:
+
+.. literalinclude:: conf.py
+    :language: python
+    :start-after: # BEGIN CUSTOM ADMONITIONS
+    :end-before: # END CUSTOM ADMONITIONS
+
+The above setting will create a directive that can be used like so:
+
+.. rst-example::
+
+    .. example-admonition::
+        This is simple a example
+
+    .. example-admonition::
+        :no-title:
+
+        Just some admonished text, no title.
+
+    .. example-admonition::
+        :collapsible: open
+
+        A collapsible admonition that is expanded by default.
+
+    .. example-admonition::
+        :collapsible: any
+
+        If the :rst:`:collapsible:` option's value is anything but ``open``,
+        then the collapsible admonition is closed by default.
+
+The created custom admonitions could be documented in the following manner.
+Note that only the name of the directive (:rst:dir:`example-admonition`) is subject to
+change depending on the value of the ``name`` parameter.
+
+.. rst:directive:: example-admonition
+
+    A custom admonition created from the `example's configuration
+    <custom_admonition_example>`.
+
+    .. rst:directive:option:: no-title
+
+        This flag will skip rendering the admonition's title.
+
+        .. error::
+            This option cannot be used simultaneously with the
+            :rst:`:collapsible:` option.
+    .. rst:directive:option:: collapsible
+
+        This option can be used to convert the custom admonition into a
+        collapsible admonition. A value of ``open`` will make the admonition
+        expanded by default. Any other value is ignored and will make the
+        admonition collapsed by default.
+    .. rst:directive:option:: name
+
+        Set this option with a qualified ID to reference the admonition from
+        other parts of the documentation using the `ref` role.
+    .. rst:directive:option:: class
+
+        If further CSS styling is needed, then use this option to append a CSS
+        class name to the rendered HTML elements.
+
 .. details:: Legacy approach inherited from the mkdocs-material theme.
    :class: example
 
