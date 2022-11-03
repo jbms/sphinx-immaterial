@@ -87,7 +87,7 @@ the sphinx-immaterial theme provides its own directives to make use of content t
                     .. literalinclude:: _static/extra_css.css
                         :language: css
                         :start-after: /* *********************** custom-tab-item-style
-                        :end-before: /* ************************* inline icon stuff
+                        :end-before: /* *********************** inline icon pulsing-heart style
 
 .. _linked_tabs:
 

@@ -1,60 +1,5 @@
 :hero: Configuration options to personalize your site.
 
-.. embedded material icons used for inline demonstration
-.. role:: inline-icon
-.. role:: eye
-.. role:: eye-outline
-.. role:: lightbulb
-.. role:: lightbulb-outline
-.. role:: sunny
-.. role:: night
-.. role:: toggle-off
-.. role:: toggle-on
-.. role:: fa-git
-.. role:: fa-git-alt
-.. role:: fa-git-square
-.. role:: fa-github
-.. role:: fa-github-alt
-.. role:: fa-github-square
-.. role:: fa-gitlab
-.. role:: fa-gitkraken
-.. role:: fa-bitbucket
-
-.. |eye| image:: _static/images/blank.png
-    :class: inline-icon eye
-.. |eye-outline| image:: _static/images/blank.png
-    :class: inline-icon eye-outline
-.. |lightbulb| image:: _static/images/blank.png
-    :class: inline-icon lightbulb
-.. |lightbulb-outline| image:: _static/images/blank.png
-    :class: inline-icon lightbulb-outline
-.. |sunny| image:: _static/images/blank.png
-    :class: inline-icon sunny
-.. |night| image:: _static/images/blank.png
-    :class: inline-icon night
-.. |toggle-off| image:: _static/images/blank.png
-    :class: inline-icon toggle-off
-.. |toggle-on| image:: _static/images/blank.png
-    :class: inline-icon toggle-on
-.. |fa-git| image:: _static/images/blank.png
-    :class: inline-icon fa-git
-.. |fa-git-alt| image:: _static/images/blank.png
-    :class: inline-icon fa-git-alt
-.. |fa-git-square| image:: _static/images/blank.png
-    :class: inline-icon fa-git-square
-.. |fa-github| image:: _static/images/blank.png
-    :class: inline-icon fa-github
-.. |fa-github-alt| image:: _static/images/blank.png
-    :class: inline-icon fa-github-alt
-.. |fa-github-square| image:: _static/images/blank.png
-    :class: inline-icon fa-github-square
-.. |fa-gitlab| image:: _static/images/blank.png
-    :class: inline-icon fa-gitlab
-.. |fa-gitkraken| image:: _static/images/blank.png
-    :class: inline-icon fa-gitkraken
-.. |fa-bitbucket| image:: _static/images/blank.png
-    :class: inline-icon fa-bitbucket
-
 .. custom roles used to add a class to individual html elements
 .. role:: red
 .. role:: pink
@@ -244,15 +189,11 @@ Configuration Options
             settings. Although this icon can be `any of the icons bundled with this theme`_,
             popular choices are:
 
-            - |fa-git| ``fontawesome/brands/git``
-            - |fa-git-alt| ``fontawesome/brands/git-alt``
-            - |fa-git-square| ``fontawesome/brands/git-square``
-            - |fa-github| ``fontawesome/brands/github``
-            - |fa-github-alt| ``fontawesome/brands/github-alt``
-            - |fa-github-square| ``fontawesome/brands/github-square``
-            - |fa-gitlab| ``fontawesome/brands/gitlab``
-            - |fa-gitkraken| ``fontawesome/brands/gitkraken``
-            - |fa-bitbucket| ``fontawesome/brands/bitbucket``
+            .. jinja::
+
+                {% for icon in ["git", "git-alt", "github", "github-alt", "gitlab", "gitkraken", "bitbucket"] %}
+                - :si-icon:`fontawesome/brands/{{icon}}` ``fontawesome/brands/{{icon}}``
+                {% endfor %}
 
             .. important::
                 This option has no effect if the :themeconf:`repo_url` option is not specified.
@@ -419,10 +360,10 @@ Configuration Options
 
               .. csv-table::
 
-                  |toggle-off| ``material/toggle-switch-off-outline``, |toggle-on| ``material/toggle-switch``
-                  |sunny| ``material/weather-sunny``, |night| ``material/weather-night``
-                  |eye-outline| ``material/eye-outline``, |eye| ``material/eye``
-                  |lightbulb-outline| ``material/lightbulb-outline``, |lightbulb| ``material/lightbulb``
+                  :si-icon:`material/toggle-switch-off-outline` ``material/toggle-switch-off-outline``, :si-icon:`material/toggle-switch` ``material/toggle-switch``
+                  :si-icon:`material/weather-sunny` ``material/weather-sunny``, :si-icon:`material/weather-night` ``material/weather-night``
+                  :si-icon:`material/eye-outline` ``material/eye-outline``, :si-icon:`material/eye` ``material/eye``
+                  :si-icon:`material/lightbulb-outline` ``material/lightbulb-outline``, :si-icon:`material/lightbulb` ``material/lightbulb``
 
         .. themeconf:: media (palette preference)
 
