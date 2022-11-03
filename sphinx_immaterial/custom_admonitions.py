@@ -214,7 +214,6 @@ def on_builder_inited(app: Sphinx):
     custom_admonitions: List[CustomAdmonition] = getattr(
         config, "sphinx_immaterial_custom_admonitions"
     )
-    setattr(app.builder.env, "sphinx_immaterial_custom_admonitions", custom_admonitions)
     setattr(app.builder.env, "sphinx_immaterial_custom_icons", {})
     for admonition in custom_admonitions:
         if not isinstance(admonition, CustomAdmonition):
@@ -231,7 +230,10 @@ def on_builder_inited(app: Sphinx):
             name=admonition.name, cls=UserAdmonition, override=admonition.override
         )
 
-        load_svg_into_builder_env(app.builder, admonition.icon)
+        # set variables for CSS template to match HTML output from generated directives
+        admonition.name = nodes.make_id(admonition.name)
+        admonition.icon = load_svg_into_builder_env(app.builder, admonition.icon)
+    setattr(app.builder.env, "sphinx_immaterial_custom_admonitions", custom_admonitions)
 
 
 def on_build_finished(app: Sphinx, exception: Optional[Exception]):

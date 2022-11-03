@@ -7,10 +7,10 @@
 .md-typeset .si-icon-inline.{{icon}}::before{-webkit-mask-image:var(--si-icon--{{icon}});mask-image:var(--si-icon--{{icon}});}
 {%- endfor -%}
 {%- for admonition in admonitions -%}
-{%- set name = admonition.name -%}
-{%- set color = admonition.color -%}
-{%- set icon = admonition.icon|replace('/', '_') -%}
-.md-typeset .admonition.{{name}}{border-color:rgb({{ color|join(',') }});}
-.md-typeset .{{name}}>.admonition-title{background-color:rgba({{ color|join(',') }}, 0.1);border-color:rgb({{ color|join(',') }});}
-.md-typeset .{{name}}>.admonition-title::before{background-color:rgb({{ color|join(',') }});-webkit-mask-image:var(--si-icon--{{icon}});mask-image:var(--si-icon--{{icon}});}
-{% endfor %}
+{%- set name = '.' ~ admonition.name -%}
+{%- set color = '(' ~ admonition.color|join(',') -%}
+{%- set icon = ':var(--si-icon--' ~ admonition.icon ~ ');' -%}
+.md-typeset .admonition{{name}}{border-color:rgb{{color}});}
+.md-typeset {{name}}>.admonition-title{background-color:rgba{{color}},0.1);border-color:rgb{{color}});}
+.md-typeset {{name}}>.admonition-title::before{background-color:rgb{{color}});-webkit-mask-image{{icon}}mask-image{{icon}}}
+{%- endfor -%}
