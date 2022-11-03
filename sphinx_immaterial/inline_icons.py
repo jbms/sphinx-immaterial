@@ -51,7 +51,7 @@ def icons_role(
 ) -> Tuple[List[nodes.Node], List[nodes.system_message]]:
     path, classes = (text, "")
     if ";" in text:
-        path, classes = text.split(";")
+        path, classes = text.split(";")[:2]
     div = si_icon(path, classes=["md-icon", "si-icon-inline"] + classes.split(","))
     return [div], []
 
