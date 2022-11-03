@@ -12,6 +12,12 @@ from .inline_icons import load_svg_into_builder_env
 
 
 class CustomAdmonition:
+    """This class serves as a user's value(s) to
+    :confval:`sphinx_immaterial_custom_admonitions`. Each instantiated object
+    corresponds to a custom :dudir:`admonition directive <admonitions>` created with
+    theme specific options.
+    """
+
     def __init__(
         self,
         name: str,
@@ -20,7 +26,93 @@ class CustomAdmonition:
         title: str = None,
         override: bool = False,
     ):
+        """
+        :param name: The name of the directive. This will be also used as a CSS class
+            name.
+        :param icon: The relative path to an icon that will be used in the admonition's
+            title. This path shall be relative to
+
+            - the ``.icons`` folder that has `all of the icons bundled with this theme
+              <https://github.com/squidfunk/mkdocs-material/tree/master/material/
+              .icons>`_ (this takes precedence).
+            - a SVG file placed in the documentation project's `html_static_path`.
+        :param color: The base color to be used for the admonition's styling. This
+            must be specified as a RGB color space. It is also possible to use the
+            :py:mod:`colorsys` module if converting from a different color space (like
+            HSL) to RGB.
+        :param title: The title to use when rendering the custom admonition. If this is
+            not specified, then the ``name`` parameter is converted using
+            :py:meth:`~str.title()` after the ``-`` and ``_`` characters are replaced
+            with spaces.
+        :param override: Can be used to override an existing directive. Only set this to
+            :python:`True` if the directive being overridden is an
+            :dudir:`existing admonition <admonitions>`.
+
+        .. _custom_admonition_example:
+
+        As an demonstration, we will be using the following configuration:
+
+        .. literalinclude:: conf.py
+            :language: python
+            :start-after: # BEGIN CUSTOM ADMONITIONS
+            :end-before: # END CUSTOM ADMONITIONS
+
+        The above setting will create a directive that can be used like so:
+
+        .. rst-example::
+
+            .. example-admonition::
+                This is simple a example
+
+            .. example-admonition::
+                :no-title:
+
+                Just some admonished text, no title.
+
+            .. example-admonition::
+                :collapsible: open
+
+                A collapsible admonition that is expanded by default.
+
+            .. example-admonition::
+                :collapsible: any
+
+                If the :rst:`:collapsible:` option's value is anything but ``open``,
+                then the collapsible admonition is closed by default.
+
+        The created custom admonitions could be documented in the following manner.
+        Note that only the name of the directive (:rst:dir:`example-admonition`) is subject to
+        change depending on the value of the ``name`` parameter.
+
+        .. rst:directive:: example-admonition
+
+            A custom admonition created from the `example's configuration
+            <custom_admonition_example>`.
+
+            .. rst:directive:option:: no-title
+
+                This flag will skip rendering the admonition's title.
+
+                .. error::
+                    This option cannot be used simultaneously with the
+                    :rst:`:collapsible:` option.
+            .. rst:directive:option:: collapsible
+
+                This option can be used to convert the custom admonition into a
+                collapsible admonition. A value of ``open`` will make the admonition
+                expanded by default. Any other value is ignored and will make the
+                admonition collapsed by default.
+            .. rst:directive:option:: name
+
+                Set this option with a qualified ID to reference the admonition from
+                other parts of the documentation using the `ref` role.
+            .. rst:directive:option:: class
+
+                If further CSS styling is needed, then use this option to append a CSS
+                class name to the rendered HTML elements.
+        """
         self.name = name
+        assert len(color) == 3, "color must have 3 components"
         self.color = color
         self.icon = icon
         if title is not None:
@@ -125,6 +217,11 @@ def on_builder_inited(app: Sphinx):
     setattr(app.builder.env, "sphinx_immaterial_custom_admonitions", custom_admonitions)
     setattr(app.builder.env, "sphinx_immaterial_custom_icons", {})
     for admonition in custom_admonitions:
+        if not isinstance(admonition, CustomAdmonition):
+            raise TypeError(
+                "config values for custom admonitions must use the class "
+                "sphinx_immaterial.custom_admonitions.CustomAdmonition"
+            )
 
         class UserAdmonition(CustomAdmonitionDirective):
             default_title = admonition.title
@@ -171,7 +268,7 @@ def setup(app: Sphinx):
         name="sphinx_immaterial_custom_admonitions",
         default=[],
         rebuild="env",
-        types=List[CustomAdmonition],
+        types=list,
     )
     app.connect("builder-inited", on_builder_inited)
     app.connect("build-finished", on_build_finished)

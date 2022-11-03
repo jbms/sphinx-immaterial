@@ -172,54 +172,72 @@ any arguments. Because the ``md-admonition`` directive is an adaptation of the g
 
       extensions = ["sphinx_immaterial.md_admonition"]
 
+.. _custom admonitions:
+
 Custom admonitions
 ******************
 
-If you want to add a custom admonition type, all you need is a color and an \*.svg icon.
-Copy the icon's code from the `.icons <https://github.com/squidfunk/mkdocs-material/tree/master/material/.icons>`_
-folder and add the new CSS to an additional style sheet.
+This theme offers a robust solution that allows user-defined custom admonitions from the
+documentation's conf.py.
 
-.. pied-piper::
-   :collapsible: Open
+.. confval:: sphinx_immaterial_custom_admonitions
 
-   This is a test.
+   A `list` of `CustomAdmonition` objects will be used to create custom admonition directives.
 
-.. md-tab-set::
+.. autoclass:: sphinx_immaterial.custom_admonitions.CustomAdmonition
+   :no-special-members:
+   :no-undoc-members:
 
-   .. md-tab-item:: rST code
+.. details:: Legacy approach inherited from the mkdocs-material theme.
+   :class: example
 
-      .. rst-example:: Pied Piper Example
-         :output-prefix:
+   If you want to add a custom admonition type, all you need is a color and an \*.svg icon.
+   Copy the icon's code from the `.icons <https://github.com/squidfunk/mkdocs-material/tree/master/material/.icons>`_
+   folder and add the new CSS to an additional style sheet.
 
-         .. admonition:: Pied Piper
-            :class: pied-piper
+   .. md-tab-set::
 
-            Don't tell him you use spaces instead of tabs...
+      .. md-tab-item:: rST code
 
-   .. md-tab-item:: CSS code
+         .. rst-example:: Pied Piper Example
+            :output-prefix:
 
-      .. literalinclude:: _static/extra_css.css
-         :language: css
-         :caption: docs/_static/extra_css.css
-         :start-after: /* *************************** custom admonition style rules
-         :end-before: /* **********
+            .. admonition:: Pied Piper
+               :class: pied-piper
 
-   .. md-tab-item:: conf.py code
+               Don't tell him you use spaces instead of tabs...
 
-      .. code-block:: python
-         :caption: docs/conf.py
+      .. md-tab-item:: CSS code
 
-         html_static_path = ["_static"]
-         html_css_files = ["extra_css.css"]
+         .. literalinclude:: _static/extra_css.css
+            :language: css
+            :caption: docs/_static/extra_css.css
+            :start-after: /* *************************** custom admonition style rules
+            :end-before: /* **********
+
+      .. md-tab-item:: conf.py code
+
+         .. code-block:: python
+            :caption: docs/conf.py
+
+            html_static_path = ["_static"]
+            html_css_files = ["extra_css.css"]
 
 .. _change_admonition_icon:
 
 Changing the Admonition Icon
 ----------------------------
 
+.. warning::
+   The approach described below will work because it is inherited from the mkdocs-material theme.
+   However, using this approach will lead to bloated HTML files as the needed CSS code is embedded
+   in ``<style>`` tags rather than a single CSS file.
+
+   The sphinx-immaterial theme offers `custom admonitions`_ as a more efficient alternative.
+
 Any of the above builtin admonitions' icons can be changed using the
 :themeconf:`icon`\ [:themeconf:`admonition`] field in :confval:`html_theme_options` settings.
-This will only work with `any of the icons bundled with this theme 
+This will only work with `any of the icons bundled with this theme
 <https://github.com/squidfunk/mkdocs-material/tree/master/material/.icons>`_.
 
 .. code-block:: python
