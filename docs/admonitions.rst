@@ -246,35 +246,14 @@ This will only work with `any of the icons bundled with this theme
    html_theme_options = {
        "icon": {
            "admonition": {
-               "note": "material/file-document-outline",
+               "note": "material/file-document-outline", # (1)!
            },
        },
    }
 
-.. admonition:: ``seealso`` uses the ``note`` icon
-   :class: missing
+.. code-annotations::
+   #. Uses the icon :si-icon:`material/file-document-outline`
 
-   The `seealso` admonition (which is specific to Sphinx - not reStructuredText or mkdocs-material
-   theme) will use the same icon set for the `note` admonition. If you want to override only the
-   icon for the `seealso` admonition, then use the tactic shown in the `Custom admonitions`_
-   section (with regard to only the icon changes in CSS). However, instead of copying the SVG data
-   into a CSS variable, one could simply use :themeconf:`icon`\ [:themeconf:`admonition`] field.
-
-   .. code-block:: python
-
-      html_theme_options = {
-          "icon": {
-              "admonition": {
-                  "seealso": "octicons/eye-24", # (1)!
-              },
-          },
-      }
-
-   .. code-annotations::
-      #. Uses the icon :si-icon:`octicons/eye-24`
-
-   Then, use the the generated CSS variable :css:`--md-admonition-icon--seealso` in the custom CSS for
-   the :css:`mask-image` rules.
 
 .. details:: Alternate icon sets
    :class: example
