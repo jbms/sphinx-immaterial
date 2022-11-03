@@ -13,9 +13,7 @@ def read_svg_into_span(builder: Builder, icon_name: str, classes: List[str]) -> 
     """Reads the SVG data into a HTML span element."""
     svg = Path(__file__).parent / ".icons" / icon_name
     if not svg.exists():
-        static_paths: str = getattr(builder.config, "html_static_path")
-        if not static_paths:
-            raise FileNotFoundError(f"{icon_name} not found in bundled theme icons")
+        static_paths: List[str] = getattr(builder.config, "html_static_path")
         for path in static_paths:
             svg = Path(builder.srcdir) / path / icon_name
             if svg.exists():
@@ -29,11 +27,11 @@ def read_svg_into_span(builder: Builder, icon_name: str, classes: List[str]) -> 
     return f'<span class="{css_classes}">{svg_data}</span>'
 
 
-class md_icon(nodes.container):
+class si_icon(nodes.container):
     pass
 
 
-def visit_md_icon(self: HTML5Translator, node: md_icon):
+def visit_si_icon(self: HTML5Translator, node: si_icon):
     """read icon data and put it into a span element"""
     # in case this node was created from another extension
     assert node.rawsource, "icon node's rawsource must be a relative path"
@@ -54,14 +52,14 @@ def icons_role(
     path, classes = (text, "")
     if ";" in text:
         path, classes = text.split(";")
-    div = md_icon(path, classes=["md-icon", "si-icon-inline"] + classes.split(","))
+    div = si_icon(path, classes=["md-icon", "si-icon-inline"] + classes.split(","))
     return [div], []
 
 
 def setup(app: Sphinx):
 
     app.add_role("si-icon", icons_role)
-    app.add_node(md_icon, html=(visit_md_icon, None))
+    app.add_node(si_icon, html=(visit_si_icon, None))
     return {
         "parallel_read_safe": True,
         "parallel_write_safe": True,

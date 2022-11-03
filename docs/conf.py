@@ -320,17 +320,6 @@ python_module_names_to_strip_from_xrefs = ["tensorstore_demo"]
 
 jinja_contexts = {
     "sys": {"sys": sys},
-    "repo_icons": {
-        "repo_icons": [
-            "fontawesome/brands/git",
-            "fontawesome/brands/git-alt",
-            "fontawesome/brands/github",
-            "fontawesome/brands/github-alt",
-            "fontawesome/brands/gitlab",
-            "fontawesome/brands/gitkraken",
-            "fontawesome/brands/bitbucket",
-        ]
-    },
 }
 
 

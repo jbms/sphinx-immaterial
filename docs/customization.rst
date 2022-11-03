@@ -189,10 +189,10 @@ Configuration Options
             settings. Although this icon can be `any of the icons bundled with this theme`_,
             popular choices are:
 
-            .. jinja:: repo_icons
+            .. jinja::
 
-                {% for icon in repo_icons %}
-                - :si-icon:`{{icon}}` ``{{icon}}``
+                {% for icon in ["git", "git-alt", "github", "github-alt", "gitlab", "gitkraken", "bitbucket"] %}
+                - :si-icon:`fontawesome/brands/{{icon}}` ``fontawesome/brands/{{icon}}``
                 {% endfor %}
 
             .. important::
