@@ -2,179 +2,216 @@
 Admonitions
 ===========
 
-This theme uses the :dutree:`admonition` directives for Sphinx admonitions.
+This theme uses the `Admonition Directive`_ for Sphinx admonitions.
+
+.. _predefined_admonitions:
 
 rST and Sphinx
 **************
 
 Most of the admonitions that the mkdocs-material theme supports were "borrowed" from
 admonitions defined in the reStructuredText specifications. You may recognize them from
-usage in other sphinx-based themes. They are:
+usage in other sphinx-based themes.
 
-.. rst-example:: ``note``, ``todo``, ``seealso``
+.. rst-example:: ``note``, ``seealso``, ``todo``
+   :name: note-style
 
    .. seealso::
       This admonition is specific to Sphinx directives and not defined in the reStructuredText
-      specifications as you can `seealso`. The `todo` admonition is also defined by Sphinx.
+      specifications as you can `seealso`. The `todo` admonition is also defined as an extension
+      that is distributed with Sphinx.
 
       The :dutree:`note` admonition *is* defined by the reStructuredText specifications.
 
 .. rst-example:: ``tip``, ``hint``, ``important``
+   :name: important-style
 
    .. important::
       It is :dutree:`important` to correctly use admonitions.
 
 .. rst-example:: ``attention``, ``caution``, ``warning``
+   :name: attention-style caution-style warning-style
 
    .. warning::
       This is a :dutree:`warning`.
 
 .. rst-example:: ``danger``, ``error``
+   :name: error-style
 
    .. error::
       You have made a grave :dutree:`error`.
 
+.. _inherited_admonitions:
+
 Admonitions from mkdocs-material
 ********************************
 
-Some additional admonitions are supported via the source code from the mkdocs-material theme.
-These admonitions can still be used, but the syntax is a little different because it relies
-on the generic :dutree:`admonition` defined in the reStructuredText specifications.
+Some additional admonitions are supported via the CSS styles inherited from the mkdocs-material
+theme. These directives have been added by the sphinx-immaterial theme using the
+`Custom Admonitions`_ feature.
 
-To use the following admonitions' styles from the mkdocs-material theme, the rST syntax is
-shown to demonstrate using the :rst:`:class:` option of generic admonitions.
+.. rst-example:: :css:`info`
+   :name: info-style
 
-.. important::
-   The :rst:`:class:` options below (in the rST code blocks) must use lower case letters for the
-   styling to work. Otherwise, the admonition will look like a `note` (as that is the
-   default fallback style).
+   .. info::
 
-.. rst-example:: :css:`todo`, :css:`info`
+      Some admonished information.
 
-   .. admonition:: Info
-      :class: info
+.. rst-example:: :css:`abstract`
+   :name: abstract-style
 
-      Thanks to the mkdocs-material theme, the :css:`todo` class is also an alias of
-      the :css:`info` class when not using the `todo` directive.
+   .. abstract::
 
-.. rst-example:: :css:`abstract`, :css:`summary`, :css:`tldr`
+      An abstract statement.
 
-   .. admonition:: TL;DR
-      :class: tldr
+.. rst-example:: :css:`success`
+   :name: success-style
 
-      The :rst:`:class: tldr` part is important.
+   .. success::
 
-.. rst-example:: :css:`success`, :css:`check`, :css:`done`
+      This style is used for :css:`success` CSS class.
 
-   .. admonition:: Accomplished
-      :class: done
+.. rst-example:: :css:`question`
+   :name: question-style
 
-      This style is used for :css:`success`, :css:`check`, :css:`done` CSS classes.
-
-.. rst-example:: :css:`question`, :css:`help`, :css:`faq`
-
-   .. admonition:: FAQ
-      :class: faq
+   .. question::
 
       Helpful advice goes here.
 
-.. rst-example:: :css:`failure`, :css:`fail`, :css:`missing`
+.. rst-example:: :css:`failure`
+   :name: failure-style
 
-   .. admonition:: Something Missing
-      :class: missing
+   .. failure::
 
       We expected some loss of feature-coverage.
 
 .. rst-example:: :css:`bug`
+   :name: bug-style
 
-   .. admonition:: Known Bug
-      :class: bug
+   .. bug::
 
       Bug reported data/conclusion.
 
 .. rst-example:: :css:`example`
+   :name: example-style
 
-   .. admonition:: Example Admonition
-      :class: example
+   .. example::
 
       Example Body.
 
-.. rst-example:: :css:`cite`, :css:`quote`
+.. rst-example:: :css:`quote`
+   :name: quote-style
 
-   .. admonition:: Unknown Quote
-      :class: quote
+   .. quote::
 
       Somebody somewhere said something catchy.
 
-Collapsible dropdown
+Admonition Directive
 *********************
 
-.. _sphinxcontrib-details-directive extension: https://pypi.org/project/sphinxcontrib-details-directive
+All admonitions listed above are created or overriden by this theme's `Custom Admonitions`_ feature.
+This means that the following options are available to all admonitions.
 
-For collapsible dropdown admonitions, the mkdocs-material theme relies on a markdown syntax
-extension that cannot be used with sphinx. Instead, this sphinx-immaterial theme relies on
-the `sphinxcontrib-details-directive extension`_
-to get similar results.
+.. rst:directive:: admonition
 
-The `sphinxcontrib-details-directive extension`_ should be added to conf.py's extension list.
+   This directive was overridden from the :dudir:`docutils definition <generic-admonition>`.
+   The only difference (aside from the added options listed below) is that the
+   inherently required argument used for a title has been made optional.
 
-.. code-block:: python
+   .. rst:directive:option:: title
 
-   extensions = ["sphinx_immaterial", "sphinxcontrib.details.directive"]
+      This option provides an alternative for custom titles in admonitions defined in
+      `rST and Sphinx`_ because they don't accept any directive arguments. When used with the
+      generic :rst:dir:`admonition` and the inherited `Admonitions from mkdocs-material`_, the
+      value for this option is concatenated with a title given as a directive argument.
 
-If the :rst:`:class:` option is not supplied to the ``details`` directive then the admonition
-style falls back to a `note` admonition style.
+      The :rst:`:no-title:` option will supersede any given title.
+    
+      .. rst-example:: Equivalent ways to customize the admonition's title.
 
-.. rst-example::
+         .. tip::
+            :title: A custom title specified in the directive's :rst:`:title:` option.
 
-   .. details:: Open by default
-      :class: example
-      :open:
+            The :dutree:`tip` directive accepts no arguments.
 
-      Use the :rst:`:open:` option as a flag to expand the admonition by default.
+         .. admonition:: A custom title specified in the directive's *argument*.
+            
+            The default style for the generic admonition is that of the `note admonition <note-style>`.
 
-.. rst-example::
+         .. example-admonition:: A custom title specified in both the
+            :title: directive's *argument* and :rst:`:title:` option.
+               It can even span multiple lines.
+            
+            Notice the blank line between the directive's beginning block and this content block.
 
-   .. details:: Closed by default
-      :class: help
+            This admonition's directive was created just for this documentation using the
+            sphinx-immaterial theme's `Custom Admonitions`_ feature.
 
-      Without the :rst:`:open:` flag, the admonition is collapsed by default.
+   .. rst:directive:option:: no-title
 
-Removing the title
-******************
+      This flag will skip rendering the admonition's title. Coincidentally, this option will
+      invoke the same behavior of a generic :rst:dir:`admonition` without an argument provided.
 
-Since the mkdocs-material theme relies on a markdown extension that also allows removing the title
-from an admonition, this theme has an added directive to do just that: ``md-admonition``.
+      The :rst:`:collapsible:` option will cause the :rst:`:no-title:` to be ignored.
 
-The admonition's title can be removed if the ``md-admonition`` directive is not provided
-any arguments. Because the ``md-admonition`` directive is an adaptation of the generic
-:dutree:`admonition` directive, the :rst:`:class:` option is still respected.
+      .. rst-example:: Equivalent ways to exclude rendering the title
 
-.. rst-example::
+         .. admonition::
+            
+            This *generic* admonition uses the styling of the `note admonition <note-style>`.
 
-   .. md-admonition::
-      :class: error
+         .. success::
+            :no-title:
+            
+            This *specific* admonition uses the styling of the `success admonition <success-style>`
 
-      This example uses the styling of the :css:`error` admonition
+   .. rst:directive:option:: collapsible
 
-.. rst-example::
+      This option can be used to convert the rendered admonition into a collapsible HTML
+      ``<details>`` element. A value of ``open`` will make the admonition expanded by default.
+      Any other value is ignored and will make the admonition collapsed by default.
 
-   .. md-admonition:: Using a title
-      :class: help
+      .. rst-example::
 
-      This example uses the styling of the :css:`help` admonition
+         .. example:: Opened by default
+            :collapsible: open
 
-.. hint::
-   You can use the ``md-admonition`` directive in other Sphinx themes by adding the theme's module to
-   your `extensions` list in *conf.py*
+            Hide me.
 
-   .. code-block:: python
+         .. question:: Closed by default.
+            :collapsible:
 
-      extensions = ["sphinx_immaterial.md_admonition"]
+            Found me.            
 
-.. _custom admonitions:
+   .. rst:directive:option:: name
 
-Custom admonitions
+      Set this option with a qualified ID to reference the admonition from
+      other parts of the documentation using the `ref` role.
+
+      .. rst-example::
+
+         .. quote:: Referencing an Admonition
+            :name: my-admonition
+
+            A reference to :ref:`this admonition <my-admonition>`
+
+   .. rst:directive:option:: class
+
+      If further CSS styling is needed, then use this option to append a CSS
+      class name to the rendered HTML elements.
+
+      .. rst-example::
+         
+         .. admonition::
+            :class: annimated-admonition-border
+
+            .. literalinclude:: _static/extra_css.css
+               :language: css
+               :caption: docs/_static/extra_css.css
+               :start-after: /* ************************* annimated-admonition-border style
+               :end-before: /* ************************* my-special-key style
+
+Custom Admonitions
 ******************
 
 This theme offers a robust solution that allows user-defined custom admonitions from the
@@ -191,71 +228,35 @@ documentation's conf.py.
 Custom Admonition Example 
 -------------------------
 
-.. _custom_admonition_example:
-
-As an demonstration, we will be using the following configuration:
+As a demonstration, we will be using the following configuration:
 
 .. literalinclude:: conf.py
-    :language: python
-    :start-after: # BEGIN CUSTOM ADMONITIONS
-    :end-before: # END CUSTOM ADMONITIONS
+   :language: python
+   :start-after: # BEGIN CUSTOM ADMONITIONS
+   :end-before: # END CUSTOM ADMONITIONS
+   :name: custom-admonition-example-config
 
-The above setting will create a directive that can be used like so:
+Note that the name of the created directive (:rst:dir:`example-admonition`) is directly related to
+the value of the :py:obj:`~sphinx_immaterial.custom_admonitions.CustomAdmonition.__init__.name`
+parameter.
 
-.. rst-example::
-
-    .. example-admonition::
-        This is simple a example
-
-    .. example-admonition::
-        :no-title:
-
-        Just some admonished text, no title.
-
-    .. example-admonition::
-        :collapsible: open
-
-        A collapsible admonition that is expanded by default.
-
-    .. example-admonition::
-        :collapsible: any
-
-        If the :rst:`:collapsible:` option's value is anything but ``open``,
-        then the collapsible admonition is closed by default.
-
-The created custom admonitions could be documented in the following manner.
-Note that only the name of the directive (:rst:dir:`example-admonition`) is subject to
-change depending on the value of the ``name`` parameter.
+The above configuration will create a directive that could be documented like so:
 
 .. rst:directive:: example-admonition
 
-    A custom admonition created from the `example's configuration
-    <custom_admonition_example>`.
+   A custom admonition created from the
+   `example's configuration <custom-admonition-example-config>`.
+   See the :rst:dir:`admonition` directive for all available options and examples.
 
-    .. rst:directive:option:: no-title
+   .. rst-example::
 
-        This flag will skip rendering the admonition's title.
+      .. example-admonition::
 
-        .. error::
-            This option cannot be used simultaneously with the
-            :rst:`:collapsible:` option.
-    .. rst:directive:option:: collapsible
+         This is simple a example.
 
-        This option can be used to convert the custom admonition into a
-        collapsible admonition. A value of ``open`` will make the admonition
-        expanded by default. Any other value is ignored and will make the
-        admonition collapsed by default.
-    .. rst:directive:option:: name
 
-        Set this option with a qualified ID to reference the admonition from
-        other parts of the documentation using the `ref` role.
-    .. rst:directive:option:: class
-
-        If further CSS styling is needed, then use this option to append a CSS
-        class name to the rendered HTML elements.
-
-.. details:: Legacy approach inherited from the mkdocs-material theme.
-   :class: example
+.. example:: Legacy approach inherited from the mkdocs-material theme.
+   :collapsible:
 
    If you want to add a custom admonition type, all you need is a color and an \*.svg icon.
    Copy the icon's code from the `.icons <https://github.com/squidfunk/mkdocs-material/tree/master/material/.icons>`_
@@ -321,8 +322,8 @@ This will only work with `any of the icons bundled with this theme
    #. Uses the icon :si-icon:`material/file-document-outline`
 
 
-.. details:: Alternate icon sets
-   :class: example
+.. example:: Alternate icon sets
+   :collapsible:
 
    Here's some recipes for use in conf.py
 

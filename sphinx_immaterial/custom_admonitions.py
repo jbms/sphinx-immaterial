@@ -1,20 +1,26 @@
 """This module inherits from the generic ``admonition`` directive and makes the
 title optional."""
 from pathlib import Path, PurePath
-from typing import List, Dict, Any, Tuple, Optional
+from typing import List, Dict, Any, Tuple, Optional, cast, Type
 from docutils import nodes
 from docutils.parsers.rst import directives
 from docutils.parsers.rst.directives import admonitions
 from sphinx.application import Sphinx
+import sphinx.addnodes
+import sphinx.ext.todo
 from sphinx.writers.html5 import HTML5Translator
+from sphinx.util.logging import getLogger
+from sphinx.locale import admonitionlabels
 import jinja2
 from .inline_icons import load_svg_into_builder_env
+
+logger = getLogger(__name__)
 
 
 class CustomAdmonition:
     """This class serves as a user's value(s) to
     :confval:`sphinx_immaterial_custom_admonitions`. Each instantiated object
-    corresponds to a custom :dudir:`admonition directive <admonitions>` created with
+    corresponds to a custom :rst:dir:`admonition` directive created with
     theme specific options.
     """
 
@@ -37,7 +43,8 @@ class CustomAdmonition:
               .icons>`_ (this takes precedence).
             - a SVG file placed in the documentation project's `html_static_path`.
         :param color: The base color to be used for the admonition's styling. This
-            must be specified as a RGB color space. It is also possible to use the
+            must be specified as a RGB color space. Each color component shall be
+            confined to the range [0, 255]. It is also possible to use the
             :py:mod:`colorsys` module if converting from a different color space (like
             HSL) to RGB.
         :param title: The title to use when rendering the custom admonition. If this is
@@ -45,11 +52,14 @@ class CustomAdmonition:
             :py:meth:`~str.title()` after the ``-`` and ``_`` characters are replaced
             with spaces.
         :param override: Can be used to override an existing directive. Only set this to
-            :python:`True` if the directive being overridden is an
-            :dudir:`existing admonition <admonitions>`.
+            :python:`True` if the directive being overridden is an existing admonition
+            :ref:`defined by rST and Sphinx <predefined_admonitions>` or an admonition
+            :ref:`inherited from the mkdocs-material theme <inherited_admonitions>`.
         """
         self.name = name
         assert len(color) == 3, "color must have 3 components"
+        for c in color:
+            assert 0 <= c <= 255, f"color component {c} is not in range [0, 255]"
         self.color = color
         self.icon = icon
         if title is not None:
@@ -69,8 +79,8 @@ def patch_visit_admonition():
             if collapsible.lower() == "open":
                 tag_extra_args["open"] = ""
             self.body.append(self.starttag(node, "details", **tag_extra_args))
-            assert isinstance(node.children[0], nodes.title)
             title = node.children[0]
+            assert isinstance(title, nodes.title)
             self.body.append(
                 self.starttag(title, "summary", suffix="", CLASS="admonition-title")
             )
@@ -102,15 +112,17 @@ def patch_depart_admonition():
 class CustomAdmonitionDirective(admonitions.BaseAdmonition):
     """A class to define custom admonitions"""
 
-    node_class = nodes.admonition
-    final_argument_whitespace = False
-    default_title: str
-    name: str
+    node_class: Type[nodes.Admonition] = nodes.admonition
+    optional_arguments = 1
+    final_argument_whitespace = True
+    default_title: str = ""
+    name: str = ""
     option_spec = {
         "class": directives.class_option,
         "name": directives.unchanged,
         "collapsible": directives.unchanged,
         "no-title": directives.flag,
+        "title": directives.unchanged,
     }
 
     def run(self):
@@ -122,25 +134,33 @@ class CustomAdmonitionDirective(admonitions.BaseAdmonition):
                 self.options["classes"] = []
             self.options["classes"].extend(self.options["class"])
             del self.options["class"]
+        title_text = "" if not self.arguments else self.arguments[0]
+        if "title" in self.options:
+            # this option can be combined with the directive argument used as a title.
+            title_text += (" " if title_text else "") + self.options["title"]
+            # don't auto-assert `:no-title:` if value is blank; just use default
+        if not title_text:
+            title_text = self.default_title
         self.assert_has_content()
         admonition_node = self.node_class("\n".join(self.content), **self.options)
         self.add_name(admonition_node)
         if "collapsible" in self.options:
             admonition_node["collapsible"] = self.options["collapsible"]
-        textnodes, messages = self.state.inline_text(self.default_title, self.lineno)
-        if "no-title" in self.options:
-            if "collapsible" in self.options:
-                self.error("title is needed for collapsible admonitions")
-        else:
-            title = nodes.title(self.default_title, "", *textnodes)
+        textnodes, messages = self.state.inline_text(title_text, self.lineno)
+        if "no-title" in self.options and "collapsible" in self.options:
+            logger.warning(
+                "title is needed for collapsible admonitions",
+                location=self.state_machine.get_source_and_line(),
+            )
+            del self.options["no-title"]  # force-disable option
+        if "no-title" not in self.options and title_text:
+            title = nodes.title(title_text, "", *textnodes)
             title.source, title.line = self.state_machine.get_source_and_line(
                 self.lineno
             )
-            if self.default_title:
-                admonition_node += title
+            admonition_node += title
         admonition_node += messages
-        if not self.options.get("classes") and self.default_title:
-            admonition_node["classes"] += [nodes.make_id(self.name)]
+        admonition_node["classes"] += [nodes.make_id(self.name)]
         self.state.nested_parse(self.content, self.content_offset, admonition_node)
         return [admonition_node]
 
@@ -209,6 +229,57 @@ def setup(app: Sphinx):
         rebuild="env",
         types=list,
     )
+
+    # add admonitions based on  CSS classes inherited from mkdocs-material theme
+    for admonition in (
+        "abstract",
+        "info",
+        "success",
+        "question",
+        "failure",
+        "bug",
+        "example",
+        "quote",
+    ):
+
+        class InheritedAdmonition(CustomAdmonitionDirective):
+            default_title = admonition.title()
+            name = admonition
+
+        app.add_directive(admonition, InheritedAdmonition)
+
+    # override the generic admonition directive with our custom base class
+    app.add_directive("admonition", CustomAdmonitionDirective, True)
+
+    # override the specific admonitions defined in sphinx and docutils
+    # these are the admonitions that have translated titles in sphinx.locale
+    #
+    # NOTE todo and todolist are actually sphinx exts that ship with sphinx,
+    # so we'll leave those alone until their config is confirmed compatible.
+    for cls, admonition in (
+        (nodes.note, "note"),
+        (nodes.tip, "tip"),
+        (nodes.hint, "hint"),
+        (nodes.important, "important"),
+        (nodes.attention, "attention"),
+        (nodes.caution, "caution"),
+        (nodes.warning, "warning"),
+        (nodes.danger, "danger"),
+        (nodes.error, "error"),
+        (sphinx.addnodes.seealso, "seealso"),
+        # (sphinx.ext.todo.todo_node, "todo"),
+        # sphinx.ext.todo.todolist,
+    ):
+
+        class SpecificAdmonition(CustomAdmonitionDirective):
+            default_title = admonitionlabels[admonition]
+            name = admonition
+            optional_arguments = 0
+            final_argument_whitespace = False
+            node_class = cast(Type[nodes.Admonition], cls)
+
+        app.add_directive(admonition, SpecificAdmonition, True)
+
     app.connect("builder-inited", on_builder_inited)
     app.connect("build-finished", on_build_finished)
 

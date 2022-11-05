@@ -13,8 +13,8 @@ This extension can be optionally be used in other sphinx theme's that support ch
 
     extensions = ["sphinx_immaterial.task_lists"]
 
-.. details:: CSS not included with extension
-    :class: check
+.. success:: CSS is not included with this extension
+    :collapsible:
 
     The CSS for checkboxes is not included with this extension. Rather, the CSS is served from the
     sphinx-immaterial theme (which is inherited from mkdocs-material theme).

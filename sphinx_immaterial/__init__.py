@@ -17,7 +17,6 @@ import sphinx.writers.html5
 from . import html_translator_mixin
 from .apidoc import apidoc_formatting
 from . import nav_adapt
-from . import details_patch
 from . import sections
 
 logger = sphinx.util.logging.getLogger(__name__)
@@ -277,7 +276,6 @@ def setup(app):
     app.add_html_theme("sphinx_immaterial", os.path.abspath(os.path.dirname(__file__)))
 
     # register our custom directives/roles that are tied to this theme
-    app.setup_extension("sphinx_immaterial.md_admonition")
     app.setup_extension("sphinx_immaterial.content_tabs")
     app.setup_extension("sphinx_immaterial.mermaid_diagrams")
     app.setup_extension("sphinx_immaterial.task_lists")
