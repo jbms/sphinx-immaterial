@@ -1,6 +1,7 @@
 """This module inherits from the generic ``admonition`` directive and makes the
 title optional."""
 from pathlib import Path, PurePath
+import re
 from typing import List, Dict, Any, Tuple, Optional, cast, Type
 from docutils import nodes
 from docutils.parsers.rst import directives
@@ -9,8 +10,9 @@ from sphinx.application import Sphinx
 import sphinx.addnodes
 import sphinx.ext.todo
 from sphinx.writers.html5 import HTML5Translator
+from sphinx.util.docutils import SphinxDirective
 from sphinx.util.logging import getLogger
-from sphinx.locale import admonitionlabels
+from sphinx.locale import admonitionlabels, _
 import jinja2
 from .inline_icons import load_svg_into_builder_env
 
@@ -65,7 +67,7 @@ class CustomAdmonition:
         if title is not None:
             self.title = title
         else:
-            self.title = name.replace("-", " ").replace("_", " ").title()
+            self.title = " ".join(re.split(r"\W+", name)).title()
         self.override = override
 
 
@@ -84,7 +86,6 @@ def patch_visit_admonition():
             self.body.append(
                 self.starttag(title, "summary", suffix="", CLASS="admonition-title")
             )
-            del title["classes"]
             for child in title.children:
                 child.walkabout(self)
             self.body.append("</summary>")
@@ -99,17 +100,15 @@ def patch_depart_admonition():
     orig_func = HTML5Translator.depart_admonition
 
     def depart_admonition(self: HTML5Translator, node: Optional[nodes.Element] = None):
-        if node is None:
-            return
-        if node.get("collapsible", None) is not None:
-            self.body.append("</details>\n")
-        else:
+        if node is None or node.get("collapsible", None) is None:
             orig_func(self, node)
+        else:
+            self.body.append("</details>\n")
 
     HTML5Translator.depart_admonition = depart_admonition
 
 
-class CustomAdmonitionDirective(admonitions.BaseAdmonition):
+class CustomAdmonitionDirective(admonitions.BaseAdmonition, SphinxDirective):
     """A class to define custom admonitions"""
 
     node_class: Type[nodes.Admonition] = nodes.admonition
@@ -143,21 +142,25 @@ class CustomAdmonitionDirective(admonitions.BaseAdmonition):
             title_text = self.default_title
         self.assert_has_content()
         admonition_node = self.node_class("\n".join(self.content), **self.options)
-        self.add_name(admonition_node)
+        self.set_source_info(admonition_node)
+        if isinstance(admonition_node, sphinx.ext.todo.todo_node):
+            # todo admonitions need extra info for the todolist directive
+            admonition_node["docname"] = self.env.docname
+            self.state.document.note_explicit_target(admonition_node)
+        else:
+            self.add_name(admonition_node)
         if "collapsible" in self.options:
             admonition_node["collapsible"] = self.options["collapsible"]
-        textnodes, messages = self.state.inline_text(title_text, self.lineno)
         if "no-title" in self.options and "collapsible" in self.options:
             logger.warning(
                 "title is needed for collapsible admonitions",
-                location=self.state_machine.get_source_and_line(),
+                location=admonition_node,
             )
             del self.options["no-title"]  # force-disable option
+        textnodes, messages = self.state.inline_text(title_text, self.lineno)
         if "no-title" not in self.options and title_text:
             title = nodes.title(title_text, "", *textnodes)
-            title.source, title.line = self.state_machine.get_source_and_line(
-                self.lineno
-            )
+            self.set_source_info(title)
             admonition_node += title
         admonition_node += messages
         admonition_node["classes"] += [nodes.make_id(self.name)]
@@ -256,19 +259,17 @@ def setup(app: Sphinx):
     #
     # NOTE todo and todolist are actually sphinx exts that ship with sphinx,
     # so we'll leave those alone until their config is confirmed compatible.
-    for cls, admonition in (
-        (nodes.note, "note"),
-        (nodes.tip, "tip"),
-        (nodes.hint, "hint"),
-        (nodes.important, "important"),
-        (nodes.attention, "attention"),
-        (nodes.caution, "caution"),
-        (nodes.warning, "warning"),
-        (nodes.danger, "danger"),
-        (nodes.error, "error"),
-        (sphinx.addnodes.seealso, "seealso"),
-        # (sphinx.ext.todo.todo_node, "todo"),
-        # sphinx.ext.todo.todolist,
+    for admonition in (
+        "note",
+        "tip",
+        "hint",
+        "important",
+        "attention",
+        "caution",
+        "warning",
+        "danger",
+        "error",
+        "seealso",
     ):
 
         class SpecificAdmonition(CustomAdmonitionDirective):
@@ -276,9 +277,18 @@ def setup(app: Sphinx):
             name = admonition
             optional_arguments = 0
             final_argument_whitespace = False
-            node_class = cast(Type[nodes.Admonition], cls)
 
         app.add_directive(admonition, SpecificAdmonition, True)
+
+    # override the todo directive from the sphinx extension
+    class TodoAdmonitionDirectiveOverride(CustomAdmonitionDirective):
+        default_title = _("Todo")
+        node_class = cast(Type[nodes.Admonition], sphinx.ext.todo.todo_node)
+        name = "todo"
+        optional_arguments = 0
+        final_argument_whitespace = False
+
+    app.add_directive("todo", TodoAdmonitionDirectiveOverride, True)
 
     app.connect("builder-inited", on_builder_inited)
     app.connect("build-finished", on_build_finished)

@@ -109,7 +109,7 @@ theme. These directives have been added by the sphinx-immaterial theme using the
 Admonition Directive
 *********************
 
-All admonitions listed above are created or overriden by this theme's `Custom Admonitions`_ feature.
+All admonitions listed above are created or overridden by this theme's `Custom Admonitions`_ feature.
 This means that the following options are available to all admonitions.
 
 .. rst:directive:: admonition
