@@ -2,10 +2,12 @@
 title optional."""
 from pathlib import Path, PurePath
 import re
-from typing import List, Dict, Any, Tuple, Optional, cast, Type
+from typing import List, Dict, Any, Tuple, Optional, cast, Type, Union
 from docutils import nodes
 from docutils.parsers.rst import directives
 from docutils.parsers.rst.directives import admonitions
+import jinja2
+import pydantic
 from sphinx.application import Sphinx
 import sphinx.addnodes
 import sphinx.ext.todo
@@ -13,18 +15,23 @@ from sphinx.writers.html5 import HTML5Translator
 from sphinx.util.docutils import SphinxDirective
 from sphinx.util.logging import getLogger
 from sphinx.locale import admonitionlabels, _
-import jinja2
 from .inline_icons import load_svg_into_builder_env
 
 logger = getLogger(__name__)
 
 
-class CustomAdmonition:
-    """This class serves as a user's value(s) to
+class CustomAdmonitionConfig(pydantic.BaseModel):
+    """This data class validates the user's configuration value(s) in
     :confval:`sphinx_immaterial_custom_admonitions`. Each instantiated object
-    corresponds to a custom :rst:dir:`admonition` directive created with
+    corresponds to a generated custom :rst:dir:`admonition` directive tailored with
     theme specific options.
     """
+
+    name: str
+    color: Tuple[int, int, int]
+    icon: str
+    title: str
+    override: bool = False
 
     def __init__(
         self,
@@ -35,40 +42,52 @@ class CustomAdmonition:
         override: bool = False,
     ):
         """
-        :param name: The name of the directive. This will be also used as a CSS class
-            name.
-        :param icon: The relative path to an icon that will be used in the admonition's
+        :param name:
+            The name of the directive. This will be also used as a CSS class name.
+            This value shall have characters that match the regular expression pattern
+            ``[a-zA-Z0-9_-]``.
+        :param icon:
+            The relative path to an icon that will be used in the admonition's
             title. This path shall be relative to
 
             - the ``.icons`` folder that has `all of the icons bundled with this theme
               <https://github.com/squidfunk/mkdocs-material/tree/master/material/
               .icons>`_ (this takes precedence).
             - a SVG file placed in the documentation project's `html_static_path`.
-        :param color: The base color to be used for the admonition's styling. This
+        :param color:
+            The base color to be used for the admonition's styling. This
             must be specified as a RGB color space. Each color component shall be
             confined to the range [0, 255]. It is also possible to use the
             :py:mod:`colorsys` module if converting from a different color space (like
             HSL) to RGB.
-        :param title: The title to use when rendering the custom admonition. If this is
-            not specified, then the ``name`` parameter is converted using
-            :py:meth:`~str.title()` after the ``-`` and ``_`` characters are replaced
-            with spaces.
-        :param override: Can be used to override an existing directive. Only set this to
+        :param title:
+            The title to use when rendering the custom admonition. If this is not
+            specified, then the
+            :py:obj:`~sphinx_immaterial.custom_admonitions.CustomAdmonitionConfig.__init__.name`
+            value is converted and used.
+        :param override:
+            Can be used to override an existing directive. Only set this to
             :python:`True` if the directive being overridden is an existing admonition
             :ref:`defined by rST and Sphinx <predefined_admonitions>` or an admonition
             :ref:`inherited from the mkdocs-material theme <inherited_admonitions>`.
         """
-        self.name = name
-        assert len(color) == 3, "color must have 3 components"
+        illegal = re.findall(r"([^a-zA-Z0-9\-_])", name)
+        if illegal:
+            raise ValueError(
+                f"The following characters are illegal for directive names: {illegal}"
+            )
+        # assert len(color) == 3, "color must have 3 components"
         for c in color:
             assert 0 <= c <= 255, f"color component {c} is not in range [0, 255]"
-        self.color = color
-        self.icon = icon
-        if title is not None:
-            self.title = title
-        else:
-            self.title = " ".join(re.split(r"\W+", name)).title()
-        self.override = override
+        if title is None:
+            title = " ".join(re.split(r"[\-_]+", name)).title()
+        super().__init__(
+            name=name,
+            color=color,
+            icon=icon,
+            title=title,
+            override=override,
+        )
 
 
 def patch_visit_admonition():
@@ -171,16 +190,14 @@ class CustomAdmonitionDirective(admonitions.BaseAdmonition, SphinxDirective):
 def on_builder_inited(app: Sphinx):
     """register the directives for the custom admonitions and build the CSS."""
     config = app.config
-    custom_admonitions: List[CustomAdmonition] = getattr(
+    custom_admonitions: List[CustomAdmonitionConfig] = getattr(
         config, "sphinx_immaterial_custom_admonitions"
     )
     setattr(app.builder.env, "sphinx_immaterial_custom_icons", {})
-    for admonition in custom_admonitions:
-        if not isinstance(admonition, CustomAdmonition):
-            raise TypeError(
-                "config values for custom admonitions must use the class "
-                "sphinx_immaterial.custom_admonitions.CustomAdmonition"
-            )
+    user_admonitions = []
+    for config_val in custom_admonitions:
+
+        admonition = CustomAdmonitionConfig(**dict(config_val))
 
         class UserAdmonition(CustomAdmonitionDirective):
             default_title = admonition.title
@@ -193,7 +210,8 @@ def on_builder_inited(app: Sphinx):
         # set variables for CSS template to match HTML output from generated directives
         admonition.name = nodes.make_id(admonition.name)
         admonition.icon = load_svg_into_builder_env(app.builder, admonition.icon)
-    setattr(app.builder.env, "sphinx_immaterial_custom_admonitions", custom_admonitions)
+        user_admonitions.append(admonition)
+    setattr(app.builder.env, "sphinx_immaterial_custom_admonitions", user_admonitions)
 
 
 def on_build_finished(app: Sphinx, exception: Optional[Exception]):
@@ -230,7 +248,7 @@ def setup(app: Sphinx):
         name="sphinx_immaterial_custom_admonitions",
         default=[],
         rebuild="env",
-        types=list,
+        types=[Dict[str, Union[str, Tuple[int, int, int], bool]]],
     )
 
     # add admonitions based on  CSS classes inherited from mkdocs-material theme

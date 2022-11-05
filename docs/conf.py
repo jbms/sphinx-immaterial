@@ -62,19 +62,6 @@ extensions = [
     "sphinx_jinja",
 ]
 
-# BEGIN CUSTOM ADMONITIONS
-from sphinx_immaterial.custom_admonitions import CustomAdmonition
-
-
-sphinx_immaterial_custom_admonitions = [
-    CustomAdmonition(
-        name="example-admonition",
-        color=(198, 177, 6),
-        icon="material/school",
-    ),
-]
-# END CUSTOM ADMONITIONS
-
 intersphinx_mapping = {
     "python": ("https://docs.python.org/3", None),
     "sphinx_docs": ("https://www.sphinx-doc.org/en/master", None),
@@ -328,6 +315,16 @@ python_type_aliases = {
 # BEGIN: python_module_names_to_strip_from_xrefs example
 python_module_names_to_strip_from_xrefs = ["tensorstore_demo"]
 # END: python_module_names_to_strip_from_xrefs example
+
+# BEGIN CUSTOM ADMONITIONS
+sphinx_immaterial_custom_admonitions = [
+    {
+        "name": "example-admonition",
+        "color": (198, 177, 6),
+        "icon": "material/school",
+    },
+]
+# END CUSTOM ADMONITIONS
 
 
 jinja_contexts = {

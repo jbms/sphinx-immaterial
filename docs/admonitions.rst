@@ -126,7 +126,7 @@ This means that the following options are available to all admonitions.
       value for this option is concatenated with a title given as a directive argument.
 
       The :rst:`:no-title:` option will supersede any given title.
-    
+
       .. rst-example:: Equivalent ways to customize the admonition's title.
 
          .. tip::
@@ -135,13 +135,13 @@ This means that the following options are available to all admonitions.
             The :dutree:`tip` directive accepts no arguments.
 
          .. admonition:: A custom title specified in the directive's *argument*.
-            
+
             The default style for the generic admonition is that of the `note admonition <note-style>`.
 
          .. example-admonition:: A custom title specified in both the
             :title: directive's *argument* and :rst:`:title:` option.
                It can even span multiple lines.
-            
+
             Notice the blank line between the directive's beginning block and this content block.
 
             This admonition's directive was created just for this documentation using the
@@ -157,12 +157,12 @@ This means that the following options are available to all admonitions.
       .. rst-example:: Equivalent ways to exclude rendering the title
 
          .. admonition::
-            
+
             This *generic* admonition uses the styling of the `note admonition <note-style>`.
 
          .. success::
             :no-title:
-            
+
             This *specific* admonition uses the styling of the `success admonition <success-style>`
 
    .. rst:directive:option:: collapsible
@@ -181,7 +181,7 @@ This means that the following options are available to all admonitions.
          .. question:: Closed by default.
             :collapsible:
 
-            Found me.            
+            Found me.
 
    .. rst:directive:option:: name
 
@@ -201,7 +201,7 @@ This means that the following options are available to all admonitions.
       class name to the rendered HTML elements.
 
       .. rst-example::
-         
+
          .. admonition::
             :class: annimated-admonition-border
 
@@ -219,13 +219,13 @@ documentation's conf.py.
 
 .. confval:: sphinx_immaterial_custom_admonitions
 
-   A `list` of `CustomAdmonition` objects will be used to create custom admonition directives.
+   A `list` of `dict`\ s that will be used to create custom admonition directives. Each `dict`
+   is validated using the data class `CustomAdmonitionConfig`.
 
-.. autoclass:: sphinx_immaterial.custom_admonitions.CustomAdmonition
-   :no-special-members:
-   :no-undoc-members:
+   .. autoclass:: sphinx_immaterial.custom_admonitions.CustomAdmonitionConfig
+      :exclude-members: __new__
 
-Custom Admonition Example 
+Custom Admonition Example
 -------------------------
 
 As a demonstration, we will be using the following configuration:
@@ -237,8 +237,8 @@ As a demonstration, we will be using the following configuration:
    :name: custom-admonition-example-config
 
 Note that the name of the created directive (:rst:dir:`example-admonition`) is directly related to
-the value of the :py:obj:`~sphinx_immaterial.custom_admonitions.CustomAdmonition.__init__.name`
-parameter.
+the value of the
+:py:obj:`~sphinx_immaterial.custom_admonitions.CustomAdmonitionConfig.__init__.name` option.
 
 The above configuration will create a directive that could be documented like so:
 
