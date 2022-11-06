@@ -8,8 +8,9 @@ from docutils.parsers.rst import directives
 from docutils.parsers.rst.directives import admonitions
 import jinja2
 import pydantic
-from sphinx.application import Sphinx
 import sphinx.addnodes
+from sphinx.application import Sphinx
+from sphinx.config import Config
 import sphinx.ext.todo
 from sphinx.writers.html5 import HTML5Translator
 from sphinx.util.docutils import SphinxDirective
@@ -38,7 +39,7 @@ class CustomAdmonitionConfig(pydantic.BaseModel):
         name: str,
         color: Tuple[int, int, int],
         icon: str,
-        title: str = None,
+        title: Optional[str] = None,
         override: bool = False,
     ):
         """
@@ -50,10 +51,11 @@ class CustomAdmonitionConfig(pydantic.BaseModel):
             The relative path to an icon that will be used in the admonition's
             title. This path shall be relative to
 
+            - a SVG file placed in the documentation project's
+              :confval:`sphinx_immaterial_icon_path` (this takes precedence).
             - the ``.icons`` folder that has `all of the icons bundled with this theme
               <https://github.com/squidfunk/mkdocs-material/tree/master/material/
-              .icons>`_ (this takes precedence).
-            - a SVG file placed in the documentation project's `html_static_path`.
+              .icons>`_.
         :param color:
             The base color to be used for the admonition's styling. This
             must be specified as a RGB color space. Each color component shall be
@@ -135,6 +137,7 @@ class CustomAdmonitionDirective(admonitions.BaseAdmonition, SphinxDirective):
     final_argument_whitespace = True
     default_title: str = ""
     name: str = ""
+    classes: List[str] = []
     option_spec = {
         "class": directives.class_option,
         "name": directives.unchanged,
@@ -182,7 +185,10 @@ class CustomAdmonitionDirective(admonitions.BaseAdmonition, SphinxDirective):
             self.set_source_info(title)
             admonition_node += title
         admonition_node += messages
-        admonition_node["classes"] += [nodes.make_id(self.name)]
+        if self.classes:
+            admonition_node["classes"] += self.classes
+        else:
+            admonition_node["classes"] += [nodes.make_id(self.name)]
         self.state.nested_parse(self.content, self.content_offset, admonition_node)
         return [admonition_node]
 
@@ -212,6 +218,28 @@ def on_builder_inited(app: Sphinx):
         admonition.icon = load_svg_into_builder_env(app.builder, admonition.icon)
         user_admonitions.append(admonition)
     setattr(app.builder.env, "sphinx_immaterial_custom_admonitions", user_admonitions)
+
+
+def on_config_inited(app: Sphinx, config: Config):
+    """Add admonitions based on CSS classes inherited from mkdocs-material theme."""
+    if getattr(config, "sphinx_immaterial_generate_inherited_admonitions"):
+        for admonition in (
+            "abstract",
+            "info",
+            "success",
+            "question",
+            "failure",
+            "bug",
+            "example",
+            "quote",
+        ):
+
+            class InheritedAdmonition(CustomAdmonitionDirective):
+                default_title = admonition.title()
+                name = admonition
+                classes = [admonition]
+
+            app.add_directive(f"si-{admonition}", InheritedAdmonition)
 
 
 def on_build_finished(app: Sphinx, exception: Optional[Exception]):
@@ -250,24 +278,12 @@ def setup(app: Sphinx):
         rebuild="env",
         types=[Dict[str, Union[str, Tuple[int, int, int], bool]]],
     )
-
-    # add admonitions based on  CSS classes inherited from mkdocs-material theme
-    for admonition in (
-        "abstract",
-        "info",
-        "success",
-        "question",
-        "failure",
-        "bug",
-        "example",
-        "quote",
-    ):
-
-        class InheritedAdmonition(CustomAdmonitionDirective):
-            default_title = admonition.title()
-            name = admonition
-
-        app.add_directive(admonition, InheritedAdmonition)
+    app.add_config_value(
+        name="sphinx_immaterial_generate_inherited_admonitions",
+        default=True,
+        rebuild="html",
+        types=bool,
+    )
 
     # override the generic admonition directive with our custom base class
     app.add_directive("admonition", CustomAdmonitionDirective, True)
@@ -310,6 +326,7 @@ def setup(app: Sphinx):
 
     app.connect("builder-inited", on_builder_inited)
     app.connect("build-finished", on_build_finished)
+    app.connect("config-inited", on_config_inited)
 
     patch_visit_admonition()
     patch_depart_admonition()

@@ -8,7 +8,7 @@ This extension is meant to mimic the python markdown extension, `pymdownx.keys`_
 It simply adds a role to invoke inline usage of keyboard keys with custom CSS provided by
 the sphinx-immaterial theme.
 
-.. success:: CSS is not included with this extension
+.. si-success:: CSS is not included with this extension
     :collapsible:
 
     To add CSS to a theme that does not support this extension, try using:

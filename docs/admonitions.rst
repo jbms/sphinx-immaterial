@@ -47,62 +47,73 @@ Admonitions from mkdocs-material
 ********************************
 
 Some additional admonitions are supported via the CSS styles inherited from the mkdocs-material
-theme. These directives have been added by the sphinx-immaterial theme using the
-`Custom Admonitions`_ feature.
+theme. These admonition styles can be used via the :rst:dir:`admonition` directive's :rst:`:class:`
+option. 
+
+.. confval:: sphinx_immaterial_generate_inherited_admonitions
+
+   The inherited admonition styles are conveniently exposed as directives in the sphinx-immaterial
+   theme using the `Custom Admonitions`_ feature. Set this config option to :python:`False` to
+   disallow the generation of these convenience directives.
+
+   .. code-block:: python
+      :caption: in conf.py
+
+      sphinx_immaterial_generate_inherited_admonitions = False
 
 .. rst-example:: :css:`info`
    :name: info-style
 
-   .. info::
+   .. si-info::
 
       Some admonished information.
 
 .. rst-example:: :css:`abstract`
    :name: abstract-style
 
-   .. abstract::
+   .. si-abstract::
 
       An abstract statement.
 
 .. rst-example:: :css:`success`
    :name: success-style
 
-   .. success::
+   .. si-success::
 
       This style is used for :css:`success` CSS class.
 
 .. rst-example:: :css:`question`
    :name: question-style
 
-   .. question::
+   .. si-question::
 
       Helpful advice goes here.
 
 .. rst-example:: :css:`failure`
    :name: failure-style
 
-   .. failure::
+   .. si-failure::
 
       We expected some loss of feature-coverage.
 
 .. rst-example:: :css:`bug`
    :name: bug-style
 
-   .. bug::
+   .. si-bug::
 
       Bug reported data/conclusion.
 
 .. rst-example:: :css:`example`
    :name: example-style
 
-   .. example::
+   .. si-example::
 
       Example Body.
 
 .. rst-example:: :css:`quote`
    :name: quote-style
 
-   .. quote::
+   .. si-quote::
 
       Somebody somewhere said something catchy.
 
@@ -160,7 +171,7 @@ This means that the following options are available to all admonitions.
 
             This *generic* admonition uses the styling of the `note admonition <note-style>`.
 
-         .. success::
+         .. si-success::
             :no-title:
 
             This *specific* admonition uses the styling of the `success admonition <success-style>`
@@ -173,12 +184,12 @@ This means that the following options are available to all admonitions.
 
       .. rst-example::
 
-         .. example:: Opened by default
+         .. si-example:: Opened by default
             :collapsible: open
 
             Hide me.
 
-         .. question:: Closed by default.
+         .. si-question:: Closed by default.
             :collapsible:
 
             Found me.
@@ -190,7 +201,7 @@ This means that the following options are available to all admonitions.
 
       .. rst-example::
 
-         .. quote:: Referencing an Admonition
+         .. si-quote:: Referencing an Admonition
             :name: my-admonition
 
             A reference to :ref:`this admonition <my-admonition>`
@@ -203,12 +214,12 @@ This means that the following options are available to all admonitions.
       .. rst-example::
 
          .. admonition::
-            :class: annimated-admonition-border
+            :class: animated-admonition-border
 
             .. literalinclude:: _static/extra_css.css
                :language: css
                :caption: docs/_static/extra_css.css
-               :start-after: /* ************************* annimated-admonition-border style
+               :start-after: /* ************************* animated-admonition-border style
                :end-before: /* ************************* my-special-key style
 
 Custom Admonitions
@@ -255,7 +266,7 @@ The above configuration will create a directive that could be documented like so
          This is simple a example.
 
 
-.. example:: Legacy approach inherited from the mkdocs-material theme.
+.. si-example:: Legacy approach inherited from the mkdocs-material theme.
    :collapsible:
 
    If you want to add a custom admonition type, all you need is a color and an \*.svg icon.
@@ -322,7 +333,7 @@ This will only work with `any of the icons bundled with this theme
    #. Uses the icon :si-icon:`material/file-document-outline`
 
 
-.. example:: Alternate icon sets
+.. si-example:: Alternate icon sets
    :collapsible:
 
    Here's some recipes for use in conf.py

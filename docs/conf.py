@@ -325,6 +325,7 @@ sphinx_immaterial_custom_admonitions = [
     },
 ]
 # END CUSTOM ADMONITIONS
+sphinx_immaterial_icon_path = html_static_path
 
 
 jinja_contexts = {

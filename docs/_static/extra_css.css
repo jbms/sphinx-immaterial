@@ -11,7 +11,7 @@
   transform: none;
 }
 
-/* ************************* annimated-admonition-border style ******************************** */
+/* ************************* animated-admonition-border style ******************************** */
 @keyframes flash_border {
   0% {
     border-color: blueviolet;
@@ -24,7 +24,7 @@
   }
 }
 
-.md-typeset .admonition.annimated-admonition-border {
+.md-typeset .admonition.animated-admonition-border {
   animation: flash_border 1.5s infinite;
 }
 

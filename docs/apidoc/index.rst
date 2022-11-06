@@ -27,7 +27,7 @@ The following options can be customized for each object type using
 
    Indicates whether to include the object description in the table of contents.
 
-   .. example::
+   .. si-example::
 
       To prevent C++ parameter descriptions from appearing in the TOC, add the
       following to :file:`conf.py`:
@@ -65,7 +65,7 @@ The following options can be customized for each object type using
       - ``py``
       - ``json``
 
-   .. example::
+   .. si-example::
 
       To use the first sentence rather than the first paragraph as the synopsis
       for C++ class descriptions, add the following to :file:`conf.py`:
@@ -91,7 +91,7 @@ The following options can be customized for each object type using
       - ``py``
       - ``json``
 
-   .. example::
+   .. si-example::
 
       To exclude the object type from all ``py`` domain xrefs, add the following
       to :file:`conf.py`:
@@ -120,7 +120,7 @@ The following options can be customized for each object type using
       option.
 
 
-   .. example::
+   .. si-example::
 
       To exclude object description fields from the table of contents for all
       ``py`` domain objects, add the following to :file:`conf.py`:
@@ -142,7 +142,7 @@ The following options can be customized for each object type using
       :objconf:`include_fields_in_toc`, rubric-like fields may be included in the TOC. Including
       other rubrics from the object description in the TOC is provided for visual consistency.
 
-   .. example::
+   .. si-example::
 
       To include object description rubrics in the table of contents for all
       ``py`` domain objects, add the following to :file:`conf.py`:
@@ -187,7 +187,7 @@ overridden using the following options:
    icon.  This should normally be a single character, such as :python:`"C"` to
    indicate a class or :python:`"F"` to indicate a function.
 
-.. example::
+.. si-example::
 
    To define a custom object type and specify an icon for it, add the following to
    :file:`conf.py`:

@@ -15,17 +15,17 @@ def load_svg_into_builder_env(builder: Builder, icon_name: str) -> str:
     custom_icons = getattr(builder.env, "sphinx_immaterial_custom_icons", {})
     icon_name += ".svg"
     if css_icon_name not in custom_icons:
-        svg = Path(__file__).parent / ".icons" / icon_name
-        if not svg.exists():
-            static_paths: List[str] = getattr(builder.config, "html_static_path")
-            for path in static_paths:
-                svg = Path(builder.srcdir) / path / icon_name
-                if svg.exists():
-                    break
-            else:
+        static_paths: List[str] = getattr(builder.config, "sphinx_immaterial_icon_path")
+        for path in static_paths:
+            svg = Path(builder.srcdir) / path / icon_name
+            if svg.exists():
+                break
+        else:
+            svg = Path(__file__).parent / ".icons" / icon_name
+            if not svg.exists():
                 raise FileNotFoundError(
-                    f"{icon_name} not found in html_static_path and"
-                    " not bundled with theme"
+                    f"{icon_name} not found in sphinx_immaterial_icon_path and"
+                    " not bundled with the theme"
                 )
         custom_icons[css_icon_name] = svg.read_text(encoding="utf-8")
         setattr(builder.env, "sphinx_immaterial_custom_icons", custom_icons)
@@ -65,6 +65,14 @@ def setup(app: Sphinx):
 
     app.add_role("si-icon", icons_role)
     app.add_node(si_icon, html=(visit_si_icon, None))
+
+    app.add_config_value(
+        name="sphinx_immaterial_icon_path",
+        default=[],
+        rebuild="env",
+        types=[str],
+    )
+
     return {
         "parallel_read_safe": True,
         "parallel_write_safe": True,
