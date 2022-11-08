@@ -129,7 +129,12 @@ def _get_html_builder(base_builder: Type[sphinx.builders.html.StandaloneHTMLBuil
                             )
                         excluded = sphinx.util.matching.Matcher(excluded_list)
                     else:
-                        excluded = sphinx.util.matching.DOTFILES
+                        excluded = sphinx.util.matching.Matcher(
+                            [
+                                "**/.*",
+                                "**/stylesheets/*",
+                            ]
+                        )
                     sphinx.util.fileutil.copy_asset(
                         os.path.join(entry, "static"),
                         os.path.join(self.outdir, "_static"),

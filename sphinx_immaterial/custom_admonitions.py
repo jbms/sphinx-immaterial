@@ -1,24 +1,27 @@
 """This module inherits from the generic ``admonition`` directive and makes the
 title optional."""
+from abc import ABC
 from pathlib import Path, PurePath
 import re
-from typing import List, Dict, Any, Tuple, Optional, cast, Type, Union
+from typing import List, Dict, Any, Tuple, Optional, Type, Union
 from docutils import nodes
-from docutils.parsers.rst import directives
-from docutils.parsers.rst.directives import admonitions
+from docutils.parsers.rst import directives, Directive
 import jinja2
 import pydantic
 import sphinx.addnodes
 from sphinx.application import Sphinx
 from sphinx.config import Config
+from sphinx.environment import BuildEnvironment
 import sphinx.ext.todo
-from sphinx.writers.html5 import HTML5Translator
-from sphinx.util.docutils import SphinxDirective
-from sphinx.util.logging import getLogger
 from sphinx.locale import admonitionlabels, _
+from sphinx.util.logging import getLogger
+from sphinx.writers.html5 import HTML5Translator
 from .inline_icons import load_svg_into_builder_env
 
 logger = getLogger(__name__)
+
+# treat the todo directive from the sphinx extension as a built-in directive
+admonitionlabels["todo"] = _("Todo")
 
 
 class CustomAdmonitionConfig(pydantic.BaseModel):
@@ -129,14 +132,19 @@ def patch_depart_admonition():
     HTML5Translator.depart_admonition = depart_admonition
 
 
-class CustomAdmonitionDirective(admonitions.BaseAdmonition, SphinxDirective):
-    """A class to define custom admonitions"""
+class CustomAdmonitionDirective(Directive, ABC):
+    """A base class to define custom admonition directives.
+
+    .. warning::
+        Do not instantiate an object directly from this class as it could mess up the
+        argument parsing for other derivative classes.
+    """
 
     node_class: Type[nodes.Admonition] = nodes.admonition
-    optional_arguments = 1
-    final_argument_whitespace = True
+    optional_arguments: int
+    final_argument_whitespace: bool = True
+    has_content = True
     default_title: str = ""
-    name: str = ""
     classes: List[str] = []
     option_spec = {
         "class": directives.class_option,
@@ -164,10 +172,13 @@ class CustomAdmonitionDirective(admonitions.BaseAdmonition, SphinxDirective):
             title_text = self.default_title
         self.assert_has_content()
         admonition_node = self.node_class("\n".join(self.content), **self.options)
-        self.set_source_info(admonition_node)
+        (
+            admonition_node.source,
+            admonition_node.line,
+        ) = self.state_machine.get_source_and_line(self.lineno)
         if isinstance(admonition_node, sphinx.ext.todo.todo_node):
             # todo admonitions need extra info for the todolist directive
-            admonition_node["docname"] = self.env.docname
+            admonition_node["docname"] = admonition_node.source
             self.state.document.note_explicit_target(admonition_node)
         else:
             self.add_name(admonition_node)
@@ -182,15 +193,26 @@ class CustomAdmonitionDirective(admonitions.BaseAdmonition, SphinxDirective):
         textnodes, messages = self.state.inline_text(title_text, self.lineno)
         if "no-title" not in self.options and title_text:
             title = nodes.title(title_text, "", *textnodes)
-            self.set_source_info(title)
+            title.source, title.line = self.state_machine.get_source_and_line(
+                self.lineno
+            )
             admonition_node += title
         admonition_node += messages
-        if self.classes:
-            admonition_node["classes"] += self.classes
-        else:
-            admonition_node["classes"] += [nodes.make_id(self.name)]
+        admonition_node["classes"] += self.classes
         self.state.nested_parse(self.content, self.content_offset, admonition_node)
         return [admonition_node]
+
+
+def get_directive_class(name, title) -> Type[CustomAdmonitionDirective]:
+    """A helper function to produce a admonition directive's class."""
+
+    class CustomizedAdmonition(CustomAdmonitionDirective):
+        default_title = title
+        classes = [nodes.make_id(name)]
+        optional_arguments = int(name not in admonitionlabels)
+        node_class = nodes.admonition if name != "todo" else sphinx.ext.todo.todo_node
+
+    return CustomizedAdmonition
 
 
 def on_builder_inited(app: Sphinx):
@@ -204,13 +226,10 @@ def on_builder_inited(app: Sphinx):
     for config_val in custom_admonitions:
 
         admonition = CustomAdmonitionConfig(**dict(config_val))
-
-        class UserAdmonition(CustomAdmonitionDirective):
-            default_title = admonition.title
-            name = admonition.name
-
         app.add_directive(
-            name=admonition.name, cls=UserAdmonition, override=admonition.override
+            name=admonition.name,
+            cls=get_directive_class(admonition.name, admonition.title),
+            override=admonition.override,
         )
 
         # set variables for CSS template to match HTML output from generated directives
@@ -222,6 +241,11 @@ def on_builder_inited(app: Sphinx):
 
 def on_config_inited(app: Sphinx, config: Config):
     """Add admonitions based on CSS classes inherited from mkdocs-material theme."""
+
+    # override the generic admonition directive
+    app.add_directive("admonition", get_directive_class("admonition", ""), True)
+
+    # generate directives for inherited admonitions from upstream CSS
     if getattr(config, "sphinx_immaterial_generate_inherited_admonitions"):
         for admonition in (
             "abstract",
@@ -233,41 +257,61 @@ def on_config_inited(app: Sphinx, config: Config):
             "example",
             "quote",
         ):
+            app.add_directive(
+                f"si-{admonition}",
+                get_directive_class(admonition, _(admonition.title())),
+            )
 
-            class InheritedAdmonition(CustomAdmonitionDirective):
-                default_title = admonition.title()
-                name = admonition
-                classes = [admonition]
+    user_defined_admonitions = getattr(config, "sphinx_immaterial_custom_admonitions")
+    user_defined_dir_names = [
+        directive["name"] for directive in user_defined_admonitions
+    ]
 
-            app.add_directive(f"si-{admonition}", InheritedAdmonition)
+    # override the specific admonitions defined in sphinx and docutils
+    # these are the admonitions that have translated titles in sphinx.locale
+    for admonition, title in admonitionlabels.items():
+
+        if admonition in user_defined_dir_names:
+            continue
+        app.add_directive(admonition, get_directive_class(admonition, title), True)
 
 
-def on_build_finished(app: Sphinx, exception: Optional[Exception]):
-    """generates the CSS for icons and admonitions, then appends that to the
-    doc project's CSS"""
-    if exception is not None or app.builder.name not in ("html", "dirhtml"):
-        return
-    custom_admonitions = getattr(
-        app.builder.env, "sphinx_immaterial_custom_admonitions"
-    )
-    custom_icons = getattr(app.builder.env, "sphinx_immaterial_custom_icons")
-    env = jinja2.Environment(
+def consolidate_css(app: Sphinx, env: BuildEnvironment):
+    """Generates the CSS for icons and admonitions, then appends that to the
+    theme's bundled CSS."""
+
+    theme_options = app.config["html_theme_options"]
+    is_palette_defined = False
+    if theme_options:
+        is_palette_defined = "palette" in theme_options
+
+    custom_admonitions = getattr(env, "sphinx_immaterial_custom_admonitions")
+    custom_icons = getattr(env, "sphinx_immaterial_custom_icons")
+    jinja_env = jinja2.Environment(
         loader=jinja2.FileSystemLoader(str(PurePath(__file__).parent))
     )
-    template = env.get_template("custom_admonitions.css")
+    template = jinja_env.get_template("custom_admonitions.css")
     generated = template.render(
         icons=custom_icons,
         admonitions=custom_admonitions,
     )
-    static_output = Path(app.outdir) / "_static" / "stylesheets"
-    for css in static_output.glob("main.*.min.css"):
-        if css.suffix.endswith("css"):  # ignore the CSS map file
-            base_css = css
-            break
-    else:
-        raise FileNotFoundError(f"couldn't locate main.css in {static_output}")
-    with base_css.open("a") as css_out:
-        css_out.write(generated.replace("\n", ""))
+
+    css_name = "stylesheets/sphinx_immaterial_theme.min.css"
+    css_output = Path(app.outdir, "_static", css_name)
+    css_output.parent.mkdir(parents=True, exist_ok=True)
+    with open(str(css_output), mode="wb") as consolidated_out:
+        # copy pre-minified CSS from theme's bundles
+        theme_bundles = Path(__file__).parent / "static" / "stylesheets"
+        for bundle in theme_bundles.glob("*.min.css"):
+            if not is_palette_defined and bundle.name.startswith("palette"):
+                continue  # don't need the palette CSS if HTML doesn't need it
+            consolidated_out.write(bundle.read_bytes())
+
+        # append the generated CSS for icons and admonitions
+        consolidated_out.write(generated.replace("\n", "").encode(encoding="utf-8"))
+
+        # ensure new CSS file is added in the rendered HTML output
+        app.add_css_file(css_name)
 
 
 def setup(app: Sphinx):
@@ -285,47 +329,8 @@ def setup(app: Sphinx):
         types=bool,
     )
 
-    # override the generic admonition directive with our custom base class
-    app.add_directive("admonition", CustomAdmonitionDirective, True)
-
-    # override the specific admonitions defined in sphinx and docutils
-    # these are the admonitions that have translated titles in sphinx.locale
-    #
-    # NOTE todo and todolist are actually sphinx exts that ship with sphinx,
-    # so we'll leave those alone until their config is confirmed compatible.
-    for admonition in (
-        "note",
-        "tip",
-        "hint",
-        "important",
-        "attention",
-        "caution",
-        "warning",
-        "danger",
-        "error",
-        "seealso",
-    ):
-
-        class SpecificAdmonition(CustomAdmonitionDirective):
-            default_title = admonitionlabels[admonition]
-            name = admonition
-            optional_arguments = 0
-            final_argument_whitespace = False
-
-        app.add_directive(admonition, SpecificAdmonition, True)
-
-    # override the todo directive from the sphinx extension
-    class TodoAdmonitionDirectiveOverride(CustomAdmonitionDirective):
-        default_title = _("Todo")
-        node_class = cast(Type[nodes.Admonition], sphinx.ext.todo.todo_node)
-        name = "todo"
-        optional_arguments = 0
-        final_argument_whitespace = False
-
-    app.add_directive("todo", TodoAdmonitionDirectiveOverride, True)
-
     app.connect("builder-inited", on_builder_inited)
-    app.connect("build-finished", on_build_finished)
+    app.connect("env-check-consistency", consolidate_css)
     app.connect("config-inited", on_config_inited)
 
     patch_visit_admonition()

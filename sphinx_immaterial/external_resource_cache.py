@@ -211,7 +211,7 @@ def add_google_fonts(app: sphinx.application.Sphinx, fonts: List[str]):
         for key, (css_format_content, ttf_font_path) in css_content.items():
             ttf_font_paths[key] = os.path.join(font_dir, ttf_font_path)
             for content in css_format_content.values():
-                f.write(content)
+                f.write("".join(re.split(r"(?:\s*\n\s*|/\*.*\*/)", content)))
 
     app.add_css_file("google_fonts.css")
     setattr(app, _TTF_FONT_PATHS_KEY, ttf_font_paths)
