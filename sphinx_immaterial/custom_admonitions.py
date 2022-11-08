@@ -205,10 +205,22 @@ class CustomAdmonitionDirective(Directive, ABC):
 
 def get_directive_class(name, title) -> Type[CustomAdmonitionDirective]:
     """A helper function to produce a admonition directive's class."""
+    # alias upstream-deprecated CSS classes for pre-defined admonitions in sphinx
+    class_list = [nodes.make_id(name)]
+
+    # uncomment this block when we merge v9.x from upstream
+    # if name in ("caution", "attention"):
+    #     class_list.append("warning")
+    # elif name == "error":
+    #     class_list.append("danger")
+    # elif name in ("important", "hint"):
+    #     class_list.append("tip")
+    # elif name == "todo":
+    #     class_list.append("info")
 
     class CustomizedAdmonition(CustomAdmonitionDirective):
         default_title = title
-        classes = [nodes.make_id(name)]
+        classes = class_list
         optional_arguments = int(name not in admonitionlabels)
         node_class = nodes.admonition if name != "todo" else sphinx.ext.todo.todo_node
 
