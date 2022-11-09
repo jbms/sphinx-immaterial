@@ -66,8 +66,8 @@ class CustomAdmonitionConfig(pydantic.BaseModel):
             :py:mod:`colorsys` module if converting from a different color space (like
             HSL) to RGB.
         :param title:
-            The title to use when rendering the custom admonition. If this is not
-            specified, then the
+            The default title to use when rendering the custom admonition. If this is
+            not specified, then the
             :py:obj:`~sphinx_immaterial.custom_admonitions.CustomAdmonitionConfig.__init__.name`
             value is converted and used.
         :param override:
@@ -332,7 +332,7 @@ def setup(app: Sphinx):
         name="sphinx_immaterial_custom_admonitions",
         default=[],
         rebuild="env",
-        types=[Dict[str, Union[str, Tuple[int, int, int], bool]]],
+        types=[List[Dict[str, Union[str, Tuple[int, int, int], bool]]]],
     )
     app.add_config_value(
         name="sphinx_immaterial_generate_inherited_admonitions",

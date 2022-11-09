@@ -74,7 +74,7 @@ def setup(app: Sphinx):
         name="sphinx_immaterial_icon_path",
         default=[],
         rebuild="env",
-        types=[str],
+        types=[List[str]],
     )
 
     return {

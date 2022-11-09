@@ -113,10 +113,10 @@
 
 .pulsing-heart::before {
   background-color: red;
-  height: 1.5rem; /* default is 1rem */
-  width: 1.5rem;  /* default is 1rem */
   animation: heart 1s infinite;
-  vertical-align: middle; /* default is text-bottom */
+  height: 1.5em;
+  width: 1.5em;
+  vertical-align: middle;
 }
 
 /* ************************* badge style inline stuff ****************************** */

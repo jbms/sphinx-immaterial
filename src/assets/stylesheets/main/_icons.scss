@@ -39,10 +39,9 @@
 // sphinx-immaterial: change display for inline icons
 .si-icon-inline::before {
   display: inline-flex;
-  width: 1rem;
-  height: 1rem;
-  margin: 0 0.2rem;
-  vertical-align: text-bottom;
+  width: px2em(18px);
+  height: px2em(18px);
+  vertical-align: text-top;
   background-color: var(--md-default-fg-color);
   content: "";
   mask-repeat: no-repeat;

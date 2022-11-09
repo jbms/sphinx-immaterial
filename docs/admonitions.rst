@@ -147,13 +147,11 @@ This means that the following options are available to all admonitions.
 
          .. admonition:: A custom title specified in the directive's *argument*.
 
-            The default style for the generic admonition is that of the `note admonition <note-style>`.
+            Notice the blank line between the directive's beginning block and this content block.
 
          .. example-admonition:: A custom title specified in both the
             :title: directive's *argument* and :rst:`:title:` option.
                It can even span multiple lines.
-
-            Notice the blank line between the directive's beginning block and this content block.
 
             This admonition's directive was created just for this documentation using the
             sphinx-immaterial theme's `Custom Admonitions`_ feature.
