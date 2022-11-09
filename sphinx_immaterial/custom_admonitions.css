@@ -1,6 +1,6 @@
 :root{
   {%- for icon, data in icons.items() -%}
-  --si-icon--{{icon}}: url('data:image/svg+xml;charset=utf-8,{{data}}');
+  --si-icon--{{icon}}:url('data:image/svg+xml;charset=utf-8,{{data}}');
   {%- endfor -%}
 }
 {%- for icon in icons.keys() -%}

@@ -7,10 +7,13 @@ from docutils import nodes
 from sphinx.application import Sphinx
 from sphinx.builders import Builder
 from sphinx.writers.html5 import HTML5Translator
+from sphinx.util.docutils import SphinxRole
 
 
 def load_svg_into_builder_env(builder: Builder, icon_name: str) -> str:
-    """Reads the SVG data into a builder env variable for CSS generation."""
+    """Reads the SVG data into a builder env variable for CSS generation.
+
+    Returns: The name of CSS class associated with the SVG data."""
     css_icon_name = icon_name.replace("/", "_").replace("\\", "_")
     custom_icons = getattr(builder.env, "sphinx_immaterial_custom_icons", {})
     icon_name += ".svg"
@@ -37,33 +40,34 @@ class si_icon(nodes.container):
 
 
 def visit_si_icon(self: HTML5Translator, node: si_icon):
-    """read icon data and put it into a span element"""
-    # in case this node was created from another extension
-    assert node.rawsource, "icon node's rawsource must be a relative path"
-
-    css_icon_name = load_svg_into_builder_env(
-        builder=self.builder,
-        icon_name=node.rawsource,
-    )
-    self.body.append(
-        f'<span class="{" ".join(node["classes"])} {css_icon_name}"></span>'
-    )
+    """Create a span element with associated CSS classes."""
+    self.body.append(f'<span class="{" ".join(node["classes"])}"></span>')
     raise nodes.SkipNode()
 
 
-def icons_role(
-    role: str, rawtext: str, text: str, lineno: int, inliner, options={}, content=[]
-) -> Tuple[List[nodes.Node], List[nodes.system_message]]:
-    path, classes = (text, "")
-    if ";" in text:
-        path, classes = text.split(";")[:2]
-    div = si_icon(path, classes=["md-icon", "si-icon-inline"] + classes.split(","))
-    return [div], []
+class IconsRole(SphinxRole):
+    """A interpreted text role to use icons in lines of text."""
+
+    def run(self) -> Tuple[List[nodes.Node], List[nodes.system_message]]:
+        path, classes = (self.text, "")
+        if ";" in self.text:
+            path, classes = self.text.split(";")[:2]
+        class_list = [
+            "md-icon",
+            "si-icon-inline",
+            load_svg_into_builder_env(
+                builder=self.env.app.builder,
+                icon_name=path,
+            ),
+        ]
+        class_list.extend([cls for cls in classes.split(",") if cls])
+        div = si_icon(path, classes=class_list)
+        return [div], []
 
 
 def setup(app: Sphinx):
 
-    app.add_role("si-icon", icons_role)
+    app.add_role("si-icon", IconsRole())
     app.add_node(si_icon, html=(visit_si_icon, None))
 
     app.add_config_value(

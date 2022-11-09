@@ -322,8 +322,8 @@ def consolidate_css(app: Sphinx, env: BuildEnvironment):
         # append the generated CSS for icons and admonitions
         consolidated_out.write(generated.replace("\n", "").encode(encoding="utf-8"))
 
-        # ensure new CSS file is added in the rendered HTML output
-        app.add_css_file(css_name)
+    # ensure new CSS file is added in the rendered HTML output
+    app.add_css_file(css_name)
 
 
 def setup(app: Sphinx):
