@@ -49,9 +49,11 @@ def _monkey_patch_python_doc_fields():
                                 domain,
                                 typename,
                                 docutils.nodes.Text,
-                                env=env,
-                                inliner=inliner,
-                                location=location,
+                                env=cast(sphinx.environment.BuildEnvironment, env),
+                                inliner=cast(
+                                    docutils.parsers.rst.states.Inliner, inliner
+                                ),
+                                location=cast(docutils.nodes.Node, location),
                             )
                         )
                     )

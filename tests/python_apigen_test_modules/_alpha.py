@@ -12,7 +12,7 @@ class Alpha(Bravo):
 
         This is paragraph two.
         """
-        pass
+        return 1
 
     @property
     def my_property_Alpha(self) -> str:
@@ -21,4 +21,4 @@ class Alpha(Bravo):
 
         This is paragraph two.
         """
-        pass
+        return "alpha"

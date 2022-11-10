@@ -228,7 +228,7 @@ def render_dot_html(
     code: str,
     options: dict,
     prefix: str = "graphviz",
-    imgcls: str = None,
+    imgcls: Optional[str] = None,
     alt: Optional[str] = None,
     filename: Optional[str] = None,
 ) -> Tuple[str, str]:
