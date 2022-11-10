@@ -68,7 +68,7 @@ list of CSS classes, and don't forget to separate the icon's path and CSS classe
 Custom inline icons
 *******************
 
-Custom icons can be added to the documentation's static files and referenced using the relative
+Custom icons can be added to the documentation's source files and referenced using the relative
 path. For example, this documentation has added the Sphinx application's logo to its ``_static``
 folder (which is specified using :confval:`sphinx_immaterial_icon_path`).
 
