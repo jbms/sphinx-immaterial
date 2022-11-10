@@ -9,7 +9,7 @@ class Bravo:
 
         This is paragraph two.
         """
-        pass
+        return 1
 
     @property
     def my_property_Bravo(self) -> str:
@@ -18,4 +18,4 @@ class Bravo:
 
         This is paragraph two.
         """
-        pass
+        return "bravo"
