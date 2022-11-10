@@ -146,6 +146,7 @@ from typing import (
 import urllib.parse
 import docutils.nodes
 import markupsafe
+from sphinx.addnodes import docutils_meta, meta as sphinx_meta
 import sphinx.builders
 import sphinx.builders.html
 import sphinx.application
@@ -790,9 +791,20 @@ def _html_page_context(
         is_homepage=(pagename == context["master_doc"]),
         toc=local_toc,
         integrated_local_toc=integrated_local_toc,
-        meta={"hide": [], "revision_date": context.get("last_updated")},
+        meta={"hide": [], "revision_date": context.get("last_updated"), "meta": []},
         content=context.get("body"),
     )
+    if doctree is not None:
+        # extract meta nodes from document node only (not descendants)
+        meta_tags = [
+            doc_node
+            for doc_node in doctree.document.children
+            if isinstance(doc_node, (docutils_meta, sphinx_meta))
+        ]
+        for tag in meta_tags:
+            # feed them into the mkdocs template context
+            attrs = {key: value for key, value in tag.attributes.items() if value}
+            page["meta"]["meta"].append(attrs)
     if meta.get("tocdepth") == 0 or "hide-toc" in meta:
         page["meta"]["hide"].append("toc")
     if "hide-navigation" in meta:
