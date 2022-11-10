@@ -801,6 +801,8 @@ def _html_page_context(
         page["meta"]["hide"].append("footer")
     if "hide-feedback" in meta:
         page["meta"]["hide"].append("feedback")
+    if "show-comments" in meta:
+        page["meta"]["comments"] = True
     if context.get("next"):
         page["next_page"] = {
             "title": markupsafe.Markup.escape(

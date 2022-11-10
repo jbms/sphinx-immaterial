@@ -138,6 +138,18 @@ Each metadata is evaluated as a :rst:`:key: value` pair.
 
         :hide-feedback:
 
+.. themeconf:: show-comments
+
+    If specified, allows comments to be enabled at the bottom of the current page.
+
+    .. code-block:: rst
+        :caption: Enable comments at the bottom of the page:
+
+        :show-comments:
+
+    .. seealso::
+        Using comments requires extra steps. See `Adding a comment system`_ instructions.
+
 Configuration Options
 =====================
 
@@ -780,6 +792,92 @@ Lastly, make sure the project's documentation ``conf.py`` has the following line
 .. code-block:: py
 
     templates_path = ["_templates"]
+
+Adding a comment system
+-----------------------
+
+.. _Giscus: https://giscus.app/
+
+This theme supports using a third-party comment system of your choice at the bottom of any page.
+There are several services that can deliver an integrated comment system, but the following example
+demonstrates using Giscus_ which is Open Source and built on Github's Discussions feature.
+
+1. Ensure these requisites are completed:
+   
+   - Install the `Giscus Github App <https://github.com/apps/giscus>`_ and grant access to the
+     repository that should host comments as GitHub discussions. Note that this can be a repository
+     different from your documentation.
+   - Visit Giscus_ and generate the snippet through their configuration tool to load the comment
+     system. Copy the snippet for the next step. The resulting snippet should look similar to this:
+     
+     .. code-block:: html
+
+         <script
+           src="https://giscus.app/client.js"
+           data-repo="<username>/<repository>"
+           data-repo-id="..."
+           data-category="..."
+           data-category-id="..."
+           data-mapping="title"
+           data-reactions-enabled="1"
+           data-emit-metadata="1"
+           data-theme="light"
+           data-lang="en"
+           crossorigin="anonymous"
+           async>
+         </script>
+2. Override the theme's partials/comments.html template (blank by default) in your documentation
+   source, and add the following code to you comments.html template override:
+
+   .. code-block:: html
+       :caption: docs/_templates/partials/comments.html
+       :emphasize-lines: 3
+
+       {% if page.meta.comments %} <!-- (1)! -->
+         <h2 id="__comments">{{ lang.t("meta.comments") }}</h2>
+         <!-- Insert generated snippet (2) here -->
+       
+         <!-- Synchronize Giscus theme with palette -->
+         <script>
+           var giscus = document.querySelector("script[src*=giscus]")
+       
+           /* Set palette on initial load */
+           var palette = __md_get("__palette")
+           if (palette && typeof palette.color === "object") {
+             var theme = palette.color.scheme === "slate" ? "dark" : "light" // (3)!
+             giscus.setAttribute("data-theme", theme)
+           }
+       
+           /* Register event handlers after documented loaded */
+           document.addEventListener("DOMContentLoaded", function() {
+             var ref = document.querySelector("[data-md-component=palette]")
+             ref.addEventListener("change", function() {
+               var palette = __md_get("__palette")
+               if (palette && typeof palette.color === "object") {
+                 var theme = palette.color.scheme === "slate" ? "dark" : "light" // (3)!
+       
+                 /* Instruct Giscus to change theme */
+                 var frame = document.querySelector(".giscus-frame")
+                 frame.contentWindow.postMessage(
+                   { giscus: { setConfig: { theme } } },
+                   "https://giscus.app"
+                 )
+               }
+             })
+           })
+         </script>
+       {% endif %}
+
+   .. code-annotations::
+       #. This template will only be used if the :themeconf:`show-comments` metadata is added to the document's
+          source.
+       #. This should be the snippet generated from step 1.
+       #. This code block ensures that Giscus renders with a dark theme when the
+          :themeconf:`palette`\ [:themeconf:`scheme`] is set to ``slate``. Note that multiple dark
+          themes are available, so you can change it to your liking.
+       #. If changing the dark theme used by Giscus, then also change the dark theme name here as
+          this takes affect when toggling between light and dark color :themeconf:`scheme`\ s.
+3. Enable comments for a certain page by adding the :themeconf:`show-comments` metadata to the document's source.
 
 New Blocks
 **************
