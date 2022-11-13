@@ -8,9 +8,18 @@
 {%- endfor -%}
 {%- for admonition in admonitions -%}
 {%- set name = '.' ~ admonition.name -%}
-{%- set color = '(' ~ admonition.color|join(',') -%}
-{%- set icon = ':var(--si-icon--' ~ admonition.icon ~ ');' -%}
-.md-typeset .admonition{{name}}{border-color:rgb{{color}});}
-.md-typeset {{name}}>.admonition-title{background-color:rgba{{color}},0.1);border-color:rgb{{color}});}
-.md-typeset {{name}}>.admonition-title::before{background-color:rgb{{color}});-webkit-mask-image{{icon}}mask-image{{icon}}}
+{%- set icon = '' ~ admonition.icon ~ ');' -%}
+  {%- if admonition.color is not none -%}
+.md-typeset .admonition{{name}}{border-color:rgb({{ admonition.color | join(',') }});}
+.md-typeset {{name}}>.admonition-title{background-color:rgba({{ admonition.color | join(',') }},0.1);border-color:rgb({{ admonition.color | join(',') }});}
+  {%- endif -%}
+  {%- if admonition.color is not none or admonition.icon is not none -%}
+.md-typeset {{name}}>.admonition-title::before{
+    {%- if admonition.color is not none -%}
+  background-color:rgb({{ admonition.color | join(',') }});
+    {%- endif -%}
+    {%- if admonition.icon is not none -%}
+  -webkit-mask-image:var(--si-icon--{{admonition.icon}});mask-image:var(--si-icon--{{admonition.icon}});}
+    {%- endif -%}
+  {%- endif -%}
 {%- endfor -%}
