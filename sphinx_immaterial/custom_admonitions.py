@@ -205,7 +205,7 @@ class CustomAdmonitionDirective(Directive, ABC):
         if "collapsible" in self.options:
             admonition_node["collapsible"] = self.options["collapsible"]
         if "no-title" in self.options and "collapsible" in self.options:
-            logger.warning(
+            logger.error(
                 "title is needed for collapsible admonitions",
                 location=admonition_node,
             )
