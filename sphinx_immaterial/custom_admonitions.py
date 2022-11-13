@@ -1,6 +1,8 @@
 """This module inherits from the generic ``admonition`` directive and makes the
 title optional."""
 from abc import ABC
+import io
+import hashlib
 from pathlib import Path, PurePath
 import re
 from typing import List, Dict, Any, Tuple, Optional, Type, Union
@@ -234,10 +236,8 @@ def on_builder_inited(app: Sphinx):
         config, "sphinx_immaterial_custom_admonitions"
     )
     setattr(app.builder.env, "sphinx_immaterial_custom_icons", {})
-    user_admonitions = []
-    for config_val in custom_admonitions:
+    for admonition in custom_admonitions:
 
-        admonition = CustomAdmonitionConfig(**dict(config_val))
         app.add_directive(
             name=admonition.name,
             cls=get_directive_class(admonition.name, admonition.title),
@@ -247,8 +247,7 @@ def on_builder_inited(app: Sphinx):
         # set variables for CSS template to match HTML output from generated directives
         admonition.name = nodes.make_id(admonition.name)
         admonition.icon = load_svg_into_builder_env(app.builder, admonition.icon)
-        user_admonitions.append(admonition)
-    setattr(app.builder.env, "sphinx_immaterial_custom_admonitions", user_admonitions)
+    setattr(app.builder.env, "sphinx_immaterial_custom_admonitions", custom_admonitions)
 
 
 def on_config_inited(app: Sphinx, config: Config):
@@ -273,11 +272,13 @@ def on_config_inited(app: Sphinx, config: Config):
                 f"si-{admonition}",
                 get_directive_class(admonition, _(admonition.title())),
             )
-
-    user_defined_admonitions = getattr(config, "sphinx_immaterial_custom_admonitions")
-    user_defined_dir_names = [
-        directive["name"] for directive in user_defined_admonitions
-    ]
+    confval_name = "sphinx_immaterial_custom_admonitions"
+    # validate user defined config for custom admonitions
+    user_defined_admonitions = pydantic.parse_obj_as(
+        List[CustomAdmonitionConfig], getattr(config, confval_name)
+    )
+    setattr(config, confval_name, user_defined_admonitions)
+    user_defined_dir_names = [directive.name for directive in user_defined_admonitions]
 
     # override the specific admonitions defined in sphinx and docutils
     # these are the admonitions that have translated titles in sphinx.locale
@@ -308,19 +309,23 @@ def consolidate_css(app: Sphinx, env: BuildEnvironment):
         admonitions=custom_admonitions,
     )
 
-    css_name = "stylesheets/sphinx_immaterial_theme.min.css"
+    css_data = io.BytesIO()
+    # copy pre-minified CSS from theme's bundles
+    theme_bundles = Path(__file__).parent / "static" / "stylesheets"
+    for bundle in theme_bundles.glob("*.min.css"):
+        if not is_palette_defined and bundle.name.startswith("palette"):
+            continue  # don't need the palette CSS if HTML doesn't need it
+        css_data.write(bundle.read_bytes())
+
+    # append the generated CSS for icons and admonitions
+    css_data.write(generated.replace("\n", "").encode(encoding="utf-8"))
+
+    # hash CSS data and write to generated file
+    css_data_hash = hashlib.sha256(css_data.getvalue()).hexdigest()
+    css_name = f"stylesheets/sphinx_immaterial_theme.{css_data_hash[:17]}.min.css"
     css_output = Path(app.outdir, "_static", css_name)
     css_output.parent.mkdir(parents=True, exist_ok=True)
-    with open(str(css_output), mode="wb") as consolidated_out:
-        # copy pre-minified CSS from theme's bundles
-        theme_bundles = Path(__file__).parent / "static" / "stylesheets"
-        for bundle in theme_bundles.glob("*.min.css"):
-            if not is_palette_defined and bundle.name.startswith("palette"):
-                continue  # don't need the palette CSS if HTML doesn't need it
-            consolidated_out.write(bundle.read_bytes())
-
-        # append the generated CSS for icons and admonitions
-        consolidated_out.write(generated.replace("\n", "").encode(encoding="utf-8"))
+    css_output.write_bytes(css_data.getvalue())
 
     # ensure new CSS file is added in the rendered HTML output
     app.add_css_file(css_name)
