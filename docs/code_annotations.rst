@@ -129,7 +129,7 @@ ends with a exclamation mark (``!``) after the closing parenthesis.
         4. I'm the forth annotation.
         5. I'm the fifth annotation.
 
-.. si-bug:: Limitations
+.. bug:: Limitations
 
     For technical reasons, this hiding mechanism will only work with 1 annotation per code comment.
     In the above example, you should notice that, on line 3, the third annotation is removed

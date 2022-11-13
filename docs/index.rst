@@ -59,7 +59,7 @@ Update your ``conf.py`` with the required changes:
 There are a lot more ways to customize this theme. See :ref:`Customization`
 or ``theme.conf`` for more details.
 
-.. si-example:: Settings used in this documentation
+.. example:: Settings used in this documentation
     :collapsible: 
 
     .. literalinclude:: ./conf.py

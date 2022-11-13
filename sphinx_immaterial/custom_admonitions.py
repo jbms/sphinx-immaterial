@@ -269,7 +269,7 @@ def on_config_inited(app: Sphinx, config: Config):
             "quote",
         ):
             app.add_directive(
-                f"si-{admonition}",
+                admonition,
                 get_directive_class(admonition, _(admonition.title())),
             )
     confval_name = "sphinx_immaterial_custom_admonitions"
