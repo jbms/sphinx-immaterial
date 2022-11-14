@@ -319,9 +319,9 @@ python_module_names_to_strip_from_xrefs = ["tensorstore_demo"]
 # BEGIN CUSTOM ADMONITIONS
 sphinx_immaterial_custom_admonitions = [
     {
-        "name": "example-admonition",
-        "color": (198, 177, 6),
-        "icon": "material/school",
+        "name": "legacy",
+        "color": (236, 64, 11),
+        "icon": "fontawesome/solid/recycle",
     },
 ]
 # END CUSTOM ADMONITIONS

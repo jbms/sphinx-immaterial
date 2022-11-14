@@ -125,7 +125,7 @@ This means that the following options are available to all admonitions.
 
             Notice the blank line between the directive's beginning block and this content block.
 
-         .. example-admonition:: A custom title specified in both the
+         .. legacy:: A custom title specified in both the
             :title: directive's *argument* and :rst:`:title:` option.
                It can even span multiple lines.
 
@@ -228,13 +228,13 @@ As a demonstration, we will be using the following configuration:
    :end-before: # END CUSTOM ADMONITIONS
    :name: custom-admonition-example-config
 
-Note that the name of the created directive (:rst:dir:`example-admonition`) is directly related to
+Note that the name of the created directive (:rst:dir:`legacy`) is directly related to
 the value of the
 :py:obj:`~sphinx_immaterial.custom_admonitions.CustomAdmonitionConfig.name` option.
 
 The above configuration will create a directive that could be documented like so:
 
-.. rst:directive:: example-admonition
+.. rst:directive:: legacy
 
    A custom admonition created from the
    `example's configuration <custom-admonition-example-config>`.
@@ -242,57 +242,104 @@ The above configuration will create a directive that could be documented like so
 
    .. rst-example::
 
-      .. example-admonition::
+      .. legacy::
 
          This is simple a example.
 
+Legacy approaches
+-----------------
 
-.. example:: Legacy approach inherited from the mkdocs-material theme.
-   :collapsible:
+.. legacy:: Less efficient
+   :name: discouraged-admonition-customization
 
-   If you want to add a custom admonition type, all you need is a color and an \*.svg icon.
-   Copy the icon's code from the `.icons <https://github.com/squidfunk/mkdocs-material/tree/master/material/.icons>`_
-   folder and add the new CSS to an additional style sheet.
+   These approaches were inherited from the mkdocs-material theme. While they still work in this
+   theme, they are discouraged because:
 
-   .. md-tab-set::
+   1. `Changing Admonition Style`_ **requires boilerplate CSS code** which is prone to errors (like
+      typos or copy-and-paste problems).
+   2. `Changing the Admonition Icon`_ is implemented in HTML only which *will* result
+      in **bloated HTML files**.
 
-      .. md-tab-item:: rST code
+   The sphinx-immaterial theme offers `custom admonitions`_ as a more efficient alternative.
 
-         .. rst-example:: Pied Piper Example
-            :output-prefix:
+Changing Admonition Style
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
-            .. admonition:: Pied Piper
-               :class: pied-piper
+See our `legacy notice and explanation <discouraged-admonition-customization>`.
 
-               Don't tell him you use spaces instead of tabs...
+If you want to add a custom admonition type, all you need is a color and an \*.svg icon.
+Copy the icon's code from the `.icons <https://github.com/squidfunk/mkdocs-material/tree/master/material/.icons>`_
+folder and add the new CSS to an additional style sheet.
 
-      .. md-tab-item:: CSS code
+.. md-tab-set::
 
-         .. literalinclude:: _static/extra_css.css
-            :language: css
-            :caption: docs/_static/extra_css.css
-            :start-after: /* *************************** custom admonition style rules
-            :end-before: /* **********
+   .. md-tab-item:: rST code
 
-      .. md-tab-item:: conf.py code
+      .. rst-example:: Pied Piper Example
 
-         .. code-block:: python
-            :caption: docs/conf.py
+         .. admonition:: Pied Piper
+            :class: pied-piper
 
-            html_static_path = ["_static"]
-            html_css_files = ["extra_css.css"]
+            Don't tell him you use spaces instead of tabs...
+
+   .. md-tab-item:: CSS code
+
+      .. literalinclude:: _static/extra_css.css
+         :language: css
+         :caption: docs/_static/extra_css.css
+         :start-after: /* *************************** custom admonition style rules
+         :end-before: /* **********
+
+   .. md-tab-item:: conf.py code
+
+      .. code-block:: python
+         :caption: docs/conf.py
+
+         html_static_path = ["_static"]
+         html_css_files = ["extra_css.css"]
+   
+
+Equivalent approach with `Custom Admonitions`_ feature
+######################################################
+
+.. code-block:: python
+   :caption: docs/conf.py
+
+   sphinx_immaterial_custom_admonitions = [
+       {
+           "name": "pied-piper",
+           "color": (43, 155, 70),
+           "icon": "fontawesome/brands/pied-piper-alt",
+       },
+   ]
+
+The above config can be used like so:
+
+.. md-tab-set::
+
+   .. md-tab-item:: Specific directive
+
+      .. code-block:: rst
+
+         .. pied-piper::
+
+            Don't tell him you use spaces instead of tabs...
+
+   .. md-tab-item:: Generic directive
+
+      .. code-block:: rst
+
+         .. admonition:: Pied Piper
+            :class: pied-piper
+
+            Don't tell him you use spaces instead of tabs...
 
 .. _change_admonition_icon:
 
 Changing the Admonition Icon
-----------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. warning::
-   The approach described below will work because it is inherited from the mkdocs-material theme.
-   However, using this approach will lead to bloated HTML files as the needed CSS code is embedded
-   in ``<style>`` tags rather than a single CSS file.
-
-   The sphinx-immaterial theme offers `custom admonitions`_ as a more efficient alternative.
+See our `legacy notice and explanation <discouraged-admonition-customization>`.
 
 Any of the above builtin admonitions' icons can be changed using the
 :themeconf:`icon`\ [:themeconf:`admonition`] field in :confval:`html_theme_options` settings.
@@ -366,3 +413,19 @@ This will only work with `any of the icons bundled with this theme
                     },
                 },
             }
+
+
+Equivalent approach with `Custom Admonitions`_ feature
+######################################################
+
+
+.. code-block:: python
+   :caption: docs/conf.py
+
+   sphinx_immaterial_custom_admonitions = [
+       {
+           "name": "note",
+           "icon": "material/file-document-outline",
+           "override": True,
+       },
+   ]
