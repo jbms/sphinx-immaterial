@@ -28,91 +28,86 @@ admonitionlabels["todo"] = _("Todo")
 
 class CustomAdmonitionConfig(pydantic.BaseModel):
     """This data class validates the user's configuration value(s) in
-    :confval:`sphinx_immaterial_custom_admonitions`. Each instantiated object
+    :confval:`sphinx_immaterial_custom_admonitions`. Each validated object
     corresponds to a generated custom :rst:dir:`admonition` directive tailored with
     theme specific options.
     """
 
     name: str
-    title: str
-    color: Optional[Tuple[int, int, int]] = None
+    """The required name of the directive. This will be also used as a CSS class name.
+    This value shall have characters that match the regular expression pattern
+    ``[a-zA-Z0-9_-]``."""
+    title: Optional[str]
+    """The default title to use when rendering the custom admonition. If this is
+    not specified, then the `name` value is converted and used."""
     icon: Optional[str] = None
+    """The relative path to an icon that will be used in the admonition's
+    title. If specified, this path shall be relative to
+
+    - a SVG file placed in the documentation project's
+      :confval:`sphinx_immaterial_icon_path` (this takes precedence).
+    - the ``.icons`` folder that has `all of the icons bundled with this theme
+      <https://github.com/squidfunk/mkdocs-material/tree/master/material/.icons>`_."""
+    color: Optional[Tuple[int, int, int]] = None
+    """The base color to be used for the admonition's styling. If specified, this
+    must be specified as a RGB color space. Each color component shall be
+    confined to the range [0, 255]. It is also possible to use the
+    :py:mod:`colorsys` module if converting from a different color space (like
+    HSL) to RGB."""
     classes: Optional[List[str]]
+    """If specified, this list of qualified names will be added to every rendered
+    admonition (specific to the generated directive) element's ``class`` attribute.
+
+    To adopt the styling of pre-existing admonition, include the desired
+    admonition directive's name in this list.
+
+    .. code-block:: python
+        :caption: Adopting the style of an :dutree:`hint` admonition:
+
+        sphinx_immaterial_custom_admonitions = [
+            {
+                "name": "my-admonition",
+                "classes": ["hint"],
+            },
+        ]
+    """
     override: bool = False
+    """Can be used to override an existing directive (default is :python:`False`). Only
+    set this to :python:`True` if the directive being overridden is an existing
+    admonition :ref:`defined by rST and Sphinx <predefined_admonitions>` or an
+    admonition :ref:`inherited from the mkdocs-material theme <inherited_admonitions>`.
+    """
 
-    def __init__(
-        self,
-        name: str,
-        title: Optional[str] = None,
-        color: Optional[Tuple[int, int, int]] = None,
-        icon: Optional[str] = None,
-        classes: Optional[List[str]] = None,
-        override: bool = False,
-    ):
-        """
-        :param name:
-            The name of the directive. This will be also used as a CSS class name.
-            This value shall have characters that match the regular expression pattern
-            ``[a-zA-Z0-9_-]``.
-        :param title:
-            The default title to use when rendering the custom admonition. If this is
-            not specified, then the
-            :py:obj:`~sphinx_immaterial.custom_admonitions.CustomAdmonitionConfig.__init__.name`
-            value is converted and used.
-        :param icon:
-            The relative path to an icon that will be used in the admonition's
-            title. If specified, this path shall be relative to
+    # pylint: disable=no-self-argument
 
-            - a SVG file placed in the documentation project's
-              :confval:`sphinx_immaterial_icon_path` (this takes precedence).
-            - the ``.icons`` folder that has `all of the icons bundled with this theme
-              <https://github.com/squidfunk/mkdocs-material/tree/master/material/
-              .icons>`_.
-        :param color:
-            The base color to be used for the admonition's styling. If specified, this
-            must be specified as a RGB color space. Each color component shall be
-            confined to the range [0, 255]. It is also possible to use the
-            :py:mod:`colorsys` module if converting from a different color space (like
-            HSL) to RGB.
-        :param classes: If specified, this list of qualified names will be added to every
-            admonition created from the generated directive.
-
-            To adopt the styling of pre-existing admonition, include the desired
-            admonition directive's name in this list.
-
-            .. code-block:: python
-                :caption: Adopting the style of an :dutree:`hint` admonition:
-
-                sphinx_immaterial_custom_admonitions = [
-                    {
-                        "name": "my-admonition",
-                        "classes": ["hint"],
-                    },
-                ]
-        :param override:
-            Can be used to override an existing directive. Only set this to
-            :python:`True` if the directive being overridden is an existing admonition
-            :ref:`defined by rST and Sphinx <predefined_admonitions>` or an admonition
-            :ref:`inherited from the mkdocs-material theme <inherited_admonitions>`.
-        """
-        illegal = re.findall(r"([^a-zA-Z0-9\-_])", name)
+    @pydantic.validator("name", pre=True)
+    def validate_name(cls, val):
+        illegal = re.findall(r"([^a-zA-Z0-9\-_])", val)
         if illegal:
-            raise ValueError(
+            raise pydantic.ValidationError(
                 f"The following characters are illegal for directive names: {illegal}"
             )
-        if color is not None:
-            for c in color:
-                assert 0 <= c <= 255, f"color component {c} is not in range [0, 255]"
-        if title is None:
-            title = " ".join(re.split(r"[\-_]+", name)).title()
-        super().__init__(
-            name=name,
-            title=title,
-            color=color,
-            icon=icon,
-            classes=classes,
-            override=override,
+        return val
+
+    @pydantic.validator("title", always=True)
+    def validate_title(cls, val, values):
+        if val is None:
+            val = " ".join(re.split(r"[\-_]+", values["name"])).title()
+        return val
+
+    @pydantic.validator("color", each_item=True)
+    def validate_color_component(cls, val):
+        if 0 <= val <= 255:
+            return val
+        raise pydantic.ValidationError(
+            f"color component {val} is not in range [0, 255]"
         )
+
+    @pydantic.validator("classes", each_item=True)
+    def conform_classes(cls, val):
+        return nodes.make_id(val)
+
+    # pylint: enable=no-self-argument
 
 
 def patch_visit_admonition():
@@ -228,7 +223,7 @@ def get_directive_class(name, title, classes=None) -> Type[CustomAdmonitionDirec
     # alias upstream-deprecated CSS classes for pre-defined admonitions in sphinx
     class_list = [nodes.make_id(name)]
     if classes:
-        class_list.extend([nodes.make_id(cls) for cls in classes])
+        class_list.extend(classes)
 
     # uncomment this block when we merge v9.x from upstream
     # if name in ("caution", "attention"):
@@ -360,7 +355,7 @@ def setup(app: Sphinx):
         name="sphinx_immaterial_custom_admonitions",
         default=[],
         rebuild="env",
-        types=[List[Dict[str, Union[str, Tuple[int, int, int], List[int], bool]]]],
+        types=[List[CustomAdmonitionConfig]],
     )
     app.add_config_value(
         name="sphinx_immaterial_generate_inherited_admonitions",

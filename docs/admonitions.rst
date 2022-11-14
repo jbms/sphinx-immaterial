@@ -208,7 +208,14 @@ documentation's conf.py.
    is validated using the data class `CustomAdmonitionConfig`.
 
    .. autoclass:: sphinx_immaterial.custom_admonitions.CustomAdmonitionConfig
-      :exclude-members: __new__
+      :exclude-members: __new__, __init__
+      
+      .. autoattribute:: name
+      .. autoattribute:: title
+      .. autoattribute:: icon
+      .. autoattribute:: color
+      .. autoattribute:: classes
+      .. autoattribute:: override
 
 Custom Admonition Example
 -------------------------
@@ -223,7 +230,7 @@ As a demonstration, we will be using the following configuration:
 
 Note that the name of the created directive (:rst:dir:`example-admonition`) is directly related to
 the value of the
-:py:obj:`~sphinx_immaterial.custom_admonitions.CustomAdmonitionConfig.__init__.name` option.
+:py:obj:`~sphinx_immaterial.custom_admonitions.CustomAdmonitionConfig.name` option.
 
 The above configuration will create a directive that could be documented like so:
 
