@@ -134,7 +134,7 @@ const stylesheets$ = resolve("**/[!_]*.scss", { cwd: "src/assets" })
       of(ext(file, ".css")),
       transformStyle({
         from: `src/assets/${file}`,
-        to: ext(`${base}/static/${file}`, ".css")
+        to: ext(`${base}/bundles/${file}`, ".css")
       }))
     )
   )

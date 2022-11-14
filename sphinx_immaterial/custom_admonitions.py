@@ -329,7 +329,7 @@ def consolidate_css(app: Sphinx, env: BuildEnvironment):
 
     css_data = io.BytesIO()
     # copy pre-minified CSS from theme's bundles
-    theme_bundles = Path(__file__).parent / "static" / "stylesheets"
+    theme_bundles = Path(__file__).parent / "bundles" / "stylesheets"
     for bundle in theme_bundles.glob("*.min.css"):
         if not is_palette_defined and bundle.name.startswith("palette"):
             continue  # don't need the palette CSS if HTML doesn't need it

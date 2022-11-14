@@ -22,6 +22,7 @@ import setuptools  # pylint: disable=wrong-import-order
 import atexit
 import distutils.command.build
 import os
+import pathlib
 import subprocess
 import tempfile
 
@@ -166,7 +167,7 @@ class StaticBundlesCommand(setuptools.command.build_py.build_py):
 setuptools.setup(
     name="sphinx_immaterial",
     description="Adaptation of mkdocs-material theme for the Sphinx documentation system",
-    long_description=open("README.rst").read(),
+    long_description=pathlib.Path("README.rst").read_text(encoding="utf-8"),
     author="Jeremy Maitin-Shepard",
     author_email="jeremy@jeremyms.com",
     url="https://github.com/jbms/sphinx-immaterial",
@@ -183,6 +184,7 @@ setuptools.setup(
             "partials/*/*/*.html",
             "partials/*/*/*/*.html",
             "static/*/**",
+            "bundles/*/**",
             "*.html",
             "custom_admonitions.css",
             "theme.conf",

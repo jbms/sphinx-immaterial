@@ -1,7 +1,7 @@
 """Sphinx-Immaterial theme."""
 
 import os
-from typing import cast, List, Type, Dict, Mapping, Optional, Union
+from typing import cast, List, Type, Dict, Mapping, Optional
 
 import docutils.nodes
 from sphinx.application import Sphinx
@@ -129,12 +129,7 @@ def _get_html_builder(base_builder: Type[sphinx.builders.html.StandaloneHTMLBuil
                             )
                         excluded = sphinx.util.matching.Matcher(excluded_list)
                     else:
-                        excluded = sphinx.util.matching.Matcher(
-                            [
-                                "**/.*",
-                                "**/stylesheets/*",
-                            ]
-                        )
+                        excluded = sphinx.util.matching.DOTFILES
                     sphinx.util.fileutil.copy_asset(
                         os.path.join(entry, "static"),
                         os.path.join(self.outdir, "_static"),
@@ -250,7 +245,7 @@ def _config_inited(
     )
 
 
-def setup(app):
+def setup(app: Sphinx):
     app.connect("config-inited", _config_inited)
 
     app.setup_extension("sphinx_immaterial.external_resource_cache")
@@ -276,8 +271,24 @@ def setup(app):
         "html_use_directory_uris_for_index_pages", False, rebuild="html", types=bool
     )
 
-    app.add_builder(_get_html_builder(app.registry.builders["html"]), override=True)
-    app.add_builder(_get_html_builder(app.registry.builders["dirhtml"]), override=True)
+    app.add_builder(
+        _get_html_builder(
+            cast(
+                Type[sphinx.builders.html.StandaloneHTMLBuilder],
+                app.registry.builders["html"],
+            )
+        ),
+        override=True,
+    )
+    app.add_builder(
+        _get_html_builder(
+            cast(
+                Type[sphinx.builders.html.StandaloneHTMLBuilder],
+                app.registry.builders["dirhtml"],
+            )
+        ),
+        override=True,
+    )
     app.add_html_theme("sphinx_immaterial", os.path.abspath(os.path.dirname(__file__)))
 
     # register our custom directives/roles that are tied to this theme
