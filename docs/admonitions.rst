@@ -13,6 +13,18 @@ Most of the admonitions that the mkdocs-material theme supports were "borrowed" 
 admonitions defined in the reStructuredText specifications. You may recognize them from
 usage in other sphinx-based themes.
 
+.. confval:: sphinx_immaterial_override_builtin_admonitions
+
+   All builtin admonitions defined by sphinx and docutils are overridden by this theme to extend
+   new functionality like custom titles and collapsible/dropdown appearance. This theme can be
+   configured to disallow these overrides if the new features cause a conflict with other
+   Sphinx extensions.
+
+   .. code-block:: python
+      :caption: Disallow overriding builtin admonitions in conf.py
+
+      sphinx_immaterial_override_builtin_admonitions = False
+
 .. rst-example:: ``note``, ``seealso``, ``todo``
    :name: note-admonition-style
 
@@ -54,16 +66,19 @@ theme. These admonition styles can be used in 2 ways:
   automatically generated directives cause conflicts with other existing directives'
   names, then this theme can be configured to skip generating the specific directives.
 
-  .. confval:: sphinx_immaterial_generate_inherited_admonitions
+  .. confval:: sphinx_immaterial_generate_extra_admonitions
 
       The inherited admonition styles are conveniently exposed as directives in the sphinx-immaterial
       theme using the `Custom Admonitions`_ feature. Set this config option to :python:`False` to
       disallow the generation of these convenience directives.
 
       .. code-block:: python
-         :caption: in conf.py
+         :caption: Disallow generating extra admonition directives in conf.py
 
-         sphinx_immaterial_generate_inherited_admonitions = False
+         sphinx_immaterial_generate_extra_admonitions = False
+
+      If this option is disabled, the :dudir:`generic admonition directive <generic-admonition>`
+      can still be used to invoke these inherited admonition styles.
 
 .. jinja::
 
@@ -73,9 +88,9 @@ theme. These admonition styles can be used in 2 ways:
 
    :css:`{{style}}`
       .. md-tab-set::
-   
+
          .. md-tab-item:: Specific directive
-   
+
             .. rst-example::
 
                .. {{style}}::
@@ -84,7 +99,7 @@ theme. These admonition styles can be used in 2 ways:
 
          .. md-tab-item:: Generic directive
 
-            .. rst-example:: 
+            .. rst-example::
 
                .. admonition:: {{style|title}}
                   :class: {{style}}
@@ -97,7 +112,21 @@ Admonition Directive
 *********************
 
 All admonitions listed above are created or overridden by this theme's `Custom Admonitions`_ feature.
-This means that the following options are available to all admonitions.
+
+.. confval:: sphinx_immaterial_override_generic_admonitions
+
+   The :dudir:`generic admonition directive <generic-admonition>` defined by docutils is overridden
+   by this theme to extend new functionality like custom titles and collapsible/dropdown
+   appearance. This theme can be configured to disallow overriding the
+   :dudir:`generic admonition directive <generic-admonition>` if the new features cause a conflict
+   with other Sphinx extensions.
+
+   .. code-block:: python
+      :caption: Disallow overriding generic admonition in conf.py
+
+      sphinx_immaterial_override_generic_admonitions = False
+
+By default, the following options are available to all admonitions.
 
 .. rst:directive:: admonition
 
@@ -209,7 +238,7 @@ documentation's conf.py.
 
    .. autoclass:: sphinx_immaterial.custom_admonitions.CustomAdmonitionConfig
       :exclude-members: __new__, __init__
-      
+
       .. autoattribute:: name
       .. autoattribute:: title
       .. autoattribute:: icon
@@ -297,7 +326,7 @@ folder and add the new CSS to an additional style sheet.
 
          html_static_path = ["_static"]
          html_css_files = ["extra_css.css"]
-   
+
 
 Equivalent approach with `Custom Admonitions`_ feature
 ######################################################
@@ -312,27 +341,6 @@ Equivalent approach with `Custom Admonitions`_ feature
            "icon": "fontawesome/brands/pied-piper-alt",
        },
    ]
-
-The above config can be used like so:
-
-.. md-tab-set::
-
-   .. md-tab-item:: Specific directive
-
-      .. code-block:: rst
-
-         .. pied-piper::
-
-            Don't tell him you use spaces instead of tabs...
-
-   .. md-tab-item:: Generic directive
-
-      .. code-block:: rst
-
-         .. admonition:: Pied Piper
-            :class: pied-piper
-
-            Don't tell him you use spaces instead of tabs...
 
 .. _change_admonition_icon:
 

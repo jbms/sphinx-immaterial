@@ -272,10 +272,11 @@ def on_config_inited(app: Sphinx, config: Config):
     """Add admonitions based on CSS classes inherited from mkdocs-material theme."""
 
     # override the generic admonition directive
-    app.add_directive("admonition", get_directive_class("admonition", ""), True)
+    if getattr(config, "sphinx_immaterial_override_generic_admonitions"):
+        app.add_directive("admonition", get_directive_class("admonition", ""), True)
 
     # generate directives for inherited admonitions from upstream CSS
-    if getattr(config, "sphinx_immaterial_generate_inherited_admonitions"):
+    if getattr(config, "sphinx_immaterial_generate_extra_admonitions"):
         for admonition in (
             "abstract",
             "info",
@@ -300,11 +301,12 @@ def on_config_inited(app: Sphinx, config: Config):
 
     # override the specific admonitions defined in sphinx and docutils
     # these are the admonitions that have translated titles in sphinx.locale
-    for admonition, title in admonitionlabels.items():
+    if getattr(config, "sphinx_immaterial_override_builtin_admonitions"):
+        for admonition, title in admonitionlabels.items():
 
-        if admonition in user_defined_dir_names:
-            continue
-        app.add_directive(admonition, get_directive_class(admonition, title), True)
+            if admonition in user_defined_dir_names:
+                continue
+            app.add_directive(admonition, get_directive_class(admonition, title), True)
 
 
 def consolidate_css(app: Sphinx, env: BuildEnvironment):
@@ -358,7 +360,19 @@ def setup(app: Sphinx):
         types=[List[CustomAdmonitionConfig]],
     )
     app.add_config_value(
-        name="sphinx_immaterial_generate_inherited_admonitions",
+        name="sphinx_immaterial_generate_extra_admonitions",
+        default=True,
+        rebuild="html",
+        types=bool,
+    )
+    app.add_config_value(
+        name="sphinx_immaterial_override_generic_admonitions",
+        default=True,
+        rebuild="html",
+        types=bool,
+    )
+    app.add_config_value(
+        name="sphinx_immaterial_override_builtin_admonitions",
         default=True,
         rebuild="html",
         types=bool,

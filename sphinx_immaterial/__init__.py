@@ -270,25 +270,16 @@ def setup(app: Sphinx):
     app.add_config_value(
         "html_use_directory_uris_for_index_pages", False, rebuild="html", types=bool
     )
-
-    app.add_builder(
-        _get_html_builder(
-            cast(
-                Type[sphinx.builders.html.StandaloneHTMLBuilder],
-                app.registry.builders["html"],
-            )
-        ),
-        override=True,
-    )
-    app.add_builder(
-        _get_html_builder(
-            cast(
-                Type[sphinx.builders.html.StandaloneHTMLBuilder],
-                app.registry.builders["dirhtml"],
-            )
-        ),
-        override=True,
-    )
+    for builder in ("html", "dirhtml"):
+        app.add_builder(
+            _get_html_builder(
+                cast(
+                    Type[sphinx.builders.html.StandaloneHTMLBuilder],
+                    app.registry.builders[builder],
+                )
+            ),
+            override=True,
+        )
     app.add_html_theme("sphinx_immaterial", os.path.abspath(os.path.dirname(__file__)))
 
     # register our custom directives/roles that are tied to this theme
