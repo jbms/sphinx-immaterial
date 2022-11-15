@@ -678,7 +678,7 @@
           > .md-nav__link {
             position: sticky;
             top: 0;
-            z-index: 1;
+            z-index: var(--md-nav__sticky-zindex, 1);
             margin-top: 0;
             padding: 0 px2rem(12px);
             font-weight: 700;
