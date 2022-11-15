@@ -17,10 +17,8 @@
       
     
     
-      <link rel="stylesheet" href="_static/stylesheets/main.9fc2e03c.min.css">
       
         
-        <link rel="stylesheet" href="_static/stylesheets/palette.ae371752.min.css">
         
       
       
@@ -35,6 +33,7 @@
       
     
         <link rel="stylesheet" type="text/css" href="_static/google_fonts.css" />
+        <link rel="stylesheet" type="text/css" href="_static/stylesheets/sphinx_immaterial_theme.b8595113402283479.min.css" />
         <link rel="stylesheet" type="text/css" href="_static/extra_css.css" />
     <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -951,13 +950,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#icons" class="md-nav__link">
-    <span class="md-ellipsis">Icons</span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#tables" class="md-nav__link">
     <span class="md-ellipsis">Tables</span>
   </a>
@@ -1143,13 +1135,6 @@
         <li class="md-nav__item">
   <a href="#footnotes" class="md-nav__link">
     <span class="md-ellipsis">Footnotes</span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#icons" class="md-nav__link">
-    <span class="md-ellipsis">Icons</span>
   </a>
   
 </li>
@@ -1611,51 +1596,6 @@ This also references the second item <a class="footnote-reference brackets" href
 </aside>
 </div>
 </div>
-<h2 id="icons">Icons<a class="headerlink" href="#icons" title="Permalink to this heading">¶</a></h2>
-<div class="results docutils container">
-<div class="literal-block-wrapper docutils container" id="id6">
-<div class="code-block-caption highlight"><span class="caption-text filename">
-The following raw HTML<a class="headerlink" href="#id6" title="Permalink to this code">¶</a></span></div>
-<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><code><span class="p">..</span> <span class="ow">raw</span><span class="p">::</span> html
-
-   &lt;span style=&quot;font-size: 2rem;&quot; class=&quot;md-icon&quot;&gt;&amp;#xe869;&lt;/span&gt;
-</code></pre></div>
-</div>
-</div>
-<div class="results-prefix docutils container">
-translates to the icon:</div>
-<div class="result docutils container">
-<span style="font-size: 2rem;" class="md-icon">&#xe869;</span></div>
-</div>
-<p>The material icon font provides hundreds to choose from. You can use the <code class="docutils literal notranslate"><span class="pre">&lt;i&gt;</span></code> tag or the
-<code class="docutils literal notranslate"><span class="pre">&lt;span&gt;</span></code> tag.</p>
-<div class="results docutils container">
-<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><code><span class="p">..</span> <span class="ow">raw</span><span class="p">::</span> html
-
-   &lt;i style=&quot;font-size: 1rem;&quot; class=&quot;md-icon&quot;&gt;&amp;#xe158;&lt;/i&gt;
-   &lt;i style=&quot;font-size: 1.2rem;&quot; class=&quot;md-icon&quot;&gt;&amp;#xe155;&lt;/i&gt;
-   &lt;i style=&quot;font-size: 1.4rem;&quot; class=&quot;md-icon&quot;&gt;&amp;#xe195;&lt;/i&gt;
-   &lt;i style=&quot;font-size: 1.6rem;&quot; class=&quot;md-icon&quot;&gt;&amp;#xe255;&lt;/i&gt;
-   &lt;i style=&quot;font-size: 1.8rem;&quot; class=&quot;md-icon&quot;&gt;&amp;#xe3c9;&lt;/i&gt;
-   &lt;i style=&quot;font-size: 2.0rem;&quot; class=&quot;md-icon&quot;&gt;&amp;#xe811;&lt;/i&gt;
-   &lt;i style=&quot;font-size: 2.2rem;&quot; class=&quot;md-icon&quot;&gt;&amp;#xe812;&lt;/i&gt;
-   &lt;i style=&quot;font-size: 2.4rem;&quot; class=&quot;md-icon&quot;&gt;&amp;#xe813;&lt;/i&gt;
-   &lt;i style=&quot;font-size: 2.6rem;&quot; class=&quot;md-icon&quot;&gt;&amp;#xe814;&lt;/i&gt;
-   &lt;i style=&quot;font-size: 2.8rem;&quot; class=&quot;md-icon&quot;&gt;&amp;#xe815;&lt;/i&gt;
-</code></pre></div>
-</div>
-<div class="result docutils container">
-<i style="font-size: 1rem;" class="md-icon">&#xe158;</i>
-<i style="font-size: 1.2rem;" class="md-icon">&#xe155;</i>
-<i style="font-size: 1.4rem;" class="md-icon">&#xe195;</i>
-<i style="font-size: 1.6rem;" class="md-icon">&#xe255;</i>
-<i style="font-size: 1.8rem;" class="md-icon">&#xe3c9;</i>
-<i style="font-size: 2.0rem;" class="md-icon">&#xe811;</i>
-<i style="font-size: 2.2rem;" class="md-icon">&#xe812;</i>
-<i style="font-size: 2.4rem;" class="md-icon">&#xe813;</i>
-<i style="font-size: 2.6rem;" class="md-icon">&#xe814;</i>
-<i style="font-size: 2.8rem;" class="md-icon">&#xe815;</i></div>
-</div>
 <h2 id="tables">Tables<a class="headerlink" href="#tables" title="Permalink to this heading">¶</a></h2>
 <p>Here are some examples of Sphinx
 <a class="reference external" href="http://www.sphinx-doc.org/rest.html#rst-tables">tables</a>. The Sphinx Material
@@ -1665,9 +1605,9 @@ using <code class="docutils literal notranslate"><span class="pre">..</span> <sp
 <code class="docutils literal notranslate"><span class="pre">table_classes</span></code> variable.</p>
 <h3 id="grid">Grid<a class="headerlink" href="#grid" title="Permalink to this heading">¶</a></h3>
 <div class="results docutils container">
-<div class="literal-block-wrapper docutils container" id="id7">
+<div class="literal-block-wrapper docutils container" id="id6">
 <div class="code-block-caption highlight"><span class="caption-text filename">
-A grid table:<a class="headerlink" href="#id7" title="Permalink to this code">¶</a></span></div>
+A grid table:<a class="headerlink" href="#id6" title="Permalink to this code">¶</a></span></div>
 <div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><code>+------------------------+------------+----------+----------+
 <span class="o">|</span> Header1                | Header2    | Header3  | Header4  |
 +========================+============+==========+==========+
@@ -1711,9 +1651,9 @@ A grid table:<a class="headerlink" href="#id7" title="Permalink to this code">¶
 </div>
 <h3 id="simple">Simple<a class="headerlink" href="#simple" title="Permalink to this heading">¶</a></h3>
 <div class="results docutils container">
-<div class="literal-block-wrapper docutils container" id="id8">
+<div class="literal-block-wrapper docutils container" id="id7">
 <div class="code-block-caption highlight"><span class="caption-text filename">
-A simple table:<a class="headerlink" href="#id8" title="Permalink to this code">¶</a></span></div>
+A simple table:<a class="headerlink" href="#id7" title="Permalink to this code">¶</a></span></div>
 <div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><code>=====  =====  =======
 H1     H2     H3
 =====  =====  =======
@@ -1750,7 +1690,7 @@ cell1  cell2  cell3
 </div>
 </div>
 <h3 id="user-styled-table">User-styled Table<a class="headerlink" href="#user-styled-table" title="Permalink to this heading">¶</a></h3>
-<div class="admonition note">
+<div class="note admonition">
 <p class="admonition-title">Note</p>
 <p><code class="docutils literal notranslate"><span class="pre">table_classes</span></code> is set to <code class="docutils literal notranslate"><span class="pre">[&quot;plain&quot;]</span></code> in the site’s configuration. Only plain
 remains as the class of the table. Other standard classes applied by Sphinx are
@@ -1807,8 +1747,8 @@ cell1  cell2   cell3
 </code></pre></div>
 </div>
 <div class="result docutils container">
-<table class="docutils data align-default" id="id9">
-<caption><span class="caption-text">A List Table</span><a class="headerlink" href="#id9" title="Permalink to this table">¶</a></caption>
+<table class="docutils data align-default" id="id8">
+<caption><span class="caption-text">A List Table</span><a class="headerlink" href="#id8" title="Permalink to this table">¶</a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>Column 1</p></th>
 <th class="head"><p>Column 2</p></th>
@@ -1835,8 +1775,8 @@ cell1  cell2   cell3
 </code></pre></div>
 </div>
 <div class="result docutils container">
-<table class="docutils data align-center" id="id10">
-<caption><span class="caption-text">Center Aligned</span><a class="headerlink" href="#id10" title="Permalink to this table">¶</a></caption>
+<table class="docutils data align-center" id="id9">
+<caption><span class="caption-text">Center Aligned</span><a class="headerlink" href="#id9" title="Permalink to this table">¶</a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>Column 1</p></th>
 <th class="head"><p>Column 2</p></th>
@@ -1871,8 +1811,8 @@ cell1  cell2   cell3
 </code></pre></div>
 </div>
 <div class="result docutils container">
-<table class="docutils data align-right" id="id11">
-<caption><span class="caption-text">Right Aligned</span><a class="headerlink" href="#id11" title="Permalink to this table">¶</a></caption>
+<table class="docutils data align-right" id="id10">
+<caption><span class="caption-text">Right Aligned</span><a class="headerlink" href="#id10" title="Permalink to this table">¶</a></caption>
 <colgroup>
 <col style="width: 27.3%" />
 <col style="width: 18.2%" />
@@ -1960,9 +1900,9 @@ source files for one Sphinx project.</p>
 <p>The following <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/directives.html#directive-productionlist" title="(in Sphinx v6.0.0b3)"><code class="xref any docutils literal notranslate"><span class="pre">productionlist</span></code></a> is a modified example taken from
 <a class="reference external" href="https://graphviz.org/doc/info/lang.html">the Graphviz documentation</a></p>
 <div class="results docutils container">
-<div class="literal-block-wrapper docutils container" id="id12">
+<div class="literal-block-wrapper docutils container" id="id11">
 <div class="code-block-caption highlight"><span class="caption-text filename">
-Grammar for dot syntax<a class="headerlink" href="#id12" title="Permalink to this code">¶</a></span></div>
+Grammar for dot syntax<a class="headerlink" href="#id11" title="Permalink to this code">¶</a></span></div>
 <div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><code><span class="p">..</span> <span class="ow">productionlist</span><span class="p">::</span>
    graph      : [ strict ] (<span class="nv">`graph`</span> | digraph) [ ID ] &#39;{&#39; <span class="nv">`stmt_list`</span> &#39;}&#39;
    stmt_list  : [ <span class="nv">`stmt`</span> [ &#39;;&#39; ] <span class="nv">`stmt_list`</span> ]

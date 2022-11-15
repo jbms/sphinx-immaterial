@@ -17,10 +17,8 @@
       
     
     
-      <link rel="stylesheet" href="_static/stylesheets/main.9fc2e03c.min.css">
       
         
-        <link rel="stylesheet" href="_static/stylesheets/palette.ae371752.min.css">
         
       
       
@@ -35,6 +33,7 @@
       
     
         <link rel="stylesheet" type="text/css" href="_static/google_fonts.css" />
+        <link rel="stylesheet" type="text/css" href="_static/stylesheets/sphinx_immaterial_theme.b8595113402283479.min.css" />
         <link rel="stylesheet" type="text/css" href="_static/extra_css.css" />
     <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -1052,9 +1051,8 @@ This is already done in sphinx-immaterial theme:<a class="headerlink" href="#id2
 </code></pre></div>
 </div>
 </div>
-<details class="check">
-<summary>
-CSS not included with extension</summary><p>The CSS for checkboxes is not included with this extension. Rather, the CSS is served from the
+<details class="success admonition">
+<summary class="admonition-title">CSS is not included with this extension</summary><p>The CSS for checkboxes is not included with this extension. Rather, the CSS is served from the
 sphinx-immaterial theme (which is inherited from mkdocs-material theme).</p>
 <p>To use this extension with a theme that has no CSS support, try adding your own CSS:</p>
 <div class="highlight-css notranslate"><div class="highlight"><pre><span></span><code><span class="p">:</span><span class="nd">root</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
@@ -1087,7 +1085,8 @@ sphinx-immaterial theme (which is inherited from mkdocs-material theme).</p>
 <span class="p">}</span><span class="w"></span>
 </code></pre></div>
 </div>
-</details><h2 id="config-variables">Config variables<a class="headerlink" href="#config-variables" title="Permalink to this heading">¶</a></h2>
+</details>
+<h2 id="config-variables">Config variables<a class="headerlink" href="#config-variables" title="Permalink to this heading">¶</a></h2>
 <dl class="std confval objdesc">
 <dt class="sig sig-object highlight std" id="confval-custom_checkbox">
 <span class="sig-name descname"><span class="pre">custom_checkbox</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="kc">False</span></code><a class="headerlink" href="#confval-custom_checkbox" title="Permalink to this definition">¶</a></dt>
@@ -1098,7 +1097,7 @@ sphinx-immaterial theme (which is inherited from mkdocs-material theme).</p>
 <dt class="sig sig-object highlight std" id="confval-clickable_checkbox">
 <span class="sig-name descname"><span class="pre">clickable_checkbox</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="kc">False</span></code><a class="headerlink" href="#confval-clickable_checkbox" title="Permalink to this definition">¶</a></dt>
 <dd><p>A global conf.py <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><code class="xref any docutils literal notranslate"><span class="pre">bool</span></code></a> variable to enable user interaction with the checkboxes shown. Default is <a class="reference external" href="https://docs.python.org/3/library/constants.html#False" title="(in Python v3.11)"><code class="xref any docutils literal notranslate"><span class="pre">False</span></code></a>.</p>
-<div class="admonition note">
+<div class="note admonition">
 <p class="admonition-title">Note</p>
 <p>If this option is used, then any user changes will not be saved.</p>
 </div>
@@ -1204,7 +1203,7 @@ Use the <a class="reference external" href="https://www.sphinx-doc.org/en/master
 <dt class="sig sig-object highlight rst" id="directive-option-task-list-clickable">
 <span class="sig-name descname"><span class="pre">:clickable:</span></span><em class="property"> <span class="pre">(flag)</span></em><a class="headerlink" href="#directive-option-task-list-clickable" title="Permalink to this definition">¶</a></dt>
 <dd><p>Allow user interaction with checkboxes. Default is <a class="reference external" href="https://docs.python.org/3/library/constants.html#False" title="(in Python v3.11)"><code class="xref any docutils literal notranslate"><span class="pre">False</span></code></a> unless <a class="reference internal" href="#confval-clickable_checkbox" title="clickable_checkbox (configuration value) — A global conf.py bool variable to enable user interaction with the checkboxes shown."><code class="xref any std std-confval docutils literal notranslate"><span class="pre">clickable_checkbox</span></code></a> is enabled.</p>
-<div class="admonition note">
+<div class="note admonition">
 <p class="admonition-title">Note</p>
 <p>If this option is used, then any user changes will not be saved.</p>
 </div>

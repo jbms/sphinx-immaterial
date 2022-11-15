@@ -17,10 +17,8 @@
       
     
     
-      <link rel="stylesheet" href="_static/stylesheets/main.9fc2e03c.min.css">
       
         
-        <link rel="stylesheet" href="_static/stylesheets/palette.ae371752.min.css">
         
       
       
@@ -35,6 +33,7 @@
       
     
         <link rel="stylesheet" type="text/css" href="_static/google_fonts.css" />
+        <link rel="stylesheet" type="text/css" href="_static/stylesheets/sphinx_immaterial_theme.b8595113402283479.min.css" />
         <link rel="stylesheet" type="text/css" href="_static/extra_css.css" />
     <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -612,6 +611,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#confval-sphinx_immaterial_icon_path" class="md-nav__link">
+    <span aria-label="configuration value" class="objinfo-icon objinfo-icon__data" title="configuration value">C</span><span title="sphinx_immaterial_icon_path (configuration value) — This list of paths will contain custom SVG icons that can be used in the documentation via si-icon or sphinx_immaterial_custom_admonitions." class="md-ellipsis">sphinx_<wbr>immaterial_<wbr>icon_<wbr>path</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#using-inline-icons" class="md-nav__link">
     <span class="md-ellipsis">Using inline icons</span>
   </a>
@@ -886,6 +892,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#confval-sphinx_immaterial_icon_path" class="md-nav__link">
+    <span aria-label="configuration value" class="objinfo-icon objinfo-icon__data" title="configuration value">C</span><span title="sphinx_immaterial_icon_path (configuration value) — This list of paths will contain custom SVG icons that can be used in the documentation via si-icon or sphinx_immaterial_custom_admonitions." class="md-ellipsis">sphinx_<wbr>immaterial_<wbr>icon_<wbr>path</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#using-inline-icons" class="md-nav__link">
     <span class="md-ellipsis">Using inline icons</span>
   </a>
@@ -933,7 +946,7 @@
 
 <h1 id="inline-icons">Inline icons<a class="headerlink" href="#inline-icons" title="Permalink to this heading">¶</a></h1>
 <p>This theme has a builtin role to use icons within lines of text.</p>
-<div class="admonition warning">
+<div class="warning admonition">
 <p class="admonition-title">Warning</p>
 <p>Using icons in the table of contents or navigation menu is not supported.</p>
 </div>
@@ -943,12 +956,25 @@
 <dd><p>Set the content of this role to a relative path of an SVG image (excluding the <code class="docutils literal notranslate"><span class="pre">.svg</span></code> file
 extension). This path shall be relative to</p>
 <ul class="simple">
-<li><p>the <code class="docutils literal notranslate"><span class="pre">.icons</span></code> directory bundled with this theme (this takes precedence)</p></li>
-<li><p>the documentation’s static path(s) (set with <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/configuration.html#confval-html_static_path" title="(in Sphinx v6.0.0b3)"><code class="xref any docutils literal notranslate"><span class="pre">html_static_path</span></code></a> in conf.py)</p></li>
+<li><p>the documentation source’s path(s) configured with <a class="reference internal" href="#confval-sphinx_immaterial_icon_path" title="sphinx_immaterial_icon_path (configuration value) — This list of paths will contain custom SVG icons that can be used in the documentation via si-icon or sphinx_immaterial_custom_admonitions."><code class="xref std std-confval docutils literal notranslate"><span class="pre">sphinx_immaterial_icon_path</span></code></a>
+(this takes precedence).</p></li>
+<li><p>the <code class="docutils literal notranslate"><span class="pre">.icons</span></code> directory bundled with this theme</p></li>
 </ul>
 <p>Optionally, a CSS class can be specified after the icon’s path, but the path and CSS class
 <strong>must</strong> be separated by semi-colon (<code class="docutils literal notranslate"><span class="pre">;</span></code>). Do not use spaces. If specifying multiple CSS
 classes, then separate them with a comma (<code class="docutils literal notranslate"><span class="pre">,</span></code>).</p>
+</dd></dl>
+
+<dl class="std confval objdesc">
+<dt class="sig sig-object highlight std" id="confval-sphinx_immaterial_icon_path">
+<span class="sig-name descname"><span class="pre">sphinx_immaterial_icon_path</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="p">[]</span></code><a class="headerlink" href="#confval-sphinx_immaterial_icon_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>This <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><code class="xref any docutils literal notranslate"><span class="pre">list</span></code></a> of paths will contain custom SVG icons that can be used in the documentation via
+<a class="reference internal" href="#role-si-icon" title="si-icon role"><code class="xref rst rst-role docutils literal notranslate"><span class="pre">si-icon</span></code></a> or <a class="reference internal" href="admonitions.html#confval-sphinx_immaterial_custom_admonitions" title="sphinx_immaterial_custom_admonitions (configuration value) — A list of dicts that will be used to create custom admonition directives."><code class="xref std std-confval docutils literal notranslate"><span class="pre">sphinx_immaterial_custom_admonitions</span></code></a>. These paths must be
+relative to the documentation project’s conf.py file. The icons stored here will be (if used)
+rendered as CSS variables in the documentation’s HTML output. This is designed to allow for
+less duplicated code in generated output.</p>
+<p>The icons in these paths will not be copied to the HTML output (like they would be for
+<a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/configuration.html#confval-html_static_path" title="(in Sphinx v6.0.0b3)"><code class="xref any docutils literal notranslate"><span class="pre">html_static_path</span></code></a>).</p>
 </dd></dl>
 
 <h2 id="using-inline-icons">Using inline icons<a class="headerlink" href="#using-inline-icons" title="Permalink to this heading">¶</a></h2>
@@ -966,10 +992,10 @@ Using a builtin icon<a class="headerlink" href="#id1" title="Permalink to this c
 </div>
 <div class="result docutils container">
 <ul class="simple">
-<li><p><span class="md-icon si-icon-inline "><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 12c0-2.03-.67-3.91-2-5.62v11.25c1.33-1.66 2-3.54 2-5.63m-3.37 7H6.38c.68.55 1.57 1 2.67 1.41 1.09.39 2.08.59 2.95.59.88 0 1.86-.2 2.95-.59 1.1-.41 1.99-.86 2.68-1.41M11 17 7 9v8h4m6-8-4 8h4V9m-5 5.53L15.75 7h-7.5L12 14.53M17.63 5C15.97 3.67 14.09 3 12 3s-3.97.67-5.62 2h11.25M5 17.63V6.38C3.67 8.09 3 9.97 3 12c0 2.09.67 3.97 2 5.63M23 12c0 3.03-1.06 5.63-3.22 7.78C17.63 21.94 15.03 23 12 23c-3.03 0-5.62-1.06-7.78-3.22C2.06 17.63 1 15.03 1 12c0-3.03 1.06-5.62 3.22-7.78S8.97 1 12 1c3.03 0 5.63 1.06 7.78 3.22C21.94 6.38 23 8.97 23 12Z"/></svg></span> <a class="reference external" href="https://materialdesignicons.com/">Material Design</a></p></li>
-<li><p><span class="md-icon si-icon-inline "><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M448 48v336c-63.09 22.54-82.34 32-119.5 32-62.82 0-86.6-32-149.3-32-21.69 0-38.48 3.791-53.74 8.766C110.1 397.5 96 386.1 96 371.7v-.746c0-9.275 5.734-17.6 14.42-20.86C129.1 342.8 150.2 336 179.2 336c62.73 0 86.51 32 149.3 32 25.5 0 42.85-4.604 71.47-14.7v-240C379.2 120.6 357.7 128 328.5 128c-.004 0 .004 0 0 0-62.81 0-86.61-32-149.3-32-57.1 0-80.4 26.1-131.2 30.1V456c0 13.3-10.75 24-24 24S0 469.3 0 456V56c0-13.26 10.75-24 24-24s24 10.74 24 24v22.99C98.8 74.14 122.1 48 179.2 48c62.77 0 86.45 32 149.3 32 37.6 0 58.3-10.15 119.5-32z"/></svg></span> <a class="reference external" href="https://fontawesome.com/search?m=free">Font Awesome</a></p></li>
-<li><p><span class="md-icon si-icon-inline "><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></span> <a class="reference external" href="https://octicons.github.com/">Octicons</a></p></li>
-<li><p><span class="md-icon si-icon-inline "><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C8.688 0 6 2.688 6 6s2.688 6 6 6a6.001 6.001 0 0 1 5.176 9.04h1.68a7.492 7.492 0 0 0 .642-3.03A7.507 7.507 0 0 0 12 10.5c-2.484 0-4.5-2.016-4.5-4.5S9.516 1.5 12 1.5s4.5 2.016 4.5 4.5H18c0-3.312-2.688-6-6-6zm0 3a3 3 0 0 0-2.922 2.922A3 3 0 0 0 12 9a3 3 0 0 0 0-6zm0 1.5A1.5 1.5 0 0 1 13.5 6v.002A1.5 1.5 0 1 1 12 4.5zM7.5 15v1.5H9v6H4.5V24h15v-1.5H15v-6h1.5V15h-9zm3 1.5h3v6h-3v-6zm-6 1.47V18a7.418 7.418 0 0 0 .644 3.039h1.684A5.94 5.94 0 0 1 6 18v-.03H4.5Z"/></svg></span> <a class="reference external" href="https://simpleicons.org/">Simple Icons</a></p></li>
+<li><p><span class="md-icon si-icon-inline material_material-design"></span> <a class="reference external" href="https://materialdesignicons.com/">Material Design</a></p></li>
+<li><p><span class="md-icon si-icon-inline fontawesome_regular_font-awesome"></span> <a class="reference external" href="https://fontawesome.com/search?m=free">Font Awesome</a></p></li>
+<li><p><span class="md-icon si-icon-inline octicons_mark-github-16"></span> <a class="reference external" href="https://octicons.github.com/">Octicons</a></p></li>
+<li><p><span class="md-icon si-icon-inline simple_simpleicons"></span> <a class="reference external" href="https://simpleicons.org/">Simple Icons</a></p></li>
 </ul>
 </div>
 </div>
@@ -994,7 +1020,7 @@ using the following CSS rules:
 </div>
 </div>
 <div class="result docutils container">
-<p>This is a paragraph with <span class="md-icon si-icon-inline pulsing-heart"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="m47.6 300.4 180.7 168.7c7.5 7 17.4 10.9 27.7 10.9s20.2-3.9 27.7-10.9l180.7-168.7c30.4-28.3 47.6-68 47.6-109.5v-5.8c0-69.9-50.5-129.5-119.4-141-45.6-7.6-92 7.3-124.6 39.9l-12 12-12-12c-32.6-32.6-79-47.5-124.6-39.9C50.5 55.6 0 115.2 0 185.1v5.8c0 41.5 17.2 81.2 47.6 109.5z"/></svg></span> an animated icon
+<p>This is a paragraph with <span class="md-icon si-icon-inline fontawesome_solid_heart pulsing-heart"></span> an animated icon
 using the following CSS rules:</p>
 <div class="highlight-css notranslate"><div class="highlight"><pre><span></span><code><span class="p">@</span><span class="k">keyframes</span><span class="w"> </span><span class="nt">heart</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">  </span><span class="nt">0</span><span class="o">%,</span><span class="w"> </span><span class="nt">40</span><span class="o">%,</span><span class="w"> </span><span class="nt">80</span><span class="o">%,</span><span class="w"> </span><span class="nt">100</span><span class="o">%</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
@@ -1005,24 +1031,27 @@ using the following CSS rules:</p>
 <span class="w">  </span><span class="p">}</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
 
-<span class="p">.</span><span class="nc">pulsing-heart</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="k">color</span><span class="p">:</span><span class="w"> </span><span class="kc">red</span><span class="p">;</span><span class="w"></span>
+<span class="p">.</span><span class="nc">pulsing-heart</span><span class="p">::</span><span class="nd">before</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="k">background-color</span><span class="p">:</span><span class="w"> </span><span class="kc">red</span><span class="p">;</span><span class="w"></span>
 <span class="w">  </span><span class="k">animation</span><span class="p">:</span><span class="w"> </span><span class="n">heart</span><span class="w"> </span><span class="mi">1</span><span class="kt">s</span><span class="w"> </span><span class="kc">infinite</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="k">height</span><span class="p">:</span><span class="w"> </span><span class="mf">1.5</span><span class="kt">em</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="k">width</span><span class="p">:</span><span class="w"> </span><span class="mf">1.5</span><span class="kt">em</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="k">vertical-align</span><span class="p">:</span><span class="w"> </span><span class="kc">middle</span><span class="p">;</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
 </code></pre></div>
 </div>
 </div>
 </div>
 <h3 id="custom-inline-icons">Custom inline icons<a class="headerlink" href="#custom-inline-icons" title="Permalink to this heading">¶</a></h3>
-<p>Custom icons can be added to the documentation’s static files and referenced using the relative
+<p>Custom icons can be added to the documentation’s source files and referenced using the relative
 path. For example, this documentation has added the Sphinx application’s logo to its <code class="docutils literal notranslate"><span class="pre">_static</span></code>
-folder (which is specified using <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/configuration.html#confval-html_static_path" title="(in Sphinx v6.0.0b3)"><code class="xref any docutils literal notranslate"><span class="pre">html_static_path</span></code></a>).</p>
+folder (which is specified using <a class="reference internal" href="#confval-sphinx_immaterial_icon_path" title="sphinx_immaterial_icon_path (configuration value) — This list of paths will contain custom SVG icons that can be used in the documentation via si-icon or sphinx_immaterial_custom_admonitions."><code class="xref std std-confval docutils literal notranslate"><span class="pre">sphinx_immaterial_icon_path</span></code></a>).</p>
 <figure class="align-default" id="id3">
 <img alt="_images/sphinx_logo.svg" src="_images/sphinx_logo.svg" /><figcaption>
 <p><span class="caption-text"><span class="caption-text">
 docs/_static/sphinx_logo.svg</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></figcaption>
 </figure>
-<div class="admonition note">
+<div class="note admonition">
 <p class="admonition-title">Note</p>
 <p>The custom icon <strong>must</strong> be a SVG file!</p>
 <p>Ideally, the custom icon should have no embedded color or style information and use a
@@ -1040,7 +1069,7 @@ dimensions.</p>
 </code></pre></div>
 </div>
 <div class="result docutils container">
-<p>This icon <span class="md-icon si-icon-inline "><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 75.324"><path d="M67.78 71.526c0-2.72.736-7.634 1.636-10.917 2.076-7.583 3.222-16.976 2.071-16.976-.485 0-3.994 3.173-7.797 7.051C49.24 65.42 33.737 73.752 20.774 73.752c-7.4 0-12.43-1.87-17.287-6.43C.543 64.557.012 63.192.012 58.385c0-4.945.486-6.109 3.783-9.055 2.988-2.67 4.875-3.38 8.978-3.38 3.163.711 5.033.664 6.064 1.917 1.045 1.232 1.406 5.263.143 7.624-.675 1.26-2.436 2.043-4.597 2.043-2.04 0-3.204-.483-2.787-1.158 1.314-2.126-.56-3.567-2.966-2.28-2.907 1.556-2.957 7.07-.088 9.666 4.034 3.651 15.19 5.024 21.902 2.695 7.25-2.517 16.739-8.579 24.308-15.532l6.657-6.115-8.688-.05c-9.098-.052-15.018-1.138-34.174-6.27-6.371-1.707-12.497-3.184-13.612-3.281-1.264-.111-2.093-1.141-2.027-2.733.112-2.688 1.572-4.688 3.299-5.443 1.037-.453 8.229-1.139 15.854-3.167 29.699-7.899 31.502-6.78 51.287-1.772 6.461 1.636 13.942 3.415 17.257 3.475 5.106.092 6.211.515 7.24 2.77.667 1.463 1.214 2.858 1.214 3.1s-2.894 1.764-6.43 3.383c-12.985 5.945-17.083 9.094-12.855 15.13 1.753 2.504 1.718 2.77-.58 4.379-1.345.942-2.457 2.856-2.47 4.254-.038 3.777-2.425 11.884-5.894 15.08l-3.05 2.808zm6.634-34.658c5.17-1.44 8.302-3.07 14.729-6.501-5.293-1.549-18.571-3.724-18.571-3.724-9.797-1.965-8.77-1.865-9.214.297a14.42 14.42 0 0 1-1.872 4.596c-2.251 3.528-10.49 4.271-15.214 2.01-1.483-.71-2.972-3.416-2.95-5.337.028-2.705-1.506-3.336-2.488-2.975-.796.292-3.384.33-9.07 1.864-18.786 5.068-21.356 4.487-9.112 6.223 1.473.209 9.253 2.382 13.052 3.394 9.319 2.483 11.065 2.665 23.126 2.415 8.386-.175 11.89-.676 17.584-2.262zM3.059 14.916c.233-2.402.365-2.923 7.042-4.268 3.824-.77 13.254-3.267 20.956-5.548C48.76-.144 53.79-.157 72.149 4.995c7.923 2.223 16.798 4.047 19.723 4.054 4.567.01 6.942 2.029 6.942 2.029 2.101 4.825 1.718 5.158-6.485 5.158-5.714 0-10.641-.963-18.245-3.566C68.3 10.69 60.06 8.832 55.558 8.492c-8.216-.621-8.204-.623-33.595 6.364-4.46 1.227-10.62 2.598-13.691 3.047l-5.582.816z"/></svg></span> is located in
+<p>This icon <span class="md-icon si-icon-inline sphinx_logo"></span> is located in
 <a class="reference external" href="https://github.com/jbms/sphinx-immaterial/blob/main/docs/_static/sphinx_logo.svg">docs/_static/sphinx_logo.svg</a></p>
 </div>
 </div>

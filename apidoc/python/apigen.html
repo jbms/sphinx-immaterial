@@ -17,10 +17,8 @@
       
     
     
-      <link rel="stylesheet" href="../../_static/stylesheets/main.9fc2e03c.min.css">
       
         
-        <link rel="stylesheet" href="../../_static/stylesheets/palette.ae371752.min.css">
         
       
       
@@ -35,6 +33,7 @@
       
     
         <link rel="stylesheet" type="text/css" href="../../_static/google_fonts.css" />
+        <link rel="stylesheet" type="text/css" href="../../_static/stylesheets/sphinx_immaterial_theme.b8595113402283479.min.css" />
         <link rel="stylesheet" type="text/css" href="../../_static/extra_css.css" />
     <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -1269,7 +1268,7 @@ the list of extensions in <code class="file docutils literal notranslate"><span 
 top-level member of the specified modules.  To generate a listing of those
 top-level members and add the generated documentation pages to the global table
 of contents, the <a class="reference internal" href="#directive-python-apigen-group" title="python-apigen-group directive"><code class="xref rst rst-dir docutils literal notranslate"><span class="pre">python-apigen-group</span></code></a> directive may be used.</p>
-<div class="admonition tip">
+<div class="tip admonition">
 <p class="admonition-title">Tip</p>
 <p>This extension works well with the <a class="reference internal" href="../../customization.html#themeconf-toc_title_is_page_title" title="toc_title_is_page_title (theme configuration option) — If set to True and toc_title is unspecified, the table of contents is labeled in the side bar by the title of the page itself."><code class="xref std std-themeconf docutils literal notranslate"><span class="pre">toc_title_is_page_title</span></code></a>
 configuration option.</p>
@@ -1399,7 +1398,7 @@ but should appear to be defined in the <code class="code highlight python docuti
 
 </div>
 </div>
-<div class="admonition note">
+<div class="note admonition">
 <p class="admonition-title">Note</p>
 <p>This directive only includes top-level module members (for the modules
 specified by <a class="reference internal" href="#confval-python_apigen_modules" title="python_apigen_modules (configuration value) — Maps module names to the output path prefix relative to the source directory."><code class="xref std std-confval docutils literal notranslate"><span class="pre">python_apigen_modules</span></code></a>).  Class members are also
@@ -1583,7 +1582,7 @@ members, and then a new <code class="docutils literal notranslate"><span class="
 </tr>
 </tbody>
 </table>
-<div class="admonition note">
+<div class="note admonition">
 <p class="admonition-title">Note</p>
 <p>The specified path prefix for each module is treated as a <em>prefix</em>, not a
 directory.  It should normally end in either <code class="code highlight python docutils literal highlight-python"><span class="s2">&quot;/&quot;</span></code> or some other
@@ -1593,7 +1592,7 @@ include the module name, choose a prefix of the form
 document name to exclude the module name, choose a prefix of the form
 <code class="code highlight python docutils literal highlight-python"><span class="s2">&quot;api_directory/&quot;</span></code>.</p>
 </div>
-<div class="admonition warning">
+<div class="warning admonition">
 <p class="admonition-title">Warning</p>
 <p>Because Sphinx is not designed to process files outside the source tree,
 these files are actually written to the source tree, and are regenerated
@@ -1713,7 +1712,7 @@ case conflicts are avoided by including a hash in the document name.</p>
 docstring.</p>
 <p>This may be used to set the <a class="reference external" href="http://docutils.sourceforge.net/docs/ref/rst/directives.html#default-role">rST directive default-role</a>, <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/directives.html#directive-highlight" title="(in Sphinx v6.0.0b3)"><code class="xref rst rst-dir docutils literal notranslate"><span class="pre">highlight</span></code></a>
 language, or <a class="reference internal" href="../../code_syntax_highlighting.html#directive-default-literal-role" title="default-literal-role directive"><code class="xref rst rst-dir docutils literal notranslate"><span class="pre">default-literal-role</span></code></a>.</p>
-<div class="admonition note">
+<div class="note admonition">
 <p class="admonition-title">Note</p>
 <p>The prior default role, default literal role, and default highlight
 langauge are automatically restored after processing the
@@ -1800,7 +1799,7 @@ the normal Python syntax in a parenthesized list after the class name.</p>
 <p>The list of base classes displayed for each class can be customized by adding
 a listener to the <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html#event-autodoc-process-bases" title="(in Sphinx v6.0.0b3)"><code class="xref any docutils literal notranslate"><span class="pre">autodoc-process-bases</span></code></a> event.  This is useful for
 excluding base classes that are not intended to be part of the public API.</p>
-<div class="admonition note">
+<div class="note admonition">
 <p class="admonition-title">Note</p>
 <p>The built-in <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">object</span></code></a> type is never included as a base class.</p>
 </div>

@@ -17,10 +17,8 @@
       
     
     
-      <link rel="stylesheet" href="../../_static/stylesheets/main.9fc2e03c.min.css">
       
         
-        <link rel="stylesheet" href="../../_static/stylesheets/palette.ae371752.min.css">
         
       
       
@@ -35,6 +33,7 @@
       
     
         <link rel="stylesheet" type="text/css" href="../../_static/google_fonts.css" />
+        <link rel="stylesheet" type="text/css" href="../../_static/stylesheets/sphinx_immaterial_theme.b8595113402283479.min.css" />
         <link rel="stylesheet" type="text/css" href="../../_static/extra_css.css" />
     <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -1173,7 +1172,7 @@ C++ function definition with stripped namespaces<a class="headerlink" href="#id1
 
 </div>
 </div>
-<div class="admonition warning">
+<div class="warning admonition">
 <p class="admonition-title">Warning</p>
 <p>If a nested symbol name like <code class="code highlight python docutils literal highlight-python"><span class="s2">&quot;my_ns1::abc&quot;</span></code> is specified in
 <a class="reference internal" href="#confval-cpp_strip_namespaces_from_signatures" title="cpp_strip_namespaces_from_signatures (configuration value) — list[str] specifying namespaces to strip from signatures."><code class="xref std std-confval docutils literal notranslate"><span class="pre">cpp_strip_namespaces_from_signatures</span></code></a>, then a reference like
@@ -1271,12 +1270,12 @@ Function defined with <code class="code highlight rst docutils literal highlight
 
 </div>
 </div>
-<div class="admonition warning">
+<div class="warning admonition">
 <p class="admonition-title">Warning</p>
 <p>Currently, due to how parameters are cross linked, there must be at least one
 definition of the object for which <code class="code highlight rst docutils literal highlight-rst"><span class="nc">:noindex:</span></code> is not specified.</p>
 </div>
-<div class="admonition seealso">
+<div class="seealso admonition">
 <p class="admonition-title">See also</p>
 <p>Sphinx itself supports the related <code class="code highlight rst docutils literal highlight-rst"><span class="nc">:noindexentry:</span></code> option, which
 prevents inclusion of the object in the “general index” (not normally useful
@@ -1306,7 +1305,7 @@ Function defined with alternative symbol identifier.<a class="headerlink" href="
 
 </div>
 </div>
-<div class="admonition warning">
+<div class="warning admonition">
 <p class="admonition-title">Warning</p>
 <p>If the <code class="code highlight rst docutils literal highlight-rst"><span class="nc">:symbol-ids:</span></code> option is used to specify a symbol identifier that
 does not match <code class="regexp docutils literal notranslate"><span class="pre">[a-zA-Z0-9_]*</span></code>, then <code class="code highlight rst docutils literal highlight-rst"><span class="nc">:node-id:</span></code> must also be

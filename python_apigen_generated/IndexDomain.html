@@ -17,10 +17,8 @@
       
     
     
-      <link rel="stylesheet" href="../_static/stylesheets/main.9fc2e03c.min.css">
       
         
-        <link rel="stylesheet" href="../_static/stylesheets/palette.ae371752.min.css">
         
       
       
@@ -35,6 +33,7 @@
       
     
         <link rel="stylesheet" type="text/css" href="../_static/google_fonts.css" />
+        <link rel="stylesheet" type="text/css" href="../_static/stylesheets/sphinx_immaterial_theme.b8595113402283479.min.css" />
         <link rel="stylesheet" type="text/css" href="../_static/extra_css.css" />
     <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -1619,7 +1618,7 @@
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tensorstore_demo.</span></span><span class="sig-name descname"><span class="pre">IndexDomain</span></span><a class="reference internal" href="../_modules/tensorstore_demo.html#IndexDomain"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Domain (including bounds and optional dimension labels) of an N-dimensional index space.</p>
 <p>Logically, an <a class="reference internal" href="#" title="tensorstore_demo.IndexDomain (Python class) — Domain (including bounds and optional dimension labels) of an N-dimensional index space."><code class="xref py py-class docutils literal notranslate"><span class="pre">IndexDomain</span></code></a> is the cartesian product of a sequence of <a class="reference internal" href="Dim.html" title="tensorstore_demo.Dim (Python class) — 1-d index interval with optionally-implicit bounds and dimension label."><code class="xref py py-obj docutils literal notranslate"><span class="pre">Dim</span></code></a> objects.</p>
-<div class="admonition note">
+<div class="note admonition">
 <p class="admonition-title">Note</p>
 <p>Index domains are immutable, but dimension expressions may be applied
 using <a class="reference internal" href="IndexDomain.__getitem__-expr.html" title="tensorstore_demo.IndexDomain.__getitem__(expr) (Python method) — Transforms the domain by a dimension expression."><code class="xref py py-obj docutils literal notranslate"><span class="pre">__getitem__(expr)</span></code></a> to obtain a modified domain.</p>

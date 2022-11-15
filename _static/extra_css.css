@@ -11,6 +11,23 @@
   transform: none;
 }
 
+/* ************************* animated-admonition-border style ******************************** */
+@keyframes flash_border {
+  0% {
+    border-color: blueviolet;
+  }
+  50% {
+    border-color: aqua;
+  }
+  100% {
+    border-color: blueviolet;
+  }
+}
+
+.md-typeset .admonition.animated-admonition-border {
+  animation: flash_border 1.5s infinite;
+}
+
 /* ************************* my-special-key style ************************************* */
 
 .md-typeset kbd.key-my-special-key,
@@ -21,9 +38,9 @@
 
 .md-typeset kbd.key-git::before {
   content: "██";
-  -webkit-mask-image: var(--md-icon__fa-git);
+  -webkit-mask-image: var(--si-icon--fontawesome_brands_git);
   -webkit-mask-repeat: no-repeat;
-  mask-image: var(--md-icon__fa-git);
+  mask-image: var(--si-icon--fontawesome_brands_git);
   mask-repeat: no-repeat;
 }
 
@@ -85,7 +102,6 @@
 }
 
 /* *********************** inline icon pulsing-heart style **************************** */
-
 @keyframes heart {
   0%, 40%, 80%, 100% {
     transform: scale(1);
@@ -95,9 +111,12 @@
   }
 }
 
-.pulsing-heart {
-  color: red;
+.pulsing-heart::before {
+  background-color: red;
   animation: heart 1s infinite;
+  height: 1.5em;
+  width: 1.5em;
+  vertical-align: middle;
 }
 
 /* ************************* badge style inline stuff ****************************** */

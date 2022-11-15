@@ -17,10 +17,8 @@
       
     
     
-      <link rel="stylesheet" href="../_static/stylesheets/main.9fc2e03c.min.css">
       
         
-        <link rel="stylesheet" href="../_static/stylesheets/palette.ae371752.min.css">
         
       
       
@@ -35,6 +33,7 @@
       
     
         <link rel="stylesheet" type="text/css" href="../_static/google_fonts.css" />
+        <link rel="stylesheet" type="text/css" href="../_static/stylesheets/sphinx_immaterial_theme.b8595113402283479.min.css" />
         <link rel="stylesheet" type="text/css" href="../_static/extra_css.css" />
     <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -1079,7 +1078,7 @@ is also shown in the search results list.  Supported values are:</p>
 </dl>
 <p>The default is <code class="code highlight python docutils literal highlight-python"><span class="s2">&quot;first_paragraph&quot;</span></code> except for <code class="regexp docutils literal notranslate"><span class="pre">c(pp)?:.*Param</span></code>
 where the default is <code class="code highlight python docutils literal highlight-python"><span class="s2">&quot;first_sentence&quot;</span></code>.</p>
-<div class="admonition note">
+<div class="note admonition">
 <p class="admonition-title">Note</p>
 <p>Synopsis generation is currently supported only for the following domains:</p>
 <ul class="simple">
@@ -1106,7 +1105,7 @@ for C++ class descriptions, add the following to <code class="file docutils lite
 <span class="sig-name descname"><span class="pre">include_object_type_in_xref_tooltip</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="kc">True</span></code><a class="headerlink" href="#objconf-include_object_type_in_xref_tooltip" title="Permalink to this definition">¶</a></dt>
 <dd><p>Indicates whether to include the object type in cross-reference and TOC
 tooltips.</p>
-<div class="admonition note">
+<div class="note admonition">
 <p class="admonition-title">Note</p>
 <p>For TOC entries, this is supported for all domains.  For regular cross
 references, this is supported only for the following domains:</p>
@@ -1137,7 +1136,7 @@ etc., in the table of contents.</p>
 <p>For an example, see: <code class="cpp-expr sig sig-inline cpp highlight"><span class="n">synopses_ex</span><span class="p">::</span><a class="reference internal" href="../demo_api.html#_CPPv4I0_iEN11synopses_ex3FooEN11synopses_ex8SomeTypeE1TRA1N_Ki" title="synopses_ex::Foo (C++ function) — Synopsis for this function, shown when hovering over cross references as well as in the TOC."><span class="n">Foo</span></a></code> and note the <code class="docutils literal notranslate"><span class="pre">Template</span>
 <span class="pre">Parameters</span></code>, <code class="docutils literal notranslate"><span class="pre">Parameters</span></code>, and <code class="docutils literal notranslate"><span class="pre">Returns</span></code> headings shown in the
 right-side table of contents.</p>
-<div class="admonition note">
+<div class="note admonition">
 <p class="admonition-title">Note</p>
 <p>To control whether there are separate TOC entries for individual
 parameters, such as for <code class="cpp-expr sig sig-inline cpp highlight"><span class="n">synopses_ex</span><span class="p">::</span><a class="reference internal" href="../demo_api.html#_CPPv4I0_iEN11synopses_ex3FooEN11synopses_ex8SomeTypeE1TRA1N_Ki" title="synopses_ex::Foo (C++ function) — Synopsis for this function, shown when hovering over cross references as well as in the TOC."><span class="n">Foo</span></a><span class="p">::</span><a class="desctype reference internal" href="../demo_api.html#_CPPv4I0_iEN11synopses_ex3FooEN11synopses_ex8SomeTypeE1TRA1N_Ki-p-T" title="synopses_ex::Foo::T (C++ type template parameter) — Tooltip shown when hovering over cross-references to this template parameter."><span class="n">T</span></a></code>,
@@ -1162,7 +1161,7 @@ option.</p>
 <span class="sig-name descname"><span class="pre">include_rubrics_in_toc</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="kc">False</span></code><a class="headerlink" href="#objconf-include_rubrics_in_toc" title="Permalink to this definition">¶</a></dt>
 <dd><p>Indicates whether to include rubrics in object descriptions, like “Notes”, “References”, “Examples”,
 etc., in the table of contents.</p>
-<div class="admonition note">
+<div class="note admonition">
 <p class="admonition-title">Note</p>
 <p>Traditionally, rubrics are not intended to be included in the table of contents. However with
 <a class="reference internal" href="#objconf-include_fields_in_toc" title="include_fields_in_toc (object description option)"><code class="xref std std-objconf docutils literal notranslate"><span class="pre">include_fields_in_toc</span></code></a>, rubric-like fields may be included in the TOC. Including

@@ -14,13 +14,24 @@ This theme has a builtin role to use icons within lines of text.
     Set the content of this role to a relative path of an SVG image (excluding the ``.svg`` file
     extension). This path shall be relative to
     
-    - the ``.icons`` directory bundled with this theme (this takes precedence)
-    - the documentation's static path(s) (set with `html_static_path` in conf.py)
+    - the documentation source's path(s) configured with :confval:`sphinx_immaterial_icon_path`
+      (this takes precedence).
+    - the ``.icons`` directory bundled with this theme
 
     Optionally, a CSS class can be specified after the icon's path, but the path and CSS class
     **must** be separated by |semi-colon|. Do not use spaces. If specifying multiple CSS
     classes, then separate them with a |comma|.
 
+.. confval:: sphinx_immaterial_icon_path
+
+    This `list` of paths will contain custom SVG icons that can be used in the documentation via
+    :rst:role:`si-icon` or :confval:`sphinx_immaterial_custom_admonitions`. These paths must be
+    relative to the documentation project's conf.py file. The icons stored here will be (if used)
+    rendered as CSS variables in the documentation's HTML output. This is designed to allow for
+    less duplicated code in generated output.
+
+    The icons in these paths will not be copied to the HTML output (like they would be for
+    `html_static_path`).
 
 Using inline icons
 ------------------
@@ -57,9 +68,9 @@ list of CSS classes, and don't forget to separate the icon's path and CSS classe
 Custom inline icons
 *******************
 
-Custom icons can be added to the documentation's static files and referenced using the relative
+Custom icons can be added to the documentation's source files and referenced using the relative
 path. For example, this documentation has added the Sphinx application's logo to its ``_static``
-folder (which is specified using `html_static_path`).
+folder (which is specified using :confval:`sphinx_immaterial_icon_path`).
 
 .. figure:: _static/sphinx_logo.svg
 

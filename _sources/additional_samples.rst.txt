@@ -76,35 +76,6 @@ Footnotes
    .. [#f1] My first footnote.
    .. [#f2] My second footnote.
 
-Icons
-=====
-
-.. rst-example:: The following raw HTML
-   :output-prefix: translates to the icon:
-
-   .. raw:: html
-
-      <span style="font-size: 2rem;" class="md-icon">&#xe869;</span>
-
-The material icon font provides hundreds to choose from. You can use the ``<i>`` tag or the
-``<span>`` tag.
-
-.. rst-example::
-
-   .. raw:: html
-
-      <i style="font-size: 1rem;" class="md-icon">&#xe158;</i>
-      <i style="font-size: 1.2rem;" class="md-icon">&#xe155;</i>
-      <i style="font-size: 1.4rem;" class="md-icon">&#xe195;</i>
-      <i style="font-size: 1.6rem;" class="md-icon">&#xe255;</i>
-      <i style="font-size: 1.8rem;" class="md-icon">&#xe3c9;</i>
-      <i style="font-size: 2.0rem;" class="md-icon">&#xe811;</i>
-      <i style="font-size: 2.2rem;" class="md-icon">&#xe812;</i>
-      <i style="font-size: 2.4rem;" class="md-icon">&#xe813;</i>
-      <i style="font-size: 2.6rem;" class="md-icon">&#xe814;</i>
-      <i style="font-size: 2.8rem;" class="md-icon">&#xe815;</i>
-
-
 Tables
 ======
 Here are some examples of Sphinx
