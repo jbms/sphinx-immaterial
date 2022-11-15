@@ -344,6 +344,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#themeconf-show-comments" class="md-nav__link">
+    <span aria-label="theme configuration option" class="objinfo-icon objinfo-icon__data" title="theme configuration option">T</span><span title="show-comments (theme configuration option) — If specified, allows comments to be enabled at the bottom of the current page." class="md-ellipsis">show-<wbr>comments</span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -642,6 +649,19 @@
   <a href="#partial-layout" class="md-nav__link">
     <span class="md-ellipsis">Partial Layout</span>
   </a>
+  
+    <nav class="md-nav" aria-label="Partial Layout">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#adding-a-comment-system" class="md-nav__link">
+    <span class="md-ellipsis">Adding a comment system</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -1264,6 +1284,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#themeconf-show-comments" class="md-nav__link">
+    <span aria-label="theme configuration option" class="objinfo-icon objinfo-icon__data" title="theme configuration option">T</span><span title="show-comments (theme configuration option) — If specified, allows comments to be enabled at the bottom of the current page." class="md-ellipsis">show-<wbr>comments</span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1563,6 +1590,19 @@
     <span class="md-ellipsis">Partial Layout</span>
   </a>
   
+    <nav class="md-nav" aria-label="Partial Layout">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#adding-a-comment-system" class="md-nav__link">
+    <span class="md-ellipsis">Adding a comment system</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -1705,6 +1745,23 @@ Hide the feedback buttons at the bottom of the page:<a class="headerlink" href="
 </div>
 </dd></dl>
 
+<dl class="std themeconf objdesc">
+<dt class="sig sig-object highlight std" id="themeconf-show-comments">
+<span class="sig-name descname"><span class="pre">show-comments</span></span><a class="headerlink" href="#themeconf-show-comments" title="Permalink to this definition">¶</a></dt>
+<dd><p>If specified, allows comments to be enabled at the bottom of the current page.</p>
+<div class="literal-block-wrapper docutils container" id="id10">
+<div class="code-block-caption highlight"><span class="caption-text filename">
+Enable comments at the bottom of the page:<a class="headerlink" href="#id10" title="Permalink to this code">¶</a></span></div>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><code><span class="nc">:show-comments:</span>
+</code></pre></div>
+</div>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Using comments requires extra steps. See <a class="reference internal" href="#adding-a-comment-system">Adding a comment system</a> instructions.</p>
+</div>
+</dd></dl>
+
 <h2 id="configuration-options">Configuration Options<a class="headerlink" href="#configuration-options" title="Permalink to this heading">¶</a></h2>
 <dl class="std confval objdesc">
 <dt class="sig sig-object highlight std" id="confval-html_logo">
@@ -1753,9 +1810,9 @@ no sitemap will be built.</p>
 <dl class="std themeconf objdesc">
 <dt class="sig sig-object highlight std" id="themeconf-icon">
 <span class="sig-name descname"><span class="pre">icon</span></span><a class="headerlink" href="#themeconf-icon" title="Permalink to this definition">¶</a></dt>
-<dd><div class="literal-block-wrapper docutils container" id="id10">
+<dd><div class="literal-block-wrapper docutils container" id="id11">
 <div class="code-block-caption highlight"><span class="caption-text filename">
-This is the setting currently used by this documentation.<a class="headerlink" href="#id10" title="Permalink to this code">¶</a></span></div>
+This is the setting currently used by this documentation.<a class="headerlink" href="#id11" title="Permalink to this code">¶</a></span></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code>    <span class="s2">&quot;icon&quot;</span><span class="p">:</span> <span class="p">{</span>
         <span class="s2">&quot;repo&quot;</span><span class="p">:</span> <span class="s2">&quot;fontawesome/brands/github&quot;</span><span class="p">,</span>
         <span class="s2">&quot;edit&quot;</span><span class="p">:</span> <span class="s2">&quot;material/file-edit-outline&quot;</span><span class="p">,</span>
@@ -2081,9 +2138,9 @@ example snippet below).</p>
 </dl>
 </dd>
 </dl>
-<div class="literal-block-wrapper docutils container" id="id11">
+<div class="literal-block-wrapper docutils container" id="id12">
 <div class="code-block-caption highlight"><span class="caption-text filename">
-using Google analytics to collect user feedback for each page<a class="headerlink" href="#id11" title="Permalink to this code">¶</a></span></div>
+using Google analytics to collect user feedback for each page<a class="headerlink" href="#id12" title="Permalink to this code">¶</a></span></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="n">html_theme_options</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s2">&quot;analytics&quot;</span><span class="p">:</span> <span class="p">{</span>
         <span class="s2">&quot;provider&quot;</span><span class="p">:</span> <span class="s2">&quot;google&quot;</span><span class="p">,</span>
@@ -2171,9 +2228,9 @@ have a <code class="code highlight python docutils literal highlight-python"><sp
 <p>Optionally, custom text may be specified for the icon’s tooltip with the <code class="code highlight python docutils literal highlight-python"><span class="s2">&quot;name&quot;</span></code>
 field. If the <code class="code highlight python docutils literal highlight-python"><span class="s2">&quot;name&quot;</span></code> is not specified, then the domain of the <code class="code highlight python docutils literal highlight-python"><span class="s2">&quot;link&quot;</span></code>
 is used automatically.</p>
-<div class="literal-block-wrapper docutils container" id="id12">
+<div class="literal-block-wrapper docutils container" id="id13">
 <div class="code-block-caption highlight"><span class="caption-text filename">
-This theme uses the following configuration:<a class="headerlink" href="#id12" title="Permalink to this code">¶</a></span></div>
+This theme uses the following configuration:<a class="headerlink" href="#id13" title="Permalink to this code">¶</a></span></div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code>    <span class="s2">&quot;social&quot;</span><span class="p">:</span> <span class="p">[</span>
         <span class="p">{</span>
             <span class="s2">&quot;icon&quot;</span><span class="p">:</span> <span class="s2">&quot;fontawesome/brands/github&quot;</span><span class="p">,</span>
@@ -2324,9 +2381,9 @@ called “3.0-rc1”.</p>
 </div>
 </li>
 </ul>
-<div class="literal-block-wrapper docutils container" id="id13">
+<div class="literal-block-wrapper docutils container" id="id14">
 <div class="code-block-caption highlight"><span class="caption-text filename">
-This is the version dropdown selector settings used by this theme:<a class="headerlink" href="#id13" title="Permalink to this code">¶</a></span></div>
+This is the version dropdown selector settings used by this theme:<a class="headerlink" href="#id14" title="Permalink to this code">¶</a></span></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code>    <span class="s2">&quot;version_dropdown&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
     <span class="s2">&quot;version_info&quot;</span><span class="p">:</span> <span class="p">[</span>
         <span class="p">{</span>
@@ -2429,6 +2486,92 @@ HTML template of the same name.</p>
 <div class="highlight-py notranslate"><div class="highlight"><pre><span></span><code><span class="n">templates_path</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;_templates&quot;</span><span class="p">]</span>
 </code></pre></div>
 </div>
+<h4 id="adding-a-comment-system">Adding a comment system<a class="headerlink" href="#adding-a-comment-system" title="Permalink to this heading">¶</a></h4>
+<p>This theme supports using a third-party comment system of your choice at the bottom of any page.
+There are several services that can deliver an integrated comment system, but the following example
+demonstrates using <a class="reference external" href="https://giscus.app/">Giscus</a> which is Open Source and built on Github’s Discussions feature.</p>
+<ol class="arabic">
+<li><p>Ensure these requisites are completed:</p>
+<ul>
+<li><p>Install the <a class="reference external" href="https://github.com/apps/giscus">Giscus Github App</a> and grant access to the
+repository that should host comments as GitHub discussions. Note that this can be a repository
+different from your documentation.</p></li>
+<li><p>Visit <a class="reference external" href="https://giscus.app/">Giscus</a> and generate the snippet through their configuration tool to load the comment
+system. Copy the snippet for the next step. The resulting snippet should look similar to this:</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">script</span>
+  <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://giscus.app/client.js&quot;</span>
+  <span class="na">data-repo</span><span class="o">=</span><span class="s">&quot;&lt;username&gt;/&lt;repository&gt;&quot;</span>
+  <span class="na">data-repo-id</span><span class="o">=</span><span class="s">&quot;...&quot;</span>
+  <span class="na">data-category</span><span class="o">=</span><span class="s">&quot;...&quot;</span>
+  <span class="na">data-category-id</span><span class="o">=</span><span class="s">&quot;...&quot;</span>
+  <span class="na">data-mapping</span><span class="o">=</span><span class="s">&quot;title&quot;</span>
+  <span class="na">data-reactions-enabled</span><span class="o">=</span><span class="s">&quot;1&quot;</span>
+  <span class="na">data-emit-metadata</span><span class="o">=</span><span class="s">&quot;1&quot;</span>
+  <span class="na">data-theme</span><span class="o">=</span><span class="s">&quot;light&quot;</span>
+  <span class="na">data-lang</span><span class="o">=</span><span class="s">&quot;en&quot;</span>
+  <span class="na">crossorigin</span><span class="o">=</span><span class="s">&quot;anonymous&quot;</span>
+  <span class="na">async</span><span class="p">&gt;</span><span class="w"></span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</code></pre></div>
+</div>
+</li>
+</ul>
+</li>
+<li><p>Override the theme’s partials/comments.html template (blank by default) in your documentation
+source, and add the following code to you comments.html template override:</p>
+<div class="literal-block-wrapper docutils container" id="id15">
+<div class="code-block-caption highlight"><span class="caption-text filename">
+docs/_templates/partials/comments.html<a class="headerlink" href="#id15" title="Permalink to this code">¶</a></span></div>
+<div class="highlight-html notranslate"><div class="annotate highlight"><pre><span></span><code>{% if page.meta.comments %} <span class="cm">&lt;!-- (1)! --&gt;</span>
+  <span class="p">&lt;</span><span class="nt">h2</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;__comments&quot;</span><span class="p">&gt;</span>{{ lang.t(&quot;meta.comments&quot;) }}<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+<span class="hll">  <span class="cm">&lt;!-- Insert generated snippet (2) here --&gt;</span>
+</span>
+  <span class="cm">&lt;!-- Synchronize Giscus theme with palette --&gt;</span>
+  <span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span><span class="w"></span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">giscus</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;script[src*=giscus]&quot;</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="cm">/* Set palette on initial load */</span><span class="w"></span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">palette</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">__md_get</span><span class="p">(</span><span class="s2">&quot;__palette&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">palette</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="ow">typeof</span><span class="w"> </span><span class="nx">palette</span><span class="p">.</span><span class="nx">color</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="s2">&quot;object&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="kd">var</span><span class="w"> </span><span class="nx">theme</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">palette</span><span class="p">.</span><span class="nx">color</span><span class="p">.</span><span class="nx">scheme</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="s2">&quot;slate&quot;</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="s2">&quot;dark&quot;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;light&quot;</span><span class="w"> </span><span class="c1">// (3)!</span><span class="w"></span>
+<span class="w">      </span><span class="nx">giscus</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&quot;data-theme&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">theme</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="cm">/* Register event handlers after documented loaded */</span><span class="w"></span>
+<span class="w">    </span><span class="nb">document</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;DOMContentLoaded&quot;</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="kd">var</span><span class="w"> </span><span class="nx">ref</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;[data-md-component=palette]&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="nx">ref</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;change&quot;</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="kd">var</span><span class="w"> </span><span class="nx">palette</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">__md_get</span><span class="p">(</span><span class="s2">&quot;__palette&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">palette</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="ow">typeof</span><span class="w"> </span><span class="nx">palette</span><span class="p">.</span><span class="nx">color</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="s2">&quot;object&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">          </span><span class="kd">var</span><span class="w"> </span><span class="nx">theme</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">palette</span><span class="p">.</span><span class="nx">color</span><span class="p">.</span><span class="nx">scheme</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="s2">&quot;slate&quot;</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="s2">&quot;dark&quot;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;light&quot;</span><span class="w"> </span><span class="c1">// (3)!</span><span class="w"></span>
+
+<span class="w">          </span><span class="cm">/* Instruct Giscus to change theme */</span><span class="w"></span>
+<span class="w">          </span><span class="kd">var</span><span class="w"> </span><span class="nx">frame</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;.giscus-frame&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">          </span><span class="nx">frame</span><span class="p">.</span><span class="nx">contentWindow</span><span class="p">.</span><span class="nx">postMessage</span><span class="p">(</span><span class="w"></span>
+<span class="w">            </span><span class="p">{</span><span class="w"> </span><span class="nx">giscus</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">setConfig</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">theme</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">},</span><span class="w"></span>
+<span class="w">            </span><span class="s2">&quot;https://giscus.app&quot;</span><span class="w"></span>
+<span class="w">          </span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="p">})</span><span class="w"></span>
+<span class="w">    </span><span class="p">})</span><span class="w"></span>
+<span class="w">  </span><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+{% endif %}
+</code></pre></div>
+<ol class="arabic simple">
+<li><p>This template will only be used if the <a class="reference internal" href="#themeconf-show-comments" title="show-comments (theme configuration option) — If specified, allows comments to be enabled at the bottom of the current page."><code class="xref std std-themeconf docutils literal notranslate"><span class="pre">show-comments</span></code></a> metadata is added to the document’s
+source.</p></li>
+<li><p>This should be the snippet generated from step 1.</p></li>
+<li><p>This code block ensures that Giscus renders with a dark theme when the
+<a class="reference internal" href="#themeconf-palette" title="palette (theme configuration option) — The theme's color pallette must be a single dict or a list of dicts. Each dict can optionally specify a scheme, primary, accent, and media fields."><code class="xref std std-themeconf docutils literal notranslate"><span class="pre">palette</span></code></a>[<a class="reference internal" href="#themeconf-scheme" title="scheme (theme configuration option) — To use light and dark modes, this theme supports 2 schemes which are specified by a scheme field."><code class="xref std std-themeconf docutils literal notranslate"><span class="pre">scheme</span></code></a>] is set to <code class="docutils literal notranslate"><span class="pre">slate</span></code>. Note that multiple dark
+themes are available, so you can change it to your liking.</p></li>
+<li><p>If changing the dark theme used by Giscus, then also change the dark theme name here as
+this takes affect when toggling between light and dark color <a class="reference internal" href="#themeconf-scheme" title="scheme (theme configuration option) — To use light and dark modes, this theme supports 2 schemes which are specified by a scheme field."><code class="xref std std-themeconf docutils literal notranslate"><span class="pre">scheme</span></code></a>s.</p></li>
+</ol>
+</div>
+</div>
+</li>
+<li><p>Enable comments for a certain page by adding the <a class="reference internal" href="#themeconf-show-comments" title="show-comments (theme configuration option) — If specified, allows comments to be enabled at the bottom of the current page."><code class="xref std std-themeconf docutils literal notranslate"><span class="pre">show-comments</span></code></a> metadata to the document’s source.</p></li>
+</ol>
 <h3 id="new-blocks">New Blocks<a class="headerlink" href="#new-blocks" title="Permalink to this heading">¶</a></h3>
 <p>This theme has a few new block inherited from the mkdocs-material theme:</p>
 <dl>
@@ -2437,9 +2580,9 @@ HTML template of the same name.</p>
 <dt><code class="docutils literal notranslate"><span class="pre">announce</span></code></dt><dd><p>An announcement can be added to the top of the page by extending this theme’s base.html
 template. For example, this documentation uses the following custom template to add an
 announcement (<a class="reference external" href="#">scroll to top to see it in action</a>).</p>
-<div class="literal-block-wrapper docutils container" id="id14">
+<div class="literal-block-wrapper docutils container" id="id16">
 <div class="code-block-caption highlight"><span class="caption-text filename">
-docs/_templates/base.html<a class="headerlink" href="#id14" title="Permalink to this code">¶</a></span></div>
+docs/_templates/base.html<a class="headerlink" href="#id16" title="Permalink to this code">¶</a></span></div>
 <div class="highlight-jinja notranslate"><div class="highlight"><pre><span></span><code><span class="cp">{%</span> <span class="k">extends</span> <span class="s2">&quot;!base.html&quot;</span> <span class="cp">%}</span><span class="x"></span>
 <span class="cp">{%</span> <span class="k">block</span> <span class="nv">announce</span> <span class="cp">%}</span><span class="x"></span>
 <span class="x">  &lt;p&gt;</span>
@@ -2462,7 +2605,7 @@ dismiss the announcement banner.</p>
   <small>
     
       Last update:
-      Nov 10, 2022
+      Nov 15, 2022
     
   </small>
 </div>
