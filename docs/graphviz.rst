@@ -178,8 +178,7 @@ In this case, the generated :graphvizattr:`label` can be overridden by manually 
           class:f1 -> class_attr // edge will point toward center of class_attr
       }      
 
-.. admonition:: Implementation note
-   :class: info
+.. info:: Implementation note
 
    Using a cross reference in a single field of a record node (with multiple fields) is unsupported
    because the manually specified :graphvizattr:`label` is used as is.

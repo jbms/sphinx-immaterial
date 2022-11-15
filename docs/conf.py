@@ -51,7 +51,6 @@ extensions = [
     "sphinx.ext.todo",
     "sphinx.ext.mathjax",
     "sphinx.ext.viewcode",
-    "sphinxcontrib.details.directive",
     "sphinx_immaterial.theme_result",
     "sphinx_immaterial.kbd_keys",
     "sphinx_immaterial.apidoc.format_signatures",
@@ -316,6 +315,17 @@ python_type_aliases = {
 # BEGIN: python_module_names_to_strip_from_xrefs example
 python_module_names_to_strip_from_xrefs = ["tensorstore_demo"]
 # END: python_module_names_to_strip_from_xrefs example
+
+# BEGIN CUSTOM ADMONITIONS
+sphinx_immaterial_custom_admonitions = [
+    {
+        "name": "legacy",
+        "color": (236, 64, 11),
+        "icon": "fontawesome/solid/recycle",
+    },
+]
+# END CUSTOM ADMONITIONS
+sphinx_immaterial_icon_path = html_static_path
 
 
 jinja_contexts = {

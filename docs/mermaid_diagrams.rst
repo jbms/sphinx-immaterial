@@ -42,8 +42,7 @@ directive that exposes the underlying implementation in mkdocs-material theme.
     This theme comes with CSS styling that conforms to the chosen `primary` & `accent` colors
     (based on the selected `scheme`).
 
-    .. md-admonition::
-        :class: missing
+    .. failure::
 
         While all `mermaid.js`_ features should work out-of-the-box, this theme will currently only
         adjust the fonts and colors for the following types of diagrams:

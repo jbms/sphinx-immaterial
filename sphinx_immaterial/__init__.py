@@ -1,7 +1,7 @@
 """Sphinx-Immaterial theme."""
 
 import os
-from typing import cast, List, Type, Dict, Mapping, Optional, Union
+from typing import cast, List, Type, Dict, Mapping, Optional
 
 import docutils.nodes
 from sphinx.application import Sphinx
@@ -17,7 +17,6 @@ import sphinx.writers.html5
 from . import html_translator_mixin
 from .apidoc import apidoc_formatting
 from . import nav_adapt
-from . import details_patch
 from . import sections
 
 logger = sphinx.util.logging.getLogger(__name__)
@@ -246,7 +245,7 @@ def _config_inited(
     )
 
 
-def setup(app):
+def setup(app: Sphinx):
     app.connect("config-inited", _config_inited)
 
     app.setup_extension("sphinx_immaterial.external_resource_cache")
@@ -271,13 +270,19 @@ def setup(app):
     app.add_config_value(
         "html_use_directory_uris_for_index_pages", False, rebuild="html", types=bool
     )
-
-    app.add_builder(_get_html_builder(app.registry.builders["html"]), override=True)
-    app.add_builder(_get_html_builder(app.registry.builders["dirhtml"]), override=True)
+    for builder in ("html", "dirhtml"):
+        app.add_builder(
+            _get_html_builder(
+                cast(
+                    Type[sphinx.builders.html.StandaloneHTMLBuilder],
+                    app.registry.builders[builder],
+                )
+            ),
+            override=True,
+        )
     app.add_html_theme("sphinx_immaterial", os.path.abspath(os.path.dirname(__file__)))
 
     # register our custom directives/roles that are tied to this theme
-    app.setup_extension("sphinx_immaterial.md_admonition")
     app.setup_extension("sphinx_immaterial.content_tabs")
     app.setup_extension("sphinx_immaterial.mermaid_diagrams")
     app.setup_extension("sphinx_immaterial.task_lists")
@@ -285,6 +290,7 @@ def setup(app):
     app.setup_extension("sphinx_immaterial.default_literal_role")
     app.setup_extension("sphinx_immaterial.highlight_push_pop")
     app.setup_extension("sphinx_immaterial.inline_icons")
+    app.setup_extension("sphinx_immaterial.custom_admonitions")
 
     return {
         "parallel_read_safe": True,

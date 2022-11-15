@@ -1,0 +1,25 @@
+:root{
+  {%- for icon, data in icons.items() -%}
+  --si-icon--{{icon}}:url('data:image/svg+xml;charset=utf-8,{{data}}');
+  {%- endfor -%}
+}
+{%- for icon in icons.keys() -%}
+.md-typeset .si-icon-inline.{{icon}}::before{-webkit-mask-image:var(--si-icon--{{icon}});mask-image:var(--si-icon--{{icon}});}
+{%- endfor -%}
+{%- for admonition in admonitions -%}
+{%- set name = '.' ~ admonition.name -%}
+{%- set icon = '' ~ admonition.icon ~ ');' -%}
+  {%- if admonition.color is not none -%}
+.md-typeset .admonition{{name}}{border-color:rgb({{ admonition.color | join(',') }});}
+.md-typeset {{name}}>.admonition-title{background-color:rgba({{ admonition.color | join(',') }},0.1);border-color:rgb({{ admonition.color | join(',') }});}
+  {%- endif -%}
+  {%- if admonition.color is not none or admonition.icon is not none -%}
+.md-typeset {{name}}>.admonition-title::before{
+    {%- if admonition.color is not none -%}
+  background-color:rgb({{ admonition.color | join(',') }});
+    {%- endif -%}
+    {%- if admonition.icon is not none -%}
+  -webkit-mask-image:var(--si-icon--{{admonition.icon}});mask-image:var(--si-icon--{{admonition.icon}});}
+    {%- endif -%}
+  {%- endif -%}
+{%- endfor -%}

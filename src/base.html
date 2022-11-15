@@ -67,15 +67,10 @@
 
     <!-- Theme-related style sheets -->
     {% block styles %}
-      <link rel="stylesheet" href="{{ pathto('_static/stylesheets/main.css', resource=True) }}" />
 
       <!-- Extra color palette -->
       {% if config.theme.palette %}
         {% set palette = config.theme.palette %}
-        <link
-          rel="stylesheet"
-          href="{{ pathto('_static/stylesheets/palette.css', resource=True) }}"
-        />
 
         <!-- Theme-color meta tag for Android -->
         {% if palette.primary %}
