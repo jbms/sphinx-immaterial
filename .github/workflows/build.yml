@@ -9,8 +9,8 @@ jobs:
       matrix:
         os:
           - 'ubuntu-latest'
-          - 'windows-latest'
-          - 'macos-latest'
+          #- 'windows-latest'
+          #- 'macos-latest'
         python-version:
           - '3.8'
           - '3.9'
@@ -89,35 +89,35 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./docs/_build/html
 
-  compare-wheels:
-    runs-on: ubuntu-latest
-    needs:
-      - build
-    steps:
-    - name: Download Linux package
-      uses: actions/download-artifact@v3
-      with:
-        name: python-packages-Linux
-        path: dist-Linux
-    - name: Download macOS package
-      uses: actions/download-artifact@v3
-      with:
-        name: python-packages-macOS
-        path: dist-macOS
-    - name: Download Windows package
-      uses: actions/download-artifact@v3
-      with:
-        name: python-packages-Windows
-        path: dist-Windows
-    - name: Unzip wheels
-      run: |
-        for os in Linux Windows macOS; do
-          unzip -d pkg-$os dist-$os/*.whl
-        done
-    - name: Compare macOS wheel to Linux wheel
-      run: diff -ur --color=always pkg-Linux pkg-macOS
-    - name: Compare Windows wheel to Linux wheel
-      run: diff -ur --color=always pkg-Windows pkg-Windows
+#  compare-wheels:
+#    runs-on: ubuntu-latest
+#    needs:
+#      - build
+#    steps:
+#    - name: Download Linux package
+#      uses: actions/download-artifact@v3
+#      with:
+#        name: python-packages-Linux
+#        path: dist-Linux
+#    - name: Download macOS package
+#      uses: actions/download-artifact@v3
+#      with:
+#        name: python-packages-macOS
+#        path: dist-macOS
+#    - name: Download Windows package
+#      uses: actions/download-artifact@v3
+#      with:
+#        name: python-packages-Windows
+#        path: dist-Windows
+#    - name: Unzip wheels
+#      run: |
+#        for os in Linux Windows macOS; do
+#          unzip -d pkg-$os dist-$os/*.whl
+#        done
+#    - name: Compare macOS wheel to Linux wheel
+#      run: diff -ur --color=always pkg-Linux pkg-macOS
+#    - name: Compare Windows wheel to Linux wheel
+#      run: diff -ur --color=always pkg-Windows pkg-Windows
 
   python-publish-package:
     # Only publish package on push to tag or default branch.
