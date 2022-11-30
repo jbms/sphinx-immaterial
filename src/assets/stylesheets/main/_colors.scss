@@ -93,6 +93,11 @@
     // Typeset `table` color shades
     --md-typeset-table-color:          hsla(0, 0%, 0%, 0.12);
 
+    // Card color shades
+    --md-color-card-background:        var(--md-primary-fg-color--light);
+    --md-color-card-hover:             var(--md-primary-fg-color--dark);
+    --md-color-card-border:            var(--md-primary-fg-color);
+
     // Admonition color shades
     --md-admonition-fg-color:          var(--md-default-fg-color);
     --md-admonition-bg-color:          var(--md-default-bg-color);
