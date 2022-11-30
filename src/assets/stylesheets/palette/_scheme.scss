@@ -36,7 +36,7 @@
     --md-hue: 232;
 
     // Default color shades
-    --md-default-fg-color:             hsla(var(--md-hue), 75%, 95%, 1);
+    --md-default-fg-color:             hsla(0, 0%, 100%, 1);
     --md-default-fg-color--light:      hsla(var(--md-hue), 75%, 90%, 0.62);
     --md-default-fg-color--lighter:    hsla(var(--md-hue), 75%, 90%, 0.32);
     --md-default-fg-color--lightest:   hsla(var(--md-hue), 75%, 90%, 0.12);
