@@ -94,9 +94,13 @@
     --md-typeset-table-color:          hsla(0, 0%, 0%, 0.12);
 
     // Card color shades
-    --md-color-card-background:        var(--md-primary-fg-color--light);
-    --md-color-card-hover:             var(--md-primary-fg-color--dark);
+    --md-color-card-background:        var(--md-primary-bg-color);
+    --md-color-card-hover:             var(--md-primary-fg-color);
     --md-color-card-border:            var(--md-primary-fg-color);
+
+    --md-color-card-light-background:  var(--md-primary-fg-color--light);
+    --md-color-card-light-hover:       var(--md-primary-fg-color);
+    --md-color-card-light-border:      var(--md-primary-fg-color--light);
 
     // Admonition color shades
     --md-admonition-fg-color:          var(--md-default-fg-color);
