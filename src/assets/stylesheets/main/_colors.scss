@@ -102,6 +102,10 @@
     --md-color-card-light-hover:       var(--md-primary-fg-color);
     --md-color-card-light-border:      var(--md-primary-fg-color--light);
 
+    // Top nav color shades
+    --md-color-nav:                    hsla(219, 52%, 12%, 0.5);
+    --md-color-nav-active:             hsla(219, 52%, 12%, 1);
+
     // Admonition color shades
     --md-admonition-fg-color:          var(--md-default-fg-color);
     --md-admonition-bg-color:          var(--md-default-bg-color);
