@@ -94,9 +94,10 @@
     --md-color-nav:                    hsl(0, 0%, 100%, 0.7);
     --md-color-nav-active:             hsl(0, 0%, 100%, 1);
 
-    // Top details color scheme
+    // Top details color shades
     --md-color-details:                hsla(0, 0%, 100%, 0.5);
     --md-color-details-active:         hsla(0, 0%, 100%, 1);
+    --md-color-details-search:         hsla(219, 52%, 12%, 1);
 
     // Admonition color shades
     --md-admonition-bg-color:          hsla(var(--md-hue), 0%, 100%, 0.025);
