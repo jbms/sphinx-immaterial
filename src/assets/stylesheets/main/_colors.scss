@@ -103,14 +103,14 @@
     --md-color-card-light-border:      var(--md-primary-fg-color--light);
 
     // Top nav color shades
-    --md-color-nav:                    hsla(219, 52%, 12%, 0.5);
+    --md-color-nav:                    hsla(192, 6%, 53%, 1);
     --md-color-nav-active:             hsla(219, 52%, 12%, 1);
 
     // Top details color shades
     --md-color-details:                hsla(219, 52%, 12%, 0.5);
     --md-color-details-active:         hsla(219, 52%, 12%, 1);
-    --md-color-details-search:         hsla(0, 0%, 100%, 1);
-    --md-color-details-placeholder:    hsla(0, 0%, 100%, 0.5);
+    --md-color-details-search:         var(--md-color-nav);
+    --md-color-details-placeholder:    var(--md-color-nav);
 
 
     // Admonition color shades
