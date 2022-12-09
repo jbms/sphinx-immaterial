@@ -65,10 +65,10 @@
     --md-code-hl-variable-color:       var(--md-default-fg-color--light);
 
     // Typeset color shades
-    --md-typeset-color:                var(--md-default-fg-color);
+    --md-typeset-color:                hsla(164, 100%, 36%, 1);
 
     // Typeset `a` color shades
-    --md-typeset-a-color:              var(--md-primary-fg-color);
+    --md-typeset-a-color:              hsla(164, 100%, 36%, 1);
 
     // Typeset `mark` color shades
     --md-typeset-mark-color:           hsla(#{hex2hsl($clr-blue-a200)}, 0.3);
