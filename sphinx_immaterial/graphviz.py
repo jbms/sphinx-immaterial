@@ -7,7 +7,7 @@ import pathlib
 import re
 import subprocess
 import tempfile
-from typing import Optional, Any, Tuple, Dict, Type, Sequence, NamedTuple
+from typing import Optional, Any, Tuple, Dict, Type, Sequence, NamedTuple, Union
 import xml.etree.ElementTree as ET
 
 import docutils.nodes
@@ -16,6 +16,7 @@ import sphinx.ext.graphviz
 import sphinx.util.docutils
 import sphinx.util.logging
 from sphinx.writers.html import HTMLTranslator
+from sphinx.writers.html5 import HTML5Translator
 
 from . import external_resource_cache
 from . import sphinx_utils
@@ -223,7 +224,7 @@ def _make_adjusted_graphviz_config(
 
 
 def render_dot_html(
-    self: HTMLTranslator,
+    self: Union[HTMLTranslator, HTML5Translator],
     node: sphinx.ext.graphviz.graphviz,
     code: str,
     options: dict,
