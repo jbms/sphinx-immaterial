@@ -778,11 +778,11 @@ class JsonSchemaDirective(sphinx.directives.ObjectDescription):
                 *self._get_source_info_from_schema_string(source_string),
             )
 
-    def _render_body(self):
+    def _render_body(self) -> List[docutils.nodes.Node]:
         """Renders the body of the schema."""
         schema_data: LoadedSchemaData = getattr(self.env, "json_schema_data")
         schema_node = self._schema_entry.schema
-        result = []
+        result: List[docutils.nodes.Node] = []
 
         if self._rendered_title is not None:
             p = self._rendered_title
