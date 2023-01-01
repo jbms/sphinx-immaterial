@@ -142,11 +142,12 @@ from typing import (
     Dict,
     Iterable,
     Set,
+    Type,
 )
 import urllib.parse
 import docutils.nodes
 import markupsafe
-from sphinx.addnodes import docutils_meta, meta as sphinx_meta
+import sphinx
 import sphinx.builders
 import sphinx.builders.html
 import sphinx.application
@@ -155,6 +156,18 @@ import sphinx.util.docutils
 import sphinx.util.osutil
 
 from .apidoc import object_description_options
+
+meta_node_types: Tuple[Type[docutils.nodes.Element], ...]
+
+if sphinx.version_info >= (6,):
+    meta_node_types = (docutils.nodes.meta,)  # type: ignore[attr-defined]
+else:
+    from sphinx.addnodes import (  # type: ignore[attr-defined] # pylint: disable=no-name-in-module
+        docutils_meta,
+        meta as sphinx_meta,
+    )
+
+    meta_node_types = (docutils_meta, sphinx_meta)
 
 StandaloneHTMLBuilder = sphinx.builders.html.StandaloneHTMLBuilder
 
@@ -799,9 +812,10 @@ def _html_page_context(
         meta_tags = [
             doc_node
             for doc_node in doctree.document.children
-            if isinstance(doc_node, (docutils_meta, sphinx_meta))
+            if isinstance(doc_node, meta_node_types)
         ]
         for tag in meta_tags:
+            assert isinstance(tag, docutils.nodes.Element)
             # feed them into the mkdocs template context
             attrs = {key: value for key, value in tag.attributes.items() if value}
             page["meta"]["meta"].append(attrs)
