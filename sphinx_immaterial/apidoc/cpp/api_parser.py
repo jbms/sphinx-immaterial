@@ -289,36 +289,36 @@ class Config:
     include_directory_map_pattern: ClassVar[Pattern]
 
     def __post_init__(self):
-        self.allow_path_pattern = _combine_regexp_list(self.allow_paths)
-        self.disallow_path_pattern = _combine_regexp_list(self.disallow_paths)
-        self.allow_path_pattern = _combine_regexp_list(self.allow_paths)
+        self.allow_path_pattern = _combine_regexp_list(self.allow_paths)  # type: ignore[misc]
+        self.disallow_path_pattern = _combine_regexp_list(self.disallow_paths)  # type: ignore[misc]
+        self.allow_path_pattern = _combine_regexp_list(self.allow_paths)  # type: ignore[misc]
         self.disallow_namespaces_pattern = _combine_regexp_list(
             self.disallow_namespaces
         )
-        self.allow_symbols_pattern = _combine_regexp_list(self.allow_symbols)
-        self.disallow_symbols_pattern = _combine_regexp_list(self.disallow_symbols)
-        self.allow_macros_pattern = _combine_regexp_list(self.allow_macros)
-        self.disallow_macros_pattern = _combine_regexp_list(self.disallow_macros)
-        self.ignore_diagnostics_pattern = _combine_regexp_list(self.ignore_diagnostics)
-        self.hide_types_pattern = _combine_regexp_list(self.hide_types)
-        self.type_replacements_pattern = _make_replacement_pattern(
-            self.type_replacements, prefix=r"\b", suffix=r"\b"
+        self.allow_symbols_pattern = _combine_regexp_list(self.allow_symbols)  # type: ignore[misc]
+        self.disallow_symbols_pattern = _combine_regexp_list(self.disallow_symbols)  # type: ignore[misc]
+        self.allow_macros_pattern = _combine_regexp_list(self.allow_macros)  # type: ignore[misc]
+        self.disallow_macros_pattern = _combine_regexp_list(self.disallow_macros)  # type: ignore[misc]
+        self.ignore_diagnostics_pattern = _combine_regexp_list(self.ignore_diagnostics)  # type: ignore[misc]
+        self.hide_types_pattern = _combine_regexp_list(self.hide_types)  # type: ignore[misc]
+        self.type_replacements_pattern = _make_replacement_pattern(  # type: ignore[misc]
+            list(self.type_replacements.keys()), prefix=r"\b", suffix=r"\b"
         )
-        self.ignore_template_parameters_pattern = _combine_regexp_list(
+        self.ignore_template_parameters_pattern = _combine_regexp_list(  # type: ignore[misc]
             self.ignore_template_parameters
         )
-        self.hide_initializers_pattern = _combine_regexp_list(self.hide_initializers)
+        self.hide_initializers_pattern = _combine_regexp_list(self.hide_initializers)  # type: ignore[misc]
         if os.name == "nt":
-            self._include_directory_map = {
+            self._include_directory_map = {  # type: ignore[misc]
                 key.replace("\\", "/"): value
                 for key, value in self.include_directory_map.items()
             }
         else:
-            self._include_directory_map = self.include_directory_map
-        self.include_directory_map_pattern = _make_replacement_pattern(
+            self._include_directory_map = self.include_directory_map  # type: ignore[misc]
+        self.include_directory_map_pattern = _make_replacement_pattern(  # type: ignore[misc]
             list(self._include_directory_map.keys()), prefix="^", suffix=""
         )
-        self._cached_mapped_include_directories = {}
+        self._cached_mapped_include_directories = {}  # type: ignore[misc]
 
     _include_directory_map: ClassVar[Dict[str, str]]
     _cached_mapped_include_directories: ClassVar[Dict[str, str]]
@@ -613,8 +613,8 @@ def get_extent_spelling(translation_unit: TranslationUnit, extent: SourceRange) 
         # angle brackets.
         if prev_token is not None:
             spelling = prev_token.spelling
-            token_end = prev_token.extent.end
-            offset_diff = token_end.offset - extent.end.offset
+            token_end = cast(SourceLocation, prev_token.extent.end)
+            offset_diff = token_end.offset - cast(SourceLocation, extent.end).offset
             if offset_diff != 0:
                 yield spelling[:-offset_diff]
             else:
@@ -1439,7 +1439,7 @@ class JsonApiGenerator:
             json_repr["parent"] = get_entity_id(parent)
         entity_id = get_entity_id(decl)
         if document_with:
-            prev_json = self._prev_decl[1]
+            prev_json = cast(Any, self._prev_decl)[1]
             if (
                 prev_json is None
                 or not _kinds_are_compatible(prev_json["kind"], json_repr["kind"])

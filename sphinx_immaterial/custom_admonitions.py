@@ -5,7 +5,7 @@ import io
 import hashlib
 from pathlib import Path, PurePath
 import re
-from typing import List, Dict, Any, Tuple, Optional, Type, Union
+from typing import List, Dict, Any, Tuple, Optional, Type, Union, cast
 from docutils import nodes
 from docutils.parsers.rst import directives, Directive
 import jinja2
@@ -84,7 +84,7 @@ class CustomAdmonitionConfig(pydantic.BaseModel):
     def validate_name(cls, val):
         illegal = re.findall(r"([^a-zA-Z0-9\-_])", val)
         if illegal:
-            raise pydantic.ValidationError(
+            raise ValueError(
                 f"The following characters are illegal for directive names: {illegal}"
             )
         return val
@@ -99,9 +99,7 @@ class CustomAdmonitionConfig(pydantic.BaseModel):
     def validate_color_component(cls, val):
         if 0 <= val <= 255:
             return val
-        raise pydantic.ValidationError(
-            f"color component {val} is not in range [0, 255]"
-        )
+        raise ValueError(f"color component {val} is not in range [0, 255]")
 
     @pydantic.validator("classes", each_item=True)
     def conform_classes(cls, val):
@@ -132,7 +130,7 @@ def patch_visit_admonition():
         else:
             orig_func(self, node, name)
 
-    HTML5Translator.visit_admonition = visit_admonition
+    HTML5Translator.visit_admonition = visit_admonition  # type: ignore[assignment]
 
 
 def patch_depart_admonition():
@@ -144,7 +142,7 @@ def patch_depart_admonition():
         else:
             self.body.append("</details>\n")
 
-    HTML5Translator.depart_admonition = depart_admonition
+    HTML5Translator.depart_admonition = depart_admonition  # type: ignore[assignment]
 
 
 class CustomAdmonitionDirective(Directive, ABC):
@@ -155,7 +153,7 @@ class CustomAdmonitionDirective(Directive, ABC):
         argument parsing for other derivative classes.
     """
 
-    node_class: Type[nodes.Admonition] = nodes.admonition
+    node_class: Type[nodes.admonition] = nodes.admonition
     optional_arguments: int
     final_argument_whitespace: bool = True
     has_content = True
@@ -186,10 +184,10 @@ class CustomAdmonitionDirective(Directive, ABC):
         if not title_text:
             title_text = self.default_title
         self.assert_has_content()
-        admonition_node = self.node_class("\n".join(self.content), **self.options)
+        admonition_node = self.node_class("\n".join(self.content), **self.options)  # type: ignore[call-arg]
         (
-            admonition_node.source,
-            admonition_node.line,
+            admonition_node.source,  # type: ignore[attr-defined]
+            admonition_node.line,  # type: ignore[attr-defined]
         ) = self.state_machine.get_source_and_line(self.lineno)
         if isinstance(admonition_node, sphinx.ext.todo.todo_node):
             # todo admonitions need extra info for the todolist directive
@@ -239,7 +237,10 @@ def get_directive_class(name, title, classes=None) -> Type[CustomAdmonitionDirec
         default_title = title
         classes = class_list
         optional_arguments = int(name not in admonitionlabels)
-        node_class = nodes.admonition if name != "todo" else sphinx.ext.todo.todo_node
+        node_class = cast(
+            Type[nodes.admonition],
+            nodes.admonition if name != "todo" else sphinx.ext.todo.todo_node,
+        )
 
     return CustomizedAdmonition
 

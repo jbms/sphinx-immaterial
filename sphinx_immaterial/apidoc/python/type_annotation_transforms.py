@@ -373,7 +373,7 @@ def _monkey_patch_python_domain_to_transform_xref_titles():
                         node.append(docutils.nodes.Text(new_target))
         return node
 
-    sphinx.domains.python.type_to_xref = type_to_xref
+    sphinx.domains.python.type_to_xref = type_to_xref  # type: ignore[assignment]
 
 
 def setup(app: sphinx.application.Sphinx):

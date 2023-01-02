@@ -26,12 +26,12 @@ def _monkey_patch_generic_object_to_support_synopses():
 
     def transform_content(self: GenericObject, contentnode) -> None:
         setattr(self, "contentnode", contentnode)
-        orig_transform_content(self, contentnode)
+        orig_transform_content(self, contentnode)  # type: ignore[arg-type]
 
-    GenericObject.transform_content = transform_content
+    GenericObject.transform_content = transform_content  # type: ignore[assignment]
 
     def after_content(self: GenericObject) -> None:
-        orig_after_content(self)
+        orig_after_content(self)  # type: ignore[arg-type]
         noindex = "noindex" in self.options
         if noindex:
             return
@@ -48,7 +48,7 @@ def _monkey_patch_generic_object_to_support_synopses():
         for name in self.names:
             std.data["synopses"][self.objtype, name] = synopsis
 
-    GenericObject.after_content = after_content
+    GenericObject.after_content = after_content  # type: ignore[assignment]
 
     orig_merge_domaindata = StandardDomain.merge_domaindata
 
@@ -56,7 +56,7 @@ def _monkey_patch_generic_object_to_support_synopses():
         orig_merge_domaindata(self, docnames, otherdata)
         self.data["synopses"].update(otherdata["synopses"])
 
-    StandardDomain.merge_domaindata = merge_domaindata
+    StandardDomain.merge_domaindata = merge_domaindata  # type: ignore[assignment]
 
     def make_refnode(
         std: StandardDomain,
@@ -108,7 +108,7 @@ def _monkey_patch_generic_object_to_support_synopses():
             self, builder, fromdocname, docname, labelid, contnode, objtype, target
         )
 
-    StandardDomain._resolve_obj_xref = _resolve_obj_xref
+    StandardDomain._resolve_obj_xref = _resolve_obj_xref  # type: ignore[assignment]
 
     def resolve_any_xref(
         self: StandardDomain,
@@ -157,7 +157,7 @@ def _monkey_patch_generic_object_to_support_synopses():
                 )
         return results
 
-    StandardDomain.resolve_any_xref = resolve_any_xref
+    StandardDomain.resolve_any_xref = resolve_any_xref  # type: ignore[assignment]
 
     def get_object_synopses(
         self: StandardDomain,
@@ -169,7 +169,7 @@ def _monkey_patch_generic_object_to_support_synopses():
                 continue
             yield ((docname, labelid), synopsis)
 
-    StandardDomain.get_object_synopses = get_object_synopses
+    StandardDomain.get_object_synopses = get_object_synopses  # type: ignore[attr-defined]
 
 
 def setup(app: sphinx.application.Sphinx):

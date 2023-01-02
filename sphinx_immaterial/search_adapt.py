@@ -182,7 +182,7 @@ class IndexBuilder(sphinx.search.IndexBuilder):
 
 
 def _monkey_patch_index_builder():
-    sphinx.search.IndexBuilder = IndexBuilder
+    sphinx.search.IndexBuilder = IndexBuilder  # type: ignore[misc]
 
 
 def setup(app: sphinx.application.Sphinx):

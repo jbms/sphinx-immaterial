@@ -1751,7 +1751,7 @@ def _monkey_patch_napoleon_to_add_group_field():
             self, section
         )  # pylint: disable=protected-access
 
-    sphinx.ext.napoleon.docstring.GoogleDocstring._load_custom_sections = (
+    sphinx.ext.napoleon.docstring.GoogleDocstring._load_custom_sections = (  # type: ignore[assignment]
         load_custom_sections  # pylint: disable=protected-access
     )
 

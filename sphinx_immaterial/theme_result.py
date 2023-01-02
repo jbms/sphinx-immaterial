@@ -24,7 +24,7 @@ class ResultsDirective(SphinxDirective):
             "", classes=self.options.get("class", []) + ["results"]
         )
         code = "\n".join(self.content)
-        literal_node = nodes.literal_block(code, code)
+        literal_node: nodes.Element = nodes.literal_block(code, code)
         literal_node["language"] = "rst"
         if self.arguments:
             literal_node = container_wrapper(self, literal_node, self.arguments[0])

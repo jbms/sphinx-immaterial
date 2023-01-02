@@ -51,7 +51,7 @@ def _monkey_patch_python_domain_to_add_object_synopses_to_references():
             _add_synopsis(self, env, refnode)
         return refnode
 
-    PythonDomain.resolve_xref = resolve_xref
+    PythonDomain.resolve_xref = resolve_xref  # type: ignore[assignment]
 
     orig_resolve_any_xref = PythonDomain.resolve_any_xref
 
@@ -71,7 +71,7 @@ def _monkey_patch_python_domain_to_add_object_synopses_to_references():
             _add_synopsis(self, env, refnode)
         return results
 
-    PythonDomain.resolve_any_xref = resolve_any_xref
+    PythonDomain.resolve_any_xref = resolve_any_xref  # type: ignore[assignment]
 
 
 def _monkey_patch_python_domain_to_support_synopses():
@@ -82,9 +82,9 @@ def _monkey_patch_python_domain_to_support_synopses():
 
     def transform_content(self: PyObject, contentnode) -> None:
         setattr(self, "contentnode", contentnode)
-        orig_transform_content(self, contentnode)
+        orig_transform_content(self, contentnode)  # type: ignore[arg-type]
 
-    PyObject.transform_content = transform_content
+    PyObject.transform_content = transform_content  # type: ignore[assignment]
 
     def after_content(self: PyObject) -> None:
         orig_after_content(self)
@@ -123,7 +123,7 @@ def _monkey_patch_python_domain_to_support_synopses():
         for symbol in symbols:
             py.data["synopses"][symbol] = synopsis
 
-    PyObject.after_content = after_content
+    PyObject.after_content = after_content  # type: ignore[assignment]
 
     orig_merge_domaindata = PythonDomain.merge_domaindata
 
@@ -131,7 +131,7 @@ def _monkey_patch_python_domain_to_support_synopses():
         orig_merge_domaindata(self, docnames, otherdata)
         self.data["synopses"].update(otherdata["synopses"])
 
-    PythonDomain.merge_domaindata = merge_domaindata
+    PythonDomain.merge_domaindata = merge_domaindata  # type: ignore[assignment]
 
     def get_object_synopses(
         self: PythonDomain,
@@ -143,7 +143,7 @@ def _monkey_patch_python_domain_to_support_synopses():
                 continue
             yield ((obj.docname, obj.node_id), synopsis)
 
-    PythonDomain.get_object_synopses = get_object_synopses
+    PythonDomain.get_object_synopses = get_object_synopses  # type: ignore[attr-defined]
 
 
 _monkey_patch_python_domain_to_add_object_synopses_to_references()

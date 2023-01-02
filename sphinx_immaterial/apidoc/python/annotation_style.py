@@ -23,7 +23,7 @@ def _monkey_patch_python_parse_annotation():
     def parse_annotation(
         annotation: str, env: Optional[sphinx.environment.BuildEnvironment] = None
     ) -> List[docutils.nodes.Node]:
-        return ensure_wrapped_in_desc_type(orig_parse_annotation(annotation, env))
+        return ensure_wrapped_in_desc_type(orig_parse_annotation(annotation, env))  # type: ignore[arg-type]
 
     sphinx.domains.python._parse_annotation = parse_annotation
 

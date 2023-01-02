@@ -27,10 +27,10 @@ def _monkey_patch_python_domain_to_support_titles():
             getattr(self, "_saved_content"),
             contentnode,
         )
-        orig_transform_content(self, contentnode)
+        orig_transform_content(self, contentnode)  # type: ignore[arg-type]
 
-    PyObject.before_content = before_content
-    PyObject.transform_content = transform_content
+    PyObject.before_content = before_content  # type: ignore[assignment]
+    PyObject.transform_content = transform_content  # type: ignore[assignment]
 
 
 _monkey_patch_python_domain_to_support_titles()

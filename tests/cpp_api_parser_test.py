@@ -39,7 +39,7 @@ int foo(T x);
 
     config = api_parser.Config(
         input_path=input_path,
-        allow_paths=[re.escape(input_path)],
+        allow_paths=[re.compile(re.escape(input_path))],
         disallow_namespaces=[re.compile("^std$")],
         compiler_flags=["-std=c++17"],
         input_content=input_content,
@@ -115,17 +115,17 @@ class TestCommentStrip:
 def test_function_fields():
     config = api_parser.Config(
         input_path="a.cpp",
-        input_content="""
+        input_content=rb"""
 /// @brief A dummy function for tests.
 ///
-/// \\details A more detailed paragraph.
+/// \details A more detailed paragraph.
 ///
 /// @param arg1 An arg passed by value.
-/// \\param[in] arg2 An unaltered arg passed by reference.
+/// \param[in] arg2 An unaltered arg passed by reference.
 /// @param[in, out] arg3 An arg passed by reference that gets altered.
 /// @retval NULL If unsuccessful.
 /// @returns A flag indicating success.
-/// \\tparam T A template parameter.
+/// \tparam T A template parameter.
 template<typename T>
 int function(T arg1, T &arg2, T &arg3);
 """,

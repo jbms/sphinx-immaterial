@@ -88,7 +88,7 @@ def _monkey_patch_cpp_resolve_c_xrefs():
 
         return None, None
 
-    sphinx.domains.cpp.CPPDomain._resolve_xref_inner = _resolve_xref_inner
+    sphinx.domains.cpp.CPPDomain._resolve_xref_inner = _resolve_xref_inner  # type: ignore[assignment]
 
 
 def _monkey_patch_cpp_expr_role_to_include_c_parent_key():
@@ -112,7 +112,7 @@ def _monkey_patch_cpp_expr_role_to_include_c_parent_key():
                         refnode["c:parent_key"] = c_parent_key
         return nodes, messages
 
-    CPPExprRole.run = run
+    CPPExprRole.run = run  # type: ignore[assignment]
 
 
 _monkey_patch_cpp_resolve_c_xrefs()

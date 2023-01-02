@@ -72,7 +72,7 @@ def _monkey_patch_highlight_language_visitor():
         else:
             orig_visit_highlightlang(self, node)
 
-    HighlightLanguageVisitor.visit_highlightlang = visit_highlightlang
+    HighlightLanguageVisitor.visit_highlightlang = visit_highlightlang  # type: ignore[assignment]
 
 
 _monkey_patch_highlight_language_visitor()

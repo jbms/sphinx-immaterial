@@ -169,7 +169,7 @@ def _monkey_patch_cpp_add_precise_template_parameter_object_types():
                 priority = OBJECT_PRIORITY_DEFAULT
             yield (name, dispname, objectType, docname, anchor, priority)
 
-    sphinx.domains.cpp.CPPDomain.get_objects = get_objects
+    sphinx.domains.cpp.CPPDomain.get_objects = get_objects  # type: ignore[assignment]
 
 
 def _add_parameter_links_to_signature(
