@@ -212,15 +212,18 @@ def _monkey_patch_object_description_to_include_fields_in_toc():
             return nodes
 
         obj_desc = nodes[-1]
+        assert isinstance(obj_desc, sphinx.addnodes.desc)
 
         obj_id = None
         for sig in obj_desc[:-1]:
+            assert isinstance(sig, sphinx.addnodes.desc_signature)
             ids = sig["ids"]
             if ids and ids[0]:
                 obj_id = ids[0]
                 break
 
         obj_content = obj_desc[-1]
+        assert isinstance(obj_content, sphinx.addnodes.desc_content)
         for child in obj_content:
             if not isinstance(child, docutils.nodes.field_list):
                 continue
@@ -236,7 +239,7 @@ def _monkey_patch_object_description_to_include_fields_in_toc():
 
         return nodes
 
-    sphinx.directives.ObjectDescription.run = run
+    sphinx.directives.ObjectDescription.run = run  # type: ignore[assignment]
 
 
 _monkey_patch_object_description_to_include_fields_in_toc()
@@ -265,7 +268,9 @@ def _monkey_patch_object_description_to_include_rubrics_in_toc():
             return nodes
 
         obj_desc = nodes[-1]
+        assert isinstance(obj_desc, sphinx.addnodes.desc)
         obj_content = obj_desc[-1]
+        assert isinstance(obj_content, sphinx.addnodes.desc_content)
         for child in obj_content:
             if not isinstance(child, docutils.nodes.rubric):
                 continue
@@ -277,7 +282,7 @@ def _monkey_patch_object_description_to_include_rubrics_in_toc():
 
         return nodes
 
-    sphinx.directives.ObjectDescription.run = run
+    sphinx.directives.ObjectDescription.run = run  # type: ignore[assignment]
 
 
 _monkey_patch_object_description_to_include_rubrics_in_toc()

@@ -28,8 +28,12 @@ is consistent regardless of whether the class is declared first.
 
 from typing import Union, Any
 
+import sphinx
 import sphinx.domains.cpp
 from sphinx.domains.cpp import Symbol
+
+# Not needed in Sphinx 5.2
+assert sphinx.version_info < (5, 2)
 
 
 def _is_cpp_ast_specialization(
@@ -92,7 +96,7 @@ def _monkey_patch_cpp_symbol_to_normalize_template_args():
             line,
         )
 
-    Symbol.__init__ = __init__
+    Symbol.__init__ = __init__  # type: ignore[assignment]
 
 
 _monkey_patch_cpp_symbol_to_normalize_template_args()

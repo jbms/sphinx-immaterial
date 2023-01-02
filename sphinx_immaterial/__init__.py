@@ -68,7 +68,7 @@ def _get_html_builder(base_builder: Type[sphinx.builders.html.StandaloneHTMLBuil
             if nav_adapt.READTHEDOCS is None:
                 excluded_scripts.add("_static/jquery.js")
                 excluded_scripts.add("_static/_sphinx_javascript_frameworks_compat.js")
-            self.script_files = [
+            self.script_files: List[sphinx.builders.html.JavaScript] = [
                 x for x in self.script_files if x.filename not in excluded_scripts
             ]
 
@@ -93,7 +93,7 @@ def _get_html_builder(base_builder: Type[sphinx.builders.html.StandaloneHTMLBuil
         def gen_additional_pages(self):
             # Prevent the search.html page from being written since this theme provides
             # its own search results display that does not use it.
-            search = self.search
+            search = self.search  # type: ignore[has-type]
             self.search = False
             super().gen_additional_pages()
             self.search = search

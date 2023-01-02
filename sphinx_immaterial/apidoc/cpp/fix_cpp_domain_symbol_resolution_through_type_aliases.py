@@ -116,7 +116,7 @@ def _monkey_patch_cpp_domain_symbol_resolution_through_type_aliases():
                 self,
                 identOrOp,
                 None,
-                None,
+                None,  # type: ignore[arg-type]
                 templateShorthand,
                 matchSelf,
                 recurseInAnon,
@@ -145,7 +145,7 @@ def _monkey_patch_cpp_domain_symbol_resolution_through_type_aliases():
                 searchInSiblings=False,
             )
 
-    Symbol._find_named_symbols = _find_named_symbols
+    Symbol._find_named_symbols = _find_named_symbols  # type: ignore[assignment]
 
     in_symbol_lookup_with_shorthand = []
 
@@ -184,7 +184,7 @@ def _monkey_patch_cpp_domain_symbol_resolution_through_type_aliases():
         finally:
             in_symbol_lookup_with_shorthand.pop()
 
-    Symbol._symbol_lookup = _symbol_lookup
+    Symbol._symbol_lookup = _symbol_lookup  # type: ignore[assignment]
 
     orig_find_identifier = Symbol.find_identifier
 
@@ -220,7 +220,7 @@ def _monkey_patch_cpp_domain_symbol_resolution_through_type_aliases():
                 return s
         return None
 
-    Symbol.find_identifier = find_identifier
+    Symbol.find_identifier = find_identifier  # type: ignore[assignment]
 
 
 _monkey_patch_cpp_domain_symbol_resolution_through_type_aliases()

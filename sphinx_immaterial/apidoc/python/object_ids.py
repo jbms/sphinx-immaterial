@@ -29,7 +29,7 @@ def _monkey_patch_python_domain_to_support_object_ids():
             value = self.options[option_name]
             self.add_line(f"   :{option_name}: {value}", self.get_sourcename())
 
-    sphinx.ext.autodoc.Documenter.add_directive_header = add_directive_header
+    sphinx.ext.autodoc.Documenter.add_directive_header = add_directive_header  # type: ignore[assignment]
 
     orig_handle_signature = sphinx.domains.python.PyObject.handle_signature
 
@@ -70,7 +70,7 @@ def _monkey_patch_python_domain_to_support_object_ids():
                     )
         return fullname, prefix
 
-    sphinx.domains.python.PyObject.handle_signature = handle_signature
+    sphinx.domains.python.PyObject.handle_signature = handle_signature  # type: ignore[assignment]
 
     orig_after_content = PyObject.after_content
 
@@ -121,7 +121,7 @@ def _monkey_patch_python_domain_to_support_object_ids():
                         "entries"
                     ] = new_entries
 
-    PyObject.after_content = after_content
+    PyObject.after_content = after_content  # type: ignore[assignment]
 
 
 _monkey_patch_python_domain_to_support_object_ids()

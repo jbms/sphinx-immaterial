@@ -76,7 +76,7 @@ def apply_property_documenter_type_annotation_fix():
                 self.retann = new_retann
         return True
 
-    PropertyDocumenter.import_object = import_object
+    PropertyDocumenter.import_object = import_object  # type: ignore[assignment]
 
     old_add_directive_header = PropertyDocumenter.add_directive_header
 
@@ -98,7 +98,7 @@ def apply_property_documenter_type_annotation_fix():
         # Type annotation not already added.
         self.add_line("   :type: " + retann, self.get_sourcename())
 
-    PropertyDocumenter.add_directive_header = add_directive_header
+    PropertyDocumenter.add_directive_header = add_directive_header  # type: ignore[assignment]
 
     # Modify PyProperty to improve formatting of :type: option
     PyProperty = sphinx.domains.python.PyProperty
@@ -115,7 +115,7 @@ def apply_property_documenter_type_annotation_fix():
 
         return fullname, prefix
 
-    PyProperty.handle_signature = handle_signature
+    PyProperty.handle_signature = handle_signature  # type: ignore[assignment]
 
 
 apply_property_documenter_type_annotation_fix()

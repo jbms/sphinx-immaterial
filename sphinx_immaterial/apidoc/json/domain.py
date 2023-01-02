@@ -15,6 +15,7 @@ from typing import (
     Iterator,
     Set,
     Union,
+    Iterable,
 )
 
 import docutils
@@ -340,6 +341,7 @@ def _traverse_sub_schemas(
         obj = schema.get(prop)
         if obj is None:
             return
+        items: Iterable[Tuple[Union[int, str], JsonSchema]]
         if isinstance(obj, list):
             items = enumerate(obj)
         elif isinstance(obj, dict):
