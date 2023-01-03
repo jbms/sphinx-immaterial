@@ -182,7 +182,8 @@ class CustomAdmonitionDirective(Directive, ABC):
             title_text += (" " if title_text else "") + self.options["title"]
             # don't auto-assert `:no-title:` if value is blank; just use default
         if not title_text:
-            title_text = self.default_title
+            # title_text must be an explicit string for renderers like MyST
+            title_text = str(self.default_title)
         self.assert_has_content()
         admonition_node = self.node_class("\n".join(self.content), **self.options)  # type: ignore[call-arg]
         (
