@@ -33,7 +33,7 @@
       
     
         <link rel="stylesheet" type="text/css" href="_static/google_fonts.css" />
-        <link rel="stylesheet" type="text/css" href="_static/stylesheets/sphinx_immaterial_theme.fe873c5d5ee1917e6.min.css" />
+        <link rel="stylesheet" type="text/css" href="_static/stylesheets/sphinx_immaterial_theme.ce877ce75602c6c77.min.css" />
         <link rel="stylesheet" type="text/css" href="_static/extra_css.css" />
     <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -103,7 +103,9 @@
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href="index.html" title="Sphinx-Immaterial" class="md-header__button md-logo" aria-label="Sphinx-Immaterial" data-md-component="logo">
-      <img src="_static/Ybin.gif" alt="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
     </a>
     <label class="md-header__button md-icon" for="__drawer">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
@@ -226,7 +228,9 @@
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
     <a href="index.html" title="Sphinx-Immaterial" class="md-nav__button md-logo" aria-label="Sphinx-Immaterial" data-md-component="logo">
-      <img src="_static/Ybin.gif" alt="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
     </a>
     Sphinx-Immaterial
   </label>
@@ -1004,24 +1008,24 @@
 the sphinx-immaterial theme.</p>
 <details class="success admonition">
 <summary class="admonition-title">CSS is not included with this extension</summary><p>To add CSS to a theme that does not support this extension, try using:</p>
-<div class="highlight-CSS notranslate"><div class="highlight"><pre><span></span><code><span class="nt">kbd</span><span class="o">[</span><span class="nt">class</span><span class="o">^=</span><span class="s2">&quot;key-&quot;</span><span class="o">]</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="k">background-color</span><span class="p">:</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--md-typeset-kbd-color</span><span class="p">);</span><span class="w"></span>
-<span class="w">  </span><span class="k">border-radius</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="kt">rem</span><span class="p">;</span><span class="w"></span>
-<span class="w">  </span><span class="k">box-shadow</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mf">0.1</span><span class="kt">rem</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mf">0.05</span><span class="kt">rem</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--md-typeset-kbd-border-color</span><span class="p">),</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mf">0.1</span><span class="kt">rem</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--md-typeset-kbd-border-color</span><span class="p">),</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mf">-0.1</span><span class="kt">rem</span><span class="w"> </span><span class="mf">0.2</span><span class="kt">rem</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--md-typeset-kbd-accent-color</span><span class="p">)</span><span class="w"> </span><span class="kc">inset</span><span class="p">;</span><span class="w"></span>
-<span class="w">  </span><span class="k">color</span><span class="p">:</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--md-default-fg-color</span><span class="p">);</span><span class="w"></span>
-<span class="w">  </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="kc">inline-block</span><span class="p">;</span><span class="w"></span>
-<span class="w">  </span><span class="k">font-size</span><span class="p">:</span><span class="w"> </span><span class="mf">0.75</span><span class="kt">em</span><span class="p">;</span><span class="w"></span>
-<span class="w">  </span><span class="k">padding</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mf">0.6666666667</span><span class="kt">em</span><span class="p">;</span><span class="w"></span>
-<span class="w">  </span><span class="k">vertical-align</span><span class="p">:</span><span class="w"> </span><span class="kc">text</span><span class="o">-</span><span class="kc">top</span><span class="p">;</span><span class="w"></span>
-<span class="w">  </span><span class="k">word-break</span><span class="p">:</span><span class="w"> </span><span class="kc">break-word</span><span class="p">;</span><span class="w"></span>
-<span class="w">  </span><span class="k">font-feature-settings</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;kern&quot;</span><span class="p">;</span><span class="w"></span>
-<span class="w">  </span><span class="k">font-family</span><span class="p">:</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--md-code-font-family</span><span class="p">);</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight-CSS notranslate"><div class="highlight"><pre><span></span><code><span class="nt">kbd</span><span class="o">[</span><span class="nt">class</span><span class="o">^=</span><span class="s2">&quot;key-&quot;</span><span class="o">]</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">background-color</span><span class="p">:</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--md-typeset-kbd-color</span><span class="p">);</span>
+<span class="w">  </span><span class="k">border-radius</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="kt">rem</span><span class="p">;</span>
+<span class="w">  </span><span class="k">box-shadow</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mf">0.1</span><span class="kt">rem</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mf">0.05</span><span class="kt">rem</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--md-typeset-kbd-border-color</span><span class="p">),</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mf">0.1</span><span class="kt">rem</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--md-typeset-kbd-border-color</span><span class="p">),</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mf">-0.1</span><span class="kt">rem</span><span class="w"> </span><span class="mf">0.2</span><span class="kt">rem</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--md-typeset-kbd-accent-color</span><span class="p">)</span><span class="w"> </span><span class="kc">inset</span><span class="p">;</span>
+<span class="w">  </span><span class="k">color</span><span class="p">:</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--md-default-fg-color</span><span class="p">);</span>
+<span class="w">  </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="kc">inline-block</span><span class="p">;</span>
+<span class="w">  </span><span class="k">font-size</span><span class="p">:</span><span class="w"> </span><span class="mf">0.75</span><span class="kt">em</span><span class="p">;</span>
+<span class="w">  </span><span class="k">padding</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mf">0.6666666667</span><span class="kt">em</span><span class="p">;</span>
+<span class="w">  </span><span class="k">vertical-align</span><span class="p">:</span><span class="w"> </span><span class="kc">text</span><span class="o">-</span><span class="kc">top</span><span class="p">;</span>
+<span class="w">  </span><span class="k">word-break</span><span class="p">:</span><span class="w"> </span><span class="kc">break-word</span><span class="p">;</span>
+<span class="w">  </span><span class="k">font-feature-settings</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;kern&quot;</span><span class="p">;</span>
+<span class="w">  </span><span class="k">font-family</span><span class="p">:</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--md-code-font-family</span><span class="p">);</span>
+<span class="p">}</span>
 
-<span class="p">.</span><span class="nc">keys</span><span class="w"> </span><span class="nt">span</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="k">color</span><span class="p">:</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--md-default-fg-color--light</span><span class="p">);</span><span class="w"></span>
-<span class="w">  </span><span class="k">padding</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mf">0.2</span><span class="kt">em</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="p">.</span><span class="nc">keys</span><span class="w"> </span><span class="nt">span</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">color</span><span class="p">:</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--md-default-fg-color--light</span><span class="p">);</span>
+<span class="w">  </span><span class="k">padding</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mf">0.2</span><span class="kt">em</span><span class="p">;</span>
+<span class="p">}</span>
 </code></pre></div>
 </div>
 </details>
@@ -1031,7 +1035,7 @@ does import the <code class="docutils literal notranslate"><span class="pre">pym
 <p>To use this extension, the <a class="reference external" href="https://pypi.org/project/pymdown-extensions/">pymdown-extensions</a> package needs to be installed.
 You can either add it as a dependency directly, or depend on the <code class="docutils literal notranslate"><span class="pre">keys</span></code>
 optional feature of this package:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><code>python -m pip install sphinx-immaterial<span class="o">[</span>keys<span class="o">]</span>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><code>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>sphinx-immaterial<span class="o">[</span>keys<span class="o">]</span>
 </code></pre></div>
 </div>
 <p>And be sure to include the extension in your <code class="file docutils literal notranslate"><span class="pre">conf.py</span></code> file.</p>
@@ -1126,24 +1130,24 @@ rST code</label></div>
 <div class="tabbed-block docutils container">
 <p>Remember to prepend <code class="docutils literal notranslate"><span class="pre">key-</span></code> to whatever the <a class="reference internal" href="#confval-keys_map" title="keys_map (configuration value) — An additional dict where key: value pairs consist of:"><code class="xref any std std-confval docutils literal notranslate"><span class="pre">keys_map</span></code></a> key was. In our case,
 <code class="docutils literal notranslate"><span class="pre">my-special-key</span></code> turns into <code class="docutils literal notranslate"><span class="pre">key-my-special-key</span></code>.</p>
-<div class="highlight-css notranslate"><div class="highlight"><pre><span></span><code><span class="p">.</span><span class="nc">md-typeset</span><span class="w"> </span><span class="nt">kbd</span><span class="p">.</span><span class="nc">key-my-special-key</span><span class="o">,</span><span class="w"></span>
-<span class="p">.</span><span class="nc">md-typeset</span><span class="w"> </span><span class="nt">kbd</span><span class="p">.</span><span class="nc">key-git</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="k">color</span><span class="p">:</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--md-primary-fg-color</span><span class="p">);</span><span class="w"></span>
-<span class="w">  </span><span class="k">background</span><span class="p">:</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--md-accent-bg-color</span><span class="p">);</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight-css notranslate"><div class="highlight"><pre><span></span><code><span class="p">.</span><span class="nc">md-typeset</span><span class="w"> </span><span class="nt">kbd</span><span class="p">.</span><span class="nc">key-my-special-key</span><span class="o">,</span>
+<span class="p">.</span><span class="nc">md-typeset</span><span class="w"> </span><span class="nt">kbd</span><span class="p">.</span><span class="nc">key-git</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">color</span><span class="p">:</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--md-primary-fg-color</span><span class="p">);</span>
+<span class="w">  </span><span class="k">background</span><span class="p">:</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--md-accent-bg-color</span><span class="p">);</span>
+<span class="p">}</span>
 
-<span class="p">.</span><span class="nc">md-typeset</span><span class="w"> </span><span class="nt">kbd</span><span class="p">.</span><span class="nc">key-git</span><span class="p">::</span><span class="nd">before</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="k">content</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;██&quot;</span><span class="p">;</span><span class="w"></span>
-<span class="w">  </span><span class="kp">-webkit-</span><span class="k">mask-image</span><span class="p">:</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--si-icon--fontawesome_brands_git</span><span class="p">);</span><span class="w"></span>
-<span class="w">  </span><span class="kp">-webkit-</span><span class="k">mask-repeat</span><span class="p">:</span><span class="w"> </span><span class="kc">no-repeat</span><span class="p">;</span><span class="w"></span>
-<span class="w">  </span><span class="k">mask-image</span><span class="p">:</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--si-icon--fontawesome_brands_git</span><span class="p">);</span><span class="w"></span>
-<span class="w">  </span><span class="k">mask-repeat</span><span class="p">:</span><span class="w"> </span><span class="kc">no-repeat</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="p">.</span><span class="nc">md-typeset</span><span class="w"> </span><span class="nt">kbd</span><span class="p">.</span><span class="nc">key-git</span><span class="p">::</span><span class="nd">before</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">content</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;██&quot;</span><span class="p">;</span>
+<span class="w">  </span><span class="kp">-webkit-</span><span class="k">mask-image</span><span class="p">:</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--si-icon--fontawesome_brands_git</span><span class="p">);</span>
+<span class="w">  </span><span class="kp">-webkit-</span><span class="k">mask-repeat</span><span class="p">:</span><span class="w"> </span><span class="kc">no-repeat</span><span class="p">;</span>
+<span class="w">  </span><span class="k">mask-image</span><span class="p">:</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--si-icon--fontawesome_brands_git</span><span class="p">);</span>
+<span class="w">  </span><span class="k">mask-repeat</span><span class="p">:</span><span class="w"> </span><span class="kc">no-repeat</span><span class="p">;</span>
+<span class="p">}</span>
 
-<span class="p">.</span><span class="nc">md-typeset</span><span class="w"> </span><span class="nt">kbd</span><span class="p">.</span><span class="nc">key-my-special-key</span><span class="p">:</span><span class="nd">hover</span><span class="o">,</span><span class="w"></span>
-<span class="p">.</span><span class="nc">md-typeset</span><span class="w"> </span><span class="nt">kbd</span><span class="p">.</span><span class="nc">key-git</span><span class="p">:</span><span class="nd">hover</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="k">color</span><span class="p">:</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--md-accent-fg-color</span><span class="p">);</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="p">.</span><span class="nc">md-typeset</span><span class="w"> </span><span class="nt">kbd</span><span class="p">.</span><span class="nc">key-my-special-key</span><span class="p">:</span><span class="nd">hover</span><span class="o">,</span>
+<span class="p">.</span><span class="nc">md-typeset</span><span class="w"> </span><span class="nt">kbd</span><span class="p">.</span><span class="nc">key-git</span><span class="p">:</span><span class="nd">hover</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">color</span><span class="p">:</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--md-accent-fg-color</span><span class="p">);</span>
+<span class="p">}</span>
 </code></pre></div>
 </div>
 </div>
@@ -1181,7 +1185,7 @@ spaces in a lower case form of the given text. Therefore, entering
   <small>
     
       Last update:
-      Nov 15, 2022
+      Jan 03, 2023
     
   </small>
 </div>
@@ -1258,7 +1262,7 @@ spaces in a lower case form of the given text. Therefore, entering
   
     Created using
     <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
-    5.3.0.
+    6.0.0.
      and
     <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
   

@@ -33,7 +33,7 @@
       
     
         <link rel="stylesheet" type="text/css" href="../../_static/google_fonts.css" />
-        <link rel="stylesheet" type="text/css" href="../../_static/stylesheets/sphinx_immaterial_theme.fe873c5d5ee1917e6.min.css" />
+        <link rel="stylesheet" type="text/css" href="../../_static/stylesheets/sphinx_immaterial_theme.ce877ce75602c6c77.min.css" />
         <link rel="stylesheet" type="text/css" href="../../_static/extra_css.css" />
     <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -103,7 +103,9 @@
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href="../../index.html" title="Sphinx-Immaterial" class="md-header__button md-logo" aria-label="Sphinx-Immaterial" data-md-component="logo">
-      <img src="../../_static/Ybin.gif" alt="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
     </a>
     <label class="md-header__button md-icon" for="__drawer">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
@@ -226,7 +228,9 @@
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
     <a href="../../index.html" title="Sphinx-Immaterial" class="md-nav__button md-logo" aria-label="Sphinx-Immaterial" data-md-component="logo">
-      <img src="../../_static/Ybin.gif" alt="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
     </a>
     Sphinx-Immaterial
   </label>
@@ -1176,8 +1180,8 @@ C++ function definition with stripped namespaces<a class="headerlink" href="#id1
 <p class="admonition-title">Warning</p>
 <p>If a nested symbol name like <code class="code highlight python docutils literal highlight-python"><span class="s2">&quot;my_ns1::abc&quot;</span></code> is specified in
 <a class="reference internal" href="#confval-cpp_strip_namespaces_from_signatures" title="cpp_strip_namespaces_from_signatures (configuration value) — list[str] specifying namespaces to strip from signatures."><code class="xref std std-confval docutils literal notranslate"><span class="pre">cpp_strip_namespaces_from_signatures</span></code></a>, then a reference like
-<code class="code highlight cpp docutils literal highlight-cpp"><span class="n">my_ns1</span><span class="o">::</span><span class="n">abc</span><span class="o">::</span><span class="n">X</span><span class="w"></span></code> will be converted to <code class="code highlight cpp docutils literal highlight-cpp"><span class="n">my_ns1</span><span class="o">::</span><span class="n">X</span><span class="w"></span></code>.  To also
-strip the <code class="code highlight cpp docutils literal highlight-cpp"><span class="n">my_ns1</span><span class="o">::</span><span class="w"></span></code> portion, <code class="code highlight python docutils literal highlight-python"><span class="s2">&quot;my_ns1&quot;</span></code> must also be
+<code class="code highlight cpp docutils literal highlight-cpp"><span class="n">my_ns1</span><span class="o">::</span><span class="n">abc</span><span class="o">::</span><span class="n">X</span></code> will be converted to <code class="code highlight cpp docutils literal highlight-cpp"><span class="n">my_ns1</span><span class="o">::</span><span class="n">X</span></code>.  To also
+strip the <code class="code highlight cpp docutils literal highlight-cpp"><span class="n">my_ns1</span><span class="o">::</span></code> portion, <code class="code highlight python docutils literal highlight-python"><span class="s2">&quot;my_ns1&quot;</span></code> must also be
 specified in <a class="reference internal" href="#confval-cpp_strip_namespaces_from_signatures" title="cpp_strip_namespaces_from_signatures (configuration value) — list[str] specifying namespaces to strip from signatures."><code class="xref std std-confval docutils literal notranslate"><span class="pre">cpp_strip_namespaces_from_signatures</span></code></a>.</p>
 </div>
 </dd></dl>
@@ -1186,8 +1190,8 @@ specified in <a class="reference internal" href="#confval-cpp_strip_namespaces_f
 <dt class="sig sig-object highlight std" id="confval-cpp_xref_resolve_c_macro_pattern">
 <span class="sig-name descname"><span class="pre">cpp_xref_resolve_c_macro_pattern</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="s1">&#39;[A-Z]+[A-Z_0-9]*&#39;</span></code><a class="headerlink" href="#confval-cpp_xref_resolve_c_macro_pattern" title="Permalink to this definition">¶</a></dt>
 <dd><p>This theme adds support for resolving C macros and C macro parameters from
-cross references created using C++-domain roles like <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/domains.html#role-cpp-expr" title="(in Sphinx v6.0.0b3)"><code class="xref rst rst-role docutils literal notranslate"><span class="pre">cpp:expr</span></code></a> and
-<a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/domains.html#role-cpp-texpr" title="(in Sphinx v6.0.0b3)"><code class="xref rst rst-role docutils literal notranslate"><span class="pre">cpp:texpr</span></code></a>.</p>
+cross references created using C++-domain roles like <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/domains.html#role-cpp-expr" title="(in Sphinx v6.0.1)"><code class="xref rst rst-role docutils literal notranslate"><span class="pre">cpp:expr</span></code></a> and
+<a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/domains.html#role-cpp-texpr" title="(in Sphinx v6.0.1)"><code class="xref rst rst-role docutils literal notranslate"><span class="pre">cpp:texpr</span></code></a>.</p>
 <p>To avoid an additional symbol lookup in most cases, this support relies on a
 regular expression pattern to identify potential C macro targets.  By
 default, only names consisting of uppercase latin letters, underscores, or
@@ -1221,9 +1225,9 @@ Specifying <code class="code highlight cpp docutils literal highlight-cpp"><span
 <dl class="cpp function objdesc">
 <dt class="sig sig-object highlight api-include-path cpp">
 <div class="docutils container">
-<code class="cpp code highlight docutils literal highlight-cpp"><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;my_header.h&quot;</span><span class="cp"></span></code></div>
+<code class="cpp code highlight docutils literal highlight-cpp"><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;my_header.h&quot;</span></code></div>
 <div class="docutils container">
-<code class="cpp code highlight docutils literal highlight-cpp"><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;another_header.h&quot;</span><span class="cp"></span></code></div>
+<code class="cpp code highlight docutils literal highlight-cpp"><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;another_header.h&quot;</span></code></div>
 </dt>
 <dt class="sig sig-object highlight cpp" id="_CPPv43fooi">
 <span id="_CPPv33fooi"></span><span id="_CPPv23fooi"></span><span id="foo__i"></span><span class="kt">void</span><span class="w">&nbsp;</span><span class="sig-name descname"><span class="n">foo</span></span><span><span class="p">(</span><span><span class="kt">int</span><span class="w">&nbsp;</span><a class="n sig-param reference internal" href="#_CPPv43fooi" title="foo::param (C++ function parameter)"><span class="n sig-param">param</span></a></span><span class="p">)</span></span><span class="p">;</span><a class="headerlink" href="#_CPPv43fooi" title="Permalink to this definition">¶</a></dt>
@@ -1345,7 +1349,7 @@ Function with alternative HTML fragment identifier<a class="headerlink" href="#i
   <small>
     
       Last update:
-      Nov 15, 2022
+      Jan 03, 2023
     
   </small>
 </div>
@@ -1422,7 +1426,7 @@ Function with alternative HTML fragment identifier<a class="headerlink" href="#i
   
     Created using
     <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
-    5.3.0.
+    6.0.0.
      and
     <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
   

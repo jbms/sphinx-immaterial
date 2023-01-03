@@ -33,7 +33,7 @@
       
     
         <link rel="stylesheet" type="text/css" href="../../../../_static/google_fonts.css" />
-        <link rel="stylesheet" type="text/css" href="../../../../_static/stylesheets/sphinx_immaterial_theme.fe873c5d5ee1917e6.min.css" />
+        <link rel="stylesheet" type="text/css" href="../../../../_static/stylesheets/sphinx_immaterial_theme.ce877ce75602c6c77.min.css" />
         <link rel="stylesheet" type="text/css" href="../../../../_static/extra_css.css" />
     <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -98,7 +98,9 @@
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href="../../../../index.html" title="Sphinx-Immaterial" class="md-header__button md-logo" aria-label="Sphinx-Immaterial" data-md-component="logo">
-      <img src="../../../../_static/Ybin.gif" alt="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
     </a>
     <label class="md-header__button md-icon" for="__drawer">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
@@ -221,7 +223,9 @@
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
     <a href="../../../../index.html" title="Sphinx-Immaterial" class="md-nav__button md-logo" aria-label="Sphinx-Immaterial" data-md-component="logo">
-      <img src="../../../../_static/Ybin.gif" alt="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
     </a>
     Sphinx-Immaterial
   </label>
@@ -933,13 +937,13 @@
 
 <div class="viewcode-block" id="Config"><a class="viewcode-back" href="../../../../apidoc/cpp/apigen.html#sphinx_immaterial.apidoc.cpp.api_parser.Config">[docs]</a><span class="nd">@pydantic</span><span class="o">.</span><span class="n">dataclasses</span><span class="o">.</span><span class="n">dataclass</span>
 <span class="k">class</span> <span class="nc">Config</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Specifies a C++ API parsing configuration.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Specifies a C++ API parsing configuration.</span>
 
 <span class="sd">    Based on this configuration, a description of the API is generated.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">input_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;__input.cpp&quot;</span>
-    <span class="sd">&quot;&quot;&quot;Path to the input file to parse.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Path to the input file to parse.</span>
 
 <span class="sd">    This may either be a path to an existing file, or `.input_content` may</span>
 <span class="sd">    specify its content, in which case the filesystem is not accessed.</span>
@@ -950,19 +954,19 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">input_content</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bytes</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="sd">&quot;&quot;&quot;Specifies the content of `.input_path`.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Specifies the content of `.input_path`.</span>
 
 <span class="sd">    If unspecified, the content is read from filesystem.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">compiler_flags</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
-    <span class="sd">&quot;&quot;&quot;List of compiler flags to pass to Clang.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;List of compiler flags to pass to Clang.&quot;&quot;&quot;</span>
 
     <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
-    <span class="sd">&quot;&quot;&quot;Parse in verbose mode.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Parse in verbose mode.&quot;&quot;&quot;</span>
 
     <span class="n">include_directory_map</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
-    <span class="sd">&quot;&quot;&quot;Maps actual include directories to a displayed directory name.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Maps actual include directories to a displayed directory name.</span>
 
 <span class="sd">    The keys should be prefixes of paths specified in error messages/source</span>
 <span class="sd">    locations identified by clang.</span>
@@ -974,7 +978,7 @@
     <span class="n">allow_paths</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Pattern</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span>
         <span class="n">default_factory</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="p">[</span><span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)]</span>
     <span class="p">)</span>
-    <span class="sd">&quot;&quot;&quot;List of regular expressions matching *allowed* paths.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;List of regular expressions matching *allowed* paths.</span>
 
 <span class="sd">    Only entities defined in files that match `.allow_paths`, and don&#39;t match</span>
 <span class="sd">    `.disallow_paths`, are documented.  By default all entities are documented,</span>
@@ -988,7 +992,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">disallow_paths</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Pattern</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
-    <span class="sd">&quot;&quot;&quot;List of regular expressions matching *disallowed* paths.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;List of regular expressions matching *disallowed* paths.</span>
 
 <span class="sd">    Entities defined in files matching any of these patterns are not documented.</span>
 
@@ -999,7 +1003,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">disallow_namespaces</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Pattern</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
-    <span class="sd">&quot;&quot;&quot;List of regular expressions matching *disallowed* namespaces.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;List of regular expressions matching *disallowed* namespaces.</span>
 
 <span class="sd">    Entities defined in namespaces matching any of the specified patterns are</span>
 <span class="sd">    not documented.</span>
@@ -1008,14 +1012,14 @@
     <span class="n">allow_symbols</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Pattern</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span>
         <span class="n">default_factory</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="p">[</span><span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)]</span>
     <span class="p">)</span>
-    <span class="sd">&quot;&quot;&quot;List of regular expressions matching *allowed* symbols.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;List of regular expressions matching *allowed* symbols.</span>
 
 <span class="sd">    Only symbols matching one of the `.allow_symbols` patterns, and not matching</span>
 <span class="sd">    `.disallow_symbols`, are documented.  By default, all symbols are allowed.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">disallow_symbols</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Pattern</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
-    <span class="sd">&quot;&quot;&quot;List of regular expressions matching *disallowed* symbols.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;List of regular expressions matching *disallowed* symbols.</span>
 
 <span class="sd">    Symbols matching any of these patterns are undocumented.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -1023,20 +1027,20 @@
     <span class="n">allow_macros</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Pattern</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span>
         <span class="n">default_factory</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="p">[</span><span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)]</span>
     <span class="p">)</span>
-    <span class="sd">&quot;&quot;&quot;List of regular expressions matching *allowed* macros.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;List of regular expressions matching *allowed* macros.</span>
 
 <span class="sd">    Only macros names matching `.allow_macros`, and not matching</span>
 <span class="sd">    `.disallow_macros`, are documented.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">disallow_macros</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Pattern</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
-    <span class="sd">&quot;&quot;&quot;List of regular expressions matching *disallowed* macro names.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;List of regular expressions matching *disallowed* macro names.</span>
 
 <span class="sd">    Macros matching any of these patterns are undocumented.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">ignore_diagnostics</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Pattern</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
-    <span class="sd">&quot;&quot;&quot;List of regular expressions matching diagnostics to ignore.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;List of regular expressions matching diagnostics to ignore.</span>
 
 <span class="sd">    Diagnostics matching any of these patterns are ignored.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -1049,13 +1053,13 @@
     <span class="p">)</span>
     <span class="n">type_replacements</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
     <span class="n">hide_types</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Pattern</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
-    <span class="sd">&quot;&quot;&quot;List of regular expressions matching *hidden* types.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;List of regular expressions matching *hidden* types.</span>
 
 <span class="sd">    Matching return types are replaced with :cpp:`auto`, and matching</span>
 <span class="sd">    initializers are elided.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">ignore_template_parameters</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Pattern</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
-    <span class="sd">&quot;&quot;&quot;List of regular expressions matching *ignored* template parameters.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;List of regular expressions matching *ignored* template parameters.</span>
 
 <span class="sd">    Template parameters with a declaration matching any of these patterns are</span>
 <span class="sd">    excluded from the generated documentation.</span>
@@ -1064,7 +1068,7 @@
     <span class="n">hide_initializers</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Pattern</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span>
         <span class="n">default_factory</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="p">[</span><span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;^=\s*(?:(true|false)\s*$|\[)&quot;</span><span class="p">)]</span>
     <span class="p">)</span>
-    <span class="sd">&quot;&quot;&quot;List of regular expressions matching initializers to elide.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;List of regular expressions matching initializers to elide.</span>
 
 <span class="sd">    Any matching initializer expression is elided from the generated</span>
 <span class="sd">    documentation.</span>
@@ -1106,36 +1110,36 @@
     <span class="n">include_directory_map_pattern</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="n">Pattern</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">allow_path_pattern</span> <span class="o">=</span> <span class="n">_combine_regexp_list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">allow_paths</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">disallow_path_pattern</span> <span class="o">=</span> <span class="n">_combine_regexp_list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">disallow_paths</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">allow_path_pattern</span> <span class="o">=</span> <span class="n">_combine_regexp_list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">allow_paths</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">allow_path_pattern</span> <span class="o">=</span> <span class="n">_combine_regexp_list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">allow_paths</span><span class="p">)</span>  <span class="c1"># type: ignore[misc]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">disallow_path_pattern</span> <span class="o">=</span> <span class="n">_combine_regexp_list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">disallow_paths</span><span class="p">)</span>  <span class="c1"># type: ignore[misc]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">allow_path_pattern</span> <span class="o">=</span> <span class="n">_combine_regexp_list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">allow_paths</span><span class="p">)</span>  <span class="c1"># type: ignore[misc]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">disallow_namespaces_pattern</span> <span class="o">=</span> <span class="n">_combine_regexp_list</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">disallow_namespaces</span>
         <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">allow_symbols_pattern</span> <span class="o">=</span> <span class="n">_combine_regexp_list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">allow_symbols</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">disallow_symbols_pattern</span> <span class="o">=</span> <span class="n">_combine_regexp_list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">disallow_symbols</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">allow_macros_pattern</span> <span class="o">=</span> <span class="n">_combine_regexp_list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">allow_macros</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">disallow_macros_pattern</span> <span class="o">=</span> <span class="n">_combine_regexp_list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">disallow_macros</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ignore_diagnostics_pattern</span> <span class="o">=</span> <span class="n">_combine_regexp_list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ignore_diagnostics</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">hide_types_pattern</span> <span class="o">=</span> <span class="n">_combine_regexp_list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">hide_types</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">type_replacements_pattern</span> <span class="o">=</span> <span class="n">_make_replacement_pattern</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">type_replacements</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;\b&quot;</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;\b&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">allow_symbols_pattern</span> <span class="o">=</span> <span class="n">_combine_regexp_list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">allow_symbols</span><span class="p">)</span>  <span class="c1"># type: ignore[misc]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">disallow_symbols_pattern</span> <span class="o">=</span> <span class="n">_combine_regexp_list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">disallow_symbols</span><span class="p">)</span>  <span class="c1"># type: ignore[misc]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">allow_macros_pattern</span> <span class="o">=</span> <span class="n">_combine_regexp_list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">allow_macros</span><span class="p">)</span>  <span class="c1"># type: ignore[misc]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">disallow_macros_pattern</span> <span class="o">=</span> <span class="n">_combine_regexp_list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">disallow_macros</span><span class="p">)</span>  <span class="c1"># type: ignore[misc]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ignore_diagnostics_pattern</span> <span class="o">=</span> <span class="n">_combine_regexp_list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ignore_diagnostics</span><span class="p">)</span>  <span class="c1"># type: ignore[misc]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hide_types_pattern</span> <span class="o">=</span> <span class="n">_combine_regexp_list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">hide_types</span><span class="p">)</span>  <span class="c1"># type: ignore[misc]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">type_replacements_pattern</span> <span class="o">=</span> <span class="n">_make_replacement_pattern</span><span class="p">(</span>  <span class="c1"># type: ignore[misc]</span>
+            <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">type_replacements</span><span class="o">.</span><span class="n">keys</span><span class="p">()),</span> <span class="n">prefix</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;\b&quot;</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;\b&quot;</span>
         <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ignore_template_parameters_pattern</span> <span class="o">=</span> <span class="n">_combine_regexp_list</span><span class="p">(</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ignore_template_parameters_pattern</span> <span class="o">=</span> <span class="n">_combine_regexp_list</span><span class="p">(</span>  <span class="c1"># type: ignore[misc]</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">ignore_template_parameters</span>
         <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">hide_initializers_pattern</span> <span class="o">=</span> <span class="n">_combine_regexp_list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">hide_initializers</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hide_initializers_pattern</span> <span class="o">=</span> <span class="n">_combine_regexp_list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">hide_initializers</span><span class="p">)</span>  <span class="c1"># type: ignore[misc]</span>
         <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;nt&quot;</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_include_directory_map</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_include_directory_map</span> <span class="o">=</span> <span class="p">{</span>  <span class="c1"># type: ignore[misc]</span>
                 <span class="n">key</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;/&quot;</span><span class="p">):</span> <span class="n">value</span>
                 <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">include_directory_map</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
             <span class="p">}</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_include_directory_map</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">include_directory_map</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">include_directory_map_pattern</span> <span class="o">=</span> <span class="n">_make_replacement_pattern</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_include_directory_map</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">include_directory_map</span>  <span class="c1"># type: ignore[misc]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">include_directory_map_pattern</span> <span class="o">=</span> <span class="n">_make_replacement_pattern</span><span class="p">(</span>  <span class="c1"># type: ignore[misc]</span>
             <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_include_directory_map</span><span class="o">.</span><span class="n">keys</span><span class="p">()),</span> <span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;^&quot;</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="s2">&quot;&quot;</span>
         <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_cached_mapped_include_directories</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cached_mapped_include_directories</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># type: ignore[misc]</span>
 
     <span class="n">_include_directory_map</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span>
     <span class="n">_cached_mapped_include_directories</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span>
@@ -1259,7 +1263,7 @@
 
 
 <span class="k">def</span> <span class="nf">split_doc_comment_into_lines</span><span class="p">(</span><span class="n">cmt</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
-    <span class="sd">&quot;&quot;&quot;Strip the raw string of an object&#39;s comment into lines.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Strip the raw string of an object&#39;s comment into lines.</span>
 <span class="sd">    :param cmt: the comment to parse.</span>
 <span class="sd">    :returns: A list of the lines without the surrounding C++ comment syntax.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -1407,7 +1411,7 @@
 
 
 <span class="k">def</span> <span class="nf">get_extent_spelling</span><span class="p">(</span><span class="n">translation_unit</span><span class="p">:</span> <span class="n">TranslationUnit</span><span class="p">,</span> <span class="n">extent</span><span class="p">:</span> <span class="n">SourceRange</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Returns the C++ source representation for the specified extent.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns the C++ source representation for the specified extent.</span>
 
 <span class="sd">    Comments are excluded and for simplicity all tokens are separated by</span>
 <span class="sd">    whitespace.  This results in excessive whitespace, but that does not matter</span>
@@ -1430,8 +1434,8 @@
         <span class="c1"># angle brackets.</span>
         <span class="k">if</span> <span class="n">prev_token</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">spelling</span> <span class="o">=</span> <span class="n">prev_token</span><span class="o">.</span><span class="n">spelling</span>
-            <span class="n">token_end</span> <span class="o">=</span> <span class="n">prev_token</span><span class="o">.</span><span class="n">extent</span><span class="o">.</span><span class="n">end</span>
-            <span class="n">offset_diff</span> <span class="o">=</span> <span class="n">token_end</span><span class="o">.</span><span class="n">offset</span> <span class="o">-</span> <span class="n">extent</span><span class="o">.</span><span class="n">end</span><span class="o">.</span><span class="n">offset</span>
+            <span class="n">token_end</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">SourceLocation</span><span class="p">,</span> <span class="n">prev_token</span><span class="o">.</span><span class="n">extent</span><span class="o">.</span><span class="n">end</span><span class="p">)</span>
+            <span class="n">offset_diff</span> <span class="o">=</span> <span class="n">token_end</span><span class="o">.</span><span class="n">offset</span> <span class="o">-</span> <span class="n">cast</span><span class="p">(</span><span class="n">SourceLocation</span><span class="p">,</span> <span class="n">extent</span><span class="o">.</span><span class="n">end</span><span class="p">)</span><span class="o">.</span><span class="n">offset</span>
             <span class="k">if</span> <span class="n">offset_diff</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="k">yield</span> <span class="n">spelling</span><span class="p">[:</span><span class="o">-</span><span class="n">offset_diff</span><span class="p">]</span>
             <span class="k">else</span><span class="p">:</span>
@@ -2256,7 +2260,7 @@
             <span class="n">json_repr</span><span class="p">[</span><span class="s2">&quot;parent&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">get_entity_id</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
         <span class="n">entity_id</span> <span class="o">=</span> <span class="n">get_entity_id</span><span class="p">(</span><span class="n">decl</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">document_with</span><span class="p">:</span>
-            <span class="n">prev_json</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_prev_decl</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">prev_json</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">Any</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_prev_decl</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
             <span class="k">if</span> <span class="p">(</span>
                 <span class="n">prev_json</span> <span class="ow">is</span> <span class="kc">None</span>
                 <span class="ow">or</span> <span class="ow">not</span> <span class="n">_kinds_are_compatible</span><span class="p">(</span><span class="n">prev_json</span><span class="p">[</span><span class="s2">&quot;kind&quot;</span><span class="p">],</span> <span class="n">json_repr</span><span class="p">[</span><span class="s2">&quot;kind&quot;</span><span class="p">])</span>
@@ -2377,7 +2381,7 @@
 
 
 <span class="k">def</span> <span class="nf">_transform_template_parameters</span><span class="p">(</span><span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">,</span> <span class="n">template_parameters</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]):</span>
-    <span class="sd">&quot;&quot;&quot;Transforms template parameters to C++20 form.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Transforms template parameters to C++20 form.&quot;&quot;&quot;</span>
 
     <span class="n">requires</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">new_template_parameters</span> <span class="o">=</span> <span class="p">[]</span>
@@ -3072,7 +3076,7 @@
   <small>
     
       Last update:
-      Nov 15, 2022
+      Jan 03, 2023
     
   </small>
 </div>
@@ -3113,7 +3117,7 @@
   
     Created using
     <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
-    5.3.0.
+    6.0.0.
      and
     <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
   

@@ -33,7 +33,7 @@
       
     
         <link rel="stylesheet" type="text/css" href="_static/google_fonts.css" />
-        <link rel="stylesheet" type="text/css" href="_static/stylesheets/sphinx_immaterial_theme.fe873c5d5ee1917e6.min.css" />
+        <link rel="stylesheet" type="text/css" href="_static/stylesheets/sphinx_immaterial_theme.ce877ce75602c6c77.min.css" />
         <link rel="stylesheet" type="text/css" href="_static/extra_css.css" />
     <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -103,7 +103,9 @@
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href="index.html" title="Sphinx-Immaterial" class="md-header__button md-logo" aria-label="Sphinx-Immaterial" data-md-component="logo">
-      <img src="_static/Ybin.gif" alt="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
     </a>
     <label class="md-header__button md-icon" for="__drawer">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
@@ -226,7 +228,9 @@
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
     <a href="index.html" title="Sphinx-Immaterial" class="md-nav__button md-logo" aria-label="Sphinx-Immaterial" data-md-component="logo">
-      <img src="_static/Ybin.gif" alt="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
     </a>
     Sphinx-Immaterial
   </label>
@@ -1476,7 +1480,7 @@ source from this theme in <em>sphinx_immaterial/apidoc/python/autodoc_property_t
                 <span class="bp">self</span><span class="o">.</span><span class="n">retann</span> <span class="o">=</span> <span class="n">new_retann</span>
         <span class="k">return</span> <span class="kc">True</span>
 
-    <span class="n">PropertyDocumenter</span><span class="o">.</span><span class="n">import_object</span> <span class="o">=</span> <span class="n">import_object</span>
+    <span class="n">PropertyDocumenter</span><span class="o">.</span><span class="n">import_object</span> <span class="o">=</span> <span class="n">import_object</span>  <span class="c1"># type: ignore[assignment]</span>
 
     <span class="n">old_add_directive_header</span> <span class="o">=</span> <span class="n">PropertyDocumenter</span><span class="o">.</span><span class="n">add_directive_header</span>
 
@@ -1498,7 +1502,7 @@ source from this theme in <em>sphinx_immaterial/apidoc/python/autodoc_property_t
         <span class="c1"># Type annotation not already added.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">add_line</span><span class="p">(</span><span class="s2">&quot;   :type: &quot;</span> <span class="o">+</span> <span class="n">retann</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_sourcename</span><span class="p">())</span>
 
-    <span class="n">PropertyDocumenter</span><span class="o">.</span><span class="n">add_directive_header</span> <span class="o">=</span> <span class="n">add_directive_header</span>
+    <span class="n">PropertyDocumenter</span><span class="o">.</span><span class="n">add_directive_header</span> <span class="o">=</span> <span class="n">add_directive_header</span>  <span class="c1"># type: ignore[assignment]</span>
 
     <span class="c1"># Modify PyProperty to improve formatting of :type: option</span>
     <span class="n">PyProperty</span> <span class="o">=</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">domains</span><span class="o">.</span><span class="n">python</span><span class="o">.</span><span class="n">PyProperty</span>
@@ -1515,7 +1519,7 @@ source from this theme in <em>sphinx_immaterial/apidoc/python/autodoc_property_t
 
         <span class="k">return</span> <span class="n">fullname</span><span class="p">,</span> <span class="n">prefix</span>
 
-    <span class="n">PyProperty</span><span class="o">.</span><span class="n">handle_signature</span> <span class="o">=</span> <span class="n">handle_signature</span>
+    <span class="n">PyProperty</span><span class="o">.</span><span class="n">handle_signature</span> <span class="o">=</span> <span class="n">handle_signature</span>  <span class="c1"># type: ignore[assignment]</span>
 
 
 <span class="n">apply_property_documenter_type_annotation_fix</span><span class="p">()</span>
@@ -1535,17 +1539,17 @@ source from this theme in <em>sphinx_immaterial/apidoc/python/autodoc_property_t
 <span class="p">..</span> <span class="ow">code-block</span><span class="p">::</span> <span class="k">python</span>
 
    <span class="k">def</span> <span class="nf">hello</span><span class="p">():</span>
-       <span class="sd">&quot;&quot;&quot;Greet.&quot;&quot;&quot;</span>
+   <span class="w">    </span><span class="sd">&quot;&quot;&quot;Greet.&quot;&quot;&quot;</span>
        <span class="k">return</span> <span class="s2">&quot;Hello World&quot;</span>
 
 <span class="p">..</span> <span class="ow">code-block</span><span class="p">::</span> <span class="k">javascript</span>
 
    <span class="cm">/**</span>
    <span class="cm">* Greet.</span>
-   <span class="cm">*/</span><span class="w"></span>
-   <span class="kd">function</span><span class="w"> </span><span class="nx">hello</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-   <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="s2">&quot;Hello World&quot;</span><span class="p">;</span><span class="w"></span>
-   <span class="p">}</span><span class="w"></span>
+   <span class="cm">*/</span>
+   <span class="kd">function</span><span class="w"> </span><span class="nx">hello</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+   <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="s2">&quot;Hello World&quot;</span><span class="p">;</span>
+   <span class="p">}</span>
 </code></pre></div>
 </div>
 <div class="result docutils container">
@@ -1555,16 +1559,16 @@ source from this theme in <em>sphinx_immaterial/apidoc/python/autodoc_property_t
 </code></pre></div>
 </div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">hello</span><span class="p">():</span>
-    <span class="sd">&quot;&quot;&quot;Greet.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Greet.&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="s2">&quot;Hello World&quot;</span>
 </code></pre></div>
 </div>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><code><span class="cm">/**</span>
 <span class="cm">* Greet.</span>
-<span class="cm">*/</span><span class="w"></span>
-<span class="kd">function</span><span class="w"> </span><span class="nx">hello</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="s2">&quot;Hello World&quot;</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="cm">*/</span>
+<span class="kd">function</span><span class="w"> </span><span class="nx">hello</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="s2">&quot;Hello World&quot;</span><span class="p">;</span>
+<span class="p">}</span>
 </code></pre></div>
 </div>
 </div>
@@ -1897,7 +1901,7 @@ source files for one Sphinx project.</p>
 \end{eqnarray}</div></div>
 </div>
 <h2 id="production-lists">Production Lists<a class="headerlink" href="#production-lists" title="Permalink to this heading">¶</a></h2>
-<p>The following <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/directives.html#directive-productionlist" title="(in Sphinx v6.0.0b3)"><code class="xref any docutils literal notranslate"><span class="pre">productionlist</span></code></a> is a modified example taken from
+<p>The following <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/directives.html#directive-productionlist" title="(in Sphinx v6.0.1)"><code class="xref any docutils literal notranslate"><span class="pre">productionlist</span></code></a> is a modified example taken from
 <a class="reference external" href="https://graphviz.org/doc/info/lang.html">the Graphviz documentation</a></p>
 <div class="results docutils container">
 <div class="literal-block-wrapper docutils container" id="id11">
@@ -1974,7 +1978,7 @@ This is a reference to the grammar for a <span class="na">:token:</span><span cl
   <small>
     
       Last update:
-      Nov 15, 2022
+      Jan 03, 2023
     
   </small>
 </div>
@@ -2051,7 +2055,7 @@ This is a reference to the grammar for a <span class="na">:token:</span><span cl
   
     Created using
     <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
-    5.3.0.
+    6.0.0.
      and
     <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
   

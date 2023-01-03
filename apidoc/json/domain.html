@@ -33,7 +33,7 @@
       
     
         <link rel="stylesheet" type="text/css" href="../../_static/google_fonts.css" />
-        <link rel="stylesheet" type="text/css" href="../../_static/stylesheets/sphinx_immaterial_theme.fe873c5d5ee1917e6.min.css" />
+        <link rel="stylesheet" type="text/css" href="../../_static/stylesheets/sphinx_immaterial_theme.ce877ce75602c6c77.min.css" />
         <link rel="stylesheet" type="text/css" href="../../_static/extra_css.css" />
     <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -103,7 +103,9 @@
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href="../../index.html" title="Sphinx-Immaterial" class="md-header__button md-logo" aria-label="Sphinx-Immaterial" data-md-component="logo">
-      <img src="../../_static/Ybin.gif" alt="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
     </a>
     <label class="md-header__button md-icon" for="__drawer">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
@@ -226,7 +228,9 @@
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
     <a href="../../index.html" title="Sphinx-Immaterial" class="md-nav__button md-logo" aria-label="Sphinx-Immaterial" data-md-component="logo">
-      <img src="../../_static/Ybin.gif" alt="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
     </a>
     Sphinx-Immaterial
   </label>
@@ -1910,7 +1914,7 @@
 <p>This extension requires the <a class="reference external" href="https://pypi.org/project/PyYAML/">PyYAML</a>
 package; you must either add it as a dependency directly, or add <code class="docutils literal notranslate"><span class="pre">json</span></code> extra
 feature of this package as a dependency:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><code>pip install sphinx-immaterial<span class="o">[</span>json<span class="o">]</span>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>sphinx-immaterial<span class="o">[</span>json<span class="o">]</span>
 </code></pre></div>
 </div>
 <h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permalink to this heading">¶</a></h2>
@@ -1945,7 +1949,7 @@ relative to the documentation source directory.</p>
 <p>Requires that the <a class="reference external" href="https://pypi.org/project/jsonschema/">jsonschema</a>
 package is installed; you can either add it as a dependency directly, or
 depend on the <code class="docutils literal notranslate"><span class="pre">jsonschema_validation</span></code> extra feature of this package:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><code>pip install sphinx-immaterial<span class="o">[</span>json,jsonschema_validation<span class="o">]</span>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>sphinx-immaterial<span class="o">[</span>json,jsonschema_validation<span class="o">]</span>
 </code></pre></div>
 </div>
 </dd></dl>
@@ -1955,7 +1959,7 @@ depend on the <code class="docutils literal notranslate"><span class="pre">jsons
 <span class="sig-name descname"><span class="pre">json_schema_rst_prolog</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="s1">&#39;&#39;</span></code><a class="headerlink" href="#confval-json_schema_rst_prolog" title="Permalink to this definition">¶</a></dt>
 <dd><p>A string of rST that will be prepended to the <code class="docutils literal notranslate"><span class="pre">title</span></code> and <code class="docutils literal notranslate"><span class="pre">description</span></code>
 fields of a schema before parsing them as rST.</p>
-<p>This may be used to set the <a class="reference external" href="http://docutils.sourceforge.net/docs/ref/rst/directives.html#default-role">rST directive default-role</a>, <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/directives.html#directive-highlight" title="(in Sphinx v6.0.0b3)"><code class="xref rst rst-dir docutils literal notranslate"><span class="pre">highlight</span></code></a>
+<p>This may be used to set the <a class="reference external" href="http://docutils.sourceforge.net/docs/ref/rst/directives.html#default-role">rST directive default-role</a>, <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/directives.html#directive-highlight" title="(in Sphinx v6.0.1)"><code class="xref rst rst-dir docutils literal notranslate"><span class="pre">highlight</span></code></a>
 language, or <a class="reference internal" href="../../code_syntax_highlighting.html#directive-default-literal-role" title="default-literal-role directive"><code class="xref rst rst-dir docutils literal notranslate"><span class="pre">default-literal-role</span></code></a>.</p>
 <div class="note admonition">
 <p class="admonition-title">Note</p>
@@ -2093,58 +2097,58 @@ for <code class="docutils literal notranslate"><span class="pre">other_member</s
 <div class="literal-block-wrapper docutils container" id="id2">
 <div class="code-block-caption highlight"><span class="caption-text filename">
 inheritance_schema.yml<a class="headerlink" href="#id2" title="Permalink to this code">¶</a></span></div>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><code><span class="nt">$schema</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http://json-schema.org/draft-07/schema#</span><span class="w"></span>
-<span class="nt">$id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Pet</span><span class="w"></span>
-<span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Represents</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">generic</span><span class="nv"> </span><span class="s">pet.&quot;</span><span class="w"></span>
-<span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">object</span><span class="w"></span>
-<span class="nt">properties</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span><span class="w"></span>
-<span class="w">    </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Type of pet.</span><span class="w"></span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span><span class="w"></span>
-<span class="w">    </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Name of the pet.</span><span class="w"></span>
-<span class="w">  </span><span class="nt">age</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">number</span><span class="w"></span>
-<span class="w">    </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Age of the pet in years.</span><span class="w"></span>
-<span class="w">    </span><span class="nt">minimum</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span><span class="w"></span>
-<span class="nt">required</span><span class="p">:</span><span class="w"></span>
-<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">type</span><span class="w"></span>
-<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">name</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><code><span class="nt">$schema</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http://json-schema.org/draft-07/schema#</span>
+<span class="nt">$id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Pet</span>
+<span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Represents</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">generic</span><span class="nv"> </span><span class="s">pet.&quot;</span>
+<span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">object</span>
+<span class="nt">properties</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="w">    </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Type of pet.</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="w">    </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Name of the pet.</span>
+<span class="w">  </span><span class="nt">age</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">number</span>
+<span class="w">    </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Age of the pet in years.</span>
+<span class="w">    </span><span class="nt">minimum</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="nt">required</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">type</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">name</span>
 
-<span class="nt">definitions</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">dog</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">$id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Dog</span><span class="w"></span>
-<span class="w">    </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Represents</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">dog.&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="nt">allOf</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">$ref</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Pet</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">object</span><span class="w"></span>
-<span class="w">      </span><span class="nt">properties</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"></span>
-<span class="w">          </span><span class="nt">const</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;dog&quot;</span><span class="w"></span>
-<span class="w">        </span><span class="nt">bark_volume</span><span class="p">:</span><span class="w"></span>
-<span class="w">          </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">number</span><span class="w"></span>
-<span class="w">          </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Bark</span><span class="nv"> </span><span class="s">volume</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">dB.&quot;</span><span class="w"></span>
-<span class="w">        </span><span class="nt">favorite_walk</span><span class="p">:</span><span class="w"></span>
-<span class="w">          </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span><span class="w"></span>
-<span class="w">          </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Favorite</span><span class="nv"> </span><span class="s">place</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">walk.&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="nt">cat</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">$id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Cat</span><span class="w"></span>
-<span class="w">    </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Represents</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">cat.&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="nt">allOf</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">$ref</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Pet</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">object</span><span class="w"></span>
-<span class="w">      </span><span class="nt">properties</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"></span>
-<span class="w">          </span><span class="nt">const</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;cat&quot;</span><span class="w"></span>
-<span class="w">        </span><span class="nt">meow_volume</span><span class="p">:</span><span class="w"></span>
-<span class="w">          </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">number</span><span class="w"></span>
-<span class="w">          </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Meow</span><span class="nv"> </span><span class="s">volume</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">dB.&quot;</span><span class="w"></span>
-<span class="w">        </span><span class="nt">favorite_scratching_post</span><span class="p">:</span><span class="w"></span>
-<span class="w">          </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span><span class="w"></span>
-<span class="w">          </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Favorite</span><span class="nv"> </span><span class="s">place</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">scratch.&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="nt">examples</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="s">&quot;type&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;cat&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;name&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;Tom&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;age&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="nv">10</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;meow_volume&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="nv">45</span><span class="p p-Indicator">}</span><span class="w"></span>
+<span class="nt">definitions</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">dog</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">$id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Dog</span>
+<span class="w">    </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Represents</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">dog.&quot;</span>
+<span class="w">    </span><span class="nt">allOf</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">$ref</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Pet</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">object</span>
+<span class="w">      </span><span class="nt">properties</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">type</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">const</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;dog&quot;</span>
+<span class="w">        </span><span class="nt">bark_volume</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">number</span>
+<span class="w">          </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Bark</span><span class="nv"> </span><span class="s">volume</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">dB.&quot;</span>
+<span class="w">        </span><span class="nt">favorite_walk</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="w">          </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Favorite</span><span class="nv"> </span><span class="s">place</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">walk.&quot;</span>
+<span class="w">  </span><span class="nt">cat</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">$id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Cat</span>
+<span class="w">    </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Represents</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">cat.&quot;</span>
+<span class="w">    </span><span class="nt">allOf</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">$ref</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Pet</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">object</span>
+<span class="w">      </span><span class="nt">properties</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">type</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">const</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;cat&quot;</span>
+<span class="w">        </span><span class="nt">meow_volume</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">number</span>
+<span class="w">          </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Meow</span><span class="nv"> </span><span class="s">volume</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">dB.&quot;</span>
+<span class="w">        </span><span class="nt">favorite_scratching_post</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="w">          </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Favorite</span><span class="nv"> </span><span class="s">place</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">scratch.&quot;</span>
+<span class="w">    </span><span class="nt">examples</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="s">&quot;type&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;cat&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;name&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;Tom&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;age&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="nv">10</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;meow_volume&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="nv">45</span><span class="p p-Indicator">}</span>
 </code></pre></div>
 </div>
 </div>
@@ -2187,7 +2191,7 @@ inheritance_schema.yml<a class="headerlink" href="#id2" title="Permalink to this
 <dt class="field-odd" id="optional-members-json-Pet">Optional members<span class="colon">:</span><a class="headerlink" href="#optional-members-json-Pet" title="Permalink to this headline">¶</a></dt>
 <dd class="field-odd noindent"><dl class="json schema objdesc">
 <dt class="sig sig-object highlight json" id="json-Pet.age">
-<span class="sig-name descname"><span class="pre">age</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="pre">number</span></span><sub><span class="p"><span class="pre">[</span></span><code class="code json docutils literal highlight highlight-json"><span class="mi">0</span><span class="w"></span></code><span class="p"><span class="pre">,</span> </span><span class="o"><span class="pre">+∞</span></span><span class="p"><span class="pre">)</span></span></sub><a class="headerlink" href="#json-Pet.age" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">age</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="pre">number</span></span><sub><span class="p"><span class="pre">[</span></span><code class="code json docutils literal highlight highlight-json"><span class="mi">0</span></code><span class="p"><span class="pre">,</span> </span><span class="o"><span class="pre">+∞</span></span><span class="p"><span class="pre">)</span></span></sub><a class="headerlink" href="#json-Pet.age" title="Permalink to this definition">¶</a></dt>
 <dd><span><p>Age of the pet in years.</p>
   </span></dd></dl>
 
@@ -2210,7 +2214,7 @@ inheritance_schema.yml<a class="headerlink" href="#id2" title="Permalink to this
 <dt class="field-odd" id="required-members-json-Dog">Required members<span class="colon">:</span><a class="headerlink" href="#required-members-json-Dog" title="Permalink to this headline">¶</a></dt>
 <dd class="field-odd noindent"><dl class="json schema objdesc">
 <dt class="sig sig-object highlight json" id="json-Dog.type">
-<span class="sig-name descname"><span class="pre">type</span></span><span class="p"> <span class="pre">:</span> </span><code class="code json docutils literal highlight highlight-json"><span class="s2">&quot;dog&quot;</span><span class="w"></span></code><a class="headerlink" href="#json-Dog.type" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">type</span></span><span class="p"> <span class="pre">:</span> </span><code class="code json docutils literal highlight highlight-json"><span class="s2">&quot;dog&quot;</span></code><a class="headerlink" href="#json-Dog.type" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="json schema objdesc">
@@ -2225,7 +2229,7 @@ inheritance_schema.yml<a class="headerlink" href="#id2" title="Permalink to this
 <dt class="field-odd" id="optional-members-json-Dog">Optional members<span class="colon">:</span><a class="headerlink" href="#optional-members-json-Dog" title="Permalink to this headline">¶</a></dt>
 <dd class="field-odd noindent"><dl class="json schema objdesc">
 <dt class="sig sig-object highlight json" id="json-Dog.age">
-<span class="sig-name descname"><span class="pre">age</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="pre">number</span></span><sub><span class="p"><span class="pre">[</span></span><code class="code json docutils literal highlight highlight-json"><span class="mi">0</span><span class="w"></span></code><span class="p"><span class="pre">,</span> </span><span class="o"><span class="pre">+∞</span></span><span class="p"><span class="pre">)</span></span></sub><a class="headerlink" href="#json-Dog.age" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">age</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="pre">number</span></span><sub><span class="p"><span class="pre">[</span></span><code class="code json docutils literal highlight highlight-json"><span class="mi">0</span></code><span class="p"><span class="pre">,</span> </span><span class="o"><span class="pre">+∞</span></span><span class="p"><span class="pre">)</span></span></sub><a class="headerlink" href="#json-Dog.age" title="Permalink to this definition">¶</a></dt>
 <dd><span><p>Age of the pet in years.</p>
   </span></dd></dl>
 
@@ -2260,7 +2264,7 @@ inheritance_schema.yml<a class="headerlink" href="#id2" title="Permalink to this
 <dt class="field-odd" id="required-members-json-Cat">Required members<span class="colon">:</span><a class="headerlink" href="#required-members-json-Cat" title="Permalink to this headline">¶</a></dt>
 <dd class="field-odd noindent"><dl class="json schema objdesc">
 <dt class="sig sig-object highlight json" id="json-Cat.type">
-<span class="sig-name descname"><span class="pre">type</span></span><span class="p"> <span class="pre">:</span> </span><code class="code json docutils literal highlight highlight-json"><span class="s2">&quot;cat&quot;</span><span class="w"></span></code><a class="headerlink" href="#json-Cat.type" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">type</span></span><span class="p"> <span class="pre">:</span> </span><code class="code json docutils literal highlight highlight-json"><span class="s2">&quot;cat&quot;</span></code><a class="headerlink" href="#json-Cat.type" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="json schema objdesc">
@@ -2275,7 +2279,7 @@ inheritance_schema.yml<a class="headerlink" href="#id2" title="Permalink to this
 <dt class="field-odd" id="optional-members-json-Cat">Optional members<span class="colon">:</span><a class="headerlink" href="#optional-members-json-Cat" title="Permalink to this headline">¶</a></dt>
 <dd class="field-odd noindent"><dl class="json schema objdesc">
 <dt class="sig sig-object highlight json" id="json-Cat.age">
-<span class="sig-name descname"><span class="pre">age</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="pre">number</span></span><sub><span class="p"><span class="pre">[</span></span><code class="code json docutils literal highlight highlight-json"><span class="mi">0</span><span class="w"></span></code><span class="p"><span class="pre">,</span> </span><span class="o"><span class="pre">+∞</span></span><span class="p"><span class="pre">)</span></span></sub><a class="headerlink" href="#json-Cat.age" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">age</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="pre">number</span></span><sub><span class="p"><span class="pre">[</span></span><code class="code json docutils literal highlight highlight-json"><span class="mi">0</span></code><span class="p"><span class="pre">,</span> </span><span class="o"><span class="pre">+∞</span></span><span class="p"><span class="pre">)</span></span></sub><a class="headerlink" href="#json-Cat.age" title="Permalink to this definition">¶</a></dt>
 <dd><span><p>Age of the pet in years.</p>
   </span></dd></dl>
 
@@ -2295,7 +2299,7 @@ inheritance_schema.yml<a class="headerlink" href="#id2" title="Permalink to this
 </dl>
 <div class="example admonition">
 <p class="admonition-title">Example</p>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;cat&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Tom&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;age&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;meow_volume&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">45</span><span class="p">}</span><span class="w"></span>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;cat&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Tom&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;age&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;meow_volume&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">45</span><span class="p">}</span>
 </code></pre></div>
 </div>
 </div>
@@ -2307,201 +2311,201 @@ inheritance_schema.yml<a class="headerlink" href="#id2" title="Permalink to this
 <div class="literal-block-wrapper docutils container" id="id3">
 <div class="code-block-caption highlight"><span class="caption-text filename">
 index_transform_schema.yml<a class="headerlink" href="#id3" title="Permalink to this code">¶</a></span></div>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><code><span class="nt">$schema</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http://json-schema.org/draft-07/schema#</span><span class="w"></span>
-<span class="nt">$id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">IndexTransform</span><span class="w"></span>
-<span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span><span class="w"></span>
-<span class="w">  </span><span class="no">Index transforms may be serialized to/from JSON using</span><span class="w"></span>
-<span class="w">  </span><span class="no">the following schema.</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><code><span class="nt">$schema</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http://json-schema.org/draft-07/schema#</span>
+<span class="nt">$id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">IndexTransform</span>
+<span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">  </span><span class="no">Index transforms may be serialized to/from JSON using</span>
+<span class="w">  </span><span class="no">the following schema.</span>
 
-<span class="w">  </span><span class="no">The input domain is specified by `.input_rank`,</span><span class="w"></span>
-<span class="w">  </span><span class="no">`.input_inclusive_min`, `.input_exclusive_max`,</span><span class="w"></span>
-<span class="w">  </span><span class="no">`.input_inclusive_max`, `.input_shape`, and</span><span class="w"></span>
-<span class="w">  </span><span class="no">`.input_labels`, while the output index maps are specified by</span><span class="w"></span>
-<span class="w">  </span><span class="no">`.output`.</span><span class="w"></span>
+<span class="w">  </span><span class="no">The input domain is specified by `.input_rank`,</span>
+<span class="w">  </span><span class="no">`.input_inclusive_min`, `.input_exclusive_max`,</span>
+<span class="w">  </span><span class="no">`.input_inclusive_max`, `.input_shape`, and</span>
+<span class="w">  </span><span class="no">`.input_labels`, while the output index maps are specified by</span>
+<span class="w">  </span><span class="no">`.output`.</span>
 
-<span class="w">  </span><span class="no">If neither `.input_inclusive_min` nor `.input_shape`</span><span class="w"></span>
-<span class="w">  </span><span class="no">is specified, all dimensions receive an implicit lower bound of</span><span class="w"></span>
-<span class="w">  </span><span class="no">:math:`-\infty`.  If `.input_shape` is specified but</span><span class="w"></span>
-<span class="w">  </span><span class="no">`.input_inclusive_min` is not specified, all dimensions receive an</span><span class="w"></span>
-<span class="w">  </span><span class="no">explicit lower bound of 0.</span><span class="w"></span>
+<span class="w">  </span><span class="no">If neither `.input_inclusive_min` nor `.input_shape`</span>
+<span class="w">  </span><span class="no">is specified, all dimensions receive an implicit lower bound of</span>
+<span class="w">  </span><span class="no">:math:`-\infty`.  If `.input_shape` is specified but</span>
+<span class="w">  </span><span class="no">`.input_inclusive_min` is not specified, all dimensions receive an</span>
+<span class="w">  </span><span class="no">explicit lower bound of 0.</span>
 
-<span class="w">  </span><span class="no">At most one of `.input_exclusive_max`,</span><span class="w"></span>
-<span class="w">  </span><span class="no">`.input_inclusive_max`, and `.input_shape` may be</span><span class="w"></span>
-<span class="w">  </span><span class="no">specified.  If none are specified, all dimensions receive an implicit upper</span><span class="w"></span>
-<span class="w">  </span><span class="no">bound of :math:`+\infty`.</span><span class="w"></span>
+<span class="w">  </span><span class="no">At most one of `.input_exclusive_max`,</span>
+<span class="w">  </span><span class="no">`.input_inclusive_max`, and `.input_shape` may be</span>
+<span class="w">  </span><span class="no">specified.  If none are specified, all dimensions receive an implicit upper</span>
+<span class="w">  </span><span class="no">bound of :math:`+\infty`.</span>
 
-<span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">object</span><span class="w"></span>
-<span class="nt">properties</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">input_rank</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">integer</span><span class="w"></span>
-<span class="w">    </span><span class="nt">minimum</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span><span class="w"></span>
-<span class="w">    </span><span class="nt">maximum</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">32</span><span class="w"></span>
-<span class="w">    </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Number of input dimensions.</span><span class="w"></span>
-<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span><span class="w"></span>
-<span class="w">      </span><span class="no">The input rank must be specified either directly, or implicitly by the</span><span class="w"></span>
-<span class="w">      </span><span class="no">number of dimensions specified for `.input_inclusive_min`,</span><span class="w"></span>
-<span class="w">      </span><span class="no">`.input_inclusive_max`, `.input_exclusive_max`,</span><span class="w"></span>
-<span class="w">      </span><span class="no">`.input_shape`, or `.input_labels`.</span><span class="w"></span>
-<span class="w">  </span><span class="nt">input_inclusive_min</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">array</span><span class="w"></span>
-<span class="w">    </span><span class="nt">items</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="nt">oneOf</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">integer</span><span class="w"></span>
-<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">array</span><span class="w"></span>
-<span class="w">          </span><span class="nt">items</span><span class="p">:</span><span class="w"></span>
-<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">integer</span><span class="w"></span>
-<span class="w">    </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span><span class="w"></span>
-<span class="w">      </span><span class="no">Inclusive lower bounds of the input domain.</span><span class="w"></span>
-<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span><span class="w"></span>
-<span class="w">      </span><span class="no">Length must equal the `.input_rank`.  Bounds specified as :samp:`{n}`</span><span class="w"></span>
-<span class="w">      </span><span class="no">indicate normal, explicit bounds, while bounds specified as :samp:`[{n}]`</span><span class="w"></span>
-<span class="w">      </span><span class="no">indicate implicit bounds.  For example, :json:`[1, [2]]` specifies an</span><span class="w"></span>
-<span class="w">      </span><span class="no">explicit bound of :math:`1 \leq x` for the first dimension and an implicit</span><span class="w"></span>
-<span class="w">      </span><span class="no">bound of :math:`2 \leq x` for the second dimension.</span><span class="w"></span>
-<span class="w">  </span><span class="nt">input_exclusive_max</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">array</span><span class="w"></span>
-<span class="w">    </span><span class="nt">items</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="nt">oneOf</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">integer</span><span class="w"></span>
-<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">array</span><span class="w"></span>
-<span class="w">          </span><span class="nt">items</span><span class="p">:</span><span class="w"></span>
-<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">integer</span><span class="w"></span>
-<span class="w">    </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span><span class="w"></span>
-<span class="w">      </span><span class="no">Exclusive upper bounds of the input domain.</span><span class="w"></span>
-<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span><span class="w"></span>
-<span class="w">      </span><span class="no">Length must equal the `.input_rank`.  As for `.input_inclusive_min`,</span><span class="w"></span>
-<span class="w">      </span><span class="no">bounds specified as :samp:`{n}` indicate normal, explicit bounds, while</span><span class="w"></span>
-<span class="w">      </span><span class="no">bounds specified as :samp:`[{n}]` indicate implicit bounds.  For example,</span><span class="w"></span>
-<span class="w">      </span><span class="no">:json:`[5, [7]]` specifies an explicit bound of :math:`x &lt; 5` for the</span><span class="w"></span>
-<span class="w">      </span><span class="no">first dimension and an implicit bound of :math:`x &lt; 7` for the second</span><span class="w"></span>
-<span class="w">      </span><span class="no">dimension.</span><span class="w"></span>
-<span class="w">  </span><span class="nt">input_inclusive_max</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">array</span><span class="w"></span>
-<span class="w">    </span><span class="nt">items</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="nt">oneOf</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">integer</span><span class="w"></span>
-<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">array</span><span class="w"></span>
-<span class="w">          </span><span class="nt">items</span><span class="p">:</span><span class="w"></span>
-<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">integer</span><span class="w"></span>
-<span class="w">    </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span><span class="w"></span>
-<span class="w">      </span><span class="no">Inclusive upper bounds of the input domain.</span><span class="w"></span>
-<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span><span class="w"></span>
-<span class="w">      </span><span class="no">Length must equal the `.input_rank`.  As for `.input_inclusive_min`,</span><span class="w"></span>
-<span class="w">      </span><span class="no">bounds specified as :samp:`{n}` indicate normal, explicit bounds, while</span><span class="w"></span>
-<span class="w">      </span><span class="no">bounds specified as :samp:`[{n}]` indicate implicit bounds.  For example,</span><span class="w"></span>
-<span class="w">      </span><span class="no">:json:`[5, [7]]` specifies an explicit bound of :math:`x \leq 5` for the</span><span class="w"></span>
-<span class="w">      </span><span class="no">first dimension and an implicit bound of :math:`x \leq 7` for the second</span><span class="w"></span>
-<span class="w">      </span><span class="no">dimension.</span><span class="w"></span>
-<span class="w">  </span><span class="nt">input_shape</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">array</span><span class="w"></span>
-<span class="w">    </span><span class="nt">items</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="nt">oneOf</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">integer</span><span class="w"></span>
-<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">array</span><span class="w"></span>
-<span class="w">          </span><span class="nt">items</span><span class="p">:</span><span class="w"></span>
-<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">integer</span><span class="w"></span>
-<span class="w">    </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span><span class="w"></span>
-<span class="w">      </span><span class="no">Extent of each dimension of the input domain.</span><span class="w"></span>
-<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span><span class="w"></span>
-<span class="w">      </span><span class="no">Length must equal the `.input_rank`.  As for `.input_inclusive_min`,</span><span class="w"></span>
-<span class="w">      </span><span class="no">bounds specified as :samp:`{n}` indicate normal, explicit bounds, while</span><span class="w"></span>
-<span class="w">      </span><span class="no">bounds specified as :samp:`[{n}]` indicate implicit bounds.  For example,</span><span class="w"></span>
-<span class="w">      </span><span class="no">assuming an `.input_inclusive_min` of :json:`[1, 2]`, an `.input_shape` of</span><span class="w"></span>
-<span class="w">      </span><span class="no">:json:`[5, [7]]` specifies an explicit bound of :math:`x &lt; 6` for the</span><span class="w"></span>
-<span class="w">      </span><span class="no">first dimension and an implicit bound of :math:`x &lt; 9` for the second</span><span class="w"></span>
-<span class="w">      </span><span class="no">dimension.</span><span class="w"></span>
-<span class="w">  </span><span class="nt">input_labels</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">array</span><span class="w"></span>
-<span class="w">    </span><span class="nt">items</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span><span class="w"></span>
-<span class="w">    </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span><span class="w"></span>
-<span class="w">      </span><span class="no">Dimension labels for each input domain dimension.</span><span class="w"></span>
-<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span><span class="w"></span>
-<span class="w">      </span><span class="no">Length must equal the `.input_rank`.  An empty string</span><span class="w"></span>
-<span class="w">      </span><span class="no">indicates an unlabeled dimension.  Non-empty strings must not occur more</span><span class="w"></span>
-<span class="w">      </span><span class="no">than once.  By default, all dimensions are unlabeled.</span><span class="w"></span>
-<span class="w">  </span><span class="nt">output</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">array</span><span class="w"></span>
-<span class="w">    </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span><span class="w"></span>
-<span class="w">      </span><span class="no">Specifies the output index map for each output dimension.</span><span class="w"></span>
-<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span><span class="w"></span>
-<span class="w">      </span><span class="no">If not specified, defaults to an identity transform over the input domain.</span><span class="w"></span>
-<span class="w">      </span><span class="no">Otherwise, the length determines the output rank of the transform.</span><span class="w"></span>
-<span class="w">    </span><span class="nt">items</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="nt">$ref</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">OutputIndexMap</span><span class="w"></span>
-<span class="nt">definitions</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">output-index-map</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">$id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">OutputIndexMap</span><span class="w"></span>
-<span class="w">    </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Specifies a transform from an input space to a single output index.</span><span class="w"></span>
-<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span><span class="w"></span>
-<span class="w">      </span><span class="no">Logically, an output index map is a function that maps ``n``-dimensional</span><span class="w"></span>
-<span class="w">      </span><span class="no">input index vectors to a single output index, using one of the supported</span><span class="w"></span>
-<span class="w">      </span><span class="no">output index methods.  This is used to represent the</span><span class="w"></span>
-<span class="w">      </span><span class="no">:json:schema:`IndexTransform.output` mapping for each output dimension of</span><span class="w"></span>
-<span class="w">      </span><span class="no">an `IndexTransform`.</span><span class="w"></span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">object</span><span class="w"></span>
-<span class="w">    </span><span class="nt">properties</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="nt">offset</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">integer</span><span class="w"></span>
-<span class="w">        </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span><span class="w"></span>
-<span class="w">          </span><span class="no">Specifies an offset for this output dimension.  If neither</span><span class="w"></span>
-<span class="w">          </span><span class="no">`.input_dimension` nor `.index_array` is</span><span class="w"></span>
-<span class="w">          </span><span class="no">specified, this specifies the **constant** value to which this output</span><span class="w"></span>
-<span class="w">          </span><span class="no">dimension maps.</span><span class="w"></span>
-<span class="w">      </span><span class="nt">stride</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">integer</span><span class="w"></span>
-<span class="w">        </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span><span class="w"></span>
-<span class="w">          </span><span class="no">Multiplier for the input index specified by</span><span class="w"></span>
-<span class="w">          </span><span class="no">`.input_dimension` or the index array value specified by</span><span class="w"></span>
-<span class="w">          </span><span class="no">`.index_array`.</span><span class="w"></span>
-<span class="w">        </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span><span class="w"></span>
-<span class="w">          </span><span class="no">Only valid to specify in conjunction with</span><span class="w"></span>
-<span class="w">          </span><span class="no">`.input_dimension` or `.index_array`.</span><span class="w"></span>
-<span class="w">      </span><span class="nt">input_dimension</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">integer</span><span class="w"></span>
-<span class="w">        </span><span class="nt">minimum</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span><span class="w"></span>
-<span class="w">        </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span><span class="w"></span>
-<span class="w">          </span><span class="no">If present, indicates that this output dimension uses a **single</span><span class="w"></span>
-<span class="w">          </span><span class="no">input dimension** map with the specified input dimension.  Must not</span><span class="w"></span>
-<span class="w">          </span><span class="no">be specified in conjunction with `.index_array`.</span><span class="w"></span>
-<span class="w">      </span><span class="nt">index_array</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="nt">oneOf</span><span class="p">:</span><span class="w"></span>
-<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">array</span><span class="w"></span>
-<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">integer</span><span class="w"></span>
-<span class="w">        </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span><span class="w"></span>
-<span class="w">          </span><span class="no">If present, indicates that this output dimension uses an **index</span><span class="w"></span>
-<span class="w">          </span><span class="no">array** map, with the index array specified as a nested list of rank</span><span class="w"></span>
-<span class="w">          </span><span class="no">equal to the `~IndexTransform.input_rank`.</span><span class="w"></span>
-<span class="w">        </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span><span class="w"></span>
-<span class="w">          </span><span class="no">If the `~IndexTransform.input_rank` is 0, must be a numeric value.</span><span class="w"></span>
-<span class="w">      </span><span class="nt">index_array_bounds</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="nt">$ref</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">IndexInterval</span><span class="w"></span>
-<span class="w">        </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span><span class="w"></span>
-<span class="w">          </span><span class="no">If present, specifies constraints on the values within</span><span class="w"></span>
-<span class="w">          </span><span class="no">`.index_array` (which must also be specified).  If</span><span class="w"></span>
-<span class="w">          </span><span class="no">`.index_array` contains an out-of-bounds index, an error</span><span class="w"></span>
-<span class="w">          </span><span class="no">may not be returned immediately but will be returned if the</span><span class="w"></span>
-<span class="w">          </span><span class="no">corresponding position within the domain is accessed.  If the</span><span class="w"></span>
-<span class="w">          </span><span class="no">indices in `.index_array` have already been validated,</span><span class="w"></span>
-<span class="w">          </span><span class="no">this need not be specified.  This allows transforms containing</span><span class="w"></span>
-<span class="w">          </span><span class="no">out-of-bounds index array indices to correctly round trip through</span><span class="w"></span>
-<span class="w">          </span><span class="no">JSON, but normally need not be specified manually.</span><span class="w"></span>
-<span class="w">        </span><span class="nt">default</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;-inf&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;+inf&quot;</span><span class="p p-Indicator">]</span><span class="w"></span>
-<span class="w">        </span><span class="nt">examples</span><span class="p">:</span><span class="w"></span>
-<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">5</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">100</span><span class="p p-Indicator">]</span><span class="w"></span>
-<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;-inf&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">10</span><span class="p p-Indicator">]</span><span class="w"></span>
-<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">-20</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;+inf&quot;</span><span class="p p-Indicator">]</span><span class="w"></span>
-<span class="w">  </span><span class="nt">index-interval</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">$id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">IndexInterval</span><span class="w"></span>
-<span class="w">    </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Specifies a closed interval of integer index values.</span><span class="w"></span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">array</span><span class="w"></span>
-<span class="w">    </span><span class="nt">items</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">oneOf</span><span class="p">:</span><span class="w"></span>
-<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">integer</span><span class="w"></span>
-<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">const</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;-inf&quot;</span><span class="w"></span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">oneOf</span><span class="p">:</span><span class="w"></span>
-<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">integer</span><span class="w"></span>
-<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">const</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;+inf&quot;</span><span class="w"></span>
+<span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">object</span>
+<span class="nt">properties</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">input_rank</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">integer</span>
+<span class="w">    </span><span class="nt">minimum</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">    </span><span class="nt">maximum</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">32</span>
+<span class="w">    </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Number of input dimensions.</span>
+<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">      </span><span class="no">The input rank must be specified either directly, or implicitly by the</span>
+<span class="w">      </span><span class="no">number of dimensions specified for `.input_inclusive_min`,</span>
+<span class="w">      </span><span class="no">`.input_inclusive_max`, `.input_exclusive_max`,</span>
+<span class="w">      </span><span class="no">`.input_shape`, or `.input_labels`.</span>
+<span class="w">  </span><span class="nt">input_inclusive_min</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">array</span>
+<span class="w">    </span><span class="nt">items</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">oneOf</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">integer</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">array</span>
+<span class="w">          </span><span class="nt">items</span><span class="p">:</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">integer</span>
+<span class="w">    </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">      </span><span class="no">Inclusive lower bounds of the input domain.</span>
+<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">      </span><span class="no">Length must equal the `.input_rank`.  Bounds specified as :samp:`{n}`</span>
+<span class="w">      </span><span class="no">indicate normal, explicit bounds, while bounds specified as :samp:`[{n}]`</span>
+<span class="w">      </span><span class="no">indicate implicit bounds.  For example, :json:`[1, [2]]` specifies an</span>
+<span class="w">      </span><span class="no">explicit bound of :math:`1 \leq x` for the first dimension and an implicit</span>
+<span class="w">      </span><span class="no">bound of :math:`2 \leq x` for the second dimension.</span>
+<span class="w">  </span><span class="nt">input_exclusive_max</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">array</span>
+<span class="w">    </span><span class="nt">items</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">oneOf</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">integer</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">array</span>
+<span class="w">          </span><span class="nt">items</span><span class="p">:</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">integer</span>
+<span class="w">    </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">      </span><span class="no">Exclusive upper bounds of the input domain.</span>
+<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">      </span><span class="no">Length must equal the `.input_rank`.  As for `.input_inclusive_min`,</span>
+<span class="w">      </span><span class="no">bounds specified as :samp:`{n}` indicate normal, explicit bounds, while</span>
+<span class="w">      </span><span class="no">bounds specified as :samp:`[{n}]` indicate implicit bounds.  For example,</span>
+<span class="w">      </span><span class="no">:json:`[5, [7]]` specifies an explicit bound of :math:`x &lt; 5` for the</span>
+<span class="w">      </span><span class="no">first dimension and an implicit bound of :math:`x &lt; 7` for the second</span>
+<span class="w">      </span><span class="no">dimension.</span>
+<span class="w">  </span><span class="nt">input_inclusive_max</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">array</span>
+<span class="w">    </span><span class="nt">items</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">oneOf</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">integer</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">array</span>
+<span class="w">          </span><span class="nt">items</span><span class="p">:</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">integer</span>
+<span class="w">    </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">      </span><span class="no">Inclusive upper bounds of the input domain.</span>
+<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">      </span><span class="no">Length must equal the `.input_rank`.  As for `.input_inclusive_min`,</span>
+<span class="w">      </span><span class="no">bounds specified as :samp:`{n}` indicate normal, explicit bounds, while</span>
+<span class="w">      </span><span class="no">bounds specified as :samp:`[{n}]` indicate implicit bounds.  For example,</span>
+<span class="w">      </span><span class="no">:json:`[5, [7]]` specifies an explicit bound of :math:`x \leq 5` for the</span>
+<span class="w">      </span><span class="no">first dimension and an implicit bound of :math:`x \leq 7` for the second</span>
+<span class="w">      </span><span class="no">dimension.</span>
+<span class="w">  </span><span class="nt">input_shape</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">array</span>
+<span class="w">    </span><span class="nt">items</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">oneOf</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">integer</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">array</span>
+<span class="w">          </span><span class="nt">items</span><span class="p">:</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">integer</span>
+<span class="w">    </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">      </span><span class="no">Extent of each dimension of the input domain.</span>
+<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">      </span><span class="no">Length must equal the `.input_rank`.  As for `.input_inclusive_min`,</span>
+<span class="w">      </span><span class="no">bounds specified as :samp:`{n}` indicate normal, explicit bounds, while</span>
+<span class="w">      </span><span class="no">bounds specified as :samp:`[{n}]` indicate implicit bounds.  For example,</span>
+<span class="w">      </span><span class="no">assuming an `.input_inclusive_min` of :json:`[1, 2]`, an `.input_shape` of</span>
+<span class="w">      </span><span class="no">:json:`[5, [7]]` specifies an explicit bound of :math:`x &lt; 6` for the</span>
+<span class="w">      </span><span class="no">first dimension and an implicit bound of :math:`x &lt; 9` for the second</span>
+<span class="w">      </span><span class="no">dimension.</span>
+<span class="w">  </span><span class="nt">input_labels</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">array</span>
+<span class="w">    </span><span class="nt">items</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="w">    </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">      </span><span class="no">Dimension labels for each input domain dimension.</span>
+<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">      </span><span class="no">Length must equal the `.input_rank`.  An empty string</span>
+<span class="w">      </span><span class="no">indicates an unlabeled dimension.  Non-empty strings must not occur more</span>
+<span class="w">      </span><span class="no">than once.  By default, all dimensions are unlabeled.</span>
+<span class="w">  </span><span class="nt">output</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">array</span>
+<span class="w">    </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">      </span><span class="no">Specifies the output index map for each output dimension.</span>
+<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">      </span><span class="no">If not specified, defaults to an identity transform over the input domain.</span>
+<span class="w">      </span><span class="no">Otherwise, the length determines the output rank of the transform.</span>
+<span class="w">    </span><span class="nt">items</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">$ref</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">OutputIndexMap</span>
+<span class="nt">definitions</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">output-index-map</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">$id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">OutputIndexMap</span>
+<span class="w">    </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Specifies a transform from an input space to a single output index.</span>
+<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">      </span><span class="no">Logically, an output index map is a function that maps ``n``-dimensional</span>
+<span class="w">      </span><span class="no">input index vectors to a single output index, using one of the supported</span>
+<span class="w">      </span><span class="no">output index methods.  This is used to represent the</span>
+<span class="w">      </span><span class="no">:json:schema:`IndexTransform.output` mapping for each output dimension of</span>
+<span class="w">      </span><span class="no">an `IndexTransform`.</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">object</span>
+<span class="w">    </span><span class="nt">properties</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">offset</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">integer</span>
+<span class="w">        </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">          </span><span class="no">Specifies an offset for this output dimension.  If neither</span>
+<span class="w">          </span><span class="no">`.input_dimension` nor `.index_array` is</span>
+<span class="w">          </span><span class="no">specified, this specifies the **constant** value to which this output</span>
+<span class="w">          </span><span class="no">dimension maps.</span>
+<span class="w">      </span><span class="nt">stride</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">integer</span>
+<span class="w">        </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">          </span><span class="no">Multiplier for the input index specified by</span>
+<span class="w">          </span><span class="no">`.input_dimension` or the index array value specified by</span>
+<span class="w">          </span><span class="no">`.index_array`.</span>
+<span class="w">        </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">          </span><span class="no">Only valid to specify in conjunction with</span>
+<span class="w">          </span><span class="no">`.input_dimension` or `.index_array`.</span>
+<span class="w">      </span><span class="nt">input_dimension</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">integer</span>
+<span class="w">        </span><span class="nt">minimum</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">        </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">          </span><span class="no">If present, indicates that this output dimension uses a **single</span>
+<span class="w">          </span><span class="no">input dimension** map with the specified input dimension.  Must not</span>
+<span class="w">          </span><span class="no">be specified in conjunction with `.index_array`.</span>
+<span class="w">      </span><span class="nt">index_array</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">oneOf</span><span class="p">:</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">array</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">integer</span>
+<span class="w">        </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">          </span><span class="no">If present, indicates that this output dimension uses an **index</span>
+<span class="w">          </span><span class="no">array** map, with the index array specified as a nested list of rank</span>
+<span class="w">          </span><span class="no">equal to the `~IndexTransform.input_rank`.</span>
+<span class="w">        </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">          </span><span class="no">If the `~IndexTransform.input_rank` is 0, must be a numeric value.</span>
+<span class="w">      </span><span class="nt">index_array_bounds</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">$ref</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">IndexInterval</span>
+<span class="w">        </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">          </span><span class="no">If present, specifies constraints on the values within</span>
+<span class="w">          </span><span class="no">`.index_array` (which must also be specified).  If</span>
+<span class="w">          </span><span class="no">`.index_array` contains an out-of-bounds index, an error</span>
+<span class="w">          </span><span class="no">may not be returned immediately but will be returned if the</span>
+<span class="w">          </span><span class="no">corresponding position within the domain is accessed.  If the</span>
+<span class="w">          </span><span class="no">indices in `.index_array` have already been validated,</span>
+<span class="w">          </span><span class="no">this need not be specified.  This allows transforms containing</span>
+<span class="w">          </span><span class="no">out-of-bounds index array indices to correctly round trip through</span>
+<span class="w">          </span><span class="no">JSON, but normally need not be specified manually.</span>
+<span class="w">        </span><span class="nt">default</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;-inf&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;+inf&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">        </span><span class="nt">examples</span><span class="p">:</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">5</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">100</span><span class="p p-Indicator">]</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;-inf&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">10</span><span class="p p-Indicator">]</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">-20</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;+inf&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">  </span><span class="nt">index-interval</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">$id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">IndexInterval</span>
+<span class="w">    </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Specifies a closed interval of integer index values.</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">array</span>
+<span class="w">    </span><span class="nt">items</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">oneOf</span><span class="p">:</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">integer</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">const</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;-inf&quot;</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">oneOf</span><span class="p">:</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">integer</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">const</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;+inf&quot;</span>
 </code></pre></div>
 </div>
 </div>
@@ -2535,7 +2539,7 @@ bound of <span class="math notranslate nohighlight">\(+\infty\)</span>.</p>
 <dt class="field-odd" id="optional-members-json-IndexTransform">Optional members<span class="colon">:</span><a class="headerlink" href="#optional-members-json-IndexTransform" title="Permalink to this headline">¶</a></dt>
 <dd class="field-odd noindent"><dl class="json schema objdesc">
 <dt class="sig sig-object highlight json" id="json-IndexTransform.input_rank">
-<span class="sig-name descname"><span class="pre">input_rank</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="pre">integer</span></span><sub><span class="p"><span class="pre">[</span></span><code class="code json docutils literal highlight highlight-json"><span class="mi">0</span><span class="w"></span></code><span class="p"><span class="pre">,</span> </span><code class="code json docutils literal highlight highlight-json"><span class="mi">32</span><span class="w"></span></code><span class="p"><span class="pre">]</span></span></sub><a class="headerlink" href="#json-IndexTransform.input_rank" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">input_rank</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="pre">integer</span></span><sub><span class="p"><span class="pre">[</span></span><code class="code json docutils literal highlight highlight-json"><span class="mi">0</span></code><span class="p"><span class="pre">,</span> </span><code class="code json docutils literal highlight highlight-json"><span class="mi">32</span></code><span class="p"><span class="pre">]</span></span></sub><a class="headerlink" href="#json-IndexTransform.input_rank" title="Permalink to this definition">¶</a></dt>
 <dd><span><p>Number of input dimensions.</p>
   </span><p>The input rank must be specified either directly, or implicitly by the
 number of dimensions specified for <a class="reference internal" href="#json-IndexTransform.input_inclusive_min" title="IndexTransform.input_inclusive_min (JSON member) — Inclusive lower bounds of the input domain."><code class="xref json json-schema docutils literal notranslate"><span class="pre">input_inclusive_min</span></code></a>,
@@ -2549,7 +2553,7 @@ number of dimensions specified for <a class="reference internal" href="#json-Ind
 <dd><span><p>Inclusive lower bounds of the input domain.</p>
   </span><p>Length must equal the <a class="reference internal" href="#json-IndexTransform.input_rank" title="IndexTransform.input_rank (JSON member) — Number of input dimensions."><code class="xref json json-schema docutils literal notranslate"><span class="pre">input_rank</span></code></a>.  Bounds specified as <code class="samp docutils literal notranslate"><em><span class="pre">n</span></em></code>
 indicate normal, explicit bounds, while bounds specified as <code class="samp docutils literal notranslate"><span class="pre">[</span><em><span class="pre">n</span></em><span class="pre">]</span></code>
-indicate implicit bounds.  For example, <code class="code highlight json docutils literal highlight-json"><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="mi">2</span><span class="p">]]</span><span class="w"></span></code> specifies an
+indicate implicit bounds.  For example, <code class="code highlight json docutils literal highlight-json"><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="mi">2</span><span class="p">]]</span></code> specifies an
 explicit bound of <span class="math notranslate nohighlight">\(1 \leq x\)</span> for the first dimension and an implicit
 bound of <span class="math notranslate nohighlight">\(2 \leq x\)</span> for the second dimension.</p>
 </dd></dl>
@@ -2561,7 +2565,7 @@ bound of <span class="math notranslate nohighlight">\(2 \leq x\)</span> for the 
   </span><p>Length must equal the <a class="reference internal" href="#json-IndexTransform.input_rank" title="IndexTransform.input_rank (JSON member) — Number of input dimensions."><code class="xref json json-schema docutils literal notranslate"><span class="pre">input_rank</span></code></a>.  As for <a class="reference internal" href="#json-IndexTransform.input_inclusive_min" title="IndexTransform.input_inclusive_min (JSON member) — Inclusive lower bounds of the input domain."><code class="xref json json-schema docutils literal notranslate"><span class="pre">input_inclusive_min</span></code></a>,
 bounds specified as <code class="samp docutils literal notranslate"><em><span class="pre">n</span></em></code> indicate normal, explicit bounds, while
 bounds specified as <code class="samp docutils literal notranslate"><span class="pre">[</span><em><span class="pre">n</span></em><span class="pre">]</span></code> indicate implicit bounds.  For example,
-<code class="code highlight json docutils literal highlight-json"><span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="mi">7</span><span class="p">]]</span><span class="w"></span></code> specifies an explicit bound of <span class="math notranslate nohighlight">\(x &lt; 5\)</span> for the
+<code class="code highlight json docutils literal highlight-json"><span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="mi">7</span><span class="p">]]</span></code> specifies an explicit bound of <span class="math notranslate nohighlight">\(x &lt; 5\)</span> for the
 first dimension and an implicit bound of <span class="math notranslate nohighlight">\(x &lt; 7\)</span> for the second
 dimension.</p>
 </dd></dl>
@@ -2573,7 +2577,7 @@ dimension.</p>
   </span><p>Length must equal the <a class="reference internal" href="#json-IndexTransform.input_rank" title="IndexTransform.input_rank (JSON member) — Number of input dimensions."><code class="xref json json-schema docutils literal notranslate"><span class="pre">input_rank</span></code></a>.  As for <a class="reference internal" href="#json-IndexTransform.input_inclusive_min" title="IndexTransform.input_inclusive_min (JSON member) — Inclusive lower bounds of the input domain."><code class="xref json json-schema docutils literal notranslate"><span class="pre">input_inclusive_min</span></code></a>,
 bounds specified as <code class="samp docutils literal notranslate"><em><span class="pre">n</span></em></code> indicate normal, explicit bounds, while
 bounds specified as <code class="samp docutils literal notranslate"><span class="pre">[</span><em><span class="pre">n</span></em><span class="pre">]</span></code> indicate implicit bounds.  For example,
-<code class="code highlight json docutils literal highlight-json"><span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="mi">7</span><span class="p">]]</span><span class="w"></span></code> specifies an explicit bound of <span class="math notranslate nohighlight">\(x \leq 5\)</span> for the
+<code class="code highlight json docutils literal highlight-json"><span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="mi">7</span><span class="p">]]</span></code> specifies an explicit bound of <span class="math notranslate nohighlight">\(x \leq 5\)</span> for the
 first dimension and an implicit bound of <span class="math notranslate nohighlight">\(x \leq 7\)</span> for the second
 dimension.</p>
 </dd></dl>
@@ -2585,8 +2589,8 @@ dimension.</p>
   </span><p>Length must equal the <a class="reference internal" href="#json-IndexTransform.input_rank" title="IndexTransform.input_rank (JSON member) — Number of input dimensions."><code class="xref json json-schema docutils literal notranslate"><span class="pre">input_rank</span></code></a>.  As for <a class="reference internal" href="#json-IndexTransform.input_inclusive_min" title="IndexTransform.input_inclusive_min (JSON member) — Inclusive lower bounds of the input domain."><code class="xref json json-schema docutils literal notranslate"><span class="pre">input_inclusive_min</span></code></a>,
 bounds specified as <code class="samp docutils literal notranslate"><em><span class="pre">n</span></em></code> indicate normal, explicit bounds, while
 bounds specified as <code class="samp docutils literal notranslate"><span class="pre">[</span><em><span class="pre">n</span></em><span class="pre">]</span></code> indicate implicit bounds.  For example,
-assuming an <a class="reference internal" href="#json-IndexTransform.input_inclusive_min" title="IndexTransform.input_inclusive_min (JSON member) — Inclusive lower bounds of the input domain."><code class="xref json json-schema docutils literal notranslate"><span class="pre">input_inclusive_min</span></code></a> of <code class="code highlight json docutils literal highlight-json"><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">]</span><span class="w"></span></code>, an <a class="reference internal" href="#json-IndexTransform.input_shape" title="IndexTransform.input_shape (JSON member) — Extent of each dimension of the input domain."><code class="xref json json-schema docutils literal notranslate"><span class="pre">input_shape</span></code></a> of
-<code class="code highlight json docutils literal highlight-json"><span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="mi">7</span><span class="p">]]</span><span class="w"></span></code> specifies an explicit bound of <span class="math notranslate nohighlight">\(x &lt; 6\)</span> for the
+assuming an <a class="reference internal" href="#json-IndexTransform.input_inclusive_min" title="IndexTransform.input_inclusive_min (JSON member) — Inclusive lower bounds of the input domain."><code class="xref json json-schema docutils literal notranslate"><span class="pre">input_inclusive_min</span></code></a> of <code class="code highlight json docutils literal highlight-json"><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">]</span></code>, an <a class="reference internal" href="#json-IndexTransform.input_shape" title="IndexTransform.input_shape (JSON member) — Extent of each dimension of the input domain."><code class="xref json json-schema docutils literal notranslate"><span class="pre">input_shape</span></code></a> of
+<code class="code highlight json docutils literal highlight-json"><span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="mi">7</span><span class="p">]]</span></code> specifies an explicit bound of <span class="math notranslate nohighlight">\(x &lt; 6\)</span> for the
 first dimension and an implicit bound of <span class="math notranslate nohighlight">\(x &lt; 9\)</span> for the second
 dimension.</p>
 </dd></dl>
@@ -2616,7 +2620,7 @@ Otherwise, the length determines the output rank of the transform.</p>
 <dt class="sig sig-object highlight json" id="json-OutputIndexMap">
 <em class="property"><span class="pre">json</span> </em><span class="sig-name descname"><span class="pre">OutputIndexMap</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="pre">object</span></span><a class="headerlink" href="#json-OutputIndexMap" title="Permalink to this definition">¶</a></dt>
 <dd><span><p>Specifies a transform from an input space to a single output index.</p>
-  </span><p>Logically, an output index map is a function that maps <code class="code highlight json docutils literal highlight-json"><span class="kc">n</span><span class="w"></span></code>-dimensional
+  </span><p>Logically, an output index map is a function that maps <code class="code highlight json docutils literal highlight-json"><span class="kc">n</span></code>-dimensional
 input index vectors to a single output index, using one of the supported
 output index methods.  This is used to represent the
 <a class="reference internal" href="#json-IndexTransform.output" title="IndexTransform.output (JSON member) — Specifies the output index map for each output dimension."><code class="xref json json-schema docutils literal notranslate"><span class="pre">IndexTransform.output</span></code></a> mapping for each output dimension of
@@ -2644,7 +2648,7 @@ dimension maps.</p>
 
 <dl class="json schema objdesc">
 <dt class="sig sig-object highlight json" id="json-OutputIndexMap.input_dimension">
-<span class="sig-name descname"><span class="pre">input_dimension</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="pre">integer</span></span><sub><span class="p"><span class="pre">[</span></span><code class="code json docutils literal highlight highlight-json"><span class="mi">0</span><span class="w"></span></code><span class="p"><span class="pre">,</span> </span><span class="o"><span class="pre">+∞</span></span><span class="p"><span class="pre">)</span></span></sub><a class="headerlink" href="#json-OutputIndexMap.input_dimension" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">input_dimension</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="pre">integer</span></span><sub><span class="p"><span class="pre">[</span></span><code class="code json docutils literal highlight highlight-json"><span class="mi">0</span></code><span class="p"><span class="pre">,</span> </span><span class="o"><span class="pre">+∞</span></span><span class="p"><span class="pre">)</span></span></sub><a class="headerlink" href="#json-OutputIndexMap.input_dimension" title="Permalink to this definition">¶</a></dt>
 <dd><span><p>If present, indicates that this output dimension uses a <strong>single
 input dimension</strong> map with the specified input dimension.  Must not
 be specified in conjunction with <a class="reference internal" href="#json-OutputIndexMap.index_array" title="OutputIndexMap.index_array (JSON member) — If present, indicates that this output dimension uses an index array map, with the index array specified as a nested list of rank equal to the input_rank."><code class="xref json json-schema docutils literal notranslate"><span class="pre">index_array</span></code></a>.</p>
@@ -2661,7 +2665,7 @@ equal to the <a class="reference internal" href="#json-IndexTransform.input_rank
 
 <dl class="json schema objdesc">
 <dt class="sig sig-object highlight json" id="json-OutputIndexMap.index_array_bounds">
-<span class="sig-name descname"><span class="pre">index_array_bounds</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><a class="reference internal" href="#json-IndexInterval" title="IndexInterval (JSON type) — Specifies a closed interval of integer index values."><span class="pre">IndexInterval</span></a></span><span class="p"> <span class="pre">=</span> </span><code class="code json docutils literal highlight highlight-json"><span class="p">[</span><span class="s2">&quot;-inf&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;+inf&quot;</span><span class="p">]</span><span class="w"></span></code><a class="headerlink" href="#json-OutputIndexMap.index_array_bounds" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">index_array_bounds</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><a class="reference internal" href="#json-IndexInterval" title="IndexInterval (JSON type) — Specifies a closed interval of integer index values."><span class="pre">IndexInterval</span></a></span><span class="p"> <span class="pre">=</span> </span><code class="code json docutils literal highlight highlight-json"><span class="p">[</span><span class="s2">&quot;-inf&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;+inf&quot;</span><span class="p">]</span></code><a class="headerlink" href="#json-OutputIndexMap.index_array_bounds" title="Permalink to this definition">¶</a></dt>
 <dd><p>If present, specifies constraints on the values within
 <a class="reference internal" href="#json-OutputIndexMap.index_array" title="OutputIndexMap.index_array (JSON member) — If present, indicates that this output dimension uses an index array map, with the index array specified as a nested list of rank equal to the input_rank."><code class="xref json json-schema docutils literal notranslate"><span class="pre">index_array</span></code></a> (which must also be specified).  If
 <a class="reference internal" href="#json-OutputIndexMap.index_array" title="OutputIndexMap.index_array (JSON member) — If present, indicates that this output dimension uses an index array map, with the index array specified as a nested list of rank equal to the input_rank."><code class="xref json json-schema docutils literal notranslate"><span class="pre">index_array</span></code></a> contains an out-of-bounds index, an error
@@ -2673,19 +2677,19 @@ out-of-bounds index array indices to correctly round trip through
 JSON, but normally need not be specified manually.</p>
 <div class="example admonition">
 <p class="admonition-title">Example</p>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><code><span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">100</span><span class="p">]</span><span class="w"></span>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><code><span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">100</span><span class="p">]</span>
 </code></pre></div>
 </div>
 </div>
 <div class="example admonition">
 <p class="admonition-title">Example</p>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><code><span class="p">[</span><span class="s2">&quot;-inf&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">]</span><span class="w"></span>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><code><span class="p">[</span><span class="s2">&quot;-inf&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">]</span>
 </code></pre></div>
 </div>
 </div>
 <div class="example admonition">
 <p class="admonition-title">Example</p>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><code><span class="p">[</span><span class="mi">-20</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;+inf&quot;</span><span class="p">]</span><span class="w"></span>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><code><span class="p">[</span><span class="mi">-20</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;+inf&quot;</span><span class="p">]</span>
 </code></pre></div>
 </div>
 </div>
@@ -2697,7 +2701,7 @@ JSON, but normally need not be specified manually.</p>
 
 <dl class="json schema objdesc">
 <dt class="sig sig-object highlight json" id="json-IndexInterval">
-<em class="property"><span class="pre">json</span> </em><span class="sig-name descname"><span class="pre">IndexInterval</span></span><span class="p"> <span class="pre">:</span> </span><span class="p"><span class="pre">[</span></span><span class="desctype"><span class="pre">integer</span></span><span class="p"> <span class="pre">|</span> </span><code class="code json docutils literal highlight highlight-json"><span class="s2">&quot;-inf&quot;</span><span class="w"></span></code><span class="p"><span class="pre">,</span></span> <span class="desctype"><span class="pre">integer</span></span><span class="p"> <span class="pre">|</span> </span><code class="code json docutils literal highlight highlight-json"><span class="s2">&quot;+inf&quot;</span><span class="w"></span></code><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#json-IndexInterval" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">json</span> </em><span class="sig-name descname"><span class="pre">IndexInterval</span></span><span class="p"> <span class="pre">:</span> </span><span class="p"><span class="pre">[</span></span><span class="desctype"><span class="pre">integer</span></span><span class="p"> <span class="pre">|</span> </span><code class="code json docutils literal highlight highlight-json"><span class="s2">&quot;-inf&quot;</span></code><span class="p"><span class="pre">,</span></span> <span class="desctype"><span class="pre">integer</span></span><span class="p"> <span class="pre">|</span> </span><code class="code json docutils literal highlight highlight-json"><span class="s2">&quot;+inf&quot;</span></code><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#json-IndexInterval" title="Permalink to this definition">¶</a></dt>
 <dd><span><p>Specifies a closed interval of integer index values.</p>
   </span></dd></dl>
 
@@ -2710,7 +2714,7 @@ JSON, but normally need not be specified manually.</p>
   <small>
     
       Last update:
-      Nov 15, 2022
+      Jan 03, 2023
     
   </small>
 </div>
@@ -2787,7 +2791,7 @@ JSON, but normally need not be specified manually.</p>
   
     Created using
     <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
-    5.3.0.
+    6.0.0.
      and
     <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
   

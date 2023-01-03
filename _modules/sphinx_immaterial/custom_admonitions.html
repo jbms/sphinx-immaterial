@@ -33,7 +33,7 @@
       
     
         <link rel="stylesheet" type="text/css" href="../../_static/google_fonts.css" />
-        <link rel="stylesheet" type="text/css" href="../../_static/stylesheets/sphinx_immaterial_theme.fe873c5d5ee1917e6.min.css" />
+        <link rel="stylesheet" type="text/css" href="../../_static/stylesheets/sphinx_immaterial_theme.ce877ce75602c6c77.min.css" />
         <link rel="stylesheet" type="text/css" href="../../_static/extra_css.css" />
     <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -98,7 +98,9 @@
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href="../../index.html" title="Sphinx-Immaterial" class="md-header__button md-logo" aria-label="Sphinx-Immaterial" data-md-component="logo">
-      <img src="../../_static/Ybin.gif" alt="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
     </a>
     <label class="md-header__button md-icon" for="__drawer">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
@@ -221,7 +223,9 @@
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
     <a href="../../index.html" title="Sphinx-Immaterial" class="md-nav__button md-logo" aria-label="Sphinx-Immaterial" data-md-component="logo">
-      <img src="../../_static/Ybin.gif" alt="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
     </a>
     Sphinx-Immaterial
   </label>
@@ -822,7 +826,7 @@
 <span class="kn">import</span> <span class="nn">hashlib</span>
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span><span class="p">,</span> <span class="n">PurePath</span>
 <span class="kn">import</span> <span class="nn">re</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Type</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Type</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">cast</span>
 <span class="kn">from</span> <span class="nn">docutils</span> <span class="kn">import</span> <span class="n">nodes</span>
 <span class="kn">from</span> <span class="nn">docutils.parsers.rst</span> <span class="kn">import</span> <span class="n">directives</span><span class="p">,</span> <span class="n">Directive</span>
 <span class="kn">import</span> <span class="nn">jinja2</span>
@@ -844,21 +848,21 @@
 
 
 <div class="viewcode-block" id="CustomAdmonitionConfig"><a class="viewcode-back" href="../../admonitions.html#sphinx_immaterial.custom_admonitions.CustomAdmonitionConfig">[docs]</a><span class="k">class</span> <span class="nc">CustomAdmonitionConfig</span><span class="p">(</span><span class="n">pydantic</span><span class="o">.</span><span class="n">BaseModel</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;This data class validates the user&#39;s configuration value(s) in</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;This data class validates the user&#39;s configuration value(s) in</span>
 <span class="sd">    :confval:`sphinx_immaterial_custom_admonitions`. Each validated object</span>
 <span class="sd">    corresponds to a generated custom :rst:dir:`admonition` directive tailored with</span>
 <span class="sd">    theme specific options.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
-    <span class="sd">&quot;&quot;&quot;The required name of the directive. This will be also used as a CSS class name.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The required name of the directive. This will be also used as a CSS class name.</span>
 <span class="sd">    This value shall have characters that match the regular expression pattern</span>
 <span class="sd">    ``[a-zA-Z0-9_-]``.&quot;&quot;&quot;</span>
     <span class="n">title</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
-    <span class="sd">&quot;&quot;&quot;The default title to use when rendering the custom admonition. If this is</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The default title to use when rendering the custom admonition. If this is</span>
 <span class="sd">    not specified, then the `name` value is converted and used.&quot;&quot;&quot;</span>
     <span class="n">icon</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="sd">&quot;&quot;&quot;The relative path to an icon that will be used in the admonition&#39;s</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The relative path to an icon that will be used in the admonition&#39;s</span>
 <span class="sd">    title. If specified, this path shall be relative to</span>
 
 <span class="sd">    - a SVG file placed in the documentation project&#39;s</span>
@@ -866,13 +870,13 @@
 <span class="sd">    - the ``.icons`` folder that has `all of the icons bundled with this theme</span>
 <span class="sd">      &lt;https://github.com/squidfunk/mkdocs-material/tree/master/material/.icons&gt;`_.&quot;&quot;&quot;</span>
     <span class="n">color</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="sd">&quot;&quot;&quot;The base color to be used for the admonition&#39;s styling. If specified, this</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The base color to be used for the admonition&#39;s styling. If specified, this</span>
 <span class="sd">    must be specified as a RGB color space. Each color component shall be</span>
 <span class="sd">    confined to the range [0, 255]. It is also possible to use the</span>
 <span class="sd">    :py:mod:`colorsys` module if converting from a different color space (like</span>
 <span class="sd">    HSL) to RGB.&quot;&quot;&quot;</span>
     <span class="n">classes</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span>
-    <span class="sd">&quot;&quot;&quot;If specified, this list of qualified names will be added to every rendered</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;If specified, this list of qualified names will be added to every rendered</span>
 <span class="sd">    admonition (specific to the generated directive) element&#39;s ``class`` attribute.</span>
 
 <span class="sd">    To adopt the styling of pre-existing admonition, include the desired</span>
@@ -889,7 +893,7 @@
 <span class="sd">        ]</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">override</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
-    <span class="sd">&quot;&quot;&quot;Can be used to override an existing directive (default is :python:`False`). Only</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Can be used to override an existing directive (default is :python:`False`). Only</span>
 <span class="sd">    set this to :python:`True` if the directive being overridden is an existing</span>
 <span class="sd">    admonition :ref:`defined by rST and Sphinx &lt;predefined_admonitions&gt;` or an</span>
 <span class="sd">    admonition :ref:`inherited from the mkdocs-material theme &lt;inherited_admonitions&gt;`.</span>
@@ -901,7 +905,7 @@
     <span class="k">def</span> <span class="nf">validate_name</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
         <span class="n">illegal</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;([^a-zA-Z0-9\-_])&quot;</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">illegal</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">pydantic</span><span class="o">.</span><span class="n">ValidationError</span><span class="p">(</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                 <span class="sa">f</span><span class="s2">&quot;The following characters are illegal for directive names: </span><span class="si">{</span><span class="n">illegal</span><span class="si">}</span><span class="s2">&quot;</span>
             <span class="p">)</span>
         <span class="k">return</span> <span class="n">val</span>
@@ -916,9 +920,7 @@
     <span class="k">def</span> <span class="nf">validate_color_component</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
         <span class="k">if</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">val</span> <span class="o">&lt;=</span> <span class="mi">255</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">val</span>
-        <span class="k">raise</span> <span class="n">pydantic</span><span class="o">.</span><span class="n">ValidationError</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s2">&quot;color component </span><span class="si">{</span><span class="n">val</span><span class="si">}</span><span class="s2"> is not in range [0, 255]&quot;</span>
-        <span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;color component </span><span class="si">{</span><span class="n">val</span><span class="si">}</span><span class="s2"> is not in range [0, 255]&quot;</span><span class="p">)</span>
 
     <span class="nd">@pydantic</span><span class="o">.</span><span class="n">validator</span><span class="p">(</span><span class="s2">&quot;classes&quot;</span><span class="p">,</span> <span class="n">each_item</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">conform_classes</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
@@ -949,7 +951,7 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="n">orig_func</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
 
-    <span class="n">HTML5Translator</span><span class="o">.</span><span class="n">visit_admonition</span> <span class="o">=</span> <span class="n">visit_admonition</span>
+    <span class="n">HTML5Translator</span><span class="o">.</span><span class="n">visit_admonition</span> <span class="o">=</span> <span class="n">visit_admonition</span>  <span class="c1"># type: ignore[assignment]</span>
 
 
 <span class="k">def</span> <span class="nf">patch_depart_admonition</span><span class="p">():</span>
@@ -961,18 +963,18 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">body</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;&lt;/details&gt;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
 
-    <span class="n">HTML5Translator</span><span class="o">.</span><span class="n">depart_admonition</span> <span class="o">=</span> <span class="n">depart_admonition</span>
+    <span class="n">HTML5Translator</span><span class="o">.</span><span class="n">depart_admonition</span> <span class="o">=</span> <span class="n">depart_admonition</span>  <span class="c1"># type: ignore[assignment]</span>
 
 
 <span class="k">class</span> <span class="nc">CustomAdmonitionDirective</span><span class="p">(</span><span class="n">Directive</span><span class="p">,</span> <span class="n">ABC</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;A base class to define custom admonition directives.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A base class to define custom admonition directives.</span>
 
 <span class="sd">    .. warning::</span>
 <span class="sd">        Do not instantiate an object directly from this class as it could mess up the</span>
 <span class="sd">        argument parsing for other derivative classes.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">node_class</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">nodes</span><span class="o">.</span><span class="n">Admonition</span><span class="p">]</span> <span class="o">=</span> <span class="n">nodes</span><span class="o">.</span><span class="n">admonition</span>
+    <span class="n">node_class</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">nodes</span><span class="o">.</span><span class="n">admonition</span><span class="p">]</span> <span class="o">=</span> <span class="n">nodes</span><span class="o">.</span><span class="n">admonition</span>
     <span class="n">optional_arguments</span><span class="p">:</span> <span class="nb">int</span>
     <span class="n">final_argument_whitespace</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
     <span class="n">has_content</span> <span class="o">=</span> <span class="kc">True</span>
@@ -1003,10 +1005,10 @@
         <span class="k">if</span> <span class="ow">not</span> <span class="n">title_text</span><span class="p">:</span>
             <span class="n">title_text</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_title</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assert_has_content</span><span class="p">()</span>
-        <span class="n">admonition_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">node_class</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">content</span><span class="p">),</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">)</span>
+        <span class="n">admonition_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">node_class</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">content</span><span class="p">),</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">)</span>  <span class="c1"># type: ignore[call-arg]</span>
         <span class="p">(</span>
-            <span class="n">admonition_node</span><span class="o">.</span><span class="n">source</span><span class="p">,</span>
-            <span class="n">admonition_node</span><span class="o">.</span><span class="n">line</span><span class="p">,</span>
+            <span class="n">admonition_node</span><span class="o">.</span><span class="n">source</span><span class="p">,</span>  <span class="c1"># type: ignore[attr-defined]</span>
+            <span class="n">admonition_node</span><span class="o">.</span><span class="n">line</span><span class="p">,</span>  <span class="c1"># type: ignore[attr-defined]</span>
         <span class="p">)</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">state_machine</span><span class="o">.</span><span class="n">get_source_and_line</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lineno</span><span class="p">)</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">admonition_node</span><span class="p">,</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">ext</span><span class="o">.</span><span class="n">todo</span><span class="o">.</span><span class="n">todo_node</span><span class="p">):</span>
             <span class="c1"># todo admonitions need extra info for the todolist directive</span>
@@ -1036,7 +1038,7 @@
 
 
 <span class="k">def</span> <span class="nf">get_directive_class</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">classes</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Type</span><span class="p">[</span><span class="n">CustomAdmonitionDirective</span><span class="p">]:</span>
-    <span class="sd">&quot;&quot;&quot;A helper function to produce a admonition directive&#39;s class.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A helper function to produce a admonition directive&#39;s class.&quot;&quot;&quot;</span>
     <span class="c1"># alias upstream-deprecated CSS classes for pre-defined admonitions in sphinx</span>
     <span class="n">class_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">nodes</span><span class="o">.</span><span class="n">make_id</span><span class="p">(</span><span class="n">name</span><span class="p">)]</span>
     <span class="k">if</span> <span class="n">classes</span><span class="p">:</span>
@@ -1056,13 +1058,16 @@
         <span class="n">default_title</span> <span class="o">=</span> <span class="n">title</span>
         <span class="n">classes</span> <span class="o">=</span> <span class="n">class_list</span>
         <span class="n">optional_arguments</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">admonitionlabels</span><span class="p">)</span>
-        <span class="n">node_class</span> <span class="o">=</span> <span class="n">nodes</span><span class="o">.</span><span class="n">admonition</span> <span class="k">if</span> <span class="n">name</span> <span class="o">!=</span> <span class="s2">&quot;todo&quot;</span> <span class="k">else</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">ext</span><span class="o">.</span><span class="n">todo</span><span class="o">.</span><span class="n">todo_node</span>
+        <span class="n">node_class</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span>
+            <span class="n">Type</span><span class="p">[</span><span class="n">nodes</span><span class="o">.</span><span class="n">admonition</span><span class="p">],</span>
+            <span class="n">nodes</span><span class="o">.</span><span class="n">admonition</span> <span class="k">if</span> <span class="n">name</span> <span class="o">!=</span> <span class="s2">&quot;todo&quot;</span> <span class="k">else</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">ext</span><span class="o">.</span><span class="n">todo</span><span class="o">.</span><span class="n">todo_node</span><span class="p">,</span>
+        <span class="p">)</span>
 
     <span class="k">return</span> <span class="n">CustomizedAdmonition</span>
 
 
 <span class="k">def</span> <span class="nf">on_builder_inited</span><span class="p">(</span><span class="n">app</span><span class="p">:</span> <span class="n">Sphinx</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;register the directives for the custom admonitions and build the CSS.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;register the directives for the custom admonitions and build the CSS.&quot;&quot;&quot;</span>
     <span class="n">config</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">config</span>
     <span class="n">custom_admonitions</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">CustomAdmonitionConfig</span><span class="p">]</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span>
         <span class="n">config</span><span class="p">,</span> <span class="s2">&quot;sphinx_immaterial_custom_admonitions&quot;</span>
@@ -1086,7 +1091,7 @@
 
 
 <span class="k">def</span> <span class="nf">on_config_inited</span><span class="p">(</span><span class="n">app</span><span class="p">:</span> <span class="n">Sphinx</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Add admonitions based on CSS classes inherited from mkdocs-material theme.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Add admonitions based on CSS classes inherited from mkdocs-material theme.&quot;&quot;&quot;</span>
 
     <span class="c1"># override the generic admonition directive</span>
     <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="s2">&quot;sphinx_immaterial_override_generic_admonitions&quot;</span><span class="p">):</span>
@@ -1127,7 +1132,7 @@
 
 
 <span class="k">def</span> <span class="nf">consolidate_css</span><span class="p">(</span><span class="n">app</span><span class="p">:</span> <span class="n">Sphinx</span><span class="p">,</span> <span class="n">env</span><span class="p">:</span> <span class="n">BuildEnvironment</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Generates the CSS for icons and admonitions, then appends that to the</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Generates the CSS for icons and admonitions, then appends that to the</span>
 <span class="sd">    theme&#39;s bundled CSS.&quot;&quot;&quot;</span>
 
     <span class="n">theme_options</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;html_theme_options&quot;</span><span class="p">]</span>
@@ -1169,7 +1174,7 @@
 
 
 <span class="k">def</span> <span class="nf">setup</span><span class="p">(</span><span class="n">app</span><span class="p">:</span> <span class="n">Sphinx</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;register our custom directive.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;register our custom directive.&quot;&quot;&quot;</span>
     <span class="n">app</span><span class="o">.</span><span class="n">add_config_value</span><span class="p">(</span>
         <span class="n">name</span><span class="o">=</span><span class="s2">&quot;sphinx_immaterial_custom_admonitions&quot;</span><span class="p">,</span>
         <span class="n">default</span><span class="o">=</span><span class="p">[],</span>
@@ -1213,7 +1218,7 @@
   <small>
     
       Last update:
-      Nov 15, 2022
+      Jan 03, 2023
     
   </small>
 </div>
@@ -1254,7 +1259,7 @@
   
     Created using
     <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
-    5.3.0.
+    6.0.0.
      and
     <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
   

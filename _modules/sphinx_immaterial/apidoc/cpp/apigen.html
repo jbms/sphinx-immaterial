@@ -33,7 +33,7 @@
       
     
         <link rel="stylesheet" type="text/css" href="../../../../_static/google_fonts.css" />
-        <link rel="stylesheet" type="text/css" href="../../../../_static/stylesheets/sphinx_immaterial_theme.fe873c5d5ee1917e6.min.css" />
+        <link rel="stylesheet" type="text/css" href="../../../../_static/stylesheets/sphinx_immaterial_theme.ce877ce75602c6c77.min.css" />
         <link rel="stylesheet" type="text/css" href="../../../../_static/extra_css.css" />
     <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -98,7 +98,9 @@
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href="../../../../index.html" title="Sphinx-Immaterial" class="md-header__button md-logo" aria-label="Sphinx-Immaterial" data-md-component="logo">
-      <img src="../../../../_static/Ybin.gif" alt="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
     </a>
     <label class="md-header__button md-icon" for="__drawer">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
@@ -221,7 +223,9 @@
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
     <a href="../../../../index.html" title="Sphinx-Immaterial" class="md-nav__button md-logo" aria-label="Sphinx-Immaterial" data-md-component="logo">
-      <img src="../../../../_static/Ybin.gif" alt="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
     </a>
     Sphinx-Immaterial
   </label>
@@ -856,10 +860,10 @@
 
 <div class="viewcode-block" id="ApigenConfig"><a class="viewcode-back" href="../../../../apidoc/cpp/apigen.html#sphinx_immaterial.apidoc.cpp.apigen.ApigenConfig">[docs]</a><span class="nd">@pydantic</span><span class="o">.</span><span class="n">dataclasses</span><span class="o">.</span><span class="n">dataclass</span>
 <span class="k">class</span> <span class="nc">ApigenConfig</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Specifies a C++ API generation configuration.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Specifies a C++ API generation configuration.&quot;&quot;&quot;</span>
 
     <span class="n">document_prefix</span><span class="p">:</span> <span class="nb">str</span>
-    <span class="sd">&quot;&quot;&quot;Sphinx document path prefix for the per-entity documentation pages.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Sphinx document path prefix for the per-entity documentation pages.</span>
 
 <span class="sd">    .. important::</span>
 <span class="sd">        This should use the Linux path separator :python:`&quot;/&quot;` (even if</span>
@@ -867,13 +871,13 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">api_parser_config</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">api_parser</span><span class="o">.</span><span class="n">Config</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="sd">&quot;&quot;&quot;Configuration for generating an API description.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Configuration for generating an API description.</span>
 
 <span class="sd">    This option and `.api_data` are mutually exclusive.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">api_data</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="sd">&quot;&quot;&quot;Path to already-parsed API description.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Path to already-parsed API description.</span>
 
 <span class="sd">    This option and `.api_parser_config` are mutually exclusive.</span>
 <span class="sd">    &quot;&quot;&quot;</span></div>
@@ -1520,7 +1524,7 @@
     <span class="n">groups</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">EntityId</span><span class="p">]],</span>
     <span class="n">top_level_group</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Merges the member summary into `contentnode`.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Merges the member summary into `contentnode`.</span>
 
 <span class="sd">    Members are organized into groups.  The group is either specified explicitly</span>
 <span class="sd">    by a `Group:` field in the docstring, or determined automatically by</span>
@@ -1544,7 +1548,7 @@
 
 
 <span class="k">class</span> <span class="nc">CppApigenEntityPageDirective</span><span class="p">(</span><span class="n">sphinx</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">docutils</span><span class="o">.</span><span class="n">SphinxDirective</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Documents an entity and summarizes its members, if applicable.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Documents an entity and summarizes its members, if applicable.&quot;&quot;&quot;</span>
 
     <span class="n">has_content</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="n">final_argument_whitespace</span> <span class="o">=</span> <span class="kc">True</span>
@@ -1597,7 +1601,7 @@
 
 
 <span class="k">class</span> <span class="nc">CppApigenTopLevelGroupDirective</span><span class="p">(</span><span class="n">sphinx</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">docutils</span><span class="o">.</span><span class="n">SphinxDirective</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Summarizes the members of a top-level group.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Summarizes the members of a top-level group.&quot;&quot;&quot;</span>
 
     <span class="n">has_content</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="n">final_argument_whitespace</span> <span class="o">=</span> <span class="kc">True</span>
@@ -1633,7 +1637,7 @@
 
 
 <span class="k">class</span> <span class="nc">CppApigenEntitySummaryDirective</span><span class="p">(</span><span class="n">sphinx</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">docutils</span><span class="o">.</span><span class="n">SphinxDirective</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Generates a summary/link to a C++ entity.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Generates a summary/link to a C++ entity.&quot;&quot;&quot;</span>
 
     <span class="n">has_content</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="n">final_argument_whitespace</span> <span class="o">=</span> <span class="kc">True</span>
@@ -1669,7 +1673,7 @@
 
 
 <span class="k">def</span> <span class="nf">_builder_inited</span><span class="p">(</span><span class="n">app</span><span class="p">:</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">Sphinx</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Generates the rST files for API members.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Generates the rST files for API members.&quot;&quot;&quot;</span>
 
     <span class="n">api_data</span> <span class="o">=</span> <span class="n">_get_cpp_api_data</span><span class="p">(</span><span class="n">app</span><span class="o">.</span><span class="n">env</span><span class="p">,</span> <span class="n">warn</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">apigen_configs</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">_CONFIG_ATTR</span><span class="p">)</span>
@@ -1757,7 +1761,7 @@
   <small>
     
       Last update:
-      Nov 15, 2022
+      Jan 03, 2023
     
   </small>
 </div>
@@ -1798,7 +1802,7 @@
   
     Created using
     <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
-    5.3.0.
+    6.0.0.
      and
     <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
   
