@@ -1003,7 +1003,8 @@
             <span class="n">title_text</span> <span class="o">+=</span> <span class="p">(</span><span class="s2">&quot; &quot;</span> <span class="k">if</span> <span class="n">title_text</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">[</span><span class="s2">&quot;title&quot;</span><span class="p">]</span>
             <span class="c1"># don&#39;t auto-assert `:no-title:` if value is blank; just use default</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">title_text</span><span class="p">:</span>
-            <span class="n">title_text</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_title</span>
+            <span class="c1"># title_text must be an explicit string for renderers like MyST</span>
+            <span class="n">title_text</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">default_title</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assert_has_content</span><span class="p">()</span>
         <span class="n">admonition_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">node_class</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">content</span><span class="p">),</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">)</span>  <span class="c1"># type: ignore[call-arg]</span>
         <span class="p">(</span>
@@ -1218,7 +1219,7 @@
   <small>
     
       Last update:
-      Jan 03, 2023
+      Jan 04, 2023
     
   </small>
 </div>
