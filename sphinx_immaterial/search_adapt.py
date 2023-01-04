@@ -10,12 +10,32 @@
 """
 
 import io
-from typing import cast, Any, Dict, IO, List, Tuple, Union, Optional
+from typing import cast, Any, Dict, IO, List, Tuple, Union, Optional, Set
 
 import sphinx
 import sphinx.search
 import sphinx.application
 import sphinx.builders.html
+import sphinx.util.logging
+
+logger = sphinx.util.logging.getLogger(__name__)
+
+
+def _get_all_objects(
+    env: sphinx.environment.BuildEnvironment,
+) -> Set[Tuple[str, str, str, str]]:
+    objs = set()
+    for domain_name, domain in env.domains.items():
+        for (
+            name,
+            dispname,
+            objtype,
+            docname,
+            anchor,
+            priority,
+        ) in domain.get_objects():
+            objs.add((docname, anchor, domain_name, objtype))
+    return objs
 
 
 def _get_all_synopses(
@@ -27,15 +47,6 @@ def _get_all_synopses(
         if get_object_synopses is not None:
             for key, synopsis in get_object_synopses():
                 synopses.setdefault(key, synopsis or "")
-        for (
-            name,
-            dispname,
-            objtype,
-            docname,
-            anchor,
-            priority,
-        ) in domain.get_objects():
-            synopses.setdefault((docname, anchor), "")
     return synopses
 
 
@@ -53,6 +64,7 @@ class IndexBuilder(sphinx.search.IndexBuilder):
         rv = super().get_objects(fn2index)
         onames = self._objnames
         docindex_to_docname = {i: docname for docname, i in fn2index.items()}
+        all_objs = _get_all_objects(self.env)
         synopses = _get_all_synopses(self.env)
 
         for prefix, prefix_value in rv.items():
@@ -82,23 +94,33 @@ class IndexBuilder(sphinx.search.IndexBuilder):
                 # https://github.com/sphinx-doc/sphinx/issues/10380
 
                 # First decode `shortanchor` into the actual anchor based on the
-                # full set of `(docname, anchor)` pairs.
+                # full set of `(docname, anchor, domain_name, objtype)` tuples.
 
                 full_name = name_prefix + name
 
                 anchor = shortanchor
-                synopsis = synopses.get((docname, anchor))
+                key = (docname, anchor, domain_name, objtype)
                 if shortanchor == "":
                     # The anchor could either be the actual empty string, or `full_name`.
-                    if synopsis is None:
+                    if key not in all_objs:
                         # Anchor is probably `full_name`
                         anchor = full_name
-                        synopsis = synopses.get((docname, anchor))
                 elif shortanchor == "-":
-                    # The anchor could either by "-" or `objtype
-                    if synopsis is None:
+                    # The anchor could either by "-" or `objtype+"-"+full_name`
+                    if key not in all_objs:
                         anchor = objtype + "-" + full_name
-                        synopsis = synopses.get((docname, anchor))
+
+                key = (docname, anchor, domain_name, objtype)
+                if key not in all_objs:
+                    logger.warning(
+                        "Unable to determine anchor for object with docname=%r, domain=%r, objtype=%r, full_name=%r",
+                        docname,
+                        domain_name,
+                        objtype,
+                        full_name,
+                    )
+
+                synopsis = synopses.get((docname, anchor), "")
 
                 # Encode `anchor` into a lossless `shortanchor`.
                 new_shortanchor: Union[int, str]
@@ -108,8 +130,6 @@ class IndexBuilder(sphinx.search.IndexBuilder):
                     new_shortanchor = 1
                 else:
                     new_shortanchor = anchor
-
-                synopsis = synopsis or ""
 
                 if sphinx.version_info >= (4, 3):
                     prefix_value[i] = (  # type: ignore
