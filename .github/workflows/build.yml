@@ -36,18 +36,9 @@ jobs:
         path: "**/node_modules"
         key: ${{ runner.os }}-${{ matrix.node-version }}-node_modules-${{ hashFiles('**/package-lock.json') }}
     - name: Setup Graphviz
-      run: |
-        if [ "$RUNNER_OS" == "Linux" ]; then
-          sudo apt-get update && sudo apt-get install graphviz libgraphviz-dev pkg-config
-        elif [ "$RUNNER_OS" == "Windows" ]; then
-          choco install graphviz
-        elif [ "$RUNNER_OS" == "macOS" ]; then
-          brew install graphviz
-        else
-          echo "$RUNNER_OS not supported"
-          exit 1
-        fi
-      shell: bash
+      uses: ts-graphviz/setup-graphviz@v1.2.0
+      with:
+        macos-skip-brew-update: 'true'
     - run: npm install
     - run: npm run check
     - name: Install Python packaging, linting, & testing tools
