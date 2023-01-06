@@ -266,7 +266,7 @@ def _monkey_patch_python_domain_to_transform_type_annotations():
         annotation = ast_unparse(tree)
         return orig_parse_annotation(annotation, env)
 
-    sphinx.domains.python._parse_annotation = _parse_annotation
+    sphinx.domains.python._parse_annotation = _parse_annotation  # type: ignore[assignment]
 
 
 def _builder_inited(app: sphinx.application.Sphinx):

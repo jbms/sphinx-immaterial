@@ -3,12 +3,18 @@ improves formatting by PyProperty of type annotations."""
 import re
 from typing import Tuple, Optional, Any
 
+import sphinx
 import sphinx.addnodes
 import sphinx.domains
 import sphinx.domains.python
 import sphinx.ext.autodoc
 import sphinx.util.inspect
 import sphinx.util.typing
+
+if sphinx.version_info >= (6, 1):
+    stringify_annotation = sphinx.util.typing.stringify_annotation
+else:
+    stringify_annotation = sphinx.util.typing.stringify  # type: ignore[attr-defined]
 
 PropertyDocumenter = sphinx.ext.autodoc.PropertyDocumenter
 
@@ -63,9 +69,7 @@ def apply_property_documenter_type_annotation_fix():
                     signature.return_annotation
                     is not sphinx.util.inspect.Parameter.empty
                 ):
-                    self.retann = sphinx.util.typing.stringify(
-                        signature.return_annotation
-                    )
+                    self.retann = stringify_annotation(signature.return_annotation)
                 return True
             except:  # pylint: disable=bare-except
                 pass
