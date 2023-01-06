@@ -58,6 +58,11 @@ from ... import sphinx_utils
 from .. import apigen_utils
 from ... import default_literal_role
 
+if sphinx.version_info >= (6, 1):
+    stringify_annotation = sphinx.util.typing.stringify_annotation
+else:
+    stringify_annotation = sphinx.util.typing.stringify  # type: ignore[attr-defined]
+
 logger = sphinx.util.logging.getLogger(__name__)
 
 _UNCONDITIONALLY_DOCUMENTED_MEMBERS = frozenset(
@@ -1475,7 +1480,7 @@ class _ApiEntityCollector:
                         base_list,
                     )
                     base_classes = [
-                        sphinx.util.typing.stringify(base)
+                        stringify_annotation(base)
                         for base in base_list
                         if base is not object
                     ]

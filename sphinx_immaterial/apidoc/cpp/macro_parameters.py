@@ -39,7 +39,9 @@ def _monkey_patch_c_macro_parameter_symbols():
         self: ASTMacroParameter, version: int, objectType: str, symbol: CSymbol
     ) -> str:
         # the anchor will be our parent
-        return symbol.parent.declaration.get_id(version, prefixed=False)
+        declaration = symbol.parent.declaration
+        assert declaration is not None
+        return declaration.get_id(version, prefixed=False)
 
     ASTMacroParameter.get_id = get_id  # type: ignore[attr-defined]
 
