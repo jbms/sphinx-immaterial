@@ -36,7 +36,7 @@ jobs:
         path: "**/node_modules"
         key: ${{ runner.os }}-${{ matrix.node-version }}-node_modules-${{ hashFiles('**/package-lock.json') }}
     - name: Setup Graphviz
-      uses: ts-graphviz/setup-graphviz@v1.2.0
+      uses: ts-graphviz/setup-graphviz@c001ccfb5aff62e28bda6a6c39b59a7e061be5b9 # v1.2.0
       with:
         macos-skip-brew-update: 'true'
     - run: npm install
