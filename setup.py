@@ -185,6 +185,7 @@ setuptools.setup(
             "partials/*/*/*/*.html",
             "static/*/**",
             "bundles/*/**",
+            "LICENSE",
             "*.html",
             "custom_admonitions.css",
             "theme.conf",

@@ -21,6 +21,7 @@
  */
 
 import { spawn } from "child_process"
+import * as fs from "fs/promises"
 import { minify as minhtml } from "html-minifier"
 import * as path from "path"
 import rimraf from "rimraf"
@@ -28,6 +29,8 @@ import {
   EMPTY,
   Observable,
   concat,
+  concatMap,
+  debounceTime,
   defer,
   merge,
   mergeMap,
@@ -36,8 +39,7 @@ import {
   startWith,
   switchMap,
   toArray,
-  zip,
-  debounceTime
+  zip
 } from "rxjs"
 import { optimize } from "svgo"
 
@@ -89,6 +91,8 @@ function minsvg(data: string): string {
  * Tasks
  * ------------------------------------------------------------------------- */
 
+const assetLicenses = new Map<string, string>()
+
 /* Copy all assets */
 const assets$ = concat(
 
@@ -123,6 +127,13 @@ const assets$ = concat(
       to: `${base}/.icons/simple`,
       transform: async data => minsvg(data)
     }))
+).pipe(
+  concatMap(async x => {
+    if (x.match(/LICENSE[^/]*$/)) {
+      assetLicenses.set(path.dirname(path.relative("", x)), await fs.readFile(x, {encoding: "utf-8"}))
+    }
+    return path
+  })
 )
 
 /* ------------------------------------------------------------------------- */
@@ -151,6 +162,30 @@ const javascripts$ = resolve("**/bundle.ts", { cwd: "src/assets" })
     )
   )
 
+const bundleLicenses = new Map<string, Map<string, string>>()
+
+/**
+ * Writes licenses of all bundled dependencies to sphinx_immaterial/LICENSE
+ *
+ * @returns Promise that resolves when license file has been written.
+ */
+async function writeLicenseFile() {
+  let licenseText = await fs.readFile("LICENSE", {encoding: "utf-8"})
+  for (const [p, license] of assetLicenses) {
+    licenseText += `\n\n${  "=".repeat(79)  }\n\n`
+    licenseText += `Files: ${p}/\n\n${  license.trim().replaceAll("\r", "")  }\n`
+  }
+  const bundlePaths = Array.from(bundleLicenses.keys())
+  bundlePaths.sort()
+  for (const bundlePath of bundlePaths) {
+    for (const [dir, license] of bundleLicenses.get(bundlePath)!) {
+      licenseText += `\n\n${  "=".repeat(79)  }\n\n`
+      licenseText += `File: ${bundlePath}\nFrom: ${dir}\n\n${  license.trim().replaceAll("\r", "")  }\n`
+    }
+  }
+  await fs.writeFile("sphinx_immaterial/LICENSE", licenseText)
+}
+
 /* Compute manifest */
 const manifest$ = merge(
   ...Object.entries({
@@ -169,11 +204,17 @@ const manifest$ = merge(
     ))
 )
   .pipe(
-    scan((prev, mapping) => (
-      mapping.reduce((next, [key, value]) => (
-        next.set(key, value.replace(`${base}/static/`, ""))
-      ), prev)
-    ), new Map<string, string>()),
+    scan((prev, mapping) => {
+      for (const [sourcePath, {file, licenseMap}] of mapping) {
+        bundleLicenses.set(file, licenseMap)
+        prev.set(sourcePath, file.replace(`${base}/static/`, ""))
+      }
+      return prev
+    }, new Map<string, string>()),
+    concatMap(async m => {
+      await writeLicenseFile()
+      return m
+    }),
   )
 
 /* Transform templates */
@@ -229,18 +270,19 @@ const docs$ = (() => {
   return defer(() => process.argv.includes("--watch")
     ? watch(["docs/**", "sphinx_immaterial/**"],
             { ignored: ["**/*.pyc",
-                        "docs/_build/**",
-                        "docs/.mypy_cache/**",
-                        "sphinx_immaterial/.mypy_cache/**",
-                        "docs/python_apigen_generated/**",
-                        "docs/cpp_apigen_generated/**",
-                       ],
+              "docs/_build/**",
+              "docs/.mypy_cache/**",
+              "sphinx_immaterial/.mypy_cache/**",
+              "docs/python_apigen_generated/**",
+              "docs/cpp_apigen_generated/**"
+            ]
             })
         : EMPTY
   ).pipe(startWith("*"),
     debounceTime(100),
-    switchMap(async (x) => {
+    switchMap(async x => {
                 if (Array.isArray(x))
+                  // eslint-disable-next-line no-console
                   console.log(`building due to change in: ${x[0]}`)
                 dirty = true
                 if (building) {
@@ -250,28 +292,28 @@ const docs$ = (() => {
                   do {
                     building = true
                     dirty = false
-                    await new Promise((resolve, reject) => {
+                    await new Promise((res, rej) => {
                       rimraf("docs/_build", error => {
                         if (error != null) {
-                          reject(error)
+                          rej(error)
                         } else {
-                          resolve(undefined)
+                          res(undefined)
                         }
                       })
                     })
-                    await new Promise((resolve, reject) => {
+                    await new Promise((res, rej) => {
                       rimraf("docs/python_apigen_generated", error => {
                         if (error != null) {
-                          reject(error)
+                          rej(error)
                         } else {
-                          resolve(undefined)
+                          res(undefined)
                         }
                       })
                     })
                     const child = spawn("sphinx-build", ["docs", "docs/_build", "-a", "-j", "auto"],
                                         {stdio: "inherit"})
-                    await new Promise(resolve => {
-                      child.on("exit", resolve)
+                    await new Promise(res => {
+                      child.on("exit", res)
                     })
                   } while (dirty)
                 } finally {
@@ -292,7 +334,7 @@ const templatesBuild$ =
     ? templates$
     : concat(assets$, templates$)
 
-const build$: Observable<any> =
+const build$: Observable<unknown> =
   process.argv.includes("--docs")
     ? merge(templatesBuild$, docs$)
     : templatesBuild$
