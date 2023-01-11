@@ -39,6 +39,7 @@ dmypy.json
 /sphinx_immaterial/.icons
 /sphinx_immaterial/static
 /sphinx_immaterial/bundles
+/sphinx_immaterial/LICENSE
 
 # user specific
 .vscode/
