@@ -32,8 +32,7 @@
         <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
       
     
-        <link rel="stylesheet" type="text/css" href="../../_static/google_fonts.css" />
-        <link rel="stylesheet" type="text/css" href="../../_static/stylesheets/sphinx_immaterial_theme.ce877ce75602c6c77.min.css" />
+        <link rel="stylesheet" type="text/css" href="../../_static/sphinx_immaterial_theme.b26c02e5c3d38b40b.min.css" />
         <link rel="stylesheet" type="text/css" href="../../_static/extra_css.css" />
     <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -839,12 +838,15 @@
 <span class="kn">from</span> <span class="nn">sphinx.locale</span> <span class="kn">import</span> <span class="n">admonitionlabels</span><span class="p">,</span> <span class="n">_</span>
 <span class="kn">from</span> <span class="nn">sphinx.util.logging</span> <span class="kn">import</span> <span class="n">getLogger</span>
 <span class="kn">from</span> <span class="nn">sphinx.writers.html5</span> <span class="kn">import</span> <span class="n">HTML5Translator</span>
-<span class="kn">from</span> <span class="nn">.inline_icons</span> <span class="kn">import</span> <span class="n">load_svg_into_builder_env</span>
+<span class="kn">from</span> <span class="nn">.css_and_javascript_bundles</span> <span class="kn">import</span> <span class="n">add_global_css</span>
+<span class="kn">from</span> <span class="nn">.inline_icons</span> <span class="kn">import</span> <span class="n">load_svg_into_builder_env</span><span class="p">,</span> <span class="n">get_custom_icons</span>
 
 <span class="n">logger</span> <span class="o">=</span> <span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
 <span class="c1"># treat the todo directive from the sphinx extension as a built-in directive</span>
 <span class="n">admonitionlabels</span><span class="p">[</span><span class="s2">&quot;todo&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s2">&quot;Todo&quot;</span><span class="p">)</span>
+
+<span class="n">_CUSTOM_ADMONITIONS_KEY</span> <span class="o">=</span> <span class="s2">&quot;sphinx_immaterial_custom_admonitions&quot;</span>
 
 
 <div class="viewcode-block" id="CustomAdmonitionConfig"><a class="viewcode-back" href="../../admonitions.html#sphinx_immaterial.custom_admonitions.CustomAdmonitionConfig">[docs]</a><span class="k">class</span> <span class="nc">CustomAdmonitionConfig</span><span class="p">(</span><span class="n">pydantic</span><span class="o">.</span><span class="n">BaseModel</span><span class="p">):</span>
@@ -1073,7 +1075,6 @@
     <span class="n">custom_admonitions</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">CustomAdmonitionConfig</span><span class="p">]</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span>
         <span class="n">config</span><span class="p">,</span> <span class="s2">&quot;sphinx_immaterial_custom_admonitions&quot;</span>
     <span class="p">)</span>
-    <span class="nb">setattr</span><span class="p">(</span><span class="n">app</span><span class="o">.</span><span class="n">builder</span><span class="o">.</span><span class="n">env</span><span class="p">,</span> <span class="s2">&quot;sphinx_immaterial_custom_icons&quot;</span><span class="p">,</span> <span class="p">{})</span>
     <span class="k">for</span> <span class="n">admonition</span> <span class="ow">in</span> <span class="n">custom_admonitions</span><span class="p">:</span>
 
         <span class="n">app</span><span class="o">.</span><span class="n">add_directive</span><span class="p">(</span>
@@ -1132,17 +1133,13 @@
             <span class="n">app</span><span class="o">.</span><span class="n">add_directive</span><span class="p">(</span><span class="n">admonition</span><span class="p">,</span> <span class="n">get_directive_class</span><span class="p">(</span><span class="n">admonition</span><span class="p">,</span> <span class="n">title</span><span class="p">),</span> <span class="kc">True</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">consolidate_css</span><span class="p">(</span><span class="n">app</span><span class="p">:</span> <span class="n">Sphinx</span><span class="p">,</span> <span class="n">env</span><span class="p">:</span> <span class="n">BuildEnvironment</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">add_admonition_and_icon_css</span><span class="p">(</span><span class="n">app</span><span class="p">:</span> <span class="n">Sphinx</span><span class="p">,</span> <span class="n">env</span><span class="p">:</span> <span class="n">BuildEnvironment</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Generates the CSS for icons and admonitions, then appends that to the</span>
 <span class="sd">    theme&#39;s bundled CSS.&quot;&quot;&quot;</span>
 
-    <span class="n">theme_options</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;html_theme_options&quot;</span><span class="p">]</span>
-    <span class="n">is_palette_defined</span> <span class="o">=</span> <span class="kc">False</span>
-    <span class="k">if</span> <span class="n">theme_options</span><span class="p">:</span>
-        <span class="n">is_palette_defined</span> <span class="o">=</span> <span class="s2">&quot;palette&quot;</span> <span class="ow">in</span> <span class="n">theme_options</span>
+    <span class="n">custom_admonitions</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">_CUSTOM_ADMONITIONS_KEY</span><span class="p">)</span>
+    <span class="n">custom_icons</span> <span class="o">=</span> <span class="n">get_custom_icons</span><span class="p">(</span><span class="n">env</span><span class="p">)</span>
 
-    <span class="n">custom_admonitions</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="s2">&quot;sphinx_immaterial_custom_admonitions&quot;</span><span class="p">)</span>
-    <span class="n">custom_icons</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="s2">&quot;sphinx_immaterial_custom_icons&quot;</span><span class="p">)</span>
     <span class="n">jinja_env</span> <span class="o">=</span> <span class="n">jinja2</span><span class="o">.</span><span class="n">Environment</span><span class="p">(</span>
         <span class="n">loader</span><span class="o">=</span><span class="n">jinja2</span><span class="o">.</span><span class="n">FileSystemLoader</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">PurePath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span><span class="p">))</span>
     <span class="p">)</span>
@@ -1152,26 +1149,8 @@
         <span class="n">admonitions</span><span class="o">=</span><span class="n">custom_admonitions</span><span class="p">,</span>
     <span class="p">)</span>
 
-    <span class="n">css_data</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">()</span>
-    <span class="c1"># copy pre-minified CSS from theme&#39;s bundles</span>
-    <span class="n">theme_bundles</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="s2">&quot;bundles&quot;</span> <span class="o">/</span> <span class="s2">&quot;stylesheets&quot;</span>
-    <span class="k">for</span> <span class="n">bundle</span> <span class="ow">in</span> <span class="n">theme_bundles</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;*.min.css&quot;</span><span class="p">):</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">is_palette_defined</span> <span class="ow">and</span> <span class="n">bundle</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;palette&quot;</span><span class="p">):</span>
-            <span class="k">continue</span>  <span class="c1"># don&#39;t need the palette CSS if HTML doesn&#39;t need it</span>
-        <span class="n">css_data</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">bundle</span><span class="o">.</span><span class="n">read_bytes</span><span class="p">())</span>
-
     <span class="c1"># append the generated CSS for icons and admonitions</span>
-    <span class="n">css_data</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">generated</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">))</span>
-
-    <span class="c1"># hash CSS data and write to generated file</span>
-    <span class="n">css_data_hash</span> <span class="o">=</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">sha256</span><span class="p">(</span><span class="n">css_data</span><span class="o">.</span><span class="n">getvalue</span><span class="p">())</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span>
-    <span class="n">css_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;stylesheets/sphinx_immaterial_theme.</span><span class="si">{</span><span class="n">css_data_hash</span><span class="p">[:</span><span class="mi">17</span><span class="p">]</span><span class="si">}</span><span class="s2">.min.css&quot;</span>
-    <span class="n">css_output</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">app</span><span class="o">.</span><span class="n">outdir</span><span class="p">,</span> <span class="s2">&quot;_static&quot;</span><span class="p">,</span> <span class="n">css_name</span><span class="p">)</span>
-    <span class="n">css_output</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">css_output</span><span class="o">.</span><span class="n">write_bytes</span><span class="p">(</span><span class="n">css_data</span><span class="o">.</span><span class="n">getvalue</span><span class="p">())</span>
-
-    <span class="c1"># ensure new CSS file is added in the rendered HTML output</span>
-    <span class="n">app</span><span class="o">.</span><span class="n">add_css_file</span><span class="p">(</span><span class="n">css_name</span><span class="p">)</span>
+    <span class="n">add_global_css</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">generated</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">))</span>
 
 
 <span class="k">def</span> <span class="nf">setup</span><span class="p">(</span><span class="n">app</span><span class="p">:</span> <span class="n">Sphinx</span><span class="p">):</span>
@@ -1202,7 +1181,7 @@
     <span class="p">)</span>
 
     <span class="n">app</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;builder-inited&quot;</span><span class="p">,</span> <span class="n">on_builder_inited</span><span class="p">)</span>
-    <span class="n">app</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;env-check-consistency&quot;</span><span class="p">,</span> <span class="n">consolidate_css</span><span class="p">)</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;env-check-consistency&quot;</span><span class="p">,</span> <span class="n">add_admonition_and_icon_css</span><span class="p">)</span>
     <span class="n">app</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;config-inited&quot;</span><span class="p">,</span> <span class="n">on_config_inited</span><span class="p">)</span>
 
     <span class="n">patch_visit_admonition</span><span class="p">()</span>
@@ -1219,7 +1198,7 @@
   <small>
     
       Last update:
-      Jan 11, 2023
+      Jan 12, 2023
     
   </small>
 </div>
@@ -1297,9 +1276,8 @@
     
     <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.expand", "navigation.sections", "navigation.top", "search.share", "toc.follow", "toc.sticky", "content.tabs.link", "announce.dismiss"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": {"provider": "mike", "staticVersions": [{"aliases": [], "title": "ReadTheDocs", "version": "https://sphinx-immaterial.rtfd.io"}, {"aliases": [], "title": "Github Pages", "version": "https://jbms.github.io/sphinx-immaterial"}], "versionPath": null}}</script>
     
-    
-      <script src="../../_static/javascripts/bundle.444abb77.min.js"></script>
-        <script src="../../_static/sphinx_highlight.js"></script>
+      
+        <script src="../../_static/sphinx_immaterial_theme.cea6a0c1d5b0618cf.min.js"></script>
     
   </body>
 </html>
