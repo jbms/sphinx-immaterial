@@ -20,7 +20,6 @@
  * IN THE SOFTWARE.
  */
 
-import { createHash } from "crypto"
 import { build as esbuild } from "esbuild"
 import * as fs from "fs/promises"
 import * as path from "path"
@@ -65,23 +64,6 @@ const root = new RegExp(`file://${path.resolve(".")}/`, "g")
 /* ----------------------------------------------------------------------------
  * Helper functions
  * ------------------------------------------------------------------------- */
-
-/**
- * Compute a digest for cachebusting a file
- *
- * @param file - File
- * @param data - File data
- *
- * @returns File with digest
- */
-function digest(file: string, data: string): string {
-  if (process.argv.includes("--optimize")) {
-    const hash = createHash("sha256").update(data).digest("hex")
-    return file.replace(/\b(?=\.)/, `.${hash.slice(0, 8)}.min`)
-  } else {
-    return file
-  }
-}
 
 /**
  * Custom PostCSS plugin to polyfill newer CSS features
@@ -165,7 +147,8 @@ export function transformStyle(
       "node_modules/material-design-color",
       "node_modules/material-shadows"
     ],
-    sourceMap: true
+    sourceMap: true,
+    sourceMapIncludeSources: true
   })))
     .pipe(
       switchMap(async ({ css, sourceMap, loadedUrls }) => {
@@ -200,7 +183,7 @@ export function transformStyle(
         return EMPTY
       }),
       switchMap(async ({ css, map, loadedUrls }) => {
-        const file = digest(options.to, css)
+        const file = options.to
         const licenseMap = await getLicenses(loadedUrls.map(url => url.pathname))
         await lastValueFrom(
           concat(mkdir(path.dirname(file)),
@@ -273,7 +256,7 @@ export function transformScript(
         }
       }),
       switchMap(async ({ js, map, licenseMap }) => {
-        const file = digest(options.to, js)
+        const file = options.to
         await lastValueFrom(concat(
           mkdir(path.dirname(file)),
           merge(

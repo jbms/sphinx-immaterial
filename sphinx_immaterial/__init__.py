@@ -248,6 +248,7 @@ def _config_inited(
 def setup(app: Sphinx):
     app.connect("config-inited", _config_inited)
 
+    app.setup_extension("sphinx_immaterial.css_and_javascript_bundles")
     app.setup_extension("sphinx_immaterial.external_resource_cache")
     app.setup_extension("sphinx_immaterial.google_fonts")
 

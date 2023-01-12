@@ -8,6 +8,7 @@ Additionally, the fonts are used by the graphviz extension.
 import asyncio
 import concurrent.futures
 import hashlib
+import io
 import json
 import os
 import re
@@ -18,6 +19,7 @@ import sphinx.application
 import sphinx.config
 import sphinx.util.logging
 
+from .css_and_javascript_bundles import add_global_css
 from .external_resource_cache import get_url, get_cache_dir
 
 logger = sphinx.util.logging.getLogger(__name__)
@@ -169,13 +171,12 @@ def add_google_fonts(app: sphinx.application.Sphinx, fonts: List[str]):
 
     # Write fonts css file
     ttf_font_paths = {}
-    with open(os.path.join(static_dir, "google_fonts.css"), "w", encoding="utf-8") as f:
-        for key, (css_format_content, ttf_font_path) in css_content.items():
-            ttf_font_paths[key] = os.path.join(font_dir, ttf_font_path)
-            for content in css_format_content.values():
-                f.write("".join(re.split(r"(?:\s*\n\s*|/\*.*\*/)", content)))
-
-    app.add_css_file("google_fonts.css")
+    css_data = io.StringIO()
+    for key, (css_format_content, ttf_font_path) in css_content.items():
+        ttf_font_paths[key] = os.path.join(font_dir, ttf_font_path)
+        for content in css_format_content.values():
+            css_data.write("".join(re.split(r"(?:\s*\n\s*|/\*.*\*/)", content)))
+    add_global_css(app, code=css_data.getvalue())
     setattr(app, _TTF_FONT_PATHS_KEY, ttf_font_paths)
 
 

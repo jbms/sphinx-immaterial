@@ -327,6 +327,8 @@ sphinx_immaterial_custom_admonitions = [
 # END CUSTOM ADMONITIONS
 sphinx_immaterial_icon_path = html_static_path
 
+sphinx_immaterial_bundle_source_maps = True
+
 
 jinja_contexts = {
     "sys": {"sys": sys},

@@ -113,7 +113,7 @@ class StaticBundlesCommand(setuptools.command.build_py.build_py):
         (
             "skip-rebuild",
             None,
-            "Skip rebuilding if the `sphinx_immaterial` directory already exists.",
+            "Skip rebuilding if the `sphinx_immaterial/bundles` directory already exists.",
         ),
     ]
 
@@ -136,7 +136,7 @@ class StaticBundlesCommand(setuptools.command.build_py.build_py):
 
     def run(self):
         if self.skip_rebuild:
-            output_dir = os.path.join(package_root, "static")
+            output_dir = os.path.join(package_root, "bundles")
             if os.path.exists(output_dir):
                 print(
                     "Skipping rebuild of package since %s already exists"
@@ -183,7 +183,6 @@ setuptools.setup(
             "partials/*/*.html",
             "partials/*/*/*.html",
             "partials/*/*/*/*.html",
-            "static/*/**",
             "bundles/*/**",
             "LICENSE",
             "*.html",

@@ -408,9 +408,8 @@
     {% endblock %}
 
     <!-- Theme-related JavaScript -->
-    {% block scripts %}
-      <script src="{{ pathto('_static/javascripts/bundle.js', resource=True) }}"></script>
-
+      {% block scripts %}
+      <!-- sphinx-immaterial: bundled JavaScript is added from `script_files -->
       <!-- Custom JavaScript -->
       {%- for js in script_files %}
         {{ js_tag(js) }}
