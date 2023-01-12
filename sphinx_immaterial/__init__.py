@@ -63,6 +63,7 @@ def _get_html_builder(base_builder: Type[sphinx.builders.html.StandaloneHTMLBuil
                     "_static/doctools.js",
                     "_static/language_data.js",
                     "_static/documentation_options.js",
+                    "_static/sphinx_highlight.js",
                 ]
             )
             if nav_adapt.READTHEDOCS is None:
@@ -121,6 +122,7 @@ def _get_html_builder(base_builder: Type[sphinx.builders.html.StandaloneHTMLBuil
                             "**/basic.css_t",
                             "**/documentation_options.js_t",
                             "**/searchtools.js",
+                            "**/sphinx_highlight.js",
                         ]
                         if nav_adapt.READTHEDOCS is None:
                             excluded_list.append("**/jquery*.js")
