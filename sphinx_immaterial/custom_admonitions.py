@@ -18,12 +18,14 @@ import sphinx.ext.todo
 from sphinx.locale import admonitionlabels, _
 from sphinx.util.logging import getLogger
 from sphinx.writers.html5 import HTML5Translator
-from .inline_icons import load_svg_into_builder_env
+from .inline_icons import load_svg_into_builder_env, get_custom_icons
 
 logger = getLogger(__name__)
 
 # treat the todo directive from the sphinx extension as a built-in directive
 admonitionlabels["todo"] = _("Todo")
+
+_CUSTOM_ADMONITIONS_KEY = "sphinx_immaterial_custom_admonitions"
 
 
 class CustomAdmonitionConfig(pydantic.BaseModel):
@@ -252,7 +254,6 @@ def on_builder_inited(app: Sphinx):
     custom_admonitions: List[CustomAdmonitionConfig] = getattr(
         config, "sphinx_immaterial_custom_admonitions"
     )
-    setattr(app.builder.env, "sphinx_immaterial_custom_icons", {})
     for admonition in custom_admonitions:
 
         app.add_directive(
@@ -319,9 +320,9 @@ def consolidate_css(app: Sphinx, env: BuildEnvironment):
     is_palette_defined = False
     if theme_options:
         is_palette_defined = "palette" in theme_options
+    custom_admonitions = getattr(env, _CUSTOM_ADMONITIONS_KEY)
+    custom_icons = get_custom_icons(env)
 
-    custom_admonitions = getattr(env, "sphinx_immaterial_custom_admonitions")
-    custom_icons = getattr(env, "sphinx_immaterial_custom_icons")
     jinja_env = jinja2.Environment(
         loader=jinja2.FileSystemLoader(str(PurePath(__file__).parent))
     )
