@@ -157,7 +157,7 @@ const javascripts$ = resolve("**/bundle.ts", { cwd: "src/assets" })
       of(ext(file, ".js")),
       transformScript({
         from: `src/assets/${file}`,
-        to: ext(`${base}/static/${file}`, ".js")
+        to: ext(`${base}/bundles/${file}`, ".js")
       }))
     )
   )
@@ -207,7 +207,7 @@ const manifest$ = merge(
     scan((prev, mapping) => {
       for (const [sourcePath, {file, licenseMap}] of mapping) {
         bundleLicenses.set(file, licenseMap)
-        prev.set(sourcePath, file.replace(`${base}/static/`, ""))
+        prev.set(sourcePath, file.replace(`${base}/bundles/`, ""))
       }
       return prev
     }, new Map<string, string>()),
@@ -220,7 +220,7 @@ const manifest$ = merge(
 /* Transform templates */
 const templates$ = manifest$
   .pipe(
-    switchMap(manifest => copyAll("**/*.html", {
+    switchMap(_manifest => copyAll("**/*.html", {
       from: "src",
       to: base,
       watch: process.argv.includes("--watch"),
@@ -230,17 +230,6 @@ const templates$ = manifest$
           "{#-\n" +
           "  This file was automatically generated - do not edit\n" +
           "-#}\n"
-
-        /* If necessary, apply manifest */
-        if (process.argv.includes("--optimize"))
-          for (let [key, value] of manifest) {
-            key = key.replace("\\", "/")
-            value = value.replace("\\", "/")
-            data = data.replace(
-              new RegExp(`('|")_static/${key}\\1`, "g"),
-              `$1_static/${value}$1`
-            )
-          }
 
         /* Normalize line feeds and minify HTML */
         const html = data.replace(/\r\n/gm, "\n")

@@ -63,6 +63,7 @@ def _get_html_builder(base_builder: Type[sphinx.builders.html.StandaloneHTMLBuil
                     "_static/doctools.js",
                     "_static/language_data.js",
                     "_static/documentation_options.js",
+                    "_static/sphinx_highlight.js",
                 ]
             )
             if nav_adapt.READTHEDOCS is None:
@@ -121,6 +122,7 @@ def _get_html_builder(base_builder: Type[sphinx.builders.html.StandaloneHTMLBuil
                             "**/basic.css_t",
                             "**/documentation_options.js_t",
                             "**/searchtools.js",
+                            "**/sphinx_highlight.js",
                         ]
                         if nav_adapt.READTHEDOCS is None:
                             excluded_list.append("**/jquery*.js")
@@ -248,7 +250,9 @@ def _config_inited(
 def setup(app: Sphinx):
     app.connect("config-inited", _config_inited)
 
+    app.setup_extension("sphinx_immaterial.css_and_javascript_bundles")
     app.setup_extension("sphinx_immaterial.external_resource_cache")
+    app.setup_extension("sphinx_immaterial.google_fonts")
 
     app.setup_extension(apidoc_formatting.__name__)
     app.setup_extension("sphinx_immaterial.apidoc.python.default")

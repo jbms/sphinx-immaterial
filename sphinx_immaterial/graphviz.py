@@ -18,7 +18,7 @@ import sphinx.util.logging
 from sphinx.writers.html import HTMLTranslator
 from sphinx.writers.html5 import HTML5Translator
 
-from . import external_resource_cache
+from . import google_fonts
 from . import sphinx_utils
 
 logger = sphinx.util.logging.getLogger(__name__)
@@ -235,10 +235,10 @@ def render_dot_html(
 ) -> Tuple[str, str]:
 
     theme_options = self.builder.config["html_theme_options"]
-    ttf_font_paths = external_resource_cache.get_ttf_font_paths(self.builder.app)
+    ttf_font_paths = google_fonts.get_ttf_font_paths(self.builder.app)
     font = theme_options["font"]["text"]
 
-    ttf_font = ttf_font_paths[(font, "400")]
+    ttf_font = ttf_font_paths[(font, "regular")]
 
     code = _replace_resolved_xrefs(node, code)
 

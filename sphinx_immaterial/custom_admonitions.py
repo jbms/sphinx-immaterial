@@ -18,12 +18,15 @@ import sphinx.ext.todo
 from sphinx.locale import admonitionlabels, _
 from sphinx.util.logging import getLogger
 from sphinx.writers.html5 import HTML5Translator
-from .inline_icons import load_svg_into_builder_env
+from .css_and_javascript_bundles import add_global_css
+from .inline_icons import load_svg_into_builder_env, get_custom_icons
 
 logger = getLogger(__name__)
 
 # treat the todo directive from the sphinx extension as a built-in directive
 admonitionlabels["todo"] = _("Todo")
+
+_CUSTOM_ADMONITIONS_KEY = "sphinx_immaterial_custom_admonitions"
 
 
 class CustomAdmonitionConfig(pydantic.BaseModel):
@@ -252,7 +255,6 @@ def on_builder_inited(app: Sphinx):
     custom_admonitions: List[CustomAdmonitionConfig] = getattr(
         config, "sphinx_immaterial_custom_admonitions"
     )
-    setattr(app.builder.env, "sphinx_immaterial_custom_icons", {})
     for admonition in custom_admonitions:
 
         app.add_directive(
@@ -311,17 +313,13 @@ def on_config_inited(app: Sphinx, config: Config):
             app.add_directive(admonition, get_directive_class(admonition, title), True)
 
 
-def consolidate_css(app: Sphinx, env: BuildEnvironment):
+def add_admonition_and_icon_css(app: Sphinx, env: BuildEnvironment):
     """Generates the CSS for icons and admonitions, then appends that to the
     theme's bundled CSS."""
 
-    theme_options = app.config["html_theme_options"]
-    is_palette_defined = False
-    if theme_options:
-        is_palette_defined = "palette" in theme_options
+    custom_admonitions = getattr(env, _CUSTOM_ADMONITIONS_KEY)
+    custom_icons = get_custom_icons(env)
 
-    custom_admonitions = getattr(env, "sphinx_immaterial_custom_admonitions")
-    custom_icons = getattr(env, "sphinx_immaterial_custom_icons")
     jinja_env = jinja2.Environment(
         loader=jinja2.FileSystemLoader(str(PurePath(__file__).parent))
     )
@@ -331,26 +329,8 @@ def consolidate_css(app: Sphinx, env: BuildEnvironment):
         admonitions=custom_admonitions,
     )
 
-    css_data = io.BytesIO()
-    # copy pre-minified CSS from theme's bundles
-    theme_bundles = Path(__file__).parent / "bundles" / "stylesheets"
-    for bundle in theme_bundles.glob("*.min.css"):
-        if not is_palette_defined and bundle.name.startswith("palette"):
-            continue  # don't need the palette CSS if HTML doesn't need it
-        css_data.write(bundle.read_bytes())
-
     # append the generated CSS for icons and admonitions
-    css_data.write(generated.replace("\n", "").encode(encoding="utf-8"))
-
-    # hash CSS data and write to generated file
-    css_data_hash = hashlib.sha256(css_data.getvalue()).hexdigest()
-    css_name = f"stylesheets/sphinx_immaterial_theme.{css_data_hash[:17]}.min.css"
-    css_output = Path(app.outdir, "_static", css_name)
-    css_output.parent.mkdir(parents=True, exist_ok=True)
-    css_output.write_bytes(css_data.getvalue())
-
-    # ensure new CSS file is added in the rendered HTML output
-    app.add_css_file(css_name)
+    add_global_css(app, generated.replace("\n", ""))
 
 
 def setup(app: Sphinx):
@@ -381,7 +361,7 @@ def setup(app: Sphinx):
     )
 
     app.connect("builder-inited", on_builder_inited)
-    app.connect("env-check-consistency", consolidate_css)
+    app.connect("env-check-consistency", add_admonition_and_icon_css)
     app.connect("config-inited", on_config_inited)
 
     patch_visit_admonition()

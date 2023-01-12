@@ -209,13 +209,13 @@ Configuration Options
 
             .. important::
                 This option has no effect if the :themeconf:`repo_url` option is not specified.
-        
+
         .. themeconf:: admonition
 
             The default icons for admonitions can be changed by setting this field to a `dict` in
             which the keys are CSS classes (see :doc:`admonitions`) and the values are
             `any of the icons bundled with this theme`_.
-            
+
             .. seealso::
                 Refer to the :ref:`change_admonition_icon` section for more detail.
 
@@ -273,7 +273,7 @@ Configuration Options
         - `search.share <https://squidfunk.github.io/mkdocs-material/setup/setting-up-site-search/#search-sharing>`_
         - `toc.integrate <https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#navigation-integration>`_
         - `announce.dismiss <https://squidfunk.github.io/mkdocs-material/setup/setting-up-the-header/?h=ann#mark-as-read>`_
-          
+
           .. seealso::
               Refer to the `New blocks`_ section below about how to add an announcement banner.
         - ``toc.follow``
@@ -441,7 +441,7 @@ Configuration Options
                     "property": "G-XXXXXXXXXX"
                 }
             }
-        
+
         .. themeconf:: feedback
 
             This theme also supports user feedback using site analytics. Along with the required
@@ -538,7 +538,7 @@ Configuration Options
 
         - The :python:`"icon"` field can be specifed as `any of the icons bundled with this theme`_
         - The :python:`"link"` field is simply the hyperlink target added to the icon specified.
-        
+
         Optionally, custom text may be specified for the icon's tooltip with the :python:`"name"`
         field. If the :python:`"name"` is not specified, then the domain of the :python:`"link"`
         is used automatically.
@@ -578,6 +578,12 @@ Configuration Options
    Environment variable that specifies a default value for the
    :confval:`sphinx_immaterial_external_resource_cache_dir` configuration
    option.
+
+.. confval:: sphinx_immaterial_bundle_source_maps
+
+   Write ``.css.map`` and ``.js.map`` source maps for the CSS and JavaScript
+   bundles to the output directory.  Source maps are helpful when developing the
+   theme.
 
 .. _version_dropdown:
 
@@ -803,13 +809,13 @@ There are several services that can deliver an integrated comment system, but th
 demonstrates using Giscus_ which is Open Source and built on Github's Discussions feature.
 
 1. Ensure these requisites are completed:
-   
+
    - Install the `Giscus Github App <https://github.com/apps/giscus>`_ and grant access to the
      repository that should host comments as GitHub discussions. Note that this can be a repository
      different from your documentation.
    - Visit Giscus_ and generate the snippet through their configuration tool to load the comment
      system. Copy the snippet for the next step. The resulting snippet should look similar to this:
-     
+
      .. code-block:: html
 
          <script
@@ -836,18 +842,18 @@ demonstrates using Giscus_ which is Open Source and built on Github's Discussion
        {% if page.meta.comments %} <!-- (1)! -->
          <h2 id="__comments">{{ lang.t("meta.comments") }}</h2>
          <!-- Insert generated snippet (2) here -->
-       
+
          <!-- Synchronize Giscus theme with palette -->
          <script>
            var giscus = document.querySelector("script[src*=giscus]")
-       
+
            /* Set palette on initial load */
            var palette = __md_get("__palette")
            if (palette && typeof palette.color === "object") {
              var theme = palette.color.scheme === "slate" ? "dark" : "light" // (3)!
              giscus.setAttribute("data-theme", theme)
            }
-       
+
            /* Register event handlers after documented loaded */
            document.addEventListener("DOMContentLoaded", function() {
              var ref = document.querySelector("[data-md-component=palette]")
@@ -855,7 +861,7 @@ demonstrates using Giscus_ which is Open Source and built on Github's Discussion
                var palette = __md_get("__palette")
                if (palette && typeof palette.color === "object") {
                  var theme = palette.color.scheme === "slate" ? "dark" : "light" // (3)!
-       
+
                  /* Instruct Giscus to change theme */
                  var frame = document.querySelector(".giscus-frame")
                  frame.contentWindow.postMessage(
