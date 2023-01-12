@@ -225,7 +225,6 @@ specified in the signature.
       Does something with an `int` or `float`.
 
    .. py:function:: overload_example2(a: str) -> str
-
       :object-ids: ["overload_example2(str)"]
 
       Does something with a `str`.
@@ -248,7 +247,7 @@ This theme extends the Python domain directives (as well as the corresponding
 ``auto<objtype>`` directives provided by the `sphinx.ext.autodoc` extension)
 with a ``:nonodeid:`` option:
 
-.. code-block:: python
+.. code-block:: rst
 
    .. py:function:: func(a: int) -> int
       :nonodeid:
