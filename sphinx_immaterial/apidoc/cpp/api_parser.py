@@ -51,7 +51,6 @@ from typing import (
     Optional,
     Sequence,
     Union,
-    ClassVar,
     Pattern,
 )
 from textwrap import dedent
@@ -254,39 +253,41 @@ class Config:
     """
 
     # Derived from `allow_paths`.
-    allow_path_pattern: ClassVar[Pattern]
+    allow_path_pattern: Pattern = dataclasses.field(init=False)
 
     # Derived from `disallow_paths`.
-    disallow_path_pattern: ClassVar[Pattern]
+    disallow_path_pattern: Pattern = dataclasses.field(init=False)
 
     # Derived from `allow_symbols`.
-    allow_symbols_pattern: ClassVar[Pattern]
+    allow_symbols_pattern: Pattern = dataclasses.field(init=False)
 
     # Derived from `disallow_symbols`.
-    disallow_symbols_pattern: ClassVar[Pattern]
+    disallow_symbols_pattern: Pattern = dataclasses.field(init=False)
 
     # Derived from `allow_macros`.
-    allow_macros_pattern: ClassVar[Pattern]
+    allow_macros_pattern: Pattern = dataclasses.field(init=False)
 
     # Derived from `disallow_macros`.
-    disallow_macros_pattern: ClassVar[Pattern]
+    disallow_macros_pattern: Pattern = dataclasses.field(init=False)
 
     # Derived from `ignore_diagnostics`.
-    ignore_diagnostics_pattern: ClassVar[Pattern]
+    ignore_diagnostics_pattern: Pattern = dataclasses.field(init=False)
 
     # Derived from `hide_types`.
-    hide_types_pattern: ClassVar[Pattern]
+    hide_types_pattern: Pattern = dataclasses.field(init=False)
 
     # Derived from `type_replacements`.
-    type_replacements_pattern: ClassVar[Pattern]
+    type_replacements_pattern: Pattern = dataclasses.field(init=False)
 
     # Derived from `ignore_template_parameters`.
-    ignore_template_parameters_pattern: ClassVar[Pattern]
+    ignore_template_parameters_pattern: Pattern = dataclasses.field(init=False)
 
     # Derived from `hide_initializers`.
-    hide_initializers_pattern: ClassVar[Pattern]
+    hide_initializers_pattern: Pattern = dataclasses.field(init=False)
 
-    include_directory_map_pattern: ClassVar[Pattern]
+    include_directory_map_pattern: Pattern = dataclasses.field(init=False)
+
+    disallow_namespaces_pattern: Pattern = dataclasses.field(init=False)
 
     def __post_init__(self):
         self.allow_path_pattern = _combine_regexp_list(self.allow_paths)  # type: ignore[misc]
@@ -309,22 +310,22 @@ class Config:
         )
         self.hide_initializers_pattern = _combine_regexp_list(self.hide_initializers)  # type: ignore[misc]
         if os.name == "nt":
-            self._include_directory_map = {  # type: ignore[misc]
+            self.normalized_include_directory_map = {  # type: ignore[misc]
                 key.replace("\\", "/"): value
                 for key, value in self.include_directory_map.items()
             }
         else:
-            self._include_directory_map = self.include_directory_map  # type: ignore[misc]
+            self.normalized_include_directory_map = self.include_directory_map  # type: ignore[misc]
         self.include_directory_map_pattern = _make_replacement_pattern(  # type: ignore[misc]
-            list(self._include_directory_map.keys()), prefix="^", suffix=""
+            list(self.normalized_include_directory_map.keys()), prefix="^", suffix=""
         )
-        self._cached_mapped_include_directories = {}  # type: ignore[misc]
+        self.cached_mapped_include_directories = {}  # type: ignore[misc]
 
-    _include_directory_map: ClassVar[Dict[str, str]]
-    _cached_mapped_include_directories: ClassVar[Dict[str, str]]
+    normalized_include_directory_map: Dict[str, str] = dataclasses.field(init=False)
+    cached_mapped_include_directories: Dict[str, str] = dataclasses.field(init=False)
 
     def map_include_path(self, path: str) -> str:
-        mapped = self._cached_mapped_include_directories.get(path)
+        mapped = self.cached_mapped_include_directories.get(path)
         if mapped is not None:
             return mapped
         if os.name == "nt":
@@ -332,9 +333,9 @@ class Config:
         if path.startswith("./"):
             path = path[2:]
         new_mapped = self.include_directory_map_pattern.sub(
-            lambda m: self._include_directory_map[m.group(0)], path
+            lambda m: self.normalized_include_directory_map[m.group(0)], path
         )
-        self._cached_mapped_include_directories[path] = new_mapped
+        self.cached_mapped_include_directories[path] = new_mapped
         return new_mapped
 
 
