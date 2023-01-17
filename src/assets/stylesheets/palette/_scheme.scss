@@ -68,7 +68,7 @@
     --md-typeset-color:                var(--md-default-fg-color);
 
     // Typeset `a` color shades
-    --md-typeset-a-color:              hsla(164, 100%, 36%, 1);
+    --md-typeset-a-color:              hsla(162, 98%,37%, 1);
 
     // Typeset `mark` color shades
     --md-typeset-mark-color:           hsla(#{hex2hsl($clr-blue-a200)}, 0.3);
@@ -100,6 +100,10 @@
     --md-color-details-search:         var(--md-color-details);
     --md-color-details-placeholder:    var(--md-color-details);
     --md-color-details-background:     hsla(219, 52%, 12%, 1);
+
+    // Warning color shades
+    --md-color-warning-primary:        hsla(266, 100%, 64%, 1);
+    --md-color-warning-secondary:      hsla(266, 100%, 64%, 0.2);
 
     // Admonition color shades
     --md-admonition-bg-color:          hsla(var(--md-hue), 0%, 100%, 0.025);
