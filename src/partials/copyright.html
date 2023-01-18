@@ -29,11 +29,27 @@
           <a href="{{ path }}">Copyright</a> {{ copyright }}.
         {% endtrans %}
       {%- else %}
-        {% trans copyright=copyright|e %}&#169; Copyright {{ copyright }}.
+        {% trans copyright=copyright|e %}Copyright &#169; {{ copyright }}.
         {% endtrans %}
       {%- endif %}
     </div>
   {% endif %}
+
+  {%- if commit %}
+    {%- if commit_url %}
+      <a href="{{ commit_url }}">{{ commit }}</a>
+    {%- else %}
+      <i>{{ commit }}</i>
+    {%- endif %}
+    {%- if build_id %}
+      {%- if build_url %}
+        @ <a href="{{ build_url }}">{{ build_id }}</a>
+      {%- else %}
+        @ <i>{{ build_id }}</i>
+      {%- endif %}
+    {%- endif %}
+  {%- endif %}
+
   {%- if show_sphinx %}
     {% trans sphinx_version=sphinx_version|e %}Created using
     <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
