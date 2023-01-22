@@ -31,15 +31,12 @@ This program performs a number of transformations on the declarations:
 """
 
 import argparse
-import collections
 import dataclasses
-import enum
 import functools
 import json
 import os
 import pathlib
 import re
-import sys
 import time
 import typing
 from typing import (
@@ -72,7 +69,7 @@ import pydantic.dataclasses
 import sphinx.domains.cpp
 import sphinx.util.logging
 
-from . import ast_fixes  # type: ignore[unused-import]
+from . import ast_fixes  # pylint: disable=unused-import
 
 logger = sphinx.util.logging.getLogger(__name__)
 

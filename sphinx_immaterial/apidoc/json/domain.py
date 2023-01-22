@@ -45,7 +45,6 @@ import yaml  # pylint: disable=import-error
 from .. import object_description_options
 from . import json_pprint
 from ... import sphinx_utils
-from ... import default_literal_role
 from .. import apigen_utils
 
 logger = sphinx.util.logging.getLogger(__name__)
