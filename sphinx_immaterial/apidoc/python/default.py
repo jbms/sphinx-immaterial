@@ -1,3 +1,4 @@
+import sphinx
 import sphinx.application
 
 from . import annotation_style
@@ -9,10 +10,12 @@ from . import subscript_methods
 from . import attribute_style
 from . import napoleon_admonition_classes
 from . import strip_property_prefix
-from . import section_titles
 from . import autodoc_property_type
 from . import type_annotation_transforms
 from . import strip_self_and_return_type_annotations
+
+if sphinx.version_info < (5, 3):
+    from . import section_titles
 
 
 def setup(app: sphinx.application.Sphinx):
