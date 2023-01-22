@@ -16,11 +16,9 @@ display the signatures nicely.
 
 import copy
 import dataclasses
-import hashlib
 import importlib
 import inspect
 import json
-import os
 import re
 from typing import (
     List,
@@ -56,7 +54,6 @@ import sphinx.util.typing
 from .. import object_description_options
 from ... import sphinx_utils
 from .. import apigen_utils
-from ... import default_literal_role
 
 if sphinx.version_info >= (6, 1):
     stringify_annotation = sphinx.util.typing.stringify_annotation

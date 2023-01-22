@@ -14,8 +14,6 @@ That is accomplished by overriding `visit_section` and
 modifying `visit_title` to insert the `id`.
 """
 
-from typing import Callable
-
 import docutils.nodes
 
 from . import html_translator_mixin

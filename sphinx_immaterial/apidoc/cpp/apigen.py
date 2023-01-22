@@ -29,7 +29,6 @@ import sphinx.util.logging
 from .. import apigen_utils
 from ... import sphinx_utils
 from . import api_parser
-from ... import default_literal_role
 from .signodes import desc_cpp_explicit
 
 logger = sphinx.util.logging.getLogger(__name__)

@@ -2,6 +2,7 @@
 
 import inspect
 
+import sphinx.directives
 import sphinx.util.nodes
 import sphinx.util.docutils
 
@@ -27,3 +28,7 @@ def _monkey_patch_nested_parse_with_titles():
             return orig_nested_parse_with_titles(state, content, node)
 
     sphinx.util.nodes.nested_parse_with_titles = nested_parse_with_titles
+    sphinx.directives.nested_parse_with_titles = nested_parse_with_titles
+
+
+_monkey_patch_nested_parse_with_titles()

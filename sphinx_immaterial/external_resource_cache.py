@@ -1,12 +1,8 @@
-import asyncio
-import concurrent.futures
 import hashlib
 import json
 import os
-import re
 import tempfile
-from typing import Dict, Optional, List, Set, Tuple
-import urllib.parse
+from typing import Dict, Optional
 
 import appdirs
 import requests

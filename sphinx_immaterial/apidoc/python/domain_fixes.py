@@ -1,22 +1,5 @@
 """Fixes for the Python domain."""
 
-import json
-import re
-from typing import (
-    cast,
-    Sequence,
-    Tuple,
-    List,
-    Dict,
-    Type,
-    Optional,
-    Any,
-    Iterator,
-    Union,
-)
-
-import docutils.nodes
-import docutils.parsers.rst.states
 import sphinx
 import sphinx.addnodes
 import sphinx.application
@@ -29,8 +12,7 @@ import sphinx.ext.napoleon
 import sphinx.util.logging
 import sphinx.util.nodes
 
-from ... import sphinx_utils
-from . import autodoc_property_type
+from . import autodoc_property_type  # pylint: disable=unused-import
 
 PythonDomain = sphinx.domains.python.PythonDomain
 PyTypedField = sphinx.domains.python.PyTypedField

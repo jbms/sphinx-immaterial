@@ -1,11 +1,9 @@
 """This module inherits from the generic ``admonition`` directive and makes the
 title optional."""
 from abc import ABC
-import io
-import hashlib
-from pathlib import Path, PurePath
+from pathlib import PurePath
 import re
-from typing import List, Dict, Any, Tuple, Optional, Type, Union, cast
+from typing import List, Dict, Any, Tuple, Optional, Type, cast
 from docutils import nodes
 from docutils.parsers.rst import directives, Directive
 import jinja2

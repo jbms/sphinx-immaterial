@@ -408,7 +408,6 @@ disable = [
     "line-too-long",
     "fixme",
     "cyclic-import",
-    "unused-import",
     "too-many-arguments"
 ]
 
@@ -416,7 +415,7 @@ disable = [
 # either give multiple identifier separated by comma (,) or put this option
 # multiple time (only on the command line, not in the configuration file where it
 # should appear only once). See also the "--disable" option for examples.
-enable = ["c-extension-no-member"]
+enable = ["c-extension-no-member", "unused-import", "init-import"]
 
 [tool.pylint.miscellaneous]
 # List of note tags to take in consideration, separated by a comma.
