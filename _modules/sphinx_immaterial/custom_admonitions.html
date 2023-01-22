@@ -964,6 +964,10 @@
     <span class="n">HTML5Translator</span><span class="o">.</span><span class="n">depart_admonition</span> <span class="o">=</span> <span class="n">depart_admonition</span>  <span class="c1"># type: ignore[assignment]</span>
 
 
+<span class="n">patch_visit_admonition</span><span class="p">()</span>
+<span class="n">patch_depart_admonition</span><span class="p">()</span>
+
+
 <span class="k">class</span> <span class="nc">CustomAdmonitionDirective</span><span class="p">(</span><span class="n">Directive</span><span class="p">,</span> <span class="n">ABC</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;A base class to define custom admonition directives.</span>
 
@@ -1180,9 +1184,6 @@
     <span class="n">app</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;env-check-consistency&quot;</span><span class="p">,</span> <span class="n">add_admonition_and_icon_css</span><span class="p">)</span>
     <span class="n">app</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;config-inited&quot;</span><span class="p">,</span> <span class="n">on_config_inited</span><span class="p">)</span>
 
-    <span class="n">patch_visit_admonition</span><span class="p">()</span>
-    <span class="n">patch_depart_admonition</span><span class="p">()</span>
-
     <span class="k">return</span> <span class="p">{</span>
         <span class="s2">&quot;parallel_read_safe&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
         <span class="s2">&quot;parallel_write_safe&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
@@ -1194,7 +1195,7 @@
   <small>
     
       Last update:
-      Jan 20, 2023
+      Jan 22, 2023
     
   </small>
 </div>
