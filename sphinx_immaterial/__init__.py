@@ -16,6 +16,7 @@ import sphinx.writers.html5
 
 from . import html_translator_mixin
 from .apidoc import apidoc_formatting
+from .apidoc import fix_sphinx_issue_11147  # pylint: disable=unused-import
 from . import nav_adapt
 from . import sections
 
