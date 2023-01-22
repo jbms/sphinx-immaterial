@@ -148,6 +148,10 @@ def patch_depart_admonition():
     HTML5Translator.depart_admonition = depart_admonition  # type: ignore[assignment]
 
 
+patch_visit_admonition()
+patch_depart_admonition()
+
+
 class CustomAdmonitionDirective(Directive, ABC):
     """A base class to define custom admonition directives.
 
@@ -363,9 +367,6 @@ def setup(app: Sphinx):
     app.connect("builder-inited", on_builder_inited)
     app.connect("env-check-consistency", add_admonition_and_icon_css)
     app.connect("config-inited", on_config_inited)
-
-    patch_visit_admonition()
-    patch_depart_admonition()
 
     return {
         "parallel_read_safe": True,
