@@ -1,8 +1,13 @@
 import docutils.nodes
 import docutils.statemachine
 
+import sphinx
 from sphinx.domains.python import PyObject
 import sphinx.util.nodes
+
+
+# Not needed in Sphinx 5.3
+assert sphinx.version_info < (5, 3)
 
 
 def _monkey_patch_python_domain_to_support_titles():
