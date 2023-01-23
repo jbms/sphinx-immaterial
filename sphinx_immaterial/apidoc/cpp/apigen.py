@@ -6,7 +6,7 @@ import dataclasses
 import json
 import os
 import re
-from typing import cast, Dict, List, Any, Optional, Tuple, Set, Type
+from typing import cast, Dict, List, Optional, Tuple, Set, Type, Literal
 
 import docutils.core
 import docutils.nodes
@@ -61,7 +61,7 @@ class ApigenConfig:
     """
 
 
-CppApiEntity = Any
+CppApiEntity = api_parser.CppApiEntity
 EntityId = str
 
 
@@ -75,7 +75,13 @@ class CppApiData:
         self, entity_id: str, member: bool
     ) -> Dict[str, List[EntityId]]:
         entity = self.entities[entity_id]
-        return entity.get("related_members" if member else "related_nonmembers", {})
+        return entity.get(
+            cast(
+                Literal["related_members", "related_nonmembers"],
+                "related_members" if member else "related_nonmembers",
+            ),
+            cast(Dict[str, List[EntityId]], {}),
+        )
 
     def get_documented_entities(self):
         seen = set()
@@ -151,32 +157,36 @@ def _get_cpp_api_data(
                 "r",
                 encoding="utf-8",
             ) as f:
-                json_data = json.load(f)
+                json_data = cast(api_parser.JsonApiData, json.load(f))
         for entity in json_data["entities"].values():
             entity["document_prefix"] = apigen_config.document_prefix
         data.entities.update(json_data["entities"])
         for group_id, group in json_data["groups"].items():
             data.groups.setdefault(group_id, []).extend(group)
         data.nonitpick.update(
-            set((x["target"], x["file"], x["line"] + 1) for x in json_data["nonitpick"])
+            set((x["target"], x["file"], x["line"]) for x in json_data["nonitpick"])
         )
 
         if warn:
-            for msg, location in json_data["warnings"]:
-                if location is not None:
-                    location = tuple(location)
-                logger.warning(msg, location=location)
-            for msg, location in json_data["errors"]:
-                if location is not None:
-                    location = tuple(location)
-                logger.error(msg, location=location)
+            for diag in json_data["warnings"]:
+                logger.warning(
+                    diag["message"],
+                    location=api_parser.json_location_to_string(diag["location"]),
+                )
+            for diag in json_data["errors"]:
+                logger.error(
+                    diag["message"],
+                    location=api_parser.json_location_to_string(diag["location"]),
+                )
 
     setattr(env, KEY, data)
     return data
 
 
 def _transform_doc_comment(
-    env: sphinx.environment.BuildEnvironment, doc, summary: bool
+    env: sphinx.environment.BuildEnvironment,
+    doc: api_parser.JsonDocComment,
+    summary: bool,
 ) -> Optional[docutils.statemachine.StringList]:
     if not doc:
         return None
@@ -198,7 +208,7 @@ def _transform_doc_comment(
         "<cpp_apigen_rst_prolog>",
         -2,
     )
-    sphinx_utils.append_multiline_string_to_stringlist(out, text, filename, lineno)
+    sphinx_utils.append_multiline_string_to_stringlist(out, text, filename, lineno - 1)
     sphinx_utils.append_multiline_string_to_stringlist(
         out,
         "\n\n" + env.config.cpp_apigen_rst_epilog + "\n\n.. highlight-pop::\n\n",
@@ -313,7 +323,9 @@ def _summarize_explicit(signode: sphinx.addnodes.desc_signature) -> None:
         node.children[2:-1] = sphinx.addnodes.desc_sig_punctuation("...", "...")
 
 
-def _format_entity_alias(entity: CppApiEntity, full_name: str) -> Tuple[str, str]:
+def _format_entity_alias(
+    entity: api_parser.TypeAliasEntity, full_name: str
+) -> Tuple[str, str]:
     underlying_type = entity["underlying_type"]
     signature = f"{full_name}"
     if underlying_type is not None:
@@ -321,11 +333,15 @@ def _format_entity_alias(entity: CppApiEntity, full_name: str) -> Tuple[str, str
     return ("cpp:type", signature)
 
 
-def _format_entity_constructor(entity: CppApiEntity, full_name: str) -> Tuple[str, str]:
+def _format_entity_constructor(
+    entity: api_parser.FunctionEntity, full_name: str
+) -> Tuple[str, str]:
     return _format_entity_function(entity, full_name)
 
 
-def _format_entity_class(entity: CppApiEntity, full_name: str) -> Tuple[str, str]:
+def _format_entity_class(
+    entity: api_parser.ClassEntity, full_name: str
+) -> Tuple[str, str]:
     prefix = " ".join(entity["prefix"])
     signature = f"{prefix} {full_name}"
     base_strs = []
@@ -338,22 +354,26 @@ def _format_entity_class(entity: CppApiEntity, full_name: str) -> Tuple[str, str
     return (f'cpp:{entity["keyword"]}', signature)
 
 
-def _format_entity_function(entity: CppApiEntity, full_name: str) -> Tuple[str, str]:
+def _format_entity_function(
+    entity: api_parser.FunctionEntity, full_name: str
+) -> Tuple[str, str]:
     signature = entity["declaration"].replace(entity["name_substitute"], full_name)
     return ("cpp:function", signature)
 
 
-def _format_entity_method(entity: CppApiEntity, full_name: str) -> Tuple[str, str]:
-    return _format_entity_function(entity, full_name)
-
-
-def _format_entity_conversion_function(
-    entity: CppApiEntity, full_name: str
+def _format_entity_method(
+    entity: api_parser.FunctionEntity, full_name: str
 ) -> Tuple[str, str]:
     return _format_entity_function(entity, full_name)
 
 
-def _format_entity_var(entity: CppApiEntity, full_name: str) -> Tuple[str, str]:
+def _format_entity_conversion_function(
+    entity: api_parser.FunctionEntity, full_name: str
+) -> Tuple[str, str]:
+    return _format_entity_function(entity, full_name)
+
+
+def _format_entity_var(entity: api_parser.VarEntity, full_name: str) -> Tuple[str, str]:
     declaration = entity["declaration"].replace(entity["name_substitute"], full_name)
     signature = declaration
     initializer = entity["initializer"]
@@ -362,7 +382,9 @@ def _format_entity_var(entity: CppApiEntity, full_name: str) -> Tuple[str, str]:
     return ("cpp:var", signature)
 
 
-def _format_entity_enum(entity: CppApiEntity, full_name: str) -> Tuple[str, str]:
+def _format_entity_enum(
+    entity: api_parser.EnumEntity, full_name: str
+) -> Tuple[str, str]:
     signature = full_name
     directive_name = "cpp:enum"
     if entity["keyword"]:
@@ -370,7 +392,9 @@ def _format_entity_enum(entity: CppApiEntity, full_name: str) -> Tuple[str, str]
     return (directive_name, signature)
 
 
-def _format_entity_macro(entity: CppApiEntity, full_name: str) -> Tuple[str, str]:
+def _format_entity_macro(
+    entity: api_parser.MacroEntity, full_name: str
+) -> Tuple[str, str]:
     signature = full_name
     parameters = entity["parameters"]
     if parameters is not None:
@@ -484,7 +508,7 @@ def _add_entity_description(
         "cpp:namespace",
         scope_template_prefix + scope if not include_scope else "nullptr",
         source_path=location["file"],
-        source_line=location["line"],
+        source_line=location["line"] - 1,
     )
 
     cpp_directive, signature_line = _format_entity(
@@ -513,7 +537,9 @@ def _add_entity_description(
             signature_lines.append(other_signature_line)
             entity_ids.append(sibling["id"])
 
-    body = _transform_doc_comment(env, entity["doc"], summary=summary)
+    doc = entity["doc"]
+    assert doc is not None
+    body = _transform_doc_comment(env, doc, summary=summary)
     sphinx_utils.append_directive_to_stringlist(
         out,
         cpp_directive,
@@ -525,7 +551,7 @@ def _add_entity_description(
             "symbol-ids": json.dumps(entity_ids),
         },
         source_path=location["file"],
-        source_line=location["line"],
+        source_line=location["line"] - 1,
         content=body,
     )
 
@@ -606,7 +632,7 @@ def _add_entity_description(
 def _add_enumerators(
     env: sphinx.environment.BuildEnvironment,
     api_data: CppApiData,
-    entity: CppApiEntity,
+    entity: api_parser.EnumEntity,
     parent_scope: str,
     obj_content: sphinx.addnodes.desc_content,
     state: docutils.parsers.rst.states.RSTState,
@@ -621,9 +647,11 @@ def _add_enumerators(
             "cpp:namespace",
             f'{parent_scope}::{entity["name"]}',
             source_path=location["file"],
-            source_line=location["line"],
+            source_line=location["line"] - 1,
         )
         anchor = f"e-{name}"
+        child_doc = child["doc"]
+        assert child_doc is not None
         sphinx_utils.append_directive_to_stringlist(
             out,
             "cpp:enumerator",
@@ -634,8 +662,8 @@ def _add_enumerators(
                 "node-id": anchor,
             },
             source_path=location["file"],
-            source_line=location["line"],
-            content=_transform_doc_comment(env, child["doc"], summary=False),
+            source_line=location["line"] - 1,
+            content=_transform_doc_comment(env, child_doc, summary=False),
         )
         with apigen_utils.save_rst_defaults(env), save_cpp_scope(env):
             nodes = [

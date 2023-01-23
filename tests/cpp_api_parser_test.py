@@ -1,4 +1,6 @@
 import re
+from typing import cast
+
 import pytest
 from sphinx_immaterial.apidoc.cpp import api_parser
 
@@ -60,7 +62,11 @@ class TestCommentStrip:
 
     def assert_output(self, expected: str):
         output = api_parser.generate_output(self.config)
-        doc_strings = [v["doc"]["text"] for v in output.get("entities", {}).values()]
+        doc_strings = [
+            cast(api_parser.JsonDocComment, v["doc"])["text"]
+            for v in output.get("entities", {}).values()
+            if v.get("doc")
+        ]
         assert expected in doc_strings
 
     @pytest.mark.parametrize(
@@ -134,9 +140,10 @@ int function(T arg1, T &arg2, T &arg3);
     output = api_parser.generate_output(config)
     entities = output.get("entities", {})
     doc_str = ""
-    for entity in entities.values():  # type: dict
-        if entity.get("doc"):
-            doc_str = entity["doc"]["text"]
+    for entity in entities.values():
+        doc = entity.get("doc")
+        if doc is not None:
+            doc_str = doc["text"]
             break
     else:
         raise AttributeError("no doc string found.")
