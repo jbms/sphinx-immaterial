@@ -65,6 +65,8 @@ YamlSourceInfoMap = Dict[int, Tuple[str, int]]
 """For each literal string parsed from a schema YAML file, maps `id(s)` to the
 `(source_file, lineno)`.
 
+The lineno is 1-based.
+
 When embedding strings from the YAML files as reStructuredText content in the
 documentation, this is used to include proper source information to Sphinx,
 which in turn can include it in error messages.
@@ -130,7 +132,10 @@ class LoadedSchemaData:
             supertype_id = supertype.get("$ref")
             if supertype_id is None:
                 continue
-            supertype_entry = self.id_map[supertype_id]
+            supertype_entry = self.id_map.get(supertype_id)
+            if supertype_entry is None:
+                # Error was already previously emitted.
+                continue
             if "$id" not in supertype_entry.schema:
                 continue
             # Don't show types with ids containing "#"
@@ -189,6 +194,26 @@ class LoadedSchemaData:
 
         for sub_schema, pointer in _traverse_sub_schemas(top_level_schema):
             _process_schema(sub_schema, pointer)
+
+    def get_node_source_info_from_schema_string(
+        self, source_string: str, default_filename: str
+    ) -> Tuple[str, int]:
+        filename, line = self.source_info_map.get(
+            id(source_string), (default_filename, 0)
+        )
+        return (filename, line - 1)
+
+    def get_location_from_schema_string(
+        self, source_string: str, default_filename: str
+    ) -> str:
+        filename, line = self.source_info_map.get(
+            id(source_string), (default_filename, 0)
+        )
+        if line > 0:
+            return "%s:%d" % (filename, line)
+        # Always include ":" in location even if line number is unknown, as
+        # otherwise Sphinx interprets it as a docname.
+        return "%s:" % (filename,)
 
 
 def yaml_load(  # pylint: disable=invalid-name
@@ -281,7 +306,11 @@ def _populate_json_schema_id_map(app: sphinx.application.Sphinx):
     for key, path in seen_ids.items():
         if key in schema_data.id_map:
             continue
-        logger.error("Undefined jsonschema $ref: %s: %s", path, key)
+        logger.error(
+            "Reference to undefined JSON schema: %r",
+            key,
+            location=schema_data.get_location_from_schema_string(key, path),
+        )
 
     for schema_id, schema_entry in schema_data.id_map.items():
         if schema_entry.id != schema_id:
@@ -446,13 +475,6 @@ class JsonSchemaDirective(sphinx.directives.ObjectDescription):
     }
 
     _rendered_title: Optional[docutils.nodes.inline]
-
-    def _get_schema_entry(self) -> JsonSchemaMapEntry:
-        schema_data: LoadedSchemaData = getattr(self.env, "json_schema_data")
-        return schema_data.id_map[self.arguments[0]]
-
-    def _get_schema(self):
-        return self._get_schema_entry().schema
 
     def _inline_text(self, text: str) -> List[docutils.nodes.Node]:
         nodes, messages = self.state.inline_text(text, self.lineno)
@@ -654,7 +676,12 @@ class JsonSchemaDirective(sphinx.directives.ObjectDescription):
         """
         schema_data: LoadedSchemaData = getattr(self.env, "json_schema_data")
         if "$ref" in schema_node:
-            schema_node = schema_data.id_map[schema_node["$ref"]].schema
+            ref = schema_node["$ref"]
+            referenced_entry = schema_data.id_map.get(ref)
+            if referenced_entry is None:
+                # Error was already emitted previously
+                return
+            schema_node = referenced_entry.schema
         if schema_node.get("type") == "object":
             properties.update(schema_node.get("properties", {}))
             required.update(schema_node.get("required", []))
@@ -725,7 +752,7 @@ class JsonSchemaDirective(sphinx.directives.ObjectDescription):
             )
         return [field_list]
 
-    def _get_source_info_from_schema_string(
+    def _get_node_source_info_from_schema_string(
         self, source_string: str
     ) -> Tuple[str, int]:
         """Obtains the source information for a schema string.
@@ -738,10 +765,9 @@ class JsonSchemaDirective(sphinx.directives.ObjectDescription):
         """
 
         schema_data: LoadedSchemaData = getattr(self.env, "json_schema_data")
-        source_info = schema_data.source_info_map.get(id(source_string))
-        if source_info is None:
-            source_info = (self._schema_entry.path, -1)
-        return source_info
+        return schema_data.get_node_source_info_from_schema_string(
+            source_string, self._schema_entry.path
+        )
 
     def _parse_rst_from_schema_string(
         self, source_string: str
@@ -759,10 +785,12 @@ class JsonSchemaDirective(sphinx.directives.ObjectDescription):
             "<json_schema_rst_prolog>",
             -2,
         )
+        filename, offset = self._get_node_source_info_from_schema_string(source_string)
         sphinx_utils.append_multiline_string_to_stringlist(
             rst_input,
             source_string,
-            *self._get_source_info_from_schema_string(source_string),
+            filename,
+            offset,
         )
         sphinx_utils.append_multiline_string_to_stringlist(
             rst_input,
@@ -776,7 +804,8 @@ class JsonSchemaDirective(sphinx.directives.ObjectDescription):
             return sphinx_utils.parse_rst(
                 self.state,
                 rst_input,
-                *self._get_source_info_from_schema_string(source_string),
+                filename,
+                offset,
             )
 
     def _render_body(self) -> List[docutils.nodes.Node]:
@@ -866,7 +895,7 @@ class JsonSchemaDirective(sphinx.directives.ObjectDescription):
                         content=json_pprint.pformat(value, indent=2),
                     ),
                 ),
-                *self._get_source_info_from_schema_string(value),
+                *self._get_node_source_info_from_schema_string(value),
             )
 
         if self._long_default_value:
