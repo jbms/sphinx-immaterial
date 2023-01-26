@@ -1,0 +1,3 @@
+{"text": "T", "refid": "_CPPv4I0_iI0E0E3foovv-p-T", "reftitle": "foo::T (C++ type template parameter) \u2014 T parameter."}
+{"text": "N", "refid": "_CPPv4I0_iI0E0E3foovv-p-N", "reftitle": "foo::N (C++ non-type template parameter) \u2014 N parameter."}
+{"text": "U", "refid": "_CPPv4I0_iI0E0E3foovv", "reftitle": "foo::U (C++ template template parameter)"}

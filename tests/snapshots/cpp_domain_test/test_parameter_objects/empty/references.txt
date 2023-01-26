@@ -1,0 +1,3 @@
+{"text": "bar", "refid": "p-bar", "reftitle": "foo::bar (C++ function parameter) \u2014 Bar parameter."}
+{"text": "baz", "refid": "p-baz", "reftitle": "foo::baz (C++ function parameter) \u2014 Baz parameter."}
+{"text": "undocumented", "refid": "", "reftitle": "foo::undocumented (C++ function parameter)"}

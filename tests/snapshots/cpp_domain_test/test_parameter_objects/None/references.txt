@@ -1,0 +1,3 @@
+{"text": "bar", "refid": "_CPPv43fooiii-p-bar", "reftitle": "foo::bar (C++ function parameter) \u2014 Bar parameter."}
+{"text": "baz", "refid": "_CPPv43fooiii-p-baz", "reftitle": "foo::baz (C++ function parameter) \u2014 Baz parameter."}
+{"text": "undocumented", "refid": "_CPPv43fooiii", "reftitle": "foo::undocumented (C++ function parameter)"}

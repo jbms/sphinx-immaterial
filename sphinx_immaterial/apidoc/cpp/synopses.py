@@ -1,3 +1,5 @@
+"""Adds support for synopses to C/C++ domains."""
+
 from typing import Union, Type, Optional, Tuple, Iterator
 
 import docutils.nodes
