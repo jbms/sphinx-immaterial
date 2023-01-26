@@ -1,5 +1,5 @@
 import re
-from typing import cast, Optional, Dict, List, Tuple, Iterator, Type
+from typing import cast, Optional, Dict, List, Tuple, Iterator, Type, Union
 
 import docutils.nodes
 import docutils.parsers.rst.states
@@ -90,15 +90,6 @@ def _monkey_patch_cpp_parameter_fields(doc_field_types):
 OBJECT_PRIORITY_DEFAULT = 1
 OBJECT_PRIORITY_UNIMPORTANT = 2
 
-PARAMETER_OBJECT_TYPES = (
-    "functionParam",
-    "macroParam",
-    "templateParam",
-    "templateTypeParam",
-    "templateTemplateParam",
-    "templateNonTypeParam",
-)
-
 
 def get_precise_template_parameter_object_type(
     object_type: str, symbol: Optional[sphinx.domains.cpp.Symbol]
@@ -146,12 +137,29 @@ def _monkey_patch_cpp_add_precise_template_parameter_object_types():
         )
     )
 
+
+def _monkey_patch_domain_get_objects(
+    domain_class: Union[
+        Type[sphinx.domains.cpp.CPPDomain], Type[sphinx.domains.c.CDomain]
+    ],
+):
+    """Monkey patches `get_objects` to better handle parameter objects.
+
+    Parameter objects are assigned `OBJECT_PRIORITY_UNIMPORTANT`.
+
+    Also adds support for overridden symbol anchors.
+    """
+
     def get_objects(
-        self: sphinx.domains.cpp.CPPDomain,
+        self: Union[sphinx.domains.cpp.CPPDomain, sphinx.domains.c.CDomain],
     ) -> Iterator[Tuple[str, str, str, str, str, int]]:
         rootSymbol = self.data["root_symbol"]
         for symbol in rootSymbol.get_all_symbols():
-            if symbol.declaration is None:
+            if (
+                symbol.declaration is None
+                or getattr(symbol.declaration, symbol_ids.AST_ID_OVERRIDE_ATTR, None)
+                is None
+            ):
                 continue
             assert symbol.docname
             last_resolved_symbol.set_symbol(symbol)
@@ -163,13 +171,13 @@ def _monkey_patch_cpp_add_precise_template_parameter_object_types():
             )
             docname = symbol.docname
             anchor = symbol_ids.get_symbol_anchor(symbol)
-            if objectType in PARAMETER_OBJECT_TYPES:
+            if objectType in symbol_ids.PARAMETER_OBJECT_TYPES:
                 priority = OBJECT_PRIORITY_UNIMPORTANT
             else:
                 priority = OBJECT_PRIORITY_DEFAULT
             yield (name, dispname, objectType, docname, anchor, priority)
 
-    sphinx.domains.cpp.CPPDomain.get_objects = get_objects  # type: ignore[assignment]
+    domain_class.get_objects = get_objects  # type: ignore[assignment]
 
 
 def _add_parameter_links_to_signature(
@@ -248,7 +256,6 @@ def _add_parameter_documentation_ids(
     symbols,
     domain_module,
     starting_id_version,
-    qualify_parameter_ids: bool,
     signodes: List[sphinx.addnodes.desc_signature],
 ) -> None:
     domain = obj_content.parent["domain"]
@@ -323,6 +330,9 @@ def _add_parameter_documentation_ids(
                         cast(docutils.nodes.Element, param_node.parent[-1]),
                         generate_synopses,
                     )
+                first_match = True
+            else:
+                first_match = False
 
             if synopsis:
                 synopses.set_synopsis(param_symbol, synopsis)
@@ -337,8 +347,12 @@ def _add_parameter_documentation_ids(
                 parent_symbol.declaration.get_newest_id() + "-" + param_id_suffix,
             )
 
-            if qualify_parameter_ids:
-                # Generate a separate id for each id version.
+            parent_symbol_anchor = getattr(
+                parent_symbol.declaration, symbol_ids.ANCHOR_ATTR, None
+            )
+
+            if parent_symbol_anchor is None:
+                # Generate a separate anchor for each id version.
                 prev_parent_id = None
                 id_prefixes = []
 
@@ -351,16 +365,22 @@ def _add_parameter_documentation_ids(
                         id_prefixes.append(parent_id + "-")
                     except domain_module.NoOldIdError:
                         continue
-            else:
-                id_prefixes = [""]
-                setattr(
-                    param_symbol.declaration, symbol_ids.ANCHOR_ATTR, param_id_suffix
-                )
 
-            if id_prefixes:
                 for id_prefix in id_prefixes:
                     param_id = id_prefix + param_id_suffix
                     param_node["ids"].append(param_id)
+            else:
+                # Use a single anchor
+                param_id_prefix = (
+                    f"{parent_symbol_anchor}-" if parent_symbol_anchor else ""
+                )
+                setattr(
+                    param_symbol.declaration,
+                    symbol_ids.ANCHOR_ATTR,
+                    param_id_prefix + param_id_suffix,
+                )
+                if first_match:
+                    param_node["ids"].append(param_id_prefix + param_id_suffix)
 
         if object_type is not None:
             if param_options["include_in_toc"]:
@@ -368,9 +388,6 @@ def _add_parameter_documentation_ids(
                 if kind:
                     toc_title += f" [{kind}]"
                 param_node["toc_title"] = toc_title
-
-        if not qualify_parameter_ids:
-            param_node["ids"].append(param_id_suffix)
 
         del param_node[:]
 
@@ -483,7 +500,6 @@ def _cross_link_parameters(
         symbols=symbols,
         domain_module=getattr(sphinx.domains, domain),
         starting_id_version=_FIRST_PARAMETER_ID_VERSIONS[domain],
-        qualify_parameter_ids=bool(signodes[0]["ids"]),
         signodes=signodes,
     )
 
@@ -547,3 +563,5 @@ _monkey_patch_domain_to_cross_link_parameters_and_add_synopses(
 _monkey_patch_domain_to_cross_link_parameters_and_add_synopses(
     sphinx.domains.c.CObject, domain="c"
 )
+_monkey_patch_domain_get_objects(sphinx.domains.c.CDomain)
+_monkey_patch_domain_get_objects(sphinx.domains.cpp.CPPDomain)

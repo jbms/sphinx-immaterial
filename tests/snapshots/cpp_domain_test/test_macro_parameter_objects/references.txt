@@ -1,0 +1,3 @@
+{"text": "a", "refid": "c.FOO-p-a", "reftitle": "a (C macro parameter) \u2014 A parameter."}
+{"text": "b", "refid": "c.FOO-p-b", "reftitle": "b (C macro parameter) \u2014 B parameter."}
+{"text": "c", "refid": "c.FOO", "reftitle": "c (C macro parameter)"}
