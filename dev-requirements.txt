@@ -1,5 +1,5 @@
 wheel
-pylint
+pylint<2.16.0
 black
 mypy
 pyyaml
