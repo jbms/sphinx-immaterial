@@ -1,6 +1,6 @@
 wheel
 pylint<2.16.0
-black
+black<23.1.0
 mypy
 pyyaml
 types-PyYAML
