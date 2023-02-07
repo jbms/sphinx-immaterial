@@ -36,7 +36,18 @@
   {% endif %}
 
   {%- if commit %}
-  <i>{{ commit }}</i> @ <i>{{ branch }}</i>
+    {%- if commit_url %}
+      <a href="{{ commit_url }}">{{ commit }}</a>
+    {%- else %}
+      <i>{{ commit }}</i>
+    {%- endif %}
+    {%- if build_id %}
+      {%- if build_url %}
+        @ <a href="{{ build_url }}">{{ build_id }}</a>
+      {%- else %}
+        @ <i>{{ build_id }}</i>
+      {%- endif %}
+    {%- endif %}
   {%- endif %}
 
   {%- if show_sphinx %}
