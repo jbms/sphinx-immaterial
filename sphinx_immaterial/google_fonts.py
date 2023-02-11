@@ -60,12 +60,25 @@ _MAX_CONCURRENT_FETCHES = 128
 _TTF_FONT_PATHS_KEY = "sphinx_immaterial_ttf_font_paths"
 
 
-def add_google_fonts(app: sphinx.application.Sphinx, fonts: List[str]):
+def install_google_fonts(cache_dir: str, font_dir: str, fonts: List[str]):
+    """
+    Saves google fonts to given directory.
 
-    cache_dir = os.path.join(get_cache_dir(app), "google_fonts")
-    static_dir = os.path.join(app.outdir, "_static")
-    # _static path
-    font_dir = os.path.join(static_dir, "fonts")
+    Firstly, it tries to load fonts from cache directory.
+    If it fails, it downloads fonts from remote locations.
+
+    The font files are saved to font_dir.
+
+    Parameters
+    ----------
+    cache_dir : str
+        Directory with cached downloaded files.
+        If cache_dir is empty, skip checking cache
+    font_dir : str
+        Target directory where fonts are saved
+    fonts : List[str]
+        List of fonts to save
+    """
     os.makedirs(font_dir, exist_ok=True)
 
     with concurrent.futures.ThreadPoolExecutor(max_workers=32) as executor:
@@ -167,7 +180,17 @@ def add_google_fonts(app: sphinx.application.Sphinx, fonts: List[str]):
             css_content = dict(zip(css_future_keys, await asyncio.gather(*css_futures)))
             return css_content
 
-        css_content = asyncio.run(do_fetch())
+        return asyncio.run(do_fetch())
+
+
+def add_google_fonts(app: sphinx.application.Sphinx, fonts: List[str]):
+
+    cache_dir = os.path.join(get_cache_dir(app), "google_fonts")
+    static_dir = os.path.join(app.outdir, "_static")
+    # _static path
+    font_dir = os.path.join(static_dir, "fonts")
+
+    css_content = install_google_fonts(cache_dir, font_dir, fonts)
 
     # Write fonts css file
     ttf_font_paths = {}
