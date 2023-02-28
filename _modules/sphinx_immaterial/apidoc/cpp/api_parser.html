@@ -1354,7 +1354,6 @@
 
 
 <span class="k">def</span> <span class="nf">_get_all_decls</span><span class="p">(</span><span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">,</span> <span class="n">cursor</span><span class="p">:</span> <span class="n">Cursor</span><span class="p">,</span> <span class="n">allow_file</span><span class="p">):</span>
-
     <span class="n">NAMESPACE</span> <span class="o">=</span> <span class="n">CursorKind</span><span class="o">.</span><span class="n">NAMESPACE</span>
     <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">cursor</span><span class="o">.</span><span class="n">get_children</span><span class="p">():</span>
         <span class="n">location</span> <span class="o">=</span> <span class="n">child</span><span class="o">.</span><span class="n">location</span>
@@ -1940,7 +1939,6 @@
 
 
 <span class="k">class</span> <span class="nc">SphinxConfig</span><span class="p">:</span>
-
     <span class="n">cpp_id_attributes</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">cpp_paren_attributes</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="p">[]</span>
 
@@ -2061,7 +2059,6 @@
 
 
 <span class="k">def</span> <span class="nf">_parse_function</span><span class="p">(</span><span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">,</span> <span class="n">decl</span><span class="p">:</span> <span class="n">Cursor</span><span class="p">):</span>
-
     <span class="n">presumed_file</span><span class="p">,</span> <span class="n">presumed_line</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">get_presumed_location</span><span class="p">(</span><span class="n">decl</span><span class="o">.</span><span class="n">location</span><span class="p">)</span>
     <span class="n">source_code</span> <span class="o">=</span> <span class="n">_get_declaration_spelling</span><span class="p">(</span><span class="n">decl</span><span class="p">)</span>
     <span class="n">parser</span> <span class="o">=</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">domains</span><span class="o">.</span><span class="n">cpp</span><span class="o">.</span><span class="n">DefinitionParser</span><span class="p">(</span>
@@ -2812,7 +2809,6 @@
     <span class="n">entities</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">EntityId</span><span class="p">,</span> <span class="n">CppApiEntity</span><span class="p">],</span>
     <span class="n">warning</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-
     <span class="n">names</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span>
         <span class="n">Tuple</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="nb">str</span><span class="p">,</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]],</span> <span class="n">List</span><span class="p">[</span><span class="n">EntityId</span><span class="p">]</span>
     <span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
@@ -2866,7 +2862,6 @@
 <span class="k">def</span> <span class="nf">organize_entities</span><span class="p">(</span>
     <span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">,</span> <span class="n">entities</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">EntityId</span><span class="p">,</span> <span class="n">CppApiEntity</span><span class="p">]</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">JsonApiData</span><span class="p">:</span>
-
     <span class="n">errors</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">JsonDiagnostic</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">warnings</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">JsonDiagnostic</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
 
@@ -3195,7 +3190,6 @@
 
 
 <span class="k">def</span> <span class="nf">_load_config</span><span class="p">(</span><span class="n">config_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Config</span><span class="p">:</span>
-
     <span class="n">config_content</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">config_path</span><span class="p">)</span><span class="o">.</span><span class="n">read_text</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
     <span class="n">context</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="n">exec</span><span class="p">(</span><span class="n">config_content</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span>  <span class="c1"># pylint: disable=exec-used</span>
@@ -3224,7 +3218,7 @@
   <small>
     
       Last update:
-      Jan 23, 2023
+      Feb 28, 2023
     
   </small>
 </div>

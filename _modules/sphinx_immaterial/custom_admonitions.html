@@ -931,7 +931,7 @@
     <span class="k">def</span> <span class="nf">visit_admonition</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">HTML5Translator</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Element</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">):</span>
         <span class="n">collapsible</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;collapsible&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">collapsible</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">tag_extra_args</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">CLASS</span><span class="o">=</span><span class="s2">&quot;admonition&quot;</span><span class="p">)</span>
+            <span class="n">tag_extra_args</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;CLASS&quot;</span><span class="p">:</span> <span class="s2">&quot;admonition&quot;</span><span class="p">}</span>
             <span class="k">if</span> <span class="n">collapsible</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;open&quot;</span><span class="p">:</span>
                 <span class="n">tag_extra_args</span><span class="p">[</span><span class="s2">&quot;open&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">body</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">starttag</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="s2">&quot;details&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">tag_extra_args</span><span class="p">))</span>
@@ -1074,7 +1074,6 @@
         <span class="n">config</span><span class="p">,</span> <span class="s2">&quot;sphinx_immaterial_custom_admonitions&quot;</span>
     <span class="p">)</span>
     <span class="k">for</span> <span class="n">admonition</span> <span class="ow">in</span> <span class="n">custom_admonitions</span><span class="p">:</span>
-
         <span class="n">app</span><span class="o">.</span><span class="n">add_directive</span><span class="p">(</span>
             <span class="n">name</span><span class="o">=</span><span class="n">admonition</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
             <span class="bp">cls</span><span class="o">=</span><span class="n">get_directive_class</span><span class="p">(</span>
@@ -1125,7 +1124,6 @@
     <span class="c1"># these are the admonitions that have translated titles in sphinx.locale</span>
     <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="s2">&quot;sphinx_immaterial_override_builtin_admonitions&quot;</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">admonition</span><span class="p">,</span> <span class="n">title</span> <span class="ow">in</span> <span class="n">admonitionlabels</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-
             <span class="k">if</span> <span class="n">admonition</span> <span class="ow">in</span> <span class="n">user_defined_dir_names</span><span class="p">:</span>
                 <span class="k">continue</span>
             <span class="n">app</span><span class="o">.</span><span class="n">add_directive</span><span class="p">(</span><span class="n">admonition</span><span class="p">,</span> <span class="n">get_directive_class</span><span class="p">(</span><span class="n">admonition</span><span class="p">,</span> <span class="n">title</span><span class="p">),</span> <span class="kc">True</span><span class="p">)</span>
@@ -1193,7 +1191,7 @@
   <small>
     
       Last update:
-      Jan 23, 2023
+      Feb 28, 2023
     
   </small>
 </div>
