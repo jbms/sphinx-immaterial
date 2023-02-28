@@ -251,7 +251,6 @@ def _add_parameter_documentation_ids(
     qualify_parameter_ids: bool,
     signodes: List[sphinx.addnodes.desc_signature],
 ) -> None:
-
     domain = obj_content.parent["domain"]
 
     def cross_link_single_parameter(
@@ -494,7 +493,6 @@ def _monkey_patch_domain_to_cross_link_parameters_and_add_synopses(
     object_class: Type[sphinx.directives.ObjectDescription],
     domain: str,
 ):
-
     orig_after_content = object_class.after_content
 
     orig_transform_content = object_class.transform_content

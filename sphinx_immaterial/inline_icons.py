@@ -87,7 +87,6 @@ def _merge_info(
 
 
 def setup(app: Sphinx):
-
     app.connect("env-merge-info", _merge_info)
     app.add_role("si-icon", IconsRole())
     app.add_node(si_icon, html=(visit_si_icon, None))

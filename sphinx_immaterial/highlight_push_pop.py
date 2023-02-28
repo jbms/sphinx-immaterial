@@ -13,26 +13,22 @@ logger = sphinx.util.logging.getLogger(__name__)
 
 
 class HighlightPushDirective(sphinx.util.docutils.SphinxDirective):
-
     has_content = False
     required_arguments = 0
     optional_arguments = 0
 
     def run(self) -> List[docutils.nodes.Node]:
-
         stack = self.env.temp_data.setdefault("highlight_language_stack", [])
         stack.append(self.env.temp_data.get("highlight_language"))
         return [sphinx.addnodes.highlightlang(push=True)]
 
 
 class HighlightPopDirective(sphinx.util.docutils.SphinxDirective):
-
     has_content = False
     required_arguments = 0
     optional_arguments = 0
 
     def run(self) -> List[docutils.nodes.Node]:
-
         stack = self.env.temp_data.get("highlight_language_stack")
         if not stack:
             logger.error(
@@ -49,7 +45,6 @@ class HighlightPopDirective(sphinx.util.docutils.SphinxDirective):
 
 
 def _monkey_patch_highlight_language_visitor():
-
     orig_visit_highlightlang = HighlightLanguageVisitor.visit_highlightlang
 
     def visit_highlightlang(self, node: sphinx.addnodes.highlightlang) -> None:

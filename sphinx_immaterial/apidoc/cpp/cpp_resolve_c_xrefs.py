@@ -61,7 +61,6 @@ def _monkey_patch_cpp_resolve_c_xrefs():
         node: sphinx.addnodes.pending_xref,
         contnode: docutils.nodes.Element,
     ) -> Tuple[Optional[docutils.nodes.Element], Optional[str]]:
-
         try:
             refnode, objtype = orig_resolve_xref_inner(
                 self, env, fromdocname, builder, typ, target, node, contnode
@@ -136,7 +135,6 @@ def _config_inited(
 
 
 def setup(app: sphinx.application.Sphinx):
-
     app.add_config_value(
         "cpp_xref_resolve_c_macro_pattern",
         default="[A-Z]+[A-Z_0-9]*",

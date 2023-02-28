@@ -33,7 +33,6 @@ def _monkey_patch_resolve_xref_save_symbol(
     symbol_class: Union[Type[CSymbol], Type[CPPSymbol]],
     domain_class: Union[Type[CDomain], Type[CPPDomain]],
 ):
-
     orig_resolve_xref_inner = domain_class._resolve_xref_inner
 
     def _resolve_xref_inner(

@@ -247,7 +247,6 @@ class TypeAnnotationTransformer(ast.NodeTransformer):
 
 
 def _monkey_patch_python_domain_to_transform_type_annotations():
-
     orig_parse_annotation = sphinx.domains.python._parse_annotation
 
     def _parse_annotation(annotation: str, env: sphinx.environment.BuildEnvironment):

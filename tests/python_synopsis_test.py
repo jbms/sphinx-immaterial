@@ -2,7 +2,6 @@ import docutils.nodes
 
 
 def test_python_class_synopsis(immaterial_make_app, snapshot):
-
     app = immaterial_make_app(
         files={
             "index.rst": """

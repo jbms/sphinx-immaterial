@@ -258,7 +258,6 @@ def on_builder_inited(app: Sphinx):
         config, "sphinx_immaterial_custom_admonitions"
     )
     for admonition in custom_admonitions:
-
         app.add_directive(
             name=admonition.name,
             cls=get_directive_class(
@@ -309,7 +308,6 @@ def on_config_inited(app: Sphinx, config: Config):
     # these are the admonitions that have translated titles in sphinx.locale
     if getattr(config, "sphinx_immaterial_override_builtin_admonitions"):
         for admonition, title in admonitionlabels.items():
-
             if admonition in user_defined_dir_names:
                 continue
             app.add_directive(admonition, get_directive_class(admonition, title), True)

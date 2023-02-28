@@ -97,7 +97,6 @@ class DevelopCommand(setuptools.command.develop.develop):
 
 
 class StaticBundlesCommand(setuptools.command.build_py.build_py):
-
     user_options = setuptools.command.build_py.build_py.user_options + [
         (
             "bundle-type=",

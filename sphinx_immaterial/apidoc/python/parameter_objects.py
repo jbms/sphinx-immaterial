@@ -286,7 +286,6 @@ def _add_parameter_documentation_ids(
     symbols: List[str],
     noindex: bool,
 ) -> None:
-
     qualify_parameter_ids = "nonodeid" not in directive.options
 
     param_options = object_description_options.get_object_description_options(
@@ -461,7 +460,6 @@ def _cross_link_parameters(
 
 
 def _monkey_patch_python_domain_to_cross_link_parameters():
-
     orig_after_content = PyObject.after_content
 
     def after_content(self: PyObject) -> None:

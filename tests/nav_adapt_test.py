@@ -30,7 +30,6 @@ def get_nav_info(app: sphinx.application.Sphinx, pagename: str) -> str:
 @pytest.mark.parametrize("includeonly", [True, False], ids=lambda x: f"includeonly_{x}")
 @pytest.mark.parametrize("collapse", [True, False], ids=lambda x: f"collapse_{x}")
 def test_nav(immaterial_make_app, snapshot, collapse, includeonly):
-
     # Note: `includeonly` tests selectively including sections (due to objects)
     # but does not test selectively including `toctree` directives themselves,
     # as that is not supported by Sphinx:

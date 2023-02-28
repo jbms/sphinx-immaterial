@@ -10,7 +10,6 @@ pytest_plugins = ("sphinx.testing.fixtures",)
 
 @pytest.fixture
 def immaterial_make_app(tmp_path: pathlib.Path, make_app):
-
     conf = """
 extensions = [
     "sphinx_immaterial",

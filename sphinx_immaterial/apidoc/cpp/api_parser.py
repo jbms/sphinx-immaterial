@@ -538,7 +538,6 @@ CLASS_KINDS = (
 
 
 def _get_all_decls(config: Config, cursor: Cursor, allow_file):
-
     NAMESPACE = CursorKind.NAMESPACE
     for child in cursor.get_children():
         location = child.location
@@ -1124,7 +1123,6 @@ def _transform_var_decl(config: Config, decl: Cursor) -> VarEntity:
 
 
 class SphinxConfig:
-
     cpp_id_attributes: Any = []
     cpp_paren_attributes: Any = []
 
@@ -1245,7 +1243,6 @@ _FUNCTION_NAME_REPLACEMENTS = {
 
 
 def _parse_function(config: Config, decl: Cursor):
-
     presumed_file, presumed_line, _ = get_presumed_location(decl.location)
     source_code = _get_declaration_spelling(decl)
     parser = sphinx.domains.cpp.DefinitionParser(
@@ -1996,7 +1993,6 @@ def _ensure_unique_page_names(
     entities: Dict[EntityId, CppApiEntity],
     warning,
 ) -> None:
-
     names: Dict[
         Tuple[Optional[str], Optional[str], str, Optional[str]], List[EntityId]
     ] = {}
@@ -2050,7 +2046,6 @@ class JsonApiData(TypedDict):
 def organize_entities(
     config: Config, entities: Dict[EntityId, CppApiEntity]
 ) -> JsonApiData:
-
     errors: List[JsonDiagnostic] = []
     warnings: List[JsonDiagnostic] = []
 
@@ -2379,7 +2374,6 @@ def generate_output(config: Config) -> JsonApiData:
 
 
 def _load_config(config_path: str) -> Config:
-
     config_content = pathlib.Path(config_path).read_text(encoding="utf-8")
     context: dict = {}
     exec(config_content, context)  # pylint: disable=exec-used
