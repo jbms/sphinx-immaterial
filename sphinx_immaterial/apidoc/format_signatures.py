@@ -52,7 +52,6 @@ def depart_signature_text(self, node: SignatureText) -> None:
 
 
 class CollectSignaturesTransform(sphinx.transforms.SphinxTransform):
-
     # Late
     default_priority = 900
 
@@ -241,7 +240,6 @@ def _format_signature(node: sphinx.addnodes.desc_signature, formatted: str) -> N
 
 
 class FormatSignaturesTransform(sphinx.transforms.SphinxTransform):
-
     # Early
     default_priority = 0
 

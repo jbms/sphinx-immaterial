@@ -233,7 +233,6 @@ def render_dot_html(
     alt: Optional[str] = None,
     filename: Optional[str] = None,
 ) -> Tuple[str, str]:
-
     theme_options = self.builder.config["html_theme_options"]
     ttf_font_paths = google_fonts.get_ttf_font_paths(self.builder.app)
     font = theme_options["font"]["text"]

@@ -957,7 +957,6 @@ class JsonSchemaDirective(sphinx.directives.ObjectDescription):
         signode["ids"].append(self._node_id)
 
     def run(self) -> List[docutils.nodes.Node]:
-
         schema_data: LoadedSchemaData = self.env.json_schema_data  # type: ignore
         schema_id = self.arguments[0]
         schema_entry = schema_data.id_map.get(schema_id)

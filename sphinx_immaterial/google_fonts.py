@@ -61,7 +61,6 @@ _TTF_FONT_PATHS_KEY = "sphinx_immaterial_ttf_font_paths"
 
 
 def add_google_fonts(app: sphinx.application.Sphinx, fonts: List[str]):
-
     cache_dir = os.path.join(get_cache_dir(app), "google_fonts")
     static_dir = os.path.join(app.outdir, "_static")
     # _static path

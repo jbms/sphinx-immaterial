@@ -2,7 +2,6 @@ import sphinx.addnodes
 
 
 def test_nonodeid(immaterial_make_app):
-
     app = immaterial_make_app(
         files={
             "index.rst": """

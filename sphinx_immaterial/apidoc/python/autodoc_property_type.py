@@ -48,7 +48,6 @@ def _get_return_type_from_fget_doc(obj: Any) -> Optional[str]:
 
 
 def apply_property_documenter_type_annotation_fix():
-
     # Modify PropertyDocumenter to support obtaining signature from docstring.
 
     orig_import_object = PropertyDocumenter.import_object

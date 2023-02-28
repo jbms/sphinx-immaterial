@@ -38,7 +38,7 @@ def _strip_namespaces_from_signature(
 
     removals.reverse()
 
-    for (parent, index) in removals:
+    for parent, index in removals:
         del parent[index : index + 2]
 
 

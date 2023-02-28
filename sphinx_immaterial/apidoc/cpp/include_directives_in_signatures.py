@@ -11,7 +11,6 @@ import sphinx.domains.cpp
 def _monkey_patch_domain_to_support_include_directives(
     object_class: Type[sphinx.directives.ObjectDescription], language: str
 ):
-
     orig_get_signatures = object_class.get_signatures
 
     def is_include(sig: str) -> bool:

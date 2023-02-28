@@ -110,7 +110,6 @@ _monkey_patch_cpp_ast_wrap_signature_node(
 
 
 def setup(app: sphinx.application.Sphinx):
-
     for node in (
         desc_cpp_template_param,
         desc_cpp_requires_clause,

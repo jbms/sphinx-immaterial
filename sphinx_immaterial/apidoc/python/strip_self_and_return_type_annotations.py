@@ -42,7 +42,6 @@ def _maybe_strip_type_annotations(
 def _config_inited(
     app: sphinx.application.Sphinx, config: sphinx.config.Config
 ) -> None:
-
     if (
         config.python_strip_self_type_annotations
         or config.python_strip_return_type_annotations

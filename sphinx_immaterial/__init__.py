@@ -42,7 +42,6 @@ def _get_html_builder(base_builder: Type[sphinx.builders.html.StandaloneHTMLBuil
     """Returns a modified HTML translator."""
 
     class CustomHTMLBuilder(base_builder):  # type: ignore
-
         css_files: List[sphinx.builders.html.Stylesheet]
         theme: sphinx.theming.Theme
         templates: sphinx.jinja2glue.BuiltinTemplateLoader
@@ -104,7 +103,6 @@ def _get_html_builder(base_builder: Type[sphinx.builders.html.StandaloneHTMLBuil
             pass
 
         def copy_theme_static_files(self, context: Dict) -> None:
-
             # Modified from version in sphinx.builders.html.__init__.py to
             # exclude copying unused static files from `basic` theme.
             def onerror(filename: str, error: Exception) -> None:

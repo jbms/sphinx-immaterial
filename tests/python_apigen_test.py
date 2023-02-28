@@ -11,7 +11,6 @@ pytest_plugins = ("sphinx.testing.fixtures",)
 
 @pytest.fixture
 def apigen_make_app(tmp_path: pathlib.Path, make_app):
-
     conf = """
 extensions = [
     "sphinx_immaterial",
@@ -33,7 +32,6 @@ html_theme = "sphinx_immaterial"
     [("alphabetical", ["a", "b"]), ("definition_order", ["b", "a"])],
 )
 def test_alphabetical(apigen_make_app, order_tiebreaker, expected_members):
-
     app = apigen_make_app(
         confoverrides=dict(
             python_apigen_order_tiebreaker=order_tiebreaker,

@@ -762,9 +762,9 @@ def _html_page_context(
         toc_integrate="toc.integrate" in features,
     )
     context.update(nav=_NavContextObject(global_toc))
-    context["nav"].homepage = dict(
-        url=context["pathto"](context["master_doc"]),
-    )
+    context["nav"].homepage = {
+        "url": context["pathto"](context["master_doc"]),
+    }
 
     toc_title = theme_options.get("toc_title")
     if toc_title:
@@ -799,14 +799,14 @@ def _html_page_context(
         integrated_local_toc = integrated_local_toc[0].children
 
     # Add other context values in mkdocs/mkdocs-material format.
-    page = dict(
-        title=page_title,
-        is_homepage=(pagename == context["master_doc"]),
-        toc=local_toc,
-        integrated_local_toc=integrated_local_toc,
-        meta={"hide": [], "revision_date": context.get("last_updated"), "meta": []},
-        content=context.get("body"),
-    )
+    page = {
+        "title": page_title,
+        "is_homepage": (pagename == context["master_doc"]),
+        "toc": local_toc,
+        "integrated_local_toc": integrated_local_toc,
+        "meta": {"hide": [], "revision_date": context.get("last_updated"), "meta": []},
+        "content": context.get("body"),
+    }
     if doctree is not None:
         # extract meta nodes from document node only (not descendants)
         meta_tags = [

@@ -19,7 +19,6 @@ GenericObject = sphinx.domains.std.GenericObject
 
 
 def _monkey_patch_generic_object_to_support_synopses():
-
     orig_after_content = GenericObject.after_content
 
     orig_transform_content = GenericObject.transform_content

@@ -358,7 +358,6 @@ def _is_constructor_name(name: str) -> bool:
 
 
 class _ApiData:
-
     entities: Dict[str, _ApiEntity]
     top_level_groups: Dict[str, List[_ApiEntityMemberReference]]
 
@@ -671,7 +670,6 @@ def _generate_group_summary(
     state: docutils.parsers.rst.states.RSTState,
     notoc: Optional[bool] = None,
 ):
-
     data = _get_api_data(env)
 
     nodes: List[docutils.nodes.Node] = []
@@ -715,7 +713,6 @@ def _add_group_summary(
     members: List[_ApiEntityMemberReference],
     state: docutils.parsers.rst.states.RSTState,
 ) -> None:
-
     group_id = docutils.nodes.make_id(group_name)
     section = sections.get(group_id)
     if section is None:
@@ -1445,6 +1442,7 @@ class _ApiEntityCollector:
         rst_strings = docutils.statemachine.StringList()
         entry.documenter.directive.result = rst_strings
         _prepare_documenter_docstring(entry)
+
         # Prevent autodoc from also documenting members, since this extension does
         # that separately.
         def document_members(*args, **kwargs):
@@ -1562,7 +1560,6 @@ def _get_docname(
     overload_id: str,
     case_insensitive_filesystem: bool,
 ):
-
     docname = _get_base_docname(output_prefixes, documented_full_name)
     if overload_id:
         docname += f"-{overload_id}"
@@ -1663,7 +1660,9 @@ def _builder_inited(app: sphinx.application.Sphinx) -> None:
             documenter_cls=sphinx.ext.autodoc.ModuleDocumenter,
             name=module_name,
         )
-        _ApiEntityCollector(entities=data.entities,).collect_documenter_members(
+        _ApiEntityCollector(
+            entities=data.entities,
+        ).collect_documenter_members(
             documenter=documenter,
             canonical_object_name=module_name,
         )

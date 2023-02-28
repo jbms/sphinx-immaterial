@@ -6,7 +6,6 @@ from sphinx_immaterial.apidoc.cpp import api_parser
 
 
 def test_basic():
-
     config = api_parser.Config(
         input_path="a.cpp",
         input_content=b"""

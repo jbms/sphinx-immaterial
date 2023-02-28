@@ -75,7 +75,6 @@ def _monkey_patch_python_domain_to_add_object_synopses_to_references():
 
 
 def _monkey_patch_python_domain_to_support_synopses():
-
     orig_after_content = PyObject.after_content
 
     orig_transform_content = PyObject.transform_content

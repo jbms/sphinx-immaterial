@@ -146,7 +146,6 @@ def visit_productionlist(
 
 @html_translator_mixin.init
 def init_translator(self: html_translator_mixin.HTMLTranslatorMixin) -> None:
-
     # Ensure pygments uses <code> elements, for compatibility with the
     # mkdocs-material CSS which expects that.
     self.highlighter.formatter_args.update(wrapcode=True)

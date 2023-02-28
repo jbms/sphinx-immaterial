@@ -64,7 +64,6 @@ def overridden_default_literal_role(role: str):
 
 
 class DefaultLiteralRoleDirective(sphinx.util.docutils.SphinxDirective):
-
     has_content = False
     required_arguments = 0
     optional_arguments = 1
