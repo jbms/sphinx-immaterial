@@ -234,10 +234,14 @@ def render_dot_html(
     filename: Optional[str] = None,
 ) -> Tuple[str, str]:
     theme_options = self.builder.config["html_theme_options"]
-    ttf_font_paths = google_fonts.get_ttf_font_paths(self.builder.app)
-    font = theme_options["font"]["text"]
+    font: str = "Helvetica"  # use graphviz default fallback
+    if isinstance(theme_options["font"], dict) and "text" in theme_options["font"]:
+        font = theme_options["font"]["text"]
 
-    ttf_font = ttf_font_paths[(font, "regular")]
+    ttf_font_paths = google_fonts.get_ttf_font_paths(self.builder.app)
+    ttf_font: Optional[str] = None
+    if ttf_font_paths and isinstance(theme_options["font"], dict):
+        ttf_font = ttf_font_paths[(font, "regular")]
 
     code = _replace_resolved_xrefs(node, code)
 
@@ -262,7 +266,7 @@ def render_dot_html(
     graphviz_dot = options.get("graphviz_dot", self.builder.config.graphviz_dot)
     config_info = get_adjusted_graphviz_config(self.builder.app, graphviz_dot)
 
-    if config_info is None:
+    if config_info is None or ttf_font is None:
         ttf_font = font
 
     command_line_options = [
