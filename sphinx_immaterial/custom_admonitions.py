@@ -115,7 +115,7 @@ def patch_visit_admonition():
     def visit_admonition(self: HTML5Translator, node: nodes.Element, name: str = ""):
         collapsible: Optional[str] = node.get("collapsible", None)
         if collapsible is not None:
-            tag_extra_args: Dict[str, Any] = dict(CLASS="admonition")
+            tag_extra_args: Dict[str, Any] = {"CLASS": "admonition"}
             if collapsible.lower() == "open":
                 tag_extra_args["open"] = ""
             self.body.append(self.starttag(node, "details", **tag_extra_args))
