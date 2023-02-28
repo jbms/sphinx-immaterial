@@ -429,6 +429,16 @@ Configuration Options
         specified by :confval:`sphinx_immaterial_external_resource_cache_dir`)
         and included in the built documentation.
 
+        To use the user's system font instead of (and similar to) the theme's default fonts,
+        set this field to :python:`False`.
+
+        .. code-block:: python
+            :caption: rely on fonts available in the user's OS.
+
+            html_theme_options = {
+                "font": False,
+            }
+
     .. themeconf:: analytics
 
         To enable site analytics, a ``provider`` and ``property`` fields **must** be specified in this dict.
