@@ -61,11 +61,15 @@ def visit_caption(
         # This is needed to trigger mkdocs-material CSS rule `.highlight .filename`
         self.body.append('<div class="code-block-caption highlight">')
         # append a CSS class to trigger mkdocs-material theme's caption CSS style
-        attributes["class"] += " filename"
+        # create a span wrapping caption's content and (optionally) number
+        self.body.append('<span class="filename">')
+        # append a listing number
+        self.add_fignumber(node.parent)
+        self.body.append(self.starttag(node, "span", **attributes))
+        self.body.append("</span>")
     else:
         super_func(self, node)
-    self.add_fignumber(node.parent)
-    self.body.append(self.starttag(node, "span", **attributes))
+        self.body.append(self.starttag(node, "span", **attributes))
 
 
 @html_translator_mixin.override
