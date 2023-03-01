@@ -6,6 +6,12 @@ This theme adds several improvements to the built-in :py:mod:`sphinx.ext.graphvi
 - default fonts and colors are set to match the fonts and colors used by the
   theme, including support for both light and dark mode;
 
+  .. admonition:: Only compatible with Google fonts
+
+      When not using a Google font via :themeconf:`font` in conf.py (eg. using a
+      system/custom/self-hosted font), this extension will defer to the Graphviz default font
+      instead. In this case, the Graphviz default font depends on build system's OS offerings.
+
 - the rendered diagram is included as inline svg content to allow hyperlinks to
   work;
 
