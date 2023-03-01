@@ -289,6 +289,7 @@ def _add_parameter_documentation_ids(
 
         object_type = None
         synopsis = None
+        param_id_suffix = f"p-{param_name}"
 
         # Set ids of the parameter node.
         for symbol_i, _ in unique_decls.values():
@@ -325,8 +326,6 @@ def _add_parameter_documentation_ids(
 
             if synopsis:
                 synopses.set_synopsis(param_symbol, synopsis)
-
-            param_id_suffix = f"p-{param_name}"
 
             # Set symbol id, since by default parameters don't have unique ids,
             # they just use the same id as the parent symbol.  This is
