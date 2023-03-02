@@ -361,7 +361,7 @@ def render_dot_html(
         if font is not None and font_family == ttf_font:  # using a cached google font
             attrib["font-family"] = font
         elif font is None and font_family is not None:  # using a system font (via CSS)
-            # the font-family attr will be overridden by the inline CSS
+            attrib.pop("font-family")
             style += "font-family: var(--md-text-font-family);"
         href = attrib.pop(xlink_href_key, None)
         if href is not None:
