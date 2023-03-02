@@ -34,6 +34,7 @@
     
         <link rel="stylesheet" type="text/css" href="_static/sphinx_immaterial_theme.b26c02e5c3d38b40b.min.css" />
         <link rel="stylesheet" type="text/css" href="_static/extra_css.css" />
+        <link rel="stylesheet" type="text/css" href="_static/custom_font_example.css" />
     <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -512,6 +513,19 @@
   <a href="#themeconf-font" class="md-nav__link">
     <span aria-label="theme configuration option" class="objinfo-icon objinfo-icon__data" title="theme configuration option">T</span><span title="font (theme configuration option) — Use this dictionary to change the fonts used in the theme." class="md-ellipsis">font</span>
   </a>
+  
+    <nav class="md-nav" aria-label="font">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#themeconf-font-using-a-self-hosted-font" class="md-nav__link">
+    <span class="md-ellipsis">Using a self-<wbr>hosted font</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -1460,6 +1474,19 @@
     <span aria-label="theme configuration option" class="objinfo-icon objinfo-icon__data" title="theme configuration option">T</span><span title="font (theme configuration option) — Use this dictionary to change the fonts used in the theme." class="md-ellipsis">font</span>
   </a>
   
+    <nav class="md-nav" aria-label="font">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#themeconf-font-using-a-self-hosted-font" class="md-nav__link">
+    <span class="md-ellipsis">Using a self-<wbr>hosted font</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -2111,6 +2138,89 @@ or <code class="docutils literal notranslate"><span class="pre">rtl</span></code
 <p>The specified fonts will be downloaded automatically (using the cache
 specified by <a class="reference internal" href="#confval-sphinx_immaterial_external_resource_cache_dir" title="sphinx_immaterial_external_resource_cache_dir (configuration value) — Specifies the local directory used to cache external resources, such as Google Fonts."><code class="xref std std-confval docutils literal notranslate"><span class="pre">sphinx_immaterial_external_resource_cache_dir</span></code></a>)
 and included in the built documentation.</p>
+<p>To use the user’s system font instead of (and similar to) the theme’s default fonts,
+set this field to <code class="code highlight python docutils literal highlight-python"><span class="kc">False</span></code>.</p>
+<div class="literal-block-wrapper docutils container" id="id12">
+<div class="code-block-caption highlight"><span class="caption-text filename">
+rely on fonts available in the user’s OS.<a class="headerlink" href="#id12" title="Permalink to this code">¶</a></span></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="n">html_theme_options</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;font&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+</div>
+<dl class="field-list">
+<dt class="field-odd" id="themeconf-font-using-a-self-hosted-font">Using a self-hosted font<span class="colon">:</span><a class="headerlink" href="#themeconf-font-using-a-self-hosted-font" title="Permalink to this headline">¶</a></dt>
+<dd class="field-odd"><p>Using a custom or self-hosted font requires extra CSS to define the font family and
+overridden CSS theme variables. The following steps were used to self-host Google’s
+“Comic Neue” and “Comic Mono” fonts as an example.</p>
+<ol class="arabic">
+<li><p>Copy the font files to your project’s <code class="docutils literal notranslate"><span class="pre">_static</span></code> folder. The font’s file
+<code class="code highlight css docutils literal highlight-css"><span class="nt">format</span><span class="o">()</span></code> will be specified in step 2. If the font has different weights, then
+each weight will have a separate file. By default, this theme mainly uses 300, 400, and
+700 weights, although only one weight/variant is technically required (400 weight is
+recommended).</p></li>
+<li><p>Define the font family in a CSS file and append the CSS file’s name to the project’s
+list of <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/configuration.html#confval-html_css_files" title="(in Sphinx v6.2.0)"><code class="xref any docutils literal notranslate"><span class="pre">html_css_files</span></code></a> in config.py.</p>
+<p>Each weight must have a corresponding <code class="code highlight css docutils literal highlight-css"><span class="p">@</span><span class="k">font-face</span></code> rule. The same mandate applies
+to <em>italic</em> variants (if any) and their weights.</p>
+<div class="literal-block-wrapper docutils container" id="id13">
+<div class="code-block-caption highlight"><span class="caption-text filename">
+docs/_static/custom_font_example.css<a class="headerlink" href="#id13" title="Permalink to this code">¶</a></span></div>
+<div class="highlight-css notranslate"><div class="highlight"><pre><span></span><code><span class="c">/* comic-neue-latin-400-normal */</span>
+<span class="p">@</span><span class="k">font-face</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nt">font-family</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Comic Neue&#39;</span><span class="o">;</span>
+<span class="w">  </span><span class="nt">font-style</span><span class="o">:</span><span class="w"> </span><span class="nt">normal</span><span class="o">;</span>
+<span class="w">  </span><span class="nt">font-display</span><span class="o">:</span><span class="w"> </span><span class="nt">swap</span><span class="o">;</span>
+<span class="w">  </span><span class="nt">font-weight</span><span class="o">:</span><span class="w"> </span><span class="nt">400</span><span class="o">;</span>
+<span class="w">  </span><span class="nt">src</span><span class="o">:</span><span class="w"> </span><span class="nt">url</span><span class="o">(</span><span class="s1">&#39;./example-custom-font/comic-neue-latin-400-normal.woff2&#39;</span><span class="o">)</span><span class="w"> </span><span class="nt">format</span><span class="o">(</span><span class="s1">&#39;woff2&#39;</span><span class="o">),</span><span class="w"> </span><span class="nt">url</span><span class="o">(</span><span class="s1">&#39;./example-custom-font/comic-neue-latin-400-normal.woff&#39;</span><span class="o">)</span><span class="w"> </span><span class="nt">format</span><span class="o">(</span><span class="s1">&#39;woff&#39;</span><span class="o">);</span>
+<span class="p">}</span>
+<span class="c">/* comic-mono-latin-400-normal */</span>
+<span class="p">@</span><span class="k">font-face</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nt">font-family</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Comic Mono&#39;</span><span class="o">;</span>
+<span class="w">  </span><span class="nt">font-style</span><span class="o">:</span><span class="w"> </span><span class="nt">normal</span><span class="o">;</span>
+<span class="w">  </span><span class="nt">font-display</span><span class="o">:</span><span class="w"> </span><span class="nt">swap</span><span class="o">;</span>
+<span class="w">  </span><span class="nt">font-weight</span><span class="o">:</span><span class="w"> </span><span class="nt">400</span><span class="o">;</span>
+<span class="w">  </span><span class="nt">src</span><span class="o">:</span><span class="w"> </span><span class="nt">url</span><span class="o">(</span><span class="s1">&#39;./example-custom-font/comic-mono-latin-400-normal.woff2&#39;</span><span class="o">)</span><span class="w"> </span><span class="nt">format</span><span class="o">(</span><span class="s1">&#39;woff2&#39;</span><span class="o">),</span><span class="w"> </span><span class="nt">url</span><span class="o">(</span><span class="s1">&#39;./example-custom-font/comic-mono-latin-400-normal.woff&#39;</span><span class="o">)</span><span class="w"> </span><span class="nt">format</span><span class="o">(</span><span class="s1">&#39;woff&#39;</span><span class="o">);</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+</div>
+<p>The path specified in the <code class="code highlight css docutils literal highlight-css"><span class="nt">url</span><span class="o">()</span></code> is relative to the file defining the font family.
+For example, the above snippet is located in this project’s <code class="docutils literal notranslate"><span class="pre">_static</span></code> folder where the
+font’s files are located in <code class="docutils literal notranslate"><span class="pre">_static/example-custom-font/</span></code> folder.</p>
+</li>
+<li><p>Override the theme’s CSS variables.</p>
+<div class="highlight-css notranslate"><div class="annotate highlight"><pre><span></span><code><span class="p">:</span><span class="nd">root</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nv">--md-text-font</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Comic Neue&quot;</span><span class="p">;</span><span class="w"> </span><span class="c">/* (1)! \*/</span>
+<span class="w">  </span><span class="nv">--md-code-font</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Comic Mono&quot;</span><span class="p">;</span><span class="w"> </span><span class="c">/* (2)! \*/</span>
+<span class="p">}</span>
+</code></pre></div>
+<ol class="arabic simple">
+<li><p>Used for regular text.</p></li>
+<li><p>Used for <code class="docutils literal notranslate"><span class="pre">code</span> <span class="pre">snippets</span></code>.</p></li>
+</ol>
+</div>
+<div class="warning admonition">
+<p class="admonition-title">Warning</p>
+<p>Always define fonts with the CSS variables shown above and not with
+<code class="code highlight css docutils literal highlight-css"><span class="nt">font-family</span></code> because <code class="code highlight css docutils literal highlight-css"><span class="nt">font-family</span></code> uses the theme’s CSS variables that
+define the system font fallback.</p>
+</div>
+</li>
+</ol>
+<div class="custom-font-example results docutils container">
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><code>This text is just an <span class="gs">**example**</span>.
+<span class="ge">*Notice*</span> the font family used is different (monospaced) in the code snippet.
+</code></pre></div>
+</div>
+<div class="result docutils container">
+<p>This text is just an <strong>example</strong>.
+<em>Notice</em> the font family used is different (monospaced) in the code snippet.</p>
+</div>
+</div>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="std themeconf objdesc">
@@ -2150,9 +2260,9 @@ example snippet below).</p>
 </dl>
 </dd>
 </dl>
-<div class="literal-block-wrapper docutils container" id="id12">
+<div class="literal-block-wrapper docutils container" id="id14">
 <div class="code-block-caption highlight"><span class="caption-text filename">
-using Google analytics to collect user feedback for each page<a class="headerlink" href="#id12" title="Permalink to this code">¶</a></span></div>
+using Google analytics to collect user feedback for each page<a class="headerlink" href="#id14" title="Permalink to this code">¶</a></span></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="n">html_theme_options</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s2">&quot;analytics&quot;</span><span class="p">:</span> <span class="p">{</span>
         <span class="s2">&quot;provider&quot;</span><span class="p">:</span> <span class="s2">&quot;google&quot;</span><span class="p">,</span>
@@ -2240,9 +2350,9 @@ have a <code class="code highlight python docutils literal highlight-python"><sp
 <p>Optionally, custom text may be specified for the icon’s tooltip with the <code class="code highlight python docutils literal highlight-python"><span class="s2">&quot;name&quot;</span></code>
 field. If the <code class="code highlight python docutils literal highlight-python"><span class="s2">&quot;name&quot;</span></code> is not specified, then the domain of the <code class="code highlight python docutils literal highlight-python"><span class="s2">&quot;link&quot;</span></code>
 is used automatically.</p>
-<div class="literal-block-wrapper docutils container" id="id13">
+<div class="literal-block-wrapper docutils container" id="id15">
 <div class="code-block-caption highlight"><span class="caption-text filename">
-This theme uses the following configuration:<a class="headerlink" href="#id13" title="Permalink to this code">¶</a></span></div>
+This theme uses the following configuration:<a class="headerlink" href="#id15" title="Permalink to this code">¶</a></span></div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code>    <span class="s2">&quot;social&quot;</span><span class="p">:</span> <span class="p">[</span>
         <span class="p">{</span>
             <span class="s2">&quot;icon&quot;</span><span class="p">:</span> <span class="s2">&quot;fontawesome/brands/github&quot;</span><span class="p">,</span>
@@ -2401,9 +2511,9 @@ called “3.0-rc1”.</p>
 </div>
 </li>
 </ul>
-<div class="literal-block-wrapper docutils container" id="id14">
+<div class="literal-block-wrapper docutils container" id="id16">
 <div class="code-block-caption highlight"><span class="caption-text filename">
-This is the version dropdown selector settings used by this theme:<a class="headerlink" href="#id14" title="Permalink to this code">¶</a></span></div>
+This is the version dropdown selector settings used by this theme:<a class="headerlink" href="#id16" title="Permalink to this code">¶</a></span></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code>    <span class="s2">&quot;version_dropdown&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
     <span class="s2">&quot;version_info&quot;</span><span class="p">:</span> <span class="p">[</span>
         <span class="p">{</span>
@@ -2539,9 +2649,9 @@ system. Copy the snippet for the next step. The resulting snippet should look si
 </li>
 <li><p>Override the theme’s partials/comments.html template (blank by default) in your documentation
 source, and add the following code to you comments.html template override:</p>
-<div class="literal-block-wrapper docutils container" id="id15">
+<div class="literal-block-wrapper docutils container" id="id17">
 <div class="code-block-caption highlight"><span class="caption-text filename">
-docs/_templates/partials/comments.html<a class="headerlink" href="#id15" title="Permalink to this code">¶</a></span></div>
+docs/_templates/partials/comments.html<a class="headerlink" href="#id17" title="Permalink to this code">¶</a></span></div>
 <div class="highlight-html notranslate"><div class="annotate highlight"><pre><span></span><code>{% if page.meta.comments %} <span class="cm">&lt;!-- (1)! --&gt;</span>
   <span class="p">&lt;</span><span class="nt">h2</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;__comments&quot;</span><span class="p">&gt;</span>{{ lang.t(&quot;meta.comments&quot;) }}<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
 <span class="hll">  <span class="cm">&lt;!-- Insert generated snippet (2) here --&gt;</span>
@@ -2600,9 +2710,9 @@ this takes affect when toggling between light and dark color <a class="reference
 <dt><code class="docutils literal notranslate"><span class="pre">announce</span></code></dt><dd><p>An announcement can be added to the top of the page by extending this theme’s base.html
 template. For example, this documentation uses the following custom template to add an
 announcement (<a class="reference external" href="#">scroll to top to see it in action</a>).</p>
-<div class="literal-block-wrapper docutils container" id="id16">
+<div class="literal-block-wrapper docutils container" id="id18">
 <div class="code-block-caption highlight"><span class="caption-text filename">
-docs/_templates/base.html<a class="headerlink" href="#id16" title="Permalink to this code">¶</a></span></div>
+docs/_templates/base.html<a class="headerlink" href="#id18" title="Permalink to this code">¶</a></span></div>
 <div class="highlight-jinja notranslate"><div class="highlight"><pre><span></span><code><span class="cp">{%</span> <span class="k">extends</span> <span class="s2">&quot;!base.html&quot;</span> <span class="cp">%}</span>
 <span class="cp">{%</span> <span class="k">block</span> <span class="nv">announce</span> <span class="cp">%}</span>
 <span class="x">  &lt;p&gt;</span>
@@ -2625,7 +2735,7 @@ dismiss the announcement banner.</p>
   <small>
     
       Last update:
-      Mar 01, 2023
+      Mar 02, 2023
     
   </small>
 </div>

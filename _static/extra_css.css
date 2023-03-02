@@ -11,6 +11,16 @@
   transform: none;
 }
 
+/* style for custom font example */
+.custom-font-example {
+  --md-text-font: "Comic Neue";
+  --md-code-font: "Comic Mono";
+  /* for a limited scope (as an example), we have to override some other rules/vars */
+  --md-text-font-family: var(--md-text-font,_),-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif;
+  --md-code-font-family: var(--md-code-font,_),SFMono-Regular,Consolas,Menlo,monospace;
+  font-family: var(--md-text-font-family);
+}
+
 /* ************************* animated-admonition-border style ******************************** */
 @keyframes flash_border {
   0% {

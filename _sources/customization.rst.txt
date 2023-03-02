@@ -429,6 +429,63 @@ Configuration Options
         specified by :confval:`sphinx_immaterial_external_resource_cache_dir`)
         and included in the built documentation.
 
+        To use the user's system font instead of (and similar to) the theme's default fonts,
+        set this field to :python:`False`.
+
+        .. code-block:: python
+            :caption: rely on fonts available in the user's OS.
+
+            html_theme_options = {
+                "font": False,
+            }
+
+        :Using a self-hosted font:
+            Using a custom or self-hosted font requires extra CSS to define the font family and
+            overridden CSS theme variables. The following steps were used to self-host Google's
+            "Comic Neue" and "Comic Mono" fonts as an example.
+
+            1. Copy the font files to your project's ``_static`` folder. The font's file
+               :css:`format()` will be specified in step 2. If the font has different weights, then
+               each weight will have a separate file. By default, this theme mainly uses 300, 400, and
+               700 weights, although only one weight/variant is technically required (400 weight is
+               recommended).
+            2. Define the font family in a CSS file and append the CSS file's name to the project's
+               list of `html_css_files` in config.py.
+
+               Each weight must have a corresponding :css:`@font-face` rule. The same mandate applies
+               to *italic* variants (if any) and their weights.
+
+               .. literalinclude:: _static/custom_font_example.css
+                   :caption: docs/_static/custom_font_example.css
+                   :language: css
+               
+               The path specified in the :css:`url()` is relative to the file defining the font family.
+               For example, the above snippet is located in this project's ``_static`` folder where the
+               font's files are located in ``_static/example-custom-font/`` folder.
+            3. Override the theme's CSS variables.
+
+               .. code-block:: css
+                   
+                   :root {
+                     --md-text-font: "Comic Neue"; /* (1)! \*/
+                     --md-code-font: "Comic Mono"; /* (2)! \*/
+                   }
+               
+               .. code-annotations::
+                    1. Used for regular text.
+                    2. Used for ``code snippets``.
+
+               .. warning::
+                   Always define fonts with the CSS variables shown above and not with
+                   :css:`font-family` because :css:`font-family` uses the theme's CSS variables that
+                   define the system font fallback.
+
+            .. rst-example::
+                :class: custom-font-example
+
+                This text is just an **example**.
+                *Notice* the font family used is different (monospaced) in the code snippet.
+
     .. themeconf:: analytics
 
         To enable site analytics, a ``provider`` and ``property`` fields **must** be specified in this dict.
