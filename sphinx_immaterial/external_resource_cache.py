@@ -60,7 +60,7 @@ def get_url(
         if temp_name is not None:
             try:
                 os.remove(temp_name)
-            except:  # pylint: disable=bare-except
+            except (OSError, FileNotFoundError):
                 pass
 
 

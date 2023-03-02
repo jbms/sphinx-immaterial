@@ -90,7 +90,7 @@ keys_map = {"my-special-key": "Awesome Key", "git": ""}
 # relative to this directory. They are copied after the builtin static files,
 # so a file named 'default.css' will overwrite the builtin 'default.css'.
 html_static_path = ["_static"]
-html_css_files = ["extra_css.css"]
+html_css_files = ["extra_css.css", "custom_font_example.css"]
 html_last_updated_fmt = ""
 html_title = "Sphinx-Immaterial"
 html_favicon = "_static/images/favicon.ico"  # colored version of material/bookshelf.svg

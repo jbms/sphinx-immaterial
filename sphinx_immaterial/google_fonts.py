@@ -12,7 +12,7 @@ import io
 import json
 import os
 import re
-from typing import Dict, List, Set, Tuple
+from typing import Dict, List, Set, Tuple, Optional
 import urllib.parse
 
 import sphinx.application
@@ -179,8 +179,12 @@ def add_google_fonts(app: sphinx.application.Sphinx, fonts: List[str]):
     setattr(app, _TTF_FONT_PATHS_KEY, ttf_font_paths)
 
 
-def get_ttf_font_paths(app: sphinx.application.Sphinx) -> Dict[Tuple[str, str], str]:
-    return getattr(app, _TTF_FONT_PATHS_KEY)
+def get_ttf_font_paths(
+    app: sphinx.application.Sphinx,
+) -> Optional[Dict[Tuple[str, str], str]]:
+    if hasattr(app, _TTF_FONT_PATHS_KEY):
+        return getattr(app, _TTF_FONT_PATHS_KEY)
+    return None
 
 
 def _builder_inited(app: sphinx.application.Sphinx):

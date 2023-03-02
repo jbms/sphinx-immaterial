@@ -234,10 +234,16 @@ def render_dot_html(
     filename: Optional[str] = None,
 ) -> Tuple[str, str]:
     theme_options = self.builder.config["html_theme_options"]
-    ttf_font_paths = google_fonts.get_ttf_font_paths(self.builder.app)
-    font = theme_options["font"]["text"]
+    font: Optional[str] = None
+    if isinstance(theme_options["font"], dict) and "text" in theme_options["font"]:
+        # using a google font; otherwise
+        font = theme_options["font"]["text"]
 
-    ttf_font = ttf_font_paths[(font, "regular")]
+    ttf_font_paths = google_fonts.get_ttf_font_paths(self.builder.app)
+    ttf_font: Optional[str] = None
+    if ttf_font_paths and font is not None:
+        # can only support the chosen font if cache exists and a Google font is used
+        ttf_font = ttf_font_paths[(font, "regular")]
 
     code = _replace_resolved_xrefs(node, code)
 
@@ -271,17 +277,22 @@ def render_dot_html(
         "-Nfillcolor=" + replace_var("var(--md-graphviz-node-bg-color)"),
         "-Nfontcolor=" + fontcolor,
         "-Nfontsize=" + fontsize,
-        "-Nfontname=" + ttf_font,
         "-Ecolor=" + replace_var("var(--md-graphviz-edge-color)"),
         "-Efontcolor=" + fontcolor,
         "-Efontsize=" + fontsize,
-        "-Efontname=" + ttf_font,
         "-Gbgcolor=transparent",
         "-Gcolor=" + replace_var("var(--md-graphviz-node-fg-color)"),
         "-Gfontcolor=" + fontcolor,
         "-Gfontsize=" + fontsize,
-        "-Gfontname=" + ttf_font,
     ]
+    if ttf_font is not None:
+        command_line_options.extend(
+            [
+                "-Nfontname=" + ttf_font,
+                "-Efontname=" + ttf_font,
+                "-Gfontname=" + ttf_font,
+            ]
+        )
 
     code = re.sub(r'"((?:var|calc)\s*\(.*?\))"', replace_var_in_code, code)
 
@@ -347,8 +358,11 @@ def render_dot_html(
                 del attrib[attr]
                 style += f"{attr}: {var_val};"
         font_family = attrib.get("font-family")
-        if font_family == ttf_font:
+        if font is not None and font_family == ttf_font:  # using a cached google font
             attrib["font-family"] = font
+        elif font is None and font_family is not None:  # using a system font (via CSS)
+            attrib.pop("font-family")
+            style += "font-family: var(--md-text-font-family);"
         href = attrib.pop(xlink_href_key, None)
         if href is not None:
             attrib["href"] = href
