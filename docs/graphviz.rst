@@ -9,8 +9,9 @@ This theme adds several improvements to the built-in :py:mod:`sphinx.ext.graphvi
   .. admonition:: Only compatible with Google fonts
 
       When not using a Google font via :themeconf:`font` in conf.py (eg. using a
-      system/custom/self-hosted font), this extension will defer to the Graphviz default font
-      instead. In this case, the Graphviz default font depends on build system's OS offerings.
+      system/custom/self-hosted font), this extension will use the metrics from Graphviz's
+      default font, rather than the actual font, for the purpose of computing the graph layout.
+      However, the text will still be displayed in the browser using the user-specified font.
 
 - the rendered diagram is included as inline svg content to allow hyperlinks to
   work;
