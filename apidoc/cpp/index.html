@@ -1137,8 +1137,8 @@ to parameter types, return types, default value expressions, etc.</p>
 </div>
 <div class="results docutils container">
 <div class="literal-block-wrapper docutils container" id="id1">
-<div class="code-block-caption highlight"><span class="caption-text filename">
-C++ function definition with stripped namespaces<a class="headerlink" href="#id1" title="Permalink to this code">¶</a></span></div>
+<div class="code-block-caption highlight"><span class="filename"><span class="caption-text">
+</span>C++ function definition with stripped namespaces<a class="headerlink" href="#id1" title="Permalink to this code">¶</a></span></div>
 <div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><code><span class="p">..</span> <span class="ow">cpp:type</span><span class="p">::</span> my_ns1::A
 
 <span class="p">..</span> <span class="ow">cpp:type</span><span class="p">::</span> my_ns2::my_nested_ns::B
@@ -1194,8 +1194,8 @@ default, only names consisting of uppercase latin letters, underscores, or
 digits are supported.  To support macros with other names, this pattern may
 be changed:</p>
 <div class="literal-block-wrapper docutils container" id="id2">
-<div class="code-block-caption highlight"><span class="caption-text filename">
-Add to <code class="file docutils literal notranslate"><span class="pre">conf.py</span></code> to allow all identifiers as macro names<a class="headerlink" href="#id2" title="Permalink to this code">¶</a></span></div>
+<div class="code-block-caption highlight"><span class="filename"><span class="caption-text">
+</span>Add to <code class="file docutils literal notranslate"><span class="pre">conf.py</span></code> to allow all identifiers as macro names<a class="headerlink" href="#id2" title="Permalink to this code">¶</a></span></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="n">cpp_xref_resolve_c_macro_pattern</span> <span class="o">=</span> <span class="s2">&quot;[^&lt;&gt;():]+&quot;</span>
 </code></pre></div>
 </div>
@@ -1207,8 +1207,8 @@ Add to <code class="file docutils literal notranslate"><span class="pre">conf.py
 <code class="code highlight cpp docutils literal highlight-cpp"><span class="cp">#include</span></code> directives.</p>
 <div class="results docutils container">
 <div class="literal-block-wrapper docutils container" id="id3">
-<div class="code-block-caption highlight"><span class="caption-text filename">
-Specifying <code class="code highlight cpp docutils literal highlight-cpp"><span class="cp">#include</span></code> directives in signatures<a class="headerlink" href="#id3" title="Permalink to this code">¶</a></span></div>
+<div class="code-block-caption highlight"><span class="filename"><span class="caption-text">
+</span>Specifying <code class="code highlight cpp docutils literal highlight-cpp"><span class="cp">#include</span></code> directives in signatures<a class="headerlink" href="#id3" title="Permalink to this code">¶</a></span></div>
 <div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><code><span class="p">..</span> <span class="ow">cpp:function</span><span class="p">::</span> #include &quot;my_header.h&quot;
                   #include &quot;another_header.h&quot;
                   void foo(int param);
@@ -1242,8 +1242,8 @@ options.</p>
 from search results.</p>
 <div class="results docutils container">
 <div class="literal-block-wrapper docutils container" id="id4">
-<div class="code-block-caption highlight"><span class="caption-text filename">
-Function defined with <code class="code highlight rst docutils literal highlight-rst">noindex</code> option.<a class="headerlink" href="#id4" title="Permalink to this code">¶</a></span></div>
+<div class="code-block-caption highlight"><span class="filename"><span class="caption-text">
+</span>Function defined with <code class="code highlight rst docutils literal highlight-rst">noindex</code> option.<a class="headerlink" href="#id4" title="Permalink to this code">¶</a></span></div>
 <div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><code><span class="p">..</span> <span class="ow">cpp:function</span><span class="p">::</span> int my_function(int x);
 
    Function defined once.
@@ -1290,8 +1290,8 @@ compilers).</p>
 for each signature.</p>
 <div class="results docutils container">
 <div class="literal-block-wrapper docutils container" id="id5">
-<div class="code-block-caption highlight"><span class="caption-text filename">
-Function defined with alternative symbol identifier.<a class="headerlink" href="#id5" title="Permalink to this code">¶</a></span></div>
+<div class="code-block-caption highlight"><span class="filename"><span class="caption-text">
+</span>Function defined with alternative symbol identifier.<a class="headerlink" href="#id5" title="Permalink to this code">¶</a></span></div>
 <div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><code><span class="p">..</span> <span class="ow">cpp:function</span><span class="p">::</span> int my_function_with_custom_identifier(int x);
    <span class="nc">:symbol-ids:</span> [&quot;my_custom_id&quot;]
 </code></pre></div>
@@ -1320,8 +1320,8 @@ signature.</p>
 identifier.  This option has no effect if <code class="code highlight rst docutils literal highlight-rst"><span class="nc">:noindex:</span></code> is also specified.</p>
 <div class="results docutils container">
 <div class="literal-block-wrapper docutils container" id="id6">
-<div class="code-block-caption highlight"><span class="caption-text filename">
-Function with alternative HTML fragment identifier<a class="headerlink" href="#id6" title="Permalink to this code">¶</a></span></div>
+<div class="code-block-caption highlight"><span class="filename"><span class="caption-text">
+</span>Function with alternative HTML fragment identifier<a class="headerlink" href="#id6" title="Permalink to this code">¶</a></span></div>
 <div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><code><span class="p">..</span> <span class="ow">cpp:function</span><span class="p">::</span> int my_function_with_custom_fragment_identifier(int x);
    <span class="nc">:node-id:</span> custom_fragment_id
 
@@ -1345,7 +1345,7 @@ Function with alternative HTML fragment identifier<a class="headerlink" href="#i
   <small>
     
       Last update:
-      Mar 02, 2023
+      Mar 03, 2023
     
   </small>
 </div>
