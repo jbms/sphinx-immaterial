@@ -2,7 +2,7 @@ import hashlib
 import json
 import os
 import tempfile
-from typing import Dict, Optional
+from typing import Dict, Optional, Any
 
 import appdirs
 import requests
@@ -81,6 +81,20 @@ def get_cache_dir(app: sphinx.application.Sphinx) -> str:
     return getattr(app.config, _RESOURCE_CONFIG_KEY)
 
 
+def _config_inited(
+    app: sphinx.application.Sphinx, config: sphinx.config.Config
+) -> None:
+    """Inject path to local cache of mathjax dist.
+    Sphinx machinery will do the rest of the work for us."""
+    if "mathjax_path" in config:
+        config["mathjax_path"] = "tex-mml-chtml.js"
+
+        assert "mathjax_options" in config
+        mathjax_options: Dict[str, Any] = config["mathjax_options"]
+        # async attr is not applicable as the script is self-hosted
+        mathjax_options.update({"id": "MathJax-script", "async": None})
+
+
 def setup(app: sphinx.application.Sphinx):
     app.add_config_value(
         _RESOURCE_CONFIG_KEY,
@@ -88,7 +102,7 @@ def setup(app: sphinx.application.Sphinx):
         rebuild="env",
         types=(str,),
     )
-
+    app.connect("config-inited", _config_inited)
     return {
         "parallel_read_safe": True,
         "parallel_write_safe": True,

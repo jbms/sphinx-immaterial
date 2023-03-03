@@ -69,7 +69,7 @@ let sequence = 0
  */
 function fetchScripts(): Observable<void> {
   return typeof mermaid === "undefined" || mermaid instanceof Element
-    ? watchScript("https://unpkg.com/mermaid@9.1.7/dist/mermaid.min.js")
+    ? watchScript("_static/mermaid.min.js") // sphinx-immaterial uses cached dist
     : of(undefined)
 }
 
