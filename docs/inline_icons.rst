@@ -13,7 +13,7 @@ This theme has a builtin role to use icons within lines of text.
 
     Set the content of this role to a relative path of an SVG image (excluding the ``.svg`` file
     extension). This path shall be relative to
-    
+
     - the documentation source's path(s) configured with :confval:`sphinx_immaterial_icon_path`
       (this takes precedence).
     - the ``.icons`` directory bundled with this theme
@@ -83,7 +83,7 @@ folder (which is specified using :confval:`sphinx_immaterial_icon_path`).
     transparent background. Conventionally, a SVG file is optimized using
     `SVGO <https://github.com/svg/svgo>`_ for which there are
     `various ways to use <https://github.com/svg/svgo#other-ways-to-use-svgo>`_.
-    
+
     A dimension of 24 pixels (width and/or height) is preferred. Be mindful
     of the SVG's ``viewbox`` attribute as it must coincide with the path(s) maximum needed
     dimensions.

@@ -1,3 +1,7 @@
-sphinx_immaterial[json,clang-format,keys,cpp]
-sphinxcontrib-details-directive
 sphinx-jinja
+
+-r ../requirements.txt
+-r ../requirements/json.txt
+-r ../requirements/clang-format.txt
+-r ../requirements/keys.txt
+-r ../requirements/cpp.txt

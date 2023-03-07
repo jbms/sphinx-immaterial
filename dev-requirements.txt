@@ -1,12 +1,7 @@
 wheel
-pylint
-black
-mypy
-pyyaml
-types-PyYAML
-docutils-stubs
-types-jsonschema
-libclang
-types-appdirs
-types-requests
-types-clang
+nox
+-r requirements/json.txt
+-r requirements/cpp.txt
+-r requirements/dev-mypy.txt
+-r requirements/dev-black.txt
+-r requirements/dev-pylint.txt

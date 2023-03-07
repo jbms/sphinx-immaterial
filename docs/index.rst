@@ -60,7 +60,7 @@ There are a lot more ways to customize this theme. See :ref:`Customization`
 or ``theme.conf`` for more details.
 
 .. example:: Settings used in this documentation
-    :collapsible: 
+    :collapsible:
 
     .. literalinclude:: ./conf.py
         :start-after: # -- HTML theme specific settings

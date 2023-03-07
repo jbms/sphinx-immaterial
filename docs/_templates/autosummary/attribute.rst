@@ -7,4 +7,3 @@
 attribute
 
 .. auto{{ objtype }}:: {{ objname }}
-

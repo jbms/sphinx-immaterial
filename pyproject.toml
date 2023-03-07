@@ -25,6 +25,16 @@ minversion = "6.0"
 addopts = "-vv -s"
 testpaths = ["tests"]
 
+[tool.coverage.run]
+source = ["sphinx_immaterial"]
+dynamic_context = "test_function"
+# These options are useful if combining coverage data from multiple tested envs
+parallel = true
+relative_files = true
+
+[tool.coverage.report]
+skip_empty = true
+
 [tool.pylint.main]
 # Analyse import fallback blocks. This can be used to support both Python 2 and 3
 # compatible code, which means that the block might have code that exists only in

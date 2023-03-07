@@ -458,19 +458,19 @@ Configuration Options
                .. literalinclude:: _static/custom_font_example.css
                    :caption: docs/_static/custom_font_example.css
                    :language: css
-               
+
                The path specified in the :css:`url()` is relative to the file defining the font family.
                For example, the above snippet is located in this project's ``_static`` folder where the
                font's files are located in ``_static/example-custom-font/`` folder.
             3. Override the theme's CSS variables.
 
                .. code-block:: css
-                   
+
                    :root {
                      --md-text-font: "Comic Neue"; /* (1)! \*/
                      --md-code-font: "Comic Mono"; /* (2)! \*/
                    }
-               
+
                .. code-annotations::
                     1. Used for regular text.
                     2. Used for ``code snippets``.
