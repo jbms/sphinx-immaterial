@@ -16,6 +16,8 @@ nox.options.sessions = [
     "check_lf",
 ]
 
+SUPPORTED_PY_VER = list(f"3.{x}" for x in range(8, 12))
+
 
 @nox.session
 def black(session: nox.Session):
@@ -24,17 +26,17 @@ def black(session: nox.Session):
     session.run("black", ".")
 
 
-@nox.session(python=False)
+@nox.session(python=SUPPORTED_PY_VER)
 def pylint(session: nox.Session):
     """Run pylint using in default env"""
-    session.run("pip", "install", "-r", "requirements/dev-pylint.txt")
+    session.install("-r", "requirements/dev-pylint.txt")
     session.run("pylint", "sphinx_immaterial")
 
 
-@nox.session(python=False)
+@nox.session(python=SUPPORTED_PY_VER)
 def mypy(session: nox.Session):
     """Run mypy using in default env"""
-    session.run("pip", "install", "-r", "requirements/dev-mypy.txt")
+    session.install("-r", "requirements/dev-mypy.txt")
     session.run("mypy")
 
 
@@ -192,9 +194,6 @@ def docs(session: nox.Session, builder: str):
         "docs",
         f"docs/_build/{builder}",
     )
-
-
-SUPPORTED_PY_VER = list(f"3.{x}" for x in range(8, 12))
 
 
 @nox.session(python=SUPPORTED_PY_VER)
