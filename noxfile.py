@@ -166,8 +166,7 @@ def dist(session: nox.Session, cmd: str):
         if github_output is not None:
             with open(github_output, "a", encoding="utf-8") as output:
                 output.write(f"version={version}\n")
-        else:
-            session.log("Package version: %s", version)
+        session.log("Package version: %s", version)
         return
     session.run("python", "setup.py", cmd)
     if cmd == "bdist_wheel":
