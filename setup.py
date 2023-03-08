@@ -227,11 +227,8 @@ setuptools.setup(
         "setuptools_scm>=6.3.2",
     ],
     extras_require={
-        "json": read_optional_reqs("json.txt"),
-        "jsonschema_validation": read_optional_reqs("jsonschema_validation.txt"),
-        "clang-format": read_optional_reqs("clang-format.txt"),
-        "keys": read_optional_reqs("keys.txt"),
-        "cpp": read_optional_reqs("cpp.txt"),
+        k: read_optional_reqs(f"{k}.txt")
+        for k in ["json", "jsonschema_validation", "clang-format", "keys", "cpp"]
     },
     cmdclass=dict(
         sdist=SdistCommand,

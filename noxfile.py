@@ -1,3 +1,4 @@
+import os
 import pathlib
 import re
 from typing import Optional, List
@@ -150,16 +151,33 @@ def check_lf(session: nox.Session):
 
 
 @nox.session(python=False)
-@nox.parametrize("dist", ["sdist", "bdist_wheel"])
-def dists(session: nox.Session, dist: str):
+@nox.parametrize(
+    "cmd",
+    ["sdist", "bdist_wheel", "--version"],
+    ids=["src", "wheel", "version"],
+)
+def dist(session: nox.Session, cmd: str):
     """Create distributions."""
-    if not pathlib.Path("node_modules").exists():
-        session.run("npm", "install", external=True)
-    session.run("pip", "install", "wheel")
-    session.run("python", "setup.py", dist)
-    if session.interactive:
-        wheel = list(pathlib.Path().glob("dist/*.whl"))[0]
-        session.run("pip", "install", "--force-reinstall", wheel)
+    session.run("pip", "install", "wheel", "setuptools_scm", "setuptools>=42")
+    github_output = os.environ.get("GITHUB_OUTPUT", None)
+    if cmd == "--version":
+        version: str = session.run("python", "setup.py", "--version", silent=True)
+        version = version.splitlines()[-1].strip()
+        if github_output is not None:
+            with open(github_output, "a", encoding="utf-8") as output:
+                output.write(f"version={version}\n")
+        else:
+            session.log("Package version: %s", version)
+        return
+    session.run("python", "setup.py", cmd)
+    if cmd == "bdist_wheel":
+        deployable = list(pathlib.Path().glob("dist/*.whl"))[0]
+        if github_output is not None:
+            with open(github_output, "a", encoding="utf-8") as output:
+                output.write(f"wheel={deployable}\n")
+    else:
+        deployable = list(pathlib.Path().glob("dist/*.tar.*"))[0]
+    session.log("Created distribution: %s", deployable)
 
 
 @nox.session(python=False)
@@ -168,24 +186,14 @@ def dists(session: nox.Session, dist: str):
 )
 def docs(session: nox.Session, builder: str):
     """Build docs."""
-    if not pathlib.Path("node_modules").exists():
-        session.run("npm", "install", external=True)
-    if not list(pathlib.Path().glob("sphinx_immaterial/*.html")):
-        session.run("npm", "run", "build", external=True)
+    if "SPHINX_IMMATERIAL_DOCS_USE_REPO_ROOT" in session.env:
+        if not pathlib.Path("node_modules").exists():
+            session.run("npm", "install", external=True)
+        if not list(pathlib.Path().glob("sphinx_immaterial/*.html")):
+            session.run("npm", "run", "build", external=True)
+    session.run("pip", "install", "-r", "docs/requirements.txt")
     session.run(
-        "pip",
-        "install",
-        "coverage[toml]>=7.0",
-        "-r",
-        "requirements.txt",
-        "-r",
-        "docs/requirements.txt",
-    )
-    session.run(
-        "coverage",
-        "run",
-        "-m",
-        "sphinx.cmd.build",
+        "sphinx-build",
         "-b",
         builder,
         "-W",

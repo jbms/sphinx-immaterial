@@ -91,10 +91,12 @@ jobs:
       - run: npm install
       - name: Check for dirty working directory
         run: git diff --exit-code
-      - name: Build wheel
-        run: pipx run nox -s dists
-      - name: Show package version
-        run: python setup.py --version
+      - run: python -m pip install nox
+      - name: Build distributions
+        id: dist
+        run: nox -s dist
+      - name: Install wheel
+        run: python -m pip install "${{ steps.dist.outputs.wheel }}"
       - name: Upload wheels as artifacts
         uses: actions/upload-artifact@v3
         with:
@@ -102,6 +104,23 @@ jobs:
           path: |
             dist/*.whl
             dist/*.tar.*
+      - name: Setup Graphviz
+        uses: ts-graphviz/setup-graphviz@c001ccfb5aff62e28bda6a6c39b59a7e061be5b9 # v1.2.0
+        with:
+          macos-skip-brew-update: 'true'
+      - name: Build docs
+        run: nox -s docs
+      - name: Upload doc builds as artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: doc-builds-${{ runner.os }}
+          path: docs/_build/
+      - name: upload docs to github pages
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main' && runner.os == 'Linux'
+        uses: peaceiris/actions-gh-pages@de7ea6f8efb354206b205ef54722213d99067935 # pinned to v3.9.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs/_build/html
 
   test:
     needs: [check_conventions]
@@ -153,20 +172,6 @@ jobs:
         # `coverage run` cmd adds the working dir to python path, so no need to install pkg here
         # NOTE: tests are run with different versions of sphinx (using a nox venv)
         run: nox -s tests
-      - name: Build docs
-        # NOTE: docs are only built with latest sphinx version (using the system env)
-        run: nox -s docs
-      - name: Upload doc builds as artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: doc-builds-${{ runner.os }}
-          path: docs/_build/
-      - name: upload docs to github pages
-        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main' && runner.os == 'Linux'
-        uses: peaceiris/actions-gh-pages@de7ea6f8efb354206b205ef54722213d99067935 # pinned to v3.9.0
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./docs/_build/html
       - name: Create coverage report
         run: nox -s coverage
       - name: Upload comprehensive coverage HTML report
