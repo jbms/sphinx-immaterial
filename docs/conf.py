@@ -14,8 +14,6 @@ import typing
 from typing_extensions import Literal
 
 sys.path.insert(0, os.path.abspath("."))
-if os.environ.get("SPHINX_IMMATERIAL_DOCS_USE_REPO_ROOT", False):
-    sys.path.insert(0, os.path.abspath(".."))
 
 import docutils
 import sphinx

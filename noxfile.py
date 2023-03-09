@@ -185,11 +185,6 @@ def dist(session: nox.Session, cmd: str):
 )
 def docs(session: nox.Session, builder: str):
     """Build docs."""
-    if "SPHINX_IMMATERIAL_DOCS_USE_REPO_ROOT" in session.env:
-        if not pathlib.Path("node_modules").exists():
-            session.run("npm", "install", external=True)
-        if not list(pathlib.Path().glob("sphinx_immaterial/*.html")):
-            session.run("npm", "run", "build", external=True)
     session.run("pip", "install", "-r", "docs/requirements.txt")
     session.run(
         "sphinx-build",
