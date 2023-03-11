@@ -134,6 +134,10 @@ jobs:
           - '3.11'
         node-version:
           - '16.x'
+        sphinx-version:
+          - 'sphinx4'
+          - 'sphinx5'
+          - 'sphinx6'
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v3
@@ -158,7 +162,7 @@ jobs:
           macos-skip-brew-update: 'true'
       - name: Run Python tests
         # `coverage run` cmd adds the working dir to python path, so no need to install pkg here
-        run: pipx run nox -s tests --no-error-on-missing-interpreters
+        run: pipx run nox -s "tests-${{ matrix-python-version }}(${{ matrix.sphinx-version }})"
       - name: Upload coverage data
         uses: actions/upload-artifact@v3
         with:
