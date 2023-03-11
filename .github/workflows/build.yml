@@ -131,6 +131,11 @@ jobs:
           - 'ubuntu-latest'
           - 'windows-latest'
           - 'macos-latest'
+        python-version:
+          - '3.8'
+          - '3.9'
+          - '3.10'
+          - '3.11'
         node-version:
           - '16.x'
     runs-on: ${{ matrix.os }}
@@ -139,22 +144,10 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Setup python v3.8
+      - name: Setup python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.8'
-      - name: Setup python v3.9
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.9'
-      - name: Setup python v3.10
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.10'
-      - name: Setup python v3.11
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.11'
+          python-version: ${{ matrix.python-version }}
       - name: Cache node.js modules
         uses: actions/cache@v3
         with:
@@ -167,23 +160,38 @@ jobs:
         uses: ts-graphviz/setup-graphviz@c001ccfb5aff62e28bda6a6c39b59a7e061be5b9 # v1.2.0
         with:
           macos-skip-brew-update: 'true'
-      - run: python -m pip install nox
       - name: Run Python tests
         # `coverage run` cmd adds the working dir to python path, so no need to install pkg here
-        # NOTE: tests are run with different versions of sphinx (using a nox venv)
-        run: nox -s tests
+        run: pipx run nox -s tests --no-error-on-missing-interpreters
+      - name: Upload coverage data
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage-data-${{ runner.os }}-py${{ matrix.python-version }}
+          path: .coverage*
+
+  coverage-report:
+    needs: [test]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Download all artifacts
+        uses: actions/download-artifact@v3
+        with:
+          path: ci-artifacts
+      - run: mv ci-artifacts/**/.coverage* ./
+      - name: Setup python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
       - name: Create coverage report
-        run: nox -s coverage
+        run: pipx run nox -s coverage
       - name: Upload comprehensive coverage HTML report
         uses: actions/upload-artifact@v3
         with:
           name: coverage-report-${{ runner.os }}
           path: htmlcov/
       - name: Post coverage summary
-        shell: bash
-        run: |
-          echo "### ${{ runner.os }}"$'\n' >> $GITHUB_STEP_SUMMARY
-          cat .coverage_.md >> $GITHUB_STEP_SUMMARY
+        run: cat .coverage_.md >> $GITHUB_STEP_SUMMARY
 
   compare-wheels:
     runs-on: ubuntu-latest
