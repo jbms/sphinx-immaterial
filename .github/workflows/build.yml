@@ -14,46 +14,42 @@ on:
 jobs:
   check_conventions:
     runs-on: ubuntu-latest
-    env:
-      node-version: '16.x'
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version:
+          - '3.8'
+          - '3.9'
+          - '3.10'
+          - '3.11'
+        node-version:
+          - '16.x'
     steps:
       - uses: actions/checkout@v3
-      - name: Use Node.js ${{ env.node-version }}
+      - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ env.node-version }}
-      - name: Setup python v3.8
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.8'
-      - name: Setup python v3.9
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.9'
-      - name: Setup python v3.10
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.10'
-      - name: Setup python v3.11
+          node-version: ${{ matrix.node-version }}
+      - name: Setup python ${{ matrix.python-version }}
         uses: actions/setup-python@v4
         id: python-setup
         with:
-          python-version: '3.11'
+          python-version: ${{ matrix.python-version }}
       - name: Cache node.js modules
         uses: actions/cache@v3
         with:
           path: "**/node_modules"
-          key: ${{ runner.os }}-${{ env.node-version }}-node_modules-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-${{ matrix.node-version }}-node_modules-${{ hashFiles('**/package-lock.json') }}
       - name: Cache nox environments
         uses: actions/cache@v3
         with:
           path: |
             .nox/black
             .nox/check_*
-          key: nox-${{ steps.python-setup.outputs.python-version }}-${{ hashFiles('requirements/dev-black.txt', 'requirements/dev-pre_commit_hooks.txt') }}
+          key: nox-${{ matrix.python-version }}-${{ hashFiles('requirements/dev-black.txt', 'requirements/dev-pre_commit_hooks.txt') }}
       - run: npm install
       - run: npm run check
-      - run: pipx run nox
+      - run: pipx run nox --no-error-on-missing-interpreters
         # by default, nox will run mypy, pylint, black, and check_[yaml,json,toml,eof,trailing_space,lf]
 
   build:
