@@ -123,21 +123,24 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os:
-          - 'ubuntu-latest'
-          - 'windows-latest'
-          - 'macos-latest'
+        os: ['ubuntu-latest']
         python-version:
           - '3.8'
           - '3.9'
           - '3.10'
           - '3.11'
-        node-version:
-          - '16.x'
         sphinx-version:
           - 'sphinx4'
           - 'sphinx5'
           - 'sphinx6'
+        node-version:
+          - '16.x'
+        include:
+          - os: 'windows-latest'
+            python-version: '3.11'
+          - os: 'macos-latest'
+            python-version: '3.11'
+            sphinx-version: 'sphinx6'
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v3
@@ -168,7 +171,7 @@ jobs:
       - name: Upload coverage data
         uses: actions/upload-artifact@v3
         with:
-          name: coverage-data-${{ runner.os }}-py${{ matrix.python-version }}
+          name: coverage-data-${{ runner.os }}-py${{ matrix.python-version }}-${{ matrix.sphinx-version }}
           path: .coverage*
 
   coverage-report:
