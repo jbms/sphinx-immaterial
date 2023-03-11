@@ -17,40 +17,50 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version:
-          - '3.8'
-          - '3.9'
-          - '3.10'
-          - '3.11'
-        node-version:
-          - '16.x'
+        nox-sessions:
+          - 'black check_yaml check_json check_toml check_eof check_trailing_space check_lf'
+        python-version: ['3.x']
+        node-version: ['16.x']
+        include:
+          - nox-sessions: 'mypy pylint'
+            python-version: '3.8'
+          - nox-sessions: 'mypy pylint'
+            python-version: '3.9'
+          - nox-sessions: 'mypy pylint'
+            python-version: '3.10'
+          - nox-sessions: 'mypy pylint'
+            python-version: '3.11'
     steps:
       - uses: actions/checkout@v3
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Setup Node.js
+        if: contains(matrix, 'node-version')
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Setup python ${{ matrix.python-version }}
+      - name: Setup Python ${{ matrix.python-version }}
         uses: actions/setup-python@v4
         id: python-setup
         with:
           python-version: ${{ matrix.python-version }}
       - name: Cache node.js modules
+        if: contains(matrix, 'node-version')
         uses: actions/cache@v3
         with:
           path: "**/node_modules"
           key: ${{ runner.os }}-${{ matrix.node-version }}-node_modules-${{ hashFiles('**/package-lock.json') }}
       - name: Cache nox environments
+        if: contains(matrix, 'node-version')
         uses: actions/cache@v3
         with:
           path: |
             .nox/black
             .nox/check_*
-          key: nox-${{ matrix.python-version }}-${{ hashFiles('requirements/dev-black.txt', 'requirements/dev-pre_commit_hooks.txt') }}
+          key: nox-${{ steps.python-setup.outputs.python-version }}-${{ hashFiles('requirements/dev-black.txt', 'requirements/dev-pre_commit_hooks.txt') }}
       - run: npm install
+        if: contains(matrix, 'node-version')
       - run: npm run check
-      - run: pipx run nox --no-error-on-missing-interpreters
-        # by default, nox will run mypy, pylint, black, and check_[yaml,json,toml,eof,trailing_space,lf]
+        if: contains(matrix, 'node-version')
+      - run: pipx run nox -s ${{ matrix.nox-sessions }}
 
   build:
     needs: [check_conventions]
@@ -138,9 +148,20 @@ jobs:
         include:
           - os: 'windows-latest'
             python-version: '3.11'
+            sphinx-version: 'sphinx4'
+            node-version: '16.x'
+          - os: 'windows-latest'
+            python-version: '3.11'
+            sphinx-version: 'sphinx5'
+            node-version: '16.x'
+          - os: 'windows-latest'
+            python-version: '3.11'
+            sphinx-version: 'sphinx6'
+            node-version: '16.x'
           - os: 'macos-latest'
             python-version: '3.11'
             sphinx-version: 'sphinx6'
+            node-version: '16.x'
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v3

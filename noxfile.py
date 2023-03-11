@@ -27,17 +27,17 @@ def black(session: nox.Session):
     session.run("black", ".")
 
 
-@nox.session(python=SUPPORTED_PY_VER)
+@nox.session(python=False)
 def pylint(session: nox.Session):
     """Run pylint using in default env"""
-    session.install("-r", "requirements/dev-pylint.txt")
+    session.run("pip", "install", "-r", "requirements/dev-pylint.txt")
     session.run("pylint", "sphinx_immaterial")
 
 
-@nox.session(python=SUPPORTED_PY_VER)
+@nox.session(python=False)
 def mypy(session: nox.Session):
     """Run mypy using in default env"""
-    session.install("-r", "requirements/dev-mypy.txt")
+    session.run("pip", "install", "-r", "requirements/dev-mypy.txt")
     session.run("mypy")
 
 
