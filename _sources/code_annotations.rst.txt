@@ -66,18 +66,18 @@ each `code-block`). Remember, the ``#`` character can be used instead of numbers
 The below example demonstrates this arbitrariness as the annotated comment ``(1)`` corresponds to
 the first annotated list item (beginning with the marker ``3.``).
 
-.. rst-example:: 
+.. rst-example::
 
     .. code-block:: cpp
 
         // What can I put in an annotation? (1)
         /* What about nested lists and emojis? (2) */
-    
+
     .. code-annotations::
         3. These annotations can have anything that Sphinx supports (including extensions).
 
            .. graphviz::
-            
+
                digraph { A -> B }
            .. image:: desert-flower.jpg
                :width: 75%
@@ -97,7 +97,7 @@ the first annotated list item (beginning with the marker ``3.``).
         .. code-block:: lua
 
             -- (1) some text, and (1)
-            
+
             local var_name = 0
             -- (1)
 
@@ -119,9 +119,9 @@ ends with a exclamation mark (``!``) after the closing parenthesis.
         # (1)! remove me
 
         # (2)! (3) remove me
-    
+
         # (4) some text   (5)! remove me
-    
+
     .. code-annotations::
         1. I'm the first annotation.
         2. I'm the second annotation.
