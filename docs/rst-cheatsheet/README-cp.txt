@@ -2,7 +2,7 @@ You are free:
 
     * to copy, distribute, display, and perform the work
     * to make derivative works
-    
+
 
 Under the following conditions:
 

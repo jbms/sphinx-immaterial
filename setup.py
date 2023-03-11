@@ -37,6 +37,13 @@ with open("requirements.txt", encoding="utf-8") as reqs:
 root_dir = os.path.dirname(os.path.abspath(__file__))
 package_root = os.path.join(root_dir, "sphinx_immaterial")
 
+optional_requirements = pathlib.Path("requirements")
+
+
+def read_optional_reqs(name: str):
+    reqs = optional_requirements / name
+    return reqs.read_text(encoding="utf-8").splitlines()
+
 
 def _setup_temp_egg_info(cmd):
     """Use a temporary directory for the `neuroglancer.egg-info` directory.
@@ -220,11 +227,8 @@ setuptools.setup(
         "setuptools_scm>=6.3.2",
     ],
     extras_require={
-        "json": ["pyyaml"],
-        "jsonschema_validation": ["jsonschema"],
-        "clang-format": ["clang-format"],
-        "keys": ["pymdown-extensions"],
-        "cpp": ["libclang"],
+        k: read_optional_reqs(f"{k}.txt")
+        for k in ["json", "jsonschema_validation", "clang-format", "keys", "cpp"]
     },
     cmdclass=dict(
         sdist=SdistCommand,

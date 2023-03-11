@@ -149,7 +149,7 @@ In this case, the generated :graphvizattr:`label` can be overridden by manually 
 :graphvizattr:`label` after the ``xref`` attribute.
 
 .. rst-example:: A graph of record nodes
-   
+
    .. graphviz::
 
       digraph {
@@ -183,7 +183,7 @@ In this case, the generated :graphvizattr:`label` can be overridden by manually 
           module:f1 -> function:f0
           class:f2 -> method:f0
           class:f1 -> class_attr // edge will point toward center of class_attr
-      }      
+      }
 
 .. info:: Implementation note
 

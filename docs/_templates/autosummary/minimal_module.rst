@@ -4,5 +4,3 @@
 
    {% block docstring %}
    {% endblock %}
-
-

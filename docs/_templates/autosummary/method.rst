@@ -7,4 +7,3 @@
 method
 
 .. auto{{ objtype }}:: {{ objname }}
-
