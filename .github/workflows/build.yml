@@ -161,8 +161,10 @@ jobs:
         with:
           macos-skip-brew-update: 'true'
       - name: Run Python tests
+        env:
+          COVERAGE_FILE: .coverage.${{ github.run_id }}.${{ github.run_attempt }}.${{ runner.os }}.${{ matrix.python-version }}.${{ matrix.sphinx-version }}
         # `coverage run` cmd adds the working dir to python path, so no need to install pkg here
-        run: pipx run nox -s "tests-${{ matrix-python-version }}(${{ matrix.sphinx-version }})"
+        run: pipx run nox -s "tests-${{ matrix.python-version }}(${{ matrix.sphinx-version }})"
       - name: Upload coverage data
         uses: actions/upload-artifact@v3
         with:

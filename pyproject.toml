@@ -31,6 +31,14 @@ dynamic_context = "test_function"
 # These options are useful if combining coverage data from multiple tested envs
 parallel = true
 relative_files = true
+omit = [
+    "sphinx_immaterial/.icons/**/*",
+    "sphinx_immaterial/bundles/*",
+    "sphinx_immaterial/partials/**/*",
+    "sphinx_immaterial/*.html",
+    "sphinx_immaterial/LICENSE",
+    "sphinx_immaterial/theme.conf",
+]
 
 [tool.coverage.report]
 skip_empty = true
