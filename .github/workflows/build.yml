@@ -133,7 +133,10 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: ['ubuntu-latest']
+        os:
+          - 'ubuntu-latest'
+          - 'windows-latest'
+          - 'macos-latest'
         python-version:
           - '3.8'
           - '3.9'
@@ -145,23 +148,6 @@ jobs:
           - 'sphinx6'
         node-version:
           - '16.x'
-        include:
-          - os: 'windows-latest'
-            python-version: '3.11'
-            sphinx-version: 'sphinx4'
-            node-version: '16.x'
-          - os: 'windows-latest'
-            python-version: '3.11'
-            sphinx-version: 'sphinx5'
-            node-version: '16.x'
-          - os: 'windows-latest'
-            python-version: '3.11'
-            sphinx-version: 'sphinx6'
-            node-version: '16.x'
-          - os: 'macos-latest'
-            python-version: '3.11'
-            sphinx-version: 'sphinx6'
-            node-version: '16.x'
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v3
