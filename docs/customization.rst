@@ -758,7 +758,7 @@ aliases. Other required fields include ``version`` and ``title``.
 
 .. note::
     ``aliases`` do not apply when using an external URL (as in not relative to the same webserver)
-    in the ``verion`` field.
+    in the ``version`` field.
 
 .. md-tab-set::
     :name: version_info_example
