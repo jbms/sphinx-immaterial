@@ -7,7 +7,7 @@ import pathlib
 import re
 import subprocess
 import tempfile
-from typing import Optional, Any, Tuple, Dict, Type, Sequence, NamedTuple
+from typing import Optional, Any, Tuple, Dict, Type, Sequence, NamedTuple, Union
 import xml.etree.ElementTree as ET
 
 import docutils.nodes
@@ -16,8 +16,9 @@ import sphinx.ext.graphviz
 import sphinx.util.docutils
 import sphinx.util.logging
 from sphinx.writers.html import HTMLTranslator
+from sphinx.writers.html5 import HTML5Translator
 
-from . import external_resource_cache
+from . import google_fonts
 from . import sphinx_utils
 
 logger = sphinx.util.logging.getLogger(__name__)
@@ -50,12 +51,12 @@ def _replace_resolved_xrefs(node: sphinx.ext.graphviz.graphviz, code: str) -> st
             else:
                 url = "#" + ref_node["refid"]
             title = ref_node.get("reftitle")
-            replacement_text += f', href="{url}"'
+            replacement_text += f' href="{url}"'
             if title is not None:
-                replacement_text += f", tooltip=<{html.escape(title)}>"
+                replacement_text += f" tooltip=<{html.escape(title)}>"
             target = ref_node.get("target")
             if target is not None:
-                replacement_text += f', target="{target}"'
+                replacement_text += f' target="{target}"'
 
         ref_replacements[xref_id] = replacement_text
 
@@ -223,21 +224,26 @@ def _make_adjusted_graphviz_config(
 
 
 def render_dot_html(
-    self: HTMLTranslator,
+    self: Union[HTMLTranslator, HTML5Translator],
     node: sphinx.ext.graphviz.graphviz,
     code: str,
     options: dict,
     prefix: str = "graphviz",
-    imgcls: str = None,
+    imgcls: Optional[str] = None,
     alt: Optional[str] = None,
     filename: Optional[str] = None,
 ) -> Tuple[str, str]:
-
     theme_options = self.builder.config["html_theme_options"]
-    ttf_font_paths = external_resource_cache.get_ttf_font_paths(self.builder.app)
-    font = theme_options["font"]["text"]
+    font: Optional[str] = None
+    if isinstance(theme_options["font"], dict) and "text" in theme_options["font"]:
+        # using a google font; otherwise
+        font = theme_options["font"]["text"]
 
-    ttf_font = ttf_font_paths[(font, "400")]
+    ttf_font_paths = google_fonts.get_ttf_font_paths(self.builder.app)
+    ttf_font: Optional[str] = None
+    if ttf_font_paths and font is not None:
+        # can only support the chosen font if cache exists and a Google font is used
+        ttf_font = ttf_font_paths[(font, "regular")]
 
     code = _replace_resolved_xrefs(node, code)
 
@@ -271,17 +277,22 @@ def render_dot_html(
         "-Nfillcolor=" + replace_var("var(--md-graphviz-node-bg-color)"),
         "-Nfontcolor=" + fontcolor,
         "-Nfontsize=" + fontsize,
-        "-Nfontname=" + ttf_font,
         "-Ecolor=" + replace_var("var(--md-graphviz-edge-color)"),
         "-Efontcolor=" + fontcolor,
         "-Efontsize=" + fontsize,
-        "-Efontname=" + ttf_font,
         "-Gbgcolor=transparent",
         "-Gcolor=" + replace_var("var(--md-graphviz-node-fg-color)"),
         "-Gfontcolor=" + fontcolor,
         "-Gfontsize=" + fontsize,
-        "-Gfontname=" + ttf_font,
     ]
+    if ttf_font is not None:
+        command_line_options.extend(
+            [
+                "-Nfontname=" + ttf_font,
+                "-Efontname=" + ttf_font,
+                "-Gfontname=" + ttf_font,
+            ]
+        )
 
     code = re.sub(r'"((?:var|calc)\s*\(.*?\))"', replace_var_in_code, code)
 
@@ -347,8 +358,11 @@ def render_dot_html(
                 del attrib[attr]
                 style += f"{attr}: {var_val};"
         font_family = attrib.get("font-family")
-        if font_family == ttf_font:
+        if font is not None and font_family == ttf_font:  # using a cached google font
             attrib["font-family"] = font
+        elif font is None and font_family is not None:  # using a system font (via CSS)
+            attrib.pop("font-family")
+            style += "font-family: var(--md-text-font-family);"
         href = attrib.pop(xlink_href_key, None)
         if href is not None:
             attrib["href"] = href

@@ -142,10 +142,12 @@ from typing import (
     Dict,
     Iterable,
     Set,
+    Type,
 )
 import urllib.parse
 import docutils.nodes
 import markupsafe
+import sphinx
 import sphinx.builders
 import sphinx.builders.html
 import sphinx.application
@@ -154,6 +156,18 @@ import sphinx.util.docutils
 import sphinx.util.osutil
 
 from .apidoc import object_description_options
+
+meta_node_types: Tuple[Type[docutils.nodes.Element], ...]
+
+if sphinx.version_info >= (6,):
+    meta_node_types = (docutils.nodes.meta,)  # type: ignore[attr-defined]
+else:
+    from sphinx.addnodes import (  # type: ignore[attr-defined] # pylint: disable=no-name-in-module
+        docutils_meta,
+        meta as sphinx_meta,
+    )
+
+    meta_node_types = (docutils_meta, sphinx_meta)
 
 StandaloneHTMLBuilder = sphinx.builders.html.StandaloneHTMLBuilder
 
@@ -748,9 +762,9 @@ def _html_page_context(
         toc_integrate="toc.integrate" in features,
     )
     context.update(nav=_NavContextObject(global_toc))
-    context["nav"].homepage = dict(
-        url=context["pathto"](context["master_doc"]),
-    )
+    context["nav"].homepage = {
+        "url": context["pathto"](context["master_doc"]),
+    }
 
     toc_title = theme_options.get("toc_title")
     if toc_title:
@@ -768,6 +782,7 @@ def _html_page_context(
             "mdx_configs": {
                 "toc": {"title": toc_title},
             },
+            "extra": {"consent": theme_options.get("consent")},
         }
     )
 
@@ -784,18 +799,36 @@ def _html_page_context(
         integrated_local_toc = integrated_local_toc[0].children
 
     # Add other context values in mkdocs/mkdocs-material format.
-    page = dict(
-        title=page_title,
-        is_homepage=(pagename == context["master_doc"]),
-        toc=local_toc,
-        integrated_local_toc=integrated_local_toc,
-        meta={"hide": [], "revision_date": context.get("last_updated")},
-        content=context.get("body"),
-    )
+    page = {
+        "title": page_title,
+        "is_homepage": (pagename == context["master_doc"]),
+        "toc": local_toc,
+        "integrated_local_toc": integrated_local_toc,
+        "meta": {"hide": [], "revision_date": context.get("last_updated"), "meta": []},
+        "content": context.get("body"),
+    }
+    if doctree is not None:
+        # extract meta nodes from document node only (not descendants)
+        meta_tags = [
+            doc_node
+            for doc_node in doctree.document.children
+            if isinstance(doc_node, meta_node_types)
+        ]
+        for tag in meta_tags:
+            assert isinstance(tag, docutils.nodes.Element)
+            # feed them into the mkdocs template context
+            attrs = {key: value for key, value in tag.attributes.items() if value}
+            page["meta"]["meta"].append(attrs)
     if meta.get("tocdepth") == 0 or "hide-toc" in meta:
         page["meta"]["hide"].append("toc")
     if "hide-navigation" in meta:
         page["meta"]["hide"].append("navigation")
+    if "hide-footer" in meta:
+        page["meta"]["hide"].append("footer")
+    if "hide-feedback" in meta:
+        page["meta"]["hide"].append("feedback")
+    if "show-comments" in meta:
+        page["meta"]["comments"] = True
     if context.get("next"):
         page["next_page"] = {
             "title": markupsafe.Markup.escape(

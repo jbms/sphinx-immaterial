@@ -22,6 +22,7 @@ import setuptools  # pylint: disable=wrong-import-order
 import atexit
 import distutils.command.build
 import os
+import pathlib
 import subprocess
 import tempfile
 
@@ -35,6 +36,13 @@ with open("requirements.txt", encoding="utf-8") as reqs:
 
 root_dir = os.path.dirname(os.path.abspath(__file__))
 package_root = os.path.join(root_dir, "sphinx_immaterial")
+
+optional_requirements = pathlib.Path("requirements")
+
+
+def read_optional_reqs(name: str):
+    reqs = optional_requirements / name
+    return reqs.read_text(encoding="utf-8").splitlines()
 
 
 def _setup_temp_egg_info(cmd):
@@ -96,7 +104,6 @@ class DevelopCommand(setuptools.command.develop.develop):
 
 
 class StaticBundlesCommand(setuptools.command.build_py.build_py):
-
     user_options = setuptools.command.build_py.build_py.user_options + [
         (
             "bundle-type=",
@@ -112,7 +119,7 @@ class StaticBundlesCommand(setuptools.command.build_py.build_py):
         (
             "skip-rebuild",
             None,
-            "Skip rebuilding if the `sphinx_immaterial` directory already exists.",
+            "Skip rebuilding if the `sphinx_immaterial/bundles` directory already exists.",
         ),
     ]
 
@@ -135,7 +142,7 @@ class StaticBundlesCommand(setuptools.command.build_py.build_py):
 
     def run(self):
         if self.skip_rebuild:
-            output_dir = os.path.join(package_root, "static")
+            output_dir = os.path.join(package_root, "bundles")
             if os.path.exists(output_dir):
                 print(
                     "Skipping rebuild of package since %s already exists"
@@ -166,7 +173,7 @@ class StaticBundlesCommand(setuptools.command.build_py.build_py):
 setuptools.setup(
     name="sphinx_immaterial",
     description="Adaptation of mkdocs-material theme for the Sphinx documentation system",
-    long_description=open("README.rst").read(),
+    long_description=pathlib.Path("README.rst").read_text(encoding="utf-8"),
     author="Jeremy Maitin-Shepard",
     author_email="jeremy@jeremyms.com",
     url="https://github.com/jbms/sphinx-immaterial",
@@ -182,13 +189,15 @@ setuptools.setup(
             "partials/*/*.html",
             "partials/*/*/*.html",
             "partials/*/*/*/*.html",
-            "static/*/**",
+            "bundles/*/**",
+            "LICENSE",
             "*.html",
+            "custom_admonitions.css",
             "theme.conf",
         ],
         "sphinx_immaterial.apidoc.cpp.cppreference_data": ["*.xml"],
     },
-    python_requires=">=3.7",
+    python_requires=">=3.8",
     install_requires=REQUIREMENTS,
     use_scm_version={
         # It would be nice to include the commit hash in the version, but that
@@ -218,11 +227,8 @@ setuptools.setup(
         "setuptools_scm>=6.3.2",
     ],
     extras_require={
-        "json": ["pyyaml"],
-        "jsonschema_validation": ["jsonschema"],
-        "clang-format": ["clang-format"],
-        "keys": ["pymdown-extensions"],
-        "cpp": ["libclang"],
+        k: read_optional_reqs(f"{k}.txt")
+        for k in ["json", "jsonschema_validation", "clang-format", "keys", "cpp"]
     },
     cmdclass=dict(
         sdist=SdistCommand,

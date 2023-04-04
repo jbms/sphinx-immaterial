@@ -101,7 +101,6 @@ class GeneratedDocumentWriter:
                     logger.warning("Failed to remove stale generated file %r: %s", p, e)
 
     def write_file(self, docname: str, object_name: str, entity_content: str):
-
         rst_path = docname + ".rst"
         if rst_path in self.all_pages:
             logger.error(
@@ -161,7 +160,6 @@ def merge_groups_into(
     insert_group: Callable[[T, docutils.nodes.section], None],
     group_id_prefix: str = "",
 ):
-
     sections = collect_sections(parent)
 
     for group_name, group_data in groups.items():

@@ -631,7 +631,7 @@ async function convertSphinxResult(
     }
   }
   if (sectionMatches === undefined) {
-    sectionMatches = [{score: -1, title: "", anchor: "", snippet: "", terms: {}}]
+    sectionMatches = [{score: -1, title: "", anchor: "", snippet: "", terms: allTerms}]
   }
   // Add entry for parent document.
   const searchResults: SearchResultItem = []

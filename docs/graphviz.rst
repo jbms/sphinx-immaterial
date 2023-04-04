@@ -6,6 +6,13 @@ This theme adds several improvements to the built-in :py:mod:`sphinx.ext.graphvi
 - default fonts and colors are set to match the fonts and colors used by the
   theme, including support for both light and dark mode;
 
+  .. admonition:: Only compatible with Google fonts
+
+      When not using a Google font via :themeconf:`font` in conf.py (eg. using a
+      system/custom/self-hosted font), this extension will use the metrics from Graphviz's
+      default font, rather than the actual font, for the purpose of computing the graph layout.
+      However, the text will still be displayed in the browser using the user-specified font.
+
 - the rendered diagram is included as inline svg content to allow hyperlinks to
   work;
 
@@ -120,13 +127,65 @@ This extension adds support for a special ``xref`` attribute, which may be set
 to a string value containing reStructuredText.  This is demonstrated in the
 example above.
 
-The reStructuredText will be parsed, and after resolving any cross references,
+The reStructuredText will be parsed as a document fragment, and after resolving any cross references,
 will be substituted back into the graph definition as follows:
 
-- A :graphvizattr:`label` will be generated from the text content.
-- If there is at least one ``reference`` node, only the last such node is
+- A :graphvizattr:`label` will be generated from the parsed fragment's text content.
+- If the parsed fragment contains at least one hyperlink, only the last such hyperlink is
   considered, and:
 
   - an :graphvizattr:`href` will be generated from its URL.
   - a :graphvizattr:`tooltip` will be generated from its title/tooltip, if any.
   - a :graphvizattr:`target` will be generated from its target, if any.
+
+Overriding the cross-reference label
+************************************
+
+The :graphvizattr:`label` generated with the new ``xref`` attribute uses graphviz' HTML-like
+attribute syntax, but any HTML characters found within the ``xref`` parsed fragments' text are
+escaped (eg. ``< f0 >`` becomes ``&lt; f0 &gt;``).
+In some graphs, it is preferable to use unescaped HTML characters in the :graphvizattr:`label`.
+In this case, the generated :graphvizattr:`label` can be overridden by manually specifying the
+:graphvizattr:`label` after the ``xref`` attribute.
+
+.. rst-example:: A graph of record nodes
+
+   .. graphviz::
+
+      digraph {
+          graph [rankdir = "LR"]
+          module [
+              xref=":py:mod:`test_py_module.test`"
+              label="<f0> test_py_module.test | <f1> functions | <f2> classes"
+              shape = record
+          ]
+          class [
+              xref = ":py:class:`test_py_module.test.Foo`"
+              label = "<f0> Foo | <f1> attributes | <f2> methods"
+              shape = record
+          ]
+          method [
+              xref = ":py:meth:`test_py_module.test.Foo.capitalize()`"
+              label = "<f0> capitalize() | <f1> variables"
+              shape = record
+          ]
+          function [
+              xref = ":py:func:`test_py_module.test.func()`"
+              label = "<f0> func() | <f1> variables"
+              shape = record
+          ]
+          class_attr [
+              // NOTE: cannot adequately angle brackets in xref's text
+              xref = ":py:attr:`spam | object <test_py_module.test.Foo.spam>`"
+              shape = record
+          ]
+          module:f2 -> class:f0
+          module:f1 -> function:f0
+          class:f2 -> method:f0
+          class:f1 -> class_attr // edge will point toward center of class_attr
+      }
+
+.. info:: Implementation note
+
+   Using a cross reference in a single field of a record node (with multiple fields) is unsupported
+   because the manually specified :graphvizattr:`label` is used as is.

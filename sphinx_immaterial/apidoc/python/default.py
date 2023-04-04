@@ -1,18 +1,21 @@
+import sphinx
 import sphinx.application
 
-from . import annotation_style
-from . import object_ids
-from . import synopses
+from . import annotation_style  # pylint: disable=unused-import
+from . import object_ids  # pylint: disable=unused-import
+from . import synopses  # pylint: disable=unused-import
 from . import parameter_objects
-from . import style_default_values_as_code
-from . import subscript_methods
-from . import attribute_style
-from . import napoleon_admonition_classes
+from . import style_default_values_as_code  # pylint: disable=unused-import
+from . import subscript_methods  # pylint: disable=unused-import
+from . import attribute_style  # pylint: disable=unused-import
+from . import napoleon_admonition_classes  # pylint: disable=unused-import
 from . import strip_property_prefix
-from . import section_titles
-from . import autodoc_property_type
+from . import autodoc_property_type  # pylint: disable=unused-import
 from . import type_annotation_transforms
 from . import strip_self_and_return_type_annotations
+
+if sphinx.version_info < (5, 3):
+    from . import section_titles  # pylint: disable=unused-import
 
 
 def setup(app: sphinx.application.Sphinx):

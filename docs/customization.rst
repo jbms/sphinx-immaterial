@@ -1,60 +1,5 @@
 :hero: Configuration options to personalize your site.
 
-.. embedded material icons used for inline demonstration
-.. role:: inline-icon
-.. role:: eye
-.. role:: eye-outline
-.. role:: lightbulb
-.. role:: lightbulb-outline
-.. role:: sunny
-.. role:: night
-.. role:: toggle-off
-.. role:: toggle-on
-.. role:: fa-git
-.. role:: fa-git-alt
-.. role:: fa-git-square
-.. role:: fa-github
-.. role:: fa-github-alt
-.. role:: fa-github-square
-.. role:: fa-gitlab
-.. role:: fa-gitkraken
-.. role:: fa-bitbucket
-
-.. |eye| image:: _static/images/blank.png
-    :class: inline-icon eye
-.. |eye-outline| image:: _static/images/blank.png
-    :class: inline-icon eye-outline
-.. |lightbulb| image:: _static/images/blank.png
-    :class: inline-icon lightbulb
-.. |lightbulb-outline| image:: _static/images/blank.png
-    :class: inline-icon lightbulb-outline
-.. |sunny| image:: _static/images/blank.png
-    :class: inline-icon sunny
-.. |night| image:: _static/images/blank.png
-    :class: inline-icon night
-.. |toggle-off| image:: _static/images/blank.png
-    :class: inline-icon toggle-off
-.. |toggle-on| image:: _static/images/blank.png
-    :class: inline-icon toggle-on
-.. |fa-git| image:: _static/images/blank.png
-    :class: inline-icon fa-git
-.. |fa-git-alt| image:: _static/images/blank.png
-    :class: inline-icon fa-git-alt
-.. |fa-git-square| image:: _static/images/blank.png
-    :class: inline-icon fa-git-square
-.. |fa-github| image:: _static/images/blank.png
-    :class: inline-icon fa-github
-.. |fa-github-alt| image:: _static/images/blank.png
-    :class: inline-icon fa-github-alt
-.. |fa-github-square| image:: _static/images/blank.png
-    :class: inline-icon fa-github-square
-.. |fa-gitlab| image:: _static/images/blank.png
-    :class: inline-icon fa-gitlab
-.. |fa-gitkraken| image:: _static/images/blank.png
-    :class: inline-icon fa-gitkraken
-.. |fa-bitbucket| image:: _static/images/blank.png
-    :class: inline-icon fa-bitbucket
-
 .. custom roles used to add a class to individual html elements
 .. role:: red
 .. role:: pink
@@ -110,7 +55,7 @@ Metadata for a single page
 ==========================
 
 Each page can support a set of page-specific options. These are configured using metadata roles.
-Each metadata is evaluated as a ``:key: value`` pair.
+Each metadata is evaluated as a :rst:`:key: value` pair.
 
 .. seealso::
     Review the
@@ -122,7 +67,7 @@ Each metadata is evaluated as a ``:key: value`` pair.
     Unlike, newer versions of mkdocs-material theme, this theme also supports the use of a textual
     "hero" section.
 
-    To set the hero's text for an individual page, use the ``:hero:`` metadata field for the desired page.
+    To set the hero's text for an individual page, use the :rst:`:hero:` metadata field for the desired page.
     If not specified, then the page will not have a hero section.
 
     .. code-block:: rst
@@ -152,7 +97,7 @@ Each metadata is evaluated as a ``:key: value`` pair.
 
         :hide-toc:
 
-    Instead of using ``:hide-toc:``, this theme can also use the ``:tocdepth:`` metadata to hide the
+    Instead of using :rst:`:hide-toc:`, this theme can also use the :rst:`:tocdepth:` metadata to hide the
     page's Table of Contents.
 
     .. code-block:: rst
@@ -162,17 +107,48 @@ Each metadata is evaluated as a ``:key: value`` pair.
 
 .. themeconf:: hide-edit-link
 
-   If specified, hides the "Edit this page" link at the top of the page.  By
-   default, an edit link is shown if :themeconf:`edit_uri` is specified.  This
-   option overrides that for a given page.
+    If specified, hides the "Edit this page" link at the top of the page.  By
+    default, an edit link is shown if :themeconf:`edit_uri` is specified.  This
+    option overrides that for a given page.
 
-   .. code-block:: rst
-      :caption: Hide the "Edit this page" link:
+    .. code-block:: rst
+        :caption: Hide the "Edit this page" link:
 
-      :hide-edit-link:
+        :hide-edit-link:
 
-   A common use case for this option is to specify it on automatically-generated
-   pages, as for those pages there is no source document to edit.
+    A common use case for this option is to specify it on automatically-generated
+    pages, as for those pages there is no source document to edit.
+
+.. themeconf:: hide-footer
+
+    If specified, hides the current page's footer (specifically the part containing the
+    "Previous" and "Next" links).
+
+    .. code-block:: rst
+        :caption: Hide the "Previous" and "Next" links at the bottom of the page:
+
+        :hide-footer:
+
+.. themeconf:: hide-feedback
+
+    If specified, hides the user :themeconf:`feedback` buttons at the bottom of the current page.
+
+    .. code-block:: rst
+        :caption: Hide the feedback buttons at the bottom of the page:
+
+        :hide-feedback:
+
+.. themeconf:: show-comments
+
+    If specified, allows comments to be enabled at the bottom of the current page.
+
+    .. code-block:: rst
+        :caption: Enable comments at the bottom of the page:
+
+        :show-comments:
+
+    .. seealso::
+        Using comments requires extra steps. See `Adding a comment system`_ instructions.
 
 Configuration Options
 =====================
@@ -210,31 +186,47 @@ Configuration Options
 
         Must be one of github, gitlab or bitbucket.
 
-    .. themeconf:: icon["repo"]
-
-        The icon that represents the source code repository can be changed using the ``repo`` field of the
-        ``icon`` `dict` (within the `html_theme_options` `dict`). Although this icon can be
-        `any of the icons bundled with this theme`_,
-        popular choices are:
-
-        - |fa-git| ``fontawesome/brands/git``
-        - |fa-git-alt| ``fontawesome/brands/git-alt``
-        - |fa-git-square| ``fontawesome/brands/git-square``
-        - |fa-github| ``fontawesome/brands/github``
-        - |fa-github-alt| ``fontawesome/brands/github-alt``
-        - |fa-github-square| ``fontawesome/brands/github-square``
-        - |fa-gitlab| ``fontawesome/brands/gitlab``
-        - |fa-gitkraken| ``fontawesome/brands/gitkraken``
-        - |fa-bitbucket| ``fontawesome/brands/bitbucket``
-
-        .. important::
-            This option has no effect if the :themeconf:`repo_url` option is not specified.
+    .. themeconf:: icon
 
         .. literalinclude:: conf.py
             :language: python
             :caption: This is the setting currently used by this documentation.
             :start-at: "icon": {
             :end-before: "site_url":
+
+        .. themeconf:: repo
+
+            The icon that represents the source code repository can be changed using the
+            :themeconf:`icon`\ [:themeconf:`repo`] field in the :confval:`html_theme_options`
+            settings. Although this icon can be `any of the icons bundled with this theme`_,
+            popular choices are:
+
+            .. jinja::
+
+                {% for icon in ["git", "git-alt", "github", "github-alt", "gitlab", "gitkraken", "bitbucket"] %}
+                - :si-icon:`fontawesome/brands/{{icon}}` ``fontawesome/brands/{{icon}}``
+                {% endfor %}
+
+            .. important::
+                This option has no effect if the :themeconf:`repo_url` option is not specified.
+
+        .. themeconf:: admonition
+
+            The default icons for admonitions can be changed by setting this field to a `dict` in
+            which the keys are CSS classes (see :doc:`admonitions`) and the values are
+            `any of the icons bundled with this theme`_.
+
+            .. seealso::
+                Refer to the :ref:`change_admonition_icon` section for more detail.
+
+        .. themeconf:: edit
+
+            The icon used for the generated "edit this page" button at the top of the document.
+            This is only used if :themeconf:`edit_uri` is configured and when not explicitly hidden
+            using :themeconf:`hide-edit-link`.
+
+            As usual, `any of the icons bundled with this theme`_ can be used here. While the default is
+            ``material/pencil``, this documentation uses ``material/file-edit-outline``
 
     .. themeconf:: edit_uri
 
@@ -250,6 +242,14 @@ Configuration Options
         of strings. The following features are supported:
 
         - `content.code.annotate <https://squidfunk.github.io/mkdocs-material/reference/code-blocks/#code-annotations>`_
+
+          .. seealso:: Refer to the :doc:`code_annotations` document for more detail.
+
+        - `content.tabs.link <https://squidfunk.github.io/mkdocs-material/reference/content-tabs/#linked-content-tabs>`_
+
+          .. seealso::
+              Please refer to the :ref:`linked_tabs` section for more information.
+
         - `header.autohide <https://squidfunk.github.io/mkdocs-material/setup/setting-up-the-header/#automatic-hiding>`_
         - `navigation.expand <https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#navigation-expansion>`_
         - `navigation.instant <https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#instant-loading>`_
@@ -272,6 +272,10 @@ Configuration Options
         - `search.highlight <https://squidfunk.github.io/mkdocs-material/setup/setting-up-site-search/#search-highlighting>`_
         - `search.share <https://squidfunk.github.io/mkdocs-material/setup/setting-up-site-search/#search-sharing>`_
         - `toc.integrate <https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#navigation-integration>`_
+        - `announce.dismiss <https://squidfunk.github.io/mkdocs-material/setup/setting-up-the-header/?h=ann#mark-as-read>`_
+
+          .. seealso::
+              Refer to the `New blocks`_ section below about how to add an announcement banner.
         - ``toc.follow``
 
           This is similar to the `toc.follow
@@ -368,10 +372,10 @@ Configuration Options
 
               .. csv-table::
 
-                  |toggle-off| ``material/toggle-switch-off-outline``, |toggle-on| ``material/toggle-switch``
-                  |sunny| ``material/weather-sunny``, |night| ``material/weather-night``
-                  |eye-outline| ``material/eye-outline``, |eye| ``material/eye``
-                  |lightbulb-outline| ``material/lightbulb-outline``, |lightbulb| ``material/lightbulb``
+                  :si-icon:`material/toggle-switch-off-outline` ``material/toggle-switch-off-outline``, :si-icon:`material/toggle-switch` ``material/toggle-switch``
+                  :si-icon:`material/weather-sunny` ``material/weather-sunny``, :si-icon:`material/weather-night` ``material/weather-night``
+                  :si-icon:`material/eye-outline` ``material/eye-outline``, :si-icon:`material/eye` ``material/eye``
+                  :si-icon:`material/lightbulb-outline` ``material/lightbulb-outline``, :si-icon:`material/lightbulb` ``material/lightbulb``
 
         .. themeconf:: media (palette preference)
 
@@ -425,18 +429,130 @@ Configuration Options
         specified by :confval:`sphinx_immaterial_external_resource_cache_dir`)
         and included in the built documentation.
 
+        To use the user's system font instead of (and similar to) the theme's default fonts,
+        set this field to :python:`False`.
+
+        .. code-block:: python
+            :caption: rely on fonts available in the user's OS.
+
+            html_theme_options = {
+                "font": False,
+            }
+
+        :Using a self-hosted font:
+            Using a custom or self-hosted font requires extra CSS to define the font family and
+            overridden CSS theme variables. The following steps were used to self-host Google's
+            "Comic Neue" and "Comic Mono" fonts as an example.
+
+            1. Copy the font files to your project's ``_static`` folder. The font's file
+               :css:`format()` will be specified in step 2. If the font has different weights, then
+               each weight will have a separate file. By default, this theme mainly uses 300, 400, and
+               700 weights, although only one weight/variant is technically required (400 weight is
+               recommended).
+            2. Define the font family in a CSS file and append the CSS file's name to the project's
+               list of `html_css_files` in config.py.
+
+               Each weight must have a corresponding :css:`@font-face` rule. The same mandate applies
+               to *italic* variants (if any) and their weights.
+
+               .. literalinclude:: _static/custom_font_example.css
+                   :caption: docs/_static/custom_font_example.css
+                   :language: css
+
+               The path specified in the :css:`url()` is relative to the file defining the font family.
+               For example, the above snippet is located in this project's ``_static`` folder where the
+               font's files are located in ``_static/example-custom-font/`` folder.
+            3. Override the theme's CSS variables.
+
+               .. code-block:: css
+
+                   :root {
+                     --md-text-font: "Comic Neue"; /* (1)! \*/
+                     --md-code-font: "Comic Mono"; /* (2)! \*/
+                   }
+
+               .. code-annotations::
+                    1. Used for regular text.
+                    2. Used for ``code snippets``.
+
+               .. warning::
+                   Always define fonts with the CSS variables shown above and not with
+                   :css:`font-family` because :css:`font-family` uses the theme's CSS variables that
+                   define the system font fallback.
+
+            .. rst-example::
+                :class: custom-font-example
+
+                This text is just an **example**.
+                *Notice* the font family used is different (monospaced) in the code snippet.
+
     .. themeconf:: analytics
 
-        Set to enable site analytics.
+        To enable site analytics, a ``provider`` and ``property`` fields **must** be specified in this dict.
 
         .. code-block:: python
 
             html_theme_options = {
                 "analytics": {
                     "provider": "google",
-                    "property": "G-XXXXXXXXXX"  # Or "UA-XXXXXXXX-X"
+                    "property": "G-XXXXXXXXXX"
                 }
             }
+
+        .. themeconf:: feedback
+
+            This theme also supports user feedback using site analytics. Along with the required
+            ``provider`` and ``property`` fields, the :themeconf:`feedback` `dict` also requires
+            the following fields:
+
+            ``title``
+                The text used to invite user feedback (placed just above the feedback buttons).
+            ``ratings``
+                This `list` of `dict` objects specifies the user's options for feedback. Each `dict`
+                will represent a button and requires the following fields:
+
+                ``icon``
+                    As usual, `any of the icons bundled with this theme`_ can be specified here.
+                ``name``
+                    The text shown in the tooltip when hovering over a feedback button.
+                ``data``
+                    The data transmitted to your analytics provider upon submission of user feedback.
+                ``note``
+                    The text displayed after the user feedback is submitted. You can use a HTML hyperlink
+                    element :html:`<a href="a_url">link text</a>` to encourage further user interaction (see
+                    example snippet below).
+
+            .. code-block:: python
+                :caption: using Google analytics to collect user feedback for each page
+
+                html_theme_options = {
+                    "analytics": {
+                        "provider": "google",
+                        "property": "G-XXXXXXXXXX",
+                        "feedback": {
+                            "title": "Was this page helpful?",
+                            "ratings": [
+                                {
+                                    "icon": "material/emoticon-happy-outline",
+                                    "name": "This page was helpful",
+                                    "data": 1,
+                                    "note": "Thanks for the feedback!",
+                                },
+                                {
+                                    "icon": "material/emoticon-sad-outline",
+                                    "name": "This page could be improved",
+                                    "data": 0,
+                                    "note": "Thanks for the feedback! Help us improve this page by "
+                                    '<a href="https://github.com/jbms/sphinx-immaterial/issues">opening an issue</a>.',
+                                },
+                            ],
+                        },
+                    },
+                }
+
+            .. seealso::
+                User feedback can be hidden for a certain page by using the :themeconf:`hide-feedback`
+                metadata tag in the document's source.
 
     .. themeconf:: globaltoc_collapse
 
@@ -480,6 +596,10 @@ Configuration Options
         - The :python:`"icon"` field can be specifed as `any of the icons bundled with this theme`_
         - The :python:`"link"` field is simply the hyperlink target added to the icon specified.
 
+        Optionally, custom text may be specified for the icon's tooltip with the :python:`"name"`
+        field. If the :python:`"name"` is not specified, then the domain of the :python:`"link"`
+        is used automatically.
+
         .. literalinclude:: conf.py
             :caption: This theme uses the following configuration:
             :start-after: # BEGIN: social icons
@@ -515,6 +635,12 @@ Configuration Options
    Environment variable that specifies a default value for the
    :confval:`sphinx_immaterial_external_resource_cache_dir` configuration
    option.
+
+.. confval:: sphinx_immaterial_bundle_source_maps
+
+   Write ``.css.map`` and ``.js.map`` source maps for the CSS and JavaScript
+   bundles to the output directory.  Source maps are helpful when developing the
+   theme.
 
 .. _version_dropdown:
 
@@ -577,8 +703,8 @@ There are two approaches:
 
    .. warning::
        The JSON approach only works if your documentation is served from a webserver; it does not
-       work if you use ``file://`` url). When serving the docs from a webserver the
-       :themeconf:`version_json` file is resolved relative to the *parent* directory that contains
+       work if you use ``file://`` url. When serving the docs from a webserver the
+       :themeconf:`version_json` file is resolved relative to the directory that contains
        the sphinx builder's HTML output. For example, if the builder's output is ``2.0``, you
        should have directory structure like so:
 
@@ -632,7 +758,7 @@ aliases. Other required fields include ``version`` and ``title``.
 
 .. note::
     ``aliases`` do not apply when using an external URL (as in not relative to the same webserver)
-    in the ``verion`` field.
+    in the ``version`` field.
 
 .. md-tab-set::
     :name: version_info_example
@@ -716,7 +842,7 @@ folder named ``docs``.
 In the ``footer.html`` file, add the necessary code by extending the theme's original
 HTML template of the same name.
 
-.. code-block:: html
+.. code-block:: jinja
 
     {% extends "!partials/footer.html" %}
     {# the '!' in "!partials/footer.html" is important #}
@@ -730,9 +856,107 @@ Lastly, make sure the project's documentation ``conf.py`` has the following line
 
     templates_path = ["_templates"]
 
+Adding a comment system
+-----------------------
+
+.. _Giscus: https://giscus.app/
+
+This theme supports using a third-party comment system of your choice at the bottom of any page.
+There are several services that can deliver an integrated comment system, but the following example
+demonstrates using Giscus_ which is Open Source and built on Github's Discussions feature.
+
+1. Ensure these requisites are completed:
+
+   - Install the `Giscus Github App <https://github.com/apps/giscus>`_ and grant access to the
+     repository that should host comments as GitHub discussions. Note that this can be a repository
+     different from your documentation.
+   - Visit Giscus_ and generate the snippet through their configuration tool to load the comment
+     system. Copy the snippet for the next step. The resulting snippet should look similar to this:
+
+     .. code-block:: html
+
+         <script
+           src="https://giscus.app/client.js"
+           data-repo="<username>/<repository>"
+           data-repo-id="..."
+           data-category="..."
+           data-category-id="..."
+           data-mapping="title"
+           data-reactions-enabled="1"
+           data-emit-metadata="1"
+           data-theme="light"
+           data-lang="en"
+           crossorigin="anonymous"
+           async>
+         </script>
+2. Override the theme's partials/comments.html template (blank by default) in your documentation
+   source, and add the following code to you comments.html template override:
+
+   .. code-block:: html
+       :caption: docs/_templates/partials/comments.html
+       :emphasize-lines: 3
+
+       {% if page.meta.comments %} <!-- (1)! -->
+         <h2 id="__comments">{{ lang.t("meta.comments") }}</h2>
+         <!-- Insert generated snippet (2) here -->
+
+         <!-- Synchronize Giscus theme with palette -->
+         <script>
+           var giscus = document.querySelector("script[src*=giscus]")
+
+           /* Set palette on initial load */
+           var palette = __md_get("__palette")
+           if (palette && typeof palette.color === "object") {
+             var theme = palette.color.scheme === "slate" ? "dark" : "light" // (3)!
+             giscus.setAttribute("data-theme", theme)
+           }
+
+           /* Register event handlers after documented loaded */
+           document.addEventListener("DOMContentLoaded", function() {
+             var ref = document.querySelector("[data-md-component=palette]")
+             ref.addEventListener("change", function() {
+               var palette = __md_get("__palette")
+               if (palette && typeof palette.color === "object") {
+                 var theme = palette.color.scheme === "slate" ? "dark" : "light" // (3)!
+
+                 /* Instruct Giscus to change theme */
+                 var frame = document.querySelector(".giscus-frame")
+                 frame.contentWindow.postMessage(
+                   { giscus: { setConfig: { theme } } },
+                   "https://giscus.app"
+                 )
+               }
+             })
+           })
+         </script>
+       {% endif %}
+
+   .. code-annotations::
+       #. This template will only be used if the :themeconf:`show-comments` metadata is added to the document's
+          source.
+       #. This should be the snippet generated from step 1.
+       #. This code block ensures that Giscus renders with a dark theme when the
+          :themeconf:`palette`\ [:themeconf:`scheme`] is set to ``slate``. Note that multiple dark
+          themes are available, so you can change it to your liking.
+       #. If changing the dark theme used by Giscus, then also change the dark theme name here as
+          this takes affect when toggling between light and dark color :themeconf:`scheme`\ s.
+3. Enable comments for a certain page by adding the :themeconf:`show-comments` metadata to the document's source.
+
 New Blocks
 **************
-This theme has a new block inherited from the mkdocs-material theme:
+This theme has a few new block inherited from the mkdocs-material theme:
 
 ``footerrel``
     Previous and next in the footer.
+
+``announce``
+    An announcement can be added to the top of the page by extending this theme's base.html
+    template. For example, this documentation uses the following custom template to add an
+    announcement (`scroll to top to see it in action <#>`_).
+
+    .. literalinclude:: _templates/base.html
+        :caption: docs/_templates/base.html
+        :language: jinja
+
+    Optionally, add the :python:`"announce.dismiss"` in the :themeconf:`features` list to let readers
+    dismiss the announcement banner.

@@ -6,8 +6,13 @@ https://github.com/sphinx-doc/sphinx/pull/10286
 import re
 from typing import Optional, Union
 
+import sphinx
 import sphinx.domains.cpp
 from sphinx.domains.cpp import DefinitionParser, ASTDeclaration
+
+
+# Not needed in Sphinx 5.2
+assert sphinx.version_info < (5, 2)
 
 
 def _monkey_patch_cpp_domain_support_requires_clause():
@@ -33,9 +38,9 @@ def _monkey_patch_cpp_domain_support_requires_clause():
                 return orig_parse_type(self, named, outer)
             finally:
                 self.assert_end = orig_assert_end
-        return orig_parse_type(self, named, outer)
+        return orig_parse_type(self, named, outer)  # type: ignore[arg-type]
 
-    DefinitionParser._parse_type = _parse_type
+    DefinitionParser._parse_type = _parse_type  # type: ignore[assignment]
 
     def parse_declaration(
         self: DefinitionParser, objectType: str, directiveType: str
@@ -59,7 +64,7 @@ def _monkey_patch_cpp_domain_support_requires_clause():
             requires_clause = None
 
             def parse_template_declaration_prefix(*args, **kwargs):
-                self._parse_template_declaration_prefix = (
+                self._parse_template_declaration_prefix = (  # type: ignore[assignment]
                     orig_parse_template_declaration_prefix
                 )
                 result = orig_parse_template_declaration_prefix(*args, **kwargs)
@@ -72,14 +77,14 @@ def _monkey_patch_cpp_domain_support_requires_clause():
             self._parse_template_declaration_prefix = parse_template_declaration_prefix  # type: ignore[assignment]
 
             result = orig_parse_declaration(self, objectType, directiveType)
-            result.requiresClause = requires_clause
+            result.requiresClause = requires_clause  # type: ignore[attr-defined]
             return result
         finally:
             self._parse_template_declaration_prefix = (  # type: ignore[assignment]
                 orig_parse_template_declaration_prefix
             )
 
-    DefinitionParser.parse_declaration = parse_declaration
+    DefinitionParser.parse_declaration = parse_declaration  # type: ignore[assignment]
 
 
 _monkey_patch_cpp_domain_support_requires_clause()

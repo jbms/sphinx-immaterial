@@ -76,35 +76,6 @@ Footnotes
    .. [#f1] My first footnote.
    .. [#f2] My second footnote.
 
-Icons
-=====
-
-.. rst-example:: The following raw HTML
-   :output-prefix: translates to the icon:
-
-   .. raw:: html
-
-      <span style="font-size: 2rem;" class="md-icon">&#xe869;</span>
-
-The material icon font provides hundreds to choose from. You can use the ``<i>`` tag or the
-``<span>`` tag.
-
-.. rst-example::
-
-   .. raw:: html
-
-      <i style="font-size: 1rem;" class="md-icon">&#xe158;</i>
-      <i style="font-size: 1.2rem;" class="md-icon">&#xe155;</i>
-      <i style="font-size: 1.4rem;" class="md-icon">&#xe195;</i>
-      <i style="font-size: 1.6rem;" class="md-icon">&#xe255;</i>
-      <i style="font-size: 1.8rem;" class="md-icon">&#xe3c9;</i>
-      <i style="font-size: 2.0rem;" class="md-icon">&#xe811;</i>
-      <i style="font-size: 2.2rem;" class="md-icon">&#xe812;</i>
-      <i style="font-size: 2.4rem;" class="md-icon">&#xe813;</i>
-      <i style="font-size: 2.6rem;" class="md-icon">&#xe814;</i>
-      <i style="font-size: 2.8rem;" class="md-icon">&#xe815;</i>
-
-
 Tables
 ======
 Here are some examples of Sphinx
@@ -260,22 +231,36 @@ Math
       \end{eqnarray}
 
 
-..
-   FIXME: Production lists currently do not work.
 
-   Production Lists
-   ================
+Production Lists
+================
 
-   .. rst-example::
+The following `productionlist` is a modified example taken from
+`the Graphviz documentation <https://graphviz.org/doc/info/lang.html>`_
 
-      .. productionlist::
-         try_stmt: try1_stmt | try2_stmt
-         try1_stmt: "try" ":" `suite`
-                  : ("except" [`expression` ["," `target`]] ":" `suite`)+
-                  : ["else" ":" `suite`]
-                  : ["finally" ":" `suite`]
-         try2_stmt: "try" ":" `suite`
-                  : "finally" ":" `suite`
+.. rst-example:: Grammar for dot syntax
+
+    .. productionlist::
+       graph      : [ strict ] (`graph` | digraph) [ ID ] '{' `stmt_list` '}'
+       stmt_list  : [ `stmt` [ ';' ] `stmt_list` ]
+       stmt       : `node_stmt`
+                  : `edge_stmt`
+                  : `attr_stmt`
+                  : ID '=' ID
+                  : `subgraph`
+       attr_stmt  : (`graph` | node | edge) `attr_list`
+       attr_list  : '[' [ `a_list` ] ']' [ `attr_list` ]
+       a_list     : ID '=' ID [ (';' | ',') ] [ `a_list` ]
+       edge_stmt  : (`node_id` | `subgraph`) `edgeRHS` [ `attr_list` ]
+       edgeRHS    : edgeop (`node_id` | `subgraph`) [ `edgeRHS` ]
+       node_stmt  : `node_id` [ `attr_list` ]
+       node_id    : ID [ `port` ]
+       port       : ':' ID [ ':' `compass_pt` ]
+                  : ':' `compass_pt`
+       subgraph   : [ `subgraph` [ ID ] ] '{' `stmt_list` '}'
+       compass_pt : (n | ne | e | se | s | sw | w | nw | c | _)
+
+    This is a reference to the grammar for a :token:`graph` in dot syntax.
 
 Sub-pages
 =========

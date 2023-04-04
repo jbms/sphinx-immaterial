@@ -31,15 +31,12 @@ This program performs a number of transformations on the declarations:
 """
 
 import argparse
-import collections
 import dataclasses
-import enum
 import functools
 import json
 import os
 import pathlib
 import re
-import sys
 import time
 import typing
 from typing import (
@@ -51,8 +48,9 @@ from typing import (
     Optional,
     Sequence,
     Union,
-    ClassVar,
     Pattern,
+    Literal,
+    Callable,
 )
 from textwrap import dedent
 
@@ -72,8 +70,9 @@ import docutils.nodes
 import pydantic.dataclasses
 import sphinx.domains.cpp
 import sphinx.util.logging
+from typing_extensions import TypedDict, NotRequired
 
-from . import ast_fixes  # type: ignore[unused-import]
+from . import ast_fixes  # pylint: disable=unused-import
 
 logger = sphinx.util.logging.getLogger(__name__)
 
@@ -254,77 +253,79 @@ class Config:
     """
 
     # Derived from `allow_paths`.
-    allow_path_pattern: ClassVar[Pattern]
+    allow_path_pattern: Pattern = dataclasses.field(init=False)
 
     # Derived from `disallow_paths`.
-    disallow_path_pattern: ClassVar[Pattern]
+    disallow_path_pattern: Pattern = dataclasses.field(init=False)
 
     # Derived from `allow_symbols`.
-    allow_symbols_pattern: ClassVar[Pattern]
+    allow_symbols_pattern: Pattern = dataclasses.field(init=False)
 
     # Derived from `disallow_symbols`.
-    disallow_symbols_pattern: ClassVar[Pattern]
+    disallow_symbols_pattern: Pattern = dataclasses.field(init=False)
 
     # Derived from `allow_macros`.
-    allow_macros_pattern: ClassVar[Pattern]
+    allow_macros_pattern: Pattern = dataclasses.field(init=False)
 
     # Derived from `disallow_macros`.
-    disallow_macros_pattern: ClassVar[Pattern]
+    disallow_macros_pattern: Pattern = dataclasses.field(init=False)
 
     # Derived from `ignore_diagnostics`.
-    ignore_diagnostics_pattern: ClassVar[Pattern]
+    ignore_diagnostics_pattern: Pattern = dataclasses.field(init=False)
 
     # Derived from `hide_types`.
-    hide_types_pattern: ClassVar[Pattern]
+    hide_types_pattern: Pattern = dataclasses.field(init=False)
 
     # Derived from `type_replacements`.
-    type_replacements_pattern: ClassVar[Pattern]
+    type_replacements_pattern: Pattern = dataclasses.field(init=False)
 
     # Derived from `ignore_template_parameters`.
-    ignore_template_parameters_pattern: ClassVar[Pattern]
+    ignore_template_parameters_pattern: Pattern = dataclasses.field(init=False)
 
     # Derived from `hide_initializers`.
-    hide_initializers_pattern: ClassVar[Pattern]
+    hide_initializers_pattern: Pattern = dataclasses.field(init=False)
 
-    include_directory_map_pattern: ClassVar[Pattern]
+    include_directory_map_pattern: Pattern = dataclasses.field(init=False)
+
+    disallow_namespaces_pattern: Pattern = dataclasses.field(init=False)
 
     def __post_init__(self):
-        self.allow_path_pattern = _combine_regexp_list(self.allow_paths)
-        self.disallow_path_pattern = _combine_regexp_list(self.disallow_paths)
-        self.allow_path_pattern = _combine_regexp_list(self.allow_paths)
+        self.allow_path_pattern = _combine_regexp_list(self.allow_paths)  # type: ignore[misc]
+        self.disallow_path_pattern = _combine_regexp_list(self.disallow_paths)  # type: ignore[misc]
+        self.allow_path_pattern = _combine_regexp_list(self.allow_paths)  # type: ignore[misc]
         self.disallow_namespaces_pattern = _combine_regexp_list(
             self.disallow_namespaces
         )
-        self.allow_symbols_pattern = _combine_regexp_list(self.allow_symbols)
-        self.disallow_symbols_pattern = _combine_regexp_list(self.disallow_symbols)
-        self.allow_macros_pattern = _combine_regexp_list(self.allow_macros)
-        self.disallow_macros_pattern = _combine_regexp_list(self.disallow_macros)
-        self.ignore_diagnostics_pattern = _combine_regexp_list(self.ignore_diagnostics)
-        self.hide_types_pattern = _combine_regexp_list(self.hide_types)
-        self.type_replacements_pattern = _make_replacement_pattern(
-            self.type_replacements, prefix=r"\b", suffix=r"\b"
+        self.allow_symbols_pattern = _combine_regexp_list(self.allow_symbols)  # type: ignore[misc]
+        self.disallow_symbols_pattern = _combine_regexp_list(self.disallow_symbols)  # type: ignore[misc]
+        self.allow_macros_pattern = _combine_regexp_list(self.allow_macros)  # type: ignore[misc]
+        self.disallow_macros_pattern = _combine_regexp_list(self.disallow_macros)  # type: ignore[misc]
+        self.ignore_diagnostics_pattern = _combine_regexp_list(self.ignore_diagnostics)  # type: ignore[misc]
+        self.hide_types_pattern = _combine_regexp_list(self.hide_types)  # type: ignore[misc]
+        self.type_replacements_pattern = _make_replacement_pattern(  # type: ignore[misc]
+            list(self.type_replacements.keys()), prefix=r"\b", suffix=r"\b"
         )
-        self.ignore_template_parameters_pattern = _combine_regexp_list(
+        self.ignore_template_parameters_pattern = _combine_regexp_list(  # type: ignore[misc]
             self.ignore_template_parameters
         )
-        self.hide_initializers_pattern = _combine_regexp_list(self.hide_initializers)
+        self.hide_initializers_pattern = _combine_regexp_list(self.hide_initializers)  # type: ignore[misc]
         if os.name == "nt":
-            self._include_directory_map = {
+            self.normalized_include_directory_map = {  # type: ignore[misc]
                 key.replace("\\", "/"): value
                 for key, value in self.include_directory_map.items()
             }
         else:
-            self._include_directory_map = self.include_directory_map
-        self.include_directory_map_pattern = _make_replacement_pattern(
-            list(self._include_directory_map.keys()), prefix="^", suffix=""
+            self.normalized_include_directory_map = self.include_directory_map  # type: ignore[misc]
+        self.include_directory_map_pattern = _make_replacement_pattern(  # type: ignore[misc]
+            list(self.normalized_include_directory_map.keys()), prefix="^", suffix=""
         )
-        self._cached_mapped_include_directories = {}
+        self.cached_mapped_include_directories = {}  # type: ignore[misc]
 
-    _include_directory_map: ClassVar[Dict[str, str]]
-    _cached_mapped_include_directories: ClassVar[Dict[str, str]]
+    normalized_include_directory_map: Dict[str, str] = dataclasses.field(init=False)
+    cached_mapped_include_directories: Dict[str, str] = dataclasses.field(init=False)
 
     def map_include_path(self, path: str) -> str:
-        mapped = self._cached_mapped_include_directories.get(path)
+        mapped = self.cached_mapped_include_directories.get(path)
         if mapped is not None:
             return mapped
         if os.name == "nt":
@@ -332,14 +333,135 @@ class Config:
         if path.startswith("./"):
             path = path[2:]
         new_mapped = self.include_directory_map_pattern.sub(
-            lambda m: self._include_directory_map[m.group(0)], path
+            lambda m: self.normalized_include_directory_map[m.group(0)], path
         )
-        self._cached_mapped_include_directories[path] = new_mapped
+        self.cached_mapped_include_directories[path] = new_mapped
         return new_mapped
 
 
-CppApiEntity = Dict[str, Any]
 EntityId = str
+EntityKind = Literal[
+    "class",
+    "conversion_function",
+    "function",
+    "method",
+    "constructor",
+    "var",
+    "alias",
+    "enum",
+]
+FunctionEntityKind = Literal[
+    "conversion_function", "function", "method", "constructor", "destructor"
+]
+
+ClassKeyword = Literal["class", "struct"]
+
+
+class JsonLocation(TypedDict):
+    file: str
+    line: int
+    col: int
+
+
+class JsonDocComment(TypedDict):
+    text: str
+    location: JsonLocation
+
+
+TemplateParameterKind = Literal["type", "template", "non_type"]
+
+
+class TemplateParameter(TypedDict):
+    declaration: str
+    name: str
+    kind: TemplateParameterKind
+    pack: bool
+
+
+class CppApiEntityBase(TypedDict, total=False):
+    id: EntityId
+    parent: NotRequired[EntityId]
+    scope: NotRequired[str]
+    doc: NotRequired[Optional[JsonDocComment]]
+    document_with: NotRequired[EntityId]
+    siblings: NotRequired[List[EntityId]]
+    name: str
+    template_parameters: NotRequired[Optional[List[TemplateParameter]]]
+    location: JsonLocation
+    special_id: NotRequired[Optional[str]]
+    page_name: str
+    requires: Optional[List[str]]
+    specializes: Union[None, EntityId, Literal[True]]
+    related_members: Dict[str, List[EntityId]]
+    related_nonmembers: Dict[str, List[EntityId]]
+    special_membergroup: str
+    special_ingroup: str
+    special_relates: str
+    document_prefix: str
+    nonitpick: List[str]
+
+
+class FunctionEntity(CppApiEntityBase):
+    kind: FunctionEntityKind
+    arity: int
+    name_substitute: str
+    friend: bool
+    declaration: str
+
+
+class BaseClass(TypedDict):
+    type: str
+    access: str
+
+
+class ClassEntity(CppApiEntityBase):
+    kind: Literal["class"]
+    keyword: ClassKeyword
+    prefix: List[str]
+    bases: List[BaseClass]
+
+
+class VarEntity(CppApiEntityBase):
+    kind: Literal["var"]
+    declaration: str
+    name_substitute: str
+    initializer: Optional[str]
+
+
+class TypeAliasEntity(CppApiEntityBase):
+    kind: Literal["alias"]
+    underlying_type: Optional[str]
+
+
+class MacroEntity(CppApiEntityBase):
+    kind: Literal["macro"]
+    parameters: Optional[List[str]]
+
+
+class EnumeratorEntity(TypedDict):
+    kind: Literal["enumerator"]
+    id: EntityId
+    name: str
+    decl: str
+    doc: Optional[JsonDocComment]
+    location: JsonLocation
+
+
+class EnumEntity(CppApiEntityBase):
+    kind: Literal["enum"]
+    keyword: Optional[ClassKeyword]
+    enumerators: List[EnumeratorEntity]
+
+
+CppApiEntity = Union[
+    ClassEntity, FunctionEntity, VarEntity, TypeAliasEntity, MacroEntity, EnumEntity
+]
+
+
+def json_location_to_string(location: Optional[JsonLocation]) -> Optional[str]:
+    if location is None:
+        return None
+    return "%s:%s:%s" % (location["file"], location["line"], location["col"])
 
 
 def get_entity_id(cursor: Cursor) -> EntityId:
@@ -416,7 +538,6 @@ CLASS_KINDS = (
 
 
 def _get_all_decls(config: Config, cursor: Cursor, allow_file):
-
     NAMESPACE = CursorKind.NAMESPACE
     for child in cursor.get_children():
         location = child.location
@@ -472,7 +593,7 @@ NON_DOC_COMMENT = re.compile(
 )
 
 
-def get_doc_comment(config: Config, cursor: Cursor):
+def get_doc_comment(config: Config, cursor: Cursor) -> Optional[JsonDocComment]:
     translation_unit = cursor.translation_unit
     for token in cursor.get_tokens():
         location = token.location
@@ -613,8 +734,8 @@ def get_extent_spelling(translation_unit: TranslationUnit, extent: SourceRange) 
         # angle brackets.
         if prev_token is not None:
             spelling = prev_token.spelling
-            token_end = prev_token.extent.end
-            offset_diff = token_end.offset - extent.end.offset
+            token_end = cast(SourceLocation, prev_token.extent.end)
+            offset_diff = token_end.offset - cast(SourceLocation, extent.end).offset
             if offset_diff != 0:
                 yield spelling[:-offset_diff]
             else:
@@ -705,7 +826,9 @@ def _get_non_template_kind(cursor: Cursor):
     return _get_template_cursor_kind(cursor)
 
 
-def _transform_type_alias_template_decl(config: Config, decl: Cursor):
+def _transform_type_alias_template_decl(
+    config: Config, decl: Cursor
+) -> TypeAliasEntity:
     underlying_type: Optional[str]
     for child in decl.get_children():
         if child.kind == CursorKind.TYPE_ALIAS_DECL:
@@ -744,7 +867,7 @@ def _transform_type_alias_template_decl(config: Config, decl: Cursor):
     }
 
 
-def _get_class_keyword(kind: CursorKind) -> str:
+def _get_class_keyword(kind: CursorKind) -> ClassKeyword:
     return "class" if kind == CursorKind.CLASS_DECL else "struct"
 
 
@@ -758,8 +881,8 @@ def _get_bases(config: Config, decl: Cursor):
         yield {"type": type_spelling, "access": child.access_specifier.name.lower()}
 
 
-def _transform_class_decl(config: Config, decl: Cursor):
-    obj = {
+def _transform_class_decl(config: Config, decl: Cursor) -> ClassEntity:
+    obj: ClassEntity = {
         "kind": "class",
         "keyword": _get_class_keyword(decl.kind),
         "name": decl.displayname,
@@ -772,7 +895,7 @@ def _transform_class_decl(config: Config, decl: Cursor):
     return obj
 
 
-def _transform_class_template_decl(config: Config, decl: Cursor):
+def _transform_class_template_decl(config: Config, decl: Cursor) -> ClassEntity:
     return {
         "kind": "class",
         "keyword": _get_class_keyword(_get_template_cursor_kind(decl)),
@@ -782,7 +905,9 @@ def _transform_class_template_decl(config: Config, decl: Cursor):
     }
 
 
-def _transform_class_template_partial_specialization_decl(config: Config, decl: Cursor):
+def _transform_class_template_partial_specialization_decl(
+    config: Config, decl: Cursor
+) -> ClassEntity:
     return {
         "kind": "class",
         "keyword": _get_class_keyword(_get_template_cursor_kind(decl)),
@@ -847,7 +972,7 @@ def _parse_declaration_prefix(decl: Cursor, is_class: bool) -> typing.List[str]:
     return prefix_parts
 
 
-def _get_declaration_spelling(decl: Cursor):
+def _get_declaration_spelling(decl: Cursor) -> str:
     decl_extent = decl.extent
     start_location = decl_extent.start
     end_location = None
@@ -923,17 +1048,17 @@ def _transform_function_decl(config: Config, decl: Cursor):
     return obj
 
 
-def _transform_enum_decl(config: Config, decl: Cursor):
+def _transform_enum_decl(config: Config, decl: Cursor) -> EnumEntity:
     keyword = None
     tokens = list(decl.get_tokens())
     assert len(tokens) >= 2
     assert tokens[0].spelling == "enum"
     token1_spelling = tokens[1].spelling
     if token1_spelling in ("class", "struct"):
-        keyword = token1_spelling
+        keyword = cast(ClassKeyword, token1_spelling)
 
     name = decl.spelling
-    enumerators = []
+    enumerators: List[EnumeratorEntity] = []
     for child in decl.get_children():
         if child.kind != CursorKind.ENUM_CONSTANT_DECL:
             continue
@@ -964,7 +1089,7 @@ def _pick_name_substitute(code: str) -> str:
         i += 1
 
 
-def _transform_var_decl(config: Config, decl: Cursor):
+def _transform_var_decl(config: Config, decl: Cursor) -> VarEntity:
     exprs = [x for x in decl.get_children() if x.kind.is_expression()]
     presumed_filename, presumed_line, _ = get_presumed_location(decl.location)
     if len(exprs) > 1:
@@ -998,7 +1123,6 @@ def _transform_var_decl(config: Config, decl: Cursor):
 
 
 class SphinxConfig:
-
     cpp_id_attributes: Any = []
     cpp_paren_attributes: Any = []
 
@@ -1119,7 +1243,6 @@ _FUNCTION_NAME_REPLACEMENTS = {
 
 
 def _parse_function(config: Config, decl: Cursor):
-
     presumed_file, presumed_line, _ = get_presumed_location(decl.location)
     source_code = _get_declaration_spelling(decl)
     parser = sphinx.domains.cpp.DefinitionParser(
@@ -1161,7 +1284,7 @@ def _is_internal_initializer(config: Config, initializer: str) -> bool:
 
 def _sphinx_ast_template_parameter_to_json(
     config: Config, param: sphinx.domains.cpp.ASTTemplateParam
-) -> Any:
+) -> TemplateParameter:
     if isinstance(param, sphinx.domains.cpp.ASTTemplateParamType):
         kind = "type"
     elif isinstance(param, sphinx.domains.cpp.ASTTemplateParamTemplateType):
@@ -1172,12 +1295,12 @@ def _sphinx_ast_template_parameter_to_json(
     return {
         "declaration": _substitute_internal_type_names(config, str(param)),
         "name": str(param.get_identifier()),
-        "kind": kind,
+        "kind": cast(TemplateParameterKind, kind),
         "pack": param.isPack,  # type: ignore[attr-defined]
     }
 
 
-def _transform_unexposed_decl(config: Config, decl: Cursor):
+def _transform_unexposed_decl(config: Config, decl: Cursor) -> Optional[VarEntity]:
     # libclang unfortunately does not support variable templates; they are only
     # exposed as an unexposed decl.
 
@@ -1224,7 +1347,7 @@ def _transform_unexposed_decl(config: Config, decl: Cursor):
         if _is_internal_initializer(config, initializer):
             initializer = None
 
-        obj: Dict[str, Any] = {
+        obj: VarEntity = {
             "kind": "var",
             "name": name,
             "template_parameters": [
@@ -1287,7 +1410,7 @@ def _parse_macro_parameters(decl: Cursor) -> typing.Optional[typing.List[str]]:
     return parameters
 
 
-def _transform_macro(config: Config, decl: Cursor):
+def _transform_macro(config: Config, decl: Cursor) -> Optional[MacroEntity]:
     name = decl.spelling
     if config.disallow_macros_pattern.search(name) is not None:
         return None
@@ -1298,7 +1421,7 @@ def _transform_macro(config: Config, decl: Cursor):
     }
 
 
-TRANSFORMERS = {
+TRANSFORMERS: Dict[CursorKind, Callable[[Config, Cursor], Optional[CppApiEntity]]] = {
     CursorKind.TYPE_ALIAS_DECL: _transform_type_alias_decl,
     CursorKind.TYPEDEF_DECL: _transform_type_alias_decl,
     CursorKind.TYPE_ALIAS_TEMPLATE_DECL: _transform_type_alias_template_decl,
@@ -1347,13 +1470,13 @@ def _merge_decl_json(existing_json, new_json):
                 )
 
 
-def _get_location_json(config: Config, location: SourceLocation):
+def _get_location_json(config: Config, location: SourceLocation) -> JsonLocation:
     filename, line, col = get_presumed_location(location)
     filename = config.map_include_path(filename)
-    return {"file": filename, "line": line - 1}
+    return {"file": filename, "line": line, "col": col}
 
 
-def _get_location_string(config: Config, location: SourceLocation):
+def _get_location_string(config: Config, location: SourceLocation) -> str:
     filename, line, col = get_presumed_location(location)
     filename = config.map_include_path(filename)
     return f"{filename}:{line}:{col}"
@@ -1439,7 +1562,7 @@ class JsonApiGenerator:
             json_repr["parent"] = get_entity_id(parent)
         entity_id = get_entity_id(decl)
         if document_with:
-            prev_json = self._prev_decl[1]
+            prev_json = cast(Any, self._prev_decl)[1]
             if (
                 prev_json is None
                 or not _kinds_are_compatible(prev_json["kind"], json_repr["kind"])
@@ -1846,7 +1969,7 @@ def _get_entity_base_page_name_component(entity: CppApiEntity) -> str:
     elif entity["kind"] in ("function", "method") and re.match(
         r"operator\b", base_name
     ):
-        arity = entity["arity"]
+        arity = cast(FunctionEntity, entity)["arity"]
         if entity["kind"] == "method":
             arity += 1
         op_page_name = _OPERATOR_PAGE_NAMES.get((base_name, arity))
@@ -1870,7 +1993,6 @@ def _ensure_unique_page_names(
     entities: Dict[EntityId, CppApiEntity],
     warning,
 ) -> None:
-
     names: Dict[
         Tuple[Optional[str], Optional[str], str, Optional[str]], List[EntityId]
     ] = {}
@@ -1902,18 +2024,36 @@ def _ensure_unique_page_names(
             entity["special_id"] = str(i + 1)
 
 
-def organize_entities(config: Config, entities: Dict[EntityId, CppApiEntity]):
+class JsonDiagnostic(TypedDict):
+    message: str
+    location: Optional[JsonLocation]
 
-    errors: List[Tuple[str, Optional[Tuple[str, int]]]] = []
-    warnings: List[Tuple[str, Optional[Tuple[str, int]]]] = []
 
-    def error(msg: str, *args, location=None):
-        loc = (location["file"], location["line"]) if location is not None else None
-        errors.append((msg % args, loc))
+class JsonNitpickExclusion(TypedDict):
+    file: str
+    line: int
+    target: str
 
-    def warning(msg: str, *args, location=None):
-        loc = (location["file"], location["line"]) if location is not None else None
-        warnings.append((msg % args, loc))
+
+class JsonApiData(TypedDict):
+    errors: List[JsonDiagnostic]
+    warnings: List[JsonDiagnostic]
+    nonitpick: List[JsonNitpickExclusion]
+    groups: Dict[str, List[EntityId]]
+    entities: Dict[str, CppApiEntity]
+
+
+def organize_entities(
+    config: Config, entities: Dict[EntityId, CppApiEntity]
+) -> JsonApiData:
+    errors: List[JsonDiagnostic] = []
+    warnings: List[JsonDiagnostic] = []
+
+    def error(msg: str, *args, location: Optional[JsonLocation] = None):
+        errors.append({"message": msg % args, "location": location})
+
+    def warning(msg: str, *args, location: Optional[JsonLocation] = None):
+        warnings.append({"message": msg % args, "location": location})
 
     def _handle_document_with(entity: CppApiEntity) -> bool:
         document_with = entity.get("document_with")
@@ -1947,13 +2087,14 @@ def organize_entities(config: Config, entities: Dict[EntityId, CppApiEntity]):
             requires = existing_requires + requires
 
         if _is_function(entity):
-            declaration = entity["declaration"]
+            func_entity = cast(FunctionEntity, entity)
+            declaration = func_entity["declaration"]
             if replacements:
                 declaration = _apply_identifier_replacements(declaration, replacements)
             if (
-                entity["kind"] != "constructor"
+                func_entity["kind"] != "constructor"
                 and config.hide_types_pattern.search(
-                    declaration[: declaration.index(entity["name_substitute"])]
+                    declaration[: declaration.index(func_entity["name_substitute"])]
                 )
                 is not None
             ):
@@ -1962,13 +2103,16 @@ def organize_entities(config: Config, entities: Dict[EntityId, CppApiEntity]):
                     "template <> " if template_parameters is not None else "",
                     location=(entity["location"]["file"], entity["location"]["line"]),
                 )
-            entity["declaration"] = declaration
+            func_entity["declaration"] = declaration
         else:
             if replacements:
-                for key in ("declaration", "underlying_type"):
-                    x = entity.get(key, None)
+                for key in cast(
+                    Tuple[Literal["declaration", "underlying_type"], ...],
+                    ("declaration", "underlying_type"),
+                ):
+                    x = cast(Optional[str], entity.get(key, None))
                     if x is not None:
-                        entity[key] = _apply_identifier_replacements(x, replacements)
+                        entity[key] = _apply_identifier_replacements(x, replacements)  # type: ignore[typeddict-item]
 
         if replacements:
             requires = [
@@ -2025,7 +2169,9 @@ def organize_entities(config: Config, entities: Dict[EntityId, CppApiEntity]):
             return False
         doc_text = doc["text"]
         for m in SPECIAL_GROUP_COMMAND_PATTERN.finditer(doc_text):
-            entity["special_" + m.group(1)] = m.group(2).strip()
+            entity[cast(Literal["special_id"], "special_" + m.group(1))] = m.group(
+                2
+            ).strip()
         return True
 
     def get_entity_scope(entity: CppApiEntity) -> str:
@@ -2085,15 +2231,15 @@ def organize_entities(config: Config, entities: Dict[EntityId, CppApiEntity]):
 
     must_resolve_specializes: List[CppApiEntity] = []
 
-    all_nonitpick = []
+    all_nonitpick: List[JsonNitpickExclusion] = []
 
     def _handle_nitpick(entity: CppApiEntity, targets: List[str]) -> None:
         document_with = entity.get("document_with")
         if document_with:
             entity = entities[document_with]
-        location = entity["location"]
-        filename = location["file"]
-        line = location["line"]
+        location: JsonLocation = entity["location"]
+        filename: str = location["file"]
+        line: int = location["line"]
         for target in targets:
             all_nonitpick.append({"file": filename, "line": line, "target": target})
 
@@ -2135,7 +2281,8 @@ def organize_entities(config: Config, entities: Dict[EntityId, CppApiEntity]):
         entity = entities[entity_id]
         names[get_entity_object_name(entity)] = entity_id
         entity["page_name"] = get_entity_page_name(entity)
-        doc: Any = entity["doc"]
+        doc = entity["doc"]
+        assert doc is not None
         doc["text"] = _normalize_doc_text(doc["text"])
 
     groups: Dict[str, List[EntityId]] = {}
@@ -2195,11 +2342,12 @@ def organize_entities(config: Config, entities: Dict[EntityId, CppApiEntity]):
         if member_group is None:
             member_group = _get_default_member_group(entity)
         assert relates_id is not None
-        cast(
-            dict,
-            entities[relates_id].setdefault(
-                "related_members" if parent_id is not None else "related_nonmembers", {}
+        entities[relates_id].setdefault(
+            cast(
+                Literal["related_members", "related_nonmembers"],
+                "related_members" if parent_id is not None else "related_nonmembers",
             ),
+            cast(Dict[str, List[EntityId]], {}),
         ).setdefault(member_group, []).append(entity_id)
 
     return {
@@ -2211,7 +2359,7 @@ def organize_entities(config: Config, entities: Dict[EntityId, CppApiEntity]):
     }
 
 
-def _get_output_json(extractor: Extractor):
+def _get_output_json(extractor: Extractor) -> JsonApiData:
     generator = JsonApiGenerator(extractor)
     if extractor.config.verbose:
         logger.info("Found %d C++ declarations", len(extractor.decls))
@@ -2220,13 +2368,12 @@ def _get_output_json(extractor: Extractor):
     return organize_entities(extractor.config, generator.seen_decls)
 
 
-def generate_output(config: Config):
+def generate_output(config: Config) -> JsonApiData:
     extractor = Extractor(config)
     return _get_output_json(extractor)
 
 
 def _load_config(config_path: str) -> Config:
-
     config_content = pathlib.Path(config_path).read_text(encoding="utf-8")
     context: dict = {}
     exec(config_content, context)  # pylint: disable=exec-used

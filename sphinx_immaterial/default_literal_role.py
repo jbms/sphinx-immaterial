@@ -64,7 +64,6 @@ def overridden_default_literal_role(role: str):
 
 
 class DefaultLiteralRoleDirective(sphinx.util.docutils.SphinxDirective):
-
     has_content = False
     required_arguments = 0
     optional_arguments = 1
@@ -95,7 +94,7 @@ def _monkey_patch_custom_rest_dispatcher():
         orig_enable(self)
         setattr(self, "_literal_func", Inliner.dispatch[_LITERAL_KEY])
 
-    CustomReSTDispatcher.enable = enable
+    CustomReSTDispatcher.enable = enable  # type: ignore[assignment]
 
     orig_disable = CustomReSTDispatcher.disable
 
@@ -103,7 +102,7 @@ def _monkey_patch_custom_rest_dispatcher():
         Inliner.dispatch[_LITERAL_KEY] = getattr(self, "_literal_func")
         orig_disable(self)
 
-    CustomReSTDispatcher.disable = disable
+    CustomReSTDispatcher.disable = disable  # type: ignore[assignment]
 
 
 _monkey_patch_custom_rest_dispatcher()

@@ -169,7 +169,7 @@ def _monkey_patch_cpp_add_precise_template_parameter_object_types():
                 priority = OBJECT_PRIORITY_DEFAULT
             yield (name, dispname, objectType, docname, anchor, priority)
 
-    sphinx.domains.cpp.CPPDomain.get_objects = get_objects
+    sphinx.domains.cpp.CPPDomain.get_objects = get_objects  # type: ignore[assignment]
 
 
 def _add_parameter_links_to_signature(
@@ -251,7 +251,6 @@ def _add_parameter_documentation_ids(
     qualify_parameter_ids: bool,
     signodes: List[sphinx.addnodes.desc_signature],
 ) -> None:
-
     domain = obj_content.parent["domain"]
 
     def cross_link_single_parameter(
@@ -290,6 +289,7 @@ def _add_parameter_documentation_ids(
 
         object_type = None
         synopsis = None
+        param_id_suffix = f"p-{param_name}"
 
         # Set ids of the parameter node.
         for symbol_i, _ in unique_decls.values():
@@ -326,8 +326,6 @@ def _add_parameter_documentation_ids(
 
             if synopsis:
                 synopses.set_synopsis(param_symbol, synopsis)
-
-            param_id_suffix = f"p-{param_name}"
 
             # Set symbol id, since by default parameters don't have unique ids,
             # they just use the same id as the parent symbol.  This is
@@ -494,7 +492,6 @@ def _monkey_patch_domain_to_cross_link_parameters_and_add_synopses(
     object_class: Type[sphinx.directives.ObjectDescription],
     domain: str,
 ):
-
     orig_after_content = object_class.after_content
 
     orig_transform_content = object_class.transform_content

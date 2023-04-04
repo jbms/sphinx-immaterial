@@ -288,7 +288,7 @@ export function mountTableOfContents(
     push$.subscribe(({ prev, next }) => {
       /* Look forward */
       for (const [anchor] of next) {
-        anchor.removeAttribute("data-md-state")
+        anchor.classList.remove("md-nav__link--passed")
         anchor.classList.remove(
           activeClassName
         )
@@ -296,7 +296,7 @@ export function mountTableOfContents(
 
       /* Look backward */
       for (const [index, [anchor]] of prev.entries()) {
-        anchor.setAttribute("data-md-state", "blur")
+        anchor.classList.add("md-nav__link--passed")
         anchor.classList.toggle(
           activeClassName,
           index === prev.length - 1

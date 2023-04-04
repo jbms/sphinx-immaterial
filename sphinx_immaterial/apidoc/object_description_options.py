@@ -151,14 +151,12 @@ def get_object_description_options(
     domain: Optional[str],
     object_type: Optional[str],
 ) -> ObjectDescriptionOptions:
-
     return env.app._sphinx_immaterial_get_object_description_options(  # type: ignore
         domain, object_type
     )
 
 
 def _builder_inited(app: sphinx.application.Sphinx) -> None:
-
     registry = get_object_description_option_registry(app)
     options_map: Dict[str, List[Tuple[int, Dict[str, Any]]]] = {}
     options_patterns: List[Tuple[Pattern, int, Dict[str, Any]]] = []

@@ -3,12 +3,18 @@ improves formatting by PyProperty of type annotations."""
 import re
 from typing import Tuple, Optional, Any
 
+import sphinx
 import sphinx.addnodes
 import sphinx.domains
 import sphinx.domains.python
 import sphinx.ext.autodoc
 import sphinx.util.inspect
 import sphinx.util.typing
+
+if sphinx.version_info >= (6, 1):
+    stringify_annotation = sphinx.util.typing.stringify_annotation
+else:
+    stringify_annotation = sphinx.util.typing.stringify  # type: ignore[attr-defined]
 
 PropertyDocumenter = sphinx.ext.autodoc.PropertyDocumenter
 
@@ -42,7 +48,6 @@ def _get_return_type_from_fget_doc(obj: Any) -> Optional[str]:
 
 
 def apply_property_documenter_type_annotation_fix():
-
     # Modify PropertyDocumenter to support obtaining signature from docstring.
 
     orig_import_object = PropertyDocumenter.import_object
@@ -63,9 +68,7 @@ def apply_property_documenter_type_annotation_fix():
                     signature.return_annotation
                     is not sphinx.util.inspect.Parameter.empty
                 ):
-                    self.retann = sphinx.util.typing.stringify(
-                        signature.return_annotation
-                    )
+                    self.retann = stringify_annotation(signature.return_annotation)
                 return True
             except:  # pylint: disable=bare-except
                 pass
@@ -76,7 +79,7 @@ def apply_property_documenter_type_annotation_fix():
                 self.retann = new_retann
         return True
 
-    PropertyDocumenter.import_object = import_object
+    PropertyDocumenter.import_object = import_object  # type: ignore[assignment]
 
     old_add_directive_header = PropertyDocumenter.add_directive_header
 
@@ -98,7 +101,7 @@ def apply_property_documenter_type_annotation_fix():
         # Type annotation not already added.
         self.add_line("   :type: " + retann, self.get_sourcename())
 
-    PropertyDocumenter.add_directive_header = add_directive_header
+    PropertyDocumenter.add_directive_header = add_directive_header  # type: ignore[assignment]
 
     # Modify PyProperty to improve formatting of :type: option
     PyProperty = sphinx.domains.python.PyProperty
@@ -115,7 +118,7 @@ def apply_property_documenter_type_annotation_fix():
 
         return fullname, prefix
 
-    PyProperty.handle_signature = handle_signature
+    PyProperty.handle_signature = handle_signature  # type: ignore[assignment]
 
 
 apply_property_documenter_type_annotation_fix()

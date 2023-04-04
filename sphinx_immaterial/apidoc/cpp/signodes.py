@@ -10,6 +10,7 @@ import docutils.nodes
 import sphinx.addnodes
 import sphinx.application
 import sphinx.domains.cpp
+from sphinx.domains.cpp import ASTTemplateParams
 
 
 class desc_cpp_template_param(sphinx.addnodes.desc_sig_element):
@@ -37,7 +38,6 @@ class desc_cpp_explicit(sphinx.addnodes.desc_sig_element):
 
 
 def _monkey_patch_cpp_ast_template_params():
-    ASTTemplateParams = sphinx.domains.cpp.ASTTemplateParams
     orig_describe_signature_as_introducer = (
         ASTTemplateParams.describe_signature_as_introducer
     )
@@ -60,7 +60,7 @@ def _monkey_patch_cpp_ast_template_params():
             x["classes"].append("sig-name-nonprimary")
         parentNode.extend(fake_parent.children)
 
-    ASTTemplateParams.describe_signature_as_introducer = (
+    ASTTemplateParams.describe_signature_as_introducer = (  # type: ignore[assignment]
         describe_signature_as_introducer
     )
 
@@ -110,7 +110,6 @@ _monkey_patch_cpp_ast_wrap_signature_node(
 
 
 def setup(app: sphinx.application.Sphinx):
-
     for node in (
         desc_cpp_template_param,
         desc_cpp_requires_clause,

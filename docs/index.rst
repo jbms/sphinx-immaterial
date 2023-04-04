@@ -35,7 +35,7 @@ Getting Started
 
     Building the theme from source requires node.js v14 or newer installed.
     Please be aware that readthedocs.org uses a docker image that might have
-    an outdated verson of node.js installed. Installing node.js from a Unix package
+    an outdated version of node.js installed. Installing node.js from a Unix package
     manager may not provide version 14 or newer.
 
     Installing from a distributed wheel (such as from pypi.org) does not require
@@ -59,8 +59,8 @@ Update your ``conf.py`` with the required changes:
 There are a lot more ways to customize this theme. See :ref:`Customization`
 or ``theme.conf`` for more details.
 
-.. details:: Settings used in this documentation
-    :class: example
+.. example:: Settings used in this documentation
+    :collapsible:
 
     .. literalinclude:: ./conf.py
         :start-after: # -- HTML theme specific settings
@@ -75,7 +75,13 @@ or ``theme.conf`` for more details.
     content_tabs
     task_lists
     keys
+
+.. toctree::
+    :caption: Code Blocks
+    :hidden:
+
     code_syntax_highlighting
+    code_annotations
 
 .. toctree::
     :caption: API documentation customization
@@ -90,6 +96,11 @@ or ``theme.conf`` for more details.
     apidoc/cpp/cppreference
     apidoc/cpp/apigen
     apidoc/json/domain
+
+.. toctree::
+    :hidden:
+
+    inline_icons
 
 .. toctree::
     :caption: Diagrams/graphs

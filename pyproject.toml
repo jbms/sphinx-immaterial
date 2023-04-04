@@ -11,6 +11,7 @@ files = [
 ]
 exclude = "setup.py"
 plugins = ["pydantic.mypy"]
+check_untyped_defs = true
 
 [tool.black]
 include = '\.py$'
@@ -23,6 +24,27 @@ extend-exclude = '^/docs/tensorstore_demo/__init__\.py$'
 minversion = "6.0"
 addopts = "-vv -s"
 testpaths = ["tests"]
+
+[tool.coverage.run]
+source = ["sphinx_immaterial"]
+dynamic_context = "test_function"
+# These options are useful if combining coverage data from multiple tested envs
+parallel = true
+relative_files = true
+omit = [
+    "sphinx_immaterial/.icons/**/*",
+    "sphinx_immaterial/bundles/*",
+    "sphinx_immaterial/partials/**/*",
+    "sphinx_immaterial/*.html",
+    "sphinx_immaterial/LICENSE",
+    "sphinx_immaterial/theme.conf",
+]
+
+[tool.coverage.report]
+skip_empty = true
+
+[tool.coverage.html]
+show_contexts = true
 
 [tool.pylint.main]
 # Analyse import fallback blocks. This can be used to support both Python 2 and 3
@@ -286,7 +308,7 @@ min-public-methods = 2
 
 [tool.pylint.exceptions]
 # Exceptions that will emit a warning when caught.
-overgeneral-exceptions = ["BaseException", "Exception"]
+overgeneral-exceptions = ["builtins.BaseException", "builtins.Exception"]
 
 [tool.pylint.format]
 # Expected format of line ending, e.g. empty (any line ending), LF or CRLF.
@@ -407,7 +429,6 @@ disable = [
     "line-too-long",
     "fixme",
     "cyclic-import",
-    "unused-import",
     "too-many-arguments"
 ]
 
@@ -415,7 +436,7 @@ disable = [
 # either give multiple identifier separated by comma (,) or put this option
 # multiple time (only on the command line, not in the configuration file where it
 # should appear only once). See also the "--disable" option for examples.
-enable = ["c-extension-no-member"]
+enable = ["c-extension-no-member", "unused-import", "init-import"]
 
 [tool.pylint.miscellaneous]
 # List of note tags to take in consideration, separated by a comma.

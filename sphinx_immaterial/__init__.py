@@ -1,7 +1,7 @@
 """Sphinx-Immaterial theme."""
 
 import os
-from typing import cast, List, Type, Dict, Mapping, Optional, Union
+from typing import cast, List, Type, Dict, Mapping, Optional
 
 import docutils.nodes
 from sphinx.application import Sphinx
@@ -16,9 +16,9 @@ import sphinx.writers.html5
 
 from . import html_translator_mixin
 from .apidoc import apidoc_formatting
+from .apidoc import fix_sphinx_issue_11147  # pylint: disable=unused-import
 from . import nav_adapt
-from . import details_patch
-from . import sections
+from . import sections  # pylint: disable=unused-import
 
 logger = sphinx.util.logging.getLogger(__name__)
 
@@ -42,7 +42,6 @@ def _get_html_builder(base_builder: Type[sphinx.builders.html.StandaloneHTMLBuil
     """Returns a modified HTML translator."""
 
     class CustomHTMLBuilder(base_builder):  # type: ignore
-
         css_files: List[sphinx.builders.html.Stylesheet]
         theme: sphinx.theming.Theme
         templates: sphinx.jinja2glue.BuiltinTemplateLoader
@@ -64,12 +63,13 @@ def _get_html_builder(base_builder: Type[sphinx.builders.html.StandaloneHTMLBuil
                     "_static/doctools.js",
                     "_static/language_data.js",
                     "_static/documentation_options.js",
+                    "_static/sphinx_highlight.js",
                 ]
             )
             if nav_adapt.READTHEDOCS is None:
                 excluded_scripts.add("_static/jquery.js")
                 excluded_scripts.add("_static/_sphinx_javascript_frameworks_compat.js")
-            self.script_files = [
+            self.script_files: List[sphinx.builders.html.JavaScript] = [
                 x for x in self.script_files if x.filename not in excluded_scripts
             ]
 
@@ -94,7 +94,7 @@ def _get_html_builder(base_builder: Type[sphinx.builders.html.StandaloneHTMLBuil
         def gen_additional_pages(self):
             # Prevent the search.html page from being written since this theme provides
             # its own search results display that does not use it.
-            search = self.search
+            search = self.search  # type: ignore[has-type]
             self.search = False
             super().gen_additional_pages()
             self.search = search
@@ -103,7 +103,6 @@ def _get_html_builder(base_builder: Type[sphinx.builders.html.StandaloneHTMLBuil
             pass
 
         def copy_theme_static_files(self, context: Dict) -> None:
-
             # Modified from version in sphinx.builders.html.__init__.py to
             # exclude copying unused static files from `basic` theme.
             def onerror(filename: str, error: Exception) -> None:
@@ -122,6 +121,7 @@ def _get_html_builder(base_builder: Type[sphinx.builders.html.StandaloneHTMLBuil
                             "**/basic.css_t",
                             "**/documentation_options.js_t",
                             "**/searchtools.js",
+                            "**/sphinx_highlight.js",
                         ]
                         if nav_adapt.READTHEDOCS is None:
                             excluded_list.append("**/jquery*.js")
@@ -246,10 +246,12 @@ def _config_inited(
     )
 
 
-def setup(app):
+def setup(app: Sphinx):
     app.connect("config-inited", _config_inited)
 
+    app.setup_extension("sphinx_immaterial.css_and_javascript_bundles")
     app.setup_extension("sphinx_immaterial.external_resource_cache")
+    app.setup_extension("sphinx_immaterial.google_fonts")
 
     app.setup_extension(apidoc_formatting.__name__)
     app.setup_extension("sphinx_immaterial.apidoc.python.default")
@@ -271,18 +273,27 @@ def setup(app):
     app.add_config_value(
         "html_use_directory_uris_for_index_pages", False, rebuild="html", types=bool
     )
-
-    app.add_builder(_get_html_builder(app.registry.builders["html"]), override=True)
-    app.add_builder(_get_html_builder(app.registry.builders["dirhtml"]), override=True)
+    for builder in ("html", "dirhtml"):
+        app.add_builder(
+            _get_html_builder(
+                cast(
+                    Type[sphinx.builders.html.StandaloneHTMLBuilder],
+                    app.registry.builders[builder],
+                )
+            ),
+            override=True,
+        )
     app.add_html_theme("sphinx_immaterial", os.path.abspath(os.path.dirname(__file__)))
 
-    # register our custom adminition directive that are tied to the theme's CSS
-    app.setup_extension("sphinx_immaterial.md_admonition")
+    # register our custom directives/roles that are tied to this theme
     app.setup_extension("sphinx_immaterial.content_tabs")
     app.setup_extension("sphinx_immaterial.mermaid_diagrams")
     app.setup_extension("sphinx_immaterial.task_lists")
+    app.setup_extension("sphinx_immaterial.code_annotations")
     app.setup_extension("sphinx_immaterial.default_literal_role")
     app.setup_extension("sphinx_immaterial.highlight_push_pop")
+    app.setup_extension("sphinx_immaterial.inline_icons")
+    app.setup_extension("sphinx_immaterial.custom_admonitions")
 
     return {
         "parallel_read_safe": True,

@@ -1,0 +1,10 @@
+mypy==1.0.1
+types-PyYAML
+docutils-stubs
+types-jsonschema
+types-appdirs
+types-requests
+types-clang
+pytest
+pydantic
+sphinx>=4.5

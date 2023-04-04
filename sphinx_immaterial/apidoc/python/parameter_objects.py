@@ -49,9 +49,11 @@ def _monkey_patch_python_doc_fields():
                                 domain,
                                 typename,
                                 docutils.nodes.Text,
-                                env=env,
-                                inliner=inliner,
-                                location=location,
+                                env=cast(sphinx.environment.BuildEnvironment, env),
+                                inliner=cast(
+                                    docutils.parsers.rst.states.Inliner, inliner
+                                ),
+                                location=cast(docutils.nodes.Node, location),
                             )
                         )
                     )
@@ -72,7 +74,7 @@ def _monkey_patch_python_doc_fields():
         fieldbody = docutils.nodes.field_body("", bodynode)
         return docutils.nodes.field("", fieldname, fieldbody)
 
-    PyTypedField.make_field = make_field
+    PyTypedField.make_field = make_field  # type: ignore[assignment]
 
 
 class PyParamXRefRole(sphinx.domains.python.PyXRefRole):
@@ -114,7 +116,7 @@ def _monkey_patch_python_domain_to_store_func_in_ref_context():
         else:
             self.env.ref_context.pop("py:func", None)
 
-    PyObject.before_content = before_content
+    PyObject.before_content = before_content  # type: ignore[assignment]
 
     orig_after_content = PyObject.after_content
 
@@ -131,7 +133,7 @@ def _monkey_patch_python_domain_to_store_func_in_ref_context():
         else:
             self.env.ref_context["py:func"] = prev_py_func
 
-    PyObject.after_content = after_content
+    PyObject.after_content = after_content  # type: ignore[assignment]
 
 
 def _monkey_patch_python_domain_to_resolve_params():
@@ -166,7 +168,7 @@ def _monkey_patch_python_domain_to_resolve_params():
             raise sphinx.errors.NoUri
         return result
 
-    PythonDomain.resolve_xref = resolve_xref
+    PythonDomain.resolve_xref = resolve_xref  # type: ignore[assignment]
 
     orig_resolve_any_xref = PythonDomain.resolve_any_xref
 
@@ -186,7 +188,7 @@ def _monkey_patch_python_domain_to_resolve_params():
         # ambiguities.
         return [r for r in results if r[0] != "py:param"]
 
-    PythonDomain.resolve_any_xref = resolve_any_xref
+    PythonDomain.resolve_any_xref = resolve_any_xref  # type: ignore[assignment]
 
 
 OBJECT_PRIORITY_DEFAULT = 1
@@ -215,7 +217,7 @@ def _monkey_patch_python_domain_to_deprioritize_params_in_search():
                     OBJECT_PRIORITY_UNIMPORTANT,
                 )
 
-    PythonDomain.get_objects = get_objects
+    PythonDomain.get_objects = get_objects  # type: ignore[assignment]
 
 
 def _add_parameter_links_to_signature(
@@ -284,7 +286,6 @@ def _add_parameter_documentation_ids(
     symbols: List[str],
     noindex: bool,
 ) -> None:
-
     qualify_parameter_ids = "nonodeid" not in directive.options
 
     param_options = object_description_options.get_object_description_options(
@@ -459,7 +460,6 @@ def _cross_link_parameters(
 
 
 def _monkey_patch_python_domain_to_cross_link_parameters():
-
     orig_after_content = PyObject.after_content
 
     def after_content(self: PyObject) -> None:
@@ -498,7 +498,7 @@ def _monkey_patch_python_domain_to_cross_link_parameters():
             noindex=noindex,
         )
 
-    PyObject.after_content = after_content
+    PyObject.after_content = after_content  # type: ignore[assignment]
 
 
 _monkey_patch_python_domain_to_cross_link_parameters()

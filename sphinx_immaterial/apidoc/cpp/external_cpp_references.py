@@ -85,7 +85,6 @@ def _missing_reference(
     node: sphinx.addnodes.pending_xref,
     contnode: docutils.nodes.TextElement,
 ) -> Optional[docutils.nodes.reference]:
-
     data = get_mappings(app)
 
     if node.get("refdomain") != "cpp":

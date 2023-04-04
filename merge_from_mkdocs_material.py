@@ -45,7 +45,7 @@ MKDOCS_EXCLUDE_PATTERNS = [
     # Generated files
     "material",
     # mkdocs-specific files
-    "src/*.py",
+    "src/**/*.py",
     "src/mkdocs_theme.yml",
     "src/404.html",
     "mkdocs.yml",
@@ -63,6 +63,7 @@ MKDOCS_EXCLUDE_PATTERNS = [
     "package-lock.json",
     "*.md",
     "giscus.json",
+    "pyproject.toml",
 ]
 
 ap = argparse.ArgumentParser()
@@ -151,8 +152,13 @@ def _create_adjusted_tree(ref: str, temp_workdir: str) -> str:
         cwd=clone_dir,
         check=True,
     )
+    exclude = []
+    # filter out exclude patterns for paths that don't exist in the temp_workdir
+    for pattern in MKDOCS_EXCLUDE_PATTERNS:
+        for file in pathlib.Path(temp_workdir).rglob(pattern):
+            exclude.append(str(file))
     subprocess.run(
-        ["git", "rm", "--quiet", "-r"] + MKDOCS_EXCLUDE_PATTERNS,
+        ["git", "rm", "--quiet", "-r"] + exclude,
         cwd=temp_workdir,
         check=True,
         stdout=subprocess.PIPE,
@@ -205,6 +211,8 @@ def _characterize_git_status(file_status):
             continue
         if status != "  ":
             updated.append(filename)
+        else:
+            print(filename, "has unexpected status", repr(status))
     return updated, conflicts
 
 
@@ -301,8 +309,13 @@ def main():
             subprocess.run(
                 ["patch", "-p1"], stdin=std_in_file, check=True, cwd=script_dir
             )
-        print("\nStaging non-conflicting files.")
-        subprocess.run(["git", "add", "--"] + updated_files, check=True, cwd=script_dir)
+        if updated_files:
+            print("\nStaging non-conflicting files.")
+            subprocess.run(
+                ["git", "add", "--"] + updated_files, check=True, cwd=script_dir
+            )
+        else:
+            print("There are no files to update.")
         pathlib.Path(merge_base_path).write_text(
             resolved_source_ref + "\n", encoding="utf-8"
         )

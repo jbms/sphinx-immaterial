@@ -15,6 +15,10 @@ __pycache__/
 
 # Unit test / coverage reports
 .pytest_cache/
+htmlcov/
+.coverage*
+coverage.xml
+.nox/
 
 # Sphinx documentation
 docs/_build/
@@ -38,6 +42,8 @@ dmypy.json
 /sphinx_immaterial/*.html
 /sphinx_immaterial/.icons
 /sphinx_immaterial/static
+/sphinx_immaterial/bundles
+/sphinx_immaterial/LICENSE
 
 # user specific
 .vscode/

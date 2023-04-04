@@ -25,8 +25,8 @@ from sphinx.domains.cpp import CPPExprRole
 # We monkey patch `resolve_xref` multiple times.  We must call
 # `_monkey_patch_cpp_resolve_c_xrefs` last, to ensure that the other logic only
 # runs once.
-from . import last_resolved_symbol  # type: ignore[unused-import]
-from . import synopses  # type: ignore[unused-import]
+from . import last_resolved_symbol  # pylint: disable=unused-import
+from . import synopses  # pylint: disable=unused-import
 
 POSSIBLE_MACRO_TARGET_PATTERN = re.compile("^[A-Z]+[A-Z_0-9]*(?:::[a-zA-Z0-9_]+)?$")
 """Pattern for targets that may possibly refer to a macro or macro parameter.
@@ -61,7 +61,6 @@ def _monkey_patch_cpp_resolve_c_xrefs():
         node: sphinx.addnodes.pending_xref,
         contnode: docutils.nodes.Element,
     ) -> Tuple[Optional[docutils.nodes.Element], Optional[str]]:
-
         try:
             refnode, objtype = orig_resolve_xref_inner(
                 self, env, fromdocname, builder, typ, target, node, contnode
@@ -88,7 +87,7 @@ def _monkey_patch_cpp_resolve_c_xrefs():
 
         return None, None
 
-    sphinx.domains.cpp.CPPDomain._resolve_xref_inner = _resolve_xref_inner
+    sphinx.domains.cpp.CPPDomain._resolve_xref_inner = _resolve_xref_inner  # type: ignore[assignment]
 
 
 def _monkey_patch_cpp_expr_role_to_include_c_parent_key():
@@ -112,7 +111,7 @@ def _monkey_patch_cpp_expr_role_to_include_c_parent_key():
                         refnode["c:parent_key"] = c_parent_key
         return nodes, messages
 
-    CPPExprRole.run = run
+    CPPExprRole.run = run  # type: ignore[assignment]
 
 
 _monkey_patch_cpp_resolve_c_xrefs()
@@ -136,7 +135,6 @@ def _config_inited(
 
 
 def setup(app: sphinx.application.Sphinx):
-
     app.add_config_value(
         "cpp_xref_resolve_c_macro_pattern",
         default="[A-Z]+[A-Z_0-9]*",

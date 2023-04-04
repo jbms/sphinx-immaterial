@@ -51,7 +51,6 @@ extensions = [
     "sphinx.ext.todo",
     "sphinx.ext.mathjax",
     "sphinx.ext.viewcode",
-    "sphinxcontrib.details.directive",
     "sphinx_immaterial.theme_result",
     "sphinx_immaterial.kbd_keys",
     "sphinx_immaterial.apidoc.format_signatures",
@@ -91,7 +90,7 @@ keys_map = {"my-special-key": "Awesome Key", "git": ""}
 # relative to this directory. They are copied after the builtin static files,
 # so a file named 'default.css' will overwrite the builtin 'default.css'.
 html_static_path = ["_static"]
-html_css_files = ["extra_css.css"]
+html_css_files = ["extra_css.css", "custom_font_example.css"]
 html_last_updated_fmt = ""
 html_title = "Sphinx-Immaterial"
 html_favicon = "_static/images/favicon.ico"  # colored version of material/bookshelf.svg
@@ -106,13 +105,13 @@ html_theme = "sphinx_immaterial"
 html_theme_options = {
     "icon": {
         "repo": "fontawesome/brands/github",
+        "edit": "material/file-edit-outline",
     },
     "site_url": "https://jbms.github.io/sphinx-immaterial/",
     "repo_url": "https://github.com/jbms/sphinx-immaterial/",
     "repo_name": "Sphinx-Immaterial",
     "repo_type": "github",
     "edit_uri": "blob/main/docs",
-    # "google_analytics": ["UA-XXXXX", "auto"],
     "globaltoc_collapse": True,
     "features": [
         "navigation.expand",
@@ -127,6 +126,8 @@ html_theme_options = {
         "search.share",
         "toc.follow",
         "toc.sticky",
+        "content.tabs.link",
+        "announce.dismiss",
     ],
     "palette": [
         {
@@ -171,6 +172,7 @@ html_theme_options = {
         {
             "icon": "fontawesome/brands/github",
             "link": "https://github.com/jbms/sphinx-immaterial",
+            "name": "Source on github.com",
         },
         {
             "icon": "fontawesome/brands/python",
@@ -201,6 +203,10 @@ extlinks = {
     "graphvizattr": (
         "https://graphviz.org/docs/attrs/%s/",
         "%s attribute",
+    ),
+    "dutree": (
+        "https://docutils.sourceforge.io/docs/ref/doctree.html#%s",
+        "%s",
     ),
 }
 
@@ -261,6 +267,10 @@ rst_prolog = """
 .. role:: dot(code)
    :language: dot
    :class: highlight
+
+.. role:: html(code)
+   :language: html
+   :class: highlight
 """
 
 
@@ -305,6 +315,19 @@ python_type_aliases = {
 # BEGIN: python_module_names_to_strip_from_xrefs example
 python_module_names_to_strip_from_xrefs = ["tensorstore_demo"]
 # END: python_module_names_to_strip_from_xrefs example
+
+# BEGIN CUSTOM ADMONITIONS
+sphinx_immaterial_custom_admonitions = [
+    {
+        "name": "legacy",
+        "color": (236, 64, 11),
+        "icon": "fontawesome/solid/recycle",
+    },
+]
+# END CUSTOM ADMONITIONS
+sphinx_immaterial_icon_path = html_static_path
+
+sphinx_immaterial_bundle_source_maps = True
 
 
 jinja_contexts = {

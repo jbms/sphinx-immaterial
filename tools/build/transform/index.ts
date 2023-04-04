@@ -20,7 +20,6 @@
  * IN THE SOFTWARE.
  */
 
-import { createHash } from "crypto"
 import { build as esbuild } from "esbuild"
 import * as fs from "fs/promises"
 import * as path from "path"
@@ -31,13 +30,13 @@ import {
   catchError,
   concat,
   defer,
-  endWith,
-  ignoreElements,
+  lastValueFrom,
   merge,
   of,
   switchMap
 } from "rxjs"
 import { compile } from "sass"
+import glob from "tiny-glob"
 
 import { base, mkdir, write } from "../_"
 
@@ -67,23 +66,6 @@ const root = new RegExp(`file://${path.resolve(".")}/`, "g")
  * ------------------------------------------------------------------------- */
 
 /**
- * Compute a digest for cachebusting a file
- *
- * @param file - File
- * @param data - File data
- *
- * @returns File with digest
- */
-function digest(file: string, data: string): string {
-  if (process.argv.includes("--optimize")) {
-    const hash = createHash("sha256").update(data).digest("hex")
-    return file.replace(/\b(?=\.)/, `.${hash.slice(0, 8)}.min`)
-  } else {
-    return file
-  }
-}
-
-/**
  * Custom PostCSS plugin to polyfill newer CSS features
  *
  * @returns PostCSS plugin
@@ -91,8 +73,9 @@ function digest(file: string, data: string): string {
 function plugin(): Plugin {
   const rules = new Set<Rule>()
   return {
-    postcssPlugin: 'mkdocs-material',
-    Root (root) {
+    postcssPlugin: "mkdocs-material",
+    // eslint-disable-next-line @typescript-eslint/no-shadow
+    Root(root) {
 
       /* Fallback for :is() */
       root.walkRules(/:is\(/, rule => {
@@ -113,6 +96,36 @@ function plugin(): Plugin {
 }
 plugin.postcss = true
 
+export type LicenseMap = Map<string, string>
+
+/**
+ * Extracts the licenses from the NPM packages containing the files in `paths`.
+ *
+ * @param paths - List of paths.
+ * @returns Map from package directory to license text.
+ */
+async function getLicenses(paths: Array<string>): Promise<LicenseMap> {
+  const licenseParts = new Map<string, string>()
+  for (const p of paths) {
+    const relativePath = path.relative("", p).replace("\\", "/")
+    const m = relativePath.match(/^(node_modules\/[^/]+)\//)
+    if (m === null) {
+      continue
+    }
+    // Check for license file.
+    const moduleDir = m[1]
+    const licensePaths = await glob(`${moduleDir}/LICENSE*`, {filesOnly: true})
+    if (licensePaths.length === 0) {
+      throw new Error(`Failed to find LICENSE file in ${moduleDir}`)
+    }
+    for (const licensePath of licensePaths) {
+      const licenseContent = await fs.readFile(licensePath, {encoding: "utf-8"})
+      licenseParts.set(licensePath, licenseContent)
+    }
+  }
+  return licenseParts
+}
+
 /* ----------------------------------------------------------------------------
  * Functions
  * ------------------------------------------------------------------------- */
@@ -126,7 +139,7 @@ plugin.postcss = true
  */
 export function transformStyle(
   options: TransformOptions
-): Observable<string> {
+): Observable<{file: string, licenseMap: LicenseMap}> {
   return defer(() => of(compile(options.from, {
     loadPaths: [
       "src/assets/stylesheets",
@@ -134,24 +147,26 @@ export function transformStyle(
       "node_modules/material-design-color",
       "node_modules/material-shadows"
     ],
-    sourceMap: true
+    sourceMap: true,
+    sourceMapIncludeSources: true
   })))
     .pipe(
-      switchMap(({ css, sourceMap }) => postcss([
-        require("autoprefixer"),
-        require("postcss-logical"),
-        require("postcss-dir-pseudo-class"),
-        plugin,
-        require("postcss-inline-svg")({
+      switchMap(async ({ css, sourceMap, loadedUrls }) => {
+        const result = await postcss([
+          require("autoprefixer"),
+          require("postcss-logical"),
+          require("postcss-dir-pseudo-class"),
+          plugin,
+          require("postcss-inline-svg")({
           paths: [
             `${base}/.icons`
           ],
           encode: false
         }),
-        ...process.argv.includes("--optimize")
-          ? [require("cssnano")]
-          : []
-      ])
+          ...process.argv.includes("--optimize")
+            ? [require("cssnano")]
+            : []
+        ])
         .process(css, {
           from: options.from,
           to: options.to,
@@ -160,28 +175,27 @@ export function transformStyle(
             inline: false
           }
         })
-      ),
+        return {css: result.css, map: result.map, loadedUrls}
+      }),
       catchError(err => {
         // eslint-disable-next-line no-console
         console.log(err.formatted || err.message)
         return EMPTY
       }),
-      switchMap(({ css, map }) => {
-        const file = digest(options.to, css)
-        return concat(
-          mkdir(path.dirname(file)),
-          merge(
-            write(`${file}.map`, `${map}`.replace(root, "")),
-            write(`${file}`, css.replace(
-              options.from,
-              path.basename(file)
-            )),
-          )
-        )
-          .pipe(
-            ignoreElements(),
-            endWith(file)
-          )
+      switchMap(async ({ css, map, loadedUrls }) => {
+        const file = options.to
+        const licenseMap = await getLicenses(loadedUrls.map(url => url.pathname))
+        await lastValueFrom(
+          concat(mkdir(path.dirname(file)),
+            merge(
+              write(`${file}.map`, `${map}`.replace(root, "")),
+              write(`${file}`, css.replace(
+                options.from,
+                path.basename(file)
+              )),
+            )
+          ))
+        return {file, licenseMap}
       })
     )
 }
@@ -195,7 +209,7 @@ export function transformStyle(
  */
 export function transformScript(
   options: TransformOptions
-): Observable<string> {
+): Observable<{file: string, licenseMap: LicenseMap}> {
   return defer(() => esbuild({
     entryPoints: [options.from],
     target: "es2015",
@@ -204,6 +218,7 @@ export function transformScript(
     sourcemap: true,
     sourceRoot: "../../../..",
     legalComments: "inline",
+    metafile: true,
     minify: process.argv.includes("--optimize"),
     plugins: [
 
@@ -230,17 +245,19 @@ export function transformScript(
   }))
     .pipe(
       catchError(() => EMPTY),
-      switchMap(({ outputFiles: [file] }) => {
+      switchMap(async ({ outputFiles: [file], metafile }) => {
         const contents = file.text.split("\n")
+        const licenseMap = await getLicenses(Object.keys(metafile!.inputs))
         const [, data] = contents[contents.length - 2].split(",")
-        return of({
+        return {
           js:  file.text,
-          map: Buffer.from(data, "base64")
-        })
+          map: Buffer.from(data, "base64"),
+          licenseMap
+        }
       }),
-      switchMap(({ js, map }) => {
-        const file = digest(options.to, js)
-        return concat(
+      switchMap(async ({ js, map, licenseMap }) => {
+        const file = options.to
+        await lastValueFrom(concat(
           mkdir(path.dirname(file)),
           merge(
             write(`${file}.map`, `${map}`),
@@ -249,11 +266,8 @@ export function transformScript(
               `$1${path.basename(file)}.map\n`
             )),
           )
-        )
-          .pipe(
-            ignoreElements(),
-            endWith(file)
-          )
+        ))
+        return {file, licenseMap}
       })
     )
 }

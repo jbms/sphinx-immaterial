@@ -7,5 +7,3 @@
 member
 
 .. auto{{ objtype }}:: {{ objname }}
-
-

@@ -61,11 +61,15 @@ def visit_caption(
         # This is needed to trigger mkdocs-material CSS rule `.highlight .filename`
         self.body.append('<div class="code-block-caption highlight">')
         # append a CSS class to trigger mkdocs-material theme's caption CSS style
-        attributes["class"] += " filename"
+        # create a span wrapping caption's content and (optionally) number
+        self.body.append('<span class="filename">')
+        # append a listing number
+        self.add_fignumber(node.parent)
+        self.body.append(self.starttag(node, "span", **attributes))
+        self.body.append("</span>")
     else:
         super_func(self, node)
-    self.add_fignumber(node.parent)
-    self.body.append(self.starttag(node, "span", **attributes))
+        self.body.append(self.starttag(node, "span", **attributes))
 
 
 @html_translator_mixin.override
@@ -96,7 +100,8 @@ def depart_caption(
         "literal_block"
     ):
         self.body.append("</div>\n")
-    else:
+    elif not isinstance(node.parent, docutils.nodes.figure):
+        # calling super_func() on a figure results in 2 permalinks in caption
         super_func(self, node)
 
 
@@ -122,9 +127,29 @@ def depart_desc_inline(
     self.body.append("</code>")
 
 
+@html_translator_mixin.override
+def visit_productionlist(
+    self: html_translator_mixin.HTMLTranslatorMixin,
+    node: sphinx.addnodes.productionlist,
+    super_func: html_translator_mixin.BaseVisitCallback[sphinx.addnodes.productionlist],
+):
+    # we only need to patch in a code element around the production list
+    before_len = len(self.body)
+    try:
+        super_func(self, node)
+    except docutils.nodes.SkipNode:
+        pass
+    # be sure that there wasn't an incompatible change to sphinx
+    assert self.body[before_len].endswith("<pre>\n") and self.body[-1].startswith(
+        "</pre>"
+    )
+    self.body[before_len] += "<code>"
+    self.body[-1] = "</code>" + self.body[-1]
+    raise docutils.nodes.SkipNode()
+
+
 @html_translator_mixin.init
 def init_translator(self: html_translator_mixin.HTMLTranslatorMixin) -> None:
-
     # Ensure pygments uses <code> elements, for compatibility with the
     # mkdocs-material CSS which expects that.
     self.highlighter.formatter_args.update(wrapcode=True)
