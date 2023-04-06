@@ -197,7 +197,7 @@ setuptools.setup(
         ],
         "sphinx_immaterial.apidoc.cpp.cppreference_data": ["*.xml"],
     },
-    python_requires=">=3.8",
+    python_requires=">=3.7",
     install_requires=REQUIREMENTS,
     use_scm_version={
         # It would be nice to include the commit hash in the version, but that
