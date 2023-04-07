@@ -173,14 +173,14 @@ async function writeLicenseFile() {
   let licenseText = await fs.readFile("LICENSE", {encoding: "utf-8"})
   for (const [p, license] of assetLicenses) {
     licenseText += `\n\n${  "=".repeat(79)  }\n\n`
-    licenseText += `Files: ${p}/\n\n${  license.trim().replaceAll("\r", "")  }\n`
+    //licenseText += `Files: ${p}/\n\n${  license.trim().replaceAll("\r", "")  }\n`
   }
   const bundlePaths = Array.from(bundleLicenses.keys())
   bundlePaths.sort()
   for (const bundlePath of bundlePaths) {
     for (const [dir, license] of bundleLicenses.get(bundlePath)!) {
       licenseText += `\n\n${  "=".repeat(79)  }\n\n`
-      licenseText += `File: ${bundlePath}\nFrom: ${dir}\n\n${  license.trim().replaceAll("\r", "")  }\n`
+      //licenseText += `File: ${bundlePath}\nFrom: ${dir}\n\n${  license.trim().replaceAll("\r", "")  }\n`
     }
   }
   await fs.writeFile("sphinx_immaterial/LICENSE", licenseText)
