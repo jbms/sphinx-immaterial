@@ -36,6 +36,7 @@ Installation
 
 From the PyPI
 ^^^^^^^^^^^^^
+
 .. code-block:: bash
 
    pip install sphinx-immaterial
@@ -79,6 +80,11 @@ or ``theme.conf`` for more details.
     .. literalinclude:: ./conf.py
         :start-after: # -- HTML theme specific settings
         :end-before: # end html_theme_options
+
+.. important:: Migrating from another theme
+   :collapsible:
+
+   Be advised to clean prior builds before the first build with a new theme.
 
 
 .. toctree::
