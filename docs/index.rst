@@ -81,7 +81,8 @@ or ``theme.conf`` for more details.
         :start-after: # -- HTML theme specific settings
         :end-before: # end html_theme_options
 
-.. important:: Migrating from another theme
+.. important:: 
+    :title: Migrating from another theme
    :collapsible:
 
    Be advised to clean prior builds before the first build with a new theme.
