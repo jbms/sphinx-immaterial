@@ -81,7 +81,7 @@ or ``theme.conf`` for more details.
         :start-after: # -- HTML theme specific settings
         :end-before: # end html_theme_options
 
-.. important:: 
+.. important::
    :title: Migrating from another theme
    :collapsible:
 
