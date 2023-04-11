@@ -82,7 +82,7 @@ or ``theme.conf`` for more details.
         :end-before: # end html_theme_options
 
 .. important:: 
-    :title: Migrating from another theme
+   :title: Migrating from another theme
    :collapsible:
 
    Be advised to clean prior builds before the first build with a new theme.
