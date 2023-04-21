@@ -32,7 +32,7 @@
         <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
       
     
-        <link rel="stylesheet" type="text/css" href="_static/sphinx_immaterial_theme.49169256ed8d45ee1.min.css" />
+        <link rel="stylesheet" type="text/css" href="_static/sphinx_immaterial_theme.828e072631d773743.min.css" />
         <link rel="stylesheet" type="text/css" href="_static/extra_css.css" />
         <link rel="stylesheet" type="text/css" href="_static/custom_font_example.css" />
     <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
@@ -822,6 +822,46 @@
     <span class="md-ellipsis">Getting Started</span>
   </a>
   
+    <nav class="md-nav" aria-label="Getting Started">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    <span class="md-ellipsis">Installation</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Installation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#from-the-pypi" class="md-nav__link">
+    <span class="md-ellipsis">From the Py<wbr>PI</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#from-git-source" class="md-nav__link">
+    <span class="md-ellipsis">From git source</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sphinx-configuration" class="md-nav__link">
+    <span class="md-ellipsis">Sphinx configuration</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -855,6 +895,15 @@ and significantly extends Sphinx’s API documentation functionality.</p>
 of a Sphinx theme based on an earlier version of the <a class="reference external" href="https://squidfunk.github.io/mkdocs-material/">mkdocs-material</a> theme, but has now
 significantly diverged from the upstream <a class="reference external" href="https://squidfunk.github.io/mkdocs-material/">mkdocs-material</a> repository.</p>
 <h2 id="getting-started">Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this heading">¶</a></h2>
+<h3 id="installation">Installation<a class="headerlink" href="#installation" title="Permalink to this heading">¶</a></h3>
+<h4 id="from-the-pypi">From the PyPI<a class="headerlink" href="#from-the-pypi" title="Permalink to this heading">¶</a></h4>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>sphinx-immaterial
+</code></pre></div>
+</div>
+<h4 id="from-git-source">From git source<a class="headerlink" href="#from-git-source" title="Permalink to this heading">¶</a></h4>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>git+https://github.com/jbms/sphinx-immaterial.git
+</code></pre></div>
+</div>
 <div class="admonition">
 <p class="admonition-title">Prerequisites</p>
 <p>Building the theme from source requires node.js v14 or newer installed.
@@ -864,10 +913,7 @@ manager may not provide version 14 or newer.</p>
 <p>Installing from a distributed wheel (such as from pypi.org) does not require
 node.js installed.</p>
 </div>
-<p>Install from git source</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>git+https://github.com/jbms/sphinx-immaterial.git
-</code></pre></div>
-</div>
+<h3 id="sphinx-configuration">Sphinx configuration<a class="headerlink" href="#sphinx-configuration" title="Permalink to this heading">¶</a></h3>
 <p>Update your <code class="docutils literal notranslate"><span class="pre">conf.py</span></code> with the required changes:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="n">extension</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;sphinx_immaterial&quot;</span><span class="p">]</span>
 <span class="c1"># ...</span>
@@ -964,6 +1010,9 @@ or <code class="docutils literal notranslate"><span class="pre">theme.conf</span
 </code></pre></div>
 </div>
 </details>
+<details class="important admonition">
+<summary class="admonition-title">Migrating from another theme</summary><p>Be advised to clean prior builds before the first build with a new theme.</p>
+</details>
 <div class="toctree-wrapper compound">
 </div>
 <div class="toctree-wrapper compound">
@@ -983,7 +1032,7 @@ or <code class="docutils literal notranslate"><span class="pre">theme.conf</span
   <small>
     
       Last update:
-      Apr 16, 2023
+      Apr 21, 2023
     
   </small>
 </div>

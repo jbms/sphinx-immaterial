@@ -31,6 +31,23 @@ significantly diverged from the upstream `mkdocs-material
 Getting Started
 ---------------
 
+Installation
+~~~~~~~~~~~~
+
+From the PyPI
+^^^^^^^^^^^^^
+
+.. code-block:: bash
+
+   pip install sphinx-immaterial
+
+From git source
+^^^^^^^^^^^^^^^
+
+.. code-block:: bash
+
+   pip install git+https://github.com/jbms/sphinx-immaterial.git
+
 .. admonition:: Prerequisites
 
     Building the theme from source requires node.js v14 or newer installed.
@@ -41,11 +58,9 @@ Getting Started
     Installing from a distributed wheel (such as from pypi.org) does not require
     node.js installed.
 
-Install from git source
 
-.. code-block:: bash
-
-   pip install git+https://github.com/jbms/sphinx-immaterial.git
+Sphinx configuration
+~~~~~~~~~~~~~~~~~~~~
 
 Update your ``conf.py`` with the required changes:
 
@@ -65,6 +80,12 @@ or ``theme.conf`` for more details.
     .. literalinclude:: ./conf.py
         :start-after: # -- HTML theme specific settings
         :end-before: # end html_theme_options
+
+.. important::
+   :title: Migrating from another theme
+   :collapsible:
+
+   Be advised to clean prior builds before the first build with a new theme.
 
 
 .. toctree::
