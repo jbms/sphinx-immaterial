@@ -53,6 +53,34 @@ usage in other sphinx-based themes.
    .. error::
       You have made a grave :dutree:`error`.
 
+Version directives
+******************
+
+The `versionadded`, `versionchanged`, and `deprecated` directives defined by Sphinx are also
+overridden by the sphinx-immaterial theme to render as an admonition.
+
+.. confval:: sphinx_immaterial_override_version_directives
+
+   This theme can be configured to disallow these overrides if the new features cause a conflict
+   with other Sphinx extensions.
+
+   .. code-block:: python
+      :caption: Disallow overriding version directives in conf.py
+
+      sphinx_immaterial_override_version_directives = False
+
+.. rst-example::
+
+    .. versionadded:: 1.0
+        Description in title.
+
+        Some additional context.
+    .. versionchanged:: 2.0
+        Description in title.
+    .. deprecated:: 3.0
+
+        No extra description in title.
+
 .. _inherited_admonitions:
 
 Admonitions from mkdocs-material

@@ -14,6 +14,7 @@ from sphinx.config import Config
 from sphinx.environment import BuildEnvironment
 import sphinx.ext.todo
 from sphinx.locale import admonitionlabels, _
+from sphinx.domains.changeset import versionlabels, versionlabel_classes
 from sphinx.util.logging import getLogger
 from sphinx.writers.html5 import HTML5Translator
 from .css_and_javascript_bundles import add_global_css
@@ -181,15 +182,28 @@ class CustomAdmonitionDirective(Directive, ABC):
                 self.options["classes"] = []
             self.options["classes"].extend(self.options["class"])
             del self.options["class"]
-        title_text = "" if not self.arguments else self.arguments[0]
+        is_version_directive = self.name in versionlabels
+        title_text = (
+            "" if not self.arguments or is_version_directive else self.arguments[0]
+        )
+        if is_version_directive:
+            # `required_arguments` is set to 1 if this `is_version_directive`
+            # concatenate the first arg with the default title
+            if len(self.arguments) > 1:
+                title_text = f": {' '.join(self.arguments[1:])}"
+            version_title_node = nodes.inline(
+                "",
+                str(versionlabels[self.name] % self.arguments[0]),
+                classes=["versionmodified", versionlabel_classes[self.name]],
+            )
         if "title" in self.options:
             # this option can be combined with the directive argument used as a title.
-            title_text += (" " if title_text else "") + self.options["title"]
+            prefix = " " if title_text else (": " if is_version_directive else "")
+            title_text += prefix + self.options["title"]
             # don't auto-assert `:no-title:` if value is blank; just use default
         if not title_text:
             # title_text must be an explicit string for renderers like MyST
             title_text = str(self.default_title)
-        self.assert_has_content()
         admonition_node = self.node_class("\n".join(self.content), **self.options)  # type: ignore[call-arg]
         (
             admonition_node.source,  # type: ignore[attr-defined]
@@ -203,21 +217,28 @@ class CustomAdmonitionDirective(Directive, ABC):
             self.add_name(admonition_node)
         if "collapsible" in self.options:
             admonition_node["collapsible"] = self.options["collapsible"]
-        if "no-title" in self.options and "collapsible" in self.options:
+        if "no-title" in self.options and (
+            "collapsible" in self.options or not self.content
+        ):
             logger.error(
-                "title is needed for collapsible admonitions",
+                "title is needed for collapsible admonitions or admonitions with no "
+                "content",
                 location=admonition_node,
             )
             del self.options["no-title"]  # force-disable option
-        textnodes, messages = self.state.inline_text(title_text, self.lineno)
-        if "no-title" not in self.options and title_text:
-            title = nodes.title(title_text, "", *textnodes)
+        title_nodes, messages = self.state.inline_text(title_text, self.lineno)
+        if is_version_directive:
+            title_nodes.insert(0, version_title_node)
+        if "no-title" not in self.options and title_nodes:
+            title = nodes.title(title_text, "", *title_nodes)
             title.source, title.line = self.state_machine.get_source_and_line(
                 self.lineno
             )
             admonition_node += title
         admonition_node += messages
         admonition_node["classes"] += self.classes
+        if not title_text and not is_version_directive and not self.content:
+            self.assert_has_content()  # raise an error when no title/content is given
         self.state.nested_parse(self.content, self.content_offset, admonition_node)
         return [admonition_node]
 
@@ -243,6 +264,7 @@ def get_directive_class(name, title, classes=None) -> Type[CustomAdmonitionDirec
         default_title = title
         classes = class_list
         optional_arguments = int(name not in admonitionlabels)
+        required_arguments = int(name in versionlabels)
         node_class = cast(
             Type[nodes.admonition],
             nodes.admonition if name != "todo" else sphinx.ext.todo.todo_node,
@@ -261,7 +283,9 @@ def on_builder_inited(app: Sphinx):
         app.add_directive(
             name=admonition.name,
             cls=get_directive_class(
-                admonition.name, admonition.title, admonition.classes
+                admonition.name,
+                admonition.title,
+                admonition.classes,
             ),
             override=admonition.override,
         )
@@ -301,7 +325,6 @@ def on_config_inited(app: Sphinx, config: Config):
     user_defined_admonitions = pydantic.parse_obj_as(
         List[CustomAdmonitionConfig], getattr(config, confval_name)
     )
-    setattr(config, confval_name, user_defined_admonitions)
     user_defined_dir_names = [directive.name for directive in user_defined_admonitions]
 
     # override the specific admonitions defined in sphinx and docutils
@@ -311,6 +334,36 @@ def on_config_inited(app: Sphinx, config: Config):
             if admonition in user_defined_dir_names:
                 continue
             app.add_directive(admonition, get_directive_class(admonition, title), True)
+    # override sphinx directives versionadded, versionchanged, and deprecated
+    if getattr(config, "sphinx_immaterial_override_version_directives"):
+        if "versionadded" not in user_defined_dir_names:
+            version_added = CustomAdmonitionConfig(
+                name="versionadded",
+                icon="material/alert-circle",
+                title="",
+                color=(72, 138, 87),
+                override=True,
+            )
+            user_defined_admonitions.append(version_added)
+        if "versionchanged" not in user_defined_dir_names:
+            version_changed = CustomAdmonitionConfig(
+                name="versionchanged",
+                icon="material/alert-circle",
+                title="",
+                color=(238, 144, 64),
+                override=True,
+            )
+            user_defined_admonitions.append(version_changed)
+        if "deprecated" not in user_defined_dir_names:
+            version_deprecated = CustomAdmonitionConfig(
+                name="deprecated",
+                icon="material/delete",
+                title="",
+                color=(203, 70, 83),
+                override=True,
+            )
+            user_defined_admonitions.append(version_deprecated)
+    setattr(config, confval_name, user_defined_admonitions)
 
 
 def add_admonition_and_icon_css(app: Sphinx, env: BuildEnvironment):
@@ -355,6 +408,12 @@ def setup(app: Sphinx):
     )
     app.add_config_value(
         name="sphinx_immaterial_override_builtin_admonitions",
+        default=True,
+        rebuild="html",
+        types=bool,
+    )
+    app.add_config_value(
+        name="sphinx_immaterial_override_version_directives",
         default=True,
         rebuild="html",
         types=bool,
