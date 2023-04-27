@@ -67,9 +67,9 @@ name, but only the
 all other options are ignored.
 
 .. code-block:: py
-   :caption: Adjusting the `versionchanged` style
+    :caption: Adjusting the `versionchanged` style
 
-   sphinx_immaterial_custom_admonitions = [
+    sphinx_immaterial_custom_admonitions = [
         {
             "name": "versionchanged",
             "color": (27, 138, 236),

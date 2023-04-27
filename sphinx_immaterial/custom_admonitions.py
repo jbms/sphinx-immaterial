@@ -281,12 +281,22 @@ def on_builder_inited(app: Sphinx):
     custom_admonitions: List[CustomAdmonitionConfig] = getattr(
         config, "sphinx_immaterial_custom_admonitions"
     )
+    custom_admonition_names = []
     for admonition in custom_admonitions:
-        if admonition.name in VERSION_DIR_STYLE:
-            if admonition.icon is not None:
-                VERSION_DIR_STYLE[admonition.name]["icon"] = admonition.icon
-            if admonition.color is not None:
-                VERSION_DIR_STYLE[admonition.name]["color"] = admonition.color
+        custom_admonition_names.append(admonition.name)
+        if admonition.name in VERSION_DIR_STYLE:  # if specific to version directives
+            if admonition.icon is None:  # for default icon
+                admonition.icon = load_svg_into_builder_env(
+                    app.builder, cast(str, VERSION_DIR_STYLE[admonition.name]["icon"])
+                )
+            else:  # for user-defined icon
+                admonition.icon = load_svg_into_builder_env(
+                    app.builder, admonition.icon
+                )
+            if admonition.color is None:
+                admonition.color = cast(
+                    Tuple[int, int, int], VERSION_DIR_STYLE[admonition.name]["color"]
+                )
             continue  # don't override the version directives
         app.add_directive(
             name=admonition.name,
@@ -303,6 +313,9 @@ def on_builder_inited(app: Sphinx):
 
     # add styles for sphinx directives versionadded, versionchanged, and deprecated
     for name, style in VERSION_DIR_STYLE.items():
+        if name in custom_admonition_names:
+            continue  # already handled above
+        # add entries for default style of version directives
         version_dir_style = CustomAdmonitionConfig(
             name=name,
             icon=load_svg_into_builder_env(app.builder, cast(str, style["icon"])),
