@@ -15,7 +15,7 @@ This theme is an adaptation of the popular `mkdocs-material
 This theme is regularly maintained to stay up to date with the upstream
 `mkdocs-material <https://squidfunk.github.io/mkdocs-material/>`__ repository.
 The HTML templates, JavaScript, and styles from the `mkdocs-material
-<https://squidfunk.github.io/mkdocs-material/>`__ theme are incoroprated directly
+<https://squidfunk.github.io/mkdocs-material/>`__ theme are incorporated directly
 with mostly minor modifications.
 
 Independent of the upstream mkdocs-material theme, this theme integrates with

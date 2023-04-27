@@ -210,7 +210,7 @@ def tests(session: nox.Session, sphinx: str):
         session.run("npm", "run", "build", external=True)
     session.install(f"sphinx{sphinx}")
     session.install("-r", "tests/requirements.txt")
-    session.run("coverage", "run", "-m", "pytest")
+    session.run("coverage", "run", "-m", "pytest", "-vv", "-s")
     # session.notify("docs") <- only calls docs(html), not dirhtml or latex builders
 
 
