@@ -18,6 +18,7 @@ from sphinx.util.logging import getLogger
 from sphinx.writers.html5 import HTML5Translator
 from .css_and_javascript_bundles import add_global_css
 from .inline_icons import load_svg_into_builder_env, get_custom_icons
+from . import html_translator_mixin
 
 logger = getLogger(__name__)
 
@@ -25,6 +26,13 @@ logger = getLogger(__name__)
 admonitionlabels["todo"] = _("Todo")
 
 _CUSTOM_ADMONITIONS_KEY = "sphinx_immaterial_custom_admonitions"
+
+# defaults used for version directives re-styling
+VERSION_DIR_STYLE = {
+    "versionadded": {"icon": "material/alert-circle", "color": (72, 138, 87)},
+    "versionchanged": {"icon": "material/alert-circle", "color": (238, 144, 64)},
+    "deprecated": {"icon": "material/delete", "color": (203, 70, 83)},
+}
 
 
 class CustomAdmonitionConfig(pydantic.BaseModel):
@@ -146,6 +154,22 @@ def patch_depart_admonition():
     HTML5Translator.depart_admonition = depart_admonition  # type: ignore[assignment]
 
 
+@html_translator_mixin.override
+def visit_versionmodified(
+    self: html_translator_mixin.HTMLTranslatorMixin,
+    node: sphinx.addnodes.versionmodified,
+    super_func: html_translator_mixin.BaseVisitCallback[
+        sphinx.addnodes.versionmodified
+    ],
+) -> None:
+    # similar to what the OG visitor does but with an added admonition class
+    self.body.append(self.starttag(node, "div", CLASSES=[node["type"], "admonition"]))
+    # do compatibility check for changes in Sphinx
+    assert len(node) >= 1 and isinstance(node[0], nodes.paragraph)
+    # add admonition-title class to first paragraph
+    node[0]["classes"].append("admonition-title")
+
+
 patch_visit_admonition()
 patch_depart_admonition()
 
@@ -257,7 +281,20 @@ def on_builder_inited(app: Sphinx):
     custom_admonitions: List[CustomAdmonitionConfig] = getattr(
         config, "sphinx_immaterial_custom_admonitions"
     )
+    custom_admonition_names = []
     for admonition in custom_admonitions:
+        custom_admonition_names.append(admonition.name)
+        if admonition.name in VERSION_DIR_STYLE:  # if specific to version directives
+            admonition.icon = load_svg_into_builder_env(
+                app.builder,
+                admonition.icon
+                or cast(str, VERSION_DIR_STYLE[admonition.name]["icon"]),
+            )
+            if admonition.color is None:
+                admonition.color = cast(
+                    Tuple[int, int, int], VERSION_DIR_STYLE[admonition.name]["color"]
+                )
+            continue  # don't override the version directives
         app.add_directive(
             name=admonition.name,
             cls=get_directive_class(
@@ -270,6 +307,18 @@ def on_builder_inited(app: Sphinx):
         admonition.name = nodes.make_id(admonition.name)
         if admonition.icon is not None:
             admonition.icon = load_svg_into_builder_env(app.builder, admonition.icon)
+
+    # add styles for sphinx directives versionadded, versionchanged, and deprecated
+    for name, style in VERSION_DIR_STYLE.items():
+        if name in custom_admonition_names:
+            continue  # already handled above
+        # add entries for default style of version directives
+        version_dir_style = CustomAdmonitionConfig(
+            name=name,
+            icon=load_svg_into_builder_env(app.builder, cast(str, style["icon"])),
+            color=style["color"],
+        )
+        custom_admonitions.append(version_dir_style)
     setattr(app.builder.env, "sphinx_immaterial_custom_admonitions", custom_admonitions)
 
 
