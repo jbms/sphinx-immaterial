@@ -4,3 +4,4 @@ pydantic
 typing-extensions
 appdirs
 requests
+importlib-resources
