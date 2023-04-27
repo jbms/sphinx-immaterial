@@ -938,7 +938,7 @@ demonstrates using Giscus_ which is Open Source and built on Github's Discussion
              ref.addEventListener("change", function() {
                var palette = __md_get("__palette")
                if (palette && typeof palette.color === "object") {
-                 var theme = palette.color.scheme === "slate" ? "dark" : "light" // (3)!
+                 var theme = palette.color.scheme === "slate" ? "dark" : "light" // (4)!
 
                  /* Instruct Giscus to change theme */
                  var frame = document.querySelector(".giscus-frame")
@@ -961,6 +961,8 @@ demonstrates using Giscus_ which is Open Source and built on Github's Discussion
           themes are available, so you can change it to your liking.
        #. If changing the dark theme used by Giscus, then also change the dark theme name here as
           this takes affect when toggling between light and dark color :themeconf:`scheme`\ s.
+       #. If changing the dark theme used by Giscus, then also change the dark theme name here as
+          this takes affect when toggling between light and dark color :themeconf:`scheme`\ s.
 3. Enable comments for a certain page by adding the :themeconf:`show-comments` metadata to the document's source.
 
 Version Banner
@@ -971,7 +973,7 @@ any other version than the latest version. Using a partial template, you can ove
 ``outdated`` block with the a new jinja template located in the project's documentation's
 ``_templates/base.html``.
 
-.. code-block:: html
+.. code-block:: jinja
     :caption: docs/_templates/base.html
 
     {% extends "!base.html" %}
