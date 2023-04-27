@@ -557,6 +557,7 @@ Configuration Options
     .. themeconf:: globaltoc_collapse
 
         If true (the default value), TOC entries that are not ancestors of the current page are collapsed.
+        Collapsed entries cannot be expanded.
 
         .. warning::
             Setting this option to `False` may lead to large generated page sizes since the entire
