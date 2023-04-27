@@ -788,6 +788,26 @@ aliases. Other required fields include ``version`` and ``title``.
               {"version": "1.0", "title": "1.0", "aliases": []},
             ]
 
+To redirect browsers to the latest version, add a ``index.html`` in the same directory as your
+project's ``versions.json`` file to be served as the domain's base URL. It should look something
+like the following:
+
+.. code-block:: html
+
+    <!DOCTYPE HTML>
+    <html lang="en">
+        <head>
+            <meta charset="utf-8">
+            <meta http-equiv="refresh" content="0; url=latest/" />
+            <link rel="canonical" href="latest/" />
+        </head>
+        <body>
+            <p>If this page does not refresh automatically, then please direct your browser to
+                <a href="latest/">our latest docs</a>.
+            </p>
+        </body>
+    </html>
+
 Customizing the layout
 ======================
 
@@ -942,6 +962,40 @@ demonstrates using Giscus_ which is Open Source and built on Github's Discussion
        #. If changing the dark theme used by Giscus, then also change the dark theme name here as
           this takes affect when toggling between light and dark color :themeconf:`scheme`\ s.
 3. Enable comments for a certain page by adding the :themeconf:`show-comments` metadata to the document's source.
+
+Version Banner
+--------------
+
+If you're using :ref:`version_dropdown`, you might want to display a warning when the user visits
+any other version than the latest version. Using a partial template, you can override the
+``outdated`` block with the a new jinja template located in the project's documentation's
+``_templates/base.html``.
+
+.. code-block:: html
+    :caption: docs/_templates/base.html
+
+    {% extends "!base.html" %}
+
+    {% block outdated %}
+      You're not viewing the latest version.
+      <a href="{{ '../' ~ base_url}}">
+        <strong>Click here to go to latest.</strong>
+      </a>
+    {% endblock %}
+
+.. example:: Changing the color of the banner in dark scheme
+    :collapsible:
+
+    Depending on the project's choices for :themeconf:`palette` colors, it might make the banner's
+    text more legible to change the background color of the banner.
+
+    .. code-block:: css
+        :caption: docs/_static/extra_style.css
+
+        /* only override for dark/slate scheme */
+        [data-md-color-scheme="slate"] .md-banner--warning {
+          background: var(--md-footer-bg-color);
+        }
 
 New Blocks
 **************
