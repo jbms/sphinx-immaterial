@@ -285,14 +285,11 @@ def on_builder_inited(app: Sphinx):
     for admonition in custom_admonitions:
         custom_admonition_names.append(admonition.name)
         if admonition.name in VERSION_DIR_STYLE:  # if specific to version directives
-            if admonition.icon is None:  # for default icon
-                admonition.icon = load_svg_into_builder_env(
-                    app.builder, cast(str, VERSION_DIR_STYLE[admonition.name]["icon"])
-                )
-            else:  # for user-defined icon
-                admonition.icon = load_svg_into_builder_env(
-                    app.builder, admonition.icon
-                )
+            admonition.icon = load_svg_into_builder_env(
+                app.builder,
+                admonition.icon
+                or cast(str, VERSION_DIR_STYLE[admonition.name]["icon"]),
+            )
             if admonition.color is None:
                 admonition.color = cast(
                     Tuple[int, int, int], VERSION_DIR_STYLE[admonition.name]["color"]
