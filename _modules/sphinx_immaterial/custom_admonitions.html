@@ -32,7 +32,7 @@
         <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
       
     
-        <link rel="stylesheet" type="text/css" href="../../_static/sphinx_immaterial_theme.828e072631d773743.min.css" />
+        <link rel="stylesheet" type="text/css" href="../../_static/sphinx_immaterial_theme.9cfd0ac2cb16e9c20.min.css" />
         <link rel="stylesheet" type="text/css" href="../../_static/extra_css.css" />
         <link rel="stylesheet" type="text/css" href="../../_static/custom_font_example.css" />
     <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
@@ -835,6 +835,7 @@
 <span class="kn">from</span> <span class="nn">sphinx.writers.html5</span> <span class="kn">import</span> <span class="n">HTML5Translator</span>
 <span class="kn">from</span> <span class="nn">.css_and_javascript_bundles</span> <span class="kn">import</span> <span class="n">add_global_css</span>
 <span class="kn">from</span> <span class="nn">.inline_icons</span> <span class="kn">import</span> <span class="n">load_svg_into_builder_env</span><span class="p">,</span> <span class="n">get_custom_icons</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">html_translator_mixin</span>
 
 <span class="n">logger</span> <span class="o">=</span> <span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
@@ -842,6 +843,13 @@
 <span class="n">admonitionlabels</span><span class="p">[</span><span class="s2">&quot;todo&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s2">&quot;Todo&quot;</span><span class="p">)</span>
 
 <span class="n">_CUSTOM_ADMONITIONS_KEY</span> <span class="o">=</span> <span class="s2">&quot;sphinx_immaterial_custom_admonitions&quot;</span>
+
+<span class="c1"># defaults used for version directives re-styling</span>
+<span class="n">VERSION_DIR_STYLE</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;versionadded&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;icon&quot;</span><span class="p">:</span> <span class="s2">&quot;material/alert-circle&quot;</span><span class="p">,</span> <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">72</span><span class="p">,</span> <span class="mi">138</span><span class="p">,</span> <span class="mi">87</span><span class="p">)},</span>
+    <span class="s2">&quot;versionchanged&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;icon&quot;</span><span class="p">:</span> <span class="s2">&quot;material/alert-circle&quot;</span><span class="p">,</span> <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">238</span><span class="p">,</span> <span class="mi">144</span><span class="p">,</span> <span class="mi">64</span><span class="p">)},</span>
+    <span class="s2">&quot;deprecated&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;icon&quot;</span><span class="p">:</span> <span class="s2">&quot;material/delete&quot;</span><span class="p">,</span> <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">203</span><span class="p">,</span> <span class="mi">70</span><span class="p">,</span> <span class="mi">83</span><span class="p">)},</span>
+<span class="p">}</span>
 
 
 <div class="viewcode-block" id="CustomAdmonitionConfig"><a class="viewcode-back" href="../../admonitions.html#sphinx_immaterial.custom_admonitions.CustomAdmonitionConfig">[docs]</a><span class="k">class</span> <span class="nc">CustomAdmonitionConfig</span><span class="p">(</span><span class="n">pydantic</span><span class="o">.</span><span class="n">BaseModel</span><span class="p">):</span>
@@ -963,6 +971,22 @@
     <span class="n">HTML5Translator</span><span class="o">.</span><span class="n">depart_admonition</span> <span class="o">=</span> <span class="n">depart_admonition</span>  <span class="c1"># type: ignore[assignment]</span>
 
 
+<span class="nd">@html_translator_mixin</span><span class="o">.</span><span class="n">override</span>
+<span class="k">def</span> <span class="nf">visit_versionmodified</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">:</span> <span class="n">html_translator_mixin</span><span class="o">.</span><span class="n">HTMLTranslatorMixin</span><span class="p">,</span>
+    <span class="n">node</span><span class="p">:</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">addnodes</span><span class="o">.</span><span class="n">versionmodified</span><span class="p">,</span>
+    <span class="n">super_func</span><span class="p">:</span> <span class="n">html_translator_mixin</span><span class="o">.</span><span class="n">BaseVisitCallback</span><span class="p">[</span>
+        <span class="n">sphinx</span><span class="o">.</span><span class="n">addnodes</span><span class="o">.</span><span class="n">versionmodified</span>
+    <span class="p">],</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="c1"># similar to what the OG visitor does but with an added admonition class</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">body</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">starttag</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="s2">&quot;div&quot;</span><span class="p">,</span> <span class="n">CLASSES</span><span class="o">=</span><span class="p">[</span><span class="n">node</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">],</span> <span class="s2">&quot;admonition&quot;</span><span class="p">]))</span>
+    <span class="c1"># do compatibility check for changes in Sphinx</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">node</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">1</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">nodes</span><span class="o">.</span><span class="n">paragraph</span><span class="p">)</span>
+    <span class="c1"># add admonition-title class to first paragraph</span>
+    <span class="n">node</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;classes&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;admonition-title&quot;</span><span class="p">)</span>
+
+
 <span class="n">patch_visit_admonition</span><span class="p">()</span>
 <span class="n">patch_depart_admonition</span><span class="p">()</span>
 
@@ -1074,7 +1098,20 @@
     <span class="n">custom_admonitions</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">CustomAdmonitionConfig</span><span class="p">]</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span>
         <span class="n">config</span><span class="p">,</span> <span class="s2">&quot;sphinx_immaterial_custom_admonitions&quot;</span>
     <span class="p">)</span>
+    <span class="n">custom_admonition_names</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">admonition</span> <span class="ow">in</span> <span class="n">custom_admonitions</span><span class="p">:</span>
+        <span class="n">custom_admonition_names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">admonition</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">admonition</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="n">VERSION_DIR_STYLE</span><span class="p">:</span>  <span class="c1"># if specific to version directives</span>
+            <span class="n">admonition</span><span class="o">.</span><span class="n">icon</span> <span class="o">=</span> <span class="n">load_svg_into_builder_env</span><span class="p">(</span>
+                <span class="n">app</span><span class="o">.</span><span class="n">builder</span><span class="p">,</span>
+                <span class="n">admonition</span><span class="o">.</span><span class="n">icon</span>
+                <span class="ow">or</span> <span class="n">cast</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">VERSION_DIR_STYLE</span><span class="p">[</span><span class="n">admonition</span><span class="o">.</span><span class="n">name</span><span class="p">][</span><span class="s2">&quot;icon&quot;</span><span class="p">]),</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="n">admonition</span><span class="o">.</span><span class="n">color</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">admonition</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span>
+                    <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="n">VERSION_DIR_STYLE</span><span class="p">[</span><span class="n">admonition</span><span class="o">.</span><span class="n">name</span><span class="p">][</span><span class="s2">&quot;color&quot;</span><span class="p">]</span>
+                <span class="p">)</span>
+            <span class="k">continue</span>  <span class="c1"># don&#39;t override the version directives</span>
         <span class="n">app</span><span class="o">.</span><span class="n">add_directive</span><span class="p">(</span>
             <span class="n">name</span><span class="o">=</span><span class="n">admonition</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
             <span class="bp">cls</span><span class="o">=</span><span class="n">get_directive_class</span><span class="p">(</span>
@@ -1087,6 +1124,18 @@
         <span class="n">admonition</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">nodes</span><span class="o">.</span><span class="n">make_id</span><span class="p">(</span><span class="n">admonition</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">admonition</span><span class="o">.</span><span class="n">icon</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">admonition</span><span class="o">.</span><span class="n">icon</span> <span class="o">=</span> <span class="n">load_svg_into_builder_env</span><span class="p">(</span><span class="n">app</span><span class="o">.</span><span class="n">builder</span><span class="p">,</span> <span class="n">admonition</span><span class="o">.</span><span class="n">icon</span><span class="p">)</span>
+
+    <span class="c1"># add styles for sphinx directives versionadded, versionchanged, and deprecated</span>
+    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">style</span> <span class="ow">in</span> <span class="n">VERSION_DIR_STYLE</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">custom_admonition_names</span><span class="p">:</span>
+            <span class="k">continue</span>  <span class="c1"># already handled above</span>
+        <span class="c1"># add entries for default style of version directives</span>
+        <span class="n">version_dir_style</span> <span class="o">=</span> <span class="n">CustomAdmonitionConfig</span><span class="p">(</span>
+            <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
+            <span class="n">icon</span><span class="o">=</span><span class="n">load_svg_into_builder_env</span><span class="p">(</span><span class="n">app</span><span class="o">.</span><span class="n">builder</span><span class="p">,</span> <span class="n">cast</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">style</span><span class="p">[</span><span class="s2">&quot;icon&quot;</span><span class="p">])),</span>
+            <span class="n">color</span><span class="o">=</span><span class="n">style</span><span class="p">[</span><span class="s2">&quot;color&quot;</span><span class="p">],</span>
+        <span class="p">)</span>
+        <span class="n">custom_admonitions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">version_dir_style</span><span class="p">)</span>
     <span class="nb">setattr</span><span class="p">(</span><span class="n">app</span><span class="o">.</span><span class="n">builder</span><span class="o">.</span><span class="n">env</span><span class="p">,</span> <span class="s2">&quot;sphinx_immaterial_custom_admonitions&quot;</span><span class="p">,</span> <span class="n">custom_admonitions</span><span class="p">)</span>
 
 
@@ -1192,7 +1241,7 @@
   <small>
     
       Last update:
-      Apr 26, 2023
+      Apr 27, 2023
     
   </small>
 </div>

@@ -53,6 +53,40 @@ usage in other sphinx-based themes.
    .. error::
       You have made a grave :dutree:`error`.
 
+Version Directives
+******************
+
+The `versionadded`, `versionchanged`, and `deprecated` directives defined by Sphinx are also
+rendered by the sphinx-immaterial theme as admonitions.
+
+These admonition styles can be customized using the `Custom Admonitions`_ feature provided the
+:py:attr:`~sphinx_immaterial.custom_admonitions.CustomAdmonitionConfig.name` matches the directive
+name, but only the
+:py:attr:`~sphinx_immaterial.custom_admonitions.CustomAdmonitionConfig.icon` and
+:py:attr:`~sphinx_immaterial.custom_admonitions.CustomAdmonitionConfig.color` options will apply;
+all other options are ignored.
+
+.. code-block:: py
+    :caption: Adjusting the `versionchanged` style
+
+    sphinx_immaterial_custom_admonitions = [
+        {
+            "name": "versionchanged",
+            "color": (27, 138, 236),
+            "icon": "material/alert-rhombus",
+        }
+    ]
+
+.. rst-example::
+
+    .. versionadded:: 1.0
+        Description in title.
+
+        Some additional context.
+    .. versionchanged:: 2.0
+        Description in title.
+    .. deprecated:: 3.0
+
 .. _inherited_admonitions:
 
 Admonitions from mkdocs-material
