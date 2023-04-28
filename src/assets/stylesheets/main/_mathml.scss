@@ -1,0 +1,50 @@
+math .boldsymbol {
+  font-weight: bold;
+}
+
+mtable[columnalign="right left"] {
+  > mtr {
+    > mtd:nth-child(1) {
+      text-align: -webkit-right;
+    }
+    > mtd:nth-child(2) {
+      text-align: -webkit-left;
+    }
+  }
+}
+
+mtable[columnalign="right left right"] {
+  > mtr {
+    > mtd:nth-child(1) {
+      text-align: -webkit-right;
+    }
+    > mtd:nth-child(2) {
+      text-align: -webkit-left;
+    }
+    > mtd:nth-child(3) {
+      text-align: -webkit-right;
+    }
+  }
+}
+
+mtable[columnspacing="0 2em"] {
+  > mtr {
+    > mtd:nth-child(1) {
+      padding-left: 0px;
+      padding-right: 0px;
+    }
+    > mtd:nth-child(2) {
+      padding-left: 0px;
+      padding-right: 2em;
+    }
+  }
+}
+
+mtable[columnspacing="0"] {
+  > mtr {
+    > mtd {
+      padding-left: 0px;
+      padding-right: 0px;
+    }
+  }
+}
