@@ -136,10 +136,10 @@ const assets$ = concat(
     })),
 
   /* Copy mathjax dist */
-  ...["tex-mml-chtml.js"]
+  ...["tex-mml-chtml.js", "output/chtml/fonts/woff-v2/*.woff"]
     .map(pattern => copyAll(pattern, {
       from: "node_modules/mathjax/es5",
-      to: `${base}/static`
+      to: `${base}/static/mathjax`
     }))
 ).pipe(
   concatMap(async x => {

@@ -270,6 +270,7 @@ def setup(app: Sphinx):
     app.setup_extension("sphinx_immaterial.css_and_javascript_bundles")
     app.setup_extension("sphinx_immaterial.external_resource_cache")
     app.setup_extension("sphinx_immaterial.google_fonts")
+    app.setup_extension("sphinx_immaterial.local_mathjax")
 
     app.setup_extension(apidoc_formatting.__name__)
     app.setup_extension("sphinx_immaterial.apidoc.python.default")
