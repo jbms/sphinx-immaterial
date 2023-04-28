@@ -141,3 +141,4 @@ or ``theme.conf`` for more details.
     rst_basics
     rst-cheatsheet/rst-cheatsheet
     additional_samples
+    myst
