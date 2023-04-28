@@ -60,11 +60,13 @@ extensions = [
     "sphinx_immaterial.apidoc.cpp.apigen",
     "sphinx_immaterial.graphviz",
     "sphinx_jinja",
+    "myst_parser",
 ]
 
 intersphinx_mapping = {
     "python": ("https://docs.python.org/3", None),
     "sphinx_docs": ("https://www.sphinx-doc.org/en/master", None),
+    "MyST parser docs": ("https://myst-parser.readthedocs.io/en/latest", None),
 }
 
 # The reST default role (used for this markup: `text`) to use for all
@@ -440,6 +442,28 @@ nitpick_ignore = [
 
 graphviz_ignore_incorrect_font_metrics = True
 
+# MyST parser config options
+myst_enable_extensions = [
+    "deflist",
+    "fieldlist",
+    "smartquotes",
+    "replacements",
+    "strikethrough",
+    "substitution",
+    "tasklist",
+    "attrs_inline",
+    "attrs_block",
+]
+
+myst_enable_checkboxes = True
+myst_substitutions = {
+    "role": "[role](#syntax/roles)",
+}
+
+# Myst parser's strikethrough plugin seems to think that sphinx-immaterial doesn't use
+# HTML output (probably due to the custom translator mixin used).
+suppress_warnings = ["myst.strikethrough"]
+
 
 def _validate_parallel_build(app):
     # Verifies that all of the extensions defined by this theme support parallel
@@ -509,6 +533,10 @@ def _parse_confval_signature(
 
 
 def setup(app):
+    from myst_parser._docs import MystLexer
+
+    app.add_lexer("myst", MystLexer)
+
     app.add_object_type(
         "confval",
         "confval",

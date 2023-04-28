@@ -22,7 +22,6 @@ extend-exclude = '^/docs/tensorstore_demo/__init__\.py$'
 
 [tool.pytest.ini_options]
 minversion = "6.0"
-addopts = "-vv -s"
 testpaths = ["tests"]
 
 [tool.coverage.run]
