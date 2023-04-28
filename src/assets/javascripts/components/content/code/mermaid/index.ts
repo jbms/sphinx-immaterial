@@ -75,7 +75,7 @@ const config = configuration()
  */
 function fetchScripts(): Observable<void> {
   return typeof mermaid === "undefined" || mermaid instanceof Element
-    ? watchScript(`${config.base}_static/mermaid.min.js`) // sphinx-immaterial uses cached dist
+    ? watchScript(`${config.base}_static/mermaid/mermaid.min.js`) // sphinx-immaterial uses cached dist
     : of(undefined)
 }
 

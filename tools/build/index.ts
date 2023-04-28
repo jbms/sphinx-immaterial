@@ -132,7 +132,7 @@ const assets$ = concat(
   ...["mermaid.min.js*"]
     .map(pattern => copyAll(pattern, {
       from: "node_modules/mermaid/dist",
-      to: `${base}/static`
+      to: `${base}/static/mermaid`
     })),
 
   /* Copy mathjax dist */
