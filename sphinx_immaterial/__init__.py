@@ -130,11 +130,11 @@ def _get_html_builder(base_builder: Type[sphinx.builders.html.StandaloneHTMLBuil
                             excluded_list.append(
                                 "**/_sphinx_javascript_frameworks_compat.js"
                             )
-                        if "mathjax_path" not in self.config:
-                            excluded_list.append("**/static/tex-mml-chtml.js")
                         excluded = sphinx.util.matching.Matcher(excluded_list)
                     else:
-                        excluded = sphinx.util.matching.DOTFILES
+                        excluded = sphinx.util.matching.Matcher(
+                            ["**/.*", "**/mathjax", "**/mermaid"]
+                        )
                     sphinx.util.fileutil.copy_asset(
                         os.path.join(entry, "static"),
                         os.path.join(self.outdir, "_static"),
