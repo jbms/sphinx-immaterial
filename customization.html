@@ -551,7 +551,7 @@
         
           <li class="md-nav__item">
   <a href="#themeconf-globaltoc_collapse" class="md-nav__link">
-    <span aria-label="theme configuration option" class="objinfo-icon objinfo-icon__data" title="theme configuration option">T</span><span title="globaltoc_collapse (theme configuration option) — If true (the default value), TOC entries that are not ancestors of the current page are collapsed." class="md-ellipsis">globaltoc_<wbr>collapse</span>
+    <span aria-label="theme configuration option" class="objinfo-icon objinfo-icon__data" title="theme configuration option">T</span><span title="globaltoc_collapse (theme configuration option) — If true (the default value), TOC entries that are not ancestors of the current page are collapsed. Collapsed entries cannot be expanded." class="md-ellipsis">globaltoc_<wbr>collapse</span>
   </a>
   
 </li>
@@ -675,6 +675,13 @@
           <li class="md-nav__item">
   <a href="#adding-a-comment-system" class="md-nav__link">
     <span class="md-ellipsis">Adding a comment system</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#version-banner" class="md-nav__link">
+    <span class="md-ellipsis">Version Banner</span>
   </a>
   
 </li>
@@ -1221,6 +1228,21 @@
 
             
           
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="myst_typography.html" class="md-nav__link">
+        <span class="md-ellipsis">My<wbr>ST Mark<wbr>Down Typography</span>
+      </a>
+    </li>
+  
+
+            
+          
         </ul>
       </nav>
     </li>
@@ -1511,7 +1533,7 @@
         
           <li class="md-nav__item">
   <a href="#themeconf-globaltoc_collapse" class="md-nav__link">
-    <span aria-label="theme configuration option" class="objinfo-icon objinfo-icon__data" title="theme configuration option">T</span><span title="globaltoc_collapse (theme configuration option) — If true (the default value), TOC entries that are not ancestors of the current page are collapsed." class="md-ellipsis">globaltoc_<wbr>collapse</span>
+    <span aria-label="theme configuration option" class="objinfo-icon objinfo-icon__data" title="theme configuration option">T</span><span title="globaltoc_collapse (theme configuration option) — If true (the default value), TOC entries that are not ancestors of the current page are collapsed. Collapsed entries cannot be expanded." class="md-ellipsis">globaltoc_<wbr>collapse</span>
   </a>
   
 </li>
@@ -1635,6 +1657,13 @@
           <li class="md-nav__item">
   <a href="#adding-a-comment-system" class="md-nav__link">
     <span class="md-ellipsis">Adding a comment system</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#version-banner" class="md-nav__link">
+    <span class="md-ellipsis">Version Banner</span>
   </a>
   
 </li>
@@ -2302,7 +2331,8 @@ metadata tag in the document’s source.</p>
 <dl class="std themeconf objdesc">
 <dt class="sig sig-object highlight std" id="themeconf-globaltoc_collapse">
 <span class="sig-name descname"><span class="pre">globaltoc_collapse</span></span><a class="headerlink" href="#themeconf-globaltoc_collapse" title="Permalink to this definition">¶</a></dt>
-<dd><p>If true (the default value), TOC entries that are not ancestors of the current page are collapsed.</p>
+<dd><p>If true (the default value), TOC entries that are not ancestors of the current page are collapsed.
+Collapsed entries cannot be expanded.</p>
 <div class="warning admonition">
 <p class="admonition-title">Warning</p>
 <p>Setting this option to <a class="reference external" href="https://docs.python.org/3/library/constants.html#False" title="(in Python v3.11)"><code class="xref any docutils literal notranslate"><span class="pre">False</span></code></a> may lead to large generated page sizes since the entire
@@ -2536,12 +2566,12 @@ called “3.0-rc1”.</p>
 in the <code class="docutils literal notranslate"><span class="pre">version</span></code> field.</p>
 </div>
 <div class="tabbed-set tabbed-alternate" data-tabs="1:2" id="version-info-example">
-<input checked type="radio" id="__tabbed_1_1" name="__tabbed_1"><input type="radio" id="__tabbed_1_2" name="__tabbed_1"><div class="tabbed-labels docutils container">
+<input checked type="radio" id="__tabbed_1_1" name="__tabbed_1"><input type="radio" id="__tabbed_1_2" name="__tabbed_1"><div class="tabbed-labels docutils">
 <label class="tabbed-label" for="__tabbed_1_1">
 Using <code class="docutils literal notranslate"><span class="pre">version_info</span></code> in conf.py</label><label class="tabbed-label" for="__tabbed_1_2">
 Using a JSON file</label></div>
-<div class="tabbed-content docutils container">
-<div class="tabbed-block docutils container">
+<div class="tabbed-content docutils">
+<div class="tabbed-block docutils">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="n">html_theme_options</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s2">&quot;version_dropdown&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
     <span class="s2">&quot;version_info&quot;</span><span class="p">:</span> <span class="p">[</span>
@@ -2552,7 +2582,7 @@ Using a JSON file</label></div>
 </code></pre></div>
 </div>
 </div>
-<div class="tabbed-block docutils container">
+<div class="tabbed-block docutils">
 <div class="hint admonition">
 <p class="admonition-title">Hint</p>
 <p>Remember to set <code class="docutils literal notranslate"><span class="pre">&quot;version_dropdown&quot;:</span> <span class="pre">True</span></code> in the conf.py file’s <a class="reference internal" href="#confval-html_theme_options" title="html_theme_options (configuration value) — This theme is configured using a html_theme_options dict in the conf.py file."><code class="xref any std std-confval docutils literal notranslate"><span class="pre">html_theme_options</span></code></a> <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><code class="xref any docutils literal notranslate"><span class="pre">dict</span></code></a>.</p>
@@ -2565,7 +2595,25 @@ Using a JSON file</label></div>
 </div>
 </div>
 </div>
-</div><h2 id="customizing-the-layout">Customizing the layout<a class="headerlink" href="#customizing-the-layout" title="Permalink to this heading">¶</a></h2>
+</div><p>To redirect browsers to the latest version, add a <code class="docutils literal notranslate"><span class="pre">index.html</span></code> in the same directory as your
+project’s <code class="docutils literal notranslate"><span class="pre">versions.json</span></code> file to be served as the domain’s base URL. It should look something
+like the following:</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><code><span class="cp">&lt;!DOCTYPE HTML&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span> <span class="na">lang</span><span class="o">=</span><span class="s">&quot;en&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&quot;utf-8&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">http-equiv</span><span class="o">=</span><span class="s">&quot;refresh&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;0; url=latest/&quot;</span> <span class="p">/&gt;</span>
+        <span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;canonical&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;latest/&quot;</span> <span class="p">/&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>If this page does not refresh automatically, then please direct your browser to
+            <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;latest/&quot;</span><span class="p">&gt;</span>our latest docs<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>.
+        <span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</code></pre></div>
+</div>
+<h2 id="customizing-the-layout">Customizing the layout<a class="headerlink" href="#customizing-the-layout" title="Permalink to this heading">¶</a></h2>
 <p>You can customize the theme by overriding Jinja template blocks. For example,
 “layout.html” contains several blocks that can be overridden or extended.</p>
 <p>Place a “layout.html” file in your project’s “/_templates” directory (typically located in the
@@ -2673,7 +2721,7 @@ source, and add the following code to you comments.html template override:</p>
 <span class="w">      </span><span class="nx">ref</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;change&quot;</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="kd">var</span><span class="w"> </span><span class="nx">palette</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">__md_get</span><span class="p">(</span><span class="s2">&quot;__palette&quot;</span><span class="p">)</span>
 <span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">palette</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="ow">typeof</span><span class="w"> </span><span class="nx">palette</span><span class="p">.</span><span class="nx">color</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="s2">&quot;object&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">          </span><span class="kd">var</span><span class="w"> </span><span class="nx">theme</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">palette</span><span class="p">.</span><span class="nx">color</span><span class="p">.</span><span class="nx">scheme</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="s2">&quot;slate&quot;</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="s2">&quot;dark&quot;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;light&quot;</span><span class="w"> </span><span class="c1">// (3)!</span>
+<span class="w">          </span><span class="kd">var</span><span class="w"> </span><span class="nx">theme</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">palette</span><span class="p">.</span><span class="nx">color</span><span class="p">.</span><span class="nx">scheme</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="s2">&quot;slate&quot;</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="s2">&quot;dark&quot;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;light&quot;</span><span class="w"> </span><span class="c1">// (4)!</span>
 
 <span class="w">          </span><span class="cm">/* Instruct Giscus to change theme */</span>
 <span class="w">          </span><span class="kd">var</span><span class="w"> </span><span class="nx">frame</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;.giscus-frame&quot;</span><span class="p">)</span>
@@ -2696,12 +2744,47 @@ source.</p></li>
 themes are available, so you can change it to your liking.</p></li>
 <li><p>If changing the dark theme used by Giscus, then also change the dark theme name here as
 this takes affect when toggling between light and dark color <a class="reference internal" href="#themeconf-scheme" title="scheme (theme configuration option) — To use light and dark modes, this theme supports 2 schemes which are specified by a scheme field."><code class="xref std std-themeconf docutils literal notranslate"><span class="pre">scheme</span></code></a>s.</p></li>
+<li><p>If changing the dark theme used by Giscus, then also change the dark theme name here as
+this takes affect when toggling between light and dark color <a class="reference internal" href="#themeconf-scheme" title="scheme (theme configuration option) — To use light and dark modes, this theme supports 2 schemes which are specified by a scheme field."><code class="xref std std-themeconf docutils literal notranslate"><span class="pre">scheme</span></code></a>s.</p></li>
 </ol>
 </div>
 </div>
 </li>
 <li><p>Enable comments for a certain page by adding the <a class="reference internal" href="#themeconf-show-comments" title="show-comments (theme configuration option) — If specified, allows comments to be enabled at the bottom of the current page."><code class="xref std std-themeconf docutils literal notranslate"><span class="pre">show-comments</span></code></a> metadata to the document’s source.</p></li>
 </ol>
+<h4 id="version-banner">Version Banner<a class="headerlink" href="#version-banner" title="Permalink to this heading">¶</a></h4>
+<p>If you’re using <a class="reference internal" href="#version-dropdown"><span class="std std-ref">Version Dropdown</span></a>, you might want to display a warning when the user visits
+any other version than the latest version. Using a partial template, you can override the
+<code class="docutils literal notranslate"><span class="pre">outdated</span></code> block with the a new jinja template located in the project’s documentation’s
+<code class="docutils literal notranslate"><span class="pre">_templates/base.html</span></code>.</p>
+<div class="literal-block-wrapper docutils container" id="id18">
+<div class="code-block-caption highlight"><span class="filename"><span class="caption-text">
+</span>docs/_templates/base.html<a class="headerlink" href="#id18" title="Permalink to this code">¶</a></span></div>
+<div class="highlight-jinja notranslate"><div class="highlight"><pre><span></span><code><span class="cp">{%</span> <span class="k">extends</span> <span class="s2">&quot;!base.html&quot;</span> <span class="cp">%}</span>
+
+<span class="cp">{%</span> <span class="k">block</span> <span class="nv">outdated</span> <span class="cp">%}</span>
+<span class="x">  You&#39;re not viewing the latest version.</span>
+<span class="x">  &lt;a href=&quot;</span><span class="cp">{{</span> <span class="s1">&#39;../&#39;</span> <span class="o">~</span> <span class="nv">base_url</span><span class="cp">}}</span><span class="x">&quot;&gt;</span>
+<span class="x">    &lt;strong&gt;Click here to go to latest.&lt;/strong&gt;</span>
+<span class="x">  &lt;/a&gt;</span>
+<span class="cp">{%</span> <span class="k">endblock</span> <span class="cp">%}</span>
+</code></pre></div>
+</div>
+</div>
+<details class="example admonition">
+<summary class="admonition-title">Changing the color of the banner in dark scheme</summary><p>Depending on the project’s choices for <a class="reference internal" href="#themeconf-palette" title="palette (theme configuration option) — The theme's color pallette must be a single dict or a list of dicts. Each dict can optionally specify a scheme, primary, accent, and media fields."><code class="xref std std-themeconf docutils literal notranslate"><span class="pre">palette</span></code></a> colors, it might make the banner’s
+text more legible to change the background color of the banner.</p>
+<div class="literal-block-wrapper docutils container" id="id19">
+<div class="code-block-caption highlight"><span class="filename"><span class="caption-text">
+</span>docs/_static/extra_style.css<a class="headerlink" href="#id19" title="Permalink to this code">¶</a></span></div>
+<div class="highlight-css notranslate"><div class="highlight"><pre><span></span><code><span class="c">/* only override for dark/slate scheme */</span>
+<span class="o">[</span><span class="nt">data-md-color-scheme</span><span class="o">=</span><span class="s2">&quot;slate&quot;</span><span class="o">]</span><span class="w"> </span><span class="p">.</span><span class="nc">md-banner--warning</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">background</span><span class="p">:</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--md-footer-bg-color</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+</div>
+</details>
 <h3 id="new-blocks">New Blocks<a class="headerlink" href="#new-blocks" title="Permalink to this heading">¶</a></h3>
 <p>This theme has a few new block inherited from the mkdocs-material theme:</p>
 <dl>
@@ -2710,9 +2793,9 @@ this takes affect when toggling between light and dark color <a class="reference
 <dt><code class="docutils literal notranslate"><span class="pre">announce</span></code></dt><dd><p>An announcement can be added to the top of the page by extending this theme’s base.html
 template. For example, this documentation uses the following custom template to add an
 announcement (<a class="reference external" href="#">scroll to top to see it in action</a>).</p>
-<div class="literal-block-wrapper docutils container" id="id18">
+<div class="literal-block-wrapper docutils container" id="id20">
 <div class="code-block-caption highlight"><span class="filename"><span class="caption-text">
-</span>docs/_templates/base.html<a class="headerlink" href="#id18" title="Permalink to this code">¶</a></span></div>
+</span>docs/_templates/base.html<a class="headerlink" href="#id20" title="Permalink to this code">¶</a></span></div>
 <div class="highlight-jinja notranslate"><div class="highlight"><pre><span></span><code><span class="cp">{%</span> <span class="k">extends</span> <span class="s2">&quot;!base.html&quot;</span> <span class="cp">%}</span>
 <span class="cp">{%</span> <span class="k">block</span> <span class="nv">announce</span> <span class="cp">%}</span>
 <span class="x">  &lt;p&gt;</span>
@@ -2735,7 +2818,7 @@ dismiss the announcement banner.</p>
   <small>
     
       Last update:
-      Apr 27, 2023
+      Apr 28, 2023
     
   </small>
 </div>
