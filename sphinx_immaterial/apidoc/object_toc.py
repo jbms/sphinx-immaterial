@@ -294,7 +294,11 @@ def depart_term(
     node: docutils.nodes.term,
     super_func: html_translator_mixin.BaseVisitCallback[docutils.nodes.term],
 ) -> None:
-    self.add_permalink_ref(node, _("Permalink to this definition"))
+    next_node: docutils.nodes.Element = node.next_node(descend=False, siblings=True)
+    if not isinstance(next_node, docutils.nodes.classifier) and not isinstance(
+        node.parent.parent.parent, sphinx.addnodes.glossary
+    ):
+        self.add_permalink_ref(node, _("Permalink to this definition"))
     super_func(self, node)
 
 
