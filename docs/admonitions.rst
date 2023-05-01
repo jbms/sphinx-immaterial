@@ -77,6 +77,11 @@ all other options are ignored.
         }
     ]
 
+Beware, these directives do not support the :rst:`:title:` and :rst:`:no-title:` options because
+
+1. They require 1 argument (and optionally 1 additional argument) that gets used in the title.
+2. The default title cannot be changed.
+
 .. rst-example::
 
     .. versionadded:: 1.0
