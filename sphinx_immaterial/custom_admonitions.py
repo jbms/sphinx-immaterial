@@ -214,6 +214,7 @@ class CustomVersionChange(VersionChange):
         ret = super().run()
         assert len(ret) and isinstance(ret[0], sphinx.addnodes.versionmodified)
         if "collapsible" in self.options:
+            self.assert_has_content()
             ret[0]["collapsible"] = self.options["collapsible"]
         if "classes" not in self.options:
             self.options["classes"] = []
