@@ -174,9 +174,7 @@ def visit_versionmodified(
         visit_collapsible(self, node, collapsible)
     else:
         # similar to what the OG visitor does but with an added admonition class
-        self.body.append(
-            self.starttag(node, "div", CLASSES=[node["type"], "admonition"])
-        )
+        self.body.append(self.starttag(node, "div", CLASSES=["admonition"]))
         # add admonition-title class to first paragraph
         node[0]["classes"].append("admonition-title")
 
@@ -214,15 +212,16 @@ class CustomVersionChange(VersionChange):
         ret = super().run()
         assert len(ret) and isinstance(ret[0], sphinx.addnodes.versionmodified)
         if "collapsible" in self.options:
+            if len(self.arguments) < 2:
+                raise self.error(
+                    "Expected 2 arguments before content in %s directive" % self.name
+                )
             self.assert_has_content()
             ret[0]["collapsible"] = self.options["collapsible"]
-        if "classes" not in self.options:
-            self.options["classes"] = []
+        if ret[0]["type"] not in ret[0]["classes"]:
+            ret[0]["classes"].append(ret[0]["type"])
         if "class" in self.options:
-            self.options["classes"].extend(self.options["class"])
-            del self.options["class"]
-        if self.options["classes"]:
-            ret[0]["classes"] += self.options["classes"]
+            ret[0]["classes"].extend(self.options["class"])
         self.add_name(ret[0])
         return ret
 
