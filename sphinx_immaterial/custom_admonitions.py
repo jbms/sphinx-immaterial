@@ -11,6 +11,7 @@ import pydantic
 import sphinx.addnodes
 from sphinx.application import Sphinx
 from sphinx.config import Config
+from sphinx.domains.changeset import VersionChange
 from sphinx.environment import BuildEnvironment
 import sphinx.ext.todo
 from sphinx.locale import admonitionlabels, _
@@ -117,25 +118,29 @@ class CustomAdmonitionConfig(pydantic.BaseModel):
     # pylint: enable=no-self-argument
 
 
+def visit_collapsible(self: HTML5Translator, node: nodes.Element, flag: str):
+    tag_extra_args: Dict[str, Any] = {"CLASS": "admonition"}
+    if flag.lower() == "open":
+        tag_extra_args["open"] = ""
+    self.body.append(self.starttag(node, "details", **tag_extra_args))
+    title = cast(nodes.Element, node[0])
+    self.body.append(
+        self.starttag(title, "summary", suffix="", CLASS="admonition-title")
+    )
+    for child in title.children:
+        child.walkabout(self)
+    self.body.append("</summary>")
+    del node[0]
+
+
 def patch_visit_admonition():
     orig_func = HTML5Translator.visit_admonition
 
     def visit_admonition(self: HTML5Translator, node: nodes.Element, name: str = ""):
         collapsible: Optional[str] = node.get("collapsible", None)
         if collapsible is not None:
-            tag_extra_args: Dict[str, Any] = {"CLASS": "admonition"}
-            if collapsible.lower() == "open":
-                tag_extra_args["open"] = ""
-            self.body.append(self.starttag(node, "details", **tag_extra_args))
-            title = node.children[0]
-            assert isinstance(title, nodes.title)
-            self.body.append(
-                self.starttag(title, "summary", suffix="", CLASS="admonition-title")
-            )
-            for child in title.children:
-                child.walkabout(self)
-            self.body.append("</summary>")
-            del node.children[0]
+            assert isinstance(node[0], nodes.title)
+            visit_collapsible(self, node, collapsible)
         else:
             orig_func(self, node, name)
 
@@ -162,16 +167,63 @@ def visit_versionmodified(
         sphinx.addnodes.versionmodified
     ],
 ) -> None:
-    # similar to what the OG visitor does but with an added admonition class
-    self.body.append(self.starttag(node, "div", CLASSES=[node["type"], "admonition"]))
     # do compatibility check for changes in Sphinx
     assert len(node) >= 1 and isinstance(node[0], nodes.paragraph)
-    # add admonition-title class to first paragraph
-    node[0]["classes"].append("admonition-title")
+    collapsible: Optional[str] = node.get("collapsible", None)
+    if collapsible is not None:
+        visit_collapsible(self, node, collapsible)
+    else:
+        # similar to what the OG visitor does but with an added admonition class
+        self.body.append(
+            self.starttag(node, "div", CLASSES=[node["type"], "admonition"])
+        )
+        # add admonition-title class to first paragraph
+        node[0]["classes"].append("admonition-title")
+
+
+@html_translator_mixin.override
+def depart_versionmodified(
+    self: html_translator_mixin.HTMLTranslatorMixin,
+    node: sphinx.addnodes.versionmodified,
+    super_func: html_translator_mixin.BaseVisitCallback[
+        sphinx.addnodes.versionmodified
+    ],
+) -> None:
+    collapsible: Optional[str] = node.get("collapsible", None)
+    if collapsible is not None:
+        self.body.append("</details>")
+    else:
+        super_func(self, node)
 
 
 patch_visit_admonition()
 patch_depart_admonition()
+
+
+class CustomVersionChange(VersionChange):
+    """Derivative of the original version directives to add theme-specific admonition
+    options"""
+
+    option_spec = {
+        "collapsible": directives.unchanged,
+        "class": directives.class_option,
+        "name": directives.unchanged,
+    }
+
+    def run(self):
+        ret = super().run()
+        assert len(ret) and isinstance(ret[0], sphinx.addnodes.versionmodified)
+        if "collapsible" in self.options:
+            ret[0]["collapsible"] = self.options["collapsible"]
+        if "classes" not in self.options:
+            self.options["classes"] = []
+        if "class" in self.options:
+            self.options["classes"].extend(self.options["class"])
+            del self.options["class"]
+        if self.options["classes"]:
+            ret[0]["classes"] += self.options["classes"]
+        self.add_name(ret[0])
+        return ret
 
 
 class CustomAdmonitionDirective(Directive, ABC):
@@ -412,6 +464,10 @@ def setup(app: Sphinx):
     app.connect("builder-inited", on_builder_inited)
     app.connect("env-check-consistency", add_admonition_and_icon_css)
     app.connect("config-inited", on_config_inited)
+
+    # override original version directives with custom derivatives
+    for name, __ in VERSION_DIR_STYLE.items():
+        app.add_directive(name, CustomVersionChange, override=True)
 
     return {
         "parallel_read_safe": True,
