@@ -1113,7 +1113,7 @@ It adds features focussed on scientific and technical documentation authoring, a
 <h2 id="headings">Headings<a class="headerlink" href="#headings" title="Permalink to this heading">¶</a></h2>
 <p>Markdown syntax denotes headers starting with between 1 to 6 #.</p>
 <div class="results">
-<div class="highlight-myst notranslate"><div class="highlight"><pre><span></span><code><span class="gu">### Heading Level 3</span>
+<div class="highlight-md notranslate"><div class="highlight"><pre><span></span><code><span class="gu">### Heading Level 3</span>
 </code></pre></div>
 </div>
 <div class="result">
@@ -1123,16 +1123,17 @@ It adds features focussed on scientific and technical documentation authoring, a
 will not be included in the table of contents.
 Using the <a class="reference external" href="https://myst-parser.readthedocs.io/en/latest/syntax/optional.html#syntax-attributes-block" title="MyST Parser 1.0.0"><span class="xref myst">attrs_block</span></a> extension,
 you can also add classes to headings</p>
-<div class="results">
-<div class="highlight-myst notranslate"><div class="highlight"><pre><span></span><code><span class="k">&gt; </span><span class="ge">{.bg-primary}</span>
+<div class="results docutils container">
+<div class="highlight-md notranslate"><div class="highlight"><pre><span></span><code><span class="k">&gt; </span><span class="ge">{.bg-primary}</span>
 <span class="k">&gt; </span><span class="ge">### Paragraph heading</span>
 </code></pre></div>
 </div>
-<div class="result">
+<div class="result docutils container">
 <blockquote>
 <div><h3 class="bg-primary rubric" id="paragraph-heading">Paragraph heading</h3>
 </div></blockquote>
-</div></div>
+</div>
+</div>
 <div class="seealso admonition">
 <p class="admonition-title">See also</p>
 <p>To structure single and multiple documents into table of contents, see the <a class="reference external" href="https://myst-parser.readthedocs.io/en/latest/syntax/organising_content.html#organising-content" title="MyST Parser 1.0.0"><span class="xref myst">organizing content section</span></a>.</p>
@@ -1142,18 +1143,19 @@ you can also add classes to headings</p>
 <p>Paragraphs are block of text separated by a blank line.</p>
 <p>Using the <a class="reference external" href="https://myst-parser.readthedocs.io/en/latest/syntax/optional.html#syntax-attributes-block" title="MyST Parser 1.0.0"><span class="xref myst">attrs_block</span></a> extension,
 you can also add classes to paragraphs:</p>
-<div class="results">
-<div class="highlight-myst notranslate"><div class="highlight"><pre><span></span><code>{.bg-primary}
+<div class="results docutils container">
+<div class="highlight-md notranslate"><div class="highlight"><pre><span></span><code>{.bg-primary}
 Here is a paragraph with a class to control its formatting.
 </code></pre></div>
 </div>
-<div class="result">
+<div class="result docutils container">
 <p class="bg-primary">Here is a paragraph with a class to control its formatting.</p>
-</div></div>
+</div>
+</div>
 <h2 id="thematic-breaks">Thematic breaks<a class="headerlink" href="#thematic-breaks" title="Permalink to this heading">¶</a></h2>
 <p>You can create a thematic break, to break content between themes, using three or more <code class="docutils literal notranslate"><span class="pre">*</span></code>, <code class="docutils literal notranslate"><span class="pre">-</span></code>, or <code class="docutils literal notranslate"><span class="pre">_</span></code> characters on a line by themselves.</p>
 <div class="results">
-<div class="highlight-myst notranslate"><div class="highlight"><pre><span></span><code><span class="k">*</span><span class="w"> </span>* *
+<div class="highlight-md notranslate"><div class="highlight"><pre><span></span><code><span class="k">*</span><span class="w"> </span>* *
 </code></pre></div>
 </div>
 <div class="result">
@@ -1161,60 +1163,65 @@ Here is a paragraph with a class to control its formatting.
 </div></div>
 <h2 id="inline-text-formatting">Inline Text Formatting<a class="headerlink" href="#inline-text-formatting" title="Permalink to this heading">¶</a></h2>
 <p>Standard inline formatting including bold, italic, code, as well as escaped symbols and line breaks:</p>
-<div class="results">
-<div class="highlight-myst notranslate"><div class="highlight"><pre><span></span><code><span class="gs">**strong**</span>, <span class="ge">_emphasis_</span>, <span class="sb">`literal text`</span>, \*escaped symbols\*
+<div class="results docutils container">
+<div class="highlight-md notranslate"><div class="highlight"><pre><span></span><code><span class="gs">**strong**</span>, <span class="ge">_emphasis_</span>, <span class="sb">`literal text`</span>, \*escaped symbols\*
 </code></pre></div>
 </div>
-<div class="result">
+<div class="result docutils container">
 <p><strong>strong</strong>, <em>emphasis</em>, <code class="docutils literal notranslate"><span class="pre">literal</span> <span class="pre">text</span></code>, *escaped symbols*</p>
-</div></div>
+</div>
+</div>
 <p>The <a class="reference external" href="https://myst-parser.readthedocs.io/en/latest/syntax/optional.html#syntax-strikethrough" title="MyST Parser 1.0.0"><span class="xref myst">strikethrough</span></a> extension allows you to add strike-through text:</p>
-<div class="results">
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code>~~strikethrough with *emphasis*~~
+<div class="results docutils container">
+<div class="highlight-md notranslate"><div class="highlight"><pre><span></span><code><span class="gd">~~strikethrough with *emphasis*~~</span>
 </code></pre></div>
 </div>
-<div class="result">
+<div class="result docutils container">
 <p><s>strikethrough with <em>emphasis</em></s></p>
-</div></div>
+</div>
+</div>
 <p>The <a class="reference external" href="https://myst-parser.readthedocs.io/en/latest/syntax/optional.html#syntax-smartquotes" title="MyST Parser 1.0.0"><span class="xref myst">smartquotes</span></a> and <a class="reference external" href="https://myst-parser.readthedocs.io/en/latest/syntax/optional.html#syntax-replacements" title="MyST Parser 1.0.0"><span class="xref myst">replacements</span></a> extensions can improve the typography of common symbols:</p>
-<div class="results">
-<div class="highlight-myst notranslate"><div class="highlight"><pre><span></span><code>Smart-quotes &#39;single quotes&#39; and &quot;double quotes&quot;.
+<div class="results docutils container">
+<div class="highlight-md notranslate"><div class="highlight"><pre><span></span><code>Smart-quotes &#39;single quotes&#39; and &quot;double quotes&quot;.
 
 +-, --, ---, ... and other replacements.
 </code></pre></div>
 </div>
-<div class="result">
+<div class="result docutils container">
 <p>Smart-quotes ‘single quotes’ and “double quotes”.</p>
 <p>±, –, —, … and other replacements.</p>
-</div></div>
+</div>
+</div>
 <p>Using the <a class="reference external" href="https://myst-parser.readthedocs.io/en/latest/syntax/optional.html#syntax-attributes-inline" title="MyST Parser 1.0.0"><span class="xref myst">attrs_inline</span></a> extension,
 you can also add classes to inline text spans:</p>
-<div class="results">
-<div class="highlight-myst notranslate"><div class="highlight"><pre><span></span><code>A paragraph with a span of [text with attributes]{.bg-primary}
+<div class="results docutils container">
+<div class="highlight-md notranslate"><div class="highlight"><pre><span></span><code>A paragraph with a span of [text with attributes]{.bg-primary}
 </code></pre></div>
 </div>
-<div class="result">
+<div class="result docutils container">
 <p>A paragraph with a span of <span class="bg-primary">text with attributes</span></p>
-</div></div>
+</div>
+</div>
 <h2 id="line-breaks">Line Breaks<a class="headerlink" href="#line-breaks" title="Permalink to this heading">¶</a></h2>
 <p>To put a line break, without a paragraph, use a <code class="docutils literal notranslate"><span class="pre">\</span></code> followed by a new line. This corresponds to a <code class="docutils literal notranslate"><span class="pre">&lt;br&gt;</span></code> in HTML and <code class="docutils literal notranslate"><span class="pre">\\</span></code> in LaTeX.</p>
-<div class="results">
-<div class="highlight-myst notranslate"><div class="highlight"><pre><span></span><code>Fleas \
+<div class="results docutils container">
+<div class="highlight-md notranslate"><div class="highlight"><pre><span></span><code>Fleas \
 Adam \
 Had &#39;em.
 </code></pre></div>
 </div>
-<div class="result">
+<div class="result docutils container">
 <p>Fleas <br />
 Adam <br />
 Had ‘em.</p>
-</div></div>
+</div>
+</div>
 <h2 id="bullet-points-and-numbered-lists">Bullet points and numbered lists<a class="headerlink" href="#bullet-points-and-numbered-lists" title="Permalink to this heading">¶</a></h2>
 <p>You can use bullet points and numbered lists as you would in standard Markdown.
 Starting a line with either a <code class="docutils literal notranslate"><span class="pre">-</span></code> or <code class="docutils literal notranslate"><span class="pre">*</span></code> for a bullet point, and <code class="docutils literal notranslate"><span class="pre">1.</span></code> for numbered lists.
 These lists can be nested using two spaces at the start of the line.</p>
-<div class="results">
-<div class="highlight-myst notranslate"><div class="highlight"><pre><span></span><code><span class="k">-</span><span class="w"> </span>Lists can start with <span class="sb">`-`</span> or <span class="sb">`*`</span>
+<div class="results docutils container">
+<div class="highlight-md notranslate"><div class="highlight"><pre><span></span><code><span class="k">-</span><span class="w"> </span>Lists can start with <span class="sb">`-`</span> or <span class="sb">`*`</span>
 <span class="w">  </span><span class="k">*</span><span class="w"> </span>My other, nested
 <span class="w">  </span><span class="k">*</span><span class="w"> </span>bullet point list!
 
@@ -1222,7 +1229,7 @@ These lists can be nested using two spaces at the start of the line.</p>
 <span class="k">2.</span> has two points
 </code></pre></div>
 </div>
-<div class="result">
+<div class="result docutils container">
 <ul class="simple">
 <li><p>Lists can start with <code class="docutils literal notranslate"><span class="pre">-</span></code> or <code class="docutils literal notranslate"><span class="pre">*</span></code></p>
 <ul>
@@ -1235,14 +1242,15 @@ These lists can be nested using two spaces at the start of the line.</p>
 <li><p>My numbered list</p></li>
 <li><p>has two points</p></li>
 </ol>
-</div></div>
+</div>
+</div>
 <p>For numbered lists, you can start following lines with any number, meaning they don’t have to be in numerical order, and this will not change the rendered output.
 The exception is the first number, which if it is not <code class="docutils literal notranslate"><span class="pre">1.</span></code> this will change the start number of the list.</p>
 <details class="tip admonition">
 <summary class="admonition-title">Alternate numbering styles</summary><p>Using the <a class="reference external" href="https://myst-parser.readthedocs.io/en/latest/syntax/optional.html#syntax-attributes-block" title="MyST Parser 1.0.0"><span class="xref myst">attrs_block</span></a> extension,
 you can also specify a alternative numbering styles:</p>
-<div class="results">
-<div class="highlight-myst notranslate"><div class="highlight"><pre><span></span><code>{style=lower-alpha}
+<div class="results docutils container">
+<div class="highlight-md notranslate"><div class="highlight"><pre><span></span><code>{style=lower-alpha}
 <span class="k">1.</span> a
 <span class="k">2.</span> b
 
@@ -1259,7 +1267,7 @@ you can also specify a alternative numbering styles:</p>
 <span class="k">2.</span> b
 </code></pre></div>
 </div>
-<div class="result">
+<div class="result docutils container">
 <ol class="loweralpha simple">
 <li><p>a</p></li>
 <li><p>b</p></li>
@@ -1276,60 +1284,65 @@ you can also specify a alternative numbering styles:</p>
 <li><p>a</p></li>
 <li><p>b</p></li>
 </ol>
-</div></div>
+</div>
+</div>
 </details>
 <p>Using the <a class="reference external" href="https://myst-parser.readthedocs.io/en/latest/syntax/optional.html#syntax-tasklists" title="MyST Parser 1.0.0"><span class="xref myst">tasklist</span></a> extension,
 you can also create task lists:</p>
-<div class="results">
-<div class="highlight-myst notranslate"><div class="highlight"><pre><span></span><code><span class="k">- [ ]</span> An item that needs doing
+<div class="results docutils container">
+<div class="highlight-md notranslate"><div class="highlight"><pre><span></span><code><span class="k">- [ ]</span> An item that needs doing
 <span class="k">- [x]</span> An item that is complete
 </code></pre></div>
 </div>
-<div class="result">
+<div class="result docutils container">
 <ul class="contains-task-list simple">
 <li class="task-list-item enabled"><p><input class="task-list-item-checkbox"  type="checkbox"> An item that needs doing</p></li>
 <li class="task-list-item enabled"><p><input class="task-list-item-checkbox" checked="checked"  type="checkbox"> An item that is complete</p></li>
 </ul>
-</div></div>
+</div>
+</div>
 <h2 id="subscript-superscript">Subscript &amp; Superscript<a class="headerlink" href="#subscript-superscript" title="Permalink to this heading">¶</a></h2>
 <p>For inline typography for subscript and superscript formatting,
 the <code class="docutils literal notranslate"><span class="pre">sub</span></code> and <code class="docutils literal notranslate"><span class="pre">sup</span></code> <a class="reference external" href="https://myst-parser.readthedocs.io/en/latest/syntax/roles-and-directives.html#syntax-roles" title="MyST Parser 1.0.0"><span class="xref myst">role</span></a>, can be used respectively.</p>
-<div class="results">
-<div class="highlight-myst notranslate"><div class="highlight"><pre><span></span><code>H{sub}`2`O, and 4{sup}`th` of July
+<div class="results docutils container">
+<div class="highlight-md notranslate"><div class="highlight"><pre><span></span><code>H{sub}`2`O, and 4{sup}`th` of July
 </code></pre></div>
 </div>
-<div class="result">
+<div class="result docutils container">
 <p>H<sub>2</sub>O, and 4<sup>th</sup> of July</p>
-</div></div>
+</div>
+</div>
 <h2 id="quotations">Quotations<a class="headerlink" href="#quotations" title="Permalink to this heading">¶</a></h2>
 <p>Quotations are controlled with standard Markdown syntax, by inserting a caret (&gt;) symbol in front of one or more lines of text.</p>
-<div class="results">
-<div class="highlight-myst notranslate"><div class="highlight"><pre><span></span><code><span class="k">&gt; </span><span class="ge">We know what we are, but know not what we may be.</span>
+<div class="results docutils container">
+<div class="highlight-md notranslate"><div class="highlight"><pre><span></span><code><span class="k">&gt; </span><span class="ge">We know what we are, but know not what we may be.</span>
 </code></pre></div>
 </div>
-<div class="result">
+<div class="result docutils container">
 <blockquote>
 <div><p>We know what we are, but know not what we may be.</p>
 </div></blockquote>
-</div></div>
+</div>
+</div>
 <p>Using the <a class="reference external" href="https://myst-parser.readthedocs.io/en/latest/syntax/optional.html#syntax-attributes-block" title="MyST Parser 1.0.0"><span class="xref myst">attrs_block</span></a> extension,
 you can also add an <code class="docutils literal notranslate"><span class="pre">attribution</span></code> attribute to a block quote:</p>
-<div class="results">
-<div class="highlight-myst notranslate"><div class="highlight"><pre><span></span><code>{attribution=&quot;Hamlet act 4, Scene 5&quot;}
+<div class="results docutils container">
+<div class="highlight-md notranslate"><div class="highlight"><pre><span></span><code>{attribution=&quot;Hamlet act 4, Scene 5&quot;}
 <span class="k">&gt; </span><span class="ge">We know what we are, but know not what we may be.</span>
 </code></pre></div>
 </div>
-<div class="result">
+<div class="result docutils container">
 <blockquote>
 <div><p>We know what we are, but know not what we may be.</p>
 <p class="attribution">—Hamlet act 4, Scene 5</p>
 </div></blockquote>
-</div></div>
+</div>
+</div>
 <h2 id="definition-lists-and-glossaries">Definition lists and glossaries<a class="headerlink" href="#definition-lists-and-glossaries" title="Permalink to this heading">¶</a></h2>
 <p>Using the <a class="reference external" href="https://myst-parser.readthedocs.io/en/latest/syntax/optional.html#syntax-definition-lists" title="MyST Parser 1.0.0"><span class="xref myst">definition lists</span></a> extension,
 you can define terms in your documentation, using the syntax:</p>
-<div class="results">
-<div class="highlight-myst notranslate"><div class="highlight"><pre><span></span><code>Term 1
+<div class="results docutils container">
+<div class="highlight-md notranslate"><div class="highlight"><pre><span></span><code>Term 1
 : Definition
 
 Term 2
@@ -1340,7 +1353,7 @@ Term 2
 <span class="w">  </span><span class="k">-</span><span class="w"> </span>And bullet points
 </code></pre></div>
 </div>
-<div class="result">
+<div class="result docutils container">
 <dl class="simple myst">
 <dt>Term 1</dt><dd><p>Definition</p>
 </dd>
@@ -1351,37 +1364,39 @@ Term 2
 </ul>
 </dd>
 </dl>
-</div></div>
+</div>
+</div>
 <p>Using the <a class="reference external" href="https://myst-parser.readthedocs.io/en/latest/syntax/optional.html#syntax-attributes-block" title="MyST Parser 1.0.0"><span class="xref myst">attrs_block</span></a> extension,
 you can also add a <code class="docutils literal notranslate"><span class="pre">glossary</span></code> class to a definition list, that will allow you to reference terms in your text using the <a class="reference external" href="https://myst-parser.readthedocs.io/en/latest/syntax/roles-and-directives.html#syntax-roles" title="MyST Parser 1.0.0"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">term</span></code> role</span></a>:</p>
-<div class="results">
-<div class="highlight-myst notranslate"><div class="highlight"><pre><span></span><code>{.glossary}
+<div class="results docutils container">
+<div class="highlight-md notranslate"><div class="highlight"><pre><span></span><code>{.glossary}
 my term
 : Definition of the term
 
-<span class="p">{</span><span class="ow">term</span><span class="p">}</span><span class="sb">`my term`</span>
+{term}`my term`
 </code></pre></div>
 </div>
-<div class="result">
+<div class="result docutils container">
 <dl class="simple myst glossary">
 <dt id="term-my-term">my term<a class="headerlink" href="#term-my-term" title="Permalink to this definition">¶</a></dt><dd><p>Definition of the term</p>
 </dd>
 </dl>
 <p><a class="reference internal" href="#term-my-term" title="my term (glossary term)"><span class="xref std std-term">my term</span></a></p>
-</div></div>
+</div>
+</div>
 <h2 id="field-lists">Field lists<a class="headerlink" href="#field-lists" title="Permalink to this heading">¶</a></h2>
 <p>Using the <a class="reference external" href="https://myst-parser.readthedocs.io/en/latest/syntax/optional.html#syntax-fieldlists" title="MyST Parser 1.0.0"><span class="xref myst">field lists</span></a> extension,
 you can create field lists, which are useful in source code documentation (see <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/domains.html#info-field-lists">Sphinx docstrings</a>):</p>
-<div class="results">
-<div class="highlight-myst notranslate"><div class="highlight"><pre><span></span><code><span class="p">:</span><span class="gs">param arg1</span><span class="p">:</span> A description of arg1
-<span class="p">:</span><span class="gs">param arg2</span><span class="p">:</span> A longer description,
+<div class="results docutils container">
+<div class="highlight-md notranslate"><div class="highlight"><pre><span></span><code>:param arg1: A description of arg1
+:param arg2: A longer description,
     with multiple lines.
 
 <span class="w">    </span><span class="k">-</span><span class="w"> </span>And bullet points
-<span class="p">:</span><span class="gs">return</span><span class="p">:</span> A description of the return value
+:return: A description of the return value
 </code></pre></div>
 </div>
-<div class="result">
+<div class="result docutils container">
 <dl class="myst field-list simple">
 <dt class="field-odd">param arg1<span class="colon">:</span></dt>
 <dd class="field-odd"><p>A description of arg1</p>
@@ -1397,28 +1412,30 @@ with multiple lines.</p>
 <dd class="field-odd"><p>A description of the return value</p>
 </dd>
 </dl>
-</div></div>
+</div>
+</div>
 <h2 id="comments">Comments<a class="headerlink" href="#comments" title="Permalink to this heading">¶</a></h2>
 <p>You may add comments by putting the <code class="docutils literal notranslate"><span class="pre">%</span></code> character at the beginning of a line. This will
 prevent the line from being parsed into the output document.</p>
 <p>For example, this won’t be parsed into the document:</p>
-<div class="highlight-myst notranslate"><div class="highlight"><pre><span></span><code>% my comment
+<div class="highlight-md notranslate"><div class="highlight"><pre><span></span><code>% my comment
 </code></pre></div>
 </div>
 <details class="warning admonition">
 <summary class="admonition-title">Comments split paragraphs</summary><p>Since comments are a block-level entity, they will terminate the previous block.
 In practical terms, this means that the following lines
 will be broken up into two paragraphs, resulting in a new line between them:</p>
-<div class="results">
-<div class="highlight-myst notranslate"><div class="highlight"><pre><span></span><code>a line
+<div class="results docutils container">
+<div class="highlight-md notranslate"><div class="highlight"><pre><span></span><code>a line
 % a comment
 another line
 </code></pre></div>
 </div>
-<div class="result">
+<div class="result docutils container">
 <p>a line</p>
 <p>another line</p>
-</div></div>
+</div>
+</div>
 </details>
 <h2 id="footnotes">Footnotes<a class="headerlink" href="#footnotes" title="Permalink to this heading">¶</a></h2>
 <p>Footnotes use the <a class="reference external" href="https://pandoc.org/MANUAL.html#footnotes">pandoc specification</a>.
@@ -1429,24 +1446,25 @@ Their labels <strong>start with <code class="docutils literal notranslate"><span
 </ul>
 <p>All footnote definitions are collected, and displayed at the bottom of the page (in the order they are referenced).
 Note that un-referenced footnote definitions will not be displayed.</p>
-<div class="results">
-<div class="highlight-myst notranslate"><div class="highlight"><pre><span></span><code><span class="k">-</span><span class="w"> </span>This is a manually-numbered footnote reference.[^3]
+<div class="results docutils container">
+<div class="highlight-md notranslate"><div class="highlight"><pre><span></span><code><span class="k">-</span><span class="w"> </span>This is a manually-numbered footnote reference.[^3]
 <span class="k">-</span><span class="w"> </span>This is an auto-numbered footnote reference.[^myref]
 
 [<span class="nl">^myref</span>]: <span class="na">This is an auto-numbered footnote definition.</span>
 [<span class="nl">^3</span>]: <span class="na">This is a manually-numbered footnote definition.</span>
 </code></pre></div>
 </div>
-<div class="result">
+<div class="result docutils container">
 <ul class="simple">
 <li><p>This is a manually-numbered footnote reference.<a class="footnote-reference brackets" href="#id5" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a></p></li>
 <li><p>This is an auto-numbered footnote reference.<a class="footnote-reference brackets" href="#myref" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a></p></li>
 </ul>
-</div></div>
+</div>
+</div>
 <p>Any preceding text after a footnote definitions, which is
 indented by four or more spaces, will also be included in the footnote definition, and the text is rendered as MyST Markdown, e.g.</p>
-<div class="results">
-<div class="highlight-myst notranslate"><div class="highlight"><pre><span></span><code>A longer footnote definition.[^mylongdef]
+<div class="results docutils container">
+<div class="highlight-md notranslate"><div class="highlight"><pre><span></span><code>A longer footnote definition.[^mylongdef]
 
 [<span class="nl">^mylongdef</span>]: <span class="na">This is the _**footnote definition**_.</span>
 
@@ -1460,10 +1478,11 @@ that are not separated by a blank line
 This is not part of the footnote.
 </code></pre></div>
 </div>
-<div class="result">
+<div class="result docutils container">
 <p>A longer footnote definition.<a class="footnote-reference brackets" href="#mylongdef" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a></p>
 <p>This is not part of the footnote.</p>
-</div></div>
+</div>
+</div>
 <div class="important admonition">
 <p class="admonition-title">Important</p>
 <p>Although footnote references can be used just fine within directives, e.g.<a class="footnote-reference brackets" href="#myref" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>,
@@ -1502,7 +1521,7 @@ that are not separated by a blank line</p>
   <small>
     
       Last update:
-      May 01, 2023
+      May 02, 2023
     
   </small>
 </div>
