@@ -19,7 +19,8 @@
   background-color:rgb({{ admonition.color | join(',') }});
     {%- endif -%}
     {%- if admonition.icon is not none -%}
-  -webkit-mask-image:var(--si-icon--{{admonition.icon}});mask-image:var(--si-icon--{{admonition.icon}});}
+  -webkit-mask-image:var(--si-icon--{{admonition.icon}});mask-image:var(--si-icon--{{admonition.icon}});
     {%- endif -%}
+}
   {%- endif -%}
 {%- endfor -%}

@@ -26,13 +26,32 @@ logger = getLogger(__name__)
 # treat the todo directive from the sphinx extension as a built-in directive
 admonitionlabels["todo"] = _("Todo")
 
+INHERITED_ADMONITIONS = (
+    "abstract",
+    "info",
+    "success",
+    "question",
+    "failure",
+    "bug",
+    "example",
+    "quote",
+)
+
 _CUSTOM_ADMONITIONS_KEY = "sphinx_immaterial_custom_admonitions"
 
 # defaults used for version directives re-styling
 VERSION_DIR_STYLE = {
-    "versionadded": {"icon": "material/alert-circle", "color": (72, 138, 87)},
-    "versionchanged": {"icon": "material/alert-circle", "color": (238, 144, 64)},
-    "deprecated": {"icon": "material/delete", "color": (203, 70, 83)},
+    "versionadded": {
+        "icon": "material/alert-circle",
+        "color": (72, 138, 87),
+        "classes": [],
+    },
+    "versionchanged": {
+        "icon": "material/alert-circle",
+        "color": (238, 144, 64),
+        "classes": [],
+    },
+    "deprecated": {"icon": "material/delete", "color": (203, 70, 83), "classes": []},
 }
 
 
@@ -222,6 +241,8 @@ class CustomVersionChange(VersionChange):
             ret[0]["classes"].append(ret[0]["type"])
         if "class" in self.options:
             ret[0]["classes"].extend(self.options["class"])
+        if VERSION_DIR_STYLE[self.name]["classes"]:
+            ret[0]["classes"].extend(VERSION_DIR_STYLE[self.name]["classes"])
         self.add_name(ret[0])
         return ret
 
@@ -333,16 +354,25 @@ def on_builder_inited(app: Sphinx):
     custom_admonitions: List[CustomAdmonitionConfig] = getattr(
         config, "sphinx_immaterial_custom_admonitions"
     )
+    builtin_css_classes = list(admonitionlabels.keys()) + list(INHERITED_ADMONITIONS)
     custom_admonition_names = []
     for admonition in custom_admonitions:
         custom_admonition_names.append(admonition.name)
         if admonition.name in VERSION_DIR_STYLE:  # if specific to version directives
-            admonition.icon = load_svg_into_builder_env(
-                app.builder,
-                admonition.icon
-                or cast(str, VERSION_DIR_STYLE[admonition.name]["icon"]),
+            inheriting_style = any(
+                filter(lambda x: x in builtin_css_classes, admonition.classes or [])
             )
-            if admonition.color is None:
+            if admonition.classes:
+                cast(List[str], VERSION_DIR_STYLE[admonition.name]["classes"]).extend(
+                    admonition.classes
+                )
+            if not inheriting_style or admonition.icon:
+                admonition.icon = load_svg_into_builder_env(
+                    app.builder,
+                    admonition.icon
+                    or cast(str, VERSION_DIR_STYLE[admonition.name]["icon"]),
+                )
+            if admonition.color is None and not inheriting_style:
                 admonition.color = cast(
                     Tuple[int, int, int], VERSION_DIR_STYLE[admonition.name]["color"]
                 )
@@ -383,16 +413,7 @@ def on_config_inited(app: Sphinx, config: Config):
 
     # generate directives for inherited admonitions from upstream CSS
     if getattr(config, "sphinx_immaterial_generate_extra_admonitions"):
-        for admonition in (
-            "abstract",
-            "info",
-            "success",
-            "question",
-            "failure",
-            "bug",
-            "example",
-            "quote",
-        ):
+        for admonition in INHERITED_ADMONITIONS:
             app.add_directive(
                 admonition,
                 get_directive_class(admonition, _(admonition.title())),

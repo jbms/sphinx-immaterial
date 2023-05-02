@@ -62,8 +62,9 @@ rendered by the sphinx-immaterial theme as admonitions.
 These admonition styles can be customized using the `Custom Admonitions`_ feature provided the
 :py:attr:`~sphinx_immaterial.custom_admonitions.CustomAdmonitionConfig.name` matches the directive
 name, but only the
-:py:attr:`~sphinx_immaterial.custom_admonitions.CustomAdmonitionConfig.icon` and
-:py:attr:`~sphinx_immaterial.custom_admonitions.CustomAdmonitionConfig.color` options will apply;
+:py:attr:`~sphinx_immaterial.custom_admonitions.CustomAdmonitionConfig.icon`,
+:py:attr:`~sphinx_immaterial.custom_admonitions.CustomAdmonitionConfig.color`, and
+:py:attr:`~sphinx_immaterial.custom_admonitions.CustomAdmonitionConfig.classes` options will apply;
 all other options are ignored.
 
 .. code-block:: py
