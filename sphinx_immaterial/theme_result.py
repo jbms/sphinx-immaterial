@@ -1,6 +1,8 @@
 """A directive designed to reduce example snippets duplication."""
+from pathlib import PurePath
 from docutils.parsers.rst import directives
 from docutils import nodes
+from sphinx.application import Sphinx
 from sphinx.util.docutils import SphinxDirective
 from sphinx.directives.code import container_wrapper
 
@@ -25,7 +27,9 @@ class ResultsDirective(SphinxDirective):
         )
         code = "\n".join(self.content)
         literal_node: nodes.Element = nodes.literal_block(code, code)
-        literal_node["language"] = "rst"
+        src_file: str = self.state.document.attributes["source"]
+        suffix = PurePath(src_file).suffix.lstrip(".")
+        literal_node["language"] = suffix
         if self.arguments:
             literal_node = container_wrapper(self, literal_node, self.arguments[0])
         container_node += literal_node
@@ -49,8 +53,9 @@ class ResultsDirective(SphinxDirective):
         return [container_node]
 
 
-def setup(app):
+def setup(app: Sphinx):
     app.add_directive("rst-example", ResultsDirective)
+    app.add_directive("myst-example", ResultsDirective)
     return {
         "parallel_read_safe": True,
         "parallel_write_safe": True,

@@ -533,10 +533,6 @@ def _parse_confval_signature(
 
 
 def setup(app):
-    from myst_parser._docs import MystLexer
-
-    app.add_lexer("myst", MystLexer)
-
     app.add_object_type(
         "confval",
         "confval",
