@@ -20,7 +20,7 @@ Markdown syntax denotes headers starting with between 1 to 6 #.
 
 <div class="results">
 
-```{code-block} myst
+```{code-block} md
 ### Heading Level 3
 ```
 
@@ -35,19 +35,10 @@ will not be included in the table of contents.
 Using the [attrs_block](#syntax/attributes/block) extension,
 you can also add classes to headings
 
-<div class="results">
-
-```{code-block} myst
+```{myst-example}
 > {.bg-primary}
 > ### Paragraph heading
 ```
-
-<div class="result">
-
-> {.bg-primary}
-> ### Paragraph heading
-
-</div></div>
 
 ```{seealso}
 To structure single and multiple documents into table of contents, see the [organizing content section](#organising-content).
@@ -62,19 +53,10 @@ Paragraphs are block of text separated by a blank line.
 Using the [attrs_block](#syntax/attributes/block) extension,
 you can also add classes to paragraphs:
 
-<div class="results">
-
-```{code-block} myst
+```{myst-example}
 {.bg-primary}
 Here is a paragraph with a class to control its formatting.
 ```
-
-<div class="result">
-
-{.bg-primary}
-Here is a paragraph with a class to control its formatting.
-
-</div></div>
 
 ## Thematic breaks
 
@@ -82,7 +64,7 @@ You can create a thematic break, to break content between themes, using three or
 
 <div class="results">
 
-```{code-block} myst
+```{code-block} md
 
 * * *
 ```
@@ -97,86 +79,40 @@ You can create a thematic break, to break content between themes, using three or
 
 Standard inline formatting including bold, italic, code, as well as escaped symbols and line breaks:
 
-<div class="results">
-
-```{code-block} myst
+```{myst-example}
 **strong**, _emphasis_, `literal text`, \*escaped symbols\*
 ```
-
-<div class="result">
-
-**strong**, _emphasis_, `literal text`, \*escaped symbols\*
-
-</div></div>
 
 The [strikethrough](syntax/strikethrough) extension allows you to add strike-through text:
 
-<div class="results">
-
-```{code-block} text
+```{myst-example}
 ~~strikethrough with *emphasis*~~
 ```
-
-<div class="result">
-
-```{only} html
-~~strikethrough with *emphasis*~~
-```
-
-</div></div>
 
 The [smartquotes](syntax/smartquotes) and [replacements](syntax/replacements) extensions can improve the typography of common symbols:
 
-<div class="results">
-
-```{code-block} myst
+```{myst-example}
 Smart-quotes 'single quotes' and "double quotes".
 
 +-, --, ---, ... and other replacements.
 ```
-
-<div class="result">
-
-Smart-quotes 'single quotes' and "double quotes".
-
-+-, --, ---, ... and other replacements.
-
-</div></div>
 
 Using the [attrs_inline](syntax/attributes/inline) extension,
 you can also add classes to inline text spans:
 
-<div class="results">
-
-```{code-block} myst
+```{myst-example}
 A paragraph with a span of [text with attributes]{.bg-primary}
 ```
-
-<div class="result">
-
-A paragraph with a span of [text with attributes]{.bg-primary}
-
-</div></div>
 
 ## Line Breaks
 
 To put a line break, without a paragraph, use a `\` followed by a new line. This corresponds to a `<br>` in HTML and `\\` in LaTeX.
 
-<div class="results">
-
-```{code-block} myst
+```{myst-example}
 Fleas \
 Adam \
 Had 'em.
 ```
-
-<div class="result">
-
-Fleas \
-Adam \
-Had 'em.
-
-</div></div>
 
 ## Bullet points and numbered lists
 
@@ -184,9 +120,7 @@ You can use bullet points and numbered lists as you would in standard Markdown.
 Starting a line with either a `-` or `*` for a bullet point, and `1.` for numbered lists.
 These lists can be nested using two spaces at the start of the line.
 
-<div class="results">
-
-```{code-block} myst
+```{myst-example}
 - Lists can start with `-` or `*`
   * My other, nested
   * bullet point list!
@@ -194,17 +128,6 @@ These lists can be nested using two spaces at the start of the line.
 1. My numbered list
 2. has two points
 ```
-
-<div class="result">
-
-- Lists can start with `-` or `*`
-  * My other, nested
-  * bullet point list!
-
-1. My numbered list
-2. has two points
-
-</div></div>
 
 For numbered lists, you can start following lines with any number, meaning they don't have to be in numerical order, and this will not change the rendered output.
 The exception is the first number, which if it is not `1.` this will change the start number of the list.
@@ -216,9 +139,7 @@ The exception is the first number, which if it is not `1.` this will change the 
 Using the [attrs_block](#syntax/attributes/block) extension,
 you can also specify a alternative numbering styles:
 
-<div class="results">
-
-```{code-block} myst
+```{myst-example}
 {style=lower-alpha}
 1. a
 2. b
@@ -235,104 +156,47 @@ you can also specify a alternative numbering styles:
 1. a
 2. b
 ```
-
-<div class="result">
-
-{style=lower-alpha}
-1. a
-2. b
-
-{style=upper-alpha}
-1. a
-2. b
-
-{style=lower-roman}
-1. a
-2. b
-
-{style=upper-roman}
-1. a
-2. b
-
-</div></div>
-
 ````
 
 Using the [tasklist](syntax/tasklists) extension,
 you can also create task lists:
 
-<div class="results">
-
-```{code-block} myst
+```{myst-example}
 - [ ] An item that needs doing
 - [x] An item that is complete
 ```
-
-<div class="result">
-
-- [ ] An item that needs doing
-- [x] An item that is complete
-
-</div></div>
 
 ## Subscript & Superscript
 
 For inline typography for subscript and superscript formatting,
 the `sub` and `sup` {{role}}, can be used respectively.
 
-<div class="results">
-
-```{code-block} myst
+```{myst-example}
 H{sub}`2`O, and 4{sup}`th` of July
 ```
-
-<div class="result">
-
-H{sub}`2`O, and 4{sup}`th` of July
-
-</div></div>
 
 ## Quotations
 
 Quotations are controlled with standard Markdown syntax, by inserting a caret (>) symbol in front of one or more lines of text.
 
-<div class="results">
-
-```{code-block} myst
+```{myst-example}
 > We know what we are, but know not what we may be.
 ```
-
-<div class="result">
-
-> We know what we are, but know not what we may be.
-
-</div></div>
 
 Using the [attrs_block](#syntax/attributes/block) extension,
 you can also add an `attribution` attribute to a block quote:
 
-<div class="results">
-
-```{code-block} myst
+```{myst-example}
 {attribution="Hamlet act 4, Scene 5"}
 > We know what we are, but know not what we may be.
 ```
-
-<div class="result">
-
-{attribution="Hamlet act 4, Scene 5"}
-> We know what we are, but know not what we may be.
-
-</div></div>
 
 ## Definition lists and glossaries
 
 Using the [definition lists](syntax/definition-lists) extension,
 you can define terms in your documentation, using the syntax:
 
-<div class="results">
-
-```{code-block} myst
+```{myst-example}
 Term 1
 : Definition
 
@@ -344,52 +208,24 @@ Term 2
   - And bullet points
 
 ```
-
-<div class="result">
-
-Term 1
-: Definition
-
-Term 2
-: Longer definition
-
-  With multiple paragraphs
-
-  - And bullet points
-
-</div></div>
 
 Using the [attrs_block](#syntax/attributes/block) extension,
 you can also add a `glossary` class to a definition list, that will allow you to reference terms in your text using the [`term` role](syntax/roles):
 
-<div class="results">
-
-```{code-block} myst
+```{myst-example}
 {.glossary}
 my term
 : Definition of the term
 
 {term}`my term`
 ```
-
-<div class="result">
-
-{.glossary}
-my term
-: Definition of the term
-
-{term}`my term`
-
-</div></div>
 
 ## Field lists
 
 Using the [field lists](syntax/fieldlists) extension,
 you can create field lists, which are useful in source code documentation (see [Sphinx docstrings](https://www.sphinx-doc.org/en/master/usage/restructuredtext/domains.html#info-field-lists)):
 
-<div class="results">
-
-```{code-block} myst
+```{myst-example}
 
 :param arg1: A description of arg1
 :param arg2: A longer description,
@@ -398,17 +234,6 @@ you can create field lists, which are useful in source code documentation (see [
     - And bullet points
 :return: A description of the return value
 ```
-
-<div class="result">
-
-:param arg1: A description of arg1
-:param arg2: A longer description,
-    with multiple lines.
-
-    - And bullet points
-:return: A description of the return value
-
-</div></div>
 
 ## Comments
 
@@ -417,7 +242,7 @@ prevent the line from being parsed into the output document.
 
 For example, this won't be parsed into the document:
 
-```{code-block} myst
+```{code-block} md
 % my comment
 ```
 
@@ -429,22 +254,11 @@ Since comments are a block-level entity, they will terminate the previous block.
 In practical terms, this means that the following lines
 will be broken up into two paragraphs, resulting in a new line between them:
 
-<div class="results">
-
-```{code-block} myst
+```{myst-example}
 a line
 % a comment
 another line
 ```
-
-<div class="result">
-
-a line
-% a comment
-another line
-
-</div></div>
-
 ````
 
 ## Footnotes
@@ -458,32 +272,18 @@ Their labels **start with `^`** and can then be any alphanumeric string (no spac
 All footnote definitions are collected, and displayed at the bottom of the page (in the order they are referenced).
 Note that un-referenced footnote definitions will not be displayed.
 
-<div class="results">
-
-```{code-block} myst
+```{myst-example}
 - This is a manually-numbered footnote reference.[^3]
 - This is an auto-numbered footnote reference.[^myref]
 
 [^myref]: This is an auto-numbered footnote definition.
 [^3]: This is a manually-numbered footnote definition.
 ```
-
-<div class="result">
-
-- This is a manually-numbered footnote reference.[^3]
-- This is an auto-numbered footnote reference.[^myref]
-
-[^myref]: This is an auto-numbered footnote definition.
-[^3]: This is a manually-numbered footnote definition.
-
-</div></div>
 
 Any preceding text after a footnote definitions, which is
 indented by four or more spaces, will also be included in the footnote definition, and the text is rendered as MyST Markdown, e.g.
 
-<div class="results">
-
-```{code-block} myst
+```{myst-example}
 A longer footnote definition.[^mylongdef]
 
 [^mylongdef]: This is the _**footnote definition**_.
@@ -497,23 +297,6 @@ that are not separated by a blank line
 
 This is not part of the footnote.
 ```
-
-<div class="result">
-
-A longer footnote definition.[^mylongdef]
-
-[^mylongdef]: This is the _**footnote definition**_.
-
-    That continues for all indented lines
-
-    - even other block elements
-
-    Plus any preceding unindented lines,
-that are not separated by a blank line
-
-This is not part of the footnote.
-
-</div></div>
 
 ```{important}
 Although footnote references can be used just fine within directives, e.g.[^myref],
