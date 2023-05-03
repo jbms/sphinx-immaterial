@@ -494,7 +494,7 @@ def setup(app: Sphinx):
     app.add_config_value(
         name="sphinx_immaterial_override_version_directives",
         default=True,
-        rebuild="html",
+        rebuild="env",
         types=bool,
     )
 
