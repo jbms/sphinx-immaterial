@@ -843,6 +843,7 @@
 <span class="kn">import</span> <span class="nn">sphinx.addnodes</span>
 <span class="kn">from</span> <span class="nn">sphinx.application</span> <span class="kn">import</span> <span class="n">Sphinx</span>
 <span class="kn">from</span> <span class="nn">sphinx.config</span> <span class="kn">import</span> <span class="n">Config</span>
+<span class="kn">from</span> <span class="nn">sphinx.domains.changeset</span> <span class="kn">import</span> <span class="n">VersionChange</span>
 <span class="kn">from</span> <span class="nn">sphinx.environment</span> <span class="kn">import</span> <span class="n">BuildEnvironment</span>
 <span class="kn">import</span> <span class="nn">sphinx.ext.todo</span>
 <span class="kn">from</span> <span class="nn">sphinx.locale</span> <span class="kn">import</span> <span class="n">admonitionlabels</span><span class="p">,</span> <span class="n">_</span>
@@ -857,13 +858,32 @@
 <span class="c1"># treat the todo directive from the sphinx extension as a built-in directive</span>
 <span class="n">admonitionlabels</span><span class="p">[</span><span class="s2">&quot;todo&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s2">&quot;Todo&quot;</span><span class="p">)</span>
 
+<span class="n">INHERITED_ADMONITIONS</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s2">&quot;abstract&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;info&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;success&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;question&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;failure&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;bug&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;example&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;quote&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
 <span class="n">_CUSTOM_ADMONITIONS_KEY</span> <span class="o">=</span> <span class="s2">&quot;sphinx_immaterial_custom_admonitions&quot;</span>
 
 <span class="c1"># defaults used for version directives re-styling</span>
 <span class="n">VERSION_DIR_STYLE</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;versionadded&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;icon&quot;</span><span class="p">:</span> <span class="s2">&quot;material/alert-circle&quot;</span><span class="p">,</span> <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">72</span><span class="p">,</span> <span class="mi">138</span><span class="p">,</span> <span class="mi">87</span><span class="p">)},</span>
-    <span class="s2">&quot;versionchanged&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;icon&quot;</span><span class="p">:</span> <span class="s2">&quot;material/alert-circle&quot;</span><span class="p">,</span> <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">238</span><span class="p">,</span> <span class="mi">144</span><span class="p">,</span> <span class="mi">64</span><span class="p">)},</span>
-    <span class="s2">&quot;deprecated&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;icon&quot;</span><span class="p">:</span> <span class="s2">&quot;material/delete&quot;</span><span class="p">,</span> <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">203</span><span class="p">,</span> <span class="mi">70</span><span class="p">,</span> <span class="mi">83</span><span class="p">)},</span>
+    <span class="s2">&quot;versionadded&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;icon&quot;</span><span class="p">:</span> <span class="s2">&quot;material/alert-circle&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">72</span><span class="p">,</span> <span class="mi">138</span><span class="p">,</span> <span class="mi">87</span><span class="p">),</span>
+        <span class="s2">&quot;classes&quot;</span><span class="p">:</span> <span class="p">[],</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;versionchanged&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;icon&quot;</span><span class="p">:</span> <span class="s2">&quot;material/alert-circle&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">238</span><span class="p">,</span> <span class="mi">144</span><span class="p">,</span> <span class="mi">64</span><span class="p">),</span>
+        <span class="s2">&quot;classes&quot;</span><span class="p">:</span> <span class="p">[],</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;deprecated&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;icon&quot;</span><span class="p">:</span> <span class="s2">&quot;material/delete&quot;</span><span class="p">,</span> <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">203</span><span class="p">,</span> <span class="mi">70</span><span class="p">,</span> <span class="mi">83</span><span class="p">),</span> <span class="s2">&quot;classes&quot;</span><span class="p">:</span> <span class="p">[]},</span>
 <span class="p">}</span>
 
 
@@ -949,25 +969,29 @@
     <span class="c1"># pylint: enable=no-self-argument</span>
 
 
+<span class="k">def</span> <span class="nf">visit_collapsible</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">HTML5Translator</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Element</span><span class="p">,</span> <span class="n">flag</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+    <span class="n">tag_extra_args</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;CLASS&quot;</span><span class="p">:</span> <span class="s2">&quot;admonition&quot;</span><span class="p">}</span>
+    <span class="k">if</span> <span class="n">flag</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;open&quot;</span><span class="p">:</span>
+        <span class="n">tag_extra_args</span><span class="p">[</span><span class="s2">&quot;open&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">body</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">starttag</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="s2">&quot;details&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">tag_extra_args</span><span class="p">))</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">nodes</span><span class="o">.</span><span class="n">Element</span><span class="p">,</span> <span class="n">node</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">body</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">starttag</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="s2">&quot;summary&quot;</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">CLASS</span><span class="o">=</span><span class="s2">&quot;admonition-title&quot;</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">title</span><span class="o">.</span><span class="n">children</span><span class="p">:</span>
+        <span class="n">child</span><span class="o">.</span><span class="n">walkabout</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">body</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;&lt;/summary&gt;&quot;</span><span class="p">)</span>
+    <span class="k">del</span> <span class="n">node</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+
 <span class="k">def</span> <span class="nf">patch_visit_admonition</span><span class="p">():</span>
     <span class="n">orig_func</span> <span class="o">=</span> <span class="n">HTML5Translator</span><span class="o">.</span><span class="n">visit_admonition</span>
 
     <span class="k">def</span> <span class="nf">visit_admonition</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">HTML5Translator</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Element</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">):</span>
         <span class="n">collapsible</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;collapsible&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">collapsible</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">tag_extra_args</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;CLASS&quot;</span><span class="p">:</span> <span class="s2">&quot;admonition&quot;</span><span class="p">}</span>
-            <span class="k">if</span> <span class="n">collapsible</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;open&quot;</span><span class="p">:</span>
-                <span class="n">tag_extra_args</span><span class="p">[</span><span class="s2">&quot;open&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">body</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">starttag</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="s2">&quot;details&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">tag_extra_args</span><span class="p">))</span>
-            <span class="n">title</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-            <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">nodes</span><span class="o">.</span><span class="n">title</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">body</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">starttag</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="s2">&quot;summary&quot;</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">CLASS</span><span class="o">=</span><span class="s2">&quot;admonition-title&quot;</span><span class="p">)</span>
-            <span class="p">)</span>
-            <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">title</span><span class="o">.</span><span class="n">children</span><span class="p">:</span>
-                <span class="n">child</span><span class="o">.</span><span class="n">walkabout</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">body</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;&lt;/summary&gt;&quot;</span><span class="p">)</span>
-            <span class="k">del</span> <span class="n">node</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">nodes</span><span class="o">.</span><span class="n">title</span><span class="p">)</span>
+            <span class="n">visit_collapsible</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">collapsible</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">orig_func</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
 
@@ -994,16 +1018,70 @@
         <span class="n">sphinx</span><span class="o">.</span><span class="n">addnodes</span><span class="o">.</span><span class="n">versionmodified</span>
     <span class="p">],</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="c1"># similar to what the OG visitor does but with an added admonition class</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">body</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">starttag</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="s2">&quot;div&quot;</span><span class="p">,</span> <span class="n">CLASSES</span><span class="o">=</span><span class="p">[</span><span class="n">node</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">],</span> <span class="s2">&quot;admonition&quot;</span><span class="p">]))</span>
     <span class="c1"># do compatibility check for changes in Sphinx</span>
-    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">node</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">1</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">nodes</span><span class="o">.</span><span class="n">paragraph</span><span class="p">)</span>
-    <span class="c1"># add admonition-title class to first paragraph</span>
-    <span class="n">node</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;classes&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;admonition-title&quot;</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="p">(</span>
+        <span class="nb">len</span><span class="p">(</span><span class="n">node</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">1</span>
+        <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">nodes</span><span class="o">.</span><span class="n">paragraph</span><span class="p">)</span>
+        <span class="ow">and</span> <span class="n">node</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;type&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+        <span class="ow">and</span> <span class="n">node</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="ow">in</span> <span class="n">VERSION_DIR_STYLE</span>
+    <span class="p">)</span>
+    <span class="k">if</span> <span class="n">VERSION_DIR_STYLE</span><span class="p">[</span><span class="n">node</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]][</span><span class="s2">&quot;classes&quot;</span><span class="p">]:</span>
+        <span class="n">node</span><span class="p">[</span><span class="s2">&quot;classes&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">VERSION_DIR_STYLE</span><span class="p">[</span><span class="n">node</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]][</span><span class="s2">&quot;classes&quot;</span><span class="p">])</span>
+    <span class="k">if</span> <span class="n">node</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">node</span><span class="p">[</span><span class="s2">&quot;classes&quot;</span><span class="p">]:</span>
+        <span class="n">node</span><span class="p">[</span><span class="s2">&quot;classes&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">])</span>
+    <span class="n">collapsible</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;collapsible&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">collapsible</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">visit_collapsible</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">collapsible</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># similar to what the OG visitor does but with an added admonition class</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">body</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">starttag</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="s2">&quot;div&quot;</span><span class="p">,</span> <span class="n">CLASSES</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;admonition&quot;</span><span class="p">]))</span>
+        <span class="c1"># add admonition-title class to first paragraph</span>
+        <span class="n">node</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;classes&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;admonition-title&quot;</span><span class="p">)</span>
+
+
+<span class="nd">@html_translator_mixin</span><span class="o">.</span><span class="n">override</span>
+<span class="k">def</span> <span class="nf">depart_versionmodified</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">:</span> <span class="n">html_translator_mixin</span><span class="o">.</span><span class="n">HTMLTranslatorMixin</span><span class="p">,</span>
+    <span class="n">node</span><span class="p">:</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">addnodes</span><span class="o">.</span><span class="n">versionmodified</span><span class="p">,</span>
+    <span class="n">super_func</span><span class="p">:</span> <span class="n">html_translator_mixin</span><span class="o">.</span><span class="n">BaseVisitCallback</span><span class="p">[</span>
+        <span class="n">sphinx</span><span class="o">.</span><span class="n">addnodes</span><span class="o">.</span><span class="n">versionmodified</span>
+    <span class="p">],</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">collapsible</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;collapsible&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">collapsible</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">body</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;&lt;/details&gt;&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">super_func</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">)</span>
 
 
 <span class="n">patch_visit_admonition</span><span class="p">()</span>
 <span class="n">patch_depart_admonition</span><span class="p">()</span>
+
+
+<span class="k">class</span> <span class="nc">CustomVersionChange</span><span class="p">(</span><span class="n">VersionChange</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Derivative of the original version directives to add theme-specific admonition</span>
+<span class="sd">    options&quot;&quot;&quot;</span>
+
+    <span class="n">option_spec</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;collapsible&quot;</span><span class="p">:</span> <span class="n">directives</span><span class="o">.</span><span class="n">unchanged</span><span class="p">,</span>
+        <span class="s2">&quot;class&quot;</span><span class="p">:</span> <span class="n">directives</span><span class="o">.</span><span class="n">class_option</span><span class="p">,</span>
+        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">directives</span><span class="o">.</span><span class="n">unchanged</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">ret</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">ret</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ret</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">addnodes</span><span class="o">.</span><span class="n">versionmodified</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s2">&quot;collapsible&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">arguments</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="bp">self</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                    <span class="s2">&quot;Expected 2 arguments before content in </span><span class="si">%s</span><span class="s2"> directive&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span>
+                <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assert_has_content</span><span class="p">()</span>
+            <span class="n">ret</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;collapsible&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">[</span><span class="s2">&quot;collapsible&quot;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="s2">&quot;class&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">:</span>
+            <span class="n">ret</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;classes&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">[</span><span class="s2">&quot;class&quot;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_name</span><span class="p">(</span><span class="n">ret</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">ret</span>
 
 
 <span class="k">class</span> <span class="nc">CustomAdmonitionDirective</span><span class="p">(</span><span class="n">Directive</span><span class="p">,</span> <span class="n">ABC</span><span class="p">):</span>
@@ -1113,16 +1191,25 @@
     <span class="n">custom_admonitions</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">CustomAdmonitionConfig</span><span class="p">]</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span>
         <span class="n">config</span><span class="p">,</span> <span class="s2">&quot;sphinx_immaterial_custom_admonitions&quot;</span>
     <span class="p">)</span>
+    <span class="n">builtin_css_classes</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">admonitionlabels</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">INHERITED_ADMONITIONS</span><span class="p">)</span>
     <span class="n">custom_admonition_names</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">admonition</span> <span class="ow">in</span> <span class="n">custom_admonitions</span><span class="p">:</span>
         <span class="n">custom_admonition_names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">admonition</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">admonition</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="n">VERSION_DIR_STYLE</span><span class="p">:</span>  <span class="c1"># if specific to version directives</span>
-            <span class="n">admonition</span><span class="o">.</span><span class="n">icon</span> <span class="o">=</span> <span class="n">load_svg_into_builder_env</span><span class="p">(</span>
-                <span class="n">app</span><span class="o">.</span><span class="n">builder</span><span class="p">,</span>
-                <span class="n">admonition</span><span class="o">.</span><span class="n">icon</span>
-                <span class="ow">or</span> <span class="n">cast</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">VERSION_DIR_STYLE</span><span class="p">[</span><span class="n">admonition</span><span class="o">.</span><span class="n">name</span><span class="p">][</span><span class="s2">&quot;icon&quot;</span><span class="p">]),</span>
+            <span class="n">inheriting_style</span> <span class="o">=</span> <span class="nb">any</span><span class="p">(</span>
+                <span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">builtin_css_classes</span><span class="p">,</span> <span class="n">admonition</span><span class="o">.</span><span class="n">classes</span> <span class="ow">or</span> <span class="p">[])</span>
             <span class="p">)</span>
-            <span class="k">if</span> <span class="n">admonition</span><span class="o">.</span><span class="n">color</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">admonition</span><span class="o">.</span><span class="n">classes</span><span class="p">:</span>
+                <span class="n">cast</span><span class="p">(</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">VERSION_DIR_STYLE</span><span class="p">[</span><span class="n">admonition</span><span class="o">.</span><span class="n">name</span><span class="p">][</span><span class="s2">&quot;classes&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span>
+                    <span class="n">admonition</span><span class="o">.</span><span class="n">classes</span>
+                <span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">inheriting_style</span> <span class="ow">or</span> <span class="n">admonition</span><span class="o">.</span><span class="n">icon</span><span class="p">:</span>
+                <span class="n">admonition</span><span class="o">.</span><span class="n">icon</span> <span class="o">=</span> <span class="n">load_svg_into_builder_env</span><span class="p">(</span>
+                    <span class="n">app</span><span class="o">.</span><span class="n">builder</span><span class="p">,</span>
+                    <span class="n">admonition</span><span class="o">.</span><span class="n">icon</span>
+                    <span class="ow">or</span> <span class="n">cast</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">VERSION_DIR_STYLE</span><span class="p">[</span><span class="n">admonition</span><span class="o">.</span><span class="n">name</span><span class="p">][</span><span class="s2">&quot;icon&quot;</span><span class="p">]),</span>
+                <span class="p">)</span>
+            <span class="k">if</span> <span class="n">admonition</span><span class="o">.</span><span class="n">color</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">inheriting_style</span><span class="p">:</span>
                 <span class="n">admonition</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span>
                     <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="n">VERSION_DIR_STYLE</span><span class="p">[</span><span class="n">admonition</span><span class="o">.</span><span class="n">name</span><span class="p">][</span><span class="s2">&quot;color&quot;</span><span class="p">]</span>
                 <span class="p">)</span>
@@ -1163,16 +1250,7 @@
 
     <span class="c1"># generate directives for inherited admonitions from upstream CSS</span>
     <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="s2">&quot;sphinx_immaterial_generate_extra_admonitions&quot;</span><span class="p">):</span>
-        <span class="k">for</span> <span class="n">admonition</span> <span class="ow">in</span> <span class="p">(</span>
-            <span class="s2">&quot;abstract&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;info&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;success&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;question&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;failure&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;bug&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;example&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;quote&quot;</span><span class="p">,</span>
-        <span class="p">):</span>
+        <span class="k">for</span> <span class="n">admonition</span> <span class="ow">in</span> <span class="n">INHERITED_ADMONITIONS</span><span class="p">:</span>
             <span class="n">app</span><span class="o">.</span><span class="n">add_directive</span><span class="p">(</span>
                 <span class="n">admonition</span><span class="p">,</span>
                 <span class="n">get_directive_class</span><span class="p">(</span><span class="n">admonition</span><span class="p">,</span> <span class="n">_</span><span class="p">(</span><span class="n">admonition</span><span class="o">.</span><span class="n">title</span><span class="p">())),</span>
@@ -1192,6 +1270,11 @@
             <span class="k">if</span> <span class="n">admonition</span> <span class="ow">in</span> <span class="n">user_defined_dir_names</span><span class="p">:</span>
                 <span class="k">continue</span>
             <span class="n">app</span><span class="o">.</span><span class="n">add_directive</span><span class="p">(</span><span class="n">admonition</span><span class="p">,</span> <span class="n">get_directive_class</span><span class="p">(</span><span class="n">admonition</span><span class="p">,</span> <span class="n">title</span><span class="p">),</span> <span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="s2">&quot;sphinx_immaterial_override_version_directives&quot;</span><span class="p">):</span>
+        <span class="c1"># override original version directives with custom derivatives</span>
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">__</span> <span class="ow">in</span> <span class="n">VERSION_DIR_STYLE</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">app</span><span class="o">.</span><span class="n">add_directive</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">CustomVersionChange</span><span class="p">,</span> <span class="n">override</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 
 <span class="k">def</span> <span class="nf">add_admonition_and_icon_css</span><span class="p">(</span><span class="n">app</span><span class="p">:</span> <span class="n">Sphinx</span><span class="p">,</span> <span class="n">env</span><span class="p">:</span> <span class="n">BuildEnvironment</span><span class="p">):</span>
@@ -1240,6 +1323,12 @@
         <span class="n">rebuild</span><span class="o">=</span><span class="s2">&quot;html&quot;</span><span class="p">,</span>
         <span class="n">types</span><span class="o">=</span><span class="nb">bool</span><span class="p">,</span>
     <span class="p">)</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">add_config_value</span><span class="p">(</span>
+        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;sphinx_immaterial_override_version_directives&quot;</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">rebuild</span><span class="o">=</span><span class="s2">&quot;env&quot;</span><span class="p">,</span>
+        <span class="n">types</span><span class="o">=</span><span class="nb">bool</span><span class="p">,</span>
+    <span class="p">)</span>
 
     <span class="n">app</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;builder-inited&quot;</span><span class="p">,</span> <span class="n">on_builder_inited</span><span class="p">)</span>
     <span class="n">app</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;env-check-consistency&quot;</span><span class="p">,</span> <span class="n">add_admonition_and_icon_css</span><span class="p">)</span>
@@ -1256,7 +1345,7 @@
   <small>
     
       Last update:
-      May 02, 2023
+      May 03, 2023
     
   </small>
 </div>
