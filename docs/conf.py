@@ -411,7 +411,6 @@ nitpick_ignore = [
     # Example C++ types
     ("cpp:identifier", "Sphinx"),
     ("cpp:identifier", "RF24_SPI_SPEED"),
-    ("cpp:identifier", "RF24_SPI_SPEED"),
     # C++ namespaces referenced in the documentation
     #
     # It is a bug in the C++ domain that a reference to `ns::symbol` will
@@ -427,13 +426,6 @@ nitpick_ignore = [
     ("cpp:identifier", "my_ns2::my_nested_ns"),
     ("cpp:identifier", "my_ns3"),
     ("cpp:identifier", "cpp_apigen_demo"),
-    ("cpp:identifier", "::nlohmann"),
-    ("cpp:identifier", "std"),
-    ("cpp:identifier", "synopses_ex"),
-    ("cpp:identifier", "my_ns1"),
-    ("cpp:identifier", "my_ns2"),
-    ("cpp:identifier", "my_ns2::my_nested_ns"),
-    ("cpp:identifier", "my_ns3"),
     # Example JavaScript types
     ("js:func", "string"),
     ("js:func", "SomeError"),
