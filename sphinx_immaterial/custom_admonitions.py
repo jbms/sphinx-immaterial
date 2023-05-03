@@ -187,7 +187,16 @@ def visit_versionmodified(
     ],
 ) -> None:
     # do compatibility check for changes in Sphinx
-    assert len(node) >= 1 and isinstance(node[0], nodes.paragraph)
+    assert (
+        len(node) >= 1
+        and isinstance(node[0], nodes.paragraph)
+        and node.get("type", None) is not None
+        and node["type"] in VERSION_DIR_STYLE
+    )
+    if VERSION_DIR_STYLE[node["type"]]["classes"]:
+        node["classes"].extend(VERSION_DIR_STYLE[node["type"]]["classes"])
+    if node["type"] not in node["classes"]:
+        node["classes"].append(node["type"])
     collapsible: Optional[str] = node.get("collapsible", None)
     if collapsible is not None:
         visit_collapsible(self, node, collapsible)
@@ -237,12 +246,8 @@ class CustomVersionChange(VersionChange):
                 )
             self.assert_has_content()
             ret[0]["collapsible"] = self.options["collapsible"]
-        if ret[0]["type"] not in ret[0]["classes"]:
-            ret[0]["classes"].append(ret[0]["type"])
         if "class" in self.options:
             ret[0]["classes"].extend(self.options["class"])
-        if VERSION_DIR_STYLE[self.name]["classes"]:
-            ret[0]["classes"].extend(VERSION_DIR_STYLE[self.name]["classes"])
         self.add_name(ret[0])
         return ret
 
@@ -434,6 +439,11 @@ def on_config_inited(app: Sphinx, config: Config):
                 continue
             app.add_directive(admonition, get_directive_class(admonition, title), True)
 
+    if getattr(config, "sphinx_immaterial_override_version_directives"):
+        # override original version directives with custom derivatives
+        for name, __ in VERSION_DIR_STYLE.items():
+            app.add_directive(name, CustomVersionChange, override=True)
+
 
 def add_admonition_and_icon_css(app: Sphinx, env: BuildEnvironment):
     """Generates the CSS for icons and admonitions, then appends that to the
@@ -481,14 +491,16 @@ def setup(app: Sphinx):
         rebuild="html",
         types=bool,
     )
+    app.add_config_value(
+        name="sphinx_immaterial_override_version_directives",
+        default=True,
+        rebuild="html",
+        types=bool,
+    )
 
     app.connect("builder-inited", on_builder_inited)
     app.connect("env-check-consistency", add_admonition_and_icon_css)
     app.connect("config-inited", on_config_inited)
-
-    # override original version directives with custom derivatives
-    for name, __ in VERSION_DIR_STYLE.items():
-        app.add_directive(name, CustomVersionChange, override=True)
 
     return {
         "parallel_read_safe": True,
