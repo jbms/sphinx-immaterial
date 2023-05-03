@@ -57,14 +57,16 @@ Version Directives
 ******************
 
 The `versionadded`, `versionchanged`, and `deprecated` directives defined by Sphinx are also
-overridden by the sphinx-immaterial theme to render as :rst:dir:`admonition`\ s with added
-functionality (like optionally making them :rst:`:collapsible:`).
+rendered by the sphinx-immaterial theme as admonitions. The directives are optionally
+overridden to support additional :rst:dir:`admonition` options :rst:`:collapsible:`,
+:rst:`:name:`, and :rst:`:class:`.
 
-Beware, these directive overrides do not support the :rst:`:title:` and
-:rst:`:no-title:` options because
+.. warning::
+   Beware, these directive overrides do not support the :rst:`:title:` and
+   :rst:`:no-title:` options because
 
-1. They require 1 argument (and optionally 1 additional argument) that gets used in the title.
-2. The default title cannot be changed.
+   1. They require 1 argument (and optionally 1 additional argument) that gets used in the title.
+   2. The default title cannot be changed.
 
 .. confval:: sphinx_immaterial_override_version_directives
 
@@ -76,8 +78,8 @@ Beware, these directive overrides do not support the :rst:`:title:` and
 
       sphinx_immaterial_override_version_directives = False
 
-These admonition styles can be customized (despite the
-:confval:`sphinx_immaterial_override_version_directives` value) using the `Custom Admonitions`_
+These admonition styles can be customized (regardless of the
+:confval:`sphinx_immaterial_override_version_directives` setting) using the `Custom Admonitions`_
 feature provided the
 :py:attr:`~sphinx_immaterial.custom_admonitions.CustomAdmonitionConfig.name` matches the directive
 name, but only the
