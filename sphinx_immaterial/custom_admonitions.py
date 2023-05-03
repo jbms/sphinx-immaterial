@@ -11,6 +11,7 @@ import pydantic
 import sphinx.addnodes
 from sphinx.application import Sphinx
 from sphinx.config import Config
+from sphinx.domains.changeset import VersionChange
 from sphinx.environment import BuildEnvironment
 import sphinx.ext.todo
 from sphinx.locale import admonitionlabels, _
@@ -25,13 +26,32 @@ logger = getLogger(__name__)
 # treat the todo directive from the sphinx extension as a built-in directive
 admonitionlabels["todo"] = _("Todo")
 
+INHERITED_ADMONITIONS = (
+    "abstract",
+    "info",
+    "success",
+    "question",
+    "failure",
+    "bug",
+    "example",
+    "quote",
+)
+
 _CUSTOM_ADMONITIONS_KEY = "sphinx_immaterial_custom_admonitions"
 
 # defaults used for version directives re-styling
 VERSION_DIR_STYLE = {
-    "versionadded": {"icon": "material/alert-circle", "color": (72, 138, 87)},
-    "versionchanged": {"icon": "material/alert-circle", "color": (238, 144, 64)},
-    "deprecated": {"icon": "material/delete", "color": (203, 70, 83)},
+    "versionadded": {
+        "icon": "material/alert-circle",
+        "color": (72, 138, 87),
+        "classes": [],
+    },
+    "versionchanged": {
+        "icon": "material/alert-circle",
+        "color": (238, 144, 64),
+        "classes": [],
+    },
+    "deprecated": {"icon": "material/delete", "color": (203, 70, 83), "classes": []},
 }
 
 
@@ -117,25 +137,29 @@ class CustomAdmonitionConfig(pydantic.BaseModel):
     # pylint: enable=no-self-argument
 
 
+def visit_collapsible(self: HTML5Translator, node: nodes.Element, flag: str):
+    tag_extra_args: Dict[str, Any] = {"CLASS": "admonition"}
+    if flag.lower() == "open":
+        tag_extra_args["open"] = ""
+    self.body.append(self.starttag(node, "details", **tag_extra_args))
+    title = cast(nodes.Element, node[0])
+    self.body.append(
+        self.starttag(title, "summary", suffix="", CLASS="admonition-title")
+    )
+    for child in title.children:
+        child.walkabout(self)
+    self.body.append("</summary>")
+    del node[0]
+
+
 def patch_visit_admonition():
     orig_func = HTML5Translator.visit_admonition
 
     def visit_admonition(self: HTML5Translator, node: nodes.Element, name: str = ""):
         collapsible: Optional[str] = node.get("collapsible", None)
         if collapsible is not None:
-            tag_extra_args: Dict[str, Any] = {"CLASS": "admonition"}
-            if collapsible.lower() == "open":
-                tag_extra_args["open"] = ""
-            self.body.append(self.starttag(node, "details", **tag_extra_args))
-            title = node.children[0]
-            assert isinstance(title, nodes.title)
-            self.body.append(
-                self.starttag(title, "summary", suffix="", CLASS="admonition-title")
-            )
-            for child in title.children:
-                child.walkabout(self)
-            self.body.append("</summary>")
-            del node.children[0]
+            assert isinstance(node[0], nodes.title)
+            visit_collapsible(self, node, collapsible)
         else:
             orig_func(self, node, name)
 
@@ -162,16 +186,70 @@ def visit_versionmodified(
         sphinx.addnodes.versionmodified
     ],
 ) -> None:
-    # similar to what the OG visitor does but with an added admonition class
-    self.body.append(self.starttag(node, "div", CLASSES=[node["type"], "admonition"]))
     # do compatibility check for changes in Sphinx
-    assert len(node) >= 1 and isinstance(node[0], nodes.paragraph)
-    # add admonition-title class to first paragraph
-    node[0]["classes"].append("admonition-title")
+    assert (
+        len(node) >= 1
+        and isinstance(node[0], nodes.paragraph)
+        and node.get("type", None) is not None
+        and node["type"] in VERSION_DIR_STYLE
+    )
+    if VERSION_DIR_STYLE[node["type"]]["classes"]:
+        node["classes"].extend(VERSION_DIR_STYLE[node["type"]]["classes"])
+    if node["type"] not in node["classes"]:
+        node["classes"].append(node["type"])
+    collapsible: Optional[str] = node.get("collapsible", None)
+    if collapsible is not None:
+        visit_collapsible(self, node, collapsible)
+    else:
+        # similar to what the OG visitor does but with an added admonition class
+        self.body.append(self.starttag(node, "div", CLASSES=["admonition"]))
+        # add admonition-title class to first paragraph
+        node[0]["classes"].append("admonition-title")
+
+
+@html_translator_mixin.override
+def depart_versionmodified(
+    self: html_translator_mixin.HTMLTranslatorMixin,
+    node: sphinx.addnodes.versionmodified,
+    super_func: html_translator_mixin.BaseVisitCallback[
+        sphinx.addnodes.versionmodified
+    ],
+) -> None:
+    collapsible: Optional[str] = node.get("collapsible", None)
+    if collapsible is not None:
+        self.body.append("</details>")
+    else:
+        super_func(self, node)
 
 
 patch_visit_admonition()
 patch_depart_admonition()
+
+
+class CustomVersionChange(VersionChange):
+    """Derivative of the original version directives to add theme-specific admonition
+    options"""
+
+    option_spec = {
+        "collapsible": directives.unchanged,
+        "class": directives.class_option,
+        "name": directives.unchanged,
+    }
+
+    def run(self):
+        ret = super().run()
+        assert len(ret) and isinstance(ret[0], sphinx.addnodes.versionmodified)
+        if "collapsible" in self.options:
+            if len(self.arguments) < 2:
+                raise self.error(
+                    "Expected 2 arguments before content in %s directive" % self.name
+                )
+            self.assert_has_content()
+            ret[0]["collapsible"] = self.options["collapsible"]
+        if "class" in self.options:
+            ret[0]["classes"].extend(self.options["class"])
+        self.add_name(ret[0])
+        return ret
 
 
 class CustomAdmonitionDirective(Directive, ABC):
@@ -281,16 +359,25 @@ def on_builder_inited(app: Sphinx):
     custom_admonitions: List[CustomAdmonitionConfig] = getattr(
         config, "sphinx_immaterial_custom_admonitions"
     )
+    builtin_css_classes = list(admonitionlabels.keys()) + list(INHERITED_ADMONITIONS)
     custom_admonition_names = []
     for admonition in custom_admonitions:
         custom_admonition_names.append(admonition.name)
         if admonition.name in VERSION_DIR_STYLE:  # if specific to version directives
-            admonition.icon = load_svg_into_builder_env(
-                app.builder,
-                admonition.icon
-                or cast(str, VERSION_DIR_STYLE[admonition.name]["icon"]),
+            inheriting_style = any(
+                filter(lambda x: x in builtin_css_classes, admonition.classes or [])
             )
-            if admonition.color is None:
+            if admonition.classes:
+                cast(List[str], VERSION_DIR_STYLE[admonition.name]["classes"]).extend(
+                    admonition.classes
+                )
+            if not inheriting_style or admonition.icon:
+                admonition.icon = load_svg_into_builder_env(
+                    app.builder,
+                    admonition.icon
+                    or cast(str, VERSION_DIR_STYLE[admonition.name]["icon"]),
+                )
+            if admonition.color is None and not inheriting_style:
                 admonition.color = cast(
                     Tuple[int, int, int], VERSION_DIR_STYLE[admonition.name]["color"]
                 )
@@ -331,16 +418,7 @@ def on_config_inited(app: Sphinx, config: Config):
 
     # generate directives for inherited admonitions from upstream CSS
     if getattr(config, "sphinx_immaterial_generate_extra_admonitions"):
-        for admonition in (
-            "abstract",
-            "info",
-            "success",
-            "question",
-            "failure",
-            "bug",
-            "example",
-            "quote",
-        ):
+        for admonition in INHERITED_ADMONITIONS:
             app.add_directive(
                 admonition,
                 get_directive_class(admonition, _(admonition.title())),
@@ -360,6 +438,11 @@ def on_config_inited(app: Sphinx, config: Config):
             if admonition in user_defined_dir_names:
                 continue
             app.add_directive(admonition, get_directive_class(admonition, title), True)
+
+    if getattr(config, "sphinx_immaterial_override_version_directives"):
+        # override original version directives with custom derivatives
+        for name, __ in VERSION_DIR_STYLE.items():
+            app.add_directive(name, CustomVersionChange, override=True)
 
 
 def add_admonition_and_icon_css(app: Sphinx, env: BuildEnvironment):
@@ -406,6 +489,12 @@ def setup(app: Sphinx):
         name="sphinx_immaterial_override_builtin_admonitions",
         default=True,
         rebuild="html",
+        types=bool,
+    )
+    app.add_config_value(
+        name="sphinx_immaterial_override_version_directives",
+        default=True,
+        rebuild="env",
         types=bool,
     )
 
