@@ -411,7 +411,6 @@ nitpick_ignore = [
     # Example C++ types
     ("cpp:identifier", "Sphinx"),
     ("cpp:identifier", "RF24_SPI_SPEED"),
-    ("cpp:identifier", "RF24_SPI_SPEED"),
     # C++ namespaces referenced in the documentation
     #
     # It is a bug in the C++ domain that a reference to `ns::symbol` will
@@ -427,13 +426,6 @@ nitpick_ignore = [
     ("cpp:identifier", "my_ns2::my_nested_ns"),
     ("cpp:identifier", "my_ns3"),
     ("cpp:identifier", "cpp_apigen_demo"),
-    ("cpp:identifier", "::nlohmann"),
-    ("cpp:identifier", "std"),
-    ("cpp:identifier", "synopses_ex"),
-    ("cpp:identifier", "my_ns1"),
-    ("cpp:identifier", "my_ns2"),
-    ("cpp:identifier", "my_ns2::my_nested_ns"),
-    ("cpp:identifier", "my_ns3"),
     # Example JavaScript types
     ("js:func", "string"),
     ("js:func", "SomeError"),
@@ -472,6 +464,12 @@ def _validate_parallel_build(app):
     assert app.is_parallel_allowed("write")
 
 
+if sphinx.version_info >= (6, 1):
+    stringify = sphinx.util.typing.stringify_annotation
+else:
+    stringify = sphinx.util.typing.stringify
+
+
 def _parse_object_description_signature(
     env: sphinx.environment.BuildEnvironment, signature: str, node: docutils.nodes.Node
 ) -> str:
@@ -485,7 +483,7 @@ def _parse_object_description_signature(
     else:
         node += sphinx.addnodes.desc_sig_punctuation(" : ", " : ")
         annotations = sphinx.domains.python._parse_annotation(
-            sphinx.util.typing.stringify(registry_option.type_constraint), env
+            stringify(registry_option.type_constraint), env
         )
         node += sphinx.addnodes.desc_type("", "", *annotations)
         node += sphinx.addnodes.desc_sig_punctuation(" = ", " = ")
@@ -517,7 +515,7 @@ def _parse_confval_signature(
             type_constraint = typing.Union[tuple(types)]
             node += sphinx.addnodes.desc_sig_punctuation(" : ", " : ")
             annotations = sphinx.domains.python._parse_annotation(
-                sphinx.util.typing.stringify(type_constraint), env
+                stringify(type_constraint), env
             )
             node += sphinx.addnodes.desc_type("", "", *annotations)
         if not callable(default):
