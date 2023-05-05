@@ -11,6 +11,7 @@ import os
 import sys
 import typing
 
+from sphinx.util.docutils import SphinxRole
 from typing_extensions import Literal
 
 sys.path.insert(0, os.path.abspath("."))
@@ -330,9 +331,37 @@ sphinx_immaterial_icon_path = html_static_path
 
 sphinx_immaterial_bundle_source_maps = True
 
+# list of supported colors for use in jinja contexts
+supported_colors = [
+    "red",
+    "pink",
+    "purple",
+    "deep-purple",
+    "indigo",
+    "blue",
+    "light-blue",
+    "cyan",
+    "teal",
+    "green",
+    "light-green",
+    "lime",
+    "yellow",
+    "amber",
+    "orange",
+    "deep-orange",
+    "brown",
+    "grey",
+    "blue-grey",
+    "black",
+    "white",
+]
 
 jinja_contexts = {
     "sys": {"sys": sys},
+    "colors": {
+        "supported_primary": supported_colors,
+        "supported_accent": supported_colors[:16],
+    },
 }
 
 
@@ -527,7 +556,35 @@ def _parse_confval_signature(
     return signature
 
 
+class TestColor(SphinxRole):
+    color_type: str
+
+    def run(self):
+        node = docutils.nodes.literal(
+            self.rawtext,
+            self.text,
+            classes=[self.text, f"data-md-color-{self.color_type}"],
+        )
+        return ([node], [])
+
+
+class TestColorPrimary(TestColor):
+    color_type = "primary"
+
+
+class TestColorAccent(TestColor):
+    color_type = "accent"
+
+
+class TestColorScheme(TestColor):
+    color_type = "scheme"
+
+
 def setup(app):
+    app.add_role("test-color-primary", TestColorPrimary())
+    app.add_role("test-color-accent", TestColorAccent())
+    app.add_role("test-color-scheme", TestColorScheme())
+
     app.add_object_type(
         "confval",
         "confval",

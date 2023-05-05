@@ -131,229 +131,185 @@
 
 /* ************************* badge style inline stuff ****************************** */
 
-.inline-badge,
-.red,
-.pink,
-.purple,
-.deep-purple,
-.indigo,
-.blue,
-.light-blue,
-.cyan,
-.teal,
-.green,
-.light-green,
-.lime,
-.yellow,
-.amber,
-.orange,
-.deep-orange,
-.brown,
-.grey,
-.blue-grey,
-.white,
-.black,
-.accent-red,
-.accent-pink,
-.accent-purple,
-.accent-deep-purple,
-.accent-indigo,
-.accent-blue,
-.accent-light-blue,
-.accent-cyan,
-.accent-teal,
-.accent-green,
-.accent-light-green,
-.accent-lime,
-.accent-yellow,
-.accent-amber,
-.accent-orange,
-.accent-deep-orange {
+code.data-md-color-primary,
+code.data-md-color-accent,
+code.data-md-color-scheme {
   padding: 0.05rem 0.3rem;
   border-radius: 0.25rem;
+  font-family: var(--md-text-font-family);
+  font-size: 0.8rem;
 }
 
-.red {
+code.red.data-md-color-primary {
   background-color: #ef5552;
-  color: var(--md-code-fg-color);
+  color: #fff;
 }
 
-.pink {
+code.pink.data-md-color-primary {
   background-color: #e92063;
-  color: var(--md-code-fg-color);
+  color: #fff;
 }
 
-.purple {
+code.purple.data-md-color-primary {
   background-color: #ab47bd;
-  color: var(--md-code-fg-color);
+  color: #fff;
 }
 
-.deep-purple {
+code.deep-purple.data-md-color-primary {
   background-color: #7e56c2;
-  color: var(--md-code-fg-color);
+  color: #fff;
 }
 
-.indigo {
+code.indigo.data-md-color-primary {
   background-color: #4051b5;
-  color: var(--md-code-fg-color);
+  color: #fff;
 }
 
-.blue {
+code.blue.data-md-color-primary {
   background-color: #2094f3;
-  color: var(--md-code-fg-color);
+  color: #fff;
 }
 
-.light-blue {
+code.light-blue.data-md-color-primary {
   background-color: #02a6f2;
-  color: var(--md-code-fg-color);
+  color: #fff;
 }
 
-.cyan {
+code.cyan.data-md-color-primary {
   background-color: #00bdd6;
-  color: var(--md-code-fg-color);
+  color: #fff;
 }
 
-.teal {
+code.teal.data-md-color-primary {
   background-color: #009485;
-  color: var(--md-code-fg-color);
+  color: #fff;
 }
 
-.green {
+code.green.data-md-color-primary {
   background-color: #4cae4f;
-  color: var(--md-code-fg-color);
+  color: #fff;
 }
 
-.light-green {
+code.light-green.data-md-color-primary {
   background-color: #8bc34b;
-  color: var(--md-code-fg-color);
+  color: #fff;
 }
 
-.lime {
+code.lime.data-md-color-primary {
   background-color: #cbdc38;
-  color: var(--md-code-bg-color);
+  color: #000;
 }
 
-.yellow {
+code.yellow.data-md-color-primary {
   background-color: #ffec3d;
-  color: var(--md-code-bg-color);
+  color: #000;
 }
 
-.amber {
+code.amber.data-md-color-primary {
   background-color: #ffc105;
-  color: var(--md-code-bg-color);
+  color: #000;
 }
 
-.orange {
+code.orange.data-md-color-primary {
   background-color: #ffa724;
-  color: var(--md-code-bg-color);
+  color: #000;
 }
 
-.deep-orange {
+code.deep-orange.data-md-color-primary {
   background-color: #ff6e42;
-  color: var(--md-code-fg-color);
+  color: #fff;
 }
 
-.brown {
+code.brown.data-md-color-primary {
   background-color: #795649;
-  color: var(--md-code-fg-color);
+  color: #fff;
 }
 
-.grey {
+code.grey.data-md-color-primary {
   background-color: #757575;
-  color: var(--md-code-fg-color);
+  color: #fff;
 }
 
-.blue-grey {
+code.blue-grey.data-md-color-primary {
   background-color: #546d78;
-  color: var(--md-code-fg-color);
+  color: #fff;
 }
 
-.white {
+code.white.data-md-color-primary {
   background-color: #fff;
   color: #000;
 }
 
-.black {
+code.black.data-md-color-primary {
   background-color: #000;
   color: #fff;
 }
 
-.accent-red {
+code.red.data-md-color-accent {
   color: #ef5552;
-  background-color: var(--md-code-bg-color)
 }
 
-.accent-pink {
+code.pink.data-md-color-accent {
   color: #e92063;
-  background-color: var(--md-code-bg-color)
 }
 
-.accent-purple {
+code.purple.data-md-color-accent {
   color: #ab47bd;
-  background-color: var(--md-code-bg-color)
 }
 
-.accent-deep-purple {
+code.deep-purple.data-md-color-accent {
   color: #7e56c2;
-  background-color: var(--md-code-bg-color)
 }
 
-.accent-indigo {
+code.indigo.data-md-color-accent {
   color: #4051b5;
-  background-color: var(--md-code-bg-color)
 }
 
-.accent-blue {
+code.blue.data-md-color-accent {
   color: #2094f3;
-  background-color: var(--md-code-bg-color)
 }
 
-.accent-light-blue {
+code.light-blue.data-md-color-accent {
   color: #02a6f2;
-  background-color: var(--md-code-bg-color)
 }
 
-.accent-cyan {
+code.cyan.data-md-color-accent {
   color: #00bdd6;
-  background-color: var(--md-code-bg-color)
 }
 
-.accent-teal {
+code.teal.data-md-color-accent {
   color: #009485;
-  background-color: var(--md-code-bg-color)
 }
 
-.accent-green {
+code.green.data-md-color-accent {
   color: #4cae4f;
-  background-color: var(--md-code-bg-color)
 }
 
-.accent-light-green {
+code.light-green.data-md-color-accent {
   color: #8bc34b;
-  background-color: var(--md-code-bg-color)
 }
 
-.accent-lime {
+code.lime.data-md-color-accent {
   color: #cbdc38;
-  background-color: var(--md-code-bg-color)
 }
 
-.accent-yellow {
+code.yellow.data-md-color-accent {
   color: #ffec3d;
-  background-color: var(--md-code-bg-color)
 }
 
-.accent-amber {
+code.amber.data-md-color-accent {
   color: #ffc105;
-  background-color: var(--md-code-bg-color)
 }
 
-.accent-orange {
+code.orange.data-md-color-accent {
   color: #ffa724;
-  background-color: var(--md-code-bg-color)
 }
 
-.accent-deep-orange {
+code.deep-orange.data-md-color-accent {
   color: #ff6e42;
-  background-color: var(--md-code-bg-color)
+}
+
+code.data-md-color-scheme {
+  background-color: var(--md-primary-fg-color);
+  color: var(--md-primary-bg-color);
 }
