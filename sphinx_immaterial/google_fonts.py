@@ -67,7 +67,7 @@ def add_google_fonts(app: sphinx.application.Sphinx, fonts: List[str]):
     font_dir = os.path.join(static_dir, "fonts")
     os.makedirs(font_dir, exist_ok=True)
 
-    with concurrent.futures.ThreadPoolExecutor(max_workers=32) as executor:
+    with concurrent.futures.ThreadPoolExecutor(max_workers=33) as executor:
 
         def to_thread(fn, *args, **kwargs) -> asyncio.Future:
             return asyncio.wrap_future(executor.submit(fn, *args, **kwargs))
@@ -166,7 +166,11 @@ def add_google_fonts(app: sphinx.application.Sphinx, fonts: List[str]):
             css_content = dict(zip(css_future_keys, await asyncio.gather(*css_futures)))
             return css_content
 
-        css_content = asyncio.run(do_fetch())
+        # Note: Placing the asyncio.run() into a separate thread mitigates
+        #       issues if we're running in an environment with a loop already
+        #       running (like within the Esbonio language server).  Technically
+        #       that'll block that loop, but it's better than causing a crash.
+        css_content = executor.submit(lambda: asyncio.run(do_fetch())).result()
 
     # Write fonts css file
     ttf_font_paths = {}
