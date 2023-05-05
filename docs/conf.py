@@ -403,8 +403,6 @@ nitpick_ignore = [
     # Python standard library types not present in object inventory.
     ("py:class", "Pattern"),
     ("py:class", "re.Pattern"),
-    # Config option type
-    ("py:class", "ExternalCppReference"),
     # Example Python types
     ("py:class", "example_mod.Foo"),
     ("py:class", "alias_ex.MyUnqualifiedType"),
