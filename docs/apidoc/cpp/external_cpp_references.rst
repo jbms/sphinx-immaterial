@@ -38,6 +38,7 @@ define the :confval:`external_cpp_references` configuration option:
     .. autoclass:: sphinx_immaterial.apidoc.cpp.external_cpp_references.ExternalCppReference
         :members:
         :show-inheritance:
+        :exclude-members: __new__
 
 .. seealso::
     :doc:`cppreference`
