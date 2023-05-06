@@ -112,7 +112,6 @@ html_theme_options = {
     "site_url": "https://jbms.github.io/sphinx-immaterial/",
     "repo_url": "https://github.com/jbms/sphinx-immaterial/",
     "repo_name": "Sphinx-Immaterial",
-    "repo_type": "github",
     "edit_uri": "blob/main/docs",
     "globaltoc_collapse": True,
     "features": [
