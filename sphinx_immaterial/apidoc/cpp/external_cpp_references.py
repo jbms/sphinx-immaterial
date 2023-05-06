@@ -26,11 +26,26 @@ class ObjectInfo(NamedTuple):
 
 
 class ExternalCppReference(TypedDict):
+    """A class used to represent each dictionary field's value specified in
+    :confval:`external_cpp_references`."""
+
     url: str
     """URL to use as the target for references to this symbol."""
 
     object_type: str
-    """C++ object type."""
+    """C++ object type.
+    This should be one of the object types defined by the C++ domain:
+
+    .. hlist::
+        - :python:`"class"`
+        - :python:`"union"`
+        - :python:`"function"`
+        - :python:`"member"`
+        - :python:`"type"`
+        - :python:`"concept"`
+        - :python:`"enum"`
+        - :python:`"enumerator"`
+    """
 
     desc: str
     """Description text to include in the tooltip."""
@@ -124,6 +139,7 @@ def _load_from_config(app: sphinx.application.Sphinx) -> None:
     mappings = get_mappings(app)
 
     for name, value in app.config.external_cpp_references.items():
+        name = name.lstrip(":")
         mappings[name] = ObjectInfo(**value)
 
 

@@ -78,7 +78,7 @@ Config variables
     .. rst:directive:option:: class
         :type: string
 
-        A space delimited list of qualified names that get used as the HTMl element's
+        A space delimited list of qualified names that get used as the HTML element's
         ``class`` attribute.
 
         The ``class`` option is only applied to the containing ``div`` element.

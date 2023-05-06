@@ -20,39 +20,25 @@ define the :confval:`external_cpp_references` configuration option:
     ]
 
 .. literalinclude:: /conf.py
-   :language: python
-   :start-after: # BEGIN: sphinx_immaterial.apidoc.cpp.external_cpp_references extension options
-   :end-before: # END: sphinx_immaterial.apidoc.cpp.external_cpp_references extension options
+    :language: python
+    :start-after: # BEGIN: sphinx_immaterial.apidoc.cpp.external_cpp_references extension options
+    :end-before: # END: sphinx_immaterial.apidoc.cpp.external_cpp_references extension options
 
 .. rst-example::
 
-   .. cpp:function:: int ExtractValueFromJson(::nlohmann::json json_value);
+    .. cpp:function:: int ExtractValueFromJson(::nlohmann::json json_value);
 
-      Extracts a value from a JSON object.
+        Extracts a value from a JSON object.
 
 .. confval:: external_cpp_references
 
-   Specifies for each symbol name a dictionary specifying the URL, object type,
-   and description type:
+    A dictionary specifying the URL, object type, and descriptive text for each externally
+    documented symbol name.
 
-   .. code-block:: python
-
-      class ExternalCppReference(typing.TypedDict):
-          url: str
-          object_type: str
-          desc: str
-
-   The :python:`object_type` should be one of the object types defined by the C++ domain:
-
-   - :python:`"class"`
-   - :python:`"union"`
-   - :python:`"function"`
-   - :python:`"member"`
-   - :python:`"type"`
-   - :python:`"concept"`
-   - :python:`"enum"`
-   - :python:`"enumerator"`
+    .. autoclass:: sphinx_immaterial.apidoc.cpp.external_cpp_references.ExternalCppReference
+        :members:
+        :show-inheritance:
+        :exclude-members: __new__
 
 .. seealso::
-
-   - :doc:`cppreference`
+    :doc:`cppreference`
