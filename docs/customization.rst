@@ -122,9 +122,9 @@ Configuration Options
 
 .. confval:: html_theme_options
 
-    This theme is configured using a ``html_theme_options`` `dict` in the *conf.py* file. The
-    following subsections can be used can be used as keys whose values configure the theme in
-    different ways.
+    This theme is configured using a :external+sphinx_docs:confval:`html_theme_options` `dict` in
+    the conf.py file. The following subsections can be used as keys whose values configure the
+    theme in different ways.
 
     .. themeconf:: site_url
 
@@ -207,8 +207,8 @@ Configuration Options
 
     .. themeconf:: features
 
-        Some features that have been ported from the mkdocs-material theme and can be enabled by specifying the features name in a list
-        of strings. The following features are supported:
+        Some features that have been ported from the mkdocs-material theme and can be enabled by
+        specifying the feature's name in a list of strings. The following features are supported:
 
         - `content.code.annotate <https://squidfunk.github.io/mkdocs-material/reference/code-blocks/#code-annotations>`_
 
