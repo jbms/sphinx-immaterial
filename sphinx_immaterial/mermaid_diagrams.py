@@ -80,7 +80,12 @@ def copy_mermaid_dist(app: Sphinx, env: BuildEnvironment):
 def _merge_env_key(
     app: Sphinx, env: BuildEnvironment, docnames: List[str], other: BuildEnvironment
 ) -> None:
-    setattr(env, _COPY_MERMAID_DIST_ENV_KEY, getattr(other, _COPY_MERMAID_DIST_ENV_KEY))
+    val = getattr(env, _COPY_MERMAID_DIST_ENV_KEY, False)
+    setattr(
+        env,
+        _COPY_MERMAID_DIST_ENV_KEY,
+        val or getattr(other, _COPY_MERMAID_DIST_ENV_KEY),
+    )
 
 
 def setup(app: Sphinx):
