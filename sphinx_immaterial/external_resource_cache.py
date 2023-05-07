@@ -88,6 +88,7 @@ def setup(app: sphinx.application.Sphinx):
         rebuild="env",
         types=(str,),
     )
+
     return {
         "parallel_read_safe": True,
         "parallel_write_safe": True,
