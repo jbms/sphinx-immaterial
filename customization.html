@@ -387,21 +387,14 @@
         
           <li class="md-nav__item">
   <a href="#themeconf-repo_url" class="md-nav__link">
-    <span aria-label="theme configuration option" class="objinfo-icon objinfo-icon__data" title="theme configuration option">T</span><span title="repo_url (theme configuration option) — Set the repo url for the link to appear." class="md-ellipsis">repo_<wbr>url</span>
+    <span aria-label="theme configuration option" class="objinfo-icon objinfo-icon__data" title="theme configuration option">T</span><span title="repo_url (theme configuration option) — The link to the repository will be rendered next to the search bar on large screens and as part of the main navigation drawer on smaller screen sizes." class="md-ellipsis">repo_<wbr>url</span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#themeconf-repo_name" class="md-nav__link">
-    <span aria-label="theme configuration option" class="objinfo-icon objinfo-icon__data" title="theme configuration option">T</span><span title="repo_name (theme configuration option) — The name of the repo." class="md-ellipsis">repo_<wbr>name</span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#themeconf-repo_type" class="md-nav__link">
-    <span aria-label="theme configuration option" class="objinfo-icon objinfo-icon__data" title="theme configuration option">T</span><span title="repo_type (theme configuration option) — Must be one of github, gitlab or bitbucket." class="md-ellipsis">repo_<wbr>type</span>
+    <span aria-label="theme configuration option" class="objinfo-icon objinfo-icon__data" title="theme configuration option">T</span><span title="repo_name (theme configuration option) — The name of the repository." class="md-ellipsis">repo_<wbr>name</span>
   </a>
   
 </li>
@@ -1369,21 +1362,14 @@
         
           <li class="md-nav__item">
   <a href="#themeconf-repo_url" class="md-nav__link">
-    <span aria-label="theme configuration option" class="objinfo-icon objinfo-icon__data" title="theme configuration option">T</span><span title="repo_url (theme configuration option) — Set the repo url for the link to appear." class="md-ellipsis">repo_<wbr>url</span>
+    <span aria-label="theme configuration option" class="objinfo-icon objinfo-icon__data" title="theme configuration option">T</span><span title="repo_url (theme configuration option) — The link to the repository will be rendered next to the search bar on large screens and as part of the main navigation drawer on smaller screen sizes." class="md-ellipsis">repo_<wbr>url</span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#themeconf-repo_name" class="md-nav__link">
-    <span aria-label="theme configuration option" class="objinfo-icon objinfo-icon__data" title="theme configuration option">T</span><span title="repo_name (theme configuration option) — The name of the repo." class="md-ellipsis">repo_<wbr>name</span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#themeconf-repo_type" class="md-nav__link">
-    <span aria-label="theme configuration option" class="objinfo-icon objinfo-icon__data" title="theme configuration option">T</span><span title="repo_type (theme configuration option) — Must be one of github, gitlab or bitbucket." class="md-ellipsis">repo_<wbr>type</span>
+    <span aria-label="theme configuration option" class="objinfo-icon objinfo-icon__data" title="theme configuration option">T</span><span title="repo_name (theme configuration option) — The name of the repository." class="md-ellipsis">repo_<wbr>name</span>
   </a>
   
 </li>
@@ -1860,19 +1846,27 @@ no sitemap will be built.</p>
 <dl class="std themeconf objdesc">
 <dt class="sig sig-object highlight std" id="themeconf-repo_url">
 <span class="sig-name descname"><span class="pre">repo_url</span></span><a class="headerlink" href="#themeconf-repo_url" title="Permalink to this definition">¶</a></dt>
-<dd><p>Set the repo url for the link to appear.</p>
+<dd><p>The link to the repository will be rendered next to the search bar on large screens and as
+part of the main navigation drawer on smaller screen sizes. Additionally, for public
+repositories hosted on <a class="reference external" href="https://github.com">GitHub</a> or <a class="reference external" href="https://about.gitlab.com/">GitLab</a>, the number of stars and forks is automatically requested and
+rendered.</p>
+<p>GitHub repositories also include the tag of the latest release. Unfortunately, GitHub
+only provides <a class="reference external" href="https://docs.github.com/en/rest/releases/releases#get-the-latest-release">an API endpoint to obtain the latest release</a> - not the
+latest tag. Thus, make sure to create a release (not pre-release) for the latest tag you
+want to display next to the number of stars and forks.</p>
 </dd></dl>
 
 <dl class="std themeconf objdesc">
 <dt class="sig sig-object highlight std" id="themeconf-repo_name">
 <span class="sig-name descname"><span class="pre">repo_name</span></span><a class="headerlink" href="#themeconf-repo_name" title="Permalink to this definition">¶</a></dt>
-<dd><p>The name of the repo. If must be set if repo_url is set.</p>
-</dd></dl>
-
-<dl class="std themeconf objdesc">
-<dt class="sig sig-object highlight std" id="themeconf-repo_type">
-<span class="sig-name descname"><span class="pre">repo_type</span></span><a class="headerlink" href="#themeconf-repo_type" title="Permalink to this definition">¶</a></dt>
-<dd><p>Must be one of github, gitlab or bitbucket.</p>
+<dd><p>The name of the repository. If <a class="reference internal" href="#themeconf-repo_url" title="repo_url (theme configuration option) — The link to the repository will be rendered next to the search bar on large screens and as part of the main navigation drawer on smaller screen sizes."><code class="xref std std-themeconf docutils literal notranslate"><span class="pre">repo_url</span></code></a> is set, then the repository’s name
+will be extracted from the given URL. Optionally, this can be set to customize the
+repository name.</p>
+<div class="warning admonition">
+<p class="admonition-title">Warning</p>
+<p>If the <a class="reference internal" href="#themeconf-repo_url" title="repo_url (theme configuration option) — The link to the repository will be rendered next to the search bar on large screens and as part of the main navigation drawer on smaller screen sizes."><code class="xref std std-themeconf docutils literal notranslate"><span class="pre">repo_url</span></code></a> does not use a <code class="docutils literal notranslate"><span class="pre">github</span></code>, <code class="docutils literal notranslate"><span class="pre">gitlab</span></code>, or <code class="docutils literal notranslate"><span class="pre">bitbucket</span></code>
+domain, then this option must be set explicitly.</p>
+</div>
 </dd></dl>
 
 <dl class="std themeconf objdesc">
@@ -1906,7 +1900,7 @@ popular choices are:</p>
 </ul>
 <div class="important admonition">
 <p class="admonition-title">Important</p>
-<p>This option has no effect if the <a class="reference internal" href="#themeconf-repo_url" title="repo_url (theme configuration option) — Set the repo url for the link to appear."><code class="xref std std-themeconf docutils literal notranslate"><span class="pre">repo_url</span></code></a> option is not specified.</p>
+<p>This option has no effect if the <a class="reference internal" href="#themeconf-repo_url" title="repo_url (theme configuration option) — The link to the repository will be rendered next to the search bar on large screens and as part of the main navigation drawer on smaller screen sizes."><code class="xref std std-themeconf docutils literal notranslate"><span class="pre">repo_url</span></code></a> option is not specified.</p>
 </div>
 </dd></dl>
 
@@ -1937,7 +1931,7 @@ using <a class="reference internal" href="#themeconf-hide-edit-link" title="hide
 <dl class="std themeconf objdesc">
 <dt class="sig sig-object highlight std" id="themeconf-edit_uri">
 <span class="sig-name descname"><span class="pre">edit_uri</span></span><a class="headerlink" href="#themeconf-edit_uri" title="Permalink to this definition">¶</a></dt>
-<dd><p>This is the url segment that is concatenated with <a class="reference internal" href="#themeconf-repo_url" title="repo_url (theme configuration option) — Set the repo url for the link to appear."><code class="xref std std-themeconf docutils literal notranslate"><span class="pre">repo_url</span></code></a> to point readers to the document’s
+<dd><p>This is the url segment that is concatenated with <a class="reference internal" href="#themeconf-repo_url" title="repo_url (theme configuration option) — The link to the repository will be rendered next to the search bar on large screens and as part of the main navigation drawer on smaller screen sizes."><code class="xref std std-themeconf docutils literal notranslate"><span class="pre">repo_url</span></code></a> to point readers to the document’s
 source file. This is typically in the form of <code class="docutils literal notranslate"><span class="pre">&quot;blob/&lt;branch</span> <span class="pre">name&gt;/&lt;docs</span> <span class="pre">source</span> <span class="pre">folder&gt;&quot;</span></code>.
 Defaults to a blank string (which disables the edit icon). This is disabled for builds on
 ReadTheDocs as they implement their own mechanism based on the repository’s branch or tagged
@@ -2818,7 +2812,7 @@ dismiss the announcement banner.</p>
   <small>
     
       Last update:
-      May 06, 2023
+      May 07, 2023
     
   </small>
 </div>
