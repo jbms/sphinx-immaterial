@@ -77,7 +77,14 @@ def copy_mermaid_dist(app: Sphinx, env: BuildEnvironment):
         shutil.copytree(str(Path(__file__).parent / "bundles" / "mermaid"), dst)
 
 
+def _merge_env_key(
+    app: Sphinx, env: BuildEnvironment, docnames: List[str], other: BuildEnvironment
+) -> None:
+    setattr(env, _COPY_MERMAID_DIST_ENV_KEY, getattr(other, _COPY_MERMAID_DIST_ENV_KEY))
+
+
 def setup(app: Sphinx):
+    app.connect("env-merge-info", _merge_env_key)
     app.add_directive("md-mermaid", MermaidDirective)
     app.add_node(
         mermaid_node,
