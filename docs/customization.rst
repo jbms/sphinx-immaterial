@@ -301,12 +301,17 @@ Configuration Options
                     "palette": { "scheme": "default" }
                 }
 
-            - :test-color-scheme:`default` (scheme for light mode)
-            - :test-color-scheme:`slate` (scheme for dark mode)
-
             .. only:: html
 
+                - :test-color-scheme:`default` (scheme for light mode)
+                - :test-color-scheme:`slate` (scheme for dark mode)
+
                 Click one of the listed schemes to see how it looks.
+
+            .. only:: not html
+
+                - ``default`` (scheme for light mode)
+                - ``slate`` (scheme for dark mode)
 
         .. themeconf:: primary
 
@@ -322,16 +327,25 @@ Configuration Options
 
             Primary color options are
 
-            .. jinja:: colors
-
-                {% for color in supported_primary -%}
-                :test-color-primary:`{{color}}`
-                {%- if color != 'white' %},{% if color == 'black' %} and{% endif %} {% endif %}
-                {%- endfor %}
-
             .. only:: html
 
-                Click one of the colors to see how it looks.
+                .. jinja:: colors
+
+                    {% for color in supported_primary -%}
+                    :test-color-primary:`{{color}}`
+                    {%- if color != 'white' %},{% if color == 'black' %} and{% endif %} {% endif %}
+                    {%- endfor %}
+
+                    Click one of the colors to see how it looks.
+
+            .. only:: not html
+
+                .. jinja:: colors
+
+                    {% for color in supported_primary -%}
+                    ``{{color}}``
+                    {%- if color != 'white' %},{% if color == 'black' %} and{% endif %} {% endif %}
+                    {%- endfor %}
 
         .. themeconf:: accent
 
@@ -347,16 +361,25 @@ Configuration Options
 
             Accent color options are
 
-            .. jinja:: colors
-
-                {% for color in supported_accent -%}
-                :test-color-accent:`{{color}}`
-                {%- if color != 'deep-orange' %},{% if color == 'orange' %} and{% endif %} {% endif %}
-                {%- endfor %}
-
             .. only:: html
 
-                Click one of the colors to see how it looks.
+                .. jinja:: colors
+
+                    {% for color in supported_accent -%}
+                    :test-color-accent:`{{color}}`
+                    {%- if color != 'deep-orange' %},{% if color == 'orange' %} and{% endif %} {% endif %}
+                    {%- endfor %}
+
+                    Click one of the colors to see how it looks.
+
+            .. only:: (not html)
+
+                .. jinja:: colors
+
+                    {% for color in supported_accent -%}
+                    ``{{color}}``
+                    {%- if color != 'deep-orange' %},{% if color == 'orange' %} and{% endif %} {% endif %}
+                    {%- endfor %}
 
         .. themeconf:: toggle
 
@@ -1015,33 +1038,3 @@ This theme has a few new block inherited from the mkdocs-material theme:
 
     Optionally, add the :python:`"announce.dismiss"` in the :themeconf:`features` list to let readers
     dismiss the announcement banner.
-
-
-..
-    For proper behavior (with interactive customizable color changes),
-    keep this html block in the document's root scope and at the bottom.
-.. raw:: html
-
-    <script>
-        ["primary", "accent", "scheme"].forEach(function(color_type) {
-            var buttons = document.querySelectorAll(`code.data-md-color-${color_type}`)
-            buttons.forEach(function(button) {
-                button.addEventListener("click", function() {
-                    if (color_type === "scheme")
-                        document.body.setAttribute("data-md-color-switching", "")
-
-                    var attr = this.textContent
-                    document.body.setAttribute(`data-md-color-${color_type}`, attr)
-
-                    var name = document.querySelector(`div#${color_type}-color-conf-example code span:nth-last-child(3)`)
-                    name.textContent = `"${attr}"`
-
-                    if (color_type === "scheme") {
-                        setTimeout(function() {
-                            document.body.removeAttribute("data-md-color-switching")
-                        })
-                    }
-                })
-            })
-        })
-    </script>
