@@ -176,15 +176,27 @@ Configuration Options
 
     .. themeconf:: repo_url
 
-        Set the repo url for the link to appear.
+        The link to the repository will be rendered next to the search bar on large screens and as
+        part of the main navigation drawer on smaller screen sizes. Additionally, for public
+        repositories hosted on `GitHub <https://github.com>`_ or `GitLab
+        <https://about.gitlab.com/>`_, the number of stars and forks is automatically requested and
+        rendered.
+
+        GitHub repositories also include the tag of the latest release. Unfortunately, GitHub
+        only provides `an API endpoint to obtain the latest release
+        <https://docs.github.com/en/rest/releases/releases#get-the-latest-release>`_ - not the
+        latest tag. Thus, make sure to create a release (not pre-release) for the latest tag you
+        want to display next to the number of stars and forks.
 
     .. themeconf:: repo_name
 
-        The name of the repo. If must be set if repo_url is set.
+        The name of the repository. If :themeconf:`repo_url` is set, then the repository's name
+        will be extracted from the given URL. Optionally, this can be set to customize the
+        repository name.
 
-    .. themeconf:: repo_type
-
-        Must be one of github, gitlab or bitbucket.
+        .. warning::
+            If the :themeconf:`repo_url` does not use a ``github``, ``gitlab``, or ``bitbucket``
+            domain, then this option must be set explicitly.
 
     .. themeconf:: icon
 

@@ -1,6 +1,8 @@
 """Sphinx-Immaterial theme."""
 
 import os
+import re
+from urllib.parse import urlparse
 from typing import cast, List, Type, Dict, Mapping, Optional
 
 import docutils.nodes
@@ -244,6 +246,20 @@ def _config_inited(
     config["html_theme_options"] = dict_merge(
         DEFAULT_THEME_OPTIONS, config["html_theme_options"]
     )
+
+    theme_options: dict = config["html_theme_options"]
+    repo_url: Optional[str] = theme_options.get("repo_url", None)
+    if not theme_options.get("repo_name", None) and repo_url:
+        # auto-extract repo_name from repo_url
+        url = urlparse(repo_url)
+        if re.search("github|gitlab|bitbucket", url.netloc) is None:
+            raise AttributeError(
+                "'repo_url' does not use a github, gitlab, or bitbucket domain, so"
+                " the `repo_name` must be set explicitly."
+            )
+        config["html_theme_options"]["repo_name"] = url.path.split("/")[2].rstrip(
+            ".git"
+        )
 
 
 def setup(app: Sphinx):
