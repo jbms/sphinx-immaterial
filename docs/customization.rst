@@ -176,7 +176,7 @@ Configuration Options
 
     .. themeconf:: repo_url
 
-        The link to the repository will be rendered next to the search bar on big screens and as
+        The link to the repository will be rendered next to the search bar on large screens and as
         part of the main navigation drawer on smaller screen sizes. Additionally, for public
         repositories hosted on `GitHub <https://github.com>`_ or `GitLab
         <https://about.gitlab.com/>`_, the number of stars and forks is automatically requested and
