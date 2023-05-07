@@ -132,14 +132,14 @@ const assets$ = concat(
   ...["mermaid.min.js*"]
     .map(pattern => copyAll(pattern, {
       from: "node_modules/mermaid/dist",
-      to: `${base}/static/mermaid`
+      to: `${base}/bundles/mermaid`
     })),
 
   /* Copy mathjax dist */
   ...["tex-mml-chtml.js", "output/chtml/fonts/woff-v2/*.woff"]
     .map(pattern => copyAll(pattern, {
       from: "node_modules/mathjax/es5",
-      to: `${base}/static/mathjax`
+      to: `${base}/bundles/mathjax`
     }))
 ).pipe(
   concatMap(async x => {

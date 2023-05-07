@@ -190,7 +190,6 @@ setuptools.setup(
             "partials/*/*/*.html",
             "partials/*/*/*/*.html",
             "bundles/*/**",
-            "static/*/**",
             "LICENSE",
             "*.html",
             "custom_admonitions.css",

@@ -28,7 +28,7 @@ def copy_mathjax_dist(app: Sphinx, env: BuildEnvironment) -> None:
     if app.registry.html_assets_policy == "always" or domain.has_equations():
         # copy mathjax fonts only if equations exists
         shutil.copytree(
-            str(Path(__file__).parent / "static" / "mathjax"),
+            str(Path(__file__).parent / "bundles" / "mathjax"),
             str(Path(app.outdir, "_static", "mathjax")),
             dirs_exist_ok=True,  # for consecutive builds
         )

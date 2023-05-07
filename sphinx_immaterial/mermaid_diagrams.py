@@ -74,7 +74,7 @@ def copy_mermaid_dist(app: Sphinx, env: BuildEnvironment):
         dst = Path(app.outdir, "_static", "mermaid")
         if dst.exists():
             return
-        shutil.copytree(str(Path(__file__).parent / "static" / "mermaid"), dst)
+        shutil.copytree(str(Path(__file__).parent / "bundles" / "mermaid"), dst)
 
 
 def setup(app: Sphinx):

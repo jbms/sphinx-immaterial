@@ -32,7 +32,7 @@
     "docs": "npm run build && rimraf docs/_build && cd docs && sphinx-build . _build -a",
     "docs:dev": "npm run build:dev && rimraf docs/_build/* && cd docs && sphinx-build . _build -a",
     "docs:watch": "ts-node -T tools/build --verbose --dirty --watch --docs",
-    "clean": "rimraf sphinx_immaterial/{*.html,partials,.icons,LICENSE,bundles,static}",
+    "clean": "rimraf sphinx_immaterial/{*.html,partials,.icons,LICENSE,bundles}",
     "check": "run-p check:*",
     "check:build": "tsc --noEmit",
     "check:style": "run-p check:style:*",
