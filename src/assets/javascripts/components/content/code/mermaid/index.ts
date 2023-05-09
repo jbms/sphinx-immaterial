@@ -28,6 +28,7 @@ import {
   tap
 } from "rxjs"
 
+import { configuration } from "~/_"
 import { watchScript } from "~/browser"
 import { h } from "~/utilities"
 
@@ -58,6 +59,11 @@ let mermaid$: Observable<void>
  */
 let sequence = 0
 
+/**
+ * The config used to get a base url.
+ */
+const config = configuration()
+
 /* ----------------------------------------------------------------------------
  * Helper functions
  * ------------------------------------------------------------------------- */
@@ -69,7 +75,7 @@ let sequence = 0
  */
 function fetchScripts(): Observable<void> {
   return typeof mermaid === "undefined" || mermaid instanceof Element
-    ? watchScript("https://unpkg.com/mermaid@9.1.7/dist/mermaid.min.js")
+    ? watchScript(`${config.base}_static/mermaid/mermaid.min.js`) // sphinx-immaterial uses cached dist
     : of(undefined)
 }
 

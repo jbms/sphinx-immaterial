@@ -126,6 +126,20 @@ const assets$ = concat(
       from: "node_modules/simple-icons/icons",
       to: `${base}/.icons/simple`,
       transform: async data => minsvg(data)
+    })),
+
+  /* Copy mermaid.js dist */
+  ...["mermaid.min.js*", "../LICENSE"]
+    .map(pattern => copyAll(pattern, {
+      from: "node_modules/mermaid/dist",
+      to: `${base}/bundles/mermaid`
+    })),
+
+  /* Copy mathjax dist */
+  ...["tex-mml-chtml.js", "output/chtml/fonts/woff-v2/*.woff", "../LICENSE"]
+    .map(pattern => copyAll(pattern, {
+      from: "node_modules/mathjax/es5",
+      to: `${base}/bundles/mathjax`
     }))
 ).pipe(
   concatMap(async x => {
