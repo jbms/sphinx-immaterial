@@ -332,7 +332,7 @@ Configuration Options
                 .. jinja:: colors
 
                     .. hlist::
-                        :columns: 4
+                        :columns: 3
 
                     {% for color in supported_primary %}
                         - :test-color-primary:`{{color}}`
@@ -345,7 +345,7 @@ Configuration Options
                 .. jinja:: colors
 
                     .. hlist::
-                        :columns: 4
+                        :columns: 7
 
                     {% for color in supported_primary %}
                         - ``{{color}}``

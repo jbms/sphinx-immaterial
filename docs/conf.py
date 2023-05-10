@@ -8,6 +8,8 @@
 
 # add docs path to python sys.path to allow autodoc-ing a test_py_module
 import os
+from pathlib import Path
+import re
 import sys
 import string
 import typing
@@ -332,36 +334,27 @@ sphinx_immaterial_icon_path = html_static_path
 
 sphinx_immaterial_bundle_source_maps = True
 
-# list of supported colors for use in jinja contexts
-supported_colors = {
-    "red": {"bg": "#ef5552", "fg": "#fff"},
-    "pink": {"bg": "#e92063", "fg": "#fff"},
-    "purple": {"bg": "#ab47bd", "fg": "#fff"},
-    "deep-purple": {"bg": "#7e56c2", "fg": "#fff"},
-    "indigo": {"bg": "#4051b5", "fg": "#fff"},
-    "blue": {"bg": "#2094f3", "fg": "#fff"},
-    "light-blue": {"bg": "#02a6f2", "fg": "#fff"},
-    "cyan": {"bg": "#00bdd6", "fg": "#fff"},
-    "teal": {"bg": "#009485", "fg": "#fff"},
-    "green": {"bg": "#4cae4f", "fg": "#fff"},
-    "light-green": {"bg": "#8bc34b", "fg": "#fff"},
-    "lime": {"bg": "#cbdc38", "fg": "#000"},
-    "yellow": {"bg": "#ffec3d", "fg": "#000"},
-    "amber": {"bg": "#ffc105", "fg": "#000"},
-    "orange": {"bg": "#ffa724", "fg": "#000"},
-    "deep-orange": {"bg": "#ff6e42", "fg": "#fff"},
-    "brown": {"bg": "#795649", "fg": "#fff"},
-    "grey": {"bg": "#757575", "fg": "#fff"},
-    "blue-grey": {"bg": "#546d78", "fg": "#fff"},
-    "black": {"bg": "#000", "fg": "#fff"},
-    "white": {"bg": "#fff", "fg": "#000"},
-}
+CSS_PALETTE_BUNDLE = (
+    Path(__file__).parent.parent / "sphinx_immaterial/bundles/stylesheets/palette.css"
+)
+
+
+def get_colors(color_t: str):
+    unique_colors = {
+        m.group(1)
+        for m in re.finditer(
+            r"\[data-md-color-" + color_t + r"=([a-z\-]+)\]",
+            CSS_PALETTE_BUNDLE.read_text(encoding="utf-8"),
+        )
+    }
+    return sorted(unique_colors, key=lambda x: x.split("-")[-1])
+
 
 jinja_contexts = {
     "sys": {"sys": sys},
     "colors": {
-        "supported_primary": tuple(supported_colors.keys()),
-        "supported_accent": list(supported_colors.keys())[:16],
+        "supported_primary": get_colors("primary"),
+        "supported_accent": get_colors("accent"),
     },
 }
 
@@ -564,8 +557,6 @@ class TestColor(SphinxRole):
         "color: %s;"
         "padding: 0.05rem 0.3rem;"
         "border-radius: 0.25rem;"
-        "font-family: var(--md-text-font-family);"
-        "font-size: 0.8rem;"
         "cursor: pointer;"
     )
     style_params: typing.Tuple[str, str]
@@ -579,21 +570,25 @@ class TestColor(SphinxRole):
     def run(self):
         if self.color_type == "primary":
             self.style_params = (
-                supported_colors[self.text]["bg"],
-                supported_colors[self.text]["fg"],
+                f"var(--md-{self.color_type}-fg-color)",
+                f"var(--md-{self.color_type}-bg-color)",
             )
         elif self.color_type == "accent":
             self.style_params = (
                 "var(--md-code-bg-color)",
-                supported_colors[self.text]["bg"],
+                f"var(--md-{self.color_type}-fg-color)",
             )
+        color_attr = ""
+        if self.color_type in ("primary", "accent"):
+            color_attr = f'data-md-color-{self.color_type}="{self.text}"'
         el_style = self.style % self.style_params
         click_func = string.Template(self.on_click).substitute(
             color_type=self.color_type, attr=self.text
         )
         node = docutils.nodes.raw(
             self.rawtext,
-            f'<button style="{el_style}" onclick="{click_func}">{self.text}</button>',
+            f'<button {color_attr} style='
+            f'"{el_style}" onclick="{click_func}">{self.text}</button>',
             format="html",
         )
         return ([node], [])
