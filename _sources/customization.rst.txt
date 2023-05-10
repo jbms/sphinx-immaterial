@@ -1,48 +1,5 @@
 :hero: Configuration options to personalize your site.
 
-.. custom roles used to add a class to individual html elements
-.. role:: red
-.. role:: pink
-.. role:: purple
-.. role:: deep-purple
-.. role:: indigo
-.. role:: blue
-.. role:: light-blue
-.. role:: cyan
-.. role:: teal
-.. role:: green
-.. role:: light-green
-.. role:: lime
-.. role:: yellow
-.. role:: amber
-.. role:: orange
-.. role:: deep-orange
-.. role:: brown
-.. role:: grey
-.. role:: blue-grey
-.. role:: white
-.. role:: black
-.. role:: accent-red
-.. role:: accent-pink
-.. role:: accent-purple
-.. role:: accent-deep-purple
-.. role:: accent-indigo
-.. role:: accent-blue
-.. role:: accent-light-blue
-.. role:: accent-cyan
-.. role:: accent-teal
-.. role:: accent-green
-.. role:: accent-light-green
-.. role:: accent-lime
-.. role:: accent-yellow
-.. role:: accent-amber
-.. role:: accent-orange
-.. role:: accent-deep-orange
-.. role:: accent-brown
-.. role:: accent-grey
-.. role:: accent-blue-grey
-.. role:: accent-white
-
 .. _any of the icons bundled with this theme: https://github.com/squidfunk/mkdocs-material/tree/master/material/.icons
 
 .. _customization:
@@ -165,9 +122,9 @@ Configuration Options
 
 .. confval:: html_theme_options
 
-    This theme is configured using a ``html_theme_options`` `dict` in the *conf.py* file. The
-    following subsections can be used can be used as keys whose values configure the theme in
-    different ways.
+    This theme is configured using a :external+sphinx_docs:confval:`html_theme_options` `dict` in
+    the conf.py file. The following subsections can be used as keys whose values configure the
+    theme in different ways.
 
     .. themeconf:: site_url
 
@@ -250,8 +207,8 @@ Configuration Options
 
     .. themeconf:: features
 
-        Some features that have been ported from the mkdocs-material theme and can be enabled by specifying the features name in a list
-        of strings. The following features are supported:
+        Some features that have been ported from the mkdocs-material theme and can be enabled by
+        specifying the feature's name in a list of strings. The following features are supported:
 
         - `content.code.annotate <https://squidfunk.github.io/mkdocs-material/reference/code-blocks/#code-annotations>`_
 
@@ -330,47 +287,107 @@ Configuration Options
     .. themeconf:: palette
 
         The theme's color pallette **must be** a single `dict` or a `list` of `dict`\ s.
-        Each `dict` can optionally specify a ``scheme``, ``primary``, ``accent``, and ``media``
-        fields.
+        Each `dict` can optionally specify a :themeconf:`scheme`, :themeconf:`primary`,
+        :themeconf:`accent`, and :themeconf:`media <media (palette preference)>` fields.
 
         .. themeconf:: scheme
 
             To use light and dark modes, this theme supports 2 schemes which are specified by a ``scheme`` field.
 
-            1. The ``default`` scheme for light mode
+            .. code-block:: python
+                :name: scheme-color-conf-example
 
-               .. code-block:: python
+                html_theme_options = {
+                    "palette": { "scheme": "default" }
+                }
 
-                   html_theme_options = {
-                        "palette": { "scheme": "default" }
-                   }
+            .. only:: html
 
-            2. The ``slate`` scheme for dark mode.
+                - :test-color-scheme:`default` (scheme for light mode)
+                - :test-color-scheme:`slate` (scheme for dark mode)
 
-               .. code-block:: python
+                Click one of the listed schemes to see how it looks.
 
-                   html_theme_options = {
-                        "palette": { "scheme": "slate" }
-                   }
+            .. only:: not html
 
+                - ``default`` (scheme for light mode)
+                - ``slate`` (scheme for dark mode)
 
         .. themeconf:: primary
 
+            The primary color is used for the header, the sidebar, text links and several other
+            components.
+
+            .. code-block:: python
+                :name: primary-color-conf-example
+
+                html_theme_options = {
+                    "palette": { "primary": "green" }
+                }
+
             Primary color options are
 
-            :red:`red`, :pink:`pink`, :purple:`purple`, :deep-purple:`deep-purple`, :indigo:`indigo`, :blue:`blue`,
-            :light-blue:`light-blue`, :cyan:`cyan`, :teal:`teal`, :green:`green`, :light-green:`light-green`,
-            :lime:`lime`, :yellow:`yellow`, :amber:`amber`, :orange:`orange`, :deep-orange:`deep-orange`,
-            :brown:`brown`, :grey:`grey`, :blue-grey:`blue-grey`, :black:`black`, and :white:`white`.
+            .. only:: html
+
+                .. jinja:: colors
+
+                    .. hlist::
+                        :columns: 3
+
+                    {% for color in supported_primary %}
+                        - :test-color-primary:`{{color}}`
+                    {% endfor %}
+
+                    Click one of the colors to see how it looks.
+
+            .. only:: not html
+
+                .. jinja:: colors
+
+                    .. hlist::
+                        :columns: 7
+
+                    {% for color in supported_primary %}
+                        - ``{{color}}``
+                    {% endfor %}
 
         .. themeconf:: accent
 
+            The accent color is used to denote elements that can be interacted with, e.g. hovered
+            links, buttons, and scrollbars.
+
+            .. code-block:: python
+                :name: accent-color-conf-example
+
+                html_theme_options = {
+                    "palette": { "accent": "green" }
+                }
+
             Accent color options are
 
-            :accent-red:`red`, :accent-pink:`pink`, :accent-purple:`purple`, :accent-deep-purple:`deep-purple`,
-            :accent-indigo:`indigo`, :accent-blue:`blue`, :accent-light-blue:`light-blue`, :accent-cyan:`cyan`,
-            :accent-teal:`teal`, :accent-green:`green`, :accent-light-green:`light-green`, :accent-lime:`lime`,
-            :accent-yellow:`yellow`, :accent-amber:`amber`, :accent-orange:`orange`, :accent-deep-orange:`deep-orange`.
+            .. only:: html
+
+                .. jinja:: colors
+
+                    .. hlist::
+                        :columns: 4
+
+                    {% for color in supported_accent %}
+                        - :test-color-accent:`{{color}}`
+                    {% endfor %}
+
+                    Click one of the colors to see how it looks.
+
+            .. only:: (not html)
+
+                .. jinja:: colors
+
+                    .. hlist::
+                        :columns: 4
+
+                    {% for color in supported_accent %}
+                        - ``{{color}}``
+                    {% endfor %}
 
         .. themeconf:: toggle
 

@@ -238,7 +238,7 @@ By default, the following options are available to all admonitions.
    .. rst:directive:option:: collapsible
 
       This option can be used to convert the rendered admonition into a collapsible HTML
-      ``<details>`` element. A value of ``open`` will make the admonition expanded by default.
+      :html:`<details>` element. A value of ``open`` will make the admonition expanded by default.
       Any other value is ignored and will make the admonition collapsed by default.
 
       .. rst-example::
