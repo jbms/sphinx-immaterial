@@ -331,10 +331,12 @@ Configuration Options
 
                 .. jinja:: colors
 
-                    {% for color in supported_primary -%}
-                    :test-color-primary:`{{color}}`
-                    {%- if color != 'white' %},{% if color == 'black' %} and{% endif %} {% endif %}
-                    {%- endfor %}
+                    .. hlist::
+                        :columns: 4
+
+                    {% for color in supported_primary %}
+                        - :test-color-primary:`{{color}}`
+                    {% endfor %}
 
                     Click one of the colors to see how it looks.
 
@@ -342,10 +344,12 @@ Configuration Options
 
                 .. jinja:: colors
 
-                    {% for color in supported_primary -%}
-                    ``{{color}}``
-                    {%- if color != 'white' %},{% if color == 'black' %} and{% endif %} {% endif %}
-                    {%- endfor %}
+                    .. hlist::
+                        :columns: 4
+
+                    {% for color in supported_primary %}
+                        - ``{{color}}``
+                    {% endfor %}
 
         .. themeconf:: accent
 
@@ -365,10 +369,12 @@ Configuration Options
 
                 .. jinja:: colors
 
-                    {% for color in supported_accent -%}
-                    :test-color-accent:`{{color}}`
-                    {%- if color != 'deep-orange' %},{% if color == 'orange' %} and{% endif %} {% endif %}
-                    {%- endfor %}
+                    .. hlist::
+                        :columns: 4
+
+                    {% for color in supported_accent %}
+                        - :test-color-accent:`{{color}}`
+                    {% endfor %}
 
                     Click one of the colors to see how it looks.
 
@@ -376,10 +382,12 @@ Configuration Options
 
                 .. jinja:: colors
 
-                    {% for color in supported_accent -%}
-                    ``{{color}}``
-                    {%- if color != 'deep-orange' %},{% if color == 'orange' %} and{% endif %} {% endif %}
-                    {%- endfor %}
+                    .. hlist::
+                        :columns: 4
+
+                    {% for color in supported_accent %}
+                        - ``{{color}}``
+                    {% endfor %}
 
         .. themeconf:: toggle
 
