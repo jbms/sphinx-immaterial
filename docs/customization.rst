@@ -287,8 +287,8 @@ Configuration Options
     .. themeconf:: palette
 
         The theme's color pallette **must be** a single `dict` or a `list` of `dict`\ s.
-        Each `dict` can optionally specify a ``scheme``, ``primary``, ``accent``, and ``media``
-        fields.
+        Each `dict` can optionally specify a :themeconf:`scheme`, :themeconf:`primary`,
+        :themeconf:`accent`, and :themeconf:`media <media (palette preference)>` fields.
 
         .. themeconf:: scheme
 
