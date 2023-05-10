@@ -63,7 +63,6 @@ list of CSS classes, and don't forget to separate the icon's path and CSS classe
     .. literalinclude:: _static/extra_css.css
         :language: css
         :start-after: /* *********************** inline icon pulsing-heart style
-        :end-before: /* ************************* badge style inline stuff
 
 Custom inline icons
 *******************

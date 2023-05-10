@@ -8,9 +8,13 @@
 
 # add docs path to python sys.path to allow autodoc-ing a test_py_module
 import os
+from pathlib import Path
+import re
 import sys
+import string
 import typing
 
+from sphinx.util.docutils import SphinxRole
 from typing_extensions import Literal
 
 sys.path.insert(0, os.path.abspath("."))
@@ -330,9 +334,28 @@ sphinx_immaterial_icon_path = html_static_path
 
 sphinx_immaterial_bundle_source_maps = True
 
+CSS_PALETTE_BUNDLE = (
+    Path(__file__).parent.parent / "sphinx_immaterial/bundles/stylesheets/palette.css"
+)
+
+
+def get_colors(color_t: str):
+    unique_colors = {
+        m.group(1)
+        for m in re.finditer(
+            r"\[data-md-color-" + color_t + r"=([a-z\-]+)\]",
+            CSS_PALETTE_BUNDLE.read_text(encoding="utf-8"),
+        )
+    }
+    return sorted(unique_colors, key=lambda x: x.split("-")[-1])
+
 
 jinja_contexts = {
     "sys": {"sys": sys},
+    "colors": {
+        "supported_primary": get_colors("primary"),
+        "supported_accent": get_colors("accent"),
+    },
 }
 
 
@@ -527,7 +550,74 @@ def _parse_confval_signature(
     return signature
 
 
+class TestColor(SphinxRole):
+    color_type: str
+    style = (
+        "background-color: %s;"
+        "color: %s;"
+        "padding: 0.05rem 0.3rem;"
+        "border-radius: 0.25rem;"
+        "cursor: pointer;"
+    )
+    style_params: typing.Tuple[str, str]
+    on_click = (
+        "document.body.setAttribute(`data-md-color-$color_type`, `$attr`);"
+        "var name = document.querySelector("
+        "`#$color_type-color-conf-example code span:nth-last-child(3)`);"
+        "name.textContent = `&quot;$attr&quot;`;"
+    )
+
+    def run(self):
+        if self.color_type == "primary":
+            self.style_params = (
+                f"var(--md-{self.color_type}-fg-color)",
+                f"var(--md-{self.color_type}-bg-color)",
+            )
+        elif self.color_type == "accent":
+            self.style_params = (
+                "var(--md-code-bg-color)",
+                f"var(--md-{self.color_type}-fg-color)",
+            )
+        color_attr = ""
+        if self.color_type in ("primary", "accent"):
+            color_attr = f'data-md-color-{self.color_type}="{self.text}"'
+        el_style = self.style % self.style_params
+        click_func = string.Template(self.on_click).substitute(
+            color_type=self.color_type, attr=self.text
+        )
+        node = docutils.nodes.raw(
+            self.rawtext,
+            f'<button {color_attr} style='
+            f'"{el_style}" onclick="{click_func}">{self.text}</button>',
+            format="html",
+        )
+        return ([node], [])
+
+
+class TestColorPrimary(TestColor):
+    color_type = "primary"
+
+
+class TestColorAccent(TestColor):
+    color_type = "accent"
+
+
+class TestColorScheme(TestColor):
+    color_type = "scheme"
+    style_params = ("var(--md-primary-fg-color)", "var(--md-primary-bg-color)")
+    on_click = (
+        "document.body.setAttribute('data-md-color-switching', '');"
+        + TestColor.on_click
+        + "setTimeout(function() {document.body.removeAttribute"
+        "('data-md-color-switching')});"
+    )
+
+
 def setup(app):
+    app.add_role("test-color-primary", TestColorPrimary())
+    app.add_role("test-color-accent", TestColorAccent())
+    app.add_role("test-color-scheme", TestColorScheme())
+
     app.add_object_type(
         "confval",
         "confval",
