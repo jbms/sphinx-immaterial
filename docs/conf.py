@@ -340,14 +340,15 @@ CSS_PALETTE_BUNDLE = (
 
 
 def get_colors(color_t: str):
-    unique_colors = {
-        m.group(1)
-        for m in re.finditer(
-            r"\[data-md-color-" + color_t + r"=([a-z\-]+)\]",
-            CSS_PALETTE_BUNDLE.read_text(encoding="utf-8"),
-        )
-    }
-    return sorted(unique_colors, key=lambda x: x.split("-")[-1])
+    unique_colors = []
+    for m in re.finditer(
+        r"\}\[data-md-color-"
+        + color_t
+        + r"=([a-z\-]+)\]\{.*?-fg-color:.*?;.*?-bg-color:.*?;",
+        CSS_PALETTE_BUNDLE.read_text(encoding="utf-8"),
+    ):
+        unique_colors.append(m.group(1))
+    return unique_colors
 
 
 jinja_contexts = {
