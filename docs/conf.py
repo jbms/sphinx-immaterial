@@ -15,7 +15,6 @@ import string
 import typing
 
 from sphinx.util.docutils import SphinxRole
-from typing_extensions import Literal
 
 sys.path.insert(0, os.path.abspath("."))
 
@@ -529,7 +528,7 @@ def _parse_confval_signature(
     else:
         default, rebuild, types = registry_option
         if isinstance(types, sphinx.config.ENUM):
-            types = (Literal[tuple(types.candidates)],)
+            types = (typing.Literal[tuple(types.candidates)],)
         if isinstance(types, type):
             types = (types,)
         if types:
@@ -588,7 +587,7 @@ class TestColor(SphinxRole):
         )
         node = docutils.nodes.raw(
             self.rawtext,
-            f'<button {color_attr} style='
+            f"<button {color_attr} style="
             f'"{el_style}" onclick="{click_func}">{self.text}</button>',
             format="html",
         )
