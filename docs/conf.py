@@ -28,6 +28,7 @@ import sphinx.util.typing
 from sphinx_immaterial.apidoc import (
     object_description_options as _object_description_options,
 )
+from sphinx_immaterial.social_cards.validators import get_colors
 
 logger = sphinx.util.logging.getLogger(__name__)
 
@@ -99,7 +100,8 @@ html_css_files = ["extra_css.css", "custom_font_example.css"]
 html_last_updated_fmt = ""
 html_title = "Sphinx-Immaterial"
 html_favicon = "_static/images/favicon.ico"  # colored version of material/bookshelf.svg
-html_logo = "_static/images/Ybin.gif"  # from https://gifer.com/en/Ybin
+# html_logo = "_static/images/Ybin.gif"  # from https://gifer.com/en/Ybin
+html_logo = "logo.png"  # from https://gifer.com/en/Ybin
 
 # -- HTML theme specific settings ------------------------------------------------
 

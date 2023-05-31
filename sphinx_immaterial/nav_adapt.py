@@ -829,6 +829,8 @@ def _html_page_context(
         page["meta"]["hide"].append("feedback")
     if "show-comments" in meta:
         page["meta"]["comments"] = True
+    if "title" in meta:
+        page["meta"]["title"] = meta["title"]
     if context.get("next"):
         page["next_page"] = {
             "title": markupsafe.Markup.escape(
