@@ -197,6 +197,20 @@ Configuration Options
             As usual, `any of the icons bundled with this theme`_ can be used here. While the default is
             ``material/pencil``, this documentation uses ``material/file-edit-outline``
 
+        .. themeconf:: logo
+
+            The icon that is used as a fallback when :confval:`html_logo` is not specified.
+            The behavior of this option is inherited from the mkdocs-material theme, so
+            `any of the icons bundled with this theme`_ can be used here.
+
+            .. code-block:: python
+
+                html_theme_options = {
+                    "icon": {
+                        "logo": "material/library"
+                    },
+                }
+
     .. themeconf:: edit_uri
 
         This is the url segment that is concatenated with :themeconf:`repo_url` to point readers to the document's
