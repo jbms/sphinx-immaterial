@@ -37,7 +37,6 @@ import json
 import os
 import pathlib
 import re
-import sys
 import time
 import typing
 from typing import (
@@ -72,13 +71,10 @@ import docutils.nodes
 import pydantic.dataclasses
 import sphinx.domains.cpp
 import sphinx.util.logging
+from typing_extensions import NotRequired
 
 from . import ast_fixes  # pylint: disable=unused-import
 
-if sys.version_info >= (3, 11):
-    from typing import NotRequired
-else:
-    from typing_extensions import NotRequired
 
 logger = sphinx.util.logging.getLogger(__name__)
 
