@@ -51,6 +51,7 @@ from typing import (
     Pattern,
     Literal,
     Callable,
+    TypedDict,
 )
 from textwrap import dedent
 
@@ -70,9 +71,10 @@ import docutils.nodes
 import pydantic.dataclasses
 import sphinx.domains.cpp
 import sphinx.util.logging
-from typing_extensions import TypedDict, NotRequired
+from typing_extensions import NotRequired
 
 from . import ast_fixes  # pylint: disable=unused-import
+
 
 logger = sphinx.util.logging.getLogger(__name__)
 

@@ -1,6 +1,6 @@
 """Adds synopsis support to the std domain."""
 
-from typing import cast, Optional, List, Iterator, Tuple
+from typing import cast, Optional, List, Iterator, Tuple, Literal
 
 import docutils.nodes
 import sphinx.application
@@ -8,7 +8,6 @@ import sphinx.builders
 import sphinx.domains
 import sphinx.domains.std
 import sphinx.util.nodes
-from typing_extensions import Literal
 
 from . import object_description_options
 from .. import sphinx_utils

@@ -2,7 +2,7 @@
 
 import contextlib
 import io
-from typing import Optional, Union, List, Tuple, Mapping, Sequence
+from typing import Optional, Union, List, Tuple, Mapping, Sequence, Literal
 
 import docutils.nodes
 import docutils.parsers.rst.roles
@@ -10,7 +10,6 @@ import docutils.parsers.rst.states
 import docutils.statemachine
 import sphinx.addnodes
 import sphinx.util.docutils
-from typing_extensions import Literal
 
 
 def to_statemachine_stringlist(
