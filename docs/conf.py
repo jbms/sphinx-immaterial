@@ -449,6 +449,8 @@ nitpick_ignore = [
     # Example JavaScript types
     ("js:func", "string"),
     ("js:func", "SomeError"),
+    # pydantic_extra_types.color not present in object inventory
+    ("py:class", "pydantic_extra_types.color.Color"),
 ]
 
 

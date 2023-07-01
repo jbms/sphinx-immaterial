@@ -1,6 +1,6 @@
 import functools
 import re
-from typing import List, Tuple, Pattern, Dict, Any, Optional, NamedTuple
+from typing import List, Tuple, Pattern, Dict, Any, Optional, NamedTuple, cast
 
 import pydantic
 import sphinx.application
@@ -140,7 +140,7 @@ def add_object_description_option(
     registry = get_object_description_option_registry(app)
     if name in registry:
         logger.error(f"Object description option {name!r} already registered")
-    default = pydantic.parse_obj_as(type_constraint, default)
+    default = pydantic.TypeAdapter(type_constraint).validate_python(default)
     registry[name] = RegisteredObjectDescriptionOption(
         default=default, type_constraint=type_constraint
     )
@@ -167,9 +167,12 @@ def _builder_inited(app: sphinx.application.Sphinx) -> None:
 
     # Validate options
     for i, (pattern, options) in enumerate(
-        pydantic.parse_obj_as(
+        cast(
             List[Tuple[Pattern, Dict[str, Any]]],
-            DEFAULT_OBJECT_DESCRIPTION_OPTIONS + app.config.object_description_options,
+            pydantic.TypeAdapter(List[Tuple[Pattern, Dict[str, Any]]]).validate_python(
+                DEFAULT_OBJECT_DESCRIPTION_OPTIONS
+                + app.config.object_description_options,
+            ),
         )
     ):
         for name, value in options.items():
@@ -182,9 +185,9 @@ def _builder_inited(app: sphinx.application.Sphinx) -> None:
                 )
                 continue
             try:
-                options[name] = pydantic.parse_obj_as(
-                    registered_option.type_constraint, value
-                )
+                options[name] = pydantic.TypeAdapter(
+                    registered_option.type_constraint
+                ).validate_python(value)
             except Exception as e:  # pylint: disable=broad-except
                 logger.error(
                     "Invalid value %r for object description option"

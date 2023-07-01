@@ -8,6 +8,7 @@ from docutils import nodes
 from docutils.parsers.rst import directives, Directive
 import jinja2
 import pydantic
+from pydantic_extra_types.color import Color
 import sphinx.addnodes
 from sphinx.application import Sphinx
 from sphinx.config import Config
@@ -17,6 +18,7 @@ import sphinx.ext.todo
 from sphinx.locale import admonitionlabels, _
 from sphinx.util.logging import getLogger
 from sphinx.writers.html5 import HTML5Translator
+from typing_extensions import Annotated
 from .css_and_javascript_bundles import add_global_css
 from .inline_icons import load_svg_into_builder_env, get_custom_icons
 from . import html_translator_mixin
@@ -38,6 +40,11 @@ INHERITED_ADMONITIONS = (
 )
 
 _CUSTOM_ADMONITIONS_KEY = "sphinx_immaterial_custom_admonitions"
+
+
+CSSClassType = Annotated[
+    str, pydantic.functional_validators.AfterValidator(nodes.make_id)
+]
 
 # defaults used for version directives re-styling
 VERSION_DIR_STYLE = {
@@ -66,7 +73,7 @@ class CustomAdmonitionConfig(pydantic.BaseModel):
     """The required name of the directive. This will be also used as a CSS class name.
     This value shall have characters that match the regular expression pattern
     ``[a-zA-Z0-9_-]``."""
-    title: Optional[str]
+    title: Annotated[Optional[str], pydantic.Field(validate_default=True)] = None
     """The default title to use when rendering the custom admonition. If this is
     not specified, then the `name` value is converted and used."""
     icon: Optional[str] = None
@@ -77,13 +84,23 @@ class CustomAdmonitionConfig(pydantic.BaseModel):
       :confval:`sphinx_immaterial_icon_path` (this takes precedence).
     - the ``.icons`` folder that has `all of the icons bundled with this theme
       <https://github.com/squidfunk/mkdocs-material/tree/master/material/.icons>`_."""
-    color: Optional[Tuple[int, int, int]] = None
+    color: Optional[Color] = None
     """The base color to be used for the admonition's styling. If specified, this
-    must be specified as a RGB color space. Each color component shall be
-    confined to the range [0, 255]. It is also possible to use the
-    :py:mod:`colorsys` module if converting from a different color space (like
-    HSL) to RGB."""
-    classes: Optional[List[str]]
+    must be defined via:
+
+    - `name <http://www.w3.org/TR/SVG11/types.html#ColorKeywords>`_ (e.g.
+      :python:`"Black"`, :python:`"azure"`)
+    - `hexadecimal value <https://en.wikipedia.org/wiki/Web_colors#Hex_triplet>`_ (e.g.
+      :python:`"0x000"`, :python:`"#FFFFFF"`, :python:`"7fffd4"`)
+    - RGB/RGBA tuples (e.g. :python:`(255, 255, 255)`, :python:`(255, 255, 255, 0.5)`)
+    - `RGB/RGBA strings <https://developer.mozilla.org/en-US/docs/Web/CSS/color_value>`_
+      (e.g. :python:`"rgb(255, 255, 255)"`, :python:`"rgba(255, 255, 255, 0.5)"`)
+    - `HSL strings <https://developer.mozilla.org/en-US/docs/Web/CSS/color_value>`_
+      (e.g. :python:`"hsl(270, 60%, 70%)"`, :python:`"hsl(270, 60%, 70%, .5)"`)
+
+    .. note:: Any specified transparency (alpha value) is ignored.
+    """
+    classes: List[CSSClassType] = []
     """If specified, this list of qualified names will be added to every rendered
     admonition (specific to the generated directive) element's ``class`` attribute.
 
@@ -107,10 +124,9 @@ class CustomAdmonitionConfig(pydantic.BaseModel):
     admonition :ref:`inherited from the mkdocs-material theme <inherited_admonitions>`.
     """
 
-    # pylint: disable=no-self-argument
-
-    @pydantic.validator("name", pre=True)
-    def validate_name(cls, val):
+    @pydantic.field_validator("name", mode="before")
+    @classmethod
+    def validate_name(cls, val, info: pydantic.FieldValidationInfo):
         illegal = re.findall(r"([^a-zA-Z0-9\-_])", val)
         if illegal:
             raise ValueError(
@@ -118,23 +134,14 @@ class CustomAdmonitionConfig(pydantic.BaseModel):
             )
         return val
 
-    @pydantic.validator("title", always=True)
-    def validate_title(cls, val, values):
+    @pydantic.field_validator("title")
+    @classmethod
+    def validate_title(cls, val, info: pydantic.FieldValidationInfo):
         if val is None:
-            val = " ".join(re.split(r"[\-_]+", values["name"])).title()
+            val = " ".join(
+                re.split(r"[\-_]+", cast(str, info.data.get("name")))
+            ).title()
         return val
-
-    @pydantic.validator("color", each_item=True)
-    def validate_color_component(cls, val):
-        if 0 <= val <= 255:
-            return val
-        raise ValueError(f"color component {val} is not in range [0, 255]")
-
-    @pydantic.validator("classes", each_item=True)
-    def conform_classes(cls, val):
-        return nodes.make_id(val)
-
-    # pylint: enable=no-self-argument
 
 
 def visit_collapsible(self: HTML5Translator, node: nodes.Element, flag: str):
@@ -378,8 +385,11 @@ def on_builder_inited(app: Sphinx):
                     or cast(str, VERSION_DIR_STYLE[admonition.name]["icon"]),
                 )
             if admonition.color is None and not inheriting_style:
-                admonition.color = cast(
-                    Tuple[int, int, int], VERSION_DIR_STYLE[admonition.name]["color"]
+                admonition.color = Color(
+                    cast(
+                        Tuple[int, int, int],
+                        VERSION_DIR_STYLE[admonition.name]["color"],
+                    )
                 )
             continue  # don't override the version directives
         app.add_directive(
@@ -425,9 +435,9 @@ def on_config_inited(app: Sphinx, config: Config):
             )
     confval_name = "sphinx_immaterial_custom_admonitions"
     # validate user defined config for custom admonitions
-    user_defined_admonitions = pydantic.parse_obj_as(
-        List[CustomAdmonitionConfig], getattr(config, confval_name)
-    )
+    user_defined_admonitions: List[CustomAdmonitionConfig] = pydantic.TypeAdapter(
+        List[CustomAdmonitionConfig]
+    ).validate_python(getattr(config, confval_name))
     setattr(config, confval_name, user_defined_admonitions)
     user_defined_dir_names = [directive.name for directive in user_defined_admonitions]
 

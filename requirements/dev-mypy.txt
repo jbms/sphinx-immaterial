@@ -6,5 +6,6 @@ types-appdirs
 types-requests
 types-clang
 pytest
-pydantic
+pydantic>=2.0
+pydantic-extra-types
 sphinx>=4.5
