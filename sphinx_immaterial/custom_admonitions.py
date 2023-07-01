@@ -126,7 +126,7 @@ class CustomAdmonitionConfig(pydantic.BaseModel):
 
     @pydantic.field_validator("name", mode="before")
     @classmethod
-    def validate_name(cls, val, info: pydantic.FieldValidationInfo):
+    def validate_name(cls, val):
         illegal = re.findall(r"([^a-zA-Z0-9\-_])", val)
         if illegal:
             raise ValueError(
