@@ -931,8 +931,11 @@ _CONFIG_ATTR = "_sphinx_immaterial_cpp_apigen_configs"
 def _config_inited(
     app: sphinx.application.Sphinx, config: sphinx.config.Config
 ) -> None:
-    apigen_configs = pydantic.parse_obj_as(
-        List[ApigenConfig], config.cpp_apigen_configs
+    apigen_configs = cast(
+        List[ApigenConfig],
+        pydantic.TypeAdapter(List[ApigenConfig]).validate_python(
+            config.cpp_apigen_configs
+        ),
     )
     setattr(app, _CONFIG_ATTR, apigen_configs)
 
