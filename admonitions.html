@@ -477,7 +477,7 @@
         
           <li class="md-nav__item">
   <a href="#sphinx_immaterial.custom_admonitions.CustomAdmonitionConfig.color" class="md-nav__link">
-    <span aria-label="Python attribute" class="objinfo-icon objinfo-icon__alias" title="Python attribute">A</span><span title="sphinx_immaterial.custom_admonitions.CustomAdmonitionConfig.color (Python attribute) — The base color to be used for the admonition&#39;s styling. If specified, this must be specified as a RGB color space. Each color component shall be confined to the range [0, 255]. It is also possible to use the colorsys module if converting from a different color space (like HSL) to RGB." class="md-ellipsis">color</span>
+    <span aria-label="Python attribute" class="objinfo-icon objinfo-icon__alias" title="Python attribute">A</span><span title="sphinx_immaterial.custom_admonitions.CustomAdmonitionConfig.color (Python attribute) — The base color to be used for the admonition&#39;s styling. If specified, this must be defined via:" class="md-ellipsis">color</span>
   </a>
   
 </li>
@@ -1315,7 +1315,7 @@
         
           <li class="md-nav__item">
   <a href="#sphinx_immaterial.custom_admonitions.CustomAdmonitionConfig.color" class="md-nav__link">
-    <span aria-label="Python attribute" class="objinfo-icon objinfo-icon__alias" title="Python attribute">A</span><span title="sphinx_immaterial.custom_admonitions.CustomAdmonitionConfig.color (Python attribute) — The base color to be used for the admonition&#39;s styling. If specified, this must be specified as a RGB color space. Each color component shall be confined to the range [0, 255]. It is also possible to use the colorsys module if converting from a different color space (like HSL) to RGB." class="md-ellipsis">color</span>
+    <span aria-label="Python attribute" class="objinfo-icon objinfo-icon__alias" title="Python attribute">A</span><span title="sphinx_immaterial.custom_admonitions.CustomAdmonitionConfig.color (Python attribute) — The base color to be used for the admonition&#39;s styling. If specified, this must be defined via:" class="md-ellipsis">color</span>
   </a>
   
 </li>
@@ -1568,7 +1568,7 @@ feature provided the
 <a class="reference internal" href="#sphinx_immaterial.custom_admonitions.CustomAdmonitionConfig.name" title="sphinx_immaterial.custom_admonitions.CustomAdmonitionConfig.name (Python attribute) — The required name of the directive. This will be also used as a CSS class name. This value shall have characters that match the regular expression pattern [a-zA-Z0-9_-]."><code class="xref py py-attr docutils literal notranslate"><span class="pre">name</span></code></a> matches the directive
 name, but only the
 <a class="reference internal" href="#sphinx_immaterial.custom_admonitions.CustomAdmonitionConfig.icon" title="sphinx_immaterial.custom_admonitions.CustomAdmonitionConfig.icon (Python attribute) — The relative path to an icon that will be used in the admonition's title. If specified, this path shall be relative to"><code class="xref py py-attr docutils literal notranslate"><span class="pre">icon</span></code></a>,
-<a class="reference internal" href="#sphinx_immaterial.custom_admonitions.CustomAdmonitionConfig.color" title="sphinx_immaterial.custom_admonitions.CustomAdmonitionConfig.color (Python attribute) — The base color to be used for the admonition's styling. If specified, this must be specified as a RGB color space. Each color component shall be confined to the range [0, 255]. It is also possible to use the colorsys module if converting from a different color space (like HSL) to RGB."><code class="xref py py-attr docutils literal notranslate"><span class="pre">color</span></code></a>, and
+<a class="reference internal" href="#sphinx_immaterial.custom_admonitions.CustomAdmonitionConfig.color" title="sphinx_immaterial.custom_admonitions.CustomAdmonitionConfig.color (Python attribute) — The base color to be used for the admonition's styling. If specified, this must be defined via:"><code class="xref py py-attr docutils literal notranslate"><span class="pre">color</span></code></a>, and
 <a class="reference internal" href="#sphinx_immaterial.custom_admonitions.CustomAdmonitionConfig.classes" title="sphinx_immaterial.custom_admonitions.CustomAdmonitionConfig.classes (Python attribute) — If specified, this list of qualified names will be added to every rendered admonition (specific to the generated directive) element's class attribute."><code class="xref py py-attr docutils literal notranslate"><span class="pre">classes</span></code></a> options will apply;
 all other options are ignored.</p>
 <div class="literal-block-wrapper docutils container" id="id8">
@@ -2207,17 +2207,29 @@ title. If specified, this path shall be relative to</p>
 
 <dl class="py attribute objdesc">
 <dt class="sig sig-object highlight py" id="sphinx_immaterial.custom_admonitions.CustomAdmonitionConfig.color">
-<span class="sig-name descname"><span class="pre">color</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.11)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span><a class="headerlink" href="#sphinx_immaterial.custom_admonitions.CustomAdmonitionConfig.color" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">color</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="pre">Color</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span><a class="headerlink" href="#sphinx_immaterial.custom_admonitions.CustomAdmonitionConfig.color" title="Permalink to this definition">¶</a></dt>
 <dd><p>The base color to be used for the admonition’s styling. If specified, this
-must be specified as a RGB color space. Each color component shall be
-confined to the range [0, 255]. It is also possible to use the
-<a class="reference external" href="https://docs.python.org/3/library/colorsys.html#module-colorsys" title="(in Python v3.11)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">colorsys</span></code></a> module if converting from a different color space (like
-HSL) to RGB.</p>
+must be defined via:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="http://www.w3.org/TR/SVG11/types.html#ColorKeywords">name</a> (e.g.
+<code class="code highlight python docutils literal highlight-python"><span class="s2">&quot;Black&quot;</span></code>, <code class="code highlight python docutils literal highlight-python"><span class="s2">&quot;azure&quot;</span></code>)</p></li>
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/Web_colors#Hex_triplet">hexadecimal value</a> (e.g.
+<code class="code highlight python docutils literal highlight-python"><span class="s2">&quot;0x000&quot;</span></code>, <code class="code highlight python docutils literal highlight-python"><span class="s2">&quot;#FFFFFF&quot;</span></code>, <code class="code highlight python docutils literal highlight-python"><span class="s2">&quot;7fffd4&quot;</span></code>)</p></li>
+<li><p>RGB/RGBA tuples (e.g. <code class="code highlight python docutils literal highlight-python"><span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">)</span></code>, <code class="code highlight python docutils literal highlight-python"><span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span></code>)</p></li>
+<li><p><a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">RGB/RGBA strings</a>
+(e.g. <code class="code highlight python docutils literal highlight-python"><span class="s2">&quot;rgb(255, 255, 255)&quot;</span></code>, <code class="code highlight python docutils literal highlight-python"><span class="s2">&quot;rgba(255, 255, 255, 0.5)&quot;</span></code>)</p></li>
+<li><p><a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">HSL strings</a>
+(e.g. <code class="code highlight python docutils literal highlight-python"><span class="s2">&quot;hsl(270, 60%, 70%)&quot;</span></code>, <code class="code highlight python docutils literal highlight-python"><span class="s2">&quot;hsl(270, 60%, 70%, .5)&quot;</span></code>)</p></li>
+</ul>
+<div class="note admonition">
+<p class="admonition-title">Note</p>
+<p>Any specified transparency (alpha value) is ignored.</p>
+</div>
 </dd></dl>
 
 <dl class="py attribute objdesc">
 <dt class="sig sig-object highlight py" id="sphinx_immaterial.custom_admonitions.CustomAdmonitionConfig.classes">
-<span class="sig-name descname"><span class="pre">classes</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span><a class="headerlink" href="#sphinx_immaterial.custom_admonitions.CustomAdmonitionConfig.classes" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">classes</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#sphinx_immaterial.custom_admonitions.CustomAdmonitionConfig.classes" title="Permalink to this definition">¶</a></dt>
 <dd><p>If specified, this list of qualified names will be added to every rendered
 admonition (specific to the generated directive) element’s <code class="docutils literal notranslate"><span class="pre">class</span></code> attribute.</p>
 <p>To adopt the styling of pre-existing admonition, include the desired
@@ -2477,7 +2489,7 @@ FontAwesome</label></div>
   <small>
     
       Last update:
-      Jun 16, 2023
+      Jul 03, 2023
     
   </small>
 </div>

@@ -840,6 +840,7 @@
 <span class="kn">from</span> <span class="nn">docutils.parsers.rst</span> <span class="kn">import</span> <span class="n">directives</span><span class="p">,</span> <span class="n">Directive</span>
 <span class="kn">import</span> <span class="nn">jinja2</span>
 <span class="kn">import</span> <span class="nn">pydantic</span>
+<span class="kn">from</span> <span class="nn">pydantic_extra_types.color</span> <span class="kn">import</span> <span class="n">Color</span>
 <span class="kn">import</span> <span class="nn">sphinx.addnodes</span>
 <span class="kn">from</span> <span class="nn">sphinx.application</span> <span class="kn">import</span> <span class="n">Sphinx</span>
 <span class="kn">from</span> <span class="nn">sphinx.config</span> <span class="kn">import</span> <span class="n">Config</span>
@@ -849,6 +850,7 @@
 <span class="kn">from</span> <span class="nn">sphinx.locale</span> <span class="kn">import</span> <span class="n">admonitionlabels</span><span class="p">,</span> <span class="n">_</span>
 <span class="kn">from</span> <span class="nn">sphinx.util.logging</span> <span class="kn">import</span> <span class="n">getLogger</span>
 <span class="kn">from</span> <span class="nn">sphinx.writers.html5</span> <span class="kn">import</span> <span class="n">HTML5Translator</span>
+<span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">Annotated</span>
 <span class="kn">from</span> <span class="nn">.css_and_javascript_bundles</span> <span class="kn">import</span> <span class="n">add_global_css</span>
 <span class="kn">from</span> <span class="nn">.inline_icons</span> <span class="kn">import</span> <span class="n">load_svg_into_builder_env</span><span class="p">,</span> <span class="n">get_custom_icons</span>
 <span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">html_translator_mixin</span>
@@ -870,6 +872,11 @@
 <span class="p">)</span>
 
 <span class="n">_CUSTOM_ADMONITIONS_KEY</span> <span class="o">=</span> <span class="s2">&quot;sphinx_immaterial_custom_admonitions&quot;</span>
+
+
+<span class="n">CSSClassType</span> <span class="o">=</span> <span class="n">Annotated</span><span class="p">[</span>
+    <span class="nb">str</span><span class="p">,</span> <span class="n">pydantic</span><span class="o">.</span><span class="n">functional_validators</span><span class="o">.</span><span class="n">AfterValidator</span><span class="p">(</span><span class="n">nodes</span><span class="o">.</span><span class="n">make_id</span><span class="p">)</span>
+<span class="p">]</span>
 
 <span class="c1"># defaults used for version directives re-styling</span>
 <span class="n">VERSION_DIR_STYLE</span> <span class="o">=</span> <span class="p">{</span>
@@ -898,7 +905,7 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;The required name of the directive. This will be also used as a CSS class name.</span>
 <span class="sd">    This value shall have characters that match the regular expression pattern</span>
 <span class="sd">    ``[a-zA-Z0-9_-]``.&quot;&quot;&quot;</span>
-    <span class="n">title</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+    <span class="n">title</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">pydantic</span><span class="o">.</span><span class="n">Field</span><span class="p">(</span><span class="n">validate_default</span><span class="o">=</span><span class="kc">True</span><span class="p">)]</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;The default title to use when rendering the custom admonition. If this is</span>
 <span class="sd">    not specified, then the `name` value is converted and used.&quot;&quot;&quot;</span>
     <span class="n">icon</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
@@ -909,13 +916,23 @@
 <span class="sd">      :confval:`sphinx_immaterial_icon_path` (this takes precedence).</span>
 <span class="sd">    - the ``.icons`` folder that has `all of the icons bundled with this theme</span>
 <span class="sd">      &lt;https://github.com/squidfunk/mkdocs-material/tree/master/material/.icons&gt;`_.&quot;&quot;&quot;</span>
-    <span class="n">color</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">color</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Color</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;The base color to be used for the admonition&#39;s styling. If specified, this</span>
-<span class="sd">    must be specified as a RGB color space. Each color component shall be</span>
-<span class="sd">    confined to the range [0, 255]. It is also possible to use the</span>
-<span class="sd">    :py:mod:`colorsys` module if converting from a different color space (like</span>
-<span class="sd">    HSL) to RGB.&quot;&quot;&quot;</span>
-    <span class="n">classes</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span>
+<span class="sd">    must be defined via:</span>
+
+<span class="sd">    - `name &lt;http://www.w3.org/TR/SVG11/types.html#ColorKeywords&gt;`_ (e.g.</span>
+<span class="sd">      :python:`&quot;Black&quot;`, :python:`&quot;azure&quot;`)</span>
+<span class="sd">    - `hexadecimal value &lt;https://en.wikipedia.org/wiki/Web_colors#Hex_triplet&gt;`_ (e.g.</span>
+<span class="sd">      :python:`&quot;0x000&quot;`, :python:`&quot;#FFFFFF&quot;`, :python:`&quot;7fffd4&quot;`)</span>
+<span class="sd">    - RGB/RGBA tuples (e.g. :python:`(255, 255, 255)`, :python:`(255, 255, 255, 0.5)`)</span>
+<span class="sd">    - `RGB/RGBA strings &lt;https://developer.mozilla.org/en-US/docs/Web/CSS/color_value&gt;`_</span>
+<span class="sd">      (e.g. :python:`&quot;rgb(255, 255, 255)&quot;`, :python:`&quot;rgba(255, 255, 255, 0.5)&quot;`)</span>
+<span class="sd">    - `HSL strings &lt;https://developer.mozilla.org/en-US/docs/Web/CSS/color_value&gt;`_</span>
+<span class="sd">      (e.g. :python:`&quot;hsl(270, 60%, 70%)&quot;`, :python:`&quot;hsl(270, 60%, 70%, .5)&quot;`)</span>
+
+<span class="sd">    .. note:: Any specified transparency (alpha value) is ignored.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">classes</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">CSSClassType</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;If specified, this list of qualified names will be added to every rendered</span>
 <span class="sd">    admonition (specific to the generated directive) element&#39;s ``class`` attribute.</span>
 
@@ -939,9 +956,8 @@
 <span class="sd">    admonition :ref:`inherited from the mkdocs-material theme &lt;inherited_admonitions&gt;`.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="c1"># pylint: disable=no-self-argument</span>
-
-    <span class="nd">@pydantic</span><span class="o">.</span><span class="n">validator</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="n">pre</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="nd">@pydantic</span><span class="o">.</span><span class="n">field_validator</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;before&quot;</span><span class="p">)</span>
+    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">validate_name</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
         <span class="n">illegal</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;([^a-zA-Z0-9\-_])&quot;</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">illegal</span><span class="p">:</span>
@@ -950,23 +966,14 @@
             <span class="p">)</span>
         <span class="k">return</span> <span class="n">val</span>
 
-    <span class="nd">@pydantic</span><span class="o">.</span><span class="n">validator</span><span class="p">(</span><span class="s2">&quot;title&quot;</span><span class="p">,</span> <span class="n">always</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">validate_title</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">val</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
+    <span class="nd">@pydantic</span><span class="o">.</span><span class="n">field_validator</span><span class="p">(</span><span class="s2">&quot;title&quot;</span><span class="p">)</span>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">validate_title</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">val</span><span class="p">,</span> <span class="n">info</span><span class="p">:</span> <span class="n">pydantic</span><span class="o">.</span><span class="n">FieldValidationInfo</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">val</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">val</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;[\-_]+&quot;</span><span class="p">,</span> <span class="n">values</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]))</span><span class="o">.</span><span class="n">title</span><span class="p">()</span>
-        <span class="k">return</span> <span class="n">val</span>
-
-    <span class="nd">@pydantic</span><span class="o">.</span><span class="n">validator</span><span class="p">(</span><span class="s2">&quot;color&quot;</span><span class="p">,</span> <span class="n">each_item</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">validate_color_component</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
-        <span class="k">if</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">val</span> <span class="o">&lt;=</span> <span class="mi">255</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">val</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;color component </span><span class="si">{</span><span class="n">val</span><span class="si">}</span><span class="s2"> is not in range [0, 255]&quot;</span><span class="p">)</span>
-
-    <span class="nd">@pydantic</span><span class="o">.</span><span class="n">validator</span><span class="p">(</span><span class="s2">&quot;classes&quot;</span><span class="p">,</span> <span class="n">each_item</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">conform_classes</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">nodes</span><span class="o">.</span><span class="n">make_id</span><span class="p">(</span><span class="n">val</span><span class="p">)</span></div>
-
-    <span class="c1"># pylint: enable=no-self-argument</span>
+            <span class="n">val</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                <span class="n">re</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;[\-_]+&quot;</span><span class="p">,</span> <span class="n">cast</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">info</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">)))</span>
+            <span class="p">)</span><span class="o">.</span><span class="n">title</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">val</span></div>
 
 
 <span class="k">def</span> <span class="nf">visit_collapsible</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">HTML5Translator</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Element</span><span class="p">,</span> <span class="n">flag</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
@@ -1210,8 +1217,11 @@
                     <span class="ow">or</span> <span class="n">cast</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">VERSION_DIR_STYLE</span><span class="p">[</span><span class="n">admonition</span><span class="o">.</span><span class="n">name</span><span class="p">][</span><span class="s2">&quot;icon&quot;</span><span class="p">]),</span>
                 <span class="p">)</span>
             <span class="k">if</span> <span class="n">admonition</span><span class="o">.</span><span class="n">color</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">inheriting_style</span><span class="p">:</span>
-                <span class="n">admonition</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span>
-                    <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="n">VERSION_DIR_STYLE</span><span class="p">[</span><span class="n">admonition</span><span class="o">.</span><span class="n">name</span><span class="p">][</span><span class="s2">&quot;color&quot;</span><span class="p">]</span>
+                <span class="n">admonition</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="n">Color</span><span class="p">(</span>
+                    <span class="n">cast</span><span class="p">(</span>
+                        <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span>
+                        <span class="n">VERSION_DIR_STYLE</span><span class="p">[</span><span class="n">admonition</span><span class="o">.</span><span class="n">name</span><span class="p">][</span><span class="s2">&quot;color&quot;</span><span class="p">],</span>
+                    <span class="p">)</span>
                 <span class="p">)</span>
             <span class="k">continue</span>  <span class="c1"># don&#39;t override the version directives</span>
         <span class="n">app</span><span class="o">.</span><span class="n">add_directive</span><span class="p">(</span>
@@ -1257,9 +1267,9 @@
             <span class="p">)</span>
     <span class="n">confval_name</span> <span class="o">=</span> <span class="s2">&quot;sphinx_immaterial_custom_admonitions&quot;</span>
     <span class="c1"># validate user defined config for custom admonitions</span>
-    <span class="n">user_defined_admonitions</span> <span class="o">=</span> <span class="n">pydantic</span><span class="o">.</span><span class="n">parse_obj_as</span><span class="p">(</span>
-        <span class="n">List</span><span class="p">[</span><span class="n">CustomAdmonitionConfig</span><span class="p">],</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">confval_name</span><span class="p">)</span>
-    <span class="p">)</span>
+    <span class="n">user_defined_admonitions</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">CustomAdmonitionConfig</span><span class="p">]</span> <span class="o">=</span> <span class="n">pydantic</span><span class="o">.</span><span class="n">TypeAdapter</span><span class="p">(</span>
+        <span class="n">List</span><span class="p">[</span><span class="n">CustomAdmonitionConfig</span><span class="p">]</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">validate_python</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">confval_name</span><span class="p">))</span>
     <span class="nb">setattr</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">confval_name</span><span class="p">,</span> <span class="n">user_defined_admonitions</span><span class="p">)</span>
     <span class="n">user_defined_dir_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">directive</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">directive</span> <span class="ow">in</span> <span class="n">user_defined_admonitions</span><span class="p">]</span>
 
@@ -1345,7 +1355,7 @@
   <small>
     
       Last update:
-      Jun 16, 2023
+      Jul 03, 2023
     
   </small>
 </div>
