@@ -422,13 +422,14 @@ def _replace_var_refs_with_defaults(code: str) -> str:
     return code
 
 
-def on_build_finished(app: sphinx.application.Sphinx, exc: Optional[Exception]) -> None:
+def on_build_finished(*args, **kwargs) -> None:
     # Suppress inclusion of the graphviz.css file supplied by
     # `sphinx.ext.graphviz`.  This theme provides its own style rules.
     pass
 
 
-sphinx.ext.graphviz.on_build_finished = on_build_finished
+sphinx.ext.graphviz.on_config_inited = on_build_finished  # type: ignore[attr-defined]
+sphinx.ext.graphviz.on_build_finished = on_build_finished  # type: ignore[attr-defined]
 
 
 def _preprocess_graphviz_node(
