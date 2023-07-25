@@ -140,7 +140,7 @@ def _monkey_patch_generic_object_to_support_synopses():
                 docname, labelid = self.objects[key]
                 results.append(
                     (
-                        "std:" + self.role_for_objtype(objtype),
+                        "std:" + cast(str, self.role_for_objtype(objtype)),
                         make_refnode(
                             self,
                             builder,
