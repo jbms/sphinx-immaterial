@@ -3,9 +3,13 @@ import pathlib
 import pytest
 
 import docutils.nodes
+import sphinx
 import sphinx.domains.python
 
-from sphinx.testing.path import path as SphinxPath
+if sphinx.version_info < (7, 2):
+    from sphinx.testing.path import path as SphinxPath
+else:
+    from pathlib import Path as SphinxPath  # type: ignore[assignment]
 
 pytest_plugins = ("sphinx.testing.fixtures",)
 

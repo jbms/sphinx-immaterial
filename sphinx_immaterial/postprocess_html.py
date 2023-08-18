@@ -38,7 +38,7 @@ def create_sitemap(app: sphinx.application.Sphinx, exception):
     ):
         return
 
-    filename = app.outdir + "/sitemap.xml"
+    filename = str(app.outdir) + "/sitemap.xml"
     print(
         "Generating sitemap for {0} pages in "
         "{1}".format(len(sitemap_links), sphinx.util.console.colorize("blue", filename))

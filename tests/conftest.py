@@ -2,7 +2,12 @@ import pathlib
 from typing import Dict
 
 import pytest
-from sphinx.testing.path import path as SphinxPath
+import sphinx
+
+if sphinx.version_info < (7, 2):
+    from sphinx.testing.path import path as SphinxPath
+else:
+    from pathlib import Path as SphinxPath  # type: ignore[assignment]
 
 
 pytest_plugins = ("sphinx.testing.fixtures",)

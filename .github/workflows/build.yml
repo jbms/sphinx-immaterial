@@ -148,8 +148,12 @@ jobs:
           - 'sphinx4'
           - 'sphinx5'
           - 'sphinx6'
+          - 'sphinx7'
         node-version:
           - '16.x'
+        exclude:
+          - python-version: '3.8'
+            sphinx-version: 'sphinx7'
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v3

@@ -1,10 +1,14 @@
 import pathlib
 
 import pytest
+import sphinx
 
 from sphinx_immaterial.apidoc.python.apigen import _get_api_data
 
-from sphinx.testing.path import path as SphinxPath
+if sphinx.version_info < (7, 2):
+    from sphinx.testing.path import path as SphinxPath
+else:
+    from pathlib import Path as SphinxPath  # type: ignore[assignment]
 
 pytest_plugins = ("sphinx.testing.fixtures",)
 
