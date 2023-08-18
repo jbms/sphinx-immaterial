@@ -975,18 +975,18 @@
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"/></svg>
   </a>
 
-<h1 id="code-annotations">Code Annotations<a class="headerlink" href="#code-annotations" title="Permalink to this heading">¶</a></h1>
+<h1 id="code-annotations">Code Annotations<a class="headerlink" href="#code-annotations" title="Link to this heading">¶</a></h1>
 <p>A special directive was created to make use of the mkdocs-material theme’s
 <a class="reference external" href="https://squidfunk.github.io/mkdocs-material/reference/code-blocks/#adding-annotations">Code Annotations</a>
 feature.</p>
 <dl class="rst directive objdesc">
 <dt class="sig sig-object highlight rst" id="directive-code-annotations">
-<span class="sig-name descname"><span class="pre">..</span> <span class="pre">code-annotations::</span></span><a class="headerlink" href="#directive-code-annotations" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">..</span> <span class="pre">code-annotations::</span></span><a class="headerlink" href="#directive-code-annotations" title="Link to this definition">¶</a></dt>
 <dd><p>This directive shall hold an <a class="reference external" href="http://docutils.sourceforge.net/docs/ref/rst/restructuredtext.html#enumerated-lists">enumerated list</a> of annotations that can be used in a
-<a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/directives.html#directive-code-block" title="(in Sphinx v7.2.0)"><code class="xref any docutils literal notranslate"><span class="pre">code-block</span></code></a> immediately prior to this directive. The given list will not be rendered in the
-generated output, unless there is no immediately prior <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/directives.html#directive-code-block" title="(in Sphinx v7.2.0)"><code class="xref any docutils literal notranslate"><span class="pre">code-block</span></code></a> to annotate or there are no
-annotated comments in the immediately prior <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/directives.html#directive-code-block" title="(in Sphinx v7.2.0)"><code class="xref any docutils literal notranslate"><span class="pre">code-block</span></code></a>. Additionally, all annotations will be
-excluded when using the “copy to clipboard” button for an annotated <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/directives.html#directive-code-block" title="(in Sphinx v7.2.0)"><code class="xref any docutils literal notranslate"><span class="pre">code-block</span></code></a>; the annotated
+<a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/directives.html#directive-code-block" title="(in Sphinx v7.2.2)"><code class="xref any docutils literal notranslate"><span class="pre">code-block</span></code></a> immediately prior to this directive. The given list will not be rendered in the
+generated output, unless there is no immediately prior <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/directives.html#directive-code-block" title="(in Sphinx v7.2.2)"><code class="xref any docutils literal notranslate"><span class="pre">code-block</span></code></a> to annotate or there are no
+annotated comments in the immediately prior <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/directives.html#directive-code-block" title="(in Sphinx v7.2.2)"><code class="xref any docutils literal notranslate"><span class="pre">code-block</span></code></a>. Additionally, all annotations will be
+excluded when using the “copy to clipboard” button for an annotated <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/directives.html#directive-code-block" title="(in Sphinx v7.2.2)"><code class="xref any docutils literal notranslate"><span class="pre">code-block</span></code></a>; the annotated
 comments’ text will still be copied (if not <a class="reference internal" href="#hiding-the-annotated-comment">Hiding the annotated comment</a>).</p>
 <p>An error will be shown in the build log if the given list is not recognized as an
 <a class="reference external" href="http://docutils.sourceforge.net/docs/ref/rst/restructuredtext.html#enumerated-lists">enumerated list</a>.</p>
@@ -997,14 +997,14 @@ specified in the <a class="reference internal" href="customization.html#themecon
 </div>
 </dd></dl>
 
-<h2 id="using-annotations">Using annotations<a class="headerlink" href="#using-annotations" title="Permalink to this heading">¶</a></h2>
+<h2 id="using-annotations">Using annotations<a class="headerlink" href="#using-annotations" title="Link to this heading">¶</a></h2>
 <p>Each annotation in the code snippet should be a comment containing the identifying number in
 parentheses (<code class="docutils literal notranslate"><span class="pre">(1)</span></code>) that corresponds to the sequential order of annotations specified in the
 list of <a class="reference internal" href="#directive-code-annotations" title="code-annotations directive"><code class="xref rst rst-dir docutils literal notranslate"><span class="pre">code-annotations</span></code></a>.</p>
 <div class="note admonition">
 <p class="admonition-title">Note</p>
-<p>Remember to specify the language syntax for pygments to highlight the <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/directives.html#directive-code-block" title="(in Sphinx v7.2.0)"><code class="xref any docutils literal notranslate"><span class="pre">code-block</span></code></a>. Without
-this information, pygments may incorrectly identify comments in a <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/directives.html#directive-code-block" title="(in Sphinx v7.2.0)"><code class="xref any docutils literal notranslate"><span class="pre">code-block</span></code></a> which is
+<p>Remember to specify the language syntax for pygments to highlight the <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/directives.html#directive-code-block" title="(in Sphinx v7.2.2)"><code class="xref any docutils literal notranslate"><span class="pre">code-block</span></code></a>. Without
+this information, pygments may incorrectly identify comments in a <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/directives.html#directive-code-block" title="(in Sphinx v7.2.2)"><code class="xref any docutils literal notranslate"><span class="pre">code-block</span></code></a> which is
 required for the detection of annotations.</p>
 </div>
 <div class="hint admonition">
@@ -1051,11 +1051,11 @@ automatically enables the feature.</p>
 </div>
 </div>
 </div>
-<h3 id="arbitrary-list-markers">Arbitrary list markers<a class="headerlink" href="#arbitrary-list-markers" title="Permalink to this heading">¶</a></h3>
+<h3 id="arbitrary-list-markers">Arbitrary list markers<a class="headerlink" href="#arbitrary-list-markers" title="Link to this heading">¶</a></h3>
 <p>The <a class="reference external" href="http://docutils.sourceforge.net/docs/ref/rst/restructuredtext.html#enumerated-lists">enumerated lists’</a> markers are arbitrary and do not directly
 correspond to the identifying numbers used in the annotated comment. Because of this arbitrariness,
 the identifying numbers in the annotated comments <strong>must always start counting from</strong> <code class="docutils literal notranslate"><span class="pre">1</span></code> (for
-each <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/directives.html#directive-code-block" title="(in Sphinx v7.2.0)"><code class="xref any docutils literal notranslate"><span class="pre">code-block</span></code></a>). Remember, the <code class="docutils literal notranslate"><span class="pre">#</span></code> character can be used instead of numbers/letters in the
+each <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/directives.html#directive-code-block" title="(in Sphinx v7.2.2)"><code class="xref any docutils literal notranslate"><span class="pre">code-block</span></code></a>). Remember, the <code class="docutils literal notranslate"><span class="pre">#</span></code> character can be used instead of numbers/letters in the
 <a class="reference external" href="http://docutils.sourceforge.net/docs/ref/rst/restructuredtext.html#enumerated-lists">enumerated lists’</a> markers.</p>
 <p>The below example demonstrates this arbitrariness as the annotated comment <code class="docutils literal notranslate"><span class="pre">(1)</span></code> corresponds to
 the first annotated list item (beginning with the marker <code class="docutils literal notranslate"><span class="pre">3.</span></code>).</p>
@@ -1152,8 +1152,8 @@ the last button into hyperlinks that target to the last button.</p>
 </div>
 </div>
 </div>
-<h3 id="hiding-the-annotated-comment">Hiding the annotated comment<a class="headerlink" href="#hiding-the-annotated-comment" title="Permalink to this heading">¶</a></h3>
-<p>The annotated comment can be hidden in the <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/directives.html#directive-code-block" title="(in Sphinx v7.2.0)"><code class="xref any docutils literal notranslate"><span class="pre">code-block</span></code></a> if the annotation’s identifying number
+<h3 id="hiding-the-annotated-comment">Hiding the annotated comment<a class="headerlink" href="#hiding-the-annotated-comment" title="Link to this heading">¶</a></h3>
+<p>The annotated comment can be hidden in the <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/directives.html#directive-code-block" title="(in Sphinx v7.2.2)"><code class="xref any docutils literal notranslate"><span class="pre">code-block</span></code></a> if the annotation’s identifying number
 ends with a exclamation mark (<code class="docutils literal notranslate"><span class="pre">!</span></code>) after the closing parenthesis.</p>
 <div class="results docutils container">
 <div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><code><span class="p">..</span> <span class="ow">code-block</span><span class="p">::</span> cmake
@@ -1206,7 +1206,7 @@ In the above example, you should notice that, on line 3, the third annotation is
 because the second annotation has the <code class="docutils literal notranslate"><span class="pre">!</span></code> appended in the comment. And all text is removed
 from the third comment, on line 5, because the fifth annotation has the <code class="docutils literal notranslate"><span class="pre">!</span></code> appended to it.</p>
 </div>
-<h3 id="custom-tooltip-width">Custom tooltip width<a class="headerlink" href="#custom-tooltip-width" title="Permalink to this heading">¶</a></h3>
+<h3 id="custom-tooltip-width">Custom tooltip width<a class="headerlink" href="#custom-tooltip-width" title="Link to this heading">¶</a></h3>
 <p>For annotations with an excess of content,it might be desirable to change the width of the
 annotations’ tooltip using by changing the following CSS variable:</p>
 <div class="highlight-css notranslate"><div class="highlight"><pre><span></span><code><span class="p">:</span><span class="nd">root</span><span class="w"> </span><span class="p">{</span>
@@ -1233,7 +1233,7 @@ annotations’ tooltip using by changing the following CSS variable:</p>
 </div>
 </div>
 </div>
-<h3 id="annotation-buttons-with-numbers">Annotation buttons with numbers<a class="headerlink" href="#annotation-buttons-with-numbers" title="Permalink to this heading">¶</a></h3>
+<h3 id="annotation-buttons-with-numbers">Annotation buttons with numbers<a class="headerlink" href="#annotation-buttons-with-numbers" title="Link to this heading">¶</a></h3>
 <p>The mkdocs-material legacy behavior was to use the annotated comment’s identifying number in the
 button that was rendered. However, this behavior was removed because annotated comment’s
 identifying number is arbitrary to the annotated list item’s numeric marker – see example snippet
@@ -1279,7 +1279,7 @@ in <a class="reference internal" href="#arbitrary-list-markers">Arbitrary list m
   <small>
     
       Last update:
-      Aug 16, 2023
+      Aug 18, 2023
     
   </small>
 </div>
@@ -1356,7 +1356,7 @@ in <a class="reference internal" href="#arbitrary-list-markers">Arbitrary list m
   
     Created using
     <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
-    7.1.2.
+    7.2.2.
      and
     <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
   

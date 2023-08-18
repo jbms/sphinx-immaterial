@@ -1245,7 +1245,7 @@
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"/></svg>
   </a>
 
-<h1 id="python-api-documentation-generation">Python API documentation generation<a class="headerlink" href="#python-api-documentation-generation" title="Permalink to this heading">¶</a></h1>
+<h1 id="python-api-documentation-generation">Python API documentation generation<a class="headerlink" href="#python-api-documentation-generation" title="Link to this heading">¶</a></h1>
 <p>This theme includes an optional extension that generates Python API
 documentation pages.</p>
 <ul class="simple">
@@ -1264,7 +1264,7 @@ are included on the page that documents the class.</p></li>
 overload is documented as a separate function; each overload is identified by
 the <code class="docutils literal notranslate"><span class="pre">:overload:</span></code> field specified within its docstring.</p></li>
 </ul>
-<h2 id="usage">Usage<a class="headerlink" href="#usage" title="Permalink to this heading">¶</a></h2>
+<h2 id="usage">Usage<a class="headerlink" href="#usage" title="Link to this heading">¶</a></h2>
 <p>To use this extension, add <code class="code highlight python docutils literal highlight-python"><span class="s2">&quot;sphinx_immaterial.apidoc.python.apigen&quot;</span></code> to
 the list of extensions in <code class="file docutils literal notranslate"><span class="pre">conf.py</span></code> and define the
 <a class="reference internal" href="#confval-python_apigen_modules" title="python_apigen_modules (configuration value) — Maps module names to the output path prefix relative to the source directory."><code class="xref std std-confval docutils literal notranslate"><span class="pre">python_apigen_modules</span></code></a> configuration option.</p>
@@ -1288,7 +1288,7 @@ of contents, the <a class="reference internal" href="#directive-python-apigen-gr
 <p>This extension works well with the <a class="reference internal" href="../../customization.html#themeconf-toc_title_is_page_title" title="toc_title_is_page_title (theme configuration option) — If set to True and toc_title is unspecified, the table of contents is labeled in the side bar by the title of the page itself."><code class="xref std std-themeconf docutils literal notranslate"><span class="pre">toc_title_is_page_title</span></code></a>
 configuration option.</p>
 </div>
-<h3 id="groups">Groups<a class="headerlink" href="#groups" title="Permalink to this heading">¶</a></h3>
+<h3 id="groups">Groups<a class="headerlink" href="#groups" title="Link to this heading">¶</a></h3>
 <p>Each documented module member and class member is assigned to a member group.
 The group is either explicitly specified or determined automatically.</p>
 <p>The group may be specified explicitly using the <code class="code highlight rst docutils literal highlight-rst"><span class="nc">:group:</span></code> field within the
@@ -1300,7 +1300,7 @@ docstring:</p>
 <span class="s2">    :group: My group</span>
 </code></pre></div>
 </div>
-<p>When using the <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/extensions/napoleon.html#module-sphinx.ext.napoleon" title="(in Sphinx v7.2.0)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sphinx.ext.napoleon</span></code></a> extension, the group can also be
+<p>When using the <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/extensions/napoleon.html#module-sphinx.ext.napoleon" title="(in Sphinx v7.2.2)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sphinx.ext.napoleon</span></code></a> extension, the group can also be
 specified using the <code class="docutils literal notranslate"><span class="pre">Group:</span></code> section:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">foo</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
     <span class="s2">&quot;&quot;&quot;Does something or other.</span>
@@ -1314,7 +1314,7 @@ specified using the <code class="docutils literal notranslate"><span class="pre"
 </div>
 <p>If the group is not specified explicitly, it is determined automatically based
 on the <a class="reference internal" href="#confval-python_apigen_default_groups" title="python_apigen_default_groups (configuration value) — list of (pattern, group) pairs, where pattern is a regular expression matching strings of the form &quot;&lt;objtype&gt;:&lt;fully_qualified_member_name&gt;&quot; (e.g."><code class="xref std std-confval docutils literal notranslate"><span class="pre">python_apigen_default_groups</span></code></a> option.</p>
-<h3 id="member-order"><span id="python-apigen-member-order"></span>Member order<a class="headerlink" href="#member-order" title="Permalink to this heading">¶</a></h3>
+<h3 id="member-order"><span id="python-apigen-member-order"></span>Member order<a class="headerlink" href="#member-order" title="Link to this heading">¶</a></h3>
 <p>For each each member there is also assigned an associated integer <code class="docutils literal notranslate"><span class="pre">order</span></code>
 value that determines the order in which members are listed: members are listed
 in ascending order by their associated <code class="docutils literal notranslate"><span class="pre">order</span></code> value, and ties are broken
@@ -1329,7 +1329,7 @@ the <code class="code highlight rst docutils literal highlight-rst"><span class=
 <span class="s2">    :order: 1</span>
 </code></pre></div>
 </div>
-<p>When using the <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/extensions/napoleon.html#module-sphinx.ext.napoleon" title="(in Sphinx v7.2.0)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sphinx.ext.napoleon</span></code></a> extension, the group can also be
+<p>When using the <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/extensions/napoleon.html#module-sphinx.ext.napoleon" title="(in Sphinx v7.2.2)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sphinx.ext.napoleon</span></code></a> extension, the group can also be
 specified using the <code class="docutils literal notranslate"><span class="pre">Order:</span></code> section:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">foo</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
     <span class="s2">&quot;&quot;&quot;Does something or other.</span>
@@ -1354,10 +1354,10 @@ section is not already listed in the class docstring (the order value
 associated with a group is the minimum of the order values of all of its
 members).</p></li>
 </ul>
-<h3 id="rst-directives">rST Directives<a class="headerlink" href="#rst-directives" title="Permalink to this heading">¶</a></h3>
+<h3 id="rst-directives">rST Directives<a class="headerlink" href="#rst-directives" title="Link to this heading">¶</a></h3>
 <dl class="rst directive objdesc">
 <dt class="sig sig-object highlight rst" id="directive-python-apigen-group">
-<span class="sig-name descname"><span class="pre">..</span> <span class="pre">python-apigen-group::</span></span><span class="sig-prename descclassname"> <span class="pre">group-name</span></span><a class="headerlink" href="#directive-python-apigen-group" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">..</span> <span class="pre">python-apigen-group::</span></span><span class="sig-prename descclassname"> <span class="pre">group-name</span></span><a class="headerlink" href="#directive-python-apigen-group" title="Link to this definition">¶</a></dt>
 <dd><p>Generates a summary of all top-level members that are in the specified group,
 and also inserts a table-of-contents entry for each member at the current
 document position.</p>
@@ -1366,7 +1366,7 @@ member, all the group names are normalized by converting each letter to
 lowercase and converting spaces to <code class="docutils literal notranslate"><span class="pre">-</span></code>.</p>
 <dl class="rst directive:option objdesc">
 <dt class="sig sig-object highlight rst" id="directive-option-python-apigen-group-notoc">
-<span class="sig-name descname"><span class="pre">:notoc:</span></span><a class="headerlink" href="#directive-option-python-apigen-group-notoc" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">:notoc:</span></span><a class="headerlink" href="#directive-option-python-apigen-group-notoc" title="Link to this definition">¶</a></dt>
 <dd><p>By default, this directive also adds the pages corresponding to the
 members of the specified group to the global table of contents as children
 of the current page/section.  Specifying this flag disables that behavior.</p>
@@ -1424,14 +1424,14 @@ organized into groups, but these groups are per-class and are listed
 
 <dl class="rst directive objdesc">
 <dt class="sig sig-object highlight rst" id="directive-python-apigen-entity-summary">
-<span class="sig-name descname"><span class="pre">..</span> <span class="pre">python-apigen-entity-summary::</span></span><span class="sig-prename descclassname"> <span class="pre">entity-name</span></span><a class="headerlink" href="#directive-python-apigen-entity-summary" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">..</span> <span class="pre">python-apigen-entity-summary::</span></span><span class="sig-prename descclassname"> <span class="pre">entity-name</span></span><a class="headerlink" href="#directive-python-apigen-entity-summary" title="Link to this definition">¶</a></dt>
 <dd><p>Generates a summary of a single Python entity.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">entity-name</span></code> should be specified as
 <code class="code highlight python docutils literal highlight-python"><span class="n">module_name</span><span class="o">.</span><span class="n">ClassName</span><span class="o">.</span><span class="n">member</span></code> or
 <code class="code highlight python docutils literal highlight-python"><span class="n">module_name</span><span class="o">.</span><span class="n">ClassName</span><span class="o">.</span><span class="n">member</span><span class="p">(</span><span class="n">overload</span><span class="p">)</span></code>.</p>
 <dl class="rst directive:option objdesc">
 <dt class="sig sig-object highlight rst" id="directive-option-python-apigen-entity-summary-notoc">
-<span class="sig-name descname"><span class="pre">:notoc:</span></span><a class="headerlink" href="#directive-option-python-apigen-entity-summary-notoc" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">:notoc:</span></span><a class="headerlink" href="#directive-option-python-apigen-entity-summary-notoc" title="Link to this definition">¶</a></dt>
 <dd><p>By default, this directive also adds the page corresponding to the
 specified Python entity to the global table of contents as a child of the
 current page/section.  Specifying this flag disables that behavior.</p>
@@ -1457,15 +1457,15 @@ current page/section.  Specifying this flag disables that behavior.</p>
 </div>
 </dd></dl>
 
-<h3 id="sections-defined-within-docstrings">Sections defined within docstrings<a class="headerlink" href="#sections-defined-within-docstrings" title="Permalink to this heading">¶</a></h3>
+<h3 id="sections-defined-within-docstrings">Sections defined within docstrings<a class="headerlink" href="#sections-defined-within-docstrings" title="Link to this heading">¶</a></h3>
 <p>When using this extension, docstrings can define sections, including nested
-sections, using the usual <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html#rst-sections" title="(in Sphinx v7.2.0)"><code class="xref any docutils literal notranslate"><span class="pre">reStructedText</span> <span class="pre">section</span> <span class="pre">syntax</span></code></a>.  The
+sections, using the usual <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html#rst-sections" title="(in Sphinx v7.2.2)"><code class="xref any docutils literal notranslate"><span class="pre">reStructedText</span> <span class="pre">section</span> <span class="pre">syntax</span></code></a>.  The
 mapping between punctuation characters and heading levels is local to the
 individual docstring.  Therefore, it is not necessary (though still recommended)
 to use a consistent order of punctuation characters across different docstrings.</p>
 <p>In addition to providing a way to organize any explanatory content, for classes,
 sections can also correspond to member groups, as described below.</p>
-<h3 id="class-member-groups"><span id="python-apigen-class-member-groups"></span>Class member groups<a class="headerlink" href="#class-member-groups" title="Permalink to this heading">¶</a></h3>
+<h3 id="class-member-groups"><span id="python-apigen-class-member-groups"></span>Class member groups<a class="headerlink" href="#class-member-groups" title="Link to this heading">¶</a></h3>
 <p>Within the documentation page for a given class, after its normal docstring
 content, a summary is added for each documented member, with a separate section
 per group.</p>
@@ -1536,10 +1536,10 @@ section, the <code class="docutils literal notranslate"><span class="pre">foo</s
 section will be added that lists the <code class="docutils literal notranslate"><span class="pre">__getitem__</span></code> and <code class="docutils literal notranslate"><span class="pre">__setitem__</span></code>
 members, and then a new <code class="docutils literal notranslate"><span class="pre">Accessors</span></code> section will be added that lists the
 <code class="docutils literal notranslate"><span class="pre">size</span></code> method.</p>
-<h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permalink to this heading">¶</a></h2>
+<h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Link to this heading">¶</a></h2>
 <dl class="std confval objdesc">
 <dt class="sig sig-object highlight std" id="confval-python_apigen_modules">
-<span class="sig-name descname"><span class="pre">python_apigen_modules</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="p">{}</span></code><a class="headerlink" href="#confval-python_apigen_modules" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">python_apigen_modules</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="p">{}</span></code><a class="headerlink" href="#confval-python_apigen_modules" title="Link to this definition">¶</a></dt>
 <dd><p>Maps module names to the output path prefix relative to the source directory.</p>
 <p>All entities defined by the specified modules are documented.</p>
 <p>For example, with the following added to <code class="file docutils literal notranslate"><span class="pre">conf.py</span></code>:</p>
@@ -1625,7 +1625,7 @@ error message).</p>
 
 <dl class="std confval objdesc">
 <dt class="sig sig-object highlight sig-wrap std" id="confval-python_apigen_default_groups">
-<span class="sig-name descname"><span class="pre">python_apigen_default_groups</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.11)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="p">[(</span><span class="s1">&#39;.*&#39;</span><span class="p">,</span> <span class="s1">&#39;Public members&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;class:.*&#39;</span><span class="p">,</span> <span class="s1">&#39;Classes&#39;</span><span class="p">)]</span></code><a class="headerlink" href="#confval-python_apigen_default_groups" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">python_apigen_default_groups</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.11)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="p">[(</span><span class="s1">&#39;.*&#39;</span><span class="p">,</span> <span class="s1">&#39;Public members&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;class:.*&#39;</span><span class="p">,</span> <span class="s1">&#39;Classes&#39;</span><span class="p">)]</span></code><a class="headerlink" href="#confval-python_apigen_default_groups" title="Link to this definition">¶</a></dt>
 <dd><p><code class="code highlight python docutils literal highlight-python"><span class="nb">list</span></code> of <code class="code highlight python docutils literal highlight-python"><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">group</span><span class="p">)</span></code> pairs, where <code class="code highlight python docutils literal highlight-python"><span class="n">pattern</span></code>
 is a regular expression matching strings of the form
 <code class="code highlight python docutils literal highlight-python"><span class="s2">&quot;&lt;objtype&gt;:&lt;fully_qualified_member_name&gt;&quot;</span></code>
@@ -1648,7 +1648,7 @@ pattern.  If no pattern matches, the group is <code class="docutils literal notr
 
 <dl class="std confval objdesc">
 <dt class="sig sig-object highlight std" id="confval-python_apigen_default_order">
-<span class="sig-name descname"><span class="pre">python_apigen_default_order</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.11)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="p">[]</span></code><a class="headerlink" href="#confval-python_apigen_default_order" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">python_apigen_default_order</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.11)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="p">[]</span></code><a class="headerlink" href="#confval-python_apigen_default_order" title="Link to this definition">¶</a></dt>
 <dd><p><code class="code highlight python docutils literal highlight-python"><span class="nb">list</span></code> of <code class="code highlight python docutils literal highlight-python"><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">order</span><span class="p">)</span></code> pairs, where <code class="code highlight python docutils literal highlight-python"><span class="n">pattern</span></code>
 is a regular expression matching strings of the form
 <code class="code highlight python docutils literal highlight-python"><span class="s2">&quot;&lt;objtype&gt;:&lt;fully_qualified_member_name&gt;&quot;</span></code>
@@ -1671,7 +1671,7 @@ pattern.  If no pattern matches, the order value is 0.</p>
 
 <dl class="std confval objdesc">
 <dt class="sig sig-object highlight sig-wrap std" id="confval-python_apigen_order_tiebreaker">
-<span class="sig-name descname"><span class="pre">python_apigen_order_tiebreaker</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><span class="s"><span class="pre">'definition_order'</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="s"><span class="pre">'alphabetical'</span></span></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="s1">&#39;definition_order&#39;</span></code><a class="headerlink" href="#confval-python_apigen_order_tiebreaker" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">python_apigen_order_tiebreaker</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><span class="s"><span class="pre">'definition_order'</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="s"><span class="pre">'alphabetical'</span></span></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="s1">&#39;definition_order&#39;</span></code><a class="headerlink" href="#confval-python_apigen_order_tiebreaker" title="Link to this definition">¶</a></dt>
 <dd><p>Specifies the relative order of members that have the same associated
 <code class="docutils literal notranslate"><span class="pre">order</span></code> value.</p>
 <dl class="simple">
@@ -1699,7 +1699,7 @@ comparison and then breaking ties with case-sensitive comparison.</p>
 
 <dl class="std confval objdesc">
 <dt class="sig sig-object highlight std" id="confval-python_apigen_case_insensitive_filesystem">
-<span class="sig-name descname"><span class="pre">python_apigen_case_insensitive_filesystem</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="kc">None</span></code><a class="headerlink" href="#confval-python_apigen_case_insensitive_filesystem" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">python_apigen_case_insensitive_filesystem</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="kc">None</span></code><a class="headerlink" href="#confval-python_apigen_case_insensitive_filesystem" title="Link to this definition">¶</a></dt>
 <dd><p>This extension results in an output file for each documented Python object
 based on its fully-qualified name.  Python names are case-sensitive, meaning
 both <code class="code highlight python docutils literal highlight-python"><span class="n">foo</span></code> and <code class="code highlight python docutils literal highlight-python"><span class="n">Foo</span></code> can be defined within the same scope,
@@ -1722,10 +1722,10 @@ case conflicts are avoided by including a hash in the document name.</p>
 
 <dl class="std confval objdesc">
 <dt class="sig sig-object highlight std" id="confval-python_apigen_rst_prolog">
-<span class="sig-name descname"><span class="pre">python_apigen_rst_prolog</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="s1">&#39;&#39;</span></code><a class="headerlink" href="#confval-python_apigen_rst_prolog" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">python_apigen_rst_prolog</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="s1">&#39;&#39;</span></code><a class="headerlink" href="#confval-python_apigen_rst_prolog" title="Link to this definition">¶</a></dt>
 <dd><p>A string of reStructuredText that will be included at the beginning of every
 docstring.</p>
-<p>This may be used to set the <a class="reference external" href="http://docutils.sourceforge.net/docs/ref/rst/directives.html#default-role">rST directive default-role</a>, <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/directives.html#directive-highlight" title="(in Sphinx v7.2.0)"><code class="xref rst rst-dir docutils literal notranslate"><span class="pre">highlight</span></code></a>
+<p>This may be used to set the <a class="reference external" href="http://docutils.sourceforge.net/docs/ref/rst/directives.html#default-role">rST directive default-role</a>, <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/directives.html#directive-highlight" title="(in Sphinx v7.2.2)"><code class="xref rst rst-dir docutils literal notranslate"><span class="pre">highlight</span></code></a>
 language, or <a class="reference internal" href="../../code_syntax_highlighting.html#directive-default-literal-role" title="default-literal-role directive"><code class="xref rst rst-dir docutils literal notranslate"><span class="pre">default-literal-role</span></code></a>.</p>
 <div class="note admonition">
 <p class="admonition-title">Note</p>
@@ -1758,7 +1758,7 @@ prior roles or highlight language.</p>
 
 <dl class="std confval objdesc">
 <dt class="sig sig-object highlight std" id="confval-python_apigen_rst_epilog">
-<span class="sig-name descname"><span class="pre">python_apigen_rst_epilog</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="s1">&#39;&#39;</span></code><a class="headerlink" href="#confval-python_apigen_rst_epilog" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">python_apigen_rst_epilog</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="s1">&#39;&#39;</span></code><a class="headerlink" href="#confval-python_apigen_rst_epilog" title="Link to this definition">¶</a></dt>
 <dd><p>A string of reStructuredText that will be included at the end of every
 docstring.</p>
 <p>This option is supported for symmetry with
@@ -1767,7 +1767,7 @@ any changes to the default role, default literal role, and default highlight
 language due to <a class="reference internal" href="#confval-python_apigen_rst_prolog" title="python_apigen_rst_prolog (configuration value) — A string of reStructuredText that will be included at the beginning of every docstring."><code class="xref std std-confval docutils literal notranslate"><span class="pre">python_apigen_rst_prolog</span></code></a> are undone automatically.</p>
 </dd></dl>
 
-<h3 id="subscript-methods">Subscript methods<a class="headerlink" href="#subscript-methods" title="Permalink to this heading">¶</a></h3>
+<h3 id="subscript-methods">Subscript methods<a class="headerlink" href="#subscript-methods" title="Link to this heading">¶</a></h3>
 <p><em>Subscript methods</em> are attributes defined on an object that support subscript
 syntax.  For example:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="n">arr</span><span class="o">.</span><span class="n">vindex</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span><span class="mi">5</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]]</span>
@@ -1796,7 +1796,7 @@ extension can recognize this pattern and display <code class="code highlight pyt
 <p>rather than as a normal property.</p>
 <dl class="std confval objdesc">
 <dt class="sig sig-object highlight std" id="confval-python_apigen_subscript_method_types">
-<span class="sig-name descname"><span class="pre">python_apigen_subscript_method_types</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><span class="pre">re.Pattern</span></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="s1">&#39;.*</span><span class="se">\\</span><span class="s1">._[^.]*&#39;</span></code><a class="headerlink" href="#confval-python_apigen_subscript_method_types" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">python_apigen_subscript_method_types</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><span class="pre">re.Pattern</span></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="s1">&#39;.*</span><span class="se">\\</span><span class="s1">._[^.]*&#39;</span></code><a class="headerlink" href="#confval-python_apigen_subscript_method_types" title="Link to this definition">¶</a></dt>
 <dd><p>Regular expression pattern that matches the return type annotations of
 properties that define subscript methods.</p>
 <p>Return type annotations can be specified either as real annotations or in the
@@ -1807,12 +1807,12 @@ e.g. <code class="code highlight python docutils literal highlight-python"><span
 
 <dl class="std confval objdesc">
 <dt class="sig sig-object highlight std" id="confval-python_apigen_show_base_classes">
-<span class="sig-name descname"><span class="pre">python_apigen_show_base_classes</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="kc">True</span></code><a class="headerlink" href="#confval-python_apigen_show_base_classes" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">python_apigen_show_base_classes</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="kc">True</span></code><a class="headerlink" href="#confval-python_apigen_show_base_classes" title="Link to this definition">¶</a></dt>
 <dd><p>Display the list of base classes when documenting classes.</p>
-<p>Unlike the built-in <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html#module-sphinx.ext.autodoc" title="(in Sphinx v7.2.0)"><code class="xref any docutils literal notranslate"><span class="pre">sphinx.ext.autodoc</span></code></a> module, base classes are shown using
+<p>Unlike the built-in <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html#module-sphinx.ext.autodoc" title="(in Sphinx v7.2.2)"><code class="xref any docutils literal notranslate"><span class="pre">sphinx.ext.autodoc</span></code></a> module, base classes are shown using
 the normal Python syntax in a parenthesized list after the class name.</p>
 <p>The list of base classes displayed for each class can be customized by adding
-a listener to the <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html#event-autodoc-process-bases" title="(in Sphinx v7.2.0)"><code class="xref any docutils literal notranslate"><span class="pre">autodoc-process-bases</span></code></a> event.  This is useful for
+a listener to the <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html#event-autodoc-process-bases" title="(in Sphinx v7.2.2)"><code class="xref any docutils literal notranslate"><span class="pre">autodoc-process-bases</span></code></a> event.  This is useful for
 excluding base classes that are not intended to be part of the public API.</p>
 <div class="note admonition">
 <p class="admonition-title">Note</p>
@@ -1827,7 +1827,7 @@ excluding base classes that are not intended to be part of the public API.</p>
   <small>
     
       Last update:
-      Aug 16, 2023
+      Aug 18, 2023
     
   </small>
 </div>
@@ -1904,7 +1904,7 @@ excluding base classes that are not intended to be part of the public API.</p>
   
     Created using
     <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
-    7.1.2.
+    7.2.2.
      and
     <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
   

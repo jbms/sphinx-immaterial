@@ -1919,16 +1919,16 @@
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"/></svg>
   </a>
 
-<h1 id="json-domain">JSON domain<a class="headerlink" href="#json-domain" title="Permalink to this heading">¶</a></h1>
+<h1 id="json-domain">JSON domain<a class="headerlink" href="#json-domain" title="Link to this heading">¶</a></h1>
 <p>This theme defines a <code class="docutils literal notranslate"><span class="pre">json</span></code> domain that supports documenting <a class="reference external" href="https://json-schema.org/specification.html">JSON schemas</a>.</p>
-<h2 id="prerequisite">Prerequisite<a class="headerlink" href="#prerequisite" title="Permalink to this heading">¶</a></h2>
+<h2 id="prerequisite">Prerequisite<a class="headerlink" href="#prerequisite" title="Link to this heading">¶</a></h2>
 <p>This extension requires the <a class="reference external" href="https://pypi.org/project/PyYAML/">PyYAML</a>
 package; you must either add it as a dependency directly, or add <code class="docutils literal notranslate"><span class="pre">json</span></code> extra
 feature of this package as a dependency:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>sphinx-immaterial<span class="o">[</span>json<span class="o">]</span>
 </code></pre></div>
 </div>
-<h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permalink to this heading">¶</a></h2>
+<h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Link to this heading">¶</a></h2>
 <p>To use this domain, add <code class="code highlight python docutils literal highlight-python"><span class="n">sphinx_immaterial</span><span class="o">.</span><span class="n">apidoc</span><span class="o">.</span><span class="n">json</span><span class="o">.</span><span class="n">domain</span></code> to the
 list of <code class="code highlight python docutils literal highlight-python"><span class="n">extensions</span></code> in <code class="file docutils literal notranslate"><span class="pre">conf.py</span></code> and set the
 <a class="reference internal" href="#confval-json_schemas" title="json_schemas (configuration value) — List of glob patterns matching JSON schema definition files relative to the documentation source directory."><code class="xref std std-confval docutils literal notranslate"><span class="pre">json_schemas</span></code></a> configuration option to a list of glob patterns
@@ -1945,7 +1945,7 @@ specifying the JSON schema definition files.</p>
 </div>
 <dl class="std confval objdesc">
 <dt class="sig sig-object highlight std" id="confval-json_schemas">
-<span class="sig-name descname"><span class="pre">json_schemas</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="p">[]</span></code><a class="headerlink" href="#confval-json_schemas" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">json_schemas</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="p">[]</span></code><a class="headerlink" href="#confval-json_schemas" title="Link to this definition">¶</a></dt>
 <dd><p>List of <a class="reference external" href="https://docs.python.org/3/library/glob.html#module-glob" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">glob</span></code></a> patterns matching JSON schema definition files
 relative to the documentation source directory.</p>
 <p>Both JSON and YAML format are supported.</p>
@@ -1954,7 +1954,7 @@ relative to the documentation source directory.</p>
 
 <dl class="std confval objdesc">
 <dt class="sig sig-object highlight std" id="confval-json_schema_validate">
-<span class="sig-name descname"><span class="pre">json_schema_validate</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="kc">False</span></code><a class="headerlink" href="#confval-json_schema_validate" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">json_schema_validate</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="kc">False</span></code><a class="headerlink" href="#confval-json_schema_validate" title="Link to this definition">¶</a></dt>
 <dd><p>Indicates whether to validate the JSON schemas specified by
 <a class="reference internal" href="#confval-json_schemas" title="json_schemas (configuration value) — List of glob patterns matching JSON schema definition files relative to the documentation source directory."><code class="xref std std-confval docutils literal notranslate"><span class="pre">json_schemas</span></code></a>.</p>
 <p>Requires that the <a class="reference external" href="https://pypi.org/project/jsonschema/">jsonschema</a>
@@ -1967,10 +1967,10 @@ depend on the <code class="docutils literal notranslate"><span class="pre">jsons
 
 <dl class="std confval objdesc">
 <dt class="sig sig-object highlight std" id="confval-json_schema_rst_prolog">
-<span class="sig-name descname"><span class="pre">json_schema_rst_prolog</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="s1">&#39;&#39;</span></code><a class="headerlink" href="#confval-json_schema_rst_prolog" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">json_schema_rst_prolog</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="s1">&#39;&#39;</span></code><a class="headerlink" href="#confval-json_schema_rst_prolog" title="Link to this definition">¶</a></dt>
 <dd><p>A string of rST that will be prepended to the <code class="docutils literal notranslate"><span class="pre">title</span></code> and <code class="docutils literal notranslate"><span class="pre">description</span></code>
 fields of a schema before parsing them as rST.</p>
-<p>This may be used to set the <a class="reference external" href="http://docutils.sourceforge.net/docs/ref/rst/directives.html#default-role">rST directive default-role</a>, <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/directives.html#directive-highlight" title="(in Sphinx v7.2.0)"><code class="xref rst rst-dir docutils literal notranslate"><span class="pre">highlight</span></code></a>
+<p>This may be used to set the <a class="reference external" href="http://docutils.sourceforge.net/docs/ref/rst/directives.html#default-role">rST directive default-role</a>, <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/directives.html#directive-highlight" title="(in Sphinx v7.2.2)"><code class="xref rst rst-dir docutils literal notranslate"><span class="pre">highlight</span></code></a>
 language, or <a class="reference internal" href="../../code_syntax_highlighting.html#directive-default-literal-role" title="default-literal-role directive"><code class="xref rst rst-dir docutils literal notranslate"><span class="pre">default-literal-role</span></code></a>.</p>
 <div class="note admonition">
 <p class="admonition-title">Note</p>
@@ -2003,7 +2003,7 @@ prior roles or highlight language.</p>
 
 <dl class="std confval objdesc">
 <dt class="sig sig-object highlight std" id="confval-json_schema_rst_epilog">
-<span class="sig-name descname"><span class="pre">json_schema_rst_epilog</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="s1">&#39;&#39;</span></code><a class="headerlink" href="#confval-json_schema_rst_epilog" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">json_schema_rst_epilog</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="s1">&#39;&#39;</span></code><a class="headerlink" href="#confval-json_schema_rst_epilog" title="Link to this definition">¶</a></dt>
 <dd><p>A string of rST that will be appended to the <code class="docutils literal notranslate"><span class="pre">title</span></code> and <code class="docutils literal notranslate"><span class="pre">description</span></code>
 fields of a schema before parsing them as rST.</p>
 <p>This option is supported for symmetry with <a class="reference internal" href="#confval-json_schema_rst_prolog" title="json_schema_rst_prolog (configuration value) — A string of rST that will be prepended to the title and description fields of a schema before parsing them as rST."><code class="xref std std-confval docutils literal notranslate"><span class="pre">json_schema_rst_prolog</span></code></a>,
@@ -2015,10 +2015,10 @@ default literal role, and default highlight language due to
 <p>All of the <a class="reference internal" href="../index.html#object-description-options"><span class="std std-ref">Object description options</span></a> also apply to this domain.  Any
 top-level schemas have an object type of <code class="docutils literal notranslate"><span class="pre">json:schema</span></code> and any members have an
 object type of <code class="docutils literal notranslate"><span class="pre">json:subschema</span></code>.</p>
-<h2 id="usage">Usage<a class="headerlink" href="#usage" title="Permalink to this heading">¶</a></h2>
+<h2 id="usage">Usage<a class="headerlink" href="#usage" title="Link to this heading">¶</a></h2>
 <dl class="rst directive objdesc">
 <dt class="sig sig-object highlight rst" id="directive-json-schema">
-<span class="sig-name descname"><span class="pre">..</span> <span class="pre">json:schema::</span></span><a class="headerlink" href="#directive-json-schema" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">..</span> <span class="pre">json:schema::</span></span><a class="headerlink" href="#directive-json-schema" title="Link to this definition">¶</a></dt>
 <dd><p>Generates documentation for a single JSON schema specified by its <code class="docutils literal notranslate"><span class="pre">$id</span></code>.</p>
 <div class="note admonition">
 <p class="admonition-title">Note</p>
@@ -2032,7 +2032,7 @@ from the <code class="docutils literal notranslate"><span class="pre">title</spa
 is generated.</p>
 <dl class="rst directive:option objdesc">
 <dt class="sig sig-object highlight rst" id="directive-option-json-schema-noindex">
-<span class="sig-name descname"><span class="pre">:noindex:</span></span><a class="headerlink" href="#directive-option-json-schema-noindex" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">:noindex:</span></span><a class="headerlink" href="#directive-option-json-schema-noindex" title="Link to this definition">¶</a></dt>
 <dd><p>Flag option to exclude the schema from search results and the table of
 contents.  Also disables cross linking.</p>
 <p>This option implies <a class="reference internal" href="#directive-option-json-schema-exclude_from_toc" title="json:schema:exclude_from_toc directive:option"><code class="xref rst rst-dir docutils literal notranslate"><span class="pre">json:schema:exclude_from_toc</span></code></a>.</p>
@@ -2040,13 +2040,13 @@ contents.  Also disables cross linking.</p>
 
 <dl class="rst directive:option objdesc">
 <dt class="sig sig-object highlight rst" id="directive-option-json-schema-title">
-<span class="sig-name descname"><span class="pre">:title:</span></span><a class="headerlink" href="#directive-option-json-schema-title" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">:title:</span></span><a class="headerlink" href="#directive-option-json-schema-title" title="Link to this definition">¶</a></dt>
 <dd><p>Specifies a title to use for the schema instead of the <code class="docutils literal notranslate"><span class="pre">$id</span></code>.</p>
 </dd></dl>
 
 <dl class="rst directive:option objdesc">
 <dt class="sig sig-object highlight rst" id="directive-option-json-schema-toc_title">
-<span class="sig-name descname"><span class="pre">:toc_title:</span></span><a class="headerlink" href="#directive-option-json-schema-toc_title" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">:toc_title:</span></span><a class="headerlink" href="#directive-option-json-schema-toc_title" title="Link to this definition">¶</a></dt>
 <dd><p>Specifies the title to use in the table of contents instead of the
 <a class="reference internal" href="#directive-option-json-schema-title" title="json:schema:title directive:option"><code class="xref rst rst-dir docutils literal notranslate"><span class="pre">json:schema:title</span></code></a> or <code class="docutils literal notranslate"><span class="pre">$id</span></code>.</p>
 <p>Only has an effect if <a class="reference internal" href="../index.html#objconf-include_in_toc" title="include_in_toc (object description option)"><code class="xref std std-objconf docutils literal notranslate"><span class="pre">include_in_toc</span></code></a> is <code class="code highlight python docutils literal highlight-python"><span class="kc">True</span></code>.</p>
@@ -2054,7 +2054,7 @@ contents.  Also disables cross linking.</p>
 
 <dl class="rst directive:option objdesc">
 <dt class="sig sig-object highlight rst" id="directive-option-json-schema-exclude_from_toc">
-<span class="sig-name descname"><span class="pre">:exclude_from_toc:</span></span><a class="headerlink" href="#directive-option-json-schema-exclude_from_toc" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">:exclude_from_toc:</span></span><a class="headerlink" href="#directive-option-json-schema-exclude_from_toc" title="Link to this definition">¶</a></dt>
 <dd><p>Excludes the schema from the table of contents.</p>
 <p>This overrides <a class="reference internal" href="../index.html#objconf-include_in_toc" title="include_in_toc (object description option)"><code class="xref std std-objconf docutils literal notranslate"><span class="pre">include_in_toc</span></code></a>.</p>
 </dd></dl>
@@ -2063,7 +2063,7 @@ contents.  Also disables cross linking.</p>
 
 <dl class="rst role objdesc">
 <dt class="sig sig-object highlight rst" id="role-json-schema">
-<span class="sig-name descname"><span class="pre">:json:schema:</span></span><a class="headerlink" href="#role-json-schema" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">:json:schema:</span></span><a class="headerlink" href="#role-json-schema" title="Link to this definition">¶</a></dt>
 <dd><p>Cross-links to a JSON schema defined using <a class="reference internal" href="#directive-json-schema" title="json:schema directive"><code class="xref rst rst-dir docutils literal notranslate"><span class="pre">json:schema</span></code></a>, or one of
 its properties.</p>
 <div class="results docutils container">
@@ -2103,8 +2103,8 @@ for <code class="docutils literal notranslate"><span class="pre">other_member</s
 <code class="docutils literal notranslate"><span class="pre">MySchema.member.other_member</span></code>.</p>
 </dd></dl>
 
-<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permalink to this heading">¶</a></h2>
-<h3 id="inheritance-example">Inheritance example<a class="headerlink" href="#inheritance-example" title="Permalink to this heading">¶</a></h3>
+<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Link to this heading">¶</a></h2>
+<h3 id="inheritance-example">Inheritance example<a class="headerlink" href="#inheritance-example" title="Link to this heading">¶</a></h3>
 <div class="literal-block-wrapper docutils container" id="id2">
 <div class="code-block-caption highlight"><span class="filename"><span class="caption-text">
 </span>inheritance_schema.yml<a class="headerlink" href="#id2" title="Permalink to this code">¶</a></span></div>
@@ -2172,7 +2172,7 @@ for <code class="docutils literal notranslate"><span class="pre">other_member</s
 <div class="result docutils container">
 <dl class="json schema objdesc">
 <dt class="sig sig-object highlight json" id="json-Pet">
-<em class="property"><span class="pre">json</span> </em><span class="sig-name descname"><span class="pre">Pet</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="pre">object</span></span><a class="headerlink" href="#json-Pet" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">json</span> </em><span class="sig-name descname"><span class="pre">Pet</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="pre">object</span></span><a class="headerlink" href="#json-Pet" title="Link to this definition">¶</a></dt>
 <dd><span><p>Represents a generic pet.</p>
   </span><dl class="field-list simple">
 <dt class="field-odd" id="subtypes-json-Pet">Subtypes<span class="colon">:</span><a class="headerlink" href="#subtypes-json-Pet" title="Permalink to this headline">¶</a></dt>
@@ -2186,13 +2186,13 @@ for <code class="docutils literal notranslate"><span class="pre">other_member</s
 <dt class="field-odd" id="required-members-json-Pet">Required members<span class="colon">:</span><a class="headerlink" href="#required-members-json-Pet" title="Permalink to this headline">¶</a></dt>
 <dd class="field-odd noindent"><dl class="json schema objdesc">
 <dt class="sig sig-object highlight json" id="json-Pet.type">
-<span class="sig-name descname"><span class="pre">type</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="pre">string</span></span><a class="headerlink" href="#json-Pet.type" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">type</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="pre">string</span></span><a class="headerlink" href="#json-Pet.type" title="Link to this definition">¶</a></dt>
 <dd><span><p>Type of pet.</p>
   </span></dd></dl>
 
 <dl class="json schema objdesc">
 <dt class="sig sig-object highlight json" id="json-Pet.name">
-<span class="sig-name descname"><span class="pre">name</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="pre">string</span></span><a class="headerlink" href="#json-Pet.name" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">name</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="pre">string</span></span><a class="headerlink" href="#json-Pet.name" title="Link to this definition">¶</a></dt>
 <dd><span><p>Name of the pet.</p>
   </span></dd></dl>
 
@@ -2202,7 +2202,7 @@ for <code class="docutils literal notranslate"><span class="pre">other_member</s
 <dt class="field-odd" id="optional-members-json-Pet">Optional members<span class="colon">:</span><a class="headerlink" href="#optional-members-json-Pet" title="Permalink to this headline">¶</a></dt>
 <dd class="field-odd noindent"><dl class="json schema objdesc">
 <dt class="sig sig-object highlight json" id="json-Pet.age">
-<span class="sig-name descname"><span class="pre">age</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="pre">number</span></span><sub><span class="p"><span class="pre">[</span></span><code class="code json docutils literal highlight highlight-json"><span class="mi">0</span></code><span class="p"><span class="pre">,</span> </span><span class="o"><span class="pre">+∞</span></span><span class="p"><span class="pre">)</span></span></sub><a class="headerlink" href="#json-Pet.age" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">age</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="pre">number</span></span><sub><span class="p"><span class="pre">[</span></span><code class="code json docutils literal highlight highlight-json"><span class="mi">0</span></code><span class="p"><span class="pre">,</span> </span><span class="o"><span class="pre">+∞</span></span><span class="p"><span class="pre">)</span></span></sub><a class="headerlink" href="#json-Pet.age" title="Link to this definition">¶</a></dt>
 <dd><span><p>Age of the pet in years.</p>
   </span></dd></dl>
 
@@ -2212,7 +2212,7 @@ for <code class="docutils literal notranslate"><span class="pre">other_member</s
 
 <dl class="json schema objdesc">
 <dt class="sig sig-object highlight json" id="json-Dog">
-<em class="property"><span class="pre">json</span> </em><span class="sig-name descname"><span class="pre">Dog</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="pre">object</span></span><a class="headerlink" href="#json-Dog" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">json</span> </em><span class="sig-name descname"><span class="pre">Dog</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="pre">object</span></span><a class="headerlink" href="#json-Dog" title="Link to this definition">¶</a></dt>
 <dd><span><p>Represents a dog.</p>
   </span><dl class="field-list simple">
 <dt class="field-odd" id="extends-json-Dog">Extends<span class="colon">:</span><a class="headerlink" href="#extends-json-Dog" title="Permalink to this headline">¶</a></dt>
@@ -2225,12 +2225,12 @@ for <code class="docutils literal notranslate"><span class="pre">other_member</s
 <dt class="field-odd" id="required-members-json-Dog">Required members<span class="colon">:</span><a class="headerlink" href="#required-members-json-Dog" title="Permalink to this headline">¶</a></dt>
 <dd class="field-odd noindent"><dl class="json schema objdesc">
 <dt class="sig sig-object highlight json" id="json-Dog.type">
-<span class="sig-name descname"><span class="pre">type</span></span><span class="p"> <span class="pre">:</span> </span><code class="code json docutils literal highlight highlight-json"><span class="s2">&quot;dog&quot;</span></code><a class="headerlink" href="#json-Dog.type" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">type</span></span><span class="p"> <span class="pre">:</span> </span><code class="code json docutils literal highlight highlight-json"><span class="s2">&quot;dog&quot;</span></code><a class="headerlink" href="#json-Dog.type" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="json schema objdesc">
 <dt class="sig sig-object highlight json" id="json-Dog.name">
-<span class="sig-name descname"><span class="pre">name</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="pre">string</span></span><a class="headerlink" href="#json-Dog.name" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">name</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="pre">string</span></span><a class="headerlink" href="#json-Dog.name" title="Link to this definition">¶</a></dt>
 <dd><span><p>Name of the pet.</p>
   </span></dd></dl>
 
@@ -2240,19 +2240,19 @@ for <code class="docutils literal notranslate"><span class="pre">other_member</s
 <dt class="field-odd" id="optional-members-json-Dog">Optional members<span class="colon">:</span><a class="headerlink" href="#optional-members-json-Dog" title="Permalink to this headline">¶</a></dt>
 <dd class="field-odd noindent"><dl class="json schema objdesc">
 <dt class="sig sig-object highlight json" id="json-Dog.age">
-<span class="sig-name descname"><span class="pre">age</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="pre">number</span></span><sub><span class="p"><span class="pre">[</span></span><code class="code json docutils literal highlight highlight-json"><span class="mi">0</span></code><span class="p"><span class="pre">,</span> </span><span class="o"><span class="pre">+∞</span></span><span class="p"><span class="pre">)</span></span></sub><a class="headerlink" href="#json-Dog.age" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">age</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="pre">number</span></span><sub><span class="p"><span class="pre">[</span></span><code class="code json docutils literal highlight highlight-json"><span class="mi">0</span></code><span class="p"><span class="pre">,</span> </span><span class="o"><span class="pre">+∞</span></span><span class="p"><span class="pre">)</span></span></sub><a class="headerlink" href="#json-Dog.age" title="Link to this definition">¶</a></dt>
 <dd><span><p>Age of the pet in years.</p>
   </span></dd></dl>
 
 <dl class="json schema objdesc">
 <dt class="sig sig-object highlight json" id="json-Dog.bark_volume">
-<span class="sig-name descname"><span class="pre">bark_volume</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="pre">number</span></span><a class="headerlink" href="#json-Dog.bark_volume" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">bark_volume</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="pre">number</span></span><a class="headerlink" href="#json-Dog.bark_volume" title="Link to this definition">¶</a></dt>
 <dd><span><p>Bark volume in dB.</p>
   </span></dd></dl>
 
 <dl class="json schema objdesc">
 <dt class="sig sig-object highlight json" id="json-Dog.favorite_walk">
-<span class="sig-name descname"><span class="pre">favorite_walk</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="pre">string</span></span><a class="headerlink" href="#json-Dog.favorite_walk" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">favorite_walk</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="pre">string</span></span><a class="headerlink" href="#json-Dog.favorite_walk" title="Link to this definition">¶</a></dt>
 <dd><span><p>Favorite place to walk.</p>
   </span></dd></dl>
 
@@ -2262,7 +2262,7 @@ for <code class="docutils literal notranslate"><span class="pre">other_member</s
 
 <dl class="json schema objdesc">
 <dt class="sig sig-object highlight json" id="json-Cat">
-<em class="property"><span class="pre">json</span> </em><span class="sig-name descname"><span class="pre">Cat</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="pre">object</span></span><a class="headerlink" href="#json-Cat" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">json</span> </em><span class="sig-name descname"><span class="pre">Cat</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="pre">object</span></span><a class="headerlink" href="#json-Cat" title="Link to this definition">¶</a></dt>
 <dd><span><p>Represents a cat.</p>
   </span><dl class="field-list simple">
 <dt class="field-odd" id="extends-json-Cat">Extends<span class="colon">:</span><a class="headerlink" href="#extends-json-Cat" title="Permalink to this headline">¶</a></dt>
@@ -2275,12 +2275,12 @@ for <code class="docutils literal notranslate"><span class="pre">other_member</s
 <dt class="field-odd" id="required-members-json-Cat">Required members<span class="colon">:</span><a class="headerlink" href="#required-members-json-Cat" title="Permalink to this headline">¶</a></dt>
 <dd class="field-odd noindent"><dl class="json schema objdesc">
 <dt class="sig sig-object highlight json" id="json-Cat.type">
-<span class="sig-name descname"><span class="pre">type</span></span><span class="p"> <span class="pre">:</span> </span><code class="code json docutils literal highlight highlight-json"><span class="s2">&quot;cat&quot;</span></code><a class="headerlink" href="#json-Cat.type" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">type</span></span><span class="p"> <span class="pre">:</span> </span><code class="code json docutils literal highlight highlight-json"><span class="s2">&quot;cat&quot;</span></code><a class="headerlink" href="#json-Cat.type" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="json schema objdesc">
 <dt class="sig sig-object highlight json" id="json-Cat.name">
-<span class="sig-name descname"><span class="pre">name</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="pre">string</span></span><a class="headerlink" href="#json-Cat.name" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">name</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="pre">string</span></span><a class="headerlink" href="#json-Cat.name" title="Link to this definition">¶</a></dt>
 <dd><span><p>Name of the pet.</p>
   </span></dd></dl>
 
@@ -2290,19 +2290,19 @@ for <code class="docutils literal notranslate"><span class="pre">other_member</s
 <dt class="field-odd" id="optional-members-json-Cat">Optional members<span class="colon">:</span><a class="headerlink" href="#optional-members-json-Cat" title="Permalink to this headline">¶</a></dt>
 <dd class="field-odd noindent"><dl class="json schema objdesc">
 <dt class="sig sig-object highlight json" id="json-Cat.age">
-<span class="sig-name descname"><span class="pre">age</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="pre">number</span></span><sub><span class="p"><span class="pre">[</span></span><code class="code json docutils literal highlight highlight-json"><span class="mi">0</span></code><span class="p"><span class="pre">,</span> </span><span class="o"><span class="pre">+∞</span></span><span class="p"><span class="pre">)</span></span></sub><a class="headerlink" href="#json-Cat.age" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">age</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="pre">number</span></span><sub><span class="p"><span class="pre">[</span></span><code class="code json docutils literal highlight highlight-json"><span class="mi">0</span></code><span class="p"><span class="pre">,</span> </span><span class="o"><span class="pre">+∞</span></span><span class="p"><span class="pre">)</span></span></sub><a class="headerlink" href="#json-Cat.age" title="Link to this definition">¶</a></dt>
 <dd><span><p>Age of the pet in years.</p>
   </span></dd></dl>
 
 <dl class="json schema objdesc">
 <dt class="sig sig-object highlight json" id="json-Cat.meow_volume">
-<span class="sig-name descname"><span class="pre">meow_volume</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="pre">number</span></span><a class="headerlink" href="#json-Cat.meow_volume" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">meow_volume</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="pre">number</span></span><a class="headerlink" href="#json-Cat.meow_volume" title="Link to this definition">¶</a></dt>
 <dd><span><p>Meow volume in dB.</p>
   </span></dd></dl>
 
 <dl class="json schema objdesc">
 <dt class="sig sig-object highlight json" id="json-Cat.favorite_scratching_post">
-<span class="sig-name descname"><span class="pre">favorite_scratching_post</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="pre">string</span></span><a class="headerlink" href="#json-Cat.favorite_scratching_post" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">favorite_scratching_post</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="pre">string</span></span><a class="headerlink" href="#json-Cat.favorite_scratching_post" title="Link to this definition">¶</a></dt>
 <dd><span><p>Favorite place to scratch.</p>
   </span></dd></dl>
 
@@ -2318,7 +2318,7 @@ for <code class="docutils literal notranslate"><span class="pre">other_member</s
 
 </div>
 </div>
-<h3 id="other-example">Other example<a class="headerlink" href="#other-example" title="Permalink to this heading">¶</a></h3>
+<h3 id="other-example">Other example<a class="headerlink" href="#other-example" title="Link to this heading">¶</a></h3>
 <div class="literal-block-wrapper docutils container" id="id3">
 <div class="code-block-caption highlight"><span class="filename"><span class="caption-text">
 </span>index_transform_schema.yml<a class="headerlink" href="#id3" title="Permalink to this code">¶</a></span></div>
@@ -2529,7 +2529,7 @@ for <code class="docutils literal notranslate"><span class="pre">other_member</s
 <div class="result docutils container">
 <dl class="json schema objdesc">
 <dt class="sig sig-object highlight json" id="json-IndexTransform">
-<em class="property"><span class="pre">json</span> </em><span class="sig-name descname"><span class="pre">IndexTransform</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="pre">object</span></span><a class="headerlink" href="#json-IndexTransform" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">json</span> </em><span class="sig-name descname"><span class="pre">IndexTransform</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="pre">object</span></span><a class="headerlink" href="#json-IndexTransform" title="Link to this definition">¶</a></dt>
 <dd><p>Index transforms may be serialized to/from JSON using
 the following schema.</p>
 <p>The input domain is specified by <a class="reference internal" href="#json-IndexTransform.input_rank" title="IndexTransform.input_rank (JSON member) — Number of input dimensions."><code class="xref json json-schema docutils literal notranslate"><span class="pre">input_rank</span></code></a>,
@@ -2550,7 +2550,7 @@ bound of <span class="math notranslate nohighlight">\(+\infty\)</span>.</p>
 <dt class="field-odd" id="optional-members-json-IndexTransform">Optional members<span class="colon">:</span><a class="headerlink" href="#optional-members-json-IndexTransform" title="Permalink to this headline">¶</a></dt>
 <dd class="field-odd noindent"><dl class="json schema objdesc">
 <dt class="sig sig-object highlight json" id="json-IndexTransform.input_rank">
-<span class="sig-name descname"><span class="pre">input_rank</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="pre">integer</span></span><sub><span class="p"><span class="pre">[</span></span><code class="code json docutils literal highlight highlight-json"><span class="mi">0</span></code><span class="p"><span class="pre">,</span> </span><code class="code json docutils literal highlight highlight-json"><span class="mi">32</span></code><span class="p"><span class="pre">]</span></span></sub><a class="headerlink" href="#json-IndexTransform.input_rank" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">input_rank</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="pre">integer</span></span><sub><span class="p"><span class="pre">[</span></span><code class="code json docutils literal highlight highlight-json"><span class="mi">0</span></code><span class="p"><span class="pre">,</span> </span><code class="code json docutils literal highlight highlight-json"><span class="mi">32</span></code><span class="p"><span class="pre">]</span></span></sub><a class="headerlink" href="#json-IndexTransform.input_rank" title="Link to this definition">¶</a></dt>
 <dd><span><p>Number of input dimensions.</p>
   </span><p>The input rank must be specified either directly, or implicitly by the
 number of dimensions specified for <a class="reference internal" href="#json-IndexTransform.input_inclusive_min" title="IndexTransform.input_inclusive_min (JSON member) — Inclusive lower bounds of the input domain."><code class="xref json json-schema docutils literal notranslate"><span class="pre">input_inclusive_min</span></code></a>,
@@ -2560,7 +2560,7 @@ number of dimensions specified for <a class="reference internal" href="#json-Ind
 
 <dl class="json schema objdesc">
 <dt class="sig sig-object highlight json" id="json-IndexTransform.input_inclusive_min">
-<span class="sig-name descname"><span class="pre">input_inclusive_min</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="pre">array</span></span><em> <span class="pre">of</span> </em><span class="desctype"><span class="pre">integer</span></span><span class="p"> <span class="pre">|</span> </span><span class="p"><span class="pre">[</span></span><span class="desctype"><span class="pre">integer</span></span><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#json-IndexTransform.input_inclusive_min" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">input_inclusive_min</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="pre">array</span></span><em> <span class="pre">of</span> </em><span class="desctype"><span class="pre">integer</span></span><span class="p"> <span class="pre">|</span> </span><span class="p"><span class="pre">[</span></span><span class="desctype"><span class="pre">integer</span></span><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#json-IndexTransform.input_inclusive_min" title="Link to this definition">¶</a></dt>
 <dd><span><p>Inclusive lower bounds of the input domain.</p>
   </span><p>Length must equal the <a class="reference internal" href="#json-IndexTransform.input_rank" title="IndexTransform.input_rank (JSON member) — Number of input dimensions."><code class="xref json json-schema docutils literal notranslate"><span class="pre">input_rank</span></code></a>.  Bounds specified as <code class="samp docutils literal notranslate"><em><span class="pre">n</span></em></code>
 indicate normal, explicit bounds, while bounds specified as <code class="samp docutils literal notranslate"><span class="pre">[</span><em><span class="pre">n</span></em><span class="pre">]</span></code>
@@ -2571,7 +2571,7 @@ bound of <span class="math notranslate nohighlight">\(2 \leq x\)</span> for the 
 
 <dl class="json schema objdesc">
 <dt class="sig sig-object highlight json" id="json-IndexTransform.input_exclusive_max">
-<span class="sig-name descname"><span class="pre">input_exclusive_max</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="pre">array</span></span><em> <span class="pre">of</span> </em><span class="desctype"><span class="pre">integer</span></span><span class="p"> <span class="pre">|</span> </span><span class="p"><span class="pre">[</span></span><span class="desctype"><span class="pre">integer</span></span><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#json-IndexTransform.input_exclusive_max" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">input_exclusive_max</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="pre">array</span></span><em> <span class="pre">of</span> </em><span class="desctype"><span class="pre">integer</span></span><span class="p"> <span class="pre">|</span> </span><span class="p"><span class="pre">[</span></span><span class="desctype"><span class="pre">integer</span></span><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#json-IndexTransform.input_exclusive_max" title="Link to this definition">¶</a></dt>
 <dd><span><p>Exclusive upper bounds of the input domain.</p>
   </span><p>Length must equal the <a class="reference internal" href="#json-IndexTransform.input_rank" title="IndexTransform.input_rank (JSON member) — Number of input dimensions."><code class="xref json json-schema docutils literal notranslate"><span class="pre">input_rank</span></code></a>.  As for <a class="reference internal" href="#json-IndexTransform.input_inclusive_min" title="IndexTransform.input_inclusive_min (JSON member) — Inclusive lower bounds of the input domain."><code class="xref json json-schema docutils literal notranslate"><span class="pre">input_inclusive_min</span></code></a>,
 bounds specified as <code class="samp docutils literal notranslate"><em><span class="pre">n</span></em></code> indicate normal, explicit bounds, while
@@ -2583,7 +2583,7 @@ dimension.</p>
 
 <dl class="json schema objdesc">
 <dt class="sig sig-object highlight json" id="json-IndexTransform.input_inclusive_max">
-<span class="sig-name descname"><span class="pre">input_inclusive_max</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="pre">array</span></span><em> <span class="pre">of</span> </em><span class="desctype"><span class="pre">integer</span></span><span class="p"> <span class="pre">|</span> </span><span class="p"><span class="pre">[</span></span><span class="desctype"><span class="pre">integer</span></span><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#json-IndexTransform.input_inclusive_max" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">input_inclusive_max</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="pre">array</span></span><em> <span class="pre">of</span> </em><span class="desctype"><span class="pre">integer</span></span><span class="p"> <span class="pre">|</span> </span><span class="p"><span class="pre">[</span></span><span class="desctype"><span class="pre">integer</span></span><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#json-IndexTransform.input_inclusive_max" title="Link to this definition">¶</a></dt>
 <dd><span><p>Inclusive upper bounds of the input domain.</p>
   </span><p>Length must equal the <a class="reference internal" href="#json-IndexTransform.input_rank" title="IndexTransform.input_rank (JSON member) — Number of input dimensions."><code class="xref json json-schema docutils literal notranslate"><span class="pre">input_rank</span></code></a>.  As for <a class="reference internal" href="#json-IndexTransform.input_inclusive_min" title="IndexTransform.input_inclusive_min (JSON member) — Inclusive lower bounds of the input domain."><code class="xref json json-schema docutils literal notranslate"><span class="pre">input_inclusive_min</span></code></a>,
 bounds specified as <code class="samp docutils literal notranslate"><em><span class="pre">n</span></em></code> indicate normal, explicit bounds, while
@@ -2595,7 +2595,7 @@ dimension.</p>
 
 <dl class="json schema objdesc">
 <dt class="sig sig-object highlight json" id="json-IndexTransform.input_shape">
-<span class="sig-name descname"><span class="pre">input_shape</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="pre">array</span></span><em> <span class="pre">of</span> </em><span class="desctype"><span class="pre">integer</span></span><span class="p"> <span class="pre">|</span> </span><span class="p"><span class="pre">[</span></span><span class="desctype"><span class="pre">integer</span></span><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#json-IndexTransform.input_shape" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">input_shape</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="pre">array</span></span><em> <span class="pre">of</span> </em><span class="desctype"><span class="pre">integer</span></span><span class="p"> <span class="pre">|</span> </span><span class="p"><span class="pre">[</span></span><span class="desctype"><span class="pre">integer</span></span><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#json-IndexTransform.input_shape" title="Link to this definition">¶</a></dt>
 <dd><span><p>Extent of each dimension of the input domain.</p>
   </span><p>Length must equal the <a class="reference internal" href="#json-IndexTransform.input_rank" title="IndexTransform.input_rank (JSON member) — Number of input dimensions."><code class="xref json json-schema docutils literal notranslate"><span class="pre">input_rank</span></code></a>.  As for <a class="reference internal" href="#json-IndexTransform.input_inclusive_min" title="IndexTransform.input_inclusive_min (JSON member) — Inclusive lower bounds of the input domain."><code class="xref json json-schema docutils literal notranslate"><span class="pre">input_inclusive_min</span></code></a>,
 bounds specified as <code class="samp docutils literal notranslate"><em><span class="pre">n</span></em></code> indicate normal, explicit bounds, while
@@ -2608,7 +2608,7 @@ dimension.</p>
 
 <dl class="json schema objdesc">
 <dt class="sig sig-object highlight json" id="json-IndexTransform.input_labels">
-<span class="sig-name descname"><span class="pre">input_labels</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="pre">array</span></span><em> <span class="pre">of</span> </em><span class="desctype"><span class="pre">string</span></span><a class="headerlink" href="#json-IndexTransform.input_labels" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">input_labels</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="pre">array</span></span><em> <span class="pre">of</span> </em><span class="desctype"><span class="pre">string</span></span><a class="headerlink" href="#json-IndexTransform.input_labels" title="Link to this definition">¶</a></dt>
 <dd><span><p>Dimension labels for each input domain dimension.</p>
   </span><p>Length must equal the <a class="reference internal" href="#json-IndexTransform.input_rank" title="IndexTransform.input_rank (JSON member) — Number of input dimensions."><code class="xref json json-schema docutils literal notranslate"><span class="pre">input_rank</span></code></a>.  An empty string
 indicates an unlabeled dimension.  Non-empty strings must not occur more
@@ -2617,7 +2617,7 @@ than once.  By default, all dimensions are unlabeled.</p>
 
 <dl class="json schema objdesc">
 <dt class="sig sig-object highlight json" id="json-IndexTransform.output">
-<span class="sig-name descname"><span class="pre">output</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="pre">array</span></span><em> <span class="pre">of</span> </em><span class="desctype"><a class="reference internal" href="#json-OutputIndexMap" title="OutputIndexMap (JSON type) — Specifies a transform from an input space to a single output index."><span class="pre">OutputIndexMap</span></a></span><a class="headerlink" href="#json-IndexTransform.output" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">output</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="pre">array</span></span><em> <span class="pre">of</span> </em><span class="desctype"><a class="reference internal" href="#json-OutputIndexMap" title="OutputIndexMap (JSON type) — Specifies a transform from an input space to a single output index."><span class="pre">OutputIndexMap</span></a></span><a class="headerlink" href="#json-IndexTransform.output" title="Link to this definition">¶</a></dt>
 <dd><span><p>Specifies the output index map for each output dimension.</p>
   </span><p>If not specified, defaults to an identity transform over the input domain.
 Otherwise, the length determines the output rank of the transform.</p>
@@ -2629,7 +2629,7 @@ Otherwise, the length determines the output rank of the transform.</p>
 
 <dl class="json schema objdesc">
 <dt class="sig sig-object highlight json" id="json-OutputIndexMap">
-<em class="property"><span class="pre">json</span> </em><span class="sig-name descname"><span class="pre">OutputIndexMap</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="pre">object</span></span><a class="headerlink" href="#json-OutputIndexMap" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">json</span> </em><span class="sig-name descname"><span class="pre">OutputIndexMap</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="pre">object</span></span><a class="headerlink" href="#json-OutputIndexMap" title="Link to this definition">¶</a></dt>
 <dd><span><p>Specifies a transform from an input space to a single output index.</p>
   </span><p>Logically, an output index map is a function that maps <code class="code highlight json docutils literal highlight-json"><span class="kc">n</span></code>-dimensional
 input index vectors to a single output index, using one of the supported
@@ -2640,7 +2640,7 @@ an <a class="reference internal" href="#json-IndexTransform" title="IndexTransfo
 <dt class="field-odd" id="optional-members-json-OutputIndexMap">Optional members<span class="colon">:</span><a class="headerlink" href="#optional-members-json-OutputIndexMap" title="Permalink to this headline">¶</a></dt>
 <dd class="field-odd noindent"><dl class="json schema objdesc">
 <dt class="sig sig-object highlight json" id="json-OutputIndexMap.offset">
-<span class="sig-name descname"><span class="pre">offset</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="pre">integer</span></span><a class="headerlink" href="#json-OutputIndexMap.offset" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">offset</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="pre">integer</span></span><a class="headerlink" href="#json-OutputIndexMap.offset" title="Link to this definition">¶</a></dt>
 <dd><span><p>Specifies an offset for this output dimension.  If neither
 <a class="reference internal" href="#json-OutputIndexMap.input_dimension" title="OutputIndexMap.input_dimension (JSON member) — If present, indicates that this output dimension uses a single input dimension map with the specified input dimension.  Must not be specified in conjunction with index_array."><code class="xref json json-schema docutils literal notranslate"><span class="pre">input_dimension</span></code></a> nor <a class="reference internal" href="#json-OutputIndexMap.index_array" title="OutputIndexMap.index_array (JSON member) — If present, indicates that this output dimension uses an index array map, with the index array specified as a nested list of rank equal to the input_rank."><code class="xref json json-schema docutils literal notranslate"><span class="pre">index_array</span></code></a> is
 specified, this specifies the <strong>constant</strong> value to which this output
@@ -2649,7 +2649,7 @@ dimension maps.</p>
 
 <dl class="json schema objdesc">
 <dt class="sig sig-object highlight json" id="json-OutputIndexMap.stride">
-<span class="sig-name descname"><span class="pre">stride</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="pre">integer</span></span><a class="headerlink" href="#json-OutputIndexMap.stride" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">stride</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="pre">integer</span></span><a class="headerlink" href="#json-OutputIndexMap.stride" title="Link to this definition">¶</a></dt>
 <dd><span><p>Multiplier for the input index specified by
 <a class="reference internal" href="#json-OutputIndexMap.input_dimension" title="OutputIndexMap.input_dimension (JSON member) — If present, indicates that this output dimension uses a single input dimension map with the specified input dimension.  Must not be specified in conjunction with index_array."><code class="xref json json-schema docutils literal notranslate"><span class="pre">input_dimension</span></code></a> or the index array value specified by
 <a class="reference internal" href="#json-OutputIndexMap.index_array" title="OutputIndexMap.index_array (JSON member) — If present, indicates that this output dimension uses an index array map, with the index array specified as a nested list of rank equal to the input_rank."><code class="xref json json-schema docutils literal notranslate"><span class="pre">index_array</span></code></a>.</p>
@@ -2659,7 +2659,7 @@ dimension maps.</p>
 
 <dl class="json schema objdesc">
 <dt class="sig sig-object highlight json" id="json-OutputIndexMap.input_dimension">
-<span class="sig-name descname"><span class="pre">input_dimension</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="pre">integer</span></span><sub><span class="p"><span class="pre">[</span></span><code class="code json docutils literal highlight highlight-json"><span class="mi">0</span></code><span class="p"><span class="pre">,</span> </span><span class="o"><span class="pre">+∞</span></span><span class="p"><span class="pre">)</span></span></sub><a class="headerlink" href="#json-OutputIndexMap.input_dimension" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">input_dimension</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="pre">integer</span></span><sub><span class="p"><span class="pre">[</span></span><code class="code json docutils literal highlight highlight-json"><span class="mi">0</span></code><span class="p"><span class="pre">,</span> </span><span class="o"><span class="pre">+∞</span></span><span class="p"><span class="pre">)</span></span></sub><a class="headerlink" href="#json-OutputIndexMap.input_dimension" title="Link to this definition">¶</a></dt>
 <dd><span><p>If present, indicates that this output dimension uses a <strong>single
 input dimension</strong> map with the specified input dimension.  Must not
 be specified in conjunction with <a class="reference internal" href="#json-OutputIndexMap.index_array" title="OutputIndexMap.index_array (JSON member) — If present, indicates that this output dimension uses an index array map, with the index array specified as a nested list of rank equal to the input_rank."><code class="xref json json-schema docutils literal notranslate"><span class="pre">index_array</span></code></a>.</p>
@@ -2667,7 +2667,7 @@ be specified in conjunction with <a class="reference internal" href="#json-Outpu
 
 <dl class="json schema objdesc">
 <dt class="sig sig-object highlight json" id="json-OutputIndexMap.index_array">
-<span class="sig-name descname"><span class="pre">index_array</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="pre">array</span></span><span class="p"> <span class="pre">|</span> </span><span class="desctype"><span class="pre">integer</span></span><a class="headerlink" href="#json-OutputIndexMap.index_array" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">index_array</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="pre">array</span></span><span class="p"> <span class="pre">|</span> </span><span class="desctype"><span class="pre">integer</span></span><a class="headerlink" href="#json-OutputIndexMap.index_array" title="Link to this definition">¶</a></dt>
 <dd><span><p>If present, indicates that this output dimension uses an <strong>index
 array</strong> map, with the index array specified as a nested list of rank
 equal to the <a class="reference internal" href="#json-IndexTransform.input_rank" title="IndexTransform.input_rank (JSON member) — Number of input dimensions."><code class="xref json json-schema docutils literal notranslate"><span class="pre">input_rank</span></code></a>.</p>
@@ -2676,7 +2676,7 @@ equal to the <a class="reference internal" href="#json-IndexTransform.input_rank
 
 <dl class="json schema objdesc">
 <dt class="sig sig-object highlight json" id="json-OutputIndexMap.index_array_bounds">
-<span class="sig-name descname"><span class="pre">index_array_bounds</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><a class="reference internal" href="#json-IndexInterval" title="IndexInterval (JSON type) — Specifies a closed interval of integer index values."><span class="pre">IndexInterval</span></a></span><span class="p"> <span class="pre">=</span> </span><code class="code json docutils literal highlight highlight-json"><span class="p">[</span><span class="s2">&quot;-inf&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;+inf&quot;</span><span class="p">]</span></code><a class="headerlink" href="#json-OutputIndexMap.index_array_bounds" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">index_array_bounds</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><a class="reference internal" href="#json-IndexInterval" title="IndexInterval (JSON type) — Specifies a closed interval of integer index values."><span class="pre">IndexInterval</span></a></span><span class="p"> <span class="pre">=</span> </span><code class="code json docutils literal highlight highlight-json"><span class="p">[</span><span class="s2">&quot;-inf&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;+inf&quot;</span><span class="p">]</span></code><a class="headerlink" href="#json-OutputIndexMap.index_array_bounds" title="Link to this definition">¶</a></dt>
 <dd><p>If present, specifies constraints on the values within
 <a class="reference internal" href="#json-OutputIndexMap.index_array" title="OutputIndexMap.index_array (JSON member) — If present, indicates that this output dimension uses an index array map, with the index array specified as a nested list of rank equal to the input_rank."><code class="xref json json-schema docutils literal notranslate"><span class="pre">index_array</span></code></a> (which must also be specified).  If
 <a class="reference internal" href="#json-OutputIndexMap.index_array" title="OutputIndexMap.index_array (JSON member) — If present, indicates that this output dimension uses an index array map, with the index array specified as a nested list of rank equal to the input_rank."><code class="xref json json-schema docutils literal notranslate"><span class="pre">index_array</span></code></a> contains an out-of-bounds index, an error
@@ -2712,7 +2712,7 @@ JSON, but normally need not be specified manually.</p>
 
 <dl class="json schema objdesc">
 <dt class="sig sig-object highlight json" id="json-IndexInterval">
-<em class="property"><span class="pre">json</span> </em><span class="sig-name descname"><span class="pre">IndexInterval</span></span><span class="p"> <span class="pre">:</span> </span><span class="p"><span class="pre">[</span></span><span class="desctype"><span class="pre">integer</span></span><span class="p"> <span class="pre">|</span> </span><code class="code json docutils literal highlight highlight-json"><span class="s2">&quot;-inf&quot;</span></code><span class="p"><span class="pre">,</span></span> <span class="desctype"><span class="pre">integer</span></span><span class="p"> <span class="pre">|</span> </span><code class="code json docutils literal highlight highlight-json"><span class="s2">&quot;+inf&quot;</span></code><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#json-IndexInterval" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">json</span> </em><span class="sig-name descname"><span class="pre">IndexInterval</span></span><span class="p"> <span class="pre">:</span> </span><span class="p"><span class="pre">[</span></span><span class="desctype"><span class="pre">integer</span></span><span class="p"> <span class="pre">|</span> </span><code class="code json docutils literal highlight highlight-json"><span class="s2">&quot;-inf&quot;</span></code><span class="p"><span class="pre">,</span></span> <span class="desctype"><span class="pre">integer</span></span><span class="p"> <span class="pre">|</span> </span><code class="code json docutils literal highlight highlight-json"><span class="s2">&quot;+inf&quot;</span></code><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#json-IndexInterval" title="Link to this definition">¶</a></dt>
 <dd><span><p>Specifies a closed interval of integer index values.</p>
   </span></dd></dl>
 
@@ -2725,7 +2725,7 @@ JSON, but normally need not be specified manually.</p>
   <small>
     
       Last update:
-      Aug 16, 2023
+      Aug 18, 2023
     
   </small>
 </div>
@@ -2802,7 +2802,7 @@ JSON, but normally need not be specified manually.</p>
   
     Created using
     <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
-    7.1.2.
+    7.2.2.
      and
     <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
   

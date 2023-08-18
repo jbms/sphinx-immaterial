@@ -1107,17 +1107,17 @@ ol.upperalpha { list-style: upper-alpha; }
 ol.lowerroman { list-style: lower-roman; }
 ol.upperroman { list-style: upper-roman; }
 </style>
-<h1 id="myst-markdown-typography">MyST MarkDown Typography<a class="headerlink" href="#myst-markdown-typography" title="Permalink to this heading">¶</a></h1>
+<h1 id="myst-markdown-typography">MyST MarkDown Typography<a class="headerlink" href="#myst-markdown-typography" title="Link to this heading">¶</a></h1>
 <p>MyST is a strict superset of the <a class="reference external" href="https://spec.commonmark.org/">CommonMark syntax specification</a>.
 It adds features focussed on scientific and technical documentation authoring, as detailed below.</p>
-<h2 id="headings">Headings<a class="headerlink" href="#headings" title="Permalink to this heading">¶</a></h2>
+<h2 id="headings">Headings<a class="headerlink" href="#headings" title="Link to this heading">¶</a></h2>
 <p>Markdown syntax denotes headers starting with between 1 to 6 #.</p>
 <div class="results">
 <div class="highlight-md notranslate"><div class="highlight"><pre><span></span><code><span class="gu">### Heading Level 3</span>
 </code></pre></div>
 </div>
 <div class="result">
-<h3 id="heading-level-3">Heading Level 3<a class="headerlink" href="#heading-level-3" title="Permalink to this heading">¶</a></h3>
+<h3 id="heading-level-3">Heading Level 3<a class="headerlink" href="#heading-level-3" title="Link to this heading">¶</a></h3>
 </div></div>
 <p>Note, that headings that are not at the root level of the document
 will not be included in the table of contents.
@@ -1139,7 +1139,7 @@ you can also add classes to headings</p>
 <p>To structure single and multiple documents into table of contents, see the <a class="reference external" href="https://myst-parser.readthedocs.io/en/latest/syntax/organising_content.html#organising-content" title="MyST Parser 2.0.0"><span class="xref myst">organizing content section</span></a>.</p>
 <p>To reference a heading in your text, see the <a class="reference external" href="https://myst-parser.readthedocs.io/en/latest/syntax/cross-referencing.html#syntax-referencing" title="MyST Parser 2.0.0"><span class="xref myst">cross-referencing section</span></a>.</p>
 </div>
-<h2 id="paragraphs">Paragraphs<a class="headerlink" href="#paragraphs" title="Permalink to this heading">¶</a></h2>
+<h2 id="paragraphs">Paragraphs<a class="headerlink" href="#paragraphs" title="Link to this heading">¶</a></h2>
 <p>Paragraphs are block of text separated by a blank line.</p>
 <p>Using the <a class="reference external" href="https://myst-parser.readthedocs.io/en/latest/syntax/optional.html#syntax-attributes-block" title="MyST Parser 2.0.0"><span class="xref myst">attrs_block</span></a> extension,
 you can also add classes to paragraphs:</p>
@@ -1152,7 +1152,7 @@ Here is a paragraph with a class to control its formatting.
 <p class="bg-primary">Here is a paragraph with a class to control its formatting.</p>
 </div>
 </div>
-<h2 id="thematic-breaks">Thematic breaks<a class="headerlink" href="#thematic-breaks" title="Permalink to this heading">¶</a></h2>
+<h2 id="thematic-breaks">Thematic breaks<a class="headerlink" href="#thematic-breaks" title="Link to this heading">¶</a></h2>
 <p>You can create a thematic break, to break content between themes, using three or more <code class="docutils literal notranslate"><span class="pre">*</span></code>, <code class="docutils literal notranslate"><span class="pre">-</span></code>, or <code class="docutils literal notranslate"><span class="pre">_</span></code> characters on a line by themselves.</p>
 <div class="results">
 <div class="highlight-md notranslate"><div class="highlight"><pre><span></span><code><span class="k">*</span><span class="w"> </span>* *
@@ -1161,7 +1161,7 @@ Here is a paragraph with a class to control its formatting.
 <div class="result">
 <hr class="docutils" />
 </div></div>
-<h2 id="inline-text-formatting">Inline Text Formatting<a class="headerlink" href="#inline-text-formatting" title="Permalink to this heading">¶</a></h2>
+<h2 id="inline-text-formatting">Inline Text Formatting<a class="headerlink" href="#inline-text-formatting" title="Link to this heading">¶</a></h2>
 <p>Standard inline formatting including bold, italic, code, as well as escaped symbols and line breaks:</p>
 <div class="results docutils container">
 <div class="highlight-md notranslate"><div class="highlight"><pre><span></span><code><span class="gs">**strong**</span>, <span class="ge">_emphasis_</span>, <span class="sb">`literal text`</span>, \*escaped symbols\*
@@ -1202,7 +1202,7 @@ you can also add classes to inline text spans:</p>
 <p>A paragraph with a span of <span class="bg-primary">text with attributes</span></p>
 </div>
 </div>
-<h2 id="line-breaks">Line Breaks<a class="headerlink" href="#line-breaks" title="Permalink to this heading">¶</a></h2>
+<h2 id="line-breaks">Line Breaks<a class="headerlink" href="#line-breaks" title="Link to this heading">¶</a></h2>
 <p>To put a line break, without a paragraph, use a <code class="docutils literal notranslate"><span class="pre">\</span></code> followed by a new line. This corresponds to a <code class="docutils literal notranslate"><span class="pre">&lt;br&gt;</span></code> in HTML and <code class="docutils literal notranslate"><span class="pre">\\</span></code> in LaTeX.</p>
 <div class="results docutils container">
 <div class="highlight-md notranslate"><div class="highlight"><pre><span></span><code>Fleas \
@@ -1216,7 +1216,7 @@ Adam <br />
 Had ‘em.</p>
 </div>
 </div>
-<h2 id="bullet-points-and-numbered-lists">Bullet points and numbered lists<a class="headerlink" href="#bullet-points-and-numbered-lists" title="Permalink to this heading">¶</a></h2>
+<h2 id="bullet-points-and-numbered-lists">Bullet points and numbered lists<a class="headerlink" href="#bullet-points-and-numbered-lists" title="Link to this heading">¶</a></h2>
 <p>You can use bullet points and numbered lists as you would in standard Markdown.
 Starting a line with either a <code class="docutils literal notranslate"><span class="pre">-</span></code> or <code class="docutils literal notranslate"><span class="pre">*</span></code> for a bullet point, and <code class="docutils literal notranslate"><span class="pre">1.</span></code> for numbered lists.
 These lists can be nested using two spaces at the start of the line.</p>
@@ -1301,7 +1301,7 @@ you can also create task lists:</p>
 </ul>
 </div>
 </div>
-<h2 id="subscript-superscript">Subscript &amp; Superscript<a class="headerlink" href="#subscript-superscript" title="Permalink to this heading">¶</a></h2>
+<h2 id="subscript-superscript">Subscript &amp; Superscript<a class="headerlink" href="#subscript-superscript" title="Link to this heading">¶</a></h2>
 <p>For inline typography for subscript and superscript formatting,
 the <code class="docutils literal notranslate"><span class="pre">sub</span></code> and <code class="docutils literal notranslate"><span class="pre">sup</span></code> <a class="reference external" href="https://myst-parser.readthedocs.io/en/latest/syntax/roles-and-directives.html#syntax-roles" title="MyST Parser 2.0.0"><span class="xref myst">role</span></a>, can be used respectively.</p>
 <div class="results docutils container">
@@ -1312,7 +1312,7 @@ the <code class="docutils literal notranslate"><span class="pre">sub</span></cod
 <p>H<sub>2</sub>O, and 4<sup>th</sup> of July</p>
 </div>
 </div>
-<h2 id="quotations">Quotations<a class="headerlink" href="#quotations" title="Permalink to this heading">¶</a></h2>
+<h2 id="quotations">Quotations<a class="headerlink" href="#quotations" title="Link to this heading">¶</a></h2>
 <p>Quotations are controlled with standard Markdown syntax, by inserting a caret (&gt;) symbol in front of one or more lines of text.</p>
 <div class="results docutils container">
 <div class="highlight-md notranslate"><div class="highlight"><pre><span></span><code><span class="k">&gt; </span><span class="ge">We know what we are, but know not what we may be.</span>
@@ -1338,7 +1338,7 @@ you can also add an <code class="docutils literal notranslate"><span class="pre"
 </div></blockquote>
 </div>
 </div>
-<h2 id="definition-lists-and-glossaries">Definition lists and glossaries<a class="headerlink" href="#definition-lists-and-glossaries" title="Permalink to this heading">¶</a></h2>
+<h2 id="definition-lists-and-glossaries">Definition lists and glossaries<a class="headerlink" href="#definition-lists-and-glossaries" title="Link to this heading">¶</a></h2>
 <p>Using the <a class="reference external" href="https://myst-parser.readthedocs.io/en/latest/syntax/optional.html#syntax-definition-lists" title="MyST Parser 2.0.0"><span class="xref myst">definition lists</span></a> extension,
 you can define terms in your documentation, using the syntax:</p>
 <div class="results docutils container">
@@ -1384,7 +1384,7 @@ my term
 <p><a class="reference internal" href="#term-my-term" title="my term (glossary term)"><span class="xref std std-term">my term</span></a></p>
 </div>
 </div>
-<h2 id="field-lists">Field lists<a class="headerlink" href="#field-lists" title="Permalink to this heading">¶</a></h2>
+<h2 id="field-lists">Field lists<a class="headerlink" href="#field-lists" title="Link to this heading">¶</a></h2>
 <p>Using the <a class="reference external" href="https://myst-parser.readthedocs.io/en/latest/syntax/optional.html#syntax-fieldlists" title="MyST Parser 2.0.0"><span class="xref myst">field lists</span></a> extension,
 you can create field lists, which are useful in source code documentation (see <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/domains.html#info-field-lists">Sphinx docstrings</a>):</p>
 <div class="results docutils container">
@@ -1414,7 +1414,7 @@ with multiple lines.</p>
 </dl>
 </div>
 </div>
-<h2 id="comments">Comments<a class="headerlink" href="#comments" title="Permalink to this heading">¶</a></h2>
+<h2 id="comments">Comments<a class="headerlink" href="#comments" title="Link to this heading">¶</a></h2>
 <p>You may add comments by putting the <code class="docutils literal notranslate"><span class="pre">%</span></code> character at the beginning of a line. This will
 prevent the line from being parsed into the output document.</p>
 <p>For example, this won’t be parsed into the document:</p>
@@ -1437,7 +1437,7 @@ another line
 </div>
 </div>
 </details>
-<h2 id="footnotes">Footnotes<a class="headerlink" href="#footnotes" title="Permalink to this heading">¶</a></h2>
+<h2 id="footnotes">Footnotes<a class="headerlink" href="#footnotes" title="Link to this heading">¶</a></h2>
 <p>Footnotes use the <a class="reference external" href="https://pandoc.org/MANUAL.html#footnotes">pandoc specification</a>.
 Their labels <strong>start with <code class="docutils literal notranslate"><span class="pre">^</span></code></strong> and can then be any alphanumeric string (no spaces), which is case-insensitive.</p>
 <ul class="simple">
@@ -1521,7 +1521,7 @@ that are not separated by a blank line</p>
   <small>
     
       Last update:
-      Aug 16, 2023
+      Aug 18, 2023
     
   </small>
 </div>
@@ -1583,7 +1583,7 @@ that are not separated by a blank line</p>
   
     Created using
     <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
-    7.1.2.
+    7.2.2.
      and
     <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
   

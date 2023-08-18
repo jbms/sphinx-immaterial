@@ -894,7 +894,9 @@
 <span class="p">}</span>
 
 
-<div class="viewcode-block" id="CustomAdmonitionConfig"><a class="viewcode-back" href="../../admonitions.html#sphinx_immaterial.custom_admonitions.CustomAdmonitionConfig">[docs]</a><span class="k">class</span> <span class="nc">CustomAdmonitionConfig</span><span class="p">(</span><span class="n">pydantic</span><span class="o">.</span><span class="n">BaseModel</span><span class="p">):</span>
+<div class="viewcode-block" id="CustomAdmonitionConfig">
+<a class="viewcode-back" href="../../admonitions.html#sphinx_immaterial.custom_admonitions.CustomAdmonitionConfig">[docs]</a>
+<span class="k">class</span> <span class="nc">CustomAdmonitionConfig</span><span class="p">(</span><span class="n">pydantic</span><span class="o">.</span><span class="n">BaseModel</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;This data class validates the user&#39;s configuration value(s) in</span>
 <span class="sd">    :confval:`sphinx_immaterial_custom_admonitions`. Each validated object</span>
 <span class="sd">    corresponds to a generated custom :rst:dir:`admonition` directive tailored with</span>
@@ -974,6 +976,7 @@
                 <span class="n">re</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;[\-_]+&quot;</span><span class="p">,</span> <span class="n">cast</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">info</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">)))</span>
             <span class="p">)</span><span class="o">.</span><span class="n">title</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">val</span></div>
+
 
 
 <span class="k">def</span> <span class="nf">visit_collapsible</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">HTML5Translator</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Element</span><span class="p">,</span> <span class="n">flag</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
@@ -1355,7 +1358,7 @@
   <small>
     
       Last update:
-      Aug 16, 2023
+      Aug 18, 2023
     
   </small>
 </div>
@@ -1396,7 +1399,7 @@
   
     Created using
     <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
-    7.1.2.
+    7.2.2.
      and
     <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
   

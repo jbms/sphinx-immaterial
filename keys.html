@@ -1013,7 +1013,7 @@
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"/></svg>
   </a>
 
-<h1 id="keys-extension">Keys extension<a class="headerlink" href="#keys-extension" title="Permalink to this heading">¶</a></h1>
+<h1 id="keys-extension">Keys extension<a class="headerlink" href="#keys-extension" title="Link to this heading">¶</a></h1>
 <p>This extension is meant to mimic the python markdown extension, <a class="reference external" href="https://facelessuser.github.io/pymdown-extensions/extensions/keys/">pymdownx.keys</a>.</p>
 <p>It simply adds a role to invoke inline usage of keyboard keys with custom CSS provided by
 the sphinx-immaterial theme.</p>
@@ -1040,7 +1040,7 @@ the sphinx-immaterial theme.</p>
 </code></pre></div>
 </div>
 </details>
-<h2 id="markdown-extension-pre-requisite"><span id="pymdownx-keys-req"></span>Markdown extension pre-requisite<a class="headerlink" href="#markdown-extension-pre-requisite" title="Permalink to this heading">¶</a></h2>
+<h2 id="markdown-extension-pre-requisite"><span id="pymdownx-keys-req"></span>Markdown extension pre-requisite<a class="headerlink" href="#markdown-extension-pre-requisite" title="Link to this heading">¶</a></h2>
 <p>This pre-requisite does not mean Markdown support is enabled. However, this extension
 does import the <code class="docutils literal notranslate"><span class="pre">pymdownx.keymap_db</span></code> module to use for the <a class="reference internal" href="#confval-keys_map" title="keys_map (configuration value) — An additional dict where key: value pairs consist of:"><code class="xref any std std-confval docutils literal notranslate"><span class="pre">keys_map</span></code></a> option’s defaults.</p>
 <p>To use this extension, the <a class="reference external" href="https://pypi.org/project/pymdown-extensions/">pymdown-extensions</a> package needs to be installed.
@@ -1053,10 +1053,10 @@ optional feature of this package:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="n">extensions</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;sphinx_immaterial.kbd_keys&quot;</span><span class="p">]</span>
 </code></pre></div>
 </div>
-<h2 id="keys-extension-role"><span id="id1"></span>Keys extension role<a class="headerlink" href="#keys-extension-role" title="Permalink to this heading">¶</a></h2>
+<h2 id="keys-extension-role"><span id="id1"></span>Keys extension role<a class="headerlink" href="#keys-extension-role" title="Link to this heading">¶</a></h2>
 <dl class="rst role objdesc">
 <dt class="sig sig-object highlight rst" id="role-keys">
-<span class="sig-name descname"><span class="pre">:keys:</span></span><a class="headerlink" href="#role-keys" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">:keys:</span></span><a class="headerlink" href="#role-keys" title="Link to this definition">¶</a></dt>
 <dd><p>The value of this role is interpreted as a keyboard key name. Each role invocation can
 describe multiple keys pressed simultaneously using the <a class="reference internal" href="#confval-keys_separator" title="keys_separator (configuration value) — The str value used as the delimiter between keys."><code class="xref any std std-confval docutils literal notranslate"><span class="pre">keys_separator</span></code></a>.</p>
 <div class="results docutils container">
@@ -1072,12 +1072,12 @@ describe multiple keys pressed simultaneously using the <a class="reference inte
 </div>
 </dd></dl>
 
-<h2 id="keys-extension-configuration">Keys extension configuration<a class="headerlink" href="#keys-extension-configuration" title="Permalink to this heading">¶</a></h2>
+<h2 id="keys-extension-configuration">Keys extension configuration<a class="headerlink" href="#keys-extension-configuration" title="Link to this heading">¶</a></h2>
 <p>These variables can be used to control the <a class="reference internal" href="#role-keys" title="keys role"><code class="xref rst rst-role docutils literal notranslate"><span class="pre">keys</span></code></a> role behavior from the Sphinx
 project’s conf.py file.</p>
 <dl class="std confval objdesc">
 <dt class="sig sig-object highlight std" id="confval-keys_strict">
-<span class="sig-name descname"><span class="pre">keys_strict</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="kc">False</span></code><a class="headerlink" href="#confval-keys_strict" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">keys_strict</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="kc">False</span></code><a class="headerlink" href="#confval-keys_strict" title="Link to this definition">¶</a></dt>
 <dd><p>The containing span element can strictly follow HTML5 specifications by using the
 <code class="docutils literal notranslate"><span class="pre">kbd</span></code> tag instead of a <code class="docutils literal notranslate"><span class="pre">span</span></code> tag.</p>
 <p>The sphinx-immaterial theme does not adhere to the HTML5 strictness, therefore this
@@ -1086,7 +1086,7 @@ project’s conf.py file.</p>
 
 <dl class="std confval objdesc">
 <dt class="sig sig-object highlight std" id="confval-keys_class">
-<span class="sig-name descname"><span class="pre">keys_class</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="s1">&#39;keys&#39;</span></code><a class="headerlink" href="#confval-keys_class" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">keys_class</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="s1">&#39;keys&#39;</span></code><a class="headerlink" href="#confval-keys_class" title="Link to this definition">¶</a></dt>
 <dd><p>The class attribute <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><code class="xref any docutils literal notranslate"><span class="pre">str</span></code></a> value used in the containing span element. Defaults to <code class="docutils literal notranslate"><span class="pre">&quot;keys&quot;</span></code>.</p>
 <p>Only change this if needed for your theme. The sphinx-immaterial theme is configured to use
 the default value.</p>
@@ -1094,14 +1094,14 @@ the default value.</p>
 
 <dl class="std confval objdesc">
 <dt class="sig sig-object highlight std" id="confval-keys_separator">
-<span class="sig-name descname"><span class="pre">keys_separator</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="s1">&#39;+&#39;</span></code><a class="headerlink" href="#confval-keys_separator" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">keys_separator</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="s1">&#39;+&#39;</span></code><a class="headerlink" href="#confval-keys_separator" title="Link to this definition">¶</a></dt>
 <dd><p>The <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><code class="xref any docutils literal notranslate"><span class="pre">str</span></code></a> value used as the delimiter between keys. Defaults to <code class="docutils literal notranslate"><span class="pre">&quot;+&quot;</span></code>.</p>
 <p>Changing this also requires changing the text provided to the <a class="reference internal" href="#role-keys" title="keys role"><code class="xref rst rst-role docutils literal notranslate"><span class="pre">keys</span></code></a> role.</p>
 </dd></dl>
 
 <dl class="std confval objdesc">
 <dt class="sig sig-object highlight std" id="confval-keys_map">
-<span class="sig-name descname"><span class="pre">keys_map</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><span class="pre">dict</span></a></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="p">{}</span></code><a class="headerlink" href="#confval-keys_map" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">keys_map</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><span class="pre">dict</span></a></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="p">{}</span></code><a class="headerlink" href="#confval-keys_map" title="Link to this definition">¶</a></dt>
 <dd><p>An additional <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><code class="xref any docutils literal notranslate"><span class="pre">dict</span></code></a> where <code class="docutils literal notranslate"><span class="pre">key:</span> <span class="pre">value</span></code> pairs consist of:</p>
 <table class="docutils data align-default">
 <thead>
@@ -1196,7 +1196,7 @@ spaces in a lower case form of the given text. Therefore, entering
   <small>
     
       Last update:
-      Aug 16, 2023
+      Aug 18, 2023
     
   </small>
 </div>
@@ -1273,7 +1273,7 @@ spaces in a lower case form of the given text. Therefore, entering
   
     Created using
     <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
-    7.1.2.
+    7.2.2.
      and
     <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
   

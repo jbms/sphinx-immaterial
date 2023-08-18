@@ -1043,12 +1043,12 @@
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"/></svg>
   </a>
 
-<h1 id="general-api-customization">General API customization<a class="headerlink" href="#general-api-customization" title="Permalink to this heading">¶</a></h1>
+<h1 id="general-api-customization">General API customization<a class="headerlink" href="#general-api-customization" title="Link to this heading">¶</a></h1>
 <p>This theme supports a number of options that can be customized for each
 domain/object type pair.</p>
 <dl class="std confval objdesc">
 <dt class="sig sig-object highlight sig-wrap std" id="confval-object_description_options">
-<span class="sig-name descname"><span class="pre">object_description_options</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.11)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Pattern</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.11)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="p">[]</span></code><a class="headerlink" href="#confval-object_description_options" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">object_description_options</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.11)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Pattern</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.11)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="p">[]</span></code><a class="headerlink" href="#confval-object_description_options" title="Link to this definition">¶</a></dt>
 <dd><p><code class="code highlight python docutils literal highlight-python"><span class="nb">list</span></code> of <code class="code highlight python docutils literal highlight-python"><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">options</span><span class="p">)</span></code> pairs, where <code class="code highlight python docutils literal highlight-python"><span class="n">pattern</span></code>
 is a regular expression matching strings of the form
 <code class="code highlight python docutils literal highlight-python"><span class="s2">&quot;domain:objtype&quot;</span></code> and <code class="code highlight python docutils literal highlight-python"><span class="n">options</span></code> is a dictionary of supported
@@ -1058,12 +1058,12 @@ initializing each option to its default value, and then applying as overrides
 the options associated with each matching pattern in order.</p>
 </dd></dl>
 
-<h2 id="object-description-options"><span id="id1"></span>Object description options<a class="headerlink" href="#object-description-options" title="Permalink to this heading">¶</a></h2>
+<h2 id="object-description-options"><span id="id1"></span>Object description options<a class="headerlink" href="#object-description-options" title="Link to this heading">¶</a></h2>
 <p>The following options can be customized for each object type using
 <a class="reference internal" href="#confval-object_description_options" title="object_description_options (configuration value) — list of (pattern, options) pairs, where pattern is a regular expression matching strings of the form &quot;domain:objtype&quot; and options is a dictionary of supported object-description-options."><code class="xref std std-confval docutils literal notranslate"><span class="pre">object_description_options</span></code></a>.</p>
 <dl class="std objconf objdesc">
 <dt class="sig sig-object highlight std" id="objconf-include_in_toc">
-<span class="sig-name descname"><span class="pre">include_in_toc</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="kc">True</span></code><a class="headerlink" href="#objconf-include_in_toc" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">include_in_toc</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="kc">True</span></code><a class="headerlink" href="#objconf-include_in_toc" title="Link to this definition">¶</a></dt>
 <dd><p>Indicates whether to include the object description in the table of contents.</p>
 <div class="example admonition">
 <p class="admonition-title">Example</p>
@@ -1079,7 +1079,7 @@ following to <code class="file docutils literal notranslate"><span class="pre">c
 
 <dl class="std objconf objdesc">
 <dt class="sig sig-object highlight sig-wrap std" id="objconf-generate_synopses">
-<span class="sig-name descname"><span class="pre">generate_synopses</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><span class="s"><span class="pre">'first_paragraph'</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="s"><span class="pre">'first_sentence'</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="s1">&#39;first_paragraph&#39;</span></code><a class="headerlink" href="#objconf-generate_synopses" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">generate_synopses</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><span class="s"><span class="pre">'first_paragraph'</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="s"><span class="pre">'first_sentence'</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="s1">&#39;first_paragraph&#39;</span></code><a class="headerlink" href="#objconf-generate_synopses" title="Link to this definition">¶</a></dt>
 <dd><p>Indicates whether to generate a <em>synopsis</em> from the object description.  The
 synopsis is shown as a tooltip when hovering over a cross-reference link, and
 is also shown in the search results list.  Supported values are:</p>
@@ -1097,7 +1097,7 @@ where the default is <code class="code highlight python docutils literal highlig
 <p class="admonition-title">Note</p>
 <p>Synopsis generation is currently supported only for the following domains:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">std</span></code> (including object types added using <a class="reference external" href="https://www.sphinx-doc.org/en/master/extdev/appapi.html#sphinx.application.Sphinx.add_object_type" title="(in Sphinx v7.2.0)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sphinx.application.Sphinx.add_object_type</span></code></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">std</span></code> (including object types added using <a class="reference external" href="https://www.sphinx-doc.org/en/master/extdev/appapi.html#sphinx.application.Sphinx.add_object_type" title="(in Sphinx v7.2.2)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sphinx.application.Sphinx.add_object_type</span></code></a>)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">c</span></code> and <code class="docutils literal notranslate"><span class="pre">cpp</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">py</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">json</span></code></p></li>
@@ -1117,7 +1117,7 @@ for C++ class descriptions, add the following to <code class="file docutils lite
 
 <dl class="std objconf objdesc">
 <dt class="sig sig-object highlight std" id="objconf-include_object_type_in_xref_tooltip">
-<span class="sig-name descname"><span class="pre">include_object_type_in_xref_tooltip</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="kc">True</span></code><a class="headerlink" href="#objconf-include_object_type_in_xref_tooltip" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">include_object_type_in_xref_tooltip</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="kc">True</span></code><a class="headerlink" href="#objconf-include_object_type_in_xref_tooltip" title="Link to this definition">¶</a></dt>
 <dd><p>Indicates whether to include the object type in cross-reference and TOC
 tooltips.</p>
 <div class="note admonition">
@@ -1125,7 +1125,7 @@ tooltips.</p>
 <p>For TOC entries, this is supported for all domains.  For regular cross
 references, this is supported only for the following domains:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">std</span></code> (including object types added using <a class="reference external" href="https://www.sphinx-doc.org/en/master/extdev/appapi.html#sphinx.application.Sphinx.add_object_type" title="(in Sphinx v7.2.0)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sphinx.application.Sphinx.add_object_type</span></code></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">std</span></code> (including object types added using <a class="reference external" href="https://www.sphinx-doc.org/en/master/extdev/appapi.html#sphinx.application.Sphinx.add_object_type" title="(in Sphinx v7.2.2)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sphinx.application.Sphinx.add_object_type</span></code></a>)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">c</span></code> and <code class="docutils literal notranslate"><span class="pre">cpp</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">py</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">json</span></code></p></li>
@@ -1145,7 +1145,7 @@ to <code class="file docutils literal notranslate"><span class="pre">conf.py</sp
 
 <dl class="std objconf objdesc">
 <dt class="sig sig-object highlight std" id="objconf-include_fields_in_toc">
-<span class="sig-name descname"><span class="pre">include_fields_in_toc</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="kc">True</span></code><a class="headerlink" href="#objconf-include_fields_in_toc" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">include_fields_in_toc</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="kc">True</span></code><a class="headerlink" href="#objconf-include_fields_in_toc" title="Link to this definition">¶</a></dt>
 <dd><p>Indicates whether to include fields, like “Parameters”, “Returns”, “Raises”,
 etc., in the table of contents.</p>
 <p>For an example, see: <code class="cpp-expr sig sig-inline cpp highlight"><span class="n">synopses_ex</span><span class="p">::</span><a class="reference internal" href="../demo_api.html#_CPPv4I0_iEN11synopses_ex3FooEN11synopses_ex8SomeTypeE1TRA1N_Ki" title="synopses_ex::Foo (C++ function) — Synopsis for this function, shown when hovering over cross references as well as in the TOC."><span class="n">Foo</span></a></code> and note the <code class="docutils literal notranslate"><span class="pre">Template</span>
@@ -1173,7 +1173,7 @@ option.</p>
 
 <dl class="std objconf objdesc">
 <dt class="sig sig-object highlight std" id="objconf-include_rubrics_in_toc">
-<span class="sig-name descname"><span class="pre">include_rubrics_in_toc</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="kc">False</span></code><a class="headerlink" href="#objconf-include_rubrics_in_toc" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">include_rubrics_in_toc</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="kc">False</span></code><a class="headerlink" href="#objconf-include_rubrics_in_toc" title="Link to this definition">¶</a></dt>
 <dd><p>Indicates whether to include rubrics in object descriptions, like “Notes”, “References”, “Examples”,
 etc., in the table of contents.</p>
 <div class="note admonition">
@@ -1200,7 +1200,7 @@ other rubrics from the object description in the TOC is provided for visual cons
 <li><p><a class="reference internal" href="format_signatures.html#objconf-wrap_signatures_column_limit" title="wrap_signatures_column_limit (object description option)"><code class="xref std std-objconf docutils literal notranslate"><span class="pre">wrap_signatures_column_limit</span></code></a></p></li>
 <li><p><a class="reference internal" href="format_signatures.html#objconf-clang_format_style" title="clang_format_style (object description option)"><code class="xref std std-objconf docutils literal notranslate"><span class="pre">clang_format_style</span></code></a></p></li>
 </ul>
-<h3 id="table-of-contents-icons"><span id="object-toc-icons"></span>Table of contents icons<a class="headerlink" href="#table-of-contents-icons" title="Permalink to this heading">¶</a></h3>
+<h3 id="table-of-contents-icons"><span id="object-toc-icons"></span>Table of contents icons<a class="headerlink" href="#table-of-contents-icons" title="Link to this heading">¶</a></h3>
 <p>For object descriptions included in the table of contents (when
 <a class="reference internal" href="#objconf-include_in_toc" title="include_in_toc (object description option)"><code class="xref std std-objconf docutils literal notranslate"><span class="pre">include_in_toc</span></code></a> is <code class="code highlight python docutils literal highlight-python"><span class="kc">True</span></code>), a text-based “icon” can optionally
 be included to indicate the object type.</p>
@@ -1208,7 +1208,7 @@ be included to indicate the object type.</p>
 overridden using the following options:</p>
 <dl class="std objconf objdesc">
 <dt class="sig sig-object highlight std" id="objconf-toc_icon_class">
-<span class="sig-name descname"><span class="pre">toc_icon_class</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="kc">None</span></code><a class="headerlink" href="#objconf-toc_icon_class" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">toc_icon_class</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="kc">None</span></code><a class="headerlink" href="#objconf-toc_icon_class" title="Link to this definition">¶</a></dt>
 <dd><p>Indicates the icon class, or <code class="code highlight python docutils literal highlight-python"><span class="kc">None</span></code> to disable the icon.  The class
 must be one of:</p>
 <ul class="simple">
@@ -1221,7 +1221,7 @@ must be one of:</p>
 
 <dl class="std objconf objdesc">
 <dt class="sig sig-object highlight std" id="objconf-toc_icon_text">
-<span class="sig-name descname"><span class="pre">toc_icon_text</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="kc">None</span></code><a class="headerlink" href="#objconf-toc_icon_text" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">toc_icon_text</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="kc">None</span></code><a class="headerlink" href="#objconf-toc_icon_text" title="Link to this definition">¶</a></dt>
 <dd><p>Indicates the text content of the icon, or <code class="code highlight python docutils literal highlight-python"><span class="kc">None</span></code> to disable the
 icon.  This should normally be a single character, such as <code class="code highlight python docutils literal highlight-python"><span class="s2">&quot;C&quot;</span></code> to
 indicate a class or <code class="code highlight python docutils literal highlight-python"><span class="s2">&quot;F&quot;</span></code> to indicate a function.</p>
@@ -1252,7 +1252,7 @@ indicate a class or <code class="code highlight python docutils literal highligh
   <small>
     
       Last update:
-      Aug 16, 2023
+      Aug 18, 2023
     
   </small>
 </div>
@@ -1329,7 +1329,7 @@ indicate a class or <code class="code highlight python docutils literal highligh
   
     Created using
     <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
-    7.1.2.
+    7.2.2.
      and
     <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
   
