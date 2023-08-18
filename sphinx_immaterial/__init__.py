@@ -15,6 +15,7 @@ import sphinx.util.fileutil
 import sphinx.util.matching
 import sphinx.util.docutils
 import sphinx.writers.html5
+from sphinx import version_info
 
 from . import html_translator_mixin
 from .apidoc import apidoc_formatting
@@ -44,7 +45,10 @@ def _get_html_builder(base_builder: Type[sphinx.builders.html.StandaloneHTMLBuil
     """Returns a modified HTML translator."""
 
     class CustomHTMLBuilder(base_builder):  # type: ignore
-        css_files: List[sphinx.builders.html.Stylesheet]
+        if version_info < (7, 2):
+            css_files: List[sphinx.builders.html.Stylesheet]
+        else:
+            _css_files: List[sphinx.builders.html._assets._CascadingStyleSheet]  # type: ignore[name-defined]
         theme: sphinx.theming.Theme
         templates: sphinx.jinja2glue.BuiltinTemplateLoader
 
@@ -71,9 +75,14 @@ def _get_html_builder(base_builder: Type[sphinx.builders.html.StandaloneHTMLBuil
             if nav_adapt.READTHEDOCS is None:
                 excluded_scripts.add("_static/jquery.js")
                 excluded_scripts.add("_static/_sphinx_javascript_frameworks_compat.js")
-            self.script_files: List[sphinx.builders.html.JavaScript] = [
-                x for x in self.script_files if x.filename not in excluded_scripts
-            ]
+            if version_info < (7, 2):
+                self.script_files: List[sphinx.builders.html.JavaScript] = [
+                    x for x in self.script_files if x.filename not in excluded_scripts
+                ]
+            else:
+                self._js_files: List[sphinx.builders.html._assets._JavaScript] = [  # type: ignore[name-defined]
+                    x for x in self._js_files if x.filename not in excluded_scripts
+                ]
 
         def init_css_files(self):
             super().init_css_files()
@@ -87,11 +96,24 @@ def _get_html_builder(base_builder: Type[sphinx.builders.html.StandaloneHTMLBuil
                     "_static/basic.css",
                 ]
             )
-            self.css_files = [
-                x
-                for x in cast(List[sphinx.builders.html.Stylesheet], self.css_files)
-                if x.filename not in excluded
-            ]
+            if version_info < (7, 2):
+                self.css_files = [
+                    x
+                    for x in cast(
+                        List[sphinx.builders.html.Stylesheet],
+                        self.css_files,
+                    )
+                    if x.filename not in excluded
+                ]
+            else:
+                self._css_files = [
+                    x
+                    for x in cast(
+                        List[sphinx.builders.html._assets._CascadingStyleSheet],  # type: ignore[name-defined]
+                        self._css_files,
+                    )
+                    if x.filename not in excluded
+                ]
 
         def gen_additional_pages(self):
             # Prevent the search.html page from being written since this theme provides

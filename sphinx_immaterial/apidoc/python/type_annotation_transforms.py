@@ -21,6 +21,7 @@ import sphinx.application
 import sphinx.domains.python
 import sphinx.environment
 import sphinx.util.logging
+from sphinx import version_info
 
 # `ast.unparse` added in Python 3.9
 if sys.version_info >= (3, 9):
@@ -352,9 +353,19 @@ def _monkey_patch_python_domain_to_transform_xref_titles():
     def type_to_xref(
         target: str,
         env: sphinx.environment.BuildEnvironment,
+        *args,
         suppress_prefix: bool = False,
     ) -> sphinx.addnodes.pending_xref:
-        node = orig_type_to_xref(target, env, suppress_prefix)
+        if version_info < (7, 2):
+            # suppress_prefix may not have been used like a kwarg before v7.2.0 as
+            # there was only 3 params for type_to_xref() prior to v7.2.0
+            if args:
+                suppress_prefix = args[0]
+            node = orig_type_to_xref(target, env, suppress_prefix=suppress_prefix)
+        else:
+            node = orig_type_to_xref(  # type: ignore[misc]
+                target, env, *args, suppress_prefix=suppress_prefix
+            )
         if (
             not suppress_prefix
             and len(node.children) == 1

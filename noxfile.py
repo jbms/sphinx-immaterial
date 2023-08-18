@@ -200,7 +200,9 @@ def docs(session: nox.Session, builder: str):
 
 @nox.session(python=SUPPORTED_PY_VER)
 @nox.parametrize(
-    "sphinx", [">=4.5,<5", ">=5,<6", ">=6,<7"], ids=["sphinx4", "sphinx5", "sphinx6"]
+    "sphinx",
+    [">=4.5,<5", ">=5,<6", ">=6,<7", ">=7,<8"],
+    ids=["sphinx4", "sphinx5", "sphinx6", "sphinx7"],
 )
 def tests(session: nox.Session, sphinx: str):
     """Run unit tests and collect code coverage analysis."""
