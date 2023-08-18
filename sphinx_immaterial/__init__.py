@@ -99,10 +99,7 @@ def _get_html_builder(base_builder: Type[sphinx.builders.html.StandaloneHTMLBuil
             if version_info < (7, 2):
                 self.css_files = [
                     x
-                    for x in cast(
-                        List[sphinx.builders.html.Stylesheet],
-                        self.css_files,
-                    )
+                    for x in cast(List[sphinx.builders.html.Stylesheet], self.css_files)
                     if x.filename not in excluded
                 ]
             else:
