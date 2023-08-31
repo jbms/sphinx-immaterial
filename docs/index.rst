@@ -142,3 +142,8 @@ or ``theme.conf`` for more details.
     rst-cheatsheet/rst-cheatsheet
     additional_samples
     myst_typography
+
+.. toctree::
+    :hidden:
+
+    changelog
