@@ -663,6 +663,10 @@ Configuration Options
     .. themeconf:: version_info
 
         A list of dictionaries used to populate the :ref:`version_dropdown` selector.
+    
+    .. themeconf:: scope
+
+        Base path for values in browser local storage.
 
 .. confval:: sphinx_immaterial_external_resource_cache_dir
 

@@ -241,6 +241,7 @@ def html_page_context(
                     "disqus": theme_options.get("disqus"),
                     "manifest": theme_options.get("pwa_manifest"),
                     "analytics": analytics,
+                    "scope": theme_options.get("scope"),
                 },
                 "plugins": theme_options.get("plugins"),
             },
