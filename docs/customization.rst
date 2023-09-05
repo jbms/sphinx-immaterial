@@ -666,7 +666,9 @@ Configuration Options
     
     .. themeconf:: scope
 
-        Base path for values in browser local storage.
+        Scope of site preferences (i.e. cookie consent, content tabs, color palette). 
+        If you have multi-site project, you can set this to "/" 
+        to share preferences between all sub-sites.
 
 .. confval:: sphinx_immaterial_external_resource_cache_dir
 
