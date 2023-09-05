@@ -136,7 +136,7 @@ const assets$ = concat(
     })),
 
   /* Copy mathjax dist */
-  ...["tex-mml-chtml.js", "output/chtml/fonts/woff-v2/*.woff", "../LICENSE"]
+  ...["tex-mml-chtml.js", "input/tex/extensions/*.js", "output/*.js", "output/**/*.js", "output/chtml/fonts/woff-v2/*.woff", "a11y/*.js", "sre/**/*.json", "../LICENSE"]
     .map(pattern => copyAll(pattern, {
       from: "node_modules/mathjax/es5",
       to: `${base}/bundles/mathjax`
