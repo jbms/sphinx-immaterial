@@ -1,6 +1,7 @@
 coverage[toml] >= 7.0
 pytest
 pytest-snapshot
+beautifulsoup4
 tests/issue_134/sphinx-immaterial-pybind11-issue-134
 
 -r ../requirements.txt
