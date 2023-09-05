@@ -362,10 +362,13 @@ def get_directive_class(name, title, classes=None) -> Type[CustomAdmonitionDirec
 
 def on_builder_inited(app: Sphinx):
     """register the directives for the custom admonitions and build the CSS."""
-    config = app.config
-    custom_admonitions: List[CustomAdmonitionConfig] = getattr(
-        config, "sphinx_immaterial_custom_admonitions"
-    )
+    custom_admonitions = [
+        x.model_copy()
+        for x in cast(
+            List[CustomAdmonitionConfig],
+            getattr(app.config, "sphinx_immaterial_custom_admonitions"),
+        )
+    ]
     builtin_css_classes = list(admonitionlabels.keys()) + list(INHERITED_ADMONITIONS)
     custom_admonition_names = []
     for admonition in custom_admonitions:
