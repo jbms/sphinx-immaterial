@@ -663,11 +663,11 @@ Configuration Options
     .. themeconf:: version_info
 
         A list of dictionaries used to populate the :ref:`version_dropdown` selector.
-    
+
     .. themeconf:: scope
 
-        Scope of site preferences (i.e. cookie consent, content tabs, color palette). 
-        If you have multi-site project, you can set this to "/" 
+        Scope of site preferences (i.e. cookie consent, content tabs, color palette).
+        If you have multi-site project, you can set this to "/"
         to share preferences between all sub-sites.
 
 .. confval:: sphinx_immaterial_external_resource_cache_dir

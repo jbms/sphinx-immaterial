@@ -30,10 +30,12 @@ def test_extra_scope(immaterial_make_app):
     with open(app.outdir / "index.html", mode="r") as file:
         soup = BeautifulSoup(file.read(), "html.parser")
 
+    head = soup.head
+    assert head is not None
+
     scope_pattern = re.compile(r"__md_scope=new URL\(\"(?P<url>[^\"]+)\"")
     matched_scope_url = ""
-    for script in soup.head.find_all("script"):
-        script: Tag
+    for script in head.find_all("script"):
         scope_match = scope_pattern.search(script.text)
         if scope_match:
             matched_scope_url = scope_match.group("url")
