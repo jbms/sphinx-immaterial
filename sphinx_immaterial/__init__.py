@@ -226,6 +226,17 @@ def html_page_context(
     if theme_options.get("analytics"):
         analytics = theme_options.get("analytics")
 
+    extra = {
+        "version": version_config,
+        "social": theme_options.get("social"),
+        "disqus": theme_options.get("disqus"),
+        "manifest": theme_options.get("pwa_manifest"),
+        "analytics": analytics,
+    }
+    scope = theme_options.get("scope")
+    if scope is not None:
+        extra["scope"] = scope
+
     context.update(
         config=dict_merge(
             context.get("config", {}),
@@ -235,14 +246,7 @@ def html_page_context(
                 "site_name": context["docstitle"],
                 "repo_url": theme_options.get("repo_url"),
                 "repo_name": theme_options.get("repo_name", None),
-                "extra": {
-                    "version": version_config,
-                    "social": theme_options.get("social"),
-                    "disqus": theme_options.get("disqus"),
-                    "manifest": theme_options.get("pwa_manifest"),
-                    "analytics": analytics,
-                    "scope": theme_options.get("scope"),
-                },
+                "extra": extra,
                 "plugins": theme_options.get("plugins"),
             },
         ),
