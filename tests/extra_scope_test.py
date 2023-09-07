@@ -1,10 +1,12 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
-from bs4 import BeautifulSoup
 import re
 import textwrap
+from pathlib import Path
+from typing import TYPE_CHECKING
+
 import pytest
+from bs4 import BeautifulSoup
 
 if TYPE_CHECKING:
     from sphinx.testing.util import SphinxTestApp
@@ -47,7 +49,7 @@ def test_extra_scope(
     )
     app.build()
 
-    with open(app.outdir / "index.html", mode="r") as file:
+    with open(Path(app.outdir) / "index.html", mode="r") as file:
         soup = BeautifulSoup(file.read(), "html.parser")
 
     head = soup.head
