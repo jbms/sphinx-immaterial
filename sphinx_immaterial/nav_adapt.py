@@ -461,7 +461,7 @@ def _add_domain_info_to_toc(
             title_prefix = (
                 f'<span aria-label="{label}" '
                 f'class="objinfo-icon objinfo-icon__{toc_icon_class}" '
-                f'title="{label}">{toc_icon_text}</span>'
+                f'title="{label}">{toc_icon_text|upper}</span>'
             )
         span_prefix = "<span "
         assert entry.title.startswith(span_prefix)
