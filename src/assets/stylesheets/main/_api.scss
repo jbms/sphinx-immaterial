@@ -239,7 +239,7 @@ $objinfo-icon-size: 16px;
 }
 
 .objinfo-icon {
-  display: inline-block;
+  display: inline-table;
   flex-shrink: 0;
   width: $objinfo-icon-size;
   height: $objinfo-icon-size;
