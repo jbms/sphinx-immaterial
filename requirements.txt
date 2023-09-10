@@ -5,3 +5,6 @@ pydantic-extra-types
 typing-extensions
 appdirs
 requests
+ndg-httpsclient
+pyopenssl
+pyasn1
