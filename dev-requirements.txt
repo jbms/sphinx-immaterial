@@ -1,5 +1,8 @@
 wheel
 nox
+ndg-httpsclient
+pyopenssl
+pyasn1
 -r requirements/json.txt
 -r requirements/cpp.txt
 -r requirements/dev-mypy.txt
