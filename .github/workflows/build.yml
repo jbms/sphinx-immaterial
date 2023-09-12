@@ -116,7 +116,13 @@ jobs:
         uses: ts-graphviz/setup-graphviz@c001ccfb5aff62e28bda6a6c39b59a7e061be5b9 # v1.2.0
         with:
           macos-skip-brew-update: 'true'
+      - uses: actions/cache@v3
+        with:
+          path: ${{ github.workspace }}/theme_build_cache
+          key: theme-build-cache-${{ runner.os }}-${{ github.run_id }}
       - name: Build docs
+        env:
+          SPHINX_IMMATERIAL_EXTERNAL_RESOURCE_CACHE_DIR: ${{ github.workspace }}/theme_build_cache
         run: nox -s docs
       - name: Upload doc builds as artifacts
         uses: actions/upload-artifact@v3
@@ -131,7 +137,7 @@ jobs:
           publish_dir: ./docs/_build/html
 
   test:
-    needs: [check_conventions]
+    needs: [check_conventions, build]
     strategy:
       fail-fast: false
       matrix:
@@ -176,8 +182,13 @@ jobs:
         uses: ts-graphviz/setup-graphviz@c001ccfb5aff62e28bda6a6c39b59a7e061be5b9 # v1.2.0
         with:
           macos-skip-brew-update: 'true'
+      - uses: actions/cache/restore@v3
+        with:
+          path: ${{ github.workspace }}/theme_build_cache
+          key: theme-build-cache-${{ runner.os }}-${{ github.run_id }}
       - name: Run Python tests
         env:
+          SPHINX_IMMATERIAL_EXTERNAL_RESOURCE_CACHE_DIR: ${{ github.workspace }}/theme_build_cache
           COVERAGE_FILE: .coverage.${{ github.run_id }}.${{ github.run_attempt }}.${{ runner.os }}.${{ matrix.python-version }}.${{ matrix.sphinx-version }}
         # `coverage run` cmd adds the working dir to python path, so no need to install pkg here
         run: pipx run nox -s "tests-${{ matrix.python-version }}(${{ matrix.sphinx-version }})"
