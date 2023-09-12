@@ -10,6 +10,29 @@ We use linters to keep our code style conventional. Thus, this repository is set
 
 Please be sure to review/format your code changes in accordance with the style guides incorporated in this repository (which are typically named _.**rc_).
 
+### Using `nox` & `npm`
+
+Most of our CI uses a program utility called `nox`.
+For JS and SCSS checking, we use `npm` tasks.
+
+#### Run type checkers and formatters for Python
+
+Be sure `nox` is installed via `pip install nox`.
+
+From the repository root directory:
+
+```shell
+nox
+```
+
+More info is available via `nox -h` or [their documentation](https://nox.thea.codes/en/stable/usage.html).
+
+#### Run type checkers and formatters for JS & SCSS
+
+```shell
+npm run check
+```
+
 ## Unwanted changes
 
 Anything contained within the _src_ folder is meant to be merged from the upstream mkdocs-material repo. As such, it is discouraged from making any changes that might cause a merge conflict when new changes are pulled from the upstream repository.
