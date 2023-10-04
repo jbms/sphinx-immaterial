@@ -1,4 +1,3 @@
 sphinx-immaterial[json,clang-format,keys,cpp]
 sphinx-jinja
 myst-parser
-sphinx-github-changelog

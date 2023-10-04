@@ -64,17 +64,6 @@ jobs:
         if: contains(matrix, 'node-version')
       - run: pipx run nox -s ${{ matrix.nox-sessions }}
 
-  create_release:
-    if: ${{ startsWith(github.ref, 'refs/tags/v') }}
-    # This needs to be done before the docs are built to ensure the latest tagged commit is
-    # shown as a release in the generated changelog.
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Create a Github Release
-        run: gh release create ${{ github.ref_name }} --generate-notes
-        # note that just like tags, GH releases can be deleted/re-created/edited/etc.
-
   build:
     needs: [check_conventions]
     strategy:
@@ -286,3 +275,8 @@ jobs:
           user: __token__
           password: ${{ secrets.pypi_token }}
         if: ${{ startsWith(github.ref, 'refs/tags/v') }}
+      - uses: actions/checkout@v3
+        if: ${{ startsWith(github.ref, 'refs/tags/v') }}
+      - name: Create a Github Release
+        if: ${{ startsWith(github.ref, 'refs/tags/v') }}
+        run: gh release create ${{ github.ref_name }} --generate-notes

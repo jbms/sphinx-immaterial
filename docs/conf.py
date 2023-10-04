@@ -64,7 +64,6 @@ extensions = [
     "sphinx_immaterial.graphviz",
     "sphinx_jinja",
     "myst_parser",
-    "sphinx_github_changelog",
 ]
 
 intersphinx_mapping = {
