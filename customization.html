@@ -435,6 +435,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#themeconf-alternate" class="md-nav__link">
+    <span aria-label="theme configuration option" class="objinfo-icon objinfo-icon__data" title="theme configuration option">T</span><span title="alternate (theme configuration option) — The icon used for the language selector button." class="md-ellipsis">alternate</span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -594,6 +601,13 @@
           <li class="md-nav__item">
   <a href="#themeconf-version_info" class="md-nav__link">
     <span aria-label="theme configuration option" class="objinfo-icon objinfo-icon__data" title="theme configuration option">T</span><span title="version_info (theme configuration option) — A list of dictionaries used to populate the version_dropdown selector." class="md-ellipsis">version_<wbr>info</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#themeconf-languages" class="md-nav__link">
+    <span aria-label="theme configuration option" class="objinfo-icon objinfo-icon__data" title="theme configuration option">T</span><span title="languages (theme configuration option) — A list of dictionaries to populate the language selector drop-down menu (in the navigation bar)." class="md-ellipsis">languages</span>
   </a>
   
 </li>
@@ -1417,6 +1431,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#themeconf-alternate" class="md-nav__link">
+    <span aria-label="theme configuration option" class="objinfo-icon objinfo-icon__data" title="theme configuration option">T</span><span title="alternate (theme configuration option) — The icon used for the language selector button." class="md-ellipsis">alternate</span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1576,6 +1597,13 @@
           <li class="md-nav__item">
   <a href="#themeconf-version_info" class="md-nav__link">
     <span aria-label="theme configuration option" class="objinfo-icon objinfo-icon__data" title="theme configuration option">T</span><span title="version_info (theme configuration option) — A list of dictionaries used to populate the version_dropdown selector." class="md-ellipsis">version_<wbr>info</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#themeconf-languages" class="md-nav__link">
+    <span aria-label="theme configuration option" class="objinfo-icon objinfo-icon__data" title="theme configuration option">T</span><span title="languages (theme configuration option) — A list of dictionaries to populate the language selector drop-down menu (in the navigation bar)." class="md-ellipsis">languages</span>
   </a>
   
 </li>
@@ -1949,6 +1977,20 @@ The behavior of this option is inherited from the mkdocs-material theme, so
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="n">html_theme_options</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s2">&quot;icon&quot;</span><span class="p">:</span> <span class="p">{</span>
         <span class="s2">&quot;logo&quot;</span><span class="p">:</span> <span class="s2">&quot;material/library&quot;</span>
+    <span class="p">},</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+</dd></dl>
+
+<dl class="std themeconf objdesc">
+<dt class="sig sig-object highlight std" id="themeconf-alternate">
+<span class="sig-name descname"><span class="pre">alternate</span></span><a class="headerlink" href="#themeconf-alternate" title="Link to this definition">¶</a></dt>
+<dd><p>The icon used for the language selector button. See <a class="reference internal" href="#themeconf-languages" title="languages (theme configuration option) — A list of dictionaries to populate the language selector drop-down menu (in the navigation bar)."><code class="xref std std-themeconf docutils literal notranslate"><span class="pre">languages</span></code></a> to
+configure the options in the language selector drop-down menu.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="n">html_theme_options</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;icon&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;logo&quot;</span><span class="p">:</span> <span class="s2">&quot;material/translate&quot;</span>
     <span class="p">},</span>
 <span class="p">}</span>
 </code></pre></div>
@@ -2496,6 +2538,42 @@ located in the root directory of the site hosted by a webserver.</p>
 <dt class="sig sig-object highlight std" id="themeconf-version_info">
 <span class="sig-name descname"><span class="pre">version_info</span></span><a class="headerlink" href="#themeconf-version_info" title="Link to this definition">¶</a></dt>
 <dd><p>A list of dictionaries used to populate the <a class="reference internal" href="#version-dropdown"><span class="std std-ref">Version Dropdown</span></a> selector.</p>
+</dd></dl>
+
+<dl class="std themeconf objdesc">
+<dt class="sig sig-object highlight std" id="themeconf-languages">
+<span class="sig-name descname"><span class="pre">languages</span></span><a class="headerlink" href="#themeconf-languages" title="Link to this definition">¶</a></dt>
+<dd><p>A list of dictionaries to populate the language selector drop-down menu (in the navigation
+bar). Each list item must have the following required fields:</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">name</span></code></dt><dd><p>This value is used inside the language selector as the displayed name of the language
+and must be set to a non-empty string.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">link</span></code></dt><dd><p>This value is the URI link which points to the relative path of the documentation built
+for the associated language.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">lang</span></code></dt><dd><p>This value must be an <a class="reference external" href="https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes">ISO 639-1 language code</a> and is used for the
+<code class="docutils literal notranslate"><span class="pre">hreflang</span></code> attribute of the link, improving discoverability via search engines.</p>
+</dd>
+</dl>
+<p>For example, the following snippet adds English and French options to the language selector
+drop-down menu:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="n">html_theme_options</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;languages&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;English&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;link&quot;</span><span class="p">:</span> <span class="s2">&quot;en/&quot;</span><span class="p">,</span>  <span class="c1"># points to ./en/ subdirectory</span>
+            <span class="s2">&quot;lang&quot;</span><span class="p">:</span> <span class="s2">&quot;en&quot;</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;French&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;link&quot;</span><span class="p">:</span> <span class="s2">&quot;fr/&quot;</span><span class="p">,</span>  <span class="c1"># points to ./fr/ subdirectory</span>
+            <span class="s2">&quot;lang&quot;</span><span class="p">:</span> <span class="s2">&quot;fr&quot;</span><span class="p">,</span>
+        <span class="p">},</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
 </dd></dl>
 
 </dd></dl>
