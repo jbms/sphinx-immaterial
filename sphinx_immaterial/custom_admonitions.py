@@ -136,7 +136,7 @@ class CustomAdmonitionConfig(pydantic.BaseModel):
 
     @pydantic.field_validator("title")
     @classmethod
-    def validate_title(cls, val, info: pydantic.FieldValidationInfo):
+    def validate_title(cls, val, info: pydantic.ValidationInfo):
         if val is None:
             val = " ".join(
                 re.split(r"[\-_]+", cast(str, info.data.get("name")))

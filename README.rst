@@ -116,5 +116,5 @@ few differences, primarily due to differences between Sphinx and MkDocs:
 .. |PyPI Package| image:: https://img.shields.io/pypi/v/sphinx-immaterial
    :target: https://pypi.org/project/sphinx-immaterial
 
-.. |CI status| image:: https://github.com/jbms/sphinx-immaterial/workflows/Build/badge.svg
-   :target: https://github.com/jbms/sphinx-immaterial/actions?query=workflow%3ABuild
+.. |CI status| image:: https://github.com/jbms/sphinx-immaterial/actions/workflows/build.yml/badge.svg
+   :target: https://github.com/jbms/sphinx-immaterial/actions/workflows/build.yml
