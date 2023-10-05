@@ -211,6 +211,19 @@ Configuration Options
                     },
                 }
 
+        .. themeconf:: alternate
+
+            The icon used for the language selector button. See :themeconf:`languages` to
+            configure the options in the language selector drop-down menu.
+
+            .. code-block:: python
+
+                html_theme_options = {
+                    "icon": {
+                        "logo": "material/translate"
+                    },
+                }
+
     .. themeconf:: edit_uri
 
         This is the url segment that is concatenated with :themeconf:`repo_url` to point readers to the document's
@@ -663,6 +676,44 @@ Configuration Options
     .. themeconf:: version_info
 
         A list of dictionaries used to populate the :ref:`version_dropdown` selector.
+
+    .. themeconf:: languages
+
+        A list of dictionaries to populate the language selector drop-down menu (in the navigation
+        bar). Each list item must have the following required fields:
+
+        ``name``
+            This value is used inside the language selector as the displayed name of the language
+            and must be set to a non-empty string.
+
+        ``link``
+            This value is the URI link which points to the relative path of the documentation built
+            for the associated language.
+
+        ``lang``
+            This value must be an `ISO 639-1 language code
+            <https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes>`_ and is used for the
+            ``hreflang`` attribute of the link, improving discoverability via search engines.
+
+        For example, the following snippet adds English and French options to the language selector
+        drop-down menu:
+
+        .. code-block:: python
+
+            html_theme_options = {
+                "languages": [
+                    {
+                        "name": "English",
+                        "link": "en/",  # points to ./en/ subdirectory
+                        "lang": "en",
+                    },
+                    {
+                        "name": "French",
+                        "link": "fr/",  # points to ./fr/ subdirectory
+                        "lang": "fr",
+                    },
+                ]
+            }
 
 .. confval:: sphinx_immaterial_external_resource_cache_dir
 
