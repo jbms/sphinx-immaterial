@@ -677,6 +677,13 @@ Configuration Options
 
         A list of dictionaries used to populate the :ref:`version_dropdown` selector.
 
+    .. themeconf:: scope
+
+        Scope of site preferences (i.e. cookie consent, content tabs, color palette).
+        If you have multi-site project, you can set this to "/"
+        to share preferences between all sub-sites. See the :ref:`version_dropdown` section
+        on how to setup a multi-site project.
+
     .. themeconf:: languages
 
         A list of dictionaries to populate the language selector drop-down menu (in the navigation
