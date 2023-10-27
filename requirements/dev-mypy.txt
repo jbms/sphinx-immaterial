@@ -1,6 +1,7 @@
 mypy==1.5.1
 types-PyYAML
 docutils-stubs
+types-beautifulsoup4
 types-jsonschema
 types-appdirs
 types-requests
