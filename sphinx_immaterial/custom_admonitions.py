@@ -43,7 +43,7 @@ _CUSTOM_ADMONITIONS_KEY = "sphinx_immaterial_custom_admonitions"
 
 
 CSSClassType = Annotated[
-    str, pydantic.functional_validators.AfterValidator(nodes.make_id)
+    str, pydantic.AfterValidator(nodes.make_id)
 ]
 
 # defaults used for version directives re-styling
