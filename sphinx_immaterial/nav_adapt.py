@@ -845,7 +845,7 @@ def _html_page_context(
         }
     repo_url: Optional[str] = theme_options.get("repo_url")
     edit_uri: Optional[str] = theme_options.get("edit_uri")
-    if repo_url and edit_uri and not READTHEDOCS and "hide-edit-link" not in meta:
+    if repo_url and edit_uri and "hide-edit-link" not in meta:
         page["edit_url"] = "/".join(
             [
                 repo_url.rstrip("/"),
