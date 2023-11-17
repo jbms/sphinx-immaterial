@@ -1,14 +1,126 @@
 // css overrides for the readthedocs-sphinx-ext that
 // is automatically appended to projects built/hosted on RTD
+// Version selection
+.rtd-versions {
+  flex-shrink: 0;
+  height: px2rem(48px);
+  font-size: px2rem(16px);
 
-.rst-versions {
-  font-family: var(--md-text-font-family);
+  &__icon {
+    display: inline-block;
+    width: px2rem(40px);
+    height: px2rem(48px);
+    vertical-align: middle;
 
-  &.rst-badge {
-    top: 50px;
-    // stylelint-disable-next-line declaration-no-important
-    bottom: inherit !important;
-    height: auto;
-    font-size: 0.85rem;
+    // Align with margin only (as opposed to normal button alignment)
+    svg {
+      margin-top: px2rem(12px);
+      margin-inline-start: px2rem(12px);
+    }
+  }
+
+  // Current selection
+  &__current {
+    position: relative;
+    // Hack: in general, we would use `vertical-align` to align the version at
+    // the bottom with the title, but since the list uses absolute positioning,
+    // this won't work consistently. Furthermore, we would need to use inline
+    // positioning to align the links, which looks jagged.
+    top: px2rem(1px);
+    margin-inline: px2rem(28px) px2rem(8px);
+    color: inherit;
+    outline: none;
+    cursor: pointer;
+
+    // Version selection icon
+    &::after {
+      display: inline-block;
+      width: px2rem(8px);
+      height: px2rem(12px);
+      margin-inline-start: px2rem(8px);
+      background-color: currentcolor;
+      mask-image: var(--md-version-icon);
+      mask-position: center;
+      mask-repeat: no-repeat;
+      mask-size: contain;
+      content: "";
+    }
+  }
+
+  // RTD menu
+  &__other {
+    position: absolute;
+    top: px2rem(3px);
+    right: 0;
+    z-index: 3;
+    max-height: 0;
+    padding: px2rem(4px) px2rem(16px);
+    overflow: auto;
+    color: var(--md-default-fg-color);
+    list-style-type: none;
+    background-color: var(--md-default-bg-color);
+    border-radius: px2rem(2px);
+    box-shadow: var(--md-shadow-z2);
+    opacity: 0;
+    transition:
+      max-height 0ms 500ms,
+      opacity  250ms 250ms;
+    scroll-snap-type: y mandatory;
+
+    dd {
+      display: inline-block;
+      margin-inline-start: 0;
+    }
+    // Version selection list on parent focus/hover
+    .rtd-versions:is(:focus-within, :hover) & {
+      max-height: px2rem(200px);
+      opacity: 1;
+      transition:
+        max-height 0ms,
+        opacity  250ms;
+    }
+
+    // Fix hover on touch devices
+    @media (pointer: coarse) {
+
+      // Switch off on hover
+      .rtd-versions:hover & {
+        animation: hoverfix 250ms forwards;
+      }
+
+      // Enable on focus
+      .rtd-versions:focus-within & {
+        animation: none;
+      }
+    }
+  }
+
+  // Version selection item
+  &__item {
+    line-height: px2rem(36px);
+  }
+
+  // Version selection link
+  &__link {
+    display: block;
+    width: 100%;
+    padding-inline: px2rem(12px) px2rem(24px);
+    white-space: nowrap;
+    outline: none;
+    cursor: pointer;
+    transition:
+      color            250ms,
+      background-color 250ms;
+    scroll-snap-align: start;
+
+    // Link on focus/hover
+    &:is(:focus, :hover) {
+      color: var(--md-accent-fg-color);
+    }
+
+    // Link on focus
+    &:focus {
+      background-color: var(--md-default-fg-color--lightest);
+    }
   }
 }

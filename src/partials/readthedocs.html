@@ -1,0 +1,35 @@
+{# Add variant selector for Read the Docs embedding #}
+{% if READTHEDOCS %}
+<div class="rtd-versions" aria-label="{{ _('Versions') }}">
+  <span class="rtd-versions__current">
+    <div class="rtd-versions__icon md-icon">
+        {% include ".icons/fontawesome/solid/book.svg" %}
+    </div>
+    v: {{ current_version }}
+  </span>
+  <div class="rtd-versions__other">
+    <dl>
+      <dt>{{ _('Versions') }}</dt>
+      {% for slug, url in versions %}
+        <dd><a class="rtd-versions__link" href="{{ url }}">{{ slug }}</a></dd>
+      {% endfor %}
+    </dl>
+    <dl>
+      <dt>{{ _('Downloads') }}</dt>
+      {% for type, url in downloads %}
+        <dd><a class="rtd-versions__link" href="{{ url }}">{{ type }}</a></dd>
+      {% endfor %}
+    </dl>
+    <dl>
+      {# Translators: The phrase "Read the Docs" is not translated #}
+      <dt>{{ _('On Read the Docs') }}</dt>
+        <dd>
+          <a class="rtd-versions__link" href="//{{ PRODUCTION_DOMAIN }}/projects/{{ slug }}/?fromdocs={{ slug }}">{{ _('Project Home') }}</a>
+        </dd>
+        <dd>
+          <a class="rtd-versions__link" href="//{{ PRODUCTION_DOMAIN }}/builds/{{ slug }}/?fromdocs={{ slug }}">{{ _('Builds') }}</a>
+        </dd>
+    </dl>
+  </div>
+</div>
+{% endif %}
