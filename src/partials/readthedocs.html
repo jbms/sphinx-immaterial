@@ -14,12 +14,14 @@
         <dd><a class="rtd-versions__link" href="{{ url }}">{{ slug }}</a></dd>
       {% endfor %}
     </dl>
+    {% if downloads %}
     <dl>
       <dt>{{ _('Downloads') }}</dt>
       {% for type, url in downloads %}
         <dd><a class="rtd-versions__link" href="{{ url }}">{{ type }}</a></dd>
       {% endfor %}
     </dl>
+    {% endif %}
     <dl>
       {# Translators: The phrase "Read the Docs" is not translated #}
       <dt>{{ _('On Read the Docs') }}</dt>
