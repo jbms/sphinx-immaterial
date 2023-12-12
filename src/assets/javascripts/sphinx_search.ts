@@ -709,35 +709,48 @@ export async function getResults(query: string): Promise<SearchResultStream> {
   // Object search terms.
   const objectterms = []
 
-  for (const origTerm of splitQuery(query)) {
-    const lowerTerm = origTerm.toLowerCase()
+  for (let origTerm of splitQuery(query)) {
+    let negative = false;
+    if (origTerm[0] === '-') {
+      negative = true;
+      origTerm = origTerm.substr(1);
+    }
+    let lowerTerm = origTerm.toLowerCase()
     if (lowerTerm.length === 0) {
       continue
     }
     objectterms.push(lowerTerm)
-
-    if (stopwords.indexOf(lowerTerm) !== -1) {
-      // skip this "word"
-      continue
+    let atLeastOneWord = false
+    // The search term made be made up of multiple "words" separated
+    // by special characters like [-._].  Split them up and treat each
+    // as a separate search term.
+    for (const wordMatch of lowerTerm.matchAll(/\w+/g)) {
+      const subTerm = wordMatch[0];
+      if (stopwords.indexOf(subTerm) !== -1) {
+        // skip this "word"
+        continue
+      }
+      // stem the word
+      let word = stemmer.stemWord(subTerm)
+      // prevent stemmer from cutting word smaller than two chars
+      if (word.length < 3 && subTerm.length >= 3) {
+        word = subTerm
+      }
+      let toAppend: string[]
+      // select the correct list
+      if (negative) {
+        toAppend = excluded
+      } else {
+        toAppend = searchterms
+        atLeastOneWord = true
+      }
+      // only add if not already in the list
+      if (toAppend.indexOf(word) === -1) {
+        toAppend.push(word)
+      }
     }
-    // stem the word
-    let word = stemmer.stemWord(lowerTerm)
-    // prevent stemmer from cutting word smaller than two chars
-    if (word.length < 3 && lowerTerm.length >= 3) {
-      word = lowerTerm
-    }
-    let toAppend: string[]
-    // select the correct list
-    if (word[0] === "-") {
-      toAppend = excluded
-      word = word.substr(1)
-    } else {
-      toAppend = searchterms
+    if (!negative && atLeastOneWord) {
       hlterms.push(lowerTerm)
-    }
-    // only add if not already in the list
-    if (toAppend.indexOf(word) === -1) {
-      toAppend.push(word)
     }
   }
 
