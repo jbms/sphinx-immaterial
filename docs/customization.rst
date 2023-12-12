@@ -228,9 +228,7 @@ Configuration Options
 
         This is the url segment that is concatenated with :themeconf:`repo_url` to point readers to the document's
         source file. This is typically in the form of ``"blob/<branch name>/<docs source folder>"``.
-        Defaults to a blank string (which disables the edit icon). This is disabled for builds on
-        ReadTheDocs as they implement their own mechanism based on the repository's branch or tagged
-        commit.
+        Defaults to a blank string (which disables the edit icon).
 
     .. themeconf:: features
 
