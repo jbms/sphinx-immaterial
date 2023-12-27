@@ -242,7 +242,7 @@ For example, consider the following class definition:
        def __init__(self):
            """Constructs the class.
 
-           :group: Consructors
+           :group: Constructors
            """
 
        def foo(self):
