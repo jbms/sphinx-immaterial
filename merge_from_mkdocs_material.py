@@ -30,6 +30,7 @@ import pathlib
 import shutil
 import subprocess
 import tempfile
+from typing import Optional
 
 MKDOCS_EXCLUDE_PATTERNS = [
     # mkdocs-specific configuration files
@@ -42,6 +43,8 @@ MKDOCS_EXCLUDE_PATTERNS = [
     "setup.py",
     "Dockerfile",
     "MANIFEST.in",
+    ".vscode",
+    ".devcontainer",
     # Generated files
     "material",
     # mkdocs-specific files
@@ -52,11 +55,15 @@ MKDOCS_EXCLUDE_PATTERNS = [
     # Unneeded files
     "typings/lunr",
     "src/assets/javascripts/browser/worker",
+    "src/templates/assets/javascripts/browser/worker",
     "src/assets/javascripts/integrations/search/worker",
+    "src/templates/assets/javascripts/integrations/search/worker",
     # Files specific to mkdocs' own documentation
     "src/overrides",
     "src/assets/images/favicon.png",
-    "src/.icons/logo.*",
+    "src/templates/assets/images/favicon.png",
+    "src/.icons/logo*",
+    "src/templates/.icons/logo*",
     "docs",
     "LICENSE",
     "CHANGELOG",
@@ -145,7 +152,9 @@ def _temp_worktree_path():
             )
 
 
-def _create_adjusted_tree(ref: str, temp_workdir: str) -> str:
+def _create_adjusted_commit(
+    ref: str, temp_workdir: str, message: str, parent: Optional[str] = None
+) -> str:
     print(f"Checking out {source_ref} -> {temp_workdir}")
     subprocess.run(
         ["git", "worktree", "add", "--detach", temp_workdir, ref],
@@ -165,23 +174,24 @@ def _create_adjusted_tree(ref: str, temp_workdir: str) -> str:
         stderr=subprocess.PIPE,
     )
     _fix_package_json(pathlib.Path(temp_workdir) / "package.json")
-    try:
-        subprocess.run(
-            ["git", "commit", "--no-verify", "-a", "-m", "Exclude files"],
-            cwd=temp_workdir,
-            capture_output=True,
-            check=True,
-        )
-    except subprocess.CalledProcessError as exc:
-        # `git commit` fails if user info not in `git config` -> provide verbosity
-        raise RuntimeError(str(exc.stderr, encoding="utf-8")) from exc
-    return subprocess.run(
-        ["git", "rev-parse", "HEAD"],
+    subprocess.run(["git", "update-index"], cwd=temp_workdir, check=True)
+    tree = subprocess.run(
+        ["git", "write-tree"],
         cwd=temp_workdir,
         check=True,
-        encoding="utf-8",
         stdout=subprocess.PIPE,
+        text=True,
     ).stdout.strip()
+    commit = subprocess.run(
+        ["git", "commit-tree", tree, "-m", message]
+        + (["-p", parent] if parent is not None else []),
+        cwd=temp_workdir,
+        stdout=subprocess.PIPE,
+        check=True,
+        text=True,
+    ).stdout.strip()
+    subprocess.run(["git", "reset", "--hard", commit], cwd=temp_workdir, check=True)
+    return commit
 
 
 def _get_git_status(workdir: str):
@@ -220,81 +230,74 @@ def main():
     resolved_source_ref = _resolve_ref(args.source_ref)
     print(f"SHA for source_ref {args.source_ref} is {resolved_source_ref}")
 
-    print("\nGetting mkdocs-material repo ready")
-    with _temp_worktree_path() as temp_workdir:
-        new_tree_commit = _create_adjusted_tree(resolved_source_ref, temp_workdir)
-
     patch_path = os.path.abspath(args.patch_output)
     if not os.path.exists(patch_path):
         os.makedirs(patch_path)
-    patch_path += os.sep + "patch_info.diff"
+    patch_path = os.path.join(patch_path, "patch_info.diff")
 
-    print("\nGetting sphinx-immaterial repo ready")
     with _temp_worktree_path() as temp_workdir:
-        print("    creating a temp workspace")
-        old_tree_commit = _create_adjusted_tree(merge_base, temp_workdir)
-        subprocess.run(
-            ["git", "rm", "-r", "."],
-            cwd=temp_workdir,
-            check=True,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-        )
-        print("    copying files to the temp workspace.")
-        shutil.copytree(
-            script_dir,
+        print(f"\nCreating adjusted commit for original upstream {merge_base}")
+        old_tree_commit = _create_adjusted_commit(
+            merge_base,
             temp_workdir,
-            dirs_exist_ok=True,
-            ignore=shutil.ignore_patterns(
-                ".git",
-                "node_modules",
-                ".icons",
-                "_build",
-            ),
+            message=f"Original upstream {merge_base} (adjusted)",
         )
-        print("    creating a local-only commit")
+
+        print(f"\nCreating adjusted commit for sphinx-immaterial")
         subprocess.run(
-            ["git", "add", "-A", "--force", "."],
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
+            ["git", "remote", "rm", "local-sphinx-immaterial"],
+            cwd=temp_workdir,
+            check=False,
+        )
+        subprocess.run(
+            ["git", "remote", "add", "local-sphinx-immaterial", script_dir],
             cwd=temp_workdir,
             check=True,
         )
         subprocess.run(
-            ["git", "commit", "--no-verify", "-a", "-m", "Working changes"],
+            ["git", "fetch", "local-sphinx-immaterial", "HEAD"],
+            cwd=temp_workdir,
+            check=True,
+        )
+        sphinx_immaterial_commit = subprocess.run(
+            [
+                "git",
+                "commit-tree",
+                "FETCH_HEAD^{tree}",
+                "-p",
+                old_tree_commit,
+                "-m",
+                "Adjusted sphinx-immaterial",
+            ],
+            cwd=temp_workdir,
             stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
+            text=True,
+            check=True,
+        ).stdout.strip()
+        subprocess.run(
+            ["git", "reset", "--hard", sphinx_immaterial_commit],
             cwd=temp_workdir,
             check=True,
         )
 
-        print("\nCreating a diff report")
-        with tempfile.NamedTemporaryFile(mode="wb") as patch_f:
-            subprocess.run(
-                ["git", "diff", f"{old_tree_commit}..{new_tree_commit}"],
-                cwd=clone_dir,
-                stdout=patch_f,
-                check=True,
+        print(f"\nCreating adjusted commit for updated upstream {resolved_source_ref}")
+        with _temp_worktree_path() as temp_workdir2:
+            new_tree_commit = _create_adjusted_commit(
+                resolved_source_ref,
+                temp_workdir2,
+                message=f"Updated upstream {resolved_source_ref} (adjusted)",
+                parent=old_tree_commit,
             )
-            patch_f.flush()
 
-            try:
-                print("\nCreating a patch report")
-                subprocess.run(
-                    ["git", "apply", "--3way", patch_f.name],
-                    check=True,
-                    cwd=temp_workdir,
-                    capture_output=True,
-                )
-            except subprocess.CalledProcessError as exc:
-                # provide a verbose coherent output from `git apply` when problematic.
-                output = str(exc.stdout, encoding="utf-8").replace("\n", "\n   ")
-                output += str(exc.stderr, encoding="utf-8").replace("\n", "\n   ")
-                print(f"`{' '.join(exc.cmd)}` returned {exc.returncode}\n   {output}")
+        print(f"\nRebasing")
+        subprocess.run(["git", "rebase", new_tree_commit, "HEAD"], cwd=temp_workdir)
 
         with open(patch_path, "wb") as patch_f:
             subprocess.run(
-                ["git", "diff", "HEAD"], check=True, cwd=temp_workdir, stdout=patch_f
+                ["git", "diff", sphinx_immaterial_commit],
+                check=True,
+                cwd=temp_workdir,
+                stdout=patch_f,
             )
         file_status = _get_git_status(temp_workdir)
 
