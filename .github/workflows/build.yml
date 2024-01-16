@@ -32,6 +32,8 @@ jobs:
             python-version: '3.10'
           - nox-sessions: 'mypy pylint'
             python-version: '3.11'
+          - nox-sessions: 'mypy pylint'
+            python-version: '3.12'
     steps:
       - uses: actions/checkout@v3
       - name: Setup Node.js
