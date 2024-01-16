@@ -1,0 +1,6 @@
+# The following version specs describe dependencies of sphinx that dropped support for sphinx v4.x
+sphinxcontrib-applehelp<1.0.5
+sphinxcontrib-devhelp<1.0.3
+sphinxcontrib-htmlhelp<2.0.2
+sphinxcontrib-serializinghtml<1.1.6
+sphinxcontrib-qthelp<1.0.4

@@ -211,6 +211,9 @@ def tests(session: nox.Session, sphinx: str):
     if not list(pathlib.Path().glob("sphinx_immaterial/*.html")):
         session.run("npm", "run", "build", external=True)
     session.install(f"sphinx{sphinx}")
+    if sphinx.endswith("<5"):
+        # sphinxcontrib deps that dropped support for sphinx v4.x
+        session.install("-r", "tests/requirements-sphinx4.txt")
     session.install("-r", "tests/requirements.txt")
     session.run("coverage", "run", "-m", "pytest", "-vv", "-s")
     # session.notify("docs") <- only calls docs(html), not dirhtml or latex builders
