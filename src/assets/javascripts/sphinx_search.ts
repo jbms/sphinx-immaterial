@@ -710,12 +710,12 @@ export async function getResults(query: string): Promise<SearchResultStream> {
   const objectterms = []
 
   for (let origTerm of splitQuery(query)) {
-    let negative = false;
-    if (origTerm[0] === '-') {
-      negative = true;
-      origTerm = origTerm.substr(1);
+    let negative = false
+    if (origTerm[0] === "-") {
+      negative = true
+      origTerm = origTerm.substr(1)
     }
-    let lowerTerm = origTerm.toLowerCase()
+    const lowerTerm = origTerm.toLowerCase()
     if (lowerTerm.length === 0) {
       continue
     }
@@ -725,7 +725,7 @@ export async function getResults(query: string): Promise<SearchResultStream> {
     // by special characters like [-._].  Split them up and treat each
     // as a separate search term.
     for (const wordMatch of lowerTerm.matchAll(/\w+/g)) {
-      const subTerm = wordMatch[0];
+      const subTerm = wordMatch[0]
       if (stopwords.indexOf(subTerm) !== -1) {
         // skip this "word"
         continue
