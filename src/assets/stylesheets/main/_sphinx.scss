@@ -98,29 +98,25 @@
   }
 
   // display of footnotes and citations
-  aside.footnote > span,
-  div.citation > span {
-    float: left;
-  }
+  aside.footnote,
+  div.citation {
+    display: flex;
 
-  aside.footnote > span:last-of-type,
-  div.citation > span:last-of-type {
-    padding-right: 0.5em;
-  }
+    > span:last-of-type {
+      padding-right: 0.5em;
+    }
 
-  aside.footnote > p,
-  div.citation > p {
-    margin-left: 1.5em;
-  }
+    > p:last-of-type {
+      margin-bottom: 0;
+    }
 
-  aside.footnote > p:last-of-type,
-  div.citation > p:last-of-type {
-    margin-bottom: 0;
-  }
+    > p:first-of-type {
+      margin-top: 0;
+    }
 
-  aside.footnote > p:last-of-type::after,
-  div.citation > p:last-of-type::after {
-    clear: both;
-    content: "";
+    > p:last-of-type::after {
+      clear: both;
+      content: "";
+    }
   }
 }
