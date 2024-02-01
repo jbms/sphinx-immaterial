@@ -9,6 +9,9 @@ updates:
     directory: "/" # recursive; requirements.txt in subdirectories are also monitored
     schedule:
       interval: "weekly"
+    ignore:
+      - dependency-name: sphinxcontrib-*help
+      - dependency-name: sphinxcontrib-serializinghtml
   # node.js dependencies are pinned to last merge from upstream.
   # - package-ecosystem: "npm"
   #   directory: "/" # Location of package manifests
