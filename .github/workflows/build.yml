@@ -265,7 +265,7 @@ jobs:
           name: python-packages-Linux
           path: dist
       - name: Publish to PyPI (test server)
-        uses: pypa/gh-action-pypi-publish@2f6f737ca5f74c637829c0f5c3acd0e29ea5e8bf # 2020-09-25
+        uses: pypa/gh-action-pypi-publish@2f6f737ca5f74c637829c0f5c3acd0e29ea5e8bf # v1.8.11
         continue-on-error: true
         with:
           user: __token__
@@ -273,7 +273,7 @@ jobs:
           repository_url: https://test.pypi.org/legacy/
         if: ${{ ! startsWith(github.ref, 'refs/tags/v') }}
       - name: Publish to PyPI (main server)
-        uses: pypa/gh-action-pypi-publish@2f6f737ca5f74c637829c0f5c3acd0e29ea5e8bf # 2020-09-25
+        uses: pypa/gh-action-pypi-publish@2f6f737ca5f74c637829c0f5c3acd0e29ea5e8bf # v1.8.11
         with:
           user: __token__
           password: ${{ secrets.pypi_token }}
