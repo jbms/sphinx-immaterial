@@ -48,13 +48,13 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - name: Cache node.js modules
         if: contains(matrix, 'node-version')
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: "**/node_modules"
           key: ${{ runner.os }}-${{ matrix.node-version }}-node_modules-${{ hashFiles('**/package-lock.json') }}
       - name: Cache nox environments
         if: contains(matrix, 'node-version')
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |
             .nox/black
@@ -94,7 +94,7 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
       - name: Cache node.js modules
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: "**/node_modules"
           key: ${{ runner.os }}-${{ matrix.node-version }}-node_modules-${{ hashFiles('**/package-lock.json') }}
@@ -118,7 +118,7 @@ jobs:
         uses: ts-graphviz/setup-graphviz@c001ccfb5aff62e28bda6a6c39b59a7e061be5b9 # v1.2.0
         with:
           macos-skip-brew-update: 'true'
-      - uses: actions/cache@v3
+      - uses: actions/cache@v4
         with:
           path: ${{ github.workspace }}/theme_build_cache
           key: theme-build-cache-${{ runner.os }}-${{ github.run_id }}
@@ -174,7 +174,7 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
       - name: Cache node.js modules
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: "**/node_modules"
           key: ${{ runner.os }}-${{ matrix.node-version }}-node_modules-${{ hashFiles('**/package-lock.json') }}
@@ -185,7 +185,7 @@ jobs:
         uses: ts-graphviz/setup-graphviz@c001ccfb5aff62e28bda6a6c39b59a7e061be5b9 # v1.2.0
         with:
           macos-skip-brew-update: 'true'
-      - uses: actions/cache/restore@v3
+      - uses: actions/cache/restore@v4
         with:
           path: ${{ github.workspace }}/theme_build_cache
           key: theme-build-cache-${{ runner.os }}-${{ github.run_id }}
