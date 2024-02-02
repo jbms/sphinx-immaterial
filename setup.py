@@ -174,6 +174,7 @@ setuptools.setup(
     name="sphinx_immaterial",
     description="Adaptation of mkdocs-material theme for the Sphinx documentation system",
     long_description=pathlib.Path("README.rst").read_text(encoding="utf-8"),
+    long_description_content_type="text/x-rst",
     author="Jeremy Maitin-Shepard",
     author_email="jeremy@jeremyms.com",
     url="https://github.com/jbms/sphinx-immaterial",
