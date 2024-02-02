@@ -35,7 +35,7 @@ jobs:
           - nox-sessions: 'mypy pylint'
             python-version: '3.12'
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Setup Node.js
         if: contains(matrix, 'node-version')
         uses: actions/setup-node@v4
@@ -81,7 +81,7 @@ jobs:
           - '16.x'
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           # Need full history to determine version number.
           fetch-depth: 0
@@ -165,7 +165,7 @@ jobs:
             sphinx-version: 'sphinx7'
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
@@ -205,7 +205,7 @@ jobs:
     needs: [test]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Download all artifacts
         uses: actions/download-artifact@v3
         with:
@@ -278,7 +278,7 @@ jobs:
           user: __token__
           password: ${{ secrets.pypi_token }}
         if: ${{ startsWith(github.ref, 'refs/tags/v') }}
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         if: ${{ startsWith(github.ref, 'refs/tags/v') }}
       - name: Create a Github Release
         if: ${{ startsWith(github.ref, 'refs/tags/v') }}
