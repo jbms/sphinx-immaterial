@@ -108,7 +108,7 @@ jobs:
       - name: Install wheel
         run: python -m pip install "${{ steps.dist.outputs.wheel }}"
       - name: Upload wheels as artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: python-packages-${{ runner.os }}
           path: |
@@ -127,7 +127,7 @@ jobs:
           SPHINX_IMMATERIAL_EXTERNAL_RESOURCE_CACHE_DIR: ${{ github.workspace }}/theme_build_cache
         run: nox -s docs
       - name: Upload doc builds as artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: doc-builds-${{ runner.os }}
           path: docs/_build/
@@ -196,7 +196,7 @@ jobs:
         # `coverage run` cmd adds the working dir to python path, so no need to install pkg here
         run: pipx run nox -s "tests-${{ matrix.python-version }}(${{ matrix.sphinx-version }})"
       - name: Upload coverage data
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: coverage-data-${{ runner.os }}-py${{ matrix.python-version }}-${{ matrix.sphinx-version }}
           path: .coverage*
@@ -207,7 +207,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Download all artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           path: ci-artifacts
       - run: mv ci-artifacts/**/.coverage* ./
@@ -218,7 +218,7 @@ jobs:
       - name: Create coverage report
         run: pipx run nox -s coverage
       - name: Upload comprehensive coverage HTML report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: coverage-report
           path: htmlcov/
@@ -230,17 +230,17 @@ jobs:
     needs: [build]
     steps:
       - name: Download Linux package
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: python-packages-Linux
           path: dist-Linux
       - name: Download macOS package
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: python-packages-macOS
           path: dist-macOS
       - name: Download Windows package
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: python-packages-Windows
           path: dist-Windows
@@ -260,7 +260,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: [build, test]
     steps:
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v4
         with:
           name: python-packages-Linux
           path: dist
