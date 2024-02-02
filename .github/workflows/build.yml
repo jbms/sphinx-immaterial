@@ -42,7 +42,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - name: Setup Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         id: python-setup
         with:
           python-version: ${{ matrix.python-version }}
@@ -90,7 +90,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
       - name: Cache node.js modules
@@ -170,7 +170,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - name: Setup python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
       - name: Cache node.js modules
@@ -212,7 +212,7 @@ jobs:
           path: ci-artifacts
       - run: mv ci-artifacts/**/.coverage* ./
       - name: Setup python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: '3.x'
       - name: Create coverage report
