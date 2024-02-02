@@ -100,23 +100,38 @@
   // display of footnotes and citations
   aside.footnote,
   div.citation {
-    display: flex;
+    display: grid;
+    grid-auto-columns: minmax(auto, max-content);
 
-    > span:last-of-type {
-      padding-right: 0.5em;
+    > span {
+      &.label {
+        grid-column: 1;
+      }
+
+      &.backrefs {
+        grid-column: 2;
+      }
+
+      &:last-of-type {
+        padding-right: 0.5em;
+      }
     }
 
-    > p:last-of-type {
-      margin-bottom: 0;
-    }
+    > :not(span.backrefs, span.label) {
+      grid-column: 3;
 
-    > p:first-of-type {
-      margin-top: 0;
-    }
+      &:first-of-type {
+        margin-top: 0;
+      }
 
-    > p:last-of-type::after {
-      clear: both;
-      content: "";
+      &:last-child {
+        margin-bottom: 0;
+
+        &::after {
+          clear: both;
+          content: "";
+        }
+      }
     }
   }
 }
