@@ -61,7 +61,7 @@ And be sure to include the extension in your :file:`conf.py` file.
 .. _keys_extension_role:
 
 Keys extension role
------------------------
+-------------------
 
 .. rst:role:: keys
 
@@ -75,7 +75,7 @@ Keys extension role
         :keys:`caps-lock`, :keys:`left-cmd+shift+a`, :keys:`backspace`
 
 Keys extension configuration
--------------------------------------
+----------------------------
 
 These variables can be used to control the :rst:role:`keys` role behavior from the Sphinx
 project's conf.py file.
