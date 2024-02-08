@@ -4,6 +4,7 @@ Keys extension
 .. _pymdownx.keys: https://facelessuser.github.io/pymdown-extensions/extensions/keys/
 
 This extension is meant to mimic the python markdown extension, `pymdownx.keys`_.
+It provides an alternative implementation to Sphinx' :rst:role:`kbd` role.
 
 It simply adds a role to invoke inline usage of keyboard keys with custom CSS provided by
 the sphinx-immaterial theme.
