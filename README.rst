@@ -39,7 +39,7 @@ or if you have the code checked out locally:
 
 .. code-block:: bash
 
-    $ pip -install -e .
+    $ pip install -e .
 
 Configuration
 -------------
