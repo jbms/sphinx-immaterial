@@ -210,6 +210,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           path: ci-artifacts
+          pattern: coverage-data-*
       - run: mv ci-artifacts/**/.coverage* ./
       - name: Setup python
         uses: actions/setup-python@v5
