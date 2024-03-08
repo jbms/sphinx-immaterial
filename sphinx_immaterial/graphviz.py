@@ -242,8 +242,18 @@ def render_dot_html(
     ttf_font_paths = google_fonts.get_ttf_font_paths(self.builder.app)
     ttf_font: Optional[str] = None
     if ttf_font_paths and font is not None:
-        # can only support the chosen font if cache exists and a Google font is used
-        ttf_font = ttf_font_paths[(font, "400")]
+        try:
+            # can only support the chosen font if cache exists and a Google font is used
+            ttf_font = ttf_font_paths[(font, "400")]
+        except KeyError as exc:
+            # weight `400` might not exist for the specified font
+            all_font_keys = [i for i in ttf_font_paths.keys() if i[0] == font]
+            if not all_font_keys:
+                raise FileNotFoundError(
+                    f"Font file for {font} could not be found in cache"
+                ) from exc
+            # just use first weight for the specified font
+            ttf_font = ttf_font_paths[all_font_keys[0]]
 
     code = _replace_resolved_xrefs(node, code)
 
