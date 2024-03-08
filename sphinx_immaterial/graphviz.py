@@ -243,7 +243,7 @@ def render_dot_html(
     ttf_font: Optional[str] = None
     if ttf_font_paths and font is not None:
         # can only support the chosen font if cache exists and a Google font is used
-        ttf_font = ttf_font_paths[(font, "regular")]
+        ttf_font = ttf_font_paths[(font, "400")]
 
     code = _replace_resolved_xrefs(node, code)
 
