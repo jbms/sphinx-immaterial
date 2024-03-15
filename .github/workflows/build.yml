@@ -19,11 +19,10 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        nox-sessions:
-          - 'black check_yaml check_json check_toml check_eof check_trailing_space check_lf'
-        python-version: ['3.x']
-        node-version: ['16.x']
         include:
+          - nox-sessions: 'black check_yaml check_json check_toml check_eof check_trailing_space check_lf'
+            python-version: '3.x'
+            node-version: '16.x'
           - nox-sessions: 'mypy pylint'
             python-version: '3.8'
           - nox-sessions: 'mypy pylint'
@@ -37,7 +36,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Setup Node.js
-        if: contains(matrix, 'node-version')
+        if: matrix.node-version
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
@@ -47,23 +46,23 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
       - name: Cache node.js modules
-        if: contains(matrix, 'node-version')
+        if: matrix.node-version
         uses: actions/cache@v4
         with:
           path: "**/node_modules"
           key: ${{ runner.os }}-${{ matrix.node-version }}-node_modules-${{ hashFiles('**/package-lock.json') }}
       - name: Cache nox environments
-        if: contains(matrix, 'node-version')
         uses: actions/cache@v4
+        if: matrix.node-version
         with:
           path: |
             .nox/black
             .nox/check_*
           key: nox-${{ steps.python-setup.outputs.python-version }}-${{ hashFiles('requirements/dev-black.txt', 'requirements/dev-pre_commit_hooks.txt') }}
       - run: npm install
-        if: contains(matrix, 'node-version')
+        if: matrix.node-version
       - run: npm run check
-        if: contains(matrix, 'node-version')
+        if: matrix.node-version
       - run: pipx run nox -s ${{ matrix.nox-sessions }}
 
   build:

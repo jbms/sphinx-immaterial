@@ -96,4 +96,42 @@
   div.line-block div.line-block {
     margin-left: 1.5em;
   }
+
+  // display of footnotes and citations
+  aside.footnote,
+  div.citation {
+    display: grid;
+    grid-auto-columns: minmax(auto, max-content);
+
+    > span {
+      &.label {
+        grid-column: 1;
+      }
+
+      &.backrefs {
+        grid-column: 2;
+      }
+
+      &:last-of-type {
+        padding-right: 0.5em;
+      }
+    }
+
+    > :not(span.backrefs, span.label) {
+      grid-column: 3;
+
+      &:first-of-type {
+        margin-top: 0;
+      }
+
+      &:last-child {
+        margin-bottom: 0;
+
+        &::after {
+          clear: both;
+          content: "";
+        }
+      }
+    }
+  }
 }
