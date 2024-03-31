@@ -42,9 +42,7 @@ INHERITED_ADMONITIONS = (
 _CUSTOM_ADMONITIONS_KEY = "sphinx_immaterial_custom_admonitions"
 
 
-CSSClassType = Annotated[
-    str, pydantic.AfterValidator(nodes.make_id)
-]
+CSSClassType = Annotated[str, pydantic.AfterValidator(nodes.make_id)]
 
 # defaults used for version directives re-styling
 VERSION_DIR_STYLE = {

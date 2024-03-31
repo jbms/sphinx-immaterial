@@ -49,15 +49,9 @@ MKDOCS_EXCLUDE_PATTERNS = [
     "material",
     # mkdocs-specific files
     "src/**/*.py",
-    "src/mkdocs_theme.yml",
-    "src/404.html",
+    "src/templates/mkdocs_theme.yml",
+    "src/templates/404.html",
     "mkdocs.yml",
-    # Unneeded files
-    "typings/lunr",
-    "src/assets/javascripts/browser/worker",
-    "src/templates/assets/javascripts/browser/worker",
-    "src/assets/javascripts/integrations/search/worker",
-    "src/templates/assets/javascripts/integrations/search/worker",
     # Files specific to mkdocs' own documentation
     "src/overrides",
     "src/assets/images/favicon.png",
@@ -71,6 +65,10 @@ MKDOCS_EXCLUDE_PATTERNS = [
     "*.md",
     "giscus.json",
     "pyproject.toml",
+]
+
+RENAMES = [
+    ("src/plugins/search", "sphinx_immaterial/plugins/search"),
 ]
 
 ap = argparse.ArgumentParser()
@@ -117,11 +115,6 @@ else:
 def _fix_package_json(path: pathlib.Path) -> None:
     content = json.loads(path.read_text(encoding="utf-8"))
     content.pop("version", None)
-    content["dependencies"].pop("lunr")
-    content["dependencies"].pop("fuzzaldrin-plus")
-    content["dependencies"].pop("lunr-languages")
-    content["devDependencies"].pop("@types/lunr")
-    content["devDependencies"].pop("@types/fuzzaldrin-plus")
     path.write_text(json.dumps(content, indent=2) + "\n", encoding="utf-8")
 
 
@@ -161,6 +154,15 @@ def _create_adjusted_commit(
         cwd=clone_dir,
         check=True,
     )
+    # Move files
+    for source, target in RENAMES:
+        os.makedirs(os.path.join(temp_workdir, os.path.dirname(target)), exist_ok=True)
+        subprocess.run(
+            ["git", "mv", source, target],
+            cwd=temp_workdir,
+            check=True,
+            stdout=subprocess.PIPE,
+        )
     exclude = []
     # filter out exclude patterns for paths that don't exist in the temp_workdir
     for pattern in MKDOCS_EXCLUDE_PATTERNS:
