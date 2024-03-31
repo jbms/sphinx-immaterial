@@ -6,6 +6,7 @@ import os
 import pathlib
 from typing import NamedTuple, Optional, List
 
+import docutils.nodes
 import sphinx.application
 import sphinx.environment
 
@@ -15,9 +16,18 @@ class Entry(NamedTuple):
     sourcemap: Optional[str]
     priority: int
 
+    @staticmethod
+    def from_path(path: pathlib.Path, priority: int) -> "Entry":
+        return Entry(
+            code=path.read_text(encoding="utf-8"),
+            sourcemap=(path.with_name(path.name + ".map")).read_text(encoding="utf-8"),
+            priority=priority,
+        )
+
 
 _CSS_KEY = "_sphinx_immaterial_global_css"
 _JAVASCRIPT_KEY = "_sphinx_immaterial_global_javascript"
+_SEARCH_WORKER_BUNDLE_KEY = "_sphinx_immaterial_search_worker_bundle"
 _BUNDLE_SOURCE_MAPS_KEY = "sphinx_immaterial_bundle_source_maps"
 
 
@@ -116,6 +126,23 @@ def generate_bundle(
     return output_path
 
 
+def generate_js_bundle(
+    app: sphinx.application.Sphinx,
+    env: sphinx.environment.BuildEnvironment,
+    entries: List[Entry],
+    output_prefix: str,
+) -> str:
+    return generate_bundle(
+        app=app,
+        env=env,
+        entries=entries,
+        source_mapping_url_prefix="//# sourceMappingURL=",
+        source_mapping_url_suffix="",
+        output_prefix=output_prefix,
+        output_ext="js",
+    )
+
+
 def generate_bundles(
     app: sphinx.application.Sphinx, env: sphinx.environment.BuildEnvironment
 ) -> None:
@@ -126,9 +153,8 @@ def generate_bundles(
     # copy pre-minified CSS from theme's bundles
     theme_bundles = pathlib.Path(__file__).parent / "bundles" / "stylesheets"
     css_entries.append(
-        Entry(
-            code=(theme_bundles / "main.css").read_text(encoding="utf-8"),
-            sourcemap=(theme_bundles / "main.css.map").read_text(encoding="utf-8"),
+        Entry.from_path(
+            theme_bundles / "main.css",
             priority=200,
         )
     )
@@ -136,11 +162,8 @@ def generate_bundles(
     theme_options = app.config["html_theme_options"]
     if theme_options and "palette" in theme_options:
         css_entries.append(
-            Entry(
-                code=(theme_bundles / "palette.css").read_text(encoding="utf-8"),
-                sourcemap=(theme_bundles / "palette.css.map").read_text(
-                    encoding="utf-8"
-                ),
+            Entry.from_path(
+                theme_bundles / "palette.css",
                 priority=200,
             )
         )
@@ -158,34 +181,56 @@ def generate_bundles(
 
     js_entries = list(_get_javascript_entries(app))
     js_entries.append(
-        Entry(
-            code=(
-                pathlib.Path(__file__).parent / "bundles" / "javascripts" / "bundle.js"
-            ).read_text(encoding="utf-8"),
-            sourcemap=(
-                pathlib.Path(__file__).parent
-                / "bundles"
-                / "javascripts"
-                / "bundle.js.map"
-            ).read_text(encoding="utf-8"),
+        Entry.from_path(
+            pathlib.Path(__file__).parent / "bundles" / "javascripts" / "bundle.js",
             priority=200,
         )
     )
 
-    js_bundle = generate_bundle(
+    js_bundle = generate_js_bundle(
         app=app,
         env=env,
         entries=js_entries,
-        source_mapping_url_prefix="//# sourceMappingURL=",
-        source_mapping_url_suffix="",
         output_prefix="sphinx_immaterial_theme",
-        output_ext="js",
     )
     app.add_js_file(js_bundle, priority=200)
+
+    js_search_bundle = generate_js_bundle(
+        app=app,
+        env=env,
+        entries=[
+            Entry.from_path(
+                pathlib.Path(__file__).parent
+                / "bundles"
+                / "javascripts"
+                / "workers"
+                / "search.js",
+                priority=100,
+            )
+        ],
+        output_prefix="sphinx_immaterial_search_worker",
+    )
+
+    setattr(app.env, _SEARCH_WORKER_BUNDLE_KEY, js_search_bundle)
+
+
+def _html_page_context(
+    app: sphinx.application.Sphinx,
+    pagename: str,
+    templatename: str,
+    context: dict,
+    doctree: docutils.nodes.Node,
+):
+    bundle = getattr(app.env, _SEARCH_WORKER_BUNDLE_KEY)
+    assert bundle is not None
+    context.update(
+        sphinx_immaterial_search_worker_bundle=f"_static/{bundle}",
+    )
 
 
 def setup(app: sphinx.application.Sphinx):
     app.connect("env-check-consistency", generate_bundles, priority=999)
+    app.connect("html-page-context", _html_page_context)
 
     app.add_config_value(
         _BUNDLE_SOURCE_MAPS_KEY,

@@ -10,10 +10,10 @@ local_toc:
     caption_only: false
     children: []
     current: false
-    title: "<span aria-label=\"Python class\" class=\"objinfo-icon objinfo-icon__data\"\
-      \ title=\"Python class\">C</span><span title=\"Foo (Python class) \u2014 Some\
-      \ text.\" class=\"md-ellipsis\">Foo</span>"
+    icon_html: <span aria-label="Python class" class="objinfo-icon objinfo-icon__data"
+      title="Python class">C</span>
+    title: "<span title=\"Foo (Python class) \u2014 Some text.\">Foo</span>"
     url: '#Foo'
   current: false
-  title: <span class="md-ellipsis">Overall title</span>
+  title: Overall title
   url: '#'
