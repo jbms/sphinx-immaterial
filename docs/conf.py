@@ -132,6 +132,7 @@ html_theme_options = {
         # "navigation.tracking",
         # "search.highlight",
         "search.share",
+        "search.suggest",
         "toc.follow",
         "toc.sticky",
         "content.tabs.link",
