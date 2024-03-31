@@ -5,11 +5,11 @@ requires = ["setuptools>=42", "wheel", "setuptools_scm"]
 show_error_codes = true
 pretty = true
 mypy_path = "typings_py"
-files = [
-    "sphinx_immaterial/**/*.py",
-    "tests/**/*.py",
+packages = [
+    "sphinx_immaterial",
+    "tests",
 ]
-exclude = "setup.py"
+exclude = ['^setup\.py$', '^sphinx_immaterial/plugins/$']
 plugins = ["pydantic.mypy"]
 check_untyped_defs = true
 

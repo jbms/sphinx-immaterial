@@ -5,3 +5,5 @@ pydantic-extra-types
 typing-extensions
 appdirs
 requests
+regex
+jieba

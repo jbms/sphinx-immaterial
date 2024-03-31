@@ -5,7 +5,7 @@ global_toc:
   caption_only: false
   children: []
   current: false
-  title: <span class="md-ellipsis">A page</span>
+  title: A page
   url: a.html
 - active: true
   active_or_section_within_active: true
@@ -18,10 +18,10 @@ global_toc:
     caption_only: false
     children: []
     current: true
-    title: <span class="md-ellipsis">C page</span>
+    title: C page
     url: '#'
   current: false
-  title: <span class="md-ellipsis">TOC caption</span>
+  title: TOC caption
   url: '#'
 integrated_local_toc: []
 local_toc: []
