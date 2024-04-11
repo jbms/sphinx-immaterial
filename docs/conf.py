@@ -138,6 +138,8 @@ html_theme_options = {
         "toc.sticky",
         "content.tabs.link",
         "content.code.copy",
+        "content.action.edit",
+        "content.action.view",
         "announce.dismiss",
     ],
     "palette": [
