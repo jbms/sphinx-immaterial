@@ -235,11 +235,19 @@ Configuration Options
         Some features that have been ported from the mkdocs-material theme and can be enabled by
         specifying the feature's name in a list of strings. The following features are supported:
 
-        - `content.code.copy <https://squidfunk.github.io/mkdocs-material/reference/code-blocks/#code-copy-button>`_
+        - `content.action.* <https://squidfunk.github.io/mkdocs-material/setup/adding-a-git-repository/#code-actions>`_
+          
+          - ``content.action.view`` will enable the :si-icon:`material/file-eye-outline` "View source of this page" link at the top of the page.
+          - ``content.action.edit`` will enable the :si-icon:`material/file-edit-outline` "Edit this page" link at the top of the page.
+
+          .. note::
+              using the :themeconf:`hide-edit-link` metadata will suppress both of these features on a per-page basis.
+
         - `content.code.annotate <https://squidfunk.github.io/mkdocs-material/reference/code-blocks/#code-annotations>`_
 
           .. seealso:: Refer to the :doc:`code_annotations` document for more detail.
 
+        - `content.code.copy <https://squidfunk.github.io/mkdocs-material/reference/code-blocks/#code-copy-button>`_
         - `content.tabs.link <https://squidfunk.github.io/mkdocs-material/reference/content-tabs/#linked-content-tabs>`_
 
           .. seealso::
