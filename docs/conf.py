@@ -136,12 +136,19 @@ html_theme_options = {
     ],
     "palette": [
         {
+            "media": "(prefers-color-scheme)",
+            "toggle": {
+                "icon": "material/brightness-auto",
+                "name": "Switch to light mode",
+            },
+        },
+        {
             "media": "(prefers-color-scheme: light)",
             "scheme": "default",
             "primary": "light-green",
             "accent": "light-blue",
             "toggle": {
-                "icon": "material/lightbulb-outline",
+                "icon": "material/lightbulb",
                 "name": "Switch to dark mode",
             },
         },
@@ -151,8 +158,8 @@ html_theme_options = {
             "primary": "deep-orange",
             "accent": "lime",
             "toggle": {
-                "icon": "material/lightbulb",
-                "name": "Switch to light mode",
+                "icon": "material/lightbulb-outline",
+                "name": "Switch to system preference",
             },
         },
     ],
