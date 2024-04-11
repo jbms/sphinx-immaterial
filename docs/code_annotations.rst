@@ -159,37 +159,3 @@ With the above CSS changes, a tooltip would be rendered like so:
 
     .. code-annotations::
         1. Muuuuuuuuuuuuuuuuuuuuuuuuuuuuch more space!
-
-Annotation buttons with numbers
--------------------------------
-
-The mkdocs-material legacy behavior was to use the annotated comment's identifying number in the
-button that was rendered. However, this behavior was removed because annotated comment's
-identifying number is arbitrary to the annotated list item's numeric marker -- see example snippet
-in `Arbitrary list markers`_.
-
-To enable this legacy behavior, use the following custom CSS rules:
-
-.. code-block:: css
-
-    .md-typeset .md-annotation__index > ::before {
-      content: attr(data-md-annotation-id);
-    }
-    .md-typeset :focus-within > .md-annotation__index > ::before {
-      transform: none;
-    }
-
-Using the above CSS would render annotations like so:
-
-.. rst-example::
-    :class: annotated-with-numbers
-
-    .. code-block:: python
-
-        def my_func(param)  # (1)!
-            """A doc string."""
-            return param + 1  # (2)!
-
-    .. code-annotations::
-        1. Data goes in here.
-        2. Data comes out here.
