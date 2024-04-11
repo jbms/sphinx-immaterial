@@ -132,6 +132,7 @@ html_theme_options = {
         "toc.follow",
         "toc.sticky",
         "content.tabs.link",
+        "content.code.copy",
         "announce.dismiss",
     ],
     "palette": [
