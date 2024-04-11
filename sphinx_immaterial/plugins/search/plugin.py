@@ -143,8 +143,6 @@ class SearchPlugin(BasePlugin[SearchConfig]):
     # Translate the given placeholder value
     def _translate(self, config, value):
         env = config.theme.get_env()
-        if env is None:  # not using a HTML builder
-            return value
 
         # Load language template and return translation for placeholder
         language = "partials/language.html"
@@ -408,7 +406,7 @@ class Parser(HTMLParser):
 
         # Ignore self-closing tags
         el = Element(tag, attrs)
-        if tag not in void:
+        if not tag in void:
             self.context.append(el)
         else:
             return
@@ -511,7 +509,7 @@ class Parser(HTMLParser):
             return
 
         # Collapse whitespace in non-pre contexts
-        if "pre" not in self.context:
+        if not "pre" in self.context:
             if not data.isspace():
                 data = data.replace("\n", " ")
             else:
