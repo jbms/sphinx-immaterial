@@ -2,7 +2,6 @@
 
 import multiprocessing
 import pathlib
-from typing import Optional
 
 import docutils.nodes
 import jinja2.sandbox
@@ -47,13 +46,9 @@ class _Theme:
     def __init__(self, app: sphinx.application.Sphinx):
         self._app = app
         builder = self._app.builder
-        self._jinja2_env: Optional[jinja2.sandbox.SandboxedEnvironment]
-        if isinstance(builder, sphinx.builders.html.StandaloneHTMLBuilder):
-            # only useful if using HTML output
-            self._jinja2_env = jinja2.sandbox.SandboxedEnvironment(loader=builder.templates)
-            self._jinja2_env.globals.update(builder.globalcontext)
-        else:
-            self._jinja2_env = None
+        assert isinstance(builder, sphinx.builders.html.StandaloneHTMLBuilder)
+        self._jinja2_env = jinja2.sandbox.SandboxedEnvironment(loader=builder.templates)
+        self._jinja2_env.globals.update(builder.globalcontext)
 
     def get_env(self):
         return self._jinja2_env
@@ -89,7 +84,15 @@ def _html_page_context(
     queue.append(indexer.entries)
 
 
-def _build_finished(app: sphinx.application.Sphinx, exception) -> None:
+def _build_finished(app: sphinx.application.Sphinx, exc) -> None:
+    if exc:
+        # Skip generating search index if an error occurred.
+        return
+
+    # Only applies to HTML builder.
+    if not isinstance(app.builder, sphinx.builders.html.StandaloneHTMLBuilder):
+        return
+
     queue = getattr(app, _SEARCH_QUEUE_KEY)
     indexer = _make_indexer(app)
     for entries in queue[:]:
