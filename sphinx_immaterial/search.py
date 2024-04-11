@@ -2,6 +2,7 @@
 
 import multiprocessing
 import pathlib
+from typing import Optional
 
 import docutils.nodes
 import jinja2.sandbox
@@ -46,9 +47,13 @@ class _Theme:
     def __init__(self, app: sphinx.application.Sphinx):
         self._app = app
         builder = self._app.builder
-        assert isinstance(builder, sphinx.builders.html.StandaloneHTMLBuilder)
-        self._jinja2_env = jinja2.sandbox.SandboxedEnvironment(loader=builder.templates)
-        self._jinja2_env.globals.update(builder.globalcontext)
+        self._jinja2_env: Optional[jinja2.sandbox.SandboxedEnvironment]
+        if isinstance(builder, sphinx.builders.html.StandaloneHTMLBuilder):
+            # only useful if using HTML output
+            self._jinja2_env = jinja2.sandbox.SandboxedEnvironment(loader=builder.templates)
+            self._jinja2_env.globals.update(builder.globalcontext)
+        else:
+            self._jinja2_env = None
 
     def get_env(self):
         return self._jinja2_env
