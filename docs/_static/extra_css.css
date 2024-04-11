@@ -3,14 +3,6 @@
   --md-tooltip-width: 600px;
 }
 
-.annotated-with-numbers .md-annotation__index > ::before {
-  content: attr(data-md-annotation-id);
-}
-
-.annotated-with-numbers :focus-within > .md-annotation__index > ::before {
-  transform: none;
-}
-
 /* style for custom font example */
 .custom-font-example {
   --md-text-font: "Comic Neue";
