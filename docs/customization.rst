@@ -235,6 +235,7 @@ Configuration Options
         Some features that have been ported from the mkdocs-material theme and can be enabled by
         specifying the feature's name in a list of strings. The following features are supported:
 
+        - `content.code.copy <https://squidfunk.github.io/mkdocs-material/reference/code-blocks/#code-copy-button>`_
         - `content.code.annotate <https://squidfunk.github.io/mkdocs-material/reference/code-blocks/#code-annotations>`_
 
           .. seealso:: Refer to the :doc:`code_annotations` document for more detail.
