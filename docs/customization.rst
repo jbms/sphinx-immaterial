@@ -1,6 +1,6 @@
 :hero: Configuration options to personalize your site.
 
-.. _any of the icons bundled with this theme: https://github.com/squidfunk/mkdocs-material/tree/master/material/.icons
+.. _any of the icons bundled with this theme: https://github.com/squidfunk/mkdocs-material/tree/master/material/templates/.icons
 
 .. _customization:
 
@@ -157,11 +157,88 @@ Configuration Options
 
     .. themeconf:: icon
 
+        This is a `dict` of icons that can be customized. As usual,
+        `any of the icons bundled with this theme`_ can be used as values.
+
         .. literalinclude:: conf.py
             :language: python
             :caption: This is the setting currently used by this documentation.
             :start-at: "icon": {
             :end-before: "site_url":
+
+        .. themeconf:: logo
+
+            The icon that is used as a fallback when :confval:`html_logo` is not specified.
+            The behavior of this option is inherited from the mkdocs-material theme, so
+            `any of the icons bundled with this theme`_ can be used here.
+            Defaults to ``material/library`` (:si-icon:`material/library`) when :confval:`html_logo` is not set.
+
+            .. code-block:: python
+
+                html_theme_options = {
+                    "icon": {
+                        "logo": "material/library"
+                    },
+                }
+
+        .. themeconf:: menu
+
+            This icon is used as the "open drawer" button (commonly referred to as the
+            "hamburger button" in web design). Defaults to ``material/menu`` (:si-icon:`material/menu`).
+
+        .. themeconf:: alternate
+
+            The icon used for the language selector button. See :themeconf:`languages` to
+            configure the options in the language selector drop-down menu.
+            Defaults to ``material/translate`` (:si-icon:`material/translate`).
+
+        .. themeconf:: search
+
+            This icon is used as the search icon.
+            Defaults to ``material/magnify`` (:si-icon:`material/magnify`).
+
+        .. themeconf:: share
+
+            This icon is used as the share icon when viewing search results.
+            Defaults to ``material/share-variant`` (:si-icon:`material/share-variant`).
+
+        .. themeconf:: close
+
+            This icon is used as the close icon when viewing search results (or to dismiss the announce banner).
+            Defaults to ``material/close`` (:si-icon:`material/close`).
+
+        .. themeconf:: top
+
+            This icon is used as the "back-to-top" icon when scrolling up the page.
+            Defaults to ``material/arrow-up`` (:si-icon:`material/arrow-up`).
+
+        .. themeconf:: edit
+
+            The icon used for the "edit this page" button at the top of the document.
+            This is only used if the following conditions are satisfied:
+
+            .. task-list::
+                :custom:
+
+                - [x] :themeconf:`edit_uri` is configured
+                - [x] :python:`"content.actions.edit"` is in the list of :themeconf:`features`
+                - [x] :themeconf:`hide-edit-link` is *not* present for the page
+
+            Defaults to ``material/file-edit-outline`` (:si-icon:`material/file-edit-outline`).
+
+        .. themeconf:: view
+
+            The icon used for the "view the source of this page" button at the top of the document.
+            This is only used if the following conditions are satisfied:
+
+            .. task-list::
+                :custom:
+
+                - [x] :themeconf:`edit_uri` is configured
+                - [x] :python:`"content.actions.view"` is in the list of :themeconf:`features`
+                - [x] :themeconf:`hide-edit-link` is *not* present for the page
+
+            Defaults to ``material/file-eye-outline`` (:si-icon:`material/file-eye-outline`).
 
         .. themeconf:: repo
 
@@ -188,41 +265,20 @@ Configuration Options
             .. seealso::
                 Refer to the :ref:`change_admonition_icon` section for more detail.
 
-        .. themeconf:: edit
+        .. themeconf:: previous
 
-            The icon used for the generated "edit this page" button at the top of the document.
-            This is only used if :themeconf:`edit_uri` is configured and when not explicitly hidden
-            using :themeconf:`hide-edit-link`.
+            The icon used in various places of the site that mean "go back":
 
-            As usual, `any of the icons bundled with this theme`_ can be used here. While the default is
-            ``material/pencil``, this documentation uses ``material/file-edit-outline``
+            - footer's previous page link icon when :python:`"navigation.footer"` is in the list of :themeconf:`features`
+            - hide search on mobile browsers
+            - nested menus in the navigation drawer
 
-        .. themeconf:: logo
+            Defaults to ``material/arrow-left`` (:si-icon:`material/arrow-left`).
 
-            The icon that is used as a fallback when :confval:`html_logo` is not specified.
-            The behavior of this option is inherited from the mkdocs-material theme, so
-            `any of the icons bundled with this theme`_ can be used here.
+        .. themeconf:: next
 
-            .. code-block:: python
-
-                html_theme_options = {
-                    "icon": {
-                        "logo": "material/library"
-                    },
-                }
-
-        .. themeconf:: alternate
-
-            The icon used for the language selector button. See :themeconf:`languages` to
-            configure the options in the language selector drop-down menu.
-
-            .. code-block:: python
-
-                html_theme_options = {
-                    "icon": {
-                        "logo": "material/translate"
-                    },
-                }
+            The icon used as the footer's next page link icon when :python:`"navigation.footer"` is in the list of :themeconf:`features`.
+            Defaults to ``material/arrow-right`` (:si-icon:`material/arrow-right`).
 
     .. themeconf:: edit_uri
 
@@ -236,7 +292,7 @@ Configuration Options
         specifying the feature's name in a list of strings. The following features are supported:
 
         - `content.action.* <https://squidfunk.github.io/mkdocs-material/setup/adding-a-git-repository/#code-actions>`_
-          
+
           - ``content.action.view`` will enable the :si-icon:`material/file-eye-outline` "View source of this page" link at the top of the page.
           - ``content.action.edit`` will enable the :si-icon:`material/file-edit-outline` "Edit this page" link at the top of the page.
 
