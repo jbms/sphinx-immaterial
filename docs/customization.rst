@@ -433,7 +433,7 @@ Configuration Options
 
         .. themeconf:: media (palette preference)
 
-            In order to automatically set the color palette based on the user's system preference, a media
+            In order to automatically set the color palette based on the user's or system's preference, a media
             query can be specified with the ``media`` field.
 
             .. code-block:: python
@@ -441,10 +441,18 @@ Configuration Options
                 html_theme_options = {
                     "palette": [
                         {
+                            "media": "(prefers-color-scheme)",
+                            "scheme": "default",
+                            "toggle": {
+                                "icon": "material/toggle-switch",
+                                "name": "Switch to light mode",
+                            }
+                        },
+                        {
                             "media": "(prefers-color-scheme: light)",
                             "scheme": "default",
                             "toggle": {
-                                "icon": "material/toggle-switch-off-outline",
+                                "icon": "material/toggle-switch",
                                 "name": "Switch to dark mode",
                             }
                         },
@@ -452,8 +460,8 @@ Configuration Options
                             "media": "(prefers-color-scheme: dark)",
                             "scheme": "slate",
                             "toggle": {
-                                "icon": "material/toggle-switch",
-                                "name": "Switch to light mode",
+                                "icon": "material/toggle-switch-off-outline",
+                                "name": "Switch to system preference",
                             }
                         },
                     ]
