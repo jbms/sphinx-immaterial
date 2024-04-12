@@ -351,6 +351,22 @@ Configuration Options
           .. seealso::
               Please refer to the :ref:`linked_tabs` section for more information.
 
+        - `content.tooltips <https://squidfunk.github.io/mkdocs-material/reference/tooltips/#improved-tooltips>`_
+
+          There is currently no way to use custom tooltips in rST
+          :duref:`hyperlink syntax <hyperlink-references>`, but
+          some extensions do make use of the ``docutils.nodes.reference`` object's ``reftitle``
+          attribute that corresponds to the hyperlink reference's title (which is rendered as a
+          tooltip in web browsers).
+
+          Some examples with the :python:`"content.tooltips"` feature enabled:
+
+          - :py:mod:`sphinx.ext.intersphinx` (an intersphinx link)
+          - :cpp:expr:`synopses_ex::Foo` (a demo C++ function expression)
+          - :cpp:func:`Foo` (a demo C++ function reference)
+          - :json:schema:`Pet` (a demo JSON schema reference)
+          - :py:class:`test_py_module.test.Foo` (a demo Python class reference)
+
         - `header.autohide <https://squidfunk.github.io/mkdocs-material/setup/setting-up-the-header/#automatic-hiding>`_
         - `navigation.expand <https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#navigation-expansion>`_
         - `navigation.footer <https://squidfunk.github.io/mkdocs-material/setup/setting-up-the-footer/#navigation>`_
