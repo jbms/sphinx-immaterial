@@ -192,6 +192,23 @@ Configuration Options
             configure the options in the language selector drop-down menu.
             Defaults to ``material/translate`` (:si-icon:`material/translate`).
 
+        .. themeconf:: annotation
+
+            The icon used for the annotation button. See :doc:`block_annotations` or
+            :doc:`code_annotations` for usage information.
+            Defaults to ``material/plus-circle`` (:si-icon:`material/plus-circle`).
+
+            Some popular choices:
+
+            - :si-icon:`material/plus-circle` ``material/plus-circle``
+            - :si-icon:`material/circle-medium` ``material/circle-medium``
+            - :si-icon:`material/record-circle` ``material/record-circle``
+            - :si-icon:`material/arrow-right-circle` ``material/arrow-right-circle``
+            - :si-icon:`material/arrow-right-circle-outline` ``material/arrow-right-circle-outline``
+            - :si-icon:`material/chevron-right-circle` ``material/chevron-right-circle``
+            - :si-icon:`material/star-four-points-circle` ``material/star-four-points-circle``
+            - :si-icon:`material/plus-circle-outline` ``material/plus-circle-outline``
+
         .. themeconf:: search
 
             This icon is used as the search icon.
