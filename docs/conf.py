@@ -136,6 +136,7 @@ html_theme_options = {
         "content.code.copy",
         "content.action.edit",
         "content.action.view",
+        "content.tooltips",
         "announce.dismiss",
     ],
     "palette": [
