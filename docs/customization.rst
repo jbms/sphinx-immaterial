@@ -321,6 +321,31 @@ Configuration Options
           .. seealso:: Refer to the :doc:`code_annotations` document for more detail.
 
         - `content.code.copy <https://squidfunk.github.io/mkdocs-material/reference/code-blocks/#code-copy-button>`_
+
+          .. info:: Enabling or disabling code copy buttons for a specific code block
+
+              If you don't want to enable code copy buttons globally, you can enable them for a
+              specific code block by adding a ``copy`` value to the :rst:dir:`code-block`
+              directives' :rst:`:class:` option.
+
+              .. rst-example:: Enable the copy button
+
+                  .. code-block:: yaml
+                      :class: copy
+
+                      # Code block content
+
+              Alternatively, you can disable the copy button with the ``no-copy`` :rst:`:class:`
+              for a specific code block when the :python:`"content.code.copy"` feature is globally
+              enabled.
+
+              .. rst-example:: Disable the copy button
+
+                  .. code-block:: yaml
+                      :class: no-copy
+
+                      # Code block content
+
         - `content.tabs.link <https://squidfunk.github.io/mkdocs-material/reference/content-tabs/#linked-content-tabs>`_
 
           .. seealso::
