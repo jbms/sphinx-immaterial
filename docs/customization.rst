@@ -221,7 +221,8 @@ Configuration Options
 
         .. themeconf:: close
 
-            This icon is used as the close icon when viewing search results (or to dismiss the announce banner).
+            This icon is used as the close icon when viewing search results (or to dismiss the
+            announcement banner).
             Defaults to ``material/close`` (:si-icon:`material/close`).
 
         .. themeconf:: top
@@ -313,8 +314,8 @@ Configuration Options
           - ``content.action.view`` will enable the :si-icon:`material/file-eye-outline` "View source of this page" link at the top of the page.
           - ``content.action.edit`` will enable the :si-icon:`material/file-edit-outline` "Edit this page" link at the top of the page.
 
-          .. note::
-              using the :themeconf:`hide-edit-link` metadata will suppress both of these features on a per-page basis.
+          .. seealso::
+              Using the :themeconf:`hide-edit-link` metadata field will suppress both of these features on a per-page basis.
 
         - `content.code.annotate <https://squidfunk.github.io/mkdocs-material/reference/code-blocks/#code-annotations>`_
 

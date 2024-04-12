@@ -336,8 +336,8 @@ def get_directive_class(name, title, classes=None) -> Type[CustomAdmonitionDirec
     if classes:
         class_list.extend(classes)
 
-    # make sphinx/docutils admonitions compatible with changes in
-    # supported admonition types in upstream v9
+    # make sphinx/docutils admonitions compatible with
+    # supported admonition types in upstream v9+
     if name in ("caution", "attention"):
         class_list.append("warning")
     elif name == "error":
