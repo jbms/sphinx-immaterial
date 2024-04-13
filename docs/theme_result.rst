@@ -35,7 +35,7 @@ directives, enable the :python:`"sphinx_immaterial.theme_result"` extension.
             Some content that ends in a page break.
 
             ----
-    
+
     The only way to showcase root-level syntax is to duplicate the code being showcased.
     You can also use raw :html:`<div>` elements to invoke this theme's CSS designed for
     showcasing syntax:
@@ -47,9 +47,9 @@ directives, enable the :python:`"sphinx_immaterial.theme_result"` extension.
             .. code-block:: rst
 
                 <div class="results">
-                
+
                 ```md
-                # Some Title            
+                # Some Title
 
                 And a page break.
 
@@ -58,7 +58,7 @@ directives, enable the :python:`"sphinx_immaterial.theme_result"` extension.
 
                 <div class="result">
 
-                # Some Title            
+                # Some Title
 
                 And a page break.
 
@@ -73,7 +73,7 @@ directives, enable the :python:`"sphinx_immaterial.theme_result"` extension.
                 .. raw:: html
 
                     <div class="results">
-                
+
                 .. code-block:: rst
 
                     Some Title
@@ -82,7 +82,7 @@ directives, enable the :python:`"sphinx_immaterial.theme_result"` extension.
                     And a page break.
 
                     ----
-                
+
                 .. raw:: html
 
                     <div class="result">
@@ -93,7 +93,7 @@ directives, enable the :python:`"sphinx_immaterial.theme_result"` extension.
                 And a page break.
 
                 ----
-                
+
                 .. raw:: html
 
                     </div></div>
@@ -151,7 +151,7 @@ directives, enable the :python:`"sphinx_immaterial.theme_result"` extension.
         This option allows specifying a list of space-separated CSS classes.
 
         Fun fact: This option was used to demonstrate using a self-hosted :themeconf:`font`.
-        
+
         .. rst-example::
             :class: recursive-rst-example
 
