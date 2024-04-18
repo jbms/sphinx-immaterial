@@ -567,7 +567,14 @@ def _generate_entity_desc_node(
                     if i != 0:
                         signode += sphinx.addnodes.desc_sig_punctuation("", ",")
                         signode += sphinx.addnodes.desc_sig_space()
-                    signode += sphinx.domains.python._parse_annotation(base_class, env)
+                    if sphinx.version_info >= (7, 3):
+                        signode += sphinx.domains.python._annotations._parse_annotation(
+                            base_class, env
+                        )
+                    else:
+                        signode += sphinx.domains.python._parse_annotation(
+                            base_class, env
+                        )
                 signode += sphinx.addnodes.desc_sig_punctuation("", ")")
 
         if callback is not None:
@@ -1732,9 +1739,7 @@ def _monkey_patch_napoleon_to_add_group_field():
     def parse_section(
         self: sphinx.ext.napoleon.docstring.GoogleDocstring, section: str
     ) -> List[str]:
-        lines = self._strip_empty(
-            self._consume_to_next_section()
-        )  # pylint: disable=protected-access
+        lines = self._strip_empty(self._consume_to_next_section())  # pylint: disable=protected-access
         lines = self._dedent(lines)  # pylint: disable=protected-access
         name = section.lower()
         if len(lines) != 1:
@@ -1745,12 +1750,8 @@ def _monkey_patch_napoleon_to_add_group_field():
         self: sphinx.ext.napoleon.docstring.GoogleDocstring,
     ) -> None:
         orig_load_custom_sections(self)
-        self._sections["group"] = lambda section: parse_section(
-            self, section
-        )  # pylint: disable=protected-access
-        self._sections["order"] = lambda section: parse_section(
-            self, section
-        )  # pylint: disable=protected-access
+        self._sections["group"] = lambda section: parse_section(self, section)  # pylint: disable=protected-access
+        self._sections["order"] = lambda section: parse_section(self, section)  # pylint: disable=protected-access
 
     sphinx.ext.napoleon.docstring.GoogleDocstring._load_custom_sections = (  # type: ignore[assignment]
         load_custom_sections  # pylint: disable=protected-access

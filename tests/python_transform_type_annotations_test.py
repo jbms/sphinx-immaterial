@@ -41,5 +41,13 @@ def test_transform_type_annotations_pep604(theme_make_app):
         ("Literal[1, 2, None]", "1 | 2 | None"),
     ]:
         parent = docutils.nodes.TextElement("", "")
-        parent.extend(sphinx.domains.python._parse_annotation(annotation, app.env))
+
+        if sphinx.version_info >= (7, 3):
+            parent.extend(
+                sphinx.domains.python._annotations._parse_annotation(
+                    annotation, app.env
+                )
+            )
+        else:
+            parent.extend(sphinx.domains.python._parse_annotation(annotation, app.env))
         assert parent.astext() == expected_text
