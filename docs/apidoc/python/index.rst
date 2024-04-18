@@ -49,9 +49,9 @@ Python domain customization
    Specifies whether to add the following mappings to
    :confval:`python_type_aliases`:
 
-   .. jinja:: sys
+   .. jinja:: typing_names
 
-      {%- for x in sys.modules["sphinx_immaterial.apidoc.python.type_annotation_transforms"].TYPING_NAMES %}
+      {%- for x in TYPING_NAMES %}
       - :python:`{{ x }}` -> :python:`typing.{{ x }}`
       {%- endfor %}
 
@@ -63,9 +63,9 @@ Python domain customization
    Specifies whether to add the following :pep:`585` mappings to
    :confval:`python_type_aliases`:
 
-   .. jinja:: sys
+   .. jinja:: pep685_aliases
 
-      {%- for k, v in sys.modules["sphinx_immaterial.apidoc.python.type_annotation_transforms"].PEP585_ALIASES.items() %}
+      {%- for k, v in aliases.items() %}
       - :python:`{{ k }}` -> :python:`{{ v }}`
       {% endfor %}
 

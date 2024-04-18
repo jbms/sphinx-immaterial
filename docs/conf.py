@@ -28,6 +28,10 @@ import sphinx.util.typing
 from sphinx_immaterial.apidoc import (
     object_description_options as _object_description_options,
 )
+from sphinx_immaterial.apidoc.python import (
+    type_annotation_transforms,
+    apigen as python_apigen,
+)
 
 logger = sphinx.util.logging.getLogger(__name__)
 
@@ -349,9 +353,34 @@ def get_colors(color_t: str):
         unique_colors.append(m.group(1))
     return unique_colors
 
-
+# jinja contexts
+example_python_apigen_modules = {
+    "my_module": "my_api/",
+    "my_other_module": "other_api/my_other_module.",
+}
+example_python_apigen_objects = [
+    ("my_module.foo", ""),
+    ("my_module.Foo", ""),
+    ("my_module.Foo.method", ""),
+    ("my_module.Foo.__init__", "json"),
+    ("my_module.Foo.__init__", "values"),
+    ("my_module.Bar", ""),
+    ("my_other_module.Baz", ""),
+]
 jinja_contexts = {
-    "sys": {"sys": sys},
+    "python_apigen_path_examples": {
+        "example_python_apigen_objects": [
+            (
+                full_name,
+                overload_id,
+                python_apigen._get_docname(example_python_apigen_modules, full_name, overload_id, False),
+                python_apigen._get_docname(example_python_apigen_modules, full_name, overload_id, True),
+            )
+            for full_name, overload_id in example_python_apigen_objects
+        ],
+    },
+    "typing_names": {"TYPING_NAMES": type_annotation_transforms.TYPING_NAMES},
+    "pep685_aliases": {"aliases": type_annotation_transforms.PEP585_ALIASES},
     "colors": {
         "supported_primary": get_colors("primary"),
         "supported_accent": get_colors("accent"),
