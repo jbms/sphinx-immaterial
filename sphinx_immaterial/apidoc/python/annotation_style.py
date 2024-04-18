@@ -21,7 +21,7 @@ def _monkey_patch_python_parse_annotation():
     This allows them to be distinguished from parameter names in CSS rules.
     """
     if sphinx.version_info >= (7, 3):
-        orig_parse_annotation = sphinx.domains.python._annotations._parse_annotation
+        orig_parse_annotation = sphinx.domains.python._annotations._parse_annotation  # type: ignore[attr-defined]
     else:
         orig_parse_annotation = sphinx.domains.python._parse_annotation
 
@@ -31,7 +31,7 @@ def _monkey_patch_python_parse_annotation():
         return ensure_wrapped_in_desc_type(orig_parse_annotation(annotation, env))  # type: ignore[arg-type]
 
     if sphinx.version_info >= (7, 3):
-        sphinx.domains.python._annotations._parse_annotation = parse_annotation
+        sphinx.domains.python._annotations._parse_annotation = parse_annotation  # type: ignore[attr-defined]
     else:
         sphinx.domains.python._parse_annotation = parse_annotation
 

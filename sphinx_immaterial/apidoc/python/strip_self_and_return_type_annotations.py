@@ -63,7 +63,7 @@ def setup(app: sphinx.application.Sphinx):
         "python_strip_return_type_annotations",
         default=r".*.(__setitem__|__init__)",
         rebuild="env",
-        types=(re.Pattern, type(None)),
+        types=(re.Pattern, type(None)),  # type: ignore[arg-type]
     )
     app.connect("config-inited", _config_inited)
 

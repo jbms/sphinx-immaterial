@@ -343,7 +343,7 @@ def render_dot_html(
         errors = errors.strip()
         if errors or dot_result.returncode != 0:
             error_func = logger.warning if dot_result.returncode == 0 else logger.error
-            error_func(
+            error_func(  # type: ignore[operator]
                 "Error running %r with env %r: %s", dot_cmd, env, errors, location=node
             )
             if dot_result.returncode != 0:

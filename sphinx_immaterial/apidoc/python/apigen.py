@@ -568,7 +568,7 @@ def _generate_entity_desc_node(
                         signode += sphinx.addnodes.desc_sig_punctuation("", ",")
                         signode += sphinx.addnodes.desc_sig_space()
                     if sphinx.version_info >= (7, 3):
-                        signode += sphinx.domains.python._annotations._parse_annotation(
+                        signode += sphinx.domains.python._annotations._parse_annotation(  # type: ignore[attr-defined]
                             base_class, env
                         )
                     else:
@@ -1810,7 +1810,7 @@ def setup(app: sphinx.application.Sphinx):
     app.add_config_value(
         "python_apigen_case_insensitive_filesystem",
         default=None,
-        types=(bool, type(None)),
+        types=(bool, type(None)),  # type: ignore[arg-type]
         rebuild="env",
     )
     app.add_config_value(

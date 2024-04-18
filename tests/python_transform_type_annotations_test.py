@@ -44,7 +44,7 @@ def test_transform_type_annotations_pep604(theme_make_app):
 
         if sphinx.version_info >= (7, 3):
             parent.extend(
-                sphinx.domains.python._annotations._parse_annotation(
+                sphinx.domains.python._annotations._parse_annotation(  # type: ignore[attr-defined]
                     annotation, app.env
                 )
             )

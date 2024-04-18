@@ -49,7 +49,7 @@ def test_extra_scope(
     )
     app.build()
 
-    assert not app._warning.getvalue()
+    assert not app._warning.getvalue()  # type: ignore[attr-defined]
 
     with open(Path(app.outdir) / "index.html", mode="r") as file:
         soup = BeautifulSoup(file.read(), "html.parser")

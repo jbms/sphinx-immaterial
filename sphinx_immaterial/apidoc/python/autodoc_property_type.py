@@ -115,7 +115,7 @@ def apply_property_documenter_type_annotation_fix():
         if typ:
             signode += sphinx.addnodes.desc_sig_punctuation("", " : ")
             if sphinx.version_info >= (7, 3):
-                signode += sphinx.domains.python._annotations._parse_annotation(
+                signode += sphinx.domains.python._annotations._parse_annotation(  # type: ignore[attr-defined]
                     typ, self.env
                 )
             else:

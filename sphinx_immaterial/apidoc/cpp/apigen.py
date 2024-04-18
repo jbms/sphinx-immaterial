@@ -953,7 +953,7 @@ def setup(app: sphinx.application.Sphinx):
     app.add_config_value(
         "cpp_apigen_case_insensitive_filesystem",
         default=None,
-        types=(bool, type(None)),
+        types=(bool, type(None)),  # type: ignore[arg-type]
         rebuild="env",
     )
     app.add_config_value(

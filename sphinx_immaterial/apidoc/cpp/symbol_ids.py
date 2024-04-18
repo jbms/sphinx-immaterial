@@ -15,7 +15,7 @@ ANCHOR_ATTR = "sphinx_immaterial_anchor"
 def _monkey_patch_override_ast_id(
     ast_declaration_class: Union[
         Type[sphinx.domains.c.ASTDeclaration], Type[sphinx.domains.cpp.ASTDeclaration]
-    ]
+    ],
 ):
     """Allows the Symbol id to be overridden."""
     orig_get_id = ast_declaration_class.get_id
@@ -34,9 +34,11 @@ def _monkey_patch_override_ast_id(
 
 
 def get_symbol_anchor(
-    symbol: Union[sphinx.domains.c.Symbol, sphinx.domains.cpp.Symbol]
+    symbol: Union[sphinx.domains.c.Symbol, sphinx.domains.cpp.Symbol],
 ) -> str:
-    anchor = getattr(symbol.declaration, ANCHOR_ATTR, None)
+    anchor = None
+    if symbol.declaration is not None:
+        anchor = getattr(symbol.declaration, ANCHOR_ATTR, None)
     if anchor is None:
         assert symbol.declaration is not None
         anchor = symbol.declaration.get_newest_id()
@@ -144,6 +146,8 @@ def _monkey_patch_cpp_noindex_option(
         node_id = self.options.get("node-id")
         if node_id is not None:
             symbol = ast.symbol
+            assert symbol is not None
+            assert symbol.declaration is not None
             setattr(symbol.declaration, ANCHOR_ATTR, node_id)
             symbol.docname = self.env.docname
             if ast is self.names[0] and node_id:
@@ -157,7 +161,7 @@ def _monkey_patch_cpp_noindex_option(
     orig_run = object_class.run
 
     def run(
-        self: Union[sphinx.domains.c.CObject, sphinx.domains.cpp.CPPObject]
+        self: Union[sphinx.domains.c.CObject, sphinx.domains.cpp.CPPObject],
     ) -> List[docutils.nodes.Node]:
         result = orig_run(self)  # type: ignore[arg-type]
 

@@ -115,7 +115,7 @@ def _monkey_patch_cpp_domain_symbol_resolution_through_type_aliases():
             results = orig_find_named_symbols(
                 self,
                 identOrOp,
-                None,
+                None,  # type: ignore[arg-type]
                 None,  # type: ignore[arg-type]
                 templateShorthand,
                 matchSelf,

@@ -9,7 +9,7 @@ def _monkey_patch_python_parse_arglist():
     """Ensures default values in signatures are styled as code."""
 
     if sphinx.version_info >= (7, 3):
-        orig_parse_arglist = sphinx.domains.python._annotations._parse_arglist
+        orig_parse_arglist = sphinx.domains.python._annotations._parse_arglist  # type: ignore[attr-defined]
     else:
         orig_parse_arglist = sphinx.domains.python._parse_arglist
 
@@ -30,8 +30,8 @@ def _monkey_patch_python_parse_arglist():
         return result
 
     if sphinx.version_info >= (7, 3):
-        sphinx.domains.python._annotations._parse_arglist = parse_arglist
-        sphinx.domains.python._object._parse_arglist = parse_arglist
+        sphinx.domains.python._annotations._parse_arglist = parse_arglist  # type: ignore[attr-defined]
+        sphinx.domains.python._object._parse_arglist = parse_arglist  # type: ignore[attr-defined]
     else:
         sphinx.domains.python._parse_arglist = parse_arglist
 

@@ -249,7 +249,7 @@ class TypeAnnotationTransformer(ast.NodeTransformer):
 
 def _monkey_patch_python_domain_to_transform_type_annotations():
     if sphinx.version_info >= (7, 3):
-        orig_parse_annotation = sphinx.domains.python._annotations._parse_annotation
+        orig_parse_annotation = sphinx.domains.python._annotations._parse_annotation  # type: ignore[attr-defined]
     else:
         orig_parse_annotation = sphinx.domains.python._parse_annotation
 
@@ -270,7 +270,7 @@ def _monkey_patch_python_domain_to_transform_type_annotations():
         return orig_parse_annotation(annotation, env)
 
     if sphinx.version_info >= (7, 3):
-        sphinx.domains.python._annotations._parse_annotation = _parse_annotation  # type: ignore[assignment]
+        sphinx.domains.python._annotations._parse_annotation = _parse_annotation  # type: ignore[assignment,attr-defined]
     else:
         sphinx.domains.python._parse_annotation = _parse_annotation  # type: ignore[assignment]
 
