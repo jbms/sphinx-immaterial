@@ -9,6 +9,7 @@ from docutils.parsers.rst import directives, Directive
 import jinja2
 import pydantic
 from pydantic_extra_types.color import Color
+import sphinx
 import sphinx.addnodes
 from sphinx.application import Sphinx
 from sphinx.config import Config
@@ -60,6 +61,13 @@ VERSION_DIR_STYLE = {
     },
     "deprecated": {"icon": "material/delete", "color": (203, 70, 83), "classes": []},
 }
+if sphinx.version_info >= (7, 3):
+    # re-use deprecated style for versionremoved directive except with different icon
+    VERSION_DIR_STYLE["versionremoved"] = {
+        "icon": "material/close",
+        "color": (203, 70, 83),
+        "classes": [],
+    }
 
 
 class CustomAdmonitionConfig(pydantic.BaseModel):
