@@ -4,16 +4,12 @@ import pytest
 
 import docutils.nodes
 import sphinx
+import sphinx.domains.python as py_domain
 
 if sphinx.version_info < (7, 2):
     from sphinx.testing.path import path as SphinxPath
 else:
     from pathlib import Path as SphinxPath  # type: ignore[assignment]
-
-if sphinx.version_info >= (7, 3):
-    from sphinx.domains.python._annotations import _parse_annotation  # type: ignore[import-not-found]
-else:
-    from sphinx.domains.python import _parse_annotation
 
 pytest_plugins = ("sphinx.testing.fixtures",)
 
@@ -46,5 +42,8 @@ def test_transform_type_annotations_pep604(theme_make_app):
     ]:
         parent = docutils.nodes.TextElement("", "")
 
-        parent.extend(_parse_annotation(annotation, app.env))
+        if sphinx.version_info >= (7, 3):
+            parent.extend(py_domain._annotations._parse_annotation(annotation, app.env))  # type: ignore[module-not-found]
+        else:
+            parent.extend(py_domain._parse_annotation(annotation, app.env))
         assert parent.astext() == expected_text
