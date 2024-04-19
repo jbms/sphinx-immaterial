@@ -39,7 +39,6 @@ import docutils.statemachine
 import sphinx
 import sphinx.addnodes
 import sphinx.application
-import sphinx.domains.python
 import sphinx.environment
 import sphinx.ext.autodoc
 import sphinx.ext.autodoc.directive
@@ -59,6 +58,11 @@ if sphinx.version_info >= (6, 1):
     stringify_annotation = sphinx.util.typing.stringify_annotation
 else:
     stringify_annotation = sphinx.util.typing.stringify  # type: ignore[attr-defined]
+
+if sphinx.version_info >= (7, 3):
+    from sphinx.domains.python._annotations import _parse_annotation  # type: ignore[import-not-found]  # pylint: disable=import-error,no-name-in-module
+else:
+    from sphinx.domains.python import _parse_annotation
 
 logger = sphinx.util.logging.getLogger(__name__)
 
@@ -567,14 +571,7 @@ def _generate_entity_desc_node(
                     if i != 0:
                         signode += sphinx.addnodes.desc_sig_punctuation("", ",")
                         signode += sphinx.addnodes.desc_sig_space()
-                    if sphinx.version_info >= (7, 3):
-                        signode += sphinx.domains.python._annotations._parse_annotation(  # type: ignore[attr-defined]
-                            base_class, env
-                        )
-                    else:
-                        signode += sphinx.domains.python._parse_annotation(
-                            base_class, env
-                        )
+                    signode += _parse_annotation(base_class, env)
                 signode += sphinx.addnodes.desc_sig_punctuation("", ")")
 
         if callback is not None:
