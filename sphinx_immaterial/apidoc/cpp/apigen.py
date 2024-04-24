@@ -179,7 +179,7 @@ def _get_cpp_api_data(
                     location=api_parser.json_location_to_string(diag["location"]),
                 )
 
-    setattr(env, KEY, data)
+    setattr(env.app, KEY, data)
     return data
 
 
@@ -483,7 +483,7 @@ def _add_entity_description(
     summary: bool,
     state: docutils.parsers.rst.states.RSTState,
 ) -> None:
-    kind = entity["kind"]
+    # kind = entity["kind"]
     out = docutils.statemachine.StringList()
     location = entity["location"]
     parent_id = entity.get("parent")
@@ -493,12 +493,12 @@ def _add_entity_description(
         include_scope = True
 
     if parent_id:
-        parent = api_data.entities[parent_id]
+        # parent = api_data.entities[parent_id]
         scope_template_prefix = _format_template_prefix(
             api_data, api_data.entities[parent_id], summary=False
         )
     else:
-        parent = None
+        # parent = None
         scope_template_prefix = ""
 
     scope = api_data.get_entity_scope(entity).rstrip(":")
@@ -637,7 +637,7 @@ def _add_enumerators(
     obj_content: sphinx.addnodes.desc_content,
     state: docutils.parsers.rst.states.RSTState,
 ) -> None:
-    parent_object_name = api_data.get_entity_object_name(entity)
+    # parent_object_name = api_data.get_entity_object_name(entity)
     for child in entity["enumerators"]:
         name = child["name"]
         location = child["location"]

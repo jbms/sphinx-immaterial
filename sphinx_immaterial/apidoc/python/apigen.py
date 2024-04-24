@@ -508,7 +508,7 @@ def _clean_class_getitem_signature(signode: sphinx.addnodes.desc_signature) -> N
 def _get_api_data(
     env: sphinx.environment.BuildEnvironment,
 ) -> _ApiData:
-    return getattr(env, "_sphinx_immaterial_python_apigen_data")
+    return getattr(env.app, "_sphinx_immaterial_python_apigen_data")
 
 
 def _generate_entity_desc_node(
@@ -1642,7 +1642,7 @@ def _builder_inited(app: sphinx.application.Sphinx) -> None:
 
     data = _ApiData()
 
-    setattr(env, "_sphinx_immaterial_python_apigen_data", data)
+    setattr(app, "_sphinx_immaterial_python_apigen_data", data)
 
     apigen_modules = app.config.python_apigen_modules
     if not apigen_modules:

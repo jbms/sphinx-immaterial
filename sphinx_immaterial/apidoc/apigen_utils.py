@@ -89,7 +89,6 @@ class GeneratedDocumentWriter:
     def clear_existing_generated_files(self):
         srcdir = self.app.srcdir
         for output_prefix in self.output_prefixes:
-            glob_pattern = os.path.join(srcdir, output_prefix)
             for p in glob.glob(
                 os.path.join(srcdir, output_prefix + "*.rst"), recursive=True
             ):
