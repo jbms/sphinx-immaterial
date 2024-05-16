@@ -32,8 +32,8 @@ def _monkey_patch_python_parse_annotation():
 
     if sphinx.version_info >= (7, 3):
         sphinx.domains.python._annotations._parse_annotation = parse_annotation  # type: ignore[attr-defined]
-    else:
-        sphinx.domains.python._parse_annotation = parse_annotation
+        sphinx.domains.python._object._parse_annotation = parse_annotation  # type: ignore[attr-defined]
+    sphinx.domains.python._parse_annotation = parse_annotation
 
 
 _monkey_patch_python_parse_annotation()

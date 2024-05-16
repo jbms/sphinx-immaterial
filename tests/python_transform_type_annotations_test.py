@@ -4,7 +4,7 @@ import pytest
 
 import docutils.nodes
 import sphinx
-import sphinx.domains.python as py_domain
+import sphinx.domains.python
 
 if sphinx.version_info < (7, 2):
     from sphinx.testing.path import path as SphinxPath
@@ -42,8 +42,18 @@ def test_transform_type_annotations_pep604(theme_make_app):
     ]:
         parent = docutils.nodes.TextElement("", "")
 
+        parsed_annotations = sphinx.domains.python._parse_annotation(
+            annotation, app.env
+        )
         if sphinx.version_info >= (7, 3):
-            parent.extend(py_domain._annotations._parse_annotation(annotation, app.env))  # type: ignore[module-not-found]
-        else:
-            parent.extend(py_domain._parse_annotation(annotation, app.env))
+            as_text = "".join([n.astext() for n in parsed_annotations])
+            og_parsed = sphinx.domains.python._annotations._parse_annotation(  # type: ignore[module-not-found,attr-defined]
+                annotation, app.env
+            )
+            assert as_text == "".join([n.astext() for n in og_parsed])
+            re_exported = sphinx.domains.python._object._parse_annotation(  # type: ignore[module-not-found,attr-defined]
+                annotation, app.env
+            )
+            assert as_text == "".join([n.astext() for n in re_exported])
+        parent.extend(parsed_annotations)
         assert parent.astext() == expected_text

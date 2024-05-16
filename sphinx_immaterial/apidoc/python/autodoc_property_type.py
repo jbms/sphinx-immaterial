@@ -16,11 +16,6 @@ if sphinx.version_info >= (6, 1):
 else:
     stringify_annotation = sphinx.util.typing.stringify  # type: ignore[attr-defined]
 
-if sphinx.version_info >= (7, 3):
-    from sphinx.domains.python._annotations import _parse_annotation  # type: ignore[import-not-found]  # pylint: disable=import-error,no-name-in-module
-else:
-    from sphinx.domains.python import _parse_annotation
-
 PropertyDocumenter = sphinx.ext.autodoc.PropertyDocumenter
 
 
@@ -119,7 +114,12 @@ def apply_property_documenter_type_annotation_fix():
         typ = self.options.get("type")
         if typ:
             signode += sphinx.addnodes.desc_sig_punctuation("", " : ")
-            signode += _parse_annotation(typ, self.env)
+            if sphinx.version_info >= (7, 3):
+                signode += sphinx.domains.python._annotations._parse_annotation(
+                    typ, self.env
+                )
+            else:
+                signode += sphinx.domains.python._parse_annotation(typ, self.env)
 
         return fullname, prefix
 

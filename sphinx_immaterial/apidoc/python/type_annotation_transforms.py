@@ -271,8 +271,8 @@ def _monkey_patch_python_domain_to_transform_type_annotations():
 
     if sphinx.version_info >= (7, 3):
         sphinx.domains.python._annotations._parse_annotation = _parse_annotation  # type: ignore[assignment,attr-defined]
-    else:
-        sphinx.domains.python._parse_annotation = _parse_annotation  # type: ignore[assignment]
+        sphinx.domains.python._object._parse_annotation = _parse_annotation  # type: ignore[assignment,attr-defined]
+    sphinx.domains.python._parse_annotation = _parse_annotation  # type: ignore[assignment]
 
 
 def _builder_inited(app: sphinx.application.Sphinx):
