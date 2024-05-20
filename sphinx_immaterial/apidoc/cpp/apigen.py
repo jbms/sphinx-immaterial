@@ -141,7 +141,7 @@ def _get_cpp_api_data(
     env: sphinx.environment.BuildEnvironment, warn: bool = False
 ) -> CppApiData:
     KEY = "_sphinx_immaterial_cpp_apigen_data"
-    data = getattr(env, KEY, None)
+    data = getattr(env.app, KEY, None)
     if data is not None:
         return data
 
@@ -766,7 +766,7 @@ class CppApigenEntityPageDirective(sphinx.util.docutils.SphinxDirective):
         section = docutils.nodes.section()
         section["ids"].append("")
 
-        # Sphinx treates the first child of a `section` node as the title,
+        # Sphinx treats the first child of a `section` node as the title,
         # regardless of its type.  We use a comment node to avoid adding a title
         # that would be redundant with the object description.
         comment_placeholder = docutils.nodes.comment("", "")
