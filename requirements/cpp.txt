@@ -1,1 +1,3 @@
-libclang
+# https://github.com/sighingnow/libclang/issues/71
+libclang < 17 ; sys_platform == 'darwin'
+libclang ; sys_platform != 'darwin'
