@@ -32,7 +32,7 @@
         <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
       
     
-        <link rel="stylesheet" type="text/css" href="_static/sphinx_immaterial_theme.3c111fe932309d4fc.min.css?v=47bc3a47" />
+        <link rel="stylesheet" type="text/css" href="_static/sphinx_immaterial_theme.a4d2c5990674c5726.min.css?v=f22bd06f" />
         <link rel="stylesheet" type="text/css" href="_static/extra_css.css?v=f9ade0d0" />
         <link rel="stylesheet" type="text/css" href="_static/custom_font_example.css?v=520ac564" />
     <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
@@ -1416,7 +1416,12 @@ reStructuredText used to create these examples.</p>
 <span class="normal">121</span>
 <span class="normal">122</span>
 <span class="normal">123</span>
-<span class="normal">124</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="sd">&quot;&quot;&quot;Adds support for obtaining property types from docstring signatures, and</span>
+<span class="normal">124</span>
+<span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="sd">&quot;&quot;&quot;Adds support for obtaining property types from docstring signatures, and</span>
 <span class="sd">improves formatting by PyProperty of type annotations.&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Any</span>
@@ -1532,7 +1537,12 @@ reStructuredText used to create these examples.</p>
         <span class="n">typ</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;type&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">typ</span><span class="p">:</span>
             <span class="n">signode</span> <span class="o">+=</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">addnodes</span><span class="o">.</span><span class="n">desc_sig_punctuation</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot; : &quot;</span><span class="p">)</span>
-            <span class="n">signode</span> <span class="o">+=</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">domains</span><span class="o">.</span><span class="n">python</span><span class="o">.</span><span class="n">_parse_annotation</span><span class="p">(</span><span class="n">typ</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">version_info</span> <span class="o">&gt;=</span> <span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">3</span><span class="p">):</span>
+                <span class="n">signode</span> <span class="o">+=</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">domains</span><span class="o">.</span><span class="n">python</span><span class="o">.</span><span class="n">_annotations</span><span class="o">.</span><span class="n">_parse_annotation</span><span class="p">(</span>
+                    <span class="n">typ</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">env</span>
+                <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">signode</span> <span class="o">+=</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">domains</span><span class="o">.</span><span class="n">python</span><span class="o">.</span><span class="n">_parse_annotation</span><span class="p">(</span><span class="n">typ</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">fullname</span><span class="p">,</span> <span class="n">prefix</span>
 
@@ -1679,8 +1689,8 @@ using <code class="docutils literal notranslate"><span class="pre">..</span> <sp
 H1     H2     H3
 =====  =====  =======
 cell1  cell2  cell3
-<span class="cp">...    ...    ...</span>
-<span class="cp">...    ...    ...</span>
+<span class="c">...    ...    ...</span>
+<span class="c">...    ...    ...</span>
 =====  =====  =======
 </code></pre></div>
 </div>
@@ -1726,8 +1736,8 @@ this is completely unstyled.</p>
 User   Styled  Table
 =====  ======  =======
 cell1  cell2   cell3
-<span class="cp">...    ...     ...</span>
-<span class="cp">...    ...     ...</span>
+<span class="c">...    ...     ...</span>
+<span class="c">...    ...     ...</span>
 =====  ======  =======
 </code></pre></div>
 </div>
@@ -1935,7 +1945,7 @@ source files for one Sphinx project.</p>
 \end{eqnarray}</div></div>
 </div>
 <h2 id="production-lists">Production Lists<a class="headerlink" href="#production-lists" title="Link to this heading">¶</a></h2>
-<p>The following <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/directives.html#directive-productionlist" title="(in Sphinx v7.3.0)"><code class="xref any docutils literal notranslate"><span class="pre">productionlist</span></code></a> is a modified example taken from
+<p>The following <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/directives.html#directive-productionlist" title="(in Sphinx v7.4.0)"><code class="xref any docutils literal notranslate"><span class="pre">productionlist</span></code></a> is a modified example taken from
 <a class="reference external" href="https://graphviz.org/doc/info/lang.html">the Graphviz documentation</a></p>
 <div class="results docutils container">
 <div class="literal-block-wrapper docutils container" id="id11">
@@ -2012,7 +2022,7 @@ This is a reference to the grammar for a <span class="na">:token:</span><span cl
   <small>
     
       Last update:
-      Apr 16, 2024
+      Jun 12, 2024
     
   </small>
 </div>
@@ -2089,7 +2099,7 @@ This is a reference to the grammar for a <span class="na">:token:</span><span cl
   
     Created using
     <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
-    7.2.6.
+    7.3.7.
      and
     <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
   

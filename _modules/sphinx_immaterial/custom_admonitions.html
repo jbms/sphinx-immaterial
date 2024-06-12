@@ -32,7 +32,7 @@
         <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
       
     
-        <link rel="stylesheet" type="text/css" href="../../_static/sphinx_immaterial_theme.3c111fe932309d4fc.min.css?v=47bc3a47" />
+        <link rel="stylesheet" type="text/css" href="../../_static/sphinx_immaterial_theme.a4d2c5990674c5726.min.css?v=f22bd06f" />
         <link rel="stylesheet" type="text/css" href="../../_static/extra_css.css?v=f9ade0d0" />
         <link rel="stylesheet" type="text/css" href="../../_static/custom_font_example.css?v=520ac564" />
     <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
@@ -841,6 +841,7 @@
 <span class="kn">import</span> <span class="nn">jinja2</span>
 <span class="kn">import</span> <span class="nn">pydantic</span>
 <span class="kn">from</span> <span class="nn">pydantic_extra_types.color</span> <span class="kn">import</span> <span class="n">Color</span>
+<span class="kn">import</span> <span class="nn">sphinx</span>
 <span class="kn">import</span> <span class="nn">sphinx.addnodes</span>
 <span class="kn">from</span> <span class="nn">sphinx.application</span> <span class="kn">import</span> <span class="n">Sphinx</span>
 <span class="kn">from</span> <span class="nn">sphinx.config</span> <span class="kn">import</span> <span class="n">Config</span>
@@ -874,9 +875,7 @@
 <span class="n">_CUSTOM_ADMONITIONS_KEY</span> <span class="o">=</span> <span class="s2">&quot;sphinx_immaterial_custom_admonitions&quot;</span>
 
 
-<span class="n">CSSClassType</span> <span class="o">=</span> <span class="n">Annotated</span><span class="p">[</span>
-    <span class="nb">str</span><span class="p">,</span> <span class="n">pydantic</span><span class="o">.</span><span class="n">AfterValidator</span><span class="p">(</span><span class="n">nodes</span><span class="o">.</span><span class="n">make_id</span><span class="p">)</span>
-<span class="p">]</span>
+<span class="n">CSSClassType</span> <span class="o">=</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">pydantic</span><span class="o">.</span><span class="n">AfterValidator</span><span class="p">(</span><span class="n">nodes</span><span class="o">.</span><span class="n">make_id</span><span class="p">)]</span>
 
 <span class="c1"># defaults used for version directives re-styling</span>
 <span class="n">VERSION_DIR_STYLE</span> <span class="o">=</span> <span class="p">{</span>
@@ -892,6 +891,13 @@
     <span class="p">},</span>
     <span class="s2">&quot;deprecated&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;icon&quot;</span><span class="p">:</span> <span class="s2">&quot;material/delete&quot;</span><span class="p">,</span> <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">203</span><span class="p">,</span> <span class="mi">70</span><span class="p">,</span> <span class="mi">83</span><span class="p">),</span> <span class="s2">&quot;classes&quot;</span><span class="p">:</span> <span class="p">[]},</span>
 <span class="p">}</span>
+<span class="k">if</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">version_info</span> <span class="o">&gt;=</span> <span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">3</span><span class="p">):</span>
+    <span class="c1"># re-use deprecated style for versionremoved directive except with different icon</span>
+    <span class="n">VERSION_DIR_STYLE</span><span class="p">[</span><span class="s2">&quot;versionremoved&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;icon&quot;</span><span class="p">:</span> <span class="s2">&quot;material/close&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">203</span><span class="p">,</span> <span class="mi">70</span><span class="p">,</span> <span class="mi">83</span><span class="p">),</span>
+        <span class="s2">&quot;classes&quot;</span><span class="p">:</span> <span class="p">[],</span>
+    <span class="p">}</span>
 
 
 <div class="viewcode-block" id="CustomAdmonitionConfig">
@@ -1072,7 +1078,7 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Derivative of the original version directives to add theme-specific admonition</span>
 <span class="sd">    options&quot;&quot;&quot;</span>
 
-    <span class="n">option_spec</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">option_spec</span> <span class="o">=</span> <span class="p">{</span>  <span class="c1"># type: ignore[misc]</span>
         <span class="s2">&quot;collapsible&quot;</span><span class="p">:</span> <span class="n">directives</span><span class="o">.</span><span class="n">unchanged</span><span class="p">,</span>
         <span class="s2">&quot;class&quot;</span><span class="p">:</span> <span class="n">directives</span><span class="o">.</span><span class="n">class_option</span><span class="p">,</span>
         <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">directives</span><span class="o">.</span><span class="n">unchanged</span><span class="p">,</span>
@@ -1361,7 +1367,7 @@
   <small>
     
       Last update:
-      Apr 16, 2024
+      Jun 12, 2024
     
   </small>
 </div>
@@ -1402,7 +1408,7 @@
   
     Created using
     <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
-    7.2.6.
+    7.3.7.
      and
     <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
   
