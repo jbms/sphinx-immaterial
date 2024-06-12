@@ -1153,7 +1153,10 @@ def _substitute_name(
         name_substitute_with_args += str(template_args)
 
     template_prefix = ""
-    if top_ast.templatePrefix is not None:
+    if (
+        top_ast.templatePrefix is not None
+        and top_ast.templatePrefix.templates is not None
+    ):
         template_prefix = str(top_ast.templatePrefix.templates[-1])
 
     ast.name = _parse_name(name_substitute_with_args, template_prefix=template_prefix)
@@ -1348,20 +1351,21 @@ def _transform_unexposed_decl(config: Config, decl: Cursor) -> Optional[VarEntit
         assert initializer is not None
         if _is_internal_initializer(config, initializer):
             initializer = None
-
+        template_params = []
+        templates = cast(
+            sphinx.domains.cpp.ASTTemplateDeclarationPrefix, ast.templatePrefix
+        ).templates
+        assert templates is not None
+        for templ_param in templates[-1].params:
+            template_params.append(
+                _sphinx_ast_template_parameter_to_json(
+                    config, cast(sphinx.domains.cpp.ASTTemplateParam, templ_param)
+                )
+            )
         obj: VarEntity = {
             "kind": "var",
             "name": name,
-            "template_parameters": [
-                _sphinx_ast_template_parameter_to_json(
-                    config, cast(sphinx.domains.cpp.ASTTemplateParam, t)
-                )
-                for t in cast(
-                    sphinx.domains.cpp.ASTTemplateDeclarationPrefix, ast.templatePrefix
-                )
-                .templates[-1]
-                .params
-            ],
+            "template_parameters": template_params,
             "declaration": decl_string,
             "name_substitute": name_substitute,
             "initializer": initializer,
@@ -1912,7 +1916,7 @@ def _normalize_requires_terms(terms: List[str]) -> List[str]:
     new_terms = []
 
     def process(
-        expr: Union[sphinx.domains.cpp.ASTType, sphinx.domains.cpp.ASTExpression]
+        expr: Union[sphinx.domains.cpp.ASTType, sphinx.domains.cpp.ASTExpression],
     ):
         while True:
             if isinstance(expr, sphinx.domains.cpp.ASTParenExpr):

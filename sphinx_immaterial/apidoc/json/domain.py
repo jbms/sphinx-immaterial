@@ -465,7 +465,7 @@ class JsonSchemaDirective(sphinx.directives.ObjectDescription):
 
     objtype = "schema"
 
-    option_spec = {
+    option_spec = {  # type: ignore[misc]
         "fully_qualified_name": str,
         "title": str,
         "toc_title": str,
@@ -1147,9 +1147,7 @@ class JsonSchemaDomain(sphinx.domains.Domain):
                 else OBJECT_PRIORITY_UNIMPORTANT,
             )
 
-    def merge_domaindata(
-        self, docnames: List[str], otherdata: Dict
-    ) -> None:  # pylint: disable=g-bare-generic
+    def merge_domaindata(self, docnames: List[str], otherdata: Dict) -> None:  # pylint: disable=g-bare-generic
         self.schemas.update(otherdata["schemas"])
 
     def _find_schema(

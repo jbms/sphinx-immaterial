@@ -83,10 +83,10 @@ def _config_inited(app: Sphinx, config: Config) -> None:
 
 
 def setup(app: Sphinx):
-    app.add_config_value("keys_class", "keys", rebuild=True, types=str)
-    app.add_config_value("keys_strict", False, rebuild=True, types=bool)
-    app.add_config_value("keys_separator", "+", rebuild=True, types=str)
-    app.add_config_value("keys_map", {}, rebuild=True, types=dict)
+    app.add_config_value("keys_class", "keys", rebuild="env", types=str)
+    app.add_config_value("keys_strict", False, rebuild="env", types=bool)
+    app.add_config_value("keys_separator", "+", rebuild="env", types=str)
+    app.add_config_value("keys_map", {}, rebuild="env", types=dict)
     app.add_role("keys", keys_role)
     app.connect("config-inited", _config_inited)
     app.add_node(

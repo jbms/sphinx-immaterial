@@ -190,7 +190,7 @@ def setup(app: sphinx.application.Sphinx):
     app.add_config_value(
         name="cppreference_xml_files",
         default=None,
-        types=(typing.Optional[typing.List[typing.Tuple[str, str]]],),
+        types=(typing.Optional[typing.List[typing.Tuple[str, str]]],),  # type: ignore[arg-type]
         rebuild="env",
     )
     return {"parallel_read_safe": True, "parallel_write_safe": True}

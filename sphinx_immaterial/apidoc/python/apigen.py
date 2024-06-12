@@ -39,7 +39,6 @@ import docutils.statemachine
 import sphinx
 import sphinx.addnodes
 import sphinx.application
-import sphinx.domains.python
 import sphinx.environment
 import sphinx.ext.autodoc
 import sphinx.ext.autodoc.directive
@@ -59,6 +58,11 @@ if sphinx.version_info >= (6, 1):
     stringify_annotation = sphinx.util.typing.stringify_annotation
 else:
     stringify_annotation = sphinx.util.typing.stringify  # type: ignore[attr-defined]
+
+if sphinx.version_info >= (7, 3):
+    from sphinx.domains.python._annotations import _parse_annotation  # type: ignore[import-not-found]  # pylint: disable=import-error,no-name-in-module
+else:
+    from sphinx.domains.python import _parse_annotation
 
 logger = sphinx.util.logging.getLogger(__name__)
 
@@ -504,7 +508,7 @@ def _clean_class_getitem_signature(signode: sphinx.addnodes.desc_signature) -> N
 def _get_api_data(
     env: sphinx.environment.BuildEnvironment,
 ) -> _ApiData:
-    return getattr(env, "_sphinx_immaterial_python_apigen_data")
+    return getattr(env.app, "_sphinx_immaterial_python_apigen_data")
 
 
 def _generate_entity_desc_node(
@@ -567,7 +571,7 @@ def _generate_entity_desc_node(
                     if i != 0:
                         signode += sphinx.addnodes.desc_sig_punctuation("", ",")
                         signode += sphinx.addnodes.desc_sig_space()
-                    signode += sphinx.domains.python._parse_annotation(base_class, env)
+                    signode += _parse_annotation(base_class, env)
                 signode += sphinx.addnodes.desc_sig_punctuation("", ")")
 
         if callback is not None:
@@ -1638,7 +1642,7 @@ def _builder_inited(app: sphinx.application.Sphinx) -> None:
 
     data = _ApiData()
 
-    setattr(env, "_sphinx_immaterial_python_apigen_data", data)
+    setattr(app, "_sphinx_immaterial_python_apigen_data", data)
 
     apigen_modules = app.config.python_apigen_modules
     if not apigen_modules:
@@ -1732,9 +1736,7 @@ def _monkey_patch_napoleon_to_add_group_field():
     def parse_section(
         self: sphinx.ext.napoleon.docstring.GoogleDocstring, section: str
     ) -> List[str]:
-        lines = self._strip_empty(
-            self._consume_to_next_section()
-        )  # pylint: disable=protected-access
+        lines = self._strip_empty(self._consume_to_next_section())  # pylint: disable=protected-access
         lines = self._dedent(lines)  # pylint: disable=protected-access
         name = section.lower()
         if len(lines) != 1:
@@ -1745,12 +1747,8 @@ def _monkey_patch_napoleon_to_add_group_field():
         self: sphinx.ext.napoleon.docstring.GoogleDocstring,
     ) -> None:
         orig_load_custom_sections(self)
-        self._sections["group"] = lambda section: parse_section(
-            self, section
-        )  # pylint: disable=protected-access
-        self._sections["order"] = lambda section: parse_section(
-            self, section
-        )  # pylint: disable=protected-access
+        self._sections["group"] = lambda section: parse_section(self, section)  # pylint: disable=protected-access
+        self._sections["order"] = lambda section: parse_section(self, section)  # pylint: disable=protected-access
 
     sphinx.ext.napoleon.docstring.GoogleDocstring._load_custom_sections = (  # type: ignore[assignment]
         load_custom_sections  # pylint: disable=protected-access
@@ -1809,7 +1807,7 @@ def setup(app: sphinx.application.Sphinx):
     app.add_config_value(
         "python_apigen_case_insensitive_filesystem",
         default=None,
-        types=(bool, type(None)),
+        types=(bool, type(None)),  # type: ignore[arg-type]
         rebuild="env",
     )
     app.add_config_value(

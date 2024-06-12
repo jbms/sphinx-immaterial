@@ -56,7 +56,7 @@ usage in other sphinx-based themes.
 Version Directives
 ******************
 
-The `versionadded`, `versionchanged`, and `deprecated` directives defined by Sphinx are also
+The `versionadded`, `versionchanged`, `deprecated`, and `versionremoved` directives defined by Sphinx are also
 rendered by the sphinx-immaterial theme as admonitions. The directives are optionally
 overridden to support additional :rst:dir:`admonition` options :rst:`:collapsible:`,
 :rst:`:name:`, and :rst:`:class:`.

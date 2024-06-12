@@ -1,8 +1,14 @@
 from typing import Type, Tuple
 
 import docutils.nodes
+import sphinx
 import sphinx.addnodes
 import sphinx.domains.python
+
+if sphinx.version_info >= (7, 3):
+    from sphinx.domains.python._annotations import _parse_annotation  # type: ignore[import-not-found]  # pylint: disable=import-error,no-name-in-module
+else:
+    from sphinx.domains.python import _parse_annotation
 
 
 def _monkey_patch_pyattribute_handle_signature(
@@ -17,7 +23,7 @@ def _monkey_patch_pyattribute_handle_signature(
         typ = self.options.get("type")
         if typ:
             signode += sphinx.addnodes.desc_sig_punctuation("", " : ")
-            signode += sphinx.domains.python._parse_annotation(typ, self.env)
+            signode += _parse_annotation(typ, self.env)
 
         value = self.options.get("value")
         if value:

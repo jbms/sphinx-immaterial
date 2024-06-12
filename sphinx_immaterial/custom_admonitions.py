@@ -9,6 +9,7 @@ from docutils.parsers.rst import directives, Directive
 import jinja2
 import pydantic
 from pydantic_extra_types.color import Color
+import sphinx
 import sphinx.addnodes
 from sphinx.application import Sphinx
 from sphinx.config import Config
@@ -42,9 +43,7 @@ INHERITED_ADMONITIONS = (
 _CUSTOM_ADMONITIONS_KEY = "sphinx_immaterial_custom_admonitions"
 
 
-CSSClassType = Annotated[
-    str, pydantic.AfterValidator(nodes.make_id)
-]
+CSSClassType = Annotated[str, pydantic.AfterValidator(nodes.make_id)]
 
 # defaults used for version directives re-styling
 VERSION_DIR_STYLE = {
@@ -60,6 +59,13 @@ VERSION_DIR_STYLE = {
     },
     "deprecated": {"icon": "material/delete", "color": (203, 70, 83), "classes": []},
 }
+if sphinx.version_info >= (7, 3):
+    # re-use deprecated style for versionremoved directive except with different icon
+    VERSION_DIR_STYLE["versionremoved"] = {
+        "icon": "material/close",
+        "color": (203, 70, 83),
+        "classes": [],
+    }
 
 
 class CustomAdmonitionConfig(pydantic.BaseModel):
@@ -237,7 +243,7 @@ class CustomVersionChange(VersionChange):
     """Derivative of the original version directives to add theme-specific admonition
     options"""
 
-    option_spec = {
+    option_spec = {  # type: ignore[misc]
         "collapsible": directives.unchanged,
         "class": directives.class_option,
         "name": directives.unchanged,

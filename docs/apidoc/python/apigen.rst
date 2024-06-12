@@ -306,24 +306,7 @@ Configuration
    The following generated documents will be used (depending on the value of
    :confval:`python_apigen_case_insensitive_filesystem`):
 
-   .. jinja:: sys
-
-      {%- set example_python_apigen_modules = {
-            "my_module": "my_api/",
-            "my_other_module": "other_api/my_other_module.",
-         }
-      %}
-      {%- set example_python_apigen_objects = [
-            ("my_module.foo", ""),
-            ("my_module.Foo", ""),
-            ("my_module.Foo.method", ""),
-            ("my_module.Foo.__init__", "json"),
-            ("my_module.Foo.__init__", "values"),
-            ("my_module.Bar", ""),
-            ("my_other_module.Baz", ""),
-          ]
-      %}
-      {%- set python_apigen_get_docname = sys.modules["sphinx_immaterial.apidoc.python.apigen"]._get_docname %}
+   .. jinja:: python_apigen_path_examples
 
       .. list-table::
          :widths: auto
@@ -334,11 +317,11 @@ Configuration
            - Document (case-sensitive)
            - Document (case-insensitive)
 
-         {%- for full_name, overload_id in example_python_apigen_objects %}
+         {%- for full_name, overload_id, case_sensitive, case_insensitive in example_python_apigen_objects %}
          * - :python:`{{ full_name }}`
            - {{ "``" + overload_id + "``" if overload_id else "" }}
-           - :file:`{{ python_apigen_get_docname(example_python_apigen_modules, full_name, overload_id, False) }}`
-           - :file:`{{ python_apigen_get_docname(example_python_apigen_modules, full_name, overload_id, True) }}`
+           - :file:`{{ case_sensitive }}`
+           - :file:`{{ case_insensitive }}`
          {%- endfor %}
 
    .. note::
