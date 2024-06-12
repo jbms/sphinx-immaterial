@@ -114,7 +114,7 @@ jobs:
             dist/*.whl
             dist/*.tar.*
       - name: Setup Graphviz
-        uses: ts-graphviz/setup-graphviz@d5b2b6b67007094b256f3fd2fa6cf0ac41ceef25 # v2.0.0
+        uses: ts-graphviz/setup-graphviz@b1de5da23ed0a6d14e0aeee8ed52fdd87af2363c # v2.0.2
         with:
           macos-skip-brew-update: 'true'
       - uses: actions/cache@v4
@@ -181,7 +181,7 @@ jobs:
       - name: Build CSS and JS bundles
         run: npm run build
       - name: Setup Graphviz
-        uses: ts-graphviz/setup-graphviz@d5b2b6b67007094b256f3fd2fa6cf0ac41ceef25 # v2.0.0
+        uses: ts-graphviz/setup-graphviz@b1de5da23ed0a6d14e0aeee8ed52fdd87af2363c # v2.0.2
         with:
           macos-skip-brew-update: 'true'
       - uses: actions/cache/restore@v4
