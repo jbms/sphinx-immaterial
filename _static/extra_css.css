@@ -21,6 +21,11 @@
   font-family: var(--md-text-font-family);
 }
 
+/* style for recursive rst-example rendering */
+div.results.recursive-rst-example > div.result {
+  padding-bottom: 1em;
+}
+
 /* ************************* animated-admonition-border style ******************************** */
 @keyframes flash_border {
   0% {
