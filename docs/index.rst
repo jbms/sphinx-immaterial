@@ -66,7 +66,7 @@ Update your ``conf.py`` with the required changes:
 
 .. code-block:: python
 
-    extension = ["sphinx_immaterial"]
+    extensions = ["sphinx_immaterial"]
     # ...
     html_theme = "sphinx_immaterial"
 
