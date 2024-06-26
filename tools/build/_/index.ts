@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-2022 Martin Donath <martin.donath@squidfunk.com>
+ * Copyright (c) 2016-2023 Martin Donath <martin.donath@squidfunk.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -48,6 +48,7 @@ import glob from "tiny-glob"
 interface ResolveOptions {
   cwd: string                          /* Working directory */
   watch?: boolean                      /* Watch mode */
+  dot?: boolean                        /* Hidden files or directories */
 }
 
 /* ----------------------------------------------------------------------------
@@ -98,7 +99,7 @@ function now() {
 export function resolve(
   pattern: string, options?: ResolveOptions
 ): Observable<string> {
-  return from(glob(pattern, options))
+  return from(glob(pattern, { dot: true, ...options }))
     .pipe(
       catchError(() => EMPTY),
       concatAll(),
@@ -123,7 +124,7 @@ export function watch(
 ): Observable<string> {
   return fromEvent(
     chokidar.watch(pattern, options),
-    "change"
+    "change", file => file // see https://t.ly/dli_k
   ) as Observable<string>
 }
 
