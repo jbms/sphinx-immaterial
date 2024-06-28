@@ -433,9 +433,13 @@ def _get_group_name(
     :returns: The group name.
     """
     s = f"{entity.objtype}:{entity.documented_full_name}"
+    s_canonical = f"{entity.objtype}:{entity.canonical_full_name}"
     group = "Public members"
     for pattern, default_group in default_groups:
-        if pattern.fullmatch(s) is not None:
+        if (
+            pattern.fullmatch(s) is not None
+            or pattern.fullmatch(s_canonical) is not None
+        ):
             group = default_group
     return group
 
