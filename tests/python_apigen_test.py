@@ -138,5 +138,11 @@ def test_pure_python_property(apigen_make_app):
 
     data = _get_api_data(app.env)
 
-    options = data.entities[f"{testmod}.Example.foo"].options
+    entity = data.entities[f"{testmod}.Example.foo"]
+    assert entity.primary_entity
+    assert entity.siblings is not None
+    assert len(entity.siblings) == 1
+    assert entity.siblings[0].name == "bar"
+    options = entity.options
+
     assert options["type"] == "int"

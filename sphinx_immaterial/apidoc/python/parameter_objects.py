@@ -306,6 +306,7 @@ def _add_parameter_documentation_ids(
         # Identical declarations in more than one signature will only be
         # included once.
         unique_decls: Dict[str, Tuple[int, docutils.nodes.Element]] = {}
+        unique_symbols: Dict[Tuple[str, str], int] = {}
         for i, sig_param_nodes in enumerate(sig_param_nodes_for_signature):
             desc_param_node = sig_param_nodes.get(param_name)
             if desc_param_node is None:
@@ -313,6 +314,7 @@ def _add_parameter_documentation_ids(
             desc_param_node = cast(docutils.nodes.Element, desc_param_node)
             decl_text = desc_param_node.astext().strip()
             unique_decls.setdefault(decl_text, (i, desc_param_node))
+            unique_symbols.setdefault((decl_text, symbols[i]), i)
         if not unique_decls:
             all_params = {}
             for sig_param_nodes in sig_param_nodes_for_signature:
@@ -342,7 +344,7 @@ def _add_parameter_documentation_ids(
             param_symbols = set()
 
             # Set ids of the parameter node.
-            for symbol_i, _ in unique_decls.values():
+            for symbol_i in unique_symbols.values():
                 symbol = symbols[symbol_i]
                 param_symbol = f"{symbol}.{param_name}"
                 if param_symbol in param_symbols:

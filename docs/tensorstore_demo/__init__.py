@@ -241,6 +241,8 @@ Overload:
 
 
         """
+    size_alias = size
+
     __hash__ = None
     pass
 class DimExpression():
