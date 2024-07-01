@@ -39,6 +39,7 @@ import docutils.statemachine
 import sphinx
 import sphinx.addnodes
 import sphinx.application
+from sphinx.domains.python import PythonDomain
 import sphinx.environment
 import sphinx.ext.autodoc
 import sphinx.ext.autodoc.directive
@@ -356,6 +357,12 @@ class _ApiEntity:
     base_classes: Optional[List[str]] = None
     """List of base classes, as rST cross references."""
 
+    siblings: Optional[List[_ApiEntityMemberReference]] = None
+    """List of siblings that should be documented as aliases."""
+
+    primary_entity: bool = True
+    """Indicates if this is the primary sibling and should be documented."""
+
 
 def _is_constructor_name(name: str) -> bool:
     return name in ("__init__", "__new__", "__class_getitem__")
@@ -521,11 +528,10 @@ def _generate_entity_desc_node(
     state: docutils.parsers.rst.states.RSTState,
     member: Optional[_ApiEntityMemberReference] = None,
     callback=None,
-):
+) -> sphinx.addnodes.desc:
     api_data = _get_api_data(env)
 
     summary = member is not None
-    name = api_data.get_name_for_signature(entity, member)
 
     def object_description_transform(
         app: sphinx.application.Sphinx,
@@ -587,13 +593,27 @@ def _generate_entity_desc_node(
     content = entity.content
     options = dict(entity.options)
     options["nonodeid"] = ""
-    options["object-ids"] = json.dumps([entity.object_name] * len(entity.signatures))
+    all_entities_and_members = [
+        (entity, member),
+        *[
+            (
+                api_data.entities[sibling_member.canonical_object_name],
+                sibling_member if member is not None else None,
+            )
+            for sibling_member in (entity.siblings or [])
+        ],
+    ]
+    options["object-ids"] = json.dumps(
+        [e.object_name for e, _ in all_entities_and_members for _ in e.signatures]
+    )
     if summary:
         content = _summarize_rst_content(content)
         options["noindex"] = ""
-        options.pop("canonical", None)
-    else:
-        options["canonical"] = entity.canonical_object_name
+    # Avoid "canonical" option because it results in duplicate object warnings
+    # when combined with multiple signatures that produce different object ids.
+    #
+    # Instead, the canonical aliases are handled separately below.
+    options.pop("canonical", None)
     try:
         with apigen_utils.save_rst_defaults(env):
             rst_input = docutils.statemachine.StringList()
@@ -605,10 +625,16 @@ def _generate_entity_desc_node(
                 "<python_apigen_rst_prolog>",
                 -2,
             )
+
+            signatures: List[str] = []
+            for e, m in all_entities_and_members:
+                name = api_data.get_name_for_signature(e, m)
+                signatures.extend(name + sig for sig in e.signatures)
+
             sphinx_utils.append_directive_to_stringlist(
                 rst_input,
                 entity.directive,
-                signatures=[name + sig for sig in entity.signatures],
+                signatures=signatures,
                 content="\n".join(content),
                 source_path=entity.object_name,
                 source_line=0,
@@ -636,6 +662,15 @@ def _generate_entity_desc_node(
     if len(nodes) != 1:
         raise ValueError("Failed to document entity: %r" % (entity.object_name,))
     node = nodes[0]
+
+    if not summary:
+        py = cast(PythonDomain, env.get_domain("py"))
+
+        for e, _ in all_entities_and_members:
+            py.objects.setdefault(
+                e.canonical_object_name,
+                py.objects[e.object_name]._replace(aliased=True),
+            )
 
     return node
 
@@ -794,7 +829,6 @@ class PythonApigenEntityPageDirective(sphinx.util.docutils.SphinxDirective):
             )
             return []
 
-        objtype = entity.objtype
         objdesc = _generate_entity_desc_node(
             self.env,
             entity,
@@ -806,8 +840,6 @@ class PythonApigenEntityPageDirective(sphinx.util.docutils.SphinxDirective):
                 state=self.state,
             ),
         )
-        if objdesc is None:
-            return []
 
         for signode in objdesc.children[:-1]:
             signode = cast(sphinx.addnodes.desc_signature, signode)
@@ -843,6 +875,7 @@ class PythonApigenTopLevelGroupDirective(sphinx.util.docutils.SphinxDirective):
 
         group_id = docutils.nodes.make_id(self.arguments[0])
         members = data.top_level_groups.get(group_id)
+
         if members is None:
             logger.warning(
                 "No top-level Python API group named: %r, valid groups are: %r",
@@ -1240,7 +1273,18 @@ def _get_documenter_direct_members(
                 documenter.object, "__dict__"
             )
             member_order = {k: i for i, k in enumerate(member_dict.keys())}
-            members.sort(key=lambda entry: member_order.get(entry[0], float("inf")))
+
+            if sphinx.version_info >= (7, 0):
+
+                def member_sort_key(entry):
+                    return member_order.get(entry.__name__, float("inf"))
+
+            else:
+
+                def member_sort_key(entry):
+                    return member_order.get(entry[0], float("inf"))
+
+            members.sort(key=member_sort_key)
         except AttributeError:
             pass
     filtered_members = [
@@ -1428,6 +1472,7 @@ class _ApiEntityCollector:
     def collect_entity_recursively(
         self,
         entry: _MemberDocumenterEntry,
+        primary_sibling: Optional[_ApiEntity] = None,
     ) -> str:
         canonical_full_name = None
         if isinstance(entry.documenter, sphinx.ext.autodoc.ClassDocumenter):
@@ -1447,17 +1492,33 @@ class _ApiEntityCollector:
         ):
             logger.warning("Unspecified overload id: %s", canonical_object_name)
 
-        rst_strings = docutils.statemachine.StringList()
-        entry.documenter.directive.result = rst_strings
-        _prepare_documenter_docstring(entry)
+        if primary_sibling is None:
+            rst_strings = docutils.statemachine.StringList()
+            entry.documenter.directive.result = rst_strings
+            _prepare_documenter_docstring(entry)
 
-        # Prevent autodoc from also documenting members, since this extension does
-        # that separately.
-        def document_members(*args, **kwargs):
-            return
+            # Prevent autodoc from also documenting members, since this extension does
+            # that separately.
+            def document_members(*args, **kwargs):
+                return
 
-        entry.documenter.document_members = document_members  # type: ignore[assignment]
-        entry.documenter.generate()
+            entry.documenter.document_members = document_members  # type: ignore[assignment]
+            entry.documenter.generate()
+
+            split_result = _split_autodoc_rst_output(rst_strings)
+            split_result.options.pop("module", None)
+
+            group_name = split_result.group_name or ""
+            order = split_result.order
+            directive = split_result.directive
+            options = split_result.options
+            content = split_result.content
+        else:
+            group_name = primary_sibling.group_name
+            order = primary_sibling.order
+            directive = primary_sibling.directive
+            options = primary_sibling.options
+            content = primary_sibling.content
 
         base_classes: Optional[List[str]] = None
 
@@ -1490,10 +1551,6 @@ class _ApiEntityCollector:
         else:
             signatures = entry.documenter.format_signature().split("\n")
 
-        split_result = _split_autodoc_rst_output(rst_strings)
-
-        split_result.options.pop("module", None)
-
         overload_id: Optional[str] = None
         if entry.overload is not None:
             overload_id = entry.overload.overload_id
@@ -1502,12 +1559,12 @@ class _ApiEntityCollector:
             documented_full_name="",
             canonical_full_name=canonical_full_name,
             objtype=entry.documenter.objtype,
-            group_name=split_result.group_name or "",
-            order=split_result.order,
-            directive=split_result.directive,
+            group_name=group_name,
+            order=order,
+            directive=directive,
             signatures=signatures,
-            options=split_result.options,
-            content=split_result.content,
+            options=options,
+            content=content,
             members=[],
             parents=[],
             subscript=entry.subscript,
@@ -1517,9 +1574,13 @@ class _ApiEntityCollector:
 
         self.entities[canonical_object_name] = entity
 
-        entity.members = self.collect_documenter_members(
-            entry.documenter,
-            canonical_object_name=canonical_object_name,
+        entity.members = (
+            self.collect_documenter_members(
+                entry.documenter,
+                canonical_object_name=canonical_object_name,
+            )
+            if primary_sibling is None
+            else primary_sibling.members
         )
 
         return canonical_object_name
@@ -1531,18 +1592,56 @@ class _ApiEntityCollector:
     ) -> List[_ApiEntityMemberReference]:
         members: List[_ApiEntityMemberReference] = []
 
+        object_to_api_entity_member_map: Dict[
+            int, Tuple[Any, _ApiEntityMemberReference]
+        ] = {}
+
         for entry in _get_documenter_members(
             documenter, canonical_full_name=canonical_object_name
         ):
-            member_canonical_object_name = self.collect_entity_recursively(entry)
+            obj = None
+            if isinstance(
+                entry.documenter,
+                (
+                    sphinx.ext.autodoc.FunctionDocumenter,
+                    sphinx.ext.autodoc.MethodDocumenter,
+                    sphinx.ext.autodoc.PropertyDocumenter,
+                ),
+            ):
+                obj = entry.documenter.object
+            obj_and_primary_sibling_member: Optional[
+                Tuple[Any, _ApiEntityMemberReference]
+            ] = None
+            primary_sibling_entity: Optional[_ApiEntity] = None
+            if obj is not None:
+                obj_and_primary_sibling_member = object_to_api_entity_member_map.get(
+                    id(obj)
+                )
+                if obj_and_primary_sibling_member is not None:
+                    primary_sibling_entity = self.entities[
+                        obj_and_primary_sibling_member[1].canonical_object_name
+                    ]
+            member_canonical_object_name = self.collect_entity_recursively(
+                entry, primary_sibling=primary_sibling_entity
+            )
+            child = self.entities[member_canonical_object_name]
             member = _ApiEntityMemberReference(
                 name=entry.name,
                 parent_canonical_object_name=canonical_object_name,
                 canonical_object_name=member_canonical_object_name,
                 inherited=entry.is_inherited,
             )
-            members.append(member)
-            child = self.entities[member_canonical_object_name]
+
+            if primary_sibling_entity is not None:
+                child.primary_entity = False
+                if primary_sibling_entity.siblings is None:
+                    primary_sibling_entity.siblings = []
+                primary_sibling_entity.siblings.append(member)
+            else:
+                if obj is not None:
+                    object_to_api_entity_member_map[id(obj)] = (obj, member)
+                members.append(member)
+
             child.parents.append(member)
 
         return members
@@ -1706,7 +1805,7 @@ def _builder_inited(app: sphinx.application.Sphinx) -> None:
 
     def get_pages():
         for object_name, entity in data.entities.items():
-            if object_name != entity.object_name:
+            if object_name != entity.object_name or not entity.primary_entity:
                 # Alias
                 continue
 
@@ -1740,7 +1839,9 @@ def _monkey_patch_napoleon_to_add_group_field():
     def parse_section(
         self: sphinx.ext.napoleon.docstring.GoogleDocstring, section: str
     ) -> List[str]:
-        lines = self._strip_empty(self._consume_to_next_section())  # pylint: disable=protected-access
+        lines = self._strip_empty(
+            self._consume_to_next_section()
+        )  # pylint: disable=protected-access
         lines = self._dedent(lines)  # pylint: disable=protected-access
         name = section.lower()
         if len(lines) != 1:
@@ -1751,8 +1852,12 @@ def _monkey_patch_napoleon_to_add_group_field():
         self: sphinx.ext.napoleon.docstring.GoogleDocstring,
     ) -> None:
         orig_load_custom_sections(self)
-        self._sections["group"] = lambda section: parse_section(self, section)  # pylint: disable=protected-access
-        self._sections["order"] = lambda section: parse_section(self, section)  # pylint: disable=protected-access
+        self._sections["group"] = lambda section: parse_section(
+            self, section
+        )  # pylint: disable=protected-access
+        self._sections["order"] = lambda section: parse_section(
+            self, section
+        )  # pylint: disable=protected-access
 
     sphinx.ext.napoleon.docstring.GoogleDocstring._load_custom_sections = (  # type: ignore[assignment]
         load_custom_sections  # pylint: disable=protected-access

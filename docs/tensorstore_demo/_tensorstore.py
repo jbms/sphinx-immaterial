@@ -34,6 +34,9 @@ def bar(x: Foo) -> Foo:
     pass
 
 
+bar_also = bar
+
+
 class FooSubclass(Foo):
     """This is a subclass of :py:obj:`.Foo`.
 
