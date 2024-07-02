@@ -142,7 +142,18 @@ def test_pure_python_property(apigen_make_app):
     assert entity.primary_entity
     assert entity.siblings is not None
     assert len(entity.siblings) == 1
-    assert entity.siblings[0].name == "bar"
-    options = entity.options
+    assert list(entity.siblings) == [f"{testmod}.Example.bar"]
 
+    options = entity.options
     assert options["type"] == "int"
+
+    entity = data.entities[f"{testmod}.InheritsFromExample"]
+    assert len(entity.members) == 2
+    member = entity.members[0]
+    assert member.name == "foo"
+    assert len(member.siblings) == 0
+
+    member = entity.members[1]
+    assert member.name == "baz"
+    assert len(member.siblings) == 1
+    assert member.siblings[0].name == "bar"
