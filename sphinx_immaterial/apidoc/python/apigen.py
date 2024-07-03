@@ -310,7 +310,8 @@ class _ApiEntityMemberReference(NamedTuple):
     name: str
     canonical_object_name: str
     parent_canonical_object_name: str
-    inherited: bool = False
+    inherited: bool
+    siblings: List["_ApiEntityMemberReference"]
 
 
 @dataclasses.dataclass
@@ -357,8 +358,10 @@ class _ApiEntity:
     base_classes: Optional[List[str]] = None
     """List of base classes, as rST cross references."""
 
-    siblings: Optional[List[_ApiEntityMemberReference]] = None
-    """List of siblings that should be documented as aliases."""
+    siblings: Optional[Dict[str, bool]] = None
+    """List of siblings that should be documented as aliases.
+
+    The key is the canonical_object_name of the sibling.  The value is always `True`."""
 
     primary_entity: bool = True
     """Indicates if this is the primary sibling and should be documented."""
@@ -593,18 +596,24 @@ def _generate_entity_desc_node(
     content = entity.content
     options = dict(entity.options)
     options["nonodeid"] = ""
-    all_entities_and_members = [
-        (entity, member),
-        *[
-            (
-                api_data.entities[sibling_member.canonical_object_name],
-                sibling_member if member is not None else None,
-            )
-            for sibling_member in (entity.siblings or [])
-        ],
-    ]
+    all_members: List[Optional[_ApiEntityMemberReference]]
+    if member is not None:
+        all_members = cast(
+            List[Optional[_ApiEntityMemberReference]], [member] + member.siblings
+        )
+        all_entities = [
+            api_data.entities[cast(_ApiEntityMemberReference, m).canonical_object_name]
+            for m in all_members
+        ]
+    else:
+        all_entities = [
+            entity,
+            *(api_data.entities[s] for s in (entity.siblings or {})),
+        ]
+        all_members = [None] * len(all_entities)
+
     options["object-ids"] = json.dumps(
-        [e.object_name for e, _ in all_entities_and_members for _ in e.signatures]
+        [e.object_name for e in all_entities for _ in e.signatures]
     )
     if summary:
         content = _summarize_rst_content(content)
@@ -627,7 +636,7 @@ def _generate_entity_desc_node(
             )
 
             signatures: List[str] = []
-            for e, m in all_entities_and_members:
+            for e, m in zip(all_entities, all_members):
                 name = api_data.get_name_for_signature(e, m)
                 signatures.extend(name + sig for sig in e.signatures)
 
@@ -666,7 +675,7 @@ def _generate_entity_desc_node(
     if not summary:
         py = cast(PythonDomain, env.get_domain("py"))
 
-        for e, _ in all_entities_and_members:
+        for e in all_entities:
             py.objects.setdefault(
                 e.canonical_object_name,
                 py.objects[e.object_name]._replace(aliased=True),
@@ -1472,11 +1481,15 @@ class _ApiEntityCollector:
     def collect_entity_recursively(
         self,
         entry: _MemberDocumenterEntry,
-        primary_sibling: Optional[_ApiEntity] = None,
+        primary_entity: Optional[_ApiEntity] = None,
     ) -> str:
         canonical_full_name = None
         if isinstance(entry.documenter, sphinx.ext.autodoc.ClassDocumenter):
             canonical_full_name = entry.documenter.get_canonical_fullname()
+        elif isinstance(entry.documenter, sphinx.ext.autodoc.FunctionDocumenter):
+            canonical_full_name = sphinx.ext.autodoc.ClassDocumenter.get_canonical_fullname(
+                entry.documenter  # type: ignore[arg-type]
+            )
         if canonical_full_name is None:
             canonical_full_name = f"{entry.parent_canonical_full_name}.{entry.name}"
 
@@ -1492,7 +1505,7 @@ class _ApiEntityCollector:
         ):
             logger.warning("Unspecified overload id: %s", canonical_object_name)
 
-        if primary_sibling is None:
+        if primary_entity is None:
             rst_strings = docutils.statemachine.StringList()
             entry.documenter.directive.result = rst_strings
             _prepare_documenter_docstring(entry)
@@ -1514,11 +1527,11 @@ class _ApiEntityCollector:
             options = split_result.options
             content = split_result.content
         else:
-            group_name = primary_sibling.group_name
-            order = primary_sibling.order
-            directive = primary_sibling.directive
-            options = primary_sibling.options
-            content = primary_sibling.content
+            group_name = primary_entity.group_name
+            order = primary_entity.order
+            directive = primary_entity.directive
+            options = primary_entity.options
+            content = primary_entity.content
 
         base_classes: Optional[List[str]] = None
 
@@ -1570,6 +1583,7 @@ class _ApiEntityCollector:
             subscript=entry.subscript,
             overload_id=overload_id or "",
             base_classes=base_classes,
+            primary_entity=primary_entity is None,
         )
 
         self.entities[canonical_object_name] = entity
@@ -1579,8 +1593,8 @@ class _ApiEntityCollector:
                 entry.documenter,
                 canonical_object_name=canonical_object_name,
             )
-            if primary_sibling is None
-            else primary_sibling.members
+            if primary_entity is None
+            else primary_entity.members
         )
 
         return canonical_object_name
@@ -1613,16 +1627,18 @@ class _ApiEntityCollector:
                 Tuple[Any, _ApiEntityMemberReference]
             ] = None
             primary_sibling_entity: Optional[_ApiEntity] = None
+            primary_sibling_member: Optional[_ApiEntityMemberReference] = None
             if obj is not None:
                 obj_and_primary_sibling_member = object_to_api_entity_member_map.get(
                     id(obj)
                 )
                 if obj_and_primary_sibling_member is not None:
+                    primary_sibling_member = obj_and_primary_sibling_member[1]
                     primary_sibling_entity = self.entities[
-                        obj_and_primary_sibling_member[1].canonical_object_name
+                        primary_sibling_member.canonical_object_name
                     ]
             member_canonical_object_name = self.collect_entity_recursively(
-                entry, primary_sibling=primary_sibling_entity
+                entry, primary_entity=primary_sibling_entity
             )
             child = self.entities[member_canonical_object_name]
             member = _ApiEntityMemberReference(
@@ -1630,13 +1646,17 @@ class _ApiEntityCollector:
                 parent_canonical_object_name=canonical_object_name,
                 canonical_object_name=member_canonical_object_name,
                 inherited=entry.is_inherited,
+                siblings=[],
             )
 
-            if primary_sibling_entity is not None:
-                child.primary_entity = False
+            if primary_sibling_member is not None:
+                primary_sibling_member.siblings.append(member)
+                assert primary_sibling_entity is not None
                 if primary_sibling_entity.siblings is None:
-                    primary_sibling_entity.siblings = []
-                primary_sibling_entity.siblings.append(member)
+                    primary_sibling_entity.siblings = {}
+                primary_sibling_entity.siblings.setdefault(
+                    member_canonical_object_name, True
+                )
             else:
                 if obj is not None:
                     object_to_api_entity_member_map[id(obj)] = (obj, member)
