@@ -17,11 +17,11 @@ from typing import (
 )
 
 import docutils.nodes
+import sphinx
 import sphinx.application
 import sphinx.domains.python
 import sphinx.environment
 import sphinx.util.logging
-from sphinx import version_info
 
 # `ast.unparse` added in Python 3.9
 if sys.version_info >= (3, 9):
@@ -354,7 +354,10 @@ def _builder_inited(app: sphinx.application.Sphinx):
 
 
 def _monkey_patch_python_domain_to_transform_xref_titles():
-    orig_type_to_xref = sphinx.domains.python.type_to_xref
+    if sphinx.version_info >= (7, 3):
+        orig_type_to_xref = sphinx.domains.python._annotations.type_to_xref
+    else:
+        orig_type_to_xref = sphinx.domains.python.type_to_xref
 
     def type_to_xref(
         target: str,
@@ -362,7 +365,7 @@ def _monkey_patch_python_domain_to_transform_xref_titles():
         *args,
         suppress_prefix: bool = False,
     ) -> sphinx.addnodes.pending_xref:
-        if version_info < (7, 2):
+        if sphinx.version_info < (7, 2):
             # suppress_prefix may not have been used like a kwarg before v7.2.0 as
             # there was only 3 params for type_to_xref() prior to v7.2.0
             if args:
@@ -389,6 +392,8 @@ def _monkey_patch_python_domain_to_transform_xref_titles():
                         node.append(docutils.nodes.Text(new_target))
         return node
 
+    if sphinx.version_info >= (7, 3):
+        sphinx.domains.python._annotations.type_to_xref = type_to_xref  # type: ignore[assignment]
     sphinx.domains.python.type_to_xref = type_to_xref  # type: ignore[assignment]
 
 

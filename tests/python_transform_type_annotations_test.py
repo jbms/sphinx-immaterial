@@ -4,6 +4,7 @@ import pytest
 
 import docutils.nodes
 import sphinx
+import sphinx.application
 import sphinx.domains.python
 
 if sphinx.version_info < (7, 2):
@@ -31,6 +32,31 @@ html_theme = "sphinx_immaterial"
     yield make
 
 
+def get_parsed_annotation_as_text(
+    annotation: str, app: sphinx.application.Sphinx
+) -> str:
+    if sphinx.version_info >= (7, 3):
+        assert (
+            sphinx.domains.python._annotations._parse_annotation  # type: ignore[attr-defined]
+            is sphinx.domains.python._parse_annotation
+        )
+
+        assert (
+            sphinx.domains.python._object._parse_annotation  # type: ignore[attr-defined]
+            is sphinx.domains.python._parse_annotation
+        )
+
+        assert (
+            sphinx.domains.python._annotations.type_to_xref  # type: ignore[attr-defined]
+            is sphinx.domains.python.type_to_xref
+        )
+
+    parsed_annotations = sphinx.domains.python._parse_annotation(annotation, app.env)
+    parent = docutils.nodes.TextElement("", "")
+    parent.extend(parsed_annotations)
+    return parent.astext()
+
+
 def test_transform_type_annotations_pep604(theme_make_app):
     app = theme_make_app(
         confoverrides=dict(),
@@ -40,20 +66,19 @@ def test_transform_type_annotations_pep604(theme_make_app):
         ("Union[int, float]", "int | float"),
         ("Literal[1, 2, None]", "1 | 2 | None"),
     ]:
-        parent = docutils.nodes.TextElement("", "")
+        assert get_parsed_annotation_as_text(annotation, app) == expected_text
 
-        parsed_annotations = sphinx.domains.python._parse_annotation(
-            annotation, app.env
-        )
-        if sphinx.version_info >= (7, 3):
-            as_text = "".join([n.astext() for n in parsed_annotations])
-            og_parsed = sphinx.domains.python._annotations._parse_annotation(  # type: ignore[module-not-found,attr-defined]
-                annotation, app.env
-            )
-            assert as_text == "".join([n.astext() for n in og_parsed])
-            re_exported = sphinx.domains.python._object._parse_annotation(  # type: ignore[module-not-found,attr-defined]
-                annotation, app.env
-            )
-            assert as_text == "".join([n.astext() for n in re_exported])
-        parent.extend(parsed_annotations)
-        assert parent.astext() == expected_text
+
+def test_python_module_names_to_strip_from_xrefs(theme_make_app):
+    app = theme_make_app(
+        confoverrides=dict(
+            python_module_names_to_strip_from_xrefs=["tensorstore", "collections.abc"]
+        ),
+    )
+
+    for annotation, expected_text in [
+        ("tensorstore.Dim", "Dim"),
+        ("collections.abc.Sequence", "Sequence"),
+        ("collections.abc.def.Sequence", "def.Sequence"),
+    ]:
+        assert get_parsed_annotation_as_text(annotation, app) == expected_text
