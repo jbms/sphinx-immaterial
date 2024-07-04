@@ -9,7 +9,7 @@ index_rst = """
 The Test
 ========
 
-.. md-tab-set:: 
+.. md-tab-set::
     :name: tab_set_ref
 
     .. md-tab-item:: A
@@ -40,7 +40,7 @@ def test_tab_set_child_error(immaterial_make_app):
 The Test
 ========
 
-.. md-tab-set:: 
+.. md-tab-set::
 
     This is not a ``md-tab-item``!
 """},

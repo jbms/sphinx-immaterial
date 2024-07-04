@@ -96,7 +96,7 @@ The Test
 
 .. deprecated:: 0.1.0
     :collapsible:
-    
+
 """,
         },
     )
@@ -118,7 +118,7 @@ The Test
 
 .. todo::
     Some content.
-    
+
 """,
         },
     )
