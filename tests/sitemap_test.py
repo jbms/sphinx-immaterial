@@ -1,7 +1,4 @@
 """Tests related to theme's postprocess_html extension (which creates a sitemap)."""
-# TODO: sphinx_immaterial.postprocess_html does not support incremental builds.
-# This is adequate because docs are typically deployed from a fresh build.
-# However, this lacking implementation may impact versioned docs.
 
 from pathlib import Path
 from sphinx.testing.util import SphinxTestApp
