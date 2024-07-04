@@ -2,6 +2,7 @@
 
 import multiprocessing
 import pathlib
+from typing import Dict, Any, cast
 
 import docutils.nodes
 import jinja2.sandbox
@@ -69,15 +70,25 @@ def _html_page_context(
     if content is None:
         # Special page like `genindex`, exclude from search index.
         return
+
+    page_meta: Dict[str, str] = context.get("meta") or {}
+    meta: Dict[str, Any] = {"tags": []}
+    # TODO: When tags are supported, they need to be appended to `meta["tags"]`
+    if "search-exclude" in page_meta:
+        meta["exclude"] = True
+    if "search-boost" in page_meta:
+        meta["boost"] = page_meta["search-boost"]
+
     indexer = _make_indexer(app)
     url = app.builder.get_target_uri(pagename)
+    page_ctx = cast(Dict[str, Any], context.get("page"))
     indexer.add_entry_from_context(
         _Page(
             content=content,
-            title=context["page"]["title"],
-            meta={},
+            title=page_ctx["title"],
+            meta={"search": meta},
             url=url,
-            toc=context["page"]["toc"],
+            toc=page_ctx["toc"],
         )
     )
     queue = getattr(app, _SEARCH_QUEUE_KEY)
