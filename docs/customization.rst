@@ -107,6 +107,39 @@ Each metadata is evaluated as a :rst:`:key: value` pair.
     .. seealso::
         Using comments requires extra steps. See `Adding a comment system`_ instructions.
 
+
+.. themeconf:: search-boost
+
+    If specified, boosts the current page's search index entries by a factor given.
+    Without specifying this, all search entries are ranked at a boost factor of 1.
+
+    .. md-tab-set::
+
+        .. md-tab-item:: :si-icon:`material/arrow-up-circle` Rank up
+
+            .. code-block:: rst
+
+                :search-boost: 1
+
+        .. md-tab-item:: :si-icon:`material/arrow-down-circle` Rank down
+
+            .. code-block:: rst
+
+                :search-boost: 0.5
+
+    .. seealso::
+        Review advice from `mkdocs-material theme's search boost metadata
+        <https://squidfunk.github.io/mkdocs-material/plugins/search/#meta.search.boost>`_.
+
+.. themeconf:: search-exclude
+
+    If specified, excludes the current page from the search index.
+
+    .. code-block:: rst
+        :caption: Exclude current page from search index
+
+        :search-exclude:
+
 Configuration Options
 =====================
 
