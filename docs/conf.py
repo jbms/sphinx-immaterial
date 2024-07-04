@@ -172,6 +172,11 @@ html_theme_options = {
             "title": "Github Pages",
             "aliases": [],
         },
+        {
+            "version": "https://jbms.github.io/sphinx-immaterial/coverage_report",
+            "title": "Coverage Report",
+            "aliases": [],
+        },
     ],
     # END: version_dropdown
     "toc_title_is_page_title": True,
