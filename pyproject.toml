@@ -41,6 +41,23 @@ omit = [
 
 [tool.coverage.report]
 skip_empty = true
+# Regexes for lines to exclude from consideration
+exclude_lines = [
+    # Have to re-enable the standard pragma
+    "pragma: no cover",
+    # Don't complain about missing debug-only code:
+    "def __repr__",
+    # the point of unit tests is to test parts of main()
+    "def main",
+    # ignore any branch that makes the module executable
+    'if __name__ == "__main__"',
+    # ignore missing implementations
+    "raise NotImplementedError",
+    # ignore the type checking specific code (only executed by mypy)
+    "if typing.TYPE_CHECKING",
+    # ignore import errors for conditional deps (test run with a strict set of deps)
+    "except ImportError",
+]
 
 [tool.coverage.html]
 show_contexts = true

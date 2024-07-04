@@ -215,7 +215,7 @@ def tests(session: nox.Session, sphinx: str):
         # sphinxcontrib deps that dropped support for sphinx v4.x
         session.install("-r", "tests/requirements-sphinx4.txt")
     session.install("-r", "tests/requirements.txt")
-    session.run("coverage", "run", "-m", "pytest", "-vv", "-s")
+    session.run("coverage", "run", "-m", "pytest", "-vv", "-s", "--durations=5")
     # session.notify("docs") <- only calls docs(html), not dirhtml or latex builders
 
 
