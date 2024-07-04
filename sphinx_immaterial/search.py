@@ -1,8 +1,9 @@
 """Generates a search index for use by the lunr.js-based mkdocs-material search."""
 
 import multiprocessing
+import multiprocessing.managers
 import pathlib
-from typing import Dict, Any, cast
+from typing import Dict, Any, cast, List, Optional
 
 import docutils.nodes
 import jinja2.sandbox
@@ -16,6 +17,24 @@ logger = sphinx.util.logging.getLogger(__name__)
 
 _SEARCH_QUEUE_KEY = "_sphinx_immaterial_search_entry_queue"
 _SEARCH_CONFIG = "_sphinx_immaterial_search_config"
+_SEARCH_QUEUE_MGR_KEY = "_sphinx_immaterial_search_multiprocessing_manager"
+
+
+def _init_search_index_queue(app: sphinx.application.Sphinx):
+    manager: multiprocessing.managers.SyncManager = getattr(app, _SEARCH_QUEUE_MGR_KEY)
+    prev_queue = cast(
+        Optional[multiprocessing.managers.DictProxy],
+        getattr(app.env, _SEARCH_QUEUE_KEY, None),
+    )
+    if prev_queue is not None:
+        queue = manager.dict(**prev_queue)
+    else:
+        queue = manager.dict()
+    setattr(
+        app.env,
+        _SEARCH_QUEUE_KEY,
+        queue,
+    )
 
 
 def _get_search_config(app: sphinx.application.Sphinx):
@@ -91,8 +110,9 @@ def _html_page_context(
             toc=page_ctx["toc"],
         )
     )
-    queue = getattr(app, _SEARCH_QUEUE_KEY)
-    queue.append(indexer.entries)
+
+    queue: Dict[str, List[_Page]] = getattr(app.env, _SEARCH_QUEUE_KEY)
+    queue[pagename] = indexer.entries
 
 
 def _build_finished(app: sphinx.application.Sphinx, exc) -> None:
@@ -104,16 +124,11 @@ def _build_finished(app: sphinx.application.Sphinx, exc) -> None:
     if not isinstance(app.builder, sphinx.builders.html.StandaloneHTMLBuilder):
         return
 
-    queue = getattr(app, _SEARCH_QUEUE_KEY)
+    queue: Dict[str, List[_Page]] = getattr(app.env, _SEARCH_QUEUE_KEY)
     indexer = _make_indexer(app)
-    for entries in queue[:]:
+    for entries in queue.values():
         indexer.entries.extend(entries)
     output_path = pathlib.Path(app.outdir) / "search" / "search_index.json"
-    # try:
-    #     existing_data = output_path.read_text(encoding='utf-8')
-
-    # except FileNotFoundError:
-    #     pass
     json_data = indexer.generate_search_index(prev=None)
 
     output_path.parent.mkdir(exist_ok=True)
@@ -124,9 +139,8 @@ def _build_finished(app: sphinx.application.Sphinx, exc) -> None:
 def setup(app: sphinx.application.Sphinx):
     app.connect("html-page-context", _html_page_context)
     app.connect("build-finished", _build_finished)
-    manager = multiprocessing.Manager()
-    setattr(app, "_sphinx_immaterial_search_multiprocessing_manager", manager)
-    setattr(app, _SEARCH_QUEUE_KEY, manager.list())
+    app.connect("builder-inited", _init_search_index_queue)
+    setattr(app, _SEARCH_QUEUE_MGR_KEY, multiprocessing.Manager())
     return {
         "parallel_read_safe": True,
         "parallel_write_safe": True,
