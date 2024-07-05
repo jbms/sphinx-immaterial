@@ -5,13 +5,17 @@ requires = ["setuptools>=42", "wheel", "setuptools_scm"]
 show_error_codes = true
 pretty = true
 mypy_path = "typings_py"
-files = [
-    "sphinx_immaterial/**/*.py",
-    "tests/**/*.py",
+packages = [
+    "sphinx_immaterial",
+    "tests",
 ]
-exclude = "setup.py"
+exclude = ['^setup\.py$', '^sphinx_immaterial/plugins/$']
 plugins = ["pydantic.mypy"]
 check_untyped_defs = true
+
+[[tool.mypy.overrides]]
+module = ["sphinx_immaterial.plugins.*"]
+follow_imports = "skip"
 
 [tool.black]
 include = '\.py$'
@@ -83,7 +87,7 @@ ignore = ["CVS"]
 
 # Add files or directories matching the regex patterns to the ignore-list. The
 # regex matches against paths and can be in Posix or Windows format.
-# ignore-paths =
+ignore-paths = ["sphinx_immaterial/plugins/.*"]
 
 # Files or directories matching the regex patterns are skipped. The regex matches
 # against base names, not paths. The default value ignores Emacs file locks
