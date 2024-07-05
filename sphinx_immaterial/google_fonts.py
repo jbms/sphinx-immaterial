@@ -52,7 +52,8 @@ def _adjust_css_urls(css_content: bytes, renamed_fonts: Dict[str, str]) -> str:
     )
 
 
-_MAX_CONCURRENT_FETCHES = 128
+_MAX_CONCURRENT_FETCHES_KEY = "sphinx_immaterial_font_fetch_max_workers"
+_MAX_CONCURRENT_FETCHES_ENV_KEY = "SPHINX_IMMATERIAL_FONT_FETCH_MAX_WORKERS"
 
 _TTF_FONT_PATHS_KEY = "sphinx_immaterial_ttf_font_paths"
 
@@ -60,11 +61,24 @@ _TTF_FONT_PATHS_KEY = "sphinx_immaterial_ttf_font_paths"
 def add_google_fonts(app: sphinx.application.Sphinx, fonts: List[str]):
     cache_dir = os.path.join(get_cache_dir(app), "google_fonts")
     static_dir = os.path.join(app.outdir, "_static")
+    max_workers: Optional[int] = cast(
+        int, app.config.config_values.get(_MAX_CONCURRENT_FETCHES_KEY, 128)
+    )
+    if _MAX_CONCURRENT_FETCHES_ENV_KEY in os.environ:
+        try:
+            max_workers = int(os.environ[_MAX_CONCURRENT_FETCHES_ENV_KEY])
+        except ValueError:
+            logger.warning(
+                "Environment variable, %s, must be an integer value.",
+                _MAX_CONCURRENT_FETCHES_ENV_KEY,
+            )
+    if max_workers is not None and max_workers <= 0:
+        max_workers = None  # use default from ThreadPoolExecutor
     # _static path
     font_dir = os.path.join(static_dir, "fonts")
     os.makedirs(font_dir, exist_ok=True)
 
-    with concurrent.futures.ThreadPoolExecutor(max_workers=33) as executor:
+    with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
 
         def to_thread(fn, *args, **kwargs) -> asyncio.Future:
             return asyncio.wrap_future(executor.submit(fn, *args, **kwargs))
@@ -200,6 +214,9 @@ def _builder_inited(app: sphinx.application.Sphinx):
 def setup(app: sphinx.application.Sphinx):
     app.setup_extension("sphinx_immaterial.external_resource_cache")
     app.connect("builder-inited", _builder_inited)
+    app.add_config_value(
+        _MAX_CONCURRENT_FETCHES_KEY, default=128, rebuild="", types=int
+    )
 
     return {
         "parallel_read_safe": True,
