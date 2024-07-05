@@ -40,6 +40,7 @@ import sphinx.util
 import sphinx.util.docutils
 import sphinx.util.logging
 import sphinx.util.matching
+from sphinx.locale import _
 import yaml  # pylint: disable=import-error
 
 from .. import object_description_options
@@ -864,7 +865,7 @@ class JsonSchemaDirective(sphinx.directives.ObjectDescription):
                 ):
                     continue
                 heading = "%s members" % ("Required" if required else "Optional")
-                field_list, body = self._make_field(heading)
+                field_list, body = self._make_field(_(heading))
                 result.append(field_list)
                 for member_name, member_schema in properties.items():
                     if (member_name in required_properties) != required:
