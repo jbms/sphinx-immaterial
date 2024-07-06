@@ -22,6 +22,8 @@ import sphinx.domains.python
 import sphinx.environment
 import sphinx.util.logging
 
+from . import type_param_utils
+
 logger = sphinx.util.logging.getLogger(__name__)
 
 PEP585_ALIASES = {
@@ -327,6 +329,22 @@ def _monkey_patch_python_domain_to_transform_xref_titles():
         *args,
         suppress_prefix: bool = False,
     ) -> sphinx.addnodes.pending_xref:
+        if (type_param := type_param_utils.decode_type_param(target)) is not None:
+            refnode = sphinx.addnodes.pending_xref(
+                "",
+                docutils.nodes.Text(type_param.__name__),
+                refdomain="py",
+                reftype="param",
+                reftarget=type_param.__name__,
+                refspecific=True,
+                refexplicit=True,
+                refwarn=True,
+            )
+            refnode["py:func"] = env.ref_context.get("py:func")
+            refnode["py:class"] = env.ref_context.get("py:class")
+            refnode["py:module"] = env.ref_context.get("py:module")
+            return refnode
+
         if sphinx.version_info < (7, 2):
             # suppress_prefix may not have been used like a kwarg before v7.2.0 as
             # there was only 3 params for type_to_xref() prior to v7.2.0
@@ -359,10 +377,11 @@ def _monkey_patch_python_domain_to_transform_xref_titles():
     sphinx.domains.python.type_to_xref = type_to_xref  # type: ignore[assignment]
 
 
-def setup(app: sphinx.application.Sphinx):
-    _monkey_patch_python_domain_to_transform_type_annotations()
-    _monkey_patch_python_domain_to_transform_xref_titles()
+_monkey_patch_python_domain_to_transform_type_annotations()
+_monkey_patch_python_domain_to_transform_xref_titles()
 
+
+def setup(app: sphinx.application.Sphinx):
     app.add_config_value(
         "python_type_aliases",
         default={},

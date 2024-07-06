@@ -407,7 +407,10 @@ json_schema_rst_prolog = """
 .. highlight:: json
 """
 
-python_apigen_modules = {"tensorstore_demo": "python_apigen_generated/"}
+python_apigen_modules = {
+    "tensorstore_demo": "python_apigen_generated/",
+    "type_param_demo": "python_apigen_generated/",
+}
 
 python_apigen_default_groups = [
     ("class:.*", "Classes"),

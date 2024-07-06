@@ -405,7 +405,10 @@ def _format_signature_with_black(
             break
         if found_name:
             break
-        if isinstance(orig_child, sphinx.addnodes.desc_type_parameter_list):
+        if (
+            isinstance(orig_child, docutils.nodes.Element)
+            and orig_child.get("sphinx_immaterial_parent_type_parameter_list") is True
+        ):
             # This is the parent entity type parameter list added by apigen.
             parent_type_param_i = i
             break

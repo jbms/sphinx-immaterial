@@ -20,6 +20,7 @@ import importlib
 import inspect
 import json
 import re
+import typing
 from typing import (
     List,
     Tuple,
@@ -54,6 +55,8 @@ import sphinx.util.typing
 from .. import object_description_options
 from ... import sphinx_utils
 from .. import apigen_utils
+from . import type_param_utils
+from .parameter_objects import TYPE_PARAM_SYMBOL_PREFIX_ATTR_KEY
 
 if sphinx.version_info >= (6, 1):
     stringify_annotation = sphinx.util.typing.stringify_annotation
@@ -303,6 +306,8 @@ class _MemberDocumenterEntry(NamedTuple):
     subscript: bool = False
     """Whether this is a "subscript" method to be shown with [] instead of ()."""
 
+    type_param_substitutions: Optional[type_param_utils.TypeParamSubstitutions] = None
+
     @property
     def overload_suffix(self):
         if self.overload and self.overload.overload_id:
@@ -320,6 +325,7 @@ class _ApiEntityMemberReference(NamedTuple):
     parent_canonical_object_name: str
     inherited: bool
     siblings: List["_ApiEntityMemberReference"]
+    type_param_substitutions: Optional[type_param_utils.TypeParamSubstitutions]
 
 
 @dataclasses.dataclass
@@ -373,6 +379,11 @@ class _ApiEntity:
 
     primary_entity: bool = True
     """Indicates if this is the primary sibling and should be documented."""
+
+    type_params: Optional[Tuple[type_param_utils.TypeParam, ...]] = None
+    parent_type_params: Optional[Tuple[str, Tuple[type_param_utils.TypeParam, ...]]] = (
+        None
+    )
 
 
 def _is_constructor_name(name: str) -> bool:
@@ -499,7 +510,7 @@ def _clean_init_signature(signode: sphinx.addnodes.desc_signature) -> None:
     Removes the return type (always None) and the self parameter (since these
     methods are displayed as the class name, without showing __init__).
 
-    :param node: Signature to modify in place.
+    :param signode: Signature to modify in place.
     """
     # Remove first parameter.
     for param in signode.findall(condition=sphinx.addnodes.desc_parameter):
@@ -518,13 +529,88 @@ def _clean_class_getitem_signature(signode: sphinx.addnodes.desc_signature) -> N
     Removes the `static` prefix since these methods are shown using the class
     name (i.e. as "subscript" constructors).
 
-    :param node: Signature to modify in place.
+    :param signode: Signature to modify in place.
 
     """
     # Remove `static` prefix
     for prefix in signode.findall(condition=sphinx.addnodes.desc_annotation):
         prefix.parent.remove(prefix)
         break
+
+
+def _insert_parent_type_params(
+    env: sphinx.environment.BuildEnvironment,
+    signode: sphinx.addnodes.desc_signature,
+    parent_symbol: str,
+    parent_type_params: tuple[type_param_utils.TypeParam, ...],
+    is_constructor: bool,
+) -> bool:
+    def _make_type_list_node() -> docutils.nodes.Element:
+        tp_list = type_param_utils.stringify_type_params(parent_type_params)
+        tp_list_node: docutils.nodes.Element = (
+            sphinx.domains.python._annotations._parse_type_list(tp_list, env)
+        )
+        for desc_param_node in tp_list_node.findall(
+            condition=sphinx.addnodes.desc_type_parameter
+        ):
+            desc_param_node[TYPE_PARAM_SYMBOL_PREFIX_ATTR_KEY] = parent_symbol
+
+        if env.app.builder.name == "latex":
+            # LaTeX builder can't handle additional type parameter lists nodes
+            # inside a signature. Convert to text elements.
+            #
+            # https://github.com/sphinx-doc/sphinx/issues/12543
+            converted = docutils.nodes.inline()
+            converted.append(sphinx.addnodes.desc_sig_punctuation("[", "["))
+            for i, p in enumerate(
+                cast(list[sphinx.addnodes.desc_type_parameter], tp_list_node.children)
+            ):
+                if i != 0:
+                    converted.append(sphinx.addnodes.desc_sig_punctuation(", ", ", "))
+                p_new = docutils.nodes.inline()
+                p_new["classes"] = p["classes"]
+                p_new.extend(p.children)
+                converted.append(p_new)
+            converted.append(sphinx.addnodes.desc_sig_punctuation("]", "]"))
+            tp_list_node = converted
+
+        # Mark as parent type parameter list for detection by `format_signatures`.
+        tp_list_node["sphinx_immaterial_parent_type_parameter_list"] = True
+        return tp_list_node
+
+    if is_constructor:
+        for node in signode.findall(sphinx.addnodes.desc_name):
+            break
+        else:
+            return False
+        node.parent.insert(node.parent.index(node) + 1, _make_type_list_node())
+        return True
+
+    prev_name_node = None
+    for node in signode.findall():
+        if isinstance(node, sphinx.addnodes.desc_addname):
+            prev_name_node = node
+        elif isinstance(node, sphinx.addnodes.desc_name):
+            break
+    else:
+        return False
+
+    if prev_name_node is None:
+        return False
+
+    index = prev_name_node.parent.index(prev_name_node)
+    prev_name_text = prev_name_node.astext().rstrip(".")
+    prev_name_node.replace_self(
+        sphinx.addnodes.desc_addname(prev_name_text, prev_name_text)
+    )
+    prev_name_node.parent.insert(
+        index + 1,
+        [
+            _make_type_list_node(),
+            sphinx.addnodes.desc_addname(".", "."),
+        ],
+    )
+    return True
 
 
 def _get_api_data(
@@ -581,6 +667,20 @@ def _generate_entity_desc_node(
                 obj_desc["classes"].append("summary")
                 assert app.env is not None
                 _summarize_signature(app.env, signode)
+            elif entity.parent_type_params:
+                # Insert additional type parameters
+                if not _insert_parent_type_params(
+                    app.env,
+                    signode,
+                    entity.parent_type_params[0],
+                    entity.parent_type_params[1],
+                    is_constructor=_is_constructor_name(entity.documented_name),
+                ):
+                    logger.warning(
+                        "Failed to insert parent type parameters %r",
+                        entity.parent_type_params[1],
+                        location=signode,
+                    )
 
             base_classes = entity.base_classes
             if base_classes:
@@ -594,6 +694,9 @@ def _generate_entity_desc_node(
                         signode += sphinx.addnodes.desc_sig_space()
                     signode += _parse_annotation(base_class, env)
                 signode += sphinx.addnodes.desc_sig_punctuation("", ")")
+
+            if not summary:
+                _ensure_module_name_in_signature(signode)
 
         if callback is not None:
             callback(contentnode)
@@ -646,7 +749,24 @@ def _generate_entity_desc_node(
             signatures: List[str] = []
             for e, m in zip(all_entities, all_members):
                 name = api_data.get_name_for_signature(e, m)
-                signatures.extend(name + sig for sig in e.signatures)
+                unnamed_signatures = e.signatures
+                if m is not None and m.type_param_substitutions:
+                    unnamed_signatures = [
+                        type_param_utils.substitute_type_params(
+                            sig, m.type_param_substitutions
+                        )
+                        for sig in unnamed_signatures
+                    ]
+                signatures.extend(name + sig for sig in unnamed_signatures)
+
+            if (
+                (m := all_members[0]) is not None
+                and "type" in options
+                and m.type_param_substitutions
+            ):
+                options["type"] = type_param_utils.substitute_type_params(
+                    options["type"], m.type_param_substitutions
+                )
 
             sphinx_utils.append_directive_to_stringlist(
                 rst_input,
@@ -857,10 +977,6 @@ class PythonApigenEntityPageDirective(sphinx.util.docutils.SphinxDirective):
                 state=self.state,
             ),
         )
-
-        for signode in objdesc.children[:-1]:
-            signode = cast(sphinx.addnodes.desc_signature, signode)
-            _ensure_module_name_in_signature(signode)
 
         # Wrap in a section
         section = docutils.nodes.section()
@@ -1331,6 +1447,7 @@ def _get_documenter_direct_members(
 
 
 def _get_documenter_members(
+    app: sphinx.application.Sphinx,
     documenter: sphinx.ext.autodoc.Documenter,
     canonical_full_name: str,
 ) -> Iterator[_MemberDocumenterEntry]:
@@ -1342,30 +1459,46 @@ def _get_documenter_members(
     seen_members: Set[str] = set()
 
     def _get_unseen_members(
-        members: Iterator[_MemberDocumenterEntry], is_inherited: bool
+        members: Iterator[_MemberDocumenterEntry],
+        is_inherited: bool,
+        type_param_substitutions: Optional[type_param_utils.TypeParamSubstitutions],
     ) -> Iterator[_MemberDocumenterEntry]:
         for member in members:
             overload_name = member.toc_title
             if overload_name in seen_members:
                 continue
             seen_members.add(overload_name)
-            yield member._replace(is_inherited=is_inherited)
+            yield member._replace(
+                is_inherited=is_inherited,
+                type_param_substitutions=type_param_substitutions,
+            )
 
     yield from _get_unseen_members(
         _get_documenter_direct_members(
             documenter, canonical_full_name=canonical_full_name
         ),
         is_inherited=False,
+        type_param_substitutions=None,
     )
 
     if documenter.objtype != "class":
         return
 
+    base_class_type_param_substitutions = (
+        type_param_utils.get_base_class_type_param_substitutions(documenter.object)
+    )
+
     for cls in inspect.getmro(documenter.object):
         if cls is documenter.object:
             continue
-        if cls.__module__ in ("builtins", "pybind11_builtins"):
+        skip_user = app.emit_firstresult("python-apigen-skip-base", object, cls)
+        if skip_user is True:
             continue
+        if skip_user is None:
+            if cls.__module__ in ("builtins", "pybind11_builtins"):
+                continue
+            if cls is typing.Generic:
+                continue
         class_name = f"{cls.__module__}::{cls.__qualname__}"
         parent_canonical_full_name = f"{cls.__module__}.{cls.__qualname__}"
         try:
@@ -1381,6 +1514,7 @@ def _get_documenter_members(
                     canonical_full_name=parent_canonical_full_name,
                 ),
                 is_inherited=True,
+                type_param_substitutions=base_class_type_param_substitutions.get(cls),
             )
         except Exception as e:
             logger.warning(
@@ -1482,8 +1616,10 @@ def _summarize_rst_content(content: List[str]) -> List[str]:
 class _ApiEntityCollector:
     def __init__(
         self,
+        app: sphinx.application.Sphinx,
         entities: Dict[str, _ApiEntity],
     ):
+        self.app = app
         self.entities = entities
 
     def collect_entity_recursively(
@@ -1545,12 +1681,18 @@ class _ApiEntityCollector:
 
         base_classes: Optional[List[str]] = None
 
+        type_params: tuple[type_param_utils.TypeParam, ...] = ()
+
         if isinstance(entry.documenter, sphinx.ext.autodoc.ClassDocumenter):
+            type_params = type_param_utils.get_class_type_params(
+                entry.documenter.object
+            )
+
             # By default (unless the `autodoc_class_signature` config option is
             # set to `"separated"`), autodoc will include the `__init__`
             # parameters in the signature.  Since that convention does not work
             # well with this extension, we just bypass that here.
-            signatures = [""]
+            signatures = [type_param_utils.stringify_type_params(type_params)]
 
             if entry.documenter.config.python_apigen_show_base_classes:
                 obj = entry.documenter.object
@@ -1569,7 +1711,10 @@ class _ApiEntityCollector:
                     base_classes = [
                         stringify_annotation(base)
                         for base in base_list
-                        if base is not object
+                        if (
+                            base is not object
+                            and typing.get_origin(base) is not typing.Generic
+                        )
                     ]
         else:
             signatures = entry.documenter.format_signature().split("\n")
@@ -1594,6 +1739,7 @@ class _ApiEntityCollector:
             overload_id=overload_id or "",
             base_classes=base_classes,
             primary_entity=primary_entity is None,
+            type_params=type_params,
         )
 
         self.entities[canonical_object_name] = entity
@@ -1621,7 +1767,7 @@ class _ApiEntityCollector:
         ] = {}
 
         for entry in _get_documenter_members(
-            documenter, canonical_full_name=canonical_object_name
+            self.app, documenter, canonical_full_name=canonical_object_name
         ):
             obj = None
             if isinstance(
@@ -1648,7 +1794,8 @@ class _ApiEntityCollector:
                         primary_sibling_member.canonical_object_name
                     ]
             member_canonical_object_name = self.collect_entity_recursively(
-                entry, primary_entity=primary_sibling_entity
+                entry,
+                primary_entity=primary_sibling_entity,
             )
             child = self.entities[member_canonical_object_name]
             member = _ApiEntityMemberReference(
@@ -1657,6 +1804,7 @@ class _ApiEntityCollector:
                 canonical_object_name=member_canonical_object_name,
                 inherited=entry.is_inherited,
                 siblings=[],
+                type_param_substitutions=entry.type_param_substitutions,
             )
 
             if primary_sibling_member is not None:
@@ -1742,6 +1890,29 @@ def _assign_documented_full_names(
         else:
             parent_documented_name = get_documented_full_name(parent_entity)
             entity.options["module"] = parent_entity.options["module"]
+            if parent_entity.type_params:
+                if entity.objtype != "method" or (
+                    not entity.options.get("classmethod")
+                    and not entity.options.get("staticmethod")
+                ):
+                    entity.parent_type_params = (
+                        parent_entity.object_name,
+                        parent_entity.type_params,
+                    )
+
+        # Resolve type parameters
+        if entity.objtype != "class":
+            for i, signature in enumerate(entity.signatures):
+                type_params = type_param_utils.get_type_params_from_signature(signature)
+                if entity.parent_type_params:
+                    for param in entity.parent_type_params[1]:
+                        type_params.pop(param.__name__, None)
+                if type_params:
+                    entity.signatures[i] = (
+                        type_param_utils.stringify_type_params(type_params.values())
+                        + signature
+                    )
+
         documented_full_name = parent_documented_name + "." + parent_ref.name
         entity.documented_full_name = documented_full_name
         entity.documented_name = parent_ref.name
@@ -1798,6 +1969,7 @@ def _builder_inited(app: sphinx.application.Sphinx) -> None:
             name=module_name,
         )
         _ApiEntityCollector(
+            app=app,
             entities=data.entities,
         ).collect_documenter_members(
             documenter=documenter,
@@ -1955,4 +2127,6 @@ def setup(app: sphinx.application.Sphinx):
     app.add_config_value(
         "python_apigen_rst_epilog", types=(str,), default="", rebuild="env"
     )
+    app.add_event("python-apigen-skip-base")
+
     return {"parallel_read_safe": True, "parallel_write_safe": True}
