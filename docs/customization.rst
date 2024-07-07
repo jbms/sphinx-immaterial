@@ -742,6 +742,19 @@ Configuration Options
    bundles to the output directory.  Source maps are helpful when developing the
    theme.
 
+.. confval:: sphinx_immaterial_font_fetch_max_workers
+
+    The number of workers executed in parallel when fetching a cache of the specified
+    :themeconf:`font`. If not specified, this defaults to using 33 maximum *possible* threads.
+    If set less than or equal to 0, then this will be determined by the
+    :py:class:`~concurrent.futures.ThreadPoolExecutor` default.
+
+.. envvar:: SPHINX_IMMATERIAL_FONT_FETCH_MAX_WORKERS
+
+    An environment variable that can be used to override
+    :confval:`sphinx_immaterial_font_fetch_max_workers`.
+    This value must be an integer.
+
 .. _version_dropdown:
 
 Version Dropdown
