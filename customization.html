@@ -645,6 +645,20 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#confval-sphinx_immaterial_font_fetch_max_workers" class="md-nav__link">
+    <span aria-label="configuration value" class="objinfo-icon objinfo-icon__data" title="configuration value">C</span><span title="sphinx_immaterial_font_fetch_max_workers (configuration value) — The number of workers executed in parallel when fetching a cache of the specified font." class="md-ellipsis">sphinx_<wbr>immaterial_<wbr>font_<wbr>fetch_<wbr>max_<wbr>workers</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#envvar-SPHINX_IMMATERIAL_FONT_FETCH_MAX_WORKERS" class="md-nav__link">
+    <span aria-label="environment variable" class="objinfo-icon objinfo-icon__alias" title="environment variable">$</span><span title="SPHINX_IMMATERIAL_FONT_FETCH_MAX_WORKERS (environment variable) — An environment variable that can be used to override sphinx_immaterial_font_fetch_max_workers. This value must be an integer." class="md-ellipsis">SPHINX_<wbr>IMMATERIAL_<wbr>FONT_<wbr>FETCH_<wbr>MAX_<wbr>WORKERS</span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1664,6 +1678,20 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#confval-sphinx_immaterial_font_fetch_max_workers" class="md-nav__link">
+    <span aria-label="configuration value" class="objinfo-icon objinfo-icon__data" title="configuration value">C</span><span title="sphinx_immaterial_font_fetch_max_workers (configuration value) — The number of workers executed in parallel when fetching a cache of the specified font." class="md-ellipsis">sphinx_<wbr>immaterial_<wbr>font_<wbr>fetch_<wbr>max_<wbr>workers</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#envvar-SPHINX_IMMATERIAL_FONT_FETCH_MAX_WORKERS" class="md-nav__link">
+    <span aria-label="environment variable" class="objinfo-icon objinfo-icon__alias" title="environment variable">$</span><span title="SPHINX_IMMATERIAL_FONT_FETCH_MAX_WORKERS (environment variable) — An environment variable that can be used to override sphinx_immaterial_font_fetch_max_workers. This value must be an integer." class="md-ellipsis">SPHINX_<wbr>IMMATERIAL_<wbr>FONT_<wbr>FETCH_<wbr>MAX_<wbr>WORKERS</span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2644,6 +2672,23 @@ bundles to the output directory.  Source maps are helpful when developing the
 theme.</p>
 </dd></dl>
 
+<dl class="std confval objdesc">
+<dt class="sig sig-object highlight std" id="confval-sphinx_immaterial_font_fetch_max_workers">
+<span class="sig-name descname"><span class="pre">sphinx_immaterial_font_fetch_max_workers</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="mi">128</span></code><a class="headerlink" href="#confval-sphinx_immaterial_font_fetch_max_workers" title="Link to this definition">¶</a></dt>
+<dd><p>The number of workers executed in parallel when fetching a cache of the specified
+<a class="reference internal" href="#themeconf-font" title="font (theme configuration option) — Use this dictionary to change the fonts used in the theme."><code class="xref std std-themeconf docutils literal notranslate"><span class="pre">font</span></code></a>. If not specified, this defaults to using 33 maximum <em>possible</em> threads.
+If set less than or equal to 0, then this will be determined by the
+<a class="reference external" href="https://docs.python.org/3/library/concurrent.futures.html#concurrent.futures.ThreadPoolExecutor" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ThreadPoolExecutor</span></code></a> default.</p>
+</dd></dl>
+
+<dl class="std envvar objdesc">
+<dt class="sig sig-object highlight std" id="envvar-SPHINX_IMMATERIAL_FONT_FETCH_MAX_WORKERS">
+<span class="sig-name descname"><span class="pre">SPHINX_IMMATERIAL_FONT_FETCH_MAX_WORKERS</span></span><a class="headerlink" href="#envvar-SPHINX_IMMATERIAL_FONT_FETCH_MAX_WORKERS" title="Link to this definition">¶</a></dt>
+<dd><p>An environment variable that can be used to override
+<a class="reference internal" href="#confval-sphinx_immaterial_font_fetch_max_workers" title="sphinx_immaterial_font_fetch_max_workers (configuration value) — The number of workers executed in parallel when fetching a cache of the specified font."><code class="xref std std-confval docutils literal notranslate"><span class="pre">sphinx_immaterial_font_fetch_max_workers</span></code></a>.
+This value must be an integer.</p>
+</dd></dl>
+
 <h2 id="version-dropdown"><span id="id2"></span>Version Dropdown<a class="headerlink" href="#version-dropdown" title="Link to this heading">¶</a></h2>
 <p>A version dropdown selector is available that lets you store multiple versions in a single site.
 The standard structure of the site (relative to the base domain) is usually</p>
@@ -3011,7 +3056,7 @@ dismiss the announcement banner.</p>
   <small>
     
       Last update:
-      Jul 05, 2024
+      Jul 07, 2024
     
   </small>
 </div>
