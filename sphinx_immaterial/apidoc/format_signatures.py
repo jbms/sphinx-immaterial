@@ -263,7 +263,9 @@ def merge_info(
     docnames: List[str],
     other: sphinx.environment.BuildEnvironment,
 ) -> None:
-    _get_collected_signatures(env).update(_get_collected_signatures(other))
+    merged_sigs = _get_collected_signatures(env)
+    for key, sigs in _get_collected_signatures(other).items():
+        merged_sigs[key].update(sigs)
 
 
 DOMAIN_CLANG_FORMAT_LANGUAGE = {
