@@ -11,7 +11,7 @@ on:
       - main
   workflow_dispatch:
   schedule:
-    - cron: '0 0 1,16 * *'
+    - cron: "0 0 1,16 * *"
 
 jobs:
   check_conventions:
@@ -20,19 +20,17 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - nox-sessions: 'black check_yaml check_json check_toml check_eof check_trailing_space check_lf'
-            python-version: '3.x'
-            node-version: '16.x'
-          - nox-sessions: 'mypy pylint'
-            python-version: '3.8'
-          - nox-sessions: 'mypy pylint'
-            python-version: '3.9'
-          - nox-sessions: 'mypy pylint'
-            python-version: '3.10'
-          - nox-sessions: 'mypy pylint'
-            python-version: '3.11'
-          - nox-sessions: 'mypy pylint'
-            python-version: '3.12'
+          - nox-sessions: "black check_yaml check_json check_toml check_eof check_trailing_space check_lf"
+            python-version: "3.x"
+            node-version: "16.x"
+          - nox-sessions: "mypy pylint"
+            python-version: "3.9"
+          - nox-sessions: "mypy pylint"
+            python-version: "3.10"
+          - nox-sessions: "mypy pylint"
+            python-version: "3.11"
+          - nox-sessions: "mypy pylint"
+            python-version: "3.12"
     steps:
       - uses: actions/checkout@v4
       - name: Setup Node.js
@@ -71,13 +69,13 @@ jobs:
       fail-fast: false
       matrix:
         os:
-          - 'ubuntu-latest'
-          - 'windows-latest'
-          - 'macos-latest'
+          - "ubuntu-latest"
+          - "windows-latest"
+          - "macos-latest"
         python-version:
-          - '3.x'
+          - "3.x"
         node-version:
-          - '16.x'
+          - "16.x"
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
@@ -116,7 +114,7 @@ jobs:
       - name: Setup Graphviz
         uses: ts-graphviz/setup-graphviz@b1de5da23ed0a6d14e0aeee8ed52fdd87af2363c # v2.0.2
         with:
-          macos-skip-brew-update: 'true'
+          macos-skip-brew-update: "true"
       - uses: actions/cache@v4
         with:
           path: ${{ github.workspace }}/theme_build_cache
@@ -143,25 +141,21 @@ jobs:
       fail-fast: false
       matrix:
         os:
-          - 'ubuntu-latest'
-          - 'windows-latest'
-          - 'macos-latest'
+          - "ubuntu-latest"
+          - "windows-latest"
+          - "macos-latest"
         python-version:
-          - '3.8'
-          - '3.9'
-          - '3.10'
-          - '3.11'
-          - '3.12'
+          - "3.9"
+          - "3.10"
+          - "3.11"
+          - "3.12"
         sphinx-version:
-          - 'sphinx4'
-          - 'sphinx5'
-          - 'sphinx6'
-          - 'sphinx7'
+          - "sphinx4"
+          - "sphinx5"
+          - "sphinx6"
+          - "sphinx7"
         node-version:
-          - '16.x'
-        exclude:
-          - python-version: '3.8'
-            sphinx-version: 'sphinx7'
+          - "16.x"
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
@@ -183,7 +177,7 @@ jobs:
       - name: Setup Graphviz
         uses: ts-graphviz/setup-graphviz@b1de5da23ed0a6d14e0aeee8ed52fdd87af2363c # v2.0.2
         with:
-          macos-skip-brew-update: 'true'
+          macos-skip-brew-update: "true"
       - uses: actions/cache/restore@v4
         with:
           path: ${{ github.workspace }}/theme_build_cache
@@ -214,7 +208,7 @@ jobs:
       - name: Setup python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.x'
+          python-version: "3.x"
       - name: Create coverage report
         run: pipx run nox -s coverage
       - name: Upload comprehensive coverage HTML report

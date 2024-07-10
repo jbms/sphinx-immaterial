@@ -17,7 +17,7 @@ nox.options.sessions = [
     "check_lf",
 ]
 
-SUPPORTED_PY_VER = list(f"3.{x}" for x in range(8, 13))
+SUPPORTED_PY_VER = list(f"3.{x}" for x in range(9, 13))
 
 
 @nox.session

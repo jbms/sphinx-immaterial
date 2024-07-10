@@ -3,7 +3,6 @@
 import ast
 import functools
 import re
-import sys
 from typing import (
     cast,
     Dict,
@@ -22,30 +21,6 @@ import sphinx.application
 import sphinx.domains.python
 import sphinx.environment
 import sphinx.util.logging
-
-# `ast.unparse` added in Python 3.9
-if sys.version_info >= (3, 9):
-    from ast import unparse as ast_unparse
-else:
-    from sphinx.pycode.ast import unparse as ast_unparse
-    from sphinx.pycode.ast import _UnparseVisitor
-
-    def _monkey_patch_sphinx_ast_unparse():
-        """Monkey patch Sphinx's `ast_unparse`.
-
-        This adds support for some additional ast nodes that we require.
-        """
-
-        def visit_Module(self: _UnparseVisitor, node: ast.Module) -> str:
-            return "\n".join(self.visit(el) for el in node.body)
-
-        def visit_Expr(self: _UnparseVisitor, node: ast.Expr) -> str:
-            return self.visit(node.value)
-
-        _UnparseVisitor.visit_Module = visit_Module  # type: ignore[assignment]
-        _UnparseVisitor.visit_Expr = visit_Expr  # type: ignore[assignment]
-
-    _monkey_patch_sphinx_ast_unparse()
 
 logger = sphinx.util.logging.getLogger(__name__)
 
@@ -128,19 +103,6 @@ def _dotted_name_to_ast(
     return tree
 
 
-if sys.version_info < (3, 8):
-    _CONSTANT_AST_NODE_TYPES = (
-        ast.Constant,
-        ast.Num,
-        ast.Str,
-        ast.Bytes,
-        ast.Ellipsis,
-        ast.NameConstant,
-    )
-else:
-    _CONSTANT_AST_NODE_TYPES = (ast.Constant,)
-
-
 _CONFIG_ATTR = "_sphinx_immaterial_python_type_transform_config"
 
 
@@ -173,7 +135,7 @@ def _retain_explicit_literal(node: ast.AST) -> bool:
 
     Since constants cannot be types, there is no ambiguity.
     """
-    return not isinstance(node, _CONSTANT_AST_NODE_TYPES)
+    return not isinstance(node, ast.Constant)
 
 
 class TypeAnnotationTransformer(ast.NodeTransformer):
@@ -266,7 +228,7 @@ def _monkey_patch_python_domain_to_transform_type_annotations():
         transformer = TypeAnnotationTransformer()
         transformer.config = cast(TypeTransformConfig, transformer_config)
         tree = ast.fix_missing_locations(transformer.visit(tree))
-        annotation = ast_unparse(tree)
+        annotation = ast.unparse(tree)
         return orig_parse_annotation(annotation, env)
 
     if sphinx.version_info >= (7, 3):

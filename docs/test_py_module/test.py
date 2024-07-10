@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 """Test Module for sphinx_rtd_theme."""
 import functools
-import sys
 from typing import Union
 
 
@@ -120,12 +119,10 @@ class Foo:
         """Return the instance qux as uppercase."""
         return self.capitalize(self.qux)
 
-    if sys.version_info >= (3, 8):
-
-        @functools.cached_property
-        def qux_caps_cached(self) -> str:
-            """Return the cached value of instance qux as uppercase."""
-            return self.qux_caps
+    @functools.cached_property
+    def qux_caps_cached(self) -> str:
+        """Return the cached value of instance qux as uppercase."""
+        return self.qux_caps
 
 
 def func(long: int, param: str, args: None, flags: bool, lists: Union[list, tuple]):
