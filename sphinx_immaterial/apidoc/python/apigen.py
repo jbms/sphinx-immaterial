@@ -257,9 +257,13 @@ def _summarize_signature(
         if isinstance(
             last_parameter, sphinx.addnodes.desc_parameter
         ) and not _has_default_value(last_parameter):
-            del last_parameter.children[1:]
-            if not _must_shorten():
-                return
+            for child_i, child in enumerate(last_parameter.children):
+                # Handle *args and **kwargs parameters.
+                if not isinstance(child, sphinx.addnodes.desc_sig_operator):
+                    del last_parameter[child_i + 1 :]
+                    if not _must_shorten():
+                        return
+                    break
 
         # Elide last parameter entirely
         del parameterlist.children[next_parameter_index]
