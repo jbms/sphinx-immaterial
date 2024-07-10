@@ -224,6 +224,7 @@ object_description_options = []
 object_description_options.append(
     ("cpp:.*", dict(clang_format_style={"BasedOnStyle": "LLVM"}))
 )
+object_description_options.append(("py:.*", dict(black_format_style={})))
 # END: sphinx_immaterial.apidoc.format_signatures extension options
 
 object_description_options.append(("py:.*", dict(wrap_signatures_with_css=True)))

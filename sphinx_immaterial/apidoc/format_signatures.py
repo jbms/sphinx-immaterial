@@ -1,22 +1,36 @@
 """Sphinx extension that formats signatures using an external tool.
 
-Currently only clang-format is supported.
+Currently black and clang-format are supported.
 """
 
 import collections
+import difflib
 import hashlib
 import io
 import json
 import re
 import subprocess
-from typing import Dict, List, Any, Union, Optional, cast, Tuple, Type
+from typing import (
+    Dict,
+    List,
+    Any,
+    Union,
+    Optional,
+    cast,
+    Tuple,
+    Type,
+    Callable,
+    NamedTuple,
+)
 
+import pydantic.dataclasses
 import docutils.nodes
 import sphinx.addnodes
 import sphinx.application
 import sphinx.environment
 import sphinx.transforms
 import sphinx.util.logging
+import sphinx.ext.viewcode
 
 from . import object_description_options
 
@@ -42,16 +56,37 @@ class SignatureText(docutils.nodes.Text):
     pass
 
 
-def visit_signature_text(self, node: SignatureText) -> None:
+def _html_visit_signature_text(self, node: SignatureText) -> None:
     encoded = self.encode(node.astext()).replace(" ", "&nbsp;").replace("\n", "<br>")
     self.body.append(encoded)
 
 
-def depart_signature_text(self, node: SignatureText) -> None:
+def _html_depart_signature_text(self, node: SignatureText) -> None:
+    pass
+
+
+def _latex_visit_signature_text(self, node: SignatureText) -> None:
+    self.literal_whitespace += 1
+    self.body.append(self.encode(node.astext()))
+    self.literal_whitespace -= 1
+
+
+def _latex_depart_signature_text(self, node: SignatureText) -> None:
     pass
 
 
 class CollectSignaturesTransform(sphinx.transforms.SphinxTransform):
+    """Collects signatures to be formatted.
+
+    For clang-format, this merely collects the signatures into the environment.
+    For efficiency, all of the collected signatures are formatted with a single
+    call to clang-format to avoid the overhead of starting the clang-format
+    process separately for each signature.
+
+    For black, this formats the signature immediately.
+
+    """
+
     # Late
     default_priority = 900
 
@@ -64,6 +99,10 @@ class CollectSignaturesTransform(sphinx.transforms.SphinxTransform):
             options = object_description_options.get_object_description_options(
                 self.env, domain, objtype
             )
+            if options.get("black_format_style") is not None:
+                _format_signature_with_black(domain, objtype, node, options)
+                continue
+
             if options.get("clang_format_style") is None:
                 continue
             if "api-include-path" in node["classes"]:
@@ -79,167 +118,489 @@ class CollectSignaturesTransform(sphinx.transforms.SphinxTransform):
             collected_signatures[domain, objtype][sig_id] = signature
 
 
-def _append_child_copy_source_info(
-    target: docutils.nodes.Element,
-    source_node: docutils.nodes.Node,
-    node: docutils.nodes.Node,
-):
-    source = source_node.source
-    line = source_node.line
-    target.append(node)
-    node.source = source
-    node.line = line
+def _transform_node_list(
+    source: list[docutils.nodes.Node],
+    transform,
+    *args,
+) -> list[docutils.nodes.Node]:
+    transformed = []
+    for node in source:
+        t = transform(*args, node)
+        transformed.extend(t)
+    return transformed
 
 
-def _extend_children_copy_source_info(
-    target: docutils.nodes.Element,
-    source_node: docutils.nodes.Node,
-    children: List[docutils.nodes.Node],
-):
-    source = source_node.source
-    line = source_node.line
-    target.extend(children)
-    for child in children:
-        child.source = source
-        child.line = line
+def _replace_text_nodes(
+    nodes: list[docutils.nodes.Node],
+    ignored: set[int],
+    replacements: dict[int, list[docutils.nodes.Node]],
+) -> list[docutils.nodes.Node]:
+    """Replaces each text node descendant in `nodes` with the specified replacements.
 
+    Args:
+      nodes: List of nodes.
+      replacements: Maps `id(text_node)` to the list of replacements.
 
-def _format_signature(node: sphinx.addnodes.desc_signature, formatted: str) -> None:
-    if "sig-wrap" in node["classes"]:
-        node["classes"].remove("sig-wrap")
-    children = list(node.children)
-    del node[:]
+    Returns:
+      Deep copy of `nodes` with the replacements applied.
+    """
 
-    formatted_i = 0
-
-    def format_next_text(text: str) -> str:
-        nonlocal formatted_i
-        if formatted[formatted_i : formatted_i + len(text)] == text:
-            # Matches fully
-            formatted_i += len(text)
-            return text
-
-        pattern = re.compile(
-            r"\s*" + r"\s*".join(re.escape(x) for x in re.sub(r"\s", "", text))
-        )
-        m = pattern.match(formatted, formatted_i)
-        if m is None:
-            raise ValueError("Failed to match")
-        formatted_i = m.end()
-        return m.group(0)
-
-    prev_text_node = None
-    seen_name = False
-    name_text_node_replacement = None
-
-    def process_text(node: docutils.nodes.Text):
-        nonlocal prev_text_node
-        new_text = format_next_text(node.astext())
-        new_node = SignatureText(new_text)
-        if not seen_name:
-            prev_text_node = new_node
-        new_node.source = node.source
-        new_node.line = node.line
+    def _transform_node(node):
+        if id(node) in ignored:
+            return [node.deepcopy()]
+        if isinstance(node, docutils.nodes.Text):
+            return replacements.get(id(node)) or []
+        new_node = node.copy()
+        new_node.extend(_transform_node_list(node.children, _transform_node))
+        if len(new_node.children) == 0:
+            # A pending_xref with no children is an error and indicates a
+            # problem with applying the format.
+            assert not isinstance(new_node, sphinx.addnodes.pending_xref)
+            return []
         return [new_node]
 
-    def process_desc_signature_line(node: sphinx.addnodes.desc_signature_line):
-        # Exclude the `desc_signature_line` element and just include its children
-        # directly.
-        new_children = []
-        for child in node.children:
-            new_children.extend(process(child))
-        return new_children
+    return _transform_node_list(nodes, _transform_node)
 
-    def process_pending_xref(node: sphinx.addnodes.pending_xref):
-        node = cast(sphinx.addnodes.pending_xref, node)
-        old_children = list(node.children)
-        del node[:]
-        for child in old_children:
-            _extend_children_copy_source_info(node, child, process(child))
-        return [node]
 
-    def convert_desc_parameter(
-        node: sphinx.addnodes.desc_parameter,
-    ) -> docutils.nodes.inline:
-        new_node = docutils.nodes.inline("", "")
-        new_node["classes"] = node["classes"]
-        for child in node.children:
-            _append_child_copy_source_info(new_node, child, child)
-        new_node.source = node.source
-        new_node.line = node.line
-        return new_node
+class FormatInputComponent(NamedTuple):
+    orig_text: str
+    """Original text in the signature.
 
-    def convert_desc_parameterlist(
-        node: sphinx.addnodes.desc_parameterlist,
-    ) -> docutils.nodes.inline:
-        # First replace with other representation
-        new_node = docutils.nodes.inline("", "")
-        new_node += sphinx.addnodes.desc_sig_punctuation("(", "(")
-        for i, child in enumerate(node.children):
-            if i != 0:
-                new_node += sphinx.addnodes.desc_sig_punctuation(",", ",")
-            _append_child_copy_source_info(new_node, child, child)
-        new_node += sphinx.addnodes.desc_sig_punctuation(")", ")")
-        return new_node
+    Equal to `node.astext()` if `node` is not `None`.
+    """
 
-    def process_text_element(node: docutils.nodes.TextElement):
-        assert node.child_text_separator == ""
-        old_children = list(node.children)
-        del node[:]
-        for child in old_children:
-            _extend_children_copy_source_info(node, child, process(child))
-        return [node]
+    input_text: str
+    """Input text for the formatter.
 
-    def process(node: docutils.nodes.Node):
-        nonlocal seen_name, name_text_node_replacement
-        if isinstance(node, docutils.nodes.Text):
-            return process_text(node)
-        if not seen_name:
-            if isinstance(node, sphinx.addnodes.desc_addname) or (
-                isinstance(node, sphinx.addnodes.desc_name)
-                and "sig-name-nonprimary"
-                not in cast(docutils.nodes.Element, node)["classes"]
-            ):
-                seen_name = True
-                if prev_text_node is not None:
-                    m = re.fullmatch(
-                        r"(.*\n)(\s+)$", prev_text_node.astext(), re.DOTALL
+    Must have the same length as `orig_text`. In most cases this is equal to
+    `orig_text`, but in some cases may be modified in order to make the input
+    syntactically valid for the formatter.
+    """
+
+    node: Optional[docutils.nodes.Text]
+    """Corresponding text node.
+
+    May be `None` if this component was added only to make the syntax valid for
+    the formatter and should not be preserved.
+    """
+
+
+class FormatApplier:
+    components: list[FormatInputComponent]
+    adjusted_nodes: list[docutils.nodes.Node]
+    ignored_nodes: set[int]
+
+    def __init__(self):
+        self.components = []
+        self.adjusted_nodes = []
+        self.ignored_nodes = set()
+
+    def add_fake_component(self, text: str):
+        self.components.append(
+            FormatInputComponent(orig_text=text, input_text=text, node=None)
+        )
+
+    def add_signature_child_nodes(
+        self, signature_child_nodes: list[docutils.nodes.Node]
+    ):
+        new_adjusted_nodes = _sig_transform_nodes(
+            self.ignored_nodes, signature_child_nodes
+        )
+        self.adjusted_nodes.extend(new_adjusted_nodes)
+        for adjusted_node in new_adjusted_nodes:
+            for text_node in adjusted_node.traverse(condition=docutils.nodes.Text):
+                orig_text = text_node.astext()
+                text = orig_text
+                parent = text_node.parent
+                if parent is not None:
+                    text = parent.get("munged_text_for_formatting", text)
+                self.components.append(
+                    FormatInputComponent(
+                        orig_text=orig_text, input_text=text, node=text_node
                     )
-                    if m is not None:
-                        name_text_node_replacement = (
-                            prev_text_node,
-                            SignatureText(m.group(1)),
-                        )
+                )
 
-        if isinstance(node, sphinx.addnodes.desc_signature_line):
-            return process_desc_signature_line(node)
-        if isinstance(node, sphinx.addnodes.pending_xref):
-            return process_pending_xref(node)
-        if isinstance(node, sphinx.addnodes.desc_parameter):
-            node = convert_desc_parameter(node)
-        elif isinstance(node, sphinx.addnodes.desc_parameterlist):
-            node = convert_desc_parameterlist(node)
-        if isinstance(node, docutils.nodes.TextElement):
-            return process_text_element(node)
-        raise ValueError("unexpected child")
+    def get_format_input(self, start_index: int = 0) -> str:
+        return "".join(c.input_text for c in self.components[start_index:])
 
-    node["is_multiline"] = False
-    for child in children:
-        _extend_children_copy_source_info(node, child, process(child))
+    def apply(
+        self,
+        formatted_input: str,
+        formatted_output: str,
+        signature_to_modify: sphinx.addnodes.desc_signature,
+    ):
+        """Align formatted input and output and apply changes to the signature.
 
-    if name_text_node_replacement is not None:
-        (
-            existing_node,
-            new_node,
-        ) = name_text_node_replacement
-        source = existing_node.source
-        line = existing_node.line
-        existing_node.parent.replace(existing_node, new_node)
-        new_node.source = source
-        new_node.line = line
+        Args:
+          formatted_input: Input to the formatter.
+          formatted_output: Formatted output.
+          signature_to_modify: Signature to modify in place.
+        """
+
+        components = self.components
+        component_i = 0
+        component_start_offset = 0
+        component_end_offset = len(components[0].orig_text)
+        replacements: dict[int, list[docutils.nodes.Node]] = collections.defaultdict(
+            list
+        )
+        for tag, i1, i2, j1, j2 in difflib.SequenceMatcher(
+            None,
+            formatted_input,
+            formatted_output,
+            autojunk=False,
+        ).get_opcodes():
+            while True:
+                if i1 != i2 and i1 == component_end_offset:
+                    component_start_offset = component_end_offset
+                    component_i += 1
+                    component_end_offset = component_start_offset + len(
+                        components[component_i].orig_text
+                    )
+                cur_replacements = replacements[id(components[component_i].node)]
+                if tag == "equal":
+                    value = components[component_i].orig_text[
+                        i1 - component_start_offset : i2 - component_start_offset
+                    ]
+                    i1 += len(value)
+                    cur_replacements.append(SignatureText(value))
+                else:
+                    while j1 < j2:
+                        if (
+                            m := _PUNCTUATION_PATTERN.search(formatted_output, j1, j2)
+                        ) is not None:
+                            m_start = m.start()
+                            m_end = m.end()
+                        else:
+                            m_start = m_end = j2
+                        if j1 != m_start:
+                            cur_replacements.append(
+                                SignatureText(formatted_output[j1:m_start])
+                            )
+                        if m_start != m_end:
+                            t = formatted_output[m_start:m_end]
+                            cur_replacements.append(
+                                sphinx.addnodes.desc_sig_punctuation(t, t)
+                            )
+                        j1 = m_end
+                    i1 = min(i2, component_end_offset)
+                if i1 == i2:
+                    break
+
+        del signature_to_modify[:]
+        signature_to_modify.extend(
+            _replace_text_nodes(self.adjusted_nodes, self.ignored_nodes, replacements)
+        )
+
+        if "sig-wrap" in signature_to_modify["classes"]:
+            signature_to_modify["classes"].remove("sig-wrap")
+
+        signature_to_modify["is_multiline"] = False
+
+
+def _format_signature_with_black(
+    domain: str, objtype: str, node: sphinx.addnodes.desc_signature, options
+):
+    import black
+
+    black_format_style = options.get("black_format_style")
+    assert black_format_style is not None
+
+    mode = black.FileMode(
+        line_length=black_format_style.line_length
+        or options["wrap_signatures_column_limit"],
+        string_normalization=black_format_style.string_normalization,
+    )
+
+    applier = FormatApplier()
+
+    def _format_with_black(
+        signature: str,
+        ensure_prefix: str,
+        add_empty_body: bool,
+        initial_indent: int = 0,
+    ) -> Optional[tuple[str, str]]:
+        if add_empty_body:
+            # Note: Use `pass` rather than `...` as the empty body because black
+            # tries to put `...` on the same line, which impacts the line length
+            # limit.
+            signature += ":\n    pass"
+
+        # Extract the initial prefix of `signature` to be munged.
+        #
+        # Sphinx signatures may be invalid Python syntax, such as:
+        #
+        #   foo.bar.func(a, b, c)
+        #   class foo.bar.C
+        #   class foo.bar.C[A, B]
+        #   exception Foo(RuntimeError)
+        #   property foo : T
+        #   staticmethod foo(a, b, c)
+        #   async classmethod foo(a, b, c)
+        #
+        # To munge these signatures into a form that is syntactically valid, they
+        # are transformed as follows:
+        #
+        # 1. The initial prefix is defined to contain all of the initial
+        #    space-separated optionally-dotted identifiers/keywords.
+        m = re.match(r"^[^=:(\[]*[^\s=:(\[]", signature)
+        if m is None:
+            logger.warning(
+                "Failed to extract initial prefix from %r for black formatting",
+                signature,
+                location=node,
+            )
+            return None
+        initial_prefix = m[0]
+
+        # 2. All spaces and dots in the initial prefix are replaced with
+        #    underscores to produce a valid identifier.
+        munged_prefix = re.sub("[ .]", "_", initial_prefix)
+
+        # 3. The first part of `munged_prefix` is replaced with `ensure_prefix`
+        #    if it is longer than `ensure_prefix`. This ensures that adding
+        #    `ensure_prefix` does not impact the effective line length. If
+        #    `munged_prefix` is too short, the effective line length will be
+        #    affected.
+        ensure_prefix += "_" * max(0, initial_indent - len(ensure_prefix))
+        extra_prefix_len = max(
+            initial_indent, len(ensure_prefix) - len(munged_prefix) + 1
+        )
+        munged_prefix = (
+            ensure_prefix + munged_prefix[len(ensure_prefix) - extra_prefix_len :]
+        )
+        extra_prefix = ensure_prefix[:extra_prefix_len]
+
+        signature = munged_prefix + signature[len(initial_prefix) :]
+
+        try:
+            formatted = black.format_str(signature, mode=mode)
+        except Exception as e:
+            logger.warning("Failed to format %r: %r", signature, e, location=node)
+            return None
+
+        if not formatted.startswith(extra_prefix):
+            logger.warning(
+                "Expected formatted output %r to start with %r",
+                formatted,
+                extra_prefix,
+                location=node,
+            )
+            return None
+
+        signature = signature[extra_prefix_len:]
+        formatted = formatted[extra_prefix_len:]
+
+        SUFFIX_PATTERN = r"(?::\s*pass)?\s*$"
+
+        formatted = re.sub(SUFFIX_PATTERN, "", formatted)
+        signature = re.sub(SUFFIX_PATTERN, "", signature)
+        return signature, formatted
+
+    parent_type_param_i = None
+    for i, orig_child in enumerate(node.children):
+        found_name = False
+        for n in orig_child.findall(condition=sphinx.addnodes.desc_name):
+            found_name = True
+            break
+        if found_name:
+            break
+        if isinstance(orig_child, sphinx.addnodes.desc_type_parameter_list):
+            # This is the parent entity type parameter list added by apigen.
+            parent_type_param_i = i
+            break
+
+    if parent_type_param_i is not None:
+        # First format up to the end of the parent type parameters
+        applier.add_signature_child_nodes(node.children[: parent_type_param_i + 1])
+        format_result = _format_with_black(
+            applier.get_format_input(),
+            "class " if objtype in ("class", "exception") else "",
+            add_empty_body=objtype in ("class", "exception"),
+        )
+        if format_result is None:
+            return
+        signature, formatted = format_result
+
+        remaining_component_i = len(applier.components)
+
+        # Format the remainder of the signature separately, prepending it with a
+        # suitable prefix to match the object type and the length of the last
+        # line of the previous formatted output.
+        m = re.search("[^\n]*$", formatted)
+        assert m is not None
+        prefix_len = len(m[0])
+
+        if objtype in ("function", "method"):
+            prefix = "def "
+        elif objtype in ("class", "exception"):
+            prefix = "class "
+        else:
+            prefix = ""
+
+        applier.add_signature_child_nodes(node.children[parent_type_param_i + 1 :])
+        format_result = _format_with_black(
+            applier.get_format_input(remaining_component_i),
+            initial_indent=prefix_len,
+            ensure_prefix=prefix,
+            add_empty_body=objtype in ("class", "exception", "function", "method"),
+        )
+        if format_result is None:
+            return
+        remaining_signature, remaining_formatted = format_result
+
+        signature += remaining_signature
+        formatted += remaining_formatted
+
+    else:
+        if objtype in ("function", "method"):
+            prefix = "def "
+        elif objtype in ("class", "exception"):
+            prefix = "class "
+        else:
+            prefix = ""
+
+        applier.add_signature_child_nodes(node.children)
+        format_result = _format_with_black(
+            applier.get_format_input(),
+            ensure_prefix=prefix,
+            add_empty_body=objtype in ("class", "exception", "function", "method"),
+        )
+        if format_result is None:
+            return
+        signature, formatted = format_result
+
+    applier.apply(signature, formatted, node)
+
+
+_PUNCTUATION_PATTERN = re.compile("[(),]")
+
+
+def _make_text_node_from_source(
+    cls: type, source: docutils.nodes.Node, text: str
+) -> docutils.nodes.Element:
+    node = cls(text, text)
+    node.source = source.source
+    node.line = source.line
+    return node
+
+
+def _sig_transform_nodes(
+    ignored: set[int], nodes: list[docutils.nodes.Node]
+) -> list[docutils.nodes.Node]:
+    return _transform_node_list(nodes, _sig_transform_node, ignored)
+
+
+def _sig_transform_generic(
+    ignored: set[int], node: docutils.nodes.Element
+) -> list[docutils.nodes.Node]:
+    new_node = node.copy()
+    new_node.extend(_sig_transform_nodes(ignored, node.children))
+    return [new_node]
+
+
+def _sig_transform_node_default(
+    ignored: set[int], node: docutils.nodes.Node
+) -> list[docutils.nodes.Node]:
+    if isinstance(node, docutils.nodes.Text):
+        return [node.copy()]
+    assert isinstance(node, docutils.nodes.TextElement)
+    assert node.child_text_separator == ""
+    return _sig_transform_generic(ignored, node)
+
+
+def _sig_transform_desc_signature_line(
+    ignored: set[int], node: docutils.nodes.Element
+) -> list[docutils.nodes.Node]:
+    return _sig_transform_nodes(ignored, node.children)
+
+
+def _sig_transform_desc_parameter_list(
+    ignored: set[int], node: docutils.nodes.Element, open_punct: str, close_punct: str
+) -> list[docutils.nodes.Node]:
+    new_nodes: list[docutils.nodes.Node] = [
+        _make_text_node_from_source(
+            sphinx.addnodes.desc_sig_punctuation, node, open_punct
+        )
+    ]
+    for i, child in enumerate(node.children):
+        if i != 0:
+            new_nodes.append(
+                _make_text_node_from_source(
+                    sphinx.addnodes.desc_sig_punctuation, node, ","
+                )
+            )
+        new_nodes.extend(_sig_transform_node(ignored, child))
+    new_nodes.append(
+        _make_text_node_from_source(
+            sphinx.addnodes.desc_sig_punctuation, node, close_punct
+        )
+    )
+    return new_nodes
+
+
+def _sig_transform_desc_returns(
+    ignored: set[int], node: docutils.nodes.Element
+) -> list[docutils.nodes.Node]:
+    return [
+        _make_text_node_from_source(sphinx.addnodes.desc_sig_punctuation, node, "->"),
+        *_sig_transform_nodes(ignored, node.children),
+    ]
+
+
+def _sig_transform_viewcode_anchor(
+    ignored: set[int], node: docutils.nodes.Element
+) -> list[docutils.nodes.Node]:
+    new_node = node.deepcopy()
+    ignored.add(id(new_node))
+    return [new_node]
+
+
+def _sig_transform_parameter(
+    ignored: set[int], node: docutils.nodes.Element
+) -> list[docutils.nodes.Node]:
+    new_node = _make_text_node_from_source(docutils.nodes.inline, node, "")
+    new_node["classes"] = node["classes"]
+    new_node.extend(_sig_transform_nodes(ignored, node.children))
+    return [new_node]
+
+
+_SIG_TRANSFORM_FUNCS: dict[
+    type, Callable[[set[int], docutils.nodes.Element], list[docutils.nodes.Node]]
+] = {
+    sphinx.addnodes.desc_signature_line: _sig_transform_desc_signature_line,
+    sphinx.addnodes.desc_parameterlist: (
+        lambda ignored, node: _sig_transform_desc_parameter_list(
+            ignored, node, "(", ")"
+        )
+    ),
+    sphinx.addnodes.desc_type_parameter_list: (
+        lambda ignored, node: _sig_transform_desc_parameter_list(
+            ignored, node, "[", "]"
+        )
+    ),
+    sphinx.addnodes.desc_parameter: _sig_transform_parameter,
+    sphinx.addnodes.desc_type_parameter: _sig_transform_parameter,
+    sphinx.addnodes.desc_returns: _sig_transform_desc_returns,
+    sphinx.addnodes.pending_xref: _sig_transform_generic,
+    sphinx.ext.viewcode.viewcode_anchor: _sig_transform_viewcode_anchor,
+}
+
+
+def _sig_transform_node(
+    ignored: set[int], node: docutils.nodes.Node
+) -> list[docutils.nodes.Node]:
+    return _SIG_TRANSFORM_FUNCS.get(type(node), _sig_transform_node_default)(
+        ignored,
+        node,  # type: ignore[arg-type]
+    )
 
 
 class FormatSignaturesTransform(sphinx.transforms.SphinxTransform):
+    """Applies the clang-format changes previously-computed by `env_updated` to
+    each individual signature.
+    """
+
     # Early
     default_priority = 0
 
@@ -254,7 +615,9 @@ class FormatSignaturesTransform(sphinx.transforms.SphinxTransform):
             formatted_signature = formatted_signatures.get(signature_id)
             if formatted_signature is None:
                 continue
-            _format_signature(node, formatted_signature)
+            applier = FormatApplier()
+            applier.add_signature_child_nodes(node.children)
+            applier.apply(applier.get_format_input(), formatted_signature, node)
 
 
 def merge_info(
@@ -263,6 +626,7 @@ def merge_info(
     docnames: List[str],
     other: sphinx.environment.BuildEnvironment,
 ) -> None:
+    """Merges collected signatures to be formatted by clang-format."""
     merged_sigs = _get_collected_signatures(env)
     for key, sigs in _get_collected_signatures(other).items():
         merged_sigs[key].update(sigs)
@@ -277,9 +641,31 @@ DOMAIN_CLANG_FORMAT_LANGUAGE = {
 ClangFormatStyle = Union[str, Dict[str, Any]]
 
 
+@pydantic.dataclasses.dataclass
+class BlackFormatStyle:
+    line_length: Optional[int] = None
+    """Line length limit.
+
+    Defaults to the value of :objconf:`wrap_signatures_column_limit`.
+    """
+
+    string_normalization: bool = True
+    """Indicates whether to normalize quotes. This corresponds to the inverse of Black
+    CLI's `--skip-string-normalization <https://black.readthedocs.io/en/stable/
+    usage_and_configuration/the_basics.html#s-skip-string-normalization>`_ option."""
+
+
 def env_updated(
     app: sphinx.application.Sphinx, env: sphinx.environment.BuildEnvironment
 ) -> None:
+    """Hook for the `env-updated` event that invokes clang-format and stores the
+    formatted output in the environment.
+
+    This runs just once per build with all of the collected signatures.
+
+    The formatted output is applied later to individual signatures in each
+    individual writer process by `FormatSignaturesTransform`.
+    """
     all_signatures = _get_collected_signatures(env)
     formatted_signatures = {}
 
@@ -347,12 +733,19 @@ def setup(app: sphinx.application.Sphinx):
         default=None,
         type_constraint=Optional[ClangFormatStyle],
     )
+    object_description_options.add_object_description_option(
+        app,
+        "black_format_style",
+        default=None,
+        type_constraint=Optional[BlackFormatStyle],
+    )
 
     app.connect("env-merge-info", merge_info)
     app.connect("env-updated", env_updated)
     app.add_node(
         cast(Type[docutils.nodes.Element], SignatureText),
-        html=(visit_signature_text, depart_signature_text),
+        html=(_html_visit_signature_text, _html_depart_signature_text),
+        latex=(_latex_visit_signature_text, _latex_depart_signature_text),
     )
     app.add_config_value(
         name="clang_format_command",

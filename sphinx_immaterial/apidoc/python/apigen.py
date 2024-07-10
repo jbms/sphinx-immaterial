@@ -266,6 +266,10 @@ def _summarize_signature(
         if not added_ellipsis:
             added_ellipsis = True
             ellipsis_node = sphinx.addnodes.desc_sig_punctuation("", "...")
+            # When using the `sphinx_immaterial.apidoc.format_signatures`
+            # extension, replace the text of this node to make it valid Python
+            # syntax.
+            ellipsis_node["munged_text_for_formatting"] = "___"
             param = sphinx.addnodes.desc_parameter()
             param += ellipsis_node
             parameterlist += param

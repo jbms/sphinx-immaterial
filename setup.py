@@ -229,7 +229,14 @@ setuptools.setup(
     ],
     extras_require={
         k: read_optional_reqs(f"{k}.txt")
-        for k in ["json", "jsonschema_validation", "clang-format", "keys", "cpp"]
+        for k in [
+            "json",
+            "jsonschema_validation",
+            "clang-format",
+            "keys",
+            "cpp",
+            "black",
+        ]
     },
     cmdclass=dict(
         sdist=SdistCommand,
