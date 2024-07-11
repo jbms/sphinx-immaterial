@@ -130,6 +130,12 @@ jobs:
         with:
           name: doc-builds-${{ runner.os }}
           path: docs/_build/
+      - name: upload docs to github pages
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main' && runner.os == 'Linux'
+        uses: peaceiris/actions-gh-pages@4f9cc6602d3f66b9c108549d475ec49e8ef4d45e # pinned to v4.0.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs/_build/html
 
   test:
     needs: [check_conventions, build]
@@ -217,7 +223,13 @@ jobs:
           name: coverage-report
           path: htmlcov/
       - name: Post coverage summary
-        run: cat .coverage_.md >> $GITHUB_STEP_SUMMARY
+        uses: codecov/codecov-action@v4
+        env:
+          CODECOV_TOKEN: ${{secrets.CODECOV_TOKEN}}
+        with:
+          files: ./coverage.xml
+          fail_ci_if_error: true # optional (default = false)
+          verbose: true # optional (default = false)
 
   compare-wheels:
     runs-on: ubuntu-latest
@@ -279,18 +291,3 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: gh release create ${{ github.ref_name }} --generate-notes
-      - name: Download docs artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: doc-builds-${{ runner.os }}
-          path: docs/_build/html
-      - name: Download coverage report artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: coverage-report
-          path: docs/_build/html/coverage_report/
-      - name: upload docs to github pages
-        uses: peaceiris/actions-gh-pages@4f9cc6602d3f66b9c108549d475ec49e8ef4d45e # pinned to v4.0.0
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./docs/_build/html

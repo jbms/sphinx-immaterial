@@ -230,5 +230,5 @@ def coverage(session: nox.Session):
         f"<details><summary>Coverage is {total}%</summary>\n\n{md}\n\n</details>",
         encoding="utf-8",
     )
-    session.run("coverage", "html")
+    session.run("coverage", "xml")
     session.log("Coverage is %d%%", total)
