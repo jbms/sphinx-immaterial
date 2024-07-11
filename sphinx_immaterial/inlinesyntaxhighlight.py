@@ -73,7 +73,8 @@ def _monkey_patch_html_translator(translator_class):
         if "code" not in node["classes"] or not lang:
             return orig_visit_literal(self, node)
 
-        def warner(msg):
+        # This isn't used by pygments; it may be for a different highlighter
+        def warner(msg):  # pragma: no cover
             self.builder.warn(msg, (self.builder.current_docname, node.line))
 
         highlight_args = dict(node.get("highlight_args", {}), nowrap=True)

@@ -215,7 +215,7 @@ def tests(session: nox.Session, sphinx: str):
         # sphinxcontrib deps that dropped support for sphinx v4.x
         session.install("-r", "tests/requirements-sphinx4.txt")
     session.install("-r", "tests/requirements.txt")
-    session.run("coverage", "run", "-m", "pytest", "-vv", "-s")
+    session.run("coverage", "run", "-m", "pytest", "-vv", "-s", "--durations=5")
     # session.notify("docs") <- only calls docs(html), not dirhtml or latex builders
 
 
@@ -230,5 +230,5 @@ def coverage(session: nox.Session):
         f"<details><summary>Coverage is {total}%</summary>\n\n{md}\n\n</details>",
         encoding="utf-8",
     )
-    session.run("coverage", "html")
+    session.run("coverage", "xml")
     session.log("Coverage is %d%%", total)

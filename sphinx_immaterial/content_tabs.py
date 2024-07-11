@@ -172,7 +172,7 @@ def visit_tab_set(self: HTMLTranslator, node: content_tab_set):
 
 
 def depart_tab_set(self: HTMLTranslator, node: content_tab_set):
-    pass
+    pass  # pragma: no cover
 
 
 def setup(app: Sphinx):

@@ -77,7 +77,7 @@ specifying the JSON schema definition files.
       :caption: Setting default roles and highlight language in :file:`conf.py`
 
       rst_prolog = """
-      .. role json(code)
+      .. role:: json(code)
          :language: json
          :class: highlight
       """
