@@ -121,7 +121,7 @@ directives, enable the :python:`"sphinx_immaterial.theme_result"` extension.
     .. rst:directive:option:: output-prefix
 
         This option allows separating the generated code block and rendered result with
-        text to conciseness. If no value is given, then the default phrase is used
+        text for conciseness. If no value is given, then the default phrase is used
         "Which renders the following content:"
 
         .. md-tab-set::
@@ -164,7 +164,13 @@ directives, enable the :python:`"sphinx_immaterial.theme_result"` extension.
         .. example::
             :collapsible:
 
-            This option was also used to add padding to the bottom of this page's recursive examples.
+            This option was also used to add padding to this page's recursive examples'
+            rendered output.
+
+            .. code-block:: rst
+
+                .. rst-example::
+                    :class: recursive-rst-example
 
             .. literalinclude:: _static/extra_css.css
                 :language: css
