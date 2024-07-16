@@ -162,7 +162,7 @@ meta_node_types: Tuple[Type[docutils.nodes.Element], ...]
 if sphinx.version_info >= (6,):
     meta_node_types = (docutils.nodes.meta,)  # type: ignore[attr-defined]
 else:
-    from sphinx.addnodes import (  # type: ignore[attr-defined] # pylint: disable=no-name-in-module
+    from sphinx.addnodes import (  # type: ignore[attr-defined]
         docutils_meta,
         meta as sphinx_meta,
     )

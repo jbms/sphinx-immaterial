@@ -1,6 +1,7 @@
 """Adds a new directive for using upstream's code annotations feature.
 See comments in visit_literal_block() override below for detailed explanation about
 why this directive is needed."""
+
 from typing import List, cast
 from docutils import nodes
 from sphinx.application import Sphinx

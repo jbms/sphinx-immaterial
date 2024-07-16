@@ -3,7 +3,6 @@
 This allows other extensions to identify those elements more easily.
 """
 
-
 from typing import Type
 
 import docutils.nodes

@@ -122,7 +122,7 @@ def _monkey_patch_cpp_noindex_option(
                         other_symbol.remove()
                         break
                 else:
-                    raise AssertionError(  # pylint: disable=raise-missing-from
+                    raise AssertionError(
                         "Duplicate symbol not found: %r" % (symbol.dump(2),)
                     )
             return symbol

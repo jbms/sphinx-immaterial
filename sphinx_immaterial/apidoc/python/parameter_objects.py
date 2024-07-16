@@ -471,8 +471,6 @@ def _monkey_patch_python_domain_to_cross_link_parameters():
         ).parent
         signodes = obj_desc.children[:-1]
 
-        py = cast(PythonDomain, self.env.get_domain("py"))
-
         noindex = "noindex" in self.options
 
         symbols = []

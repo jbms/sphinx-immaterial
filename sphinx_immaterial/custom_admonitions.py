@@ -1,5 +1,6 @@
 """This module inherits from the generic ``admonition`` directive and makes the
 title optional."""
+
 from abc import ABC
 from pathlib import PurePath
 import re

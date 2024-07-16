@@ -11,7 +11,6 @@ This adds support for:
   `missing-reference` handlers from receiving them.
 """
 
-
 import re
 from typing import Optional, Tuple, List, cast
 
@@ -25,8 +24,8 @@ from sphinx.domains.cpp import CPPExprRole
 # We monkey patch `resolve_xref` multiple times.  We must call
 # `_monkey_patch_cpp_resolve_c_xrefs` last, to ensure that the other logic only
 # runs once.
-from . import last_resolved_symbol  # pylint: disable=unused-import
-from . import synopses  # pylint: disable=unused-import
+from . import last_resolved_symbol  # noqa: F401
+from . import synopses  # noqa: F401
 
 POSSIBLE_MACRO_TARGET_PATTERN = re.compile("^[A-Z]+[A-Z_0-9]*(?:::[a-zA-Z0-9_]+)?$")
 """Pattern for targets that may possibly refer to a macro or macro parameter.

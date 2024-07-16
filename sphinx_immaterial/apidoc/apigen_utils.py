@@ -37,7 +37,7 @@ def _is_generated_file(rst_path: str, initial_comment: str) -> bool:
             return False
         content = pathlib.Path(rst_path).read_text(encoding="utf-8")
         return content.startswith(initial_comment)
-    except:  # pylint: disable=bare-except
+    except Exception:
         return False
 
 

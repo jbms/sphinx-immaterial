@@ -188,7 +188,7 @@ def _builder_inited(app: sphinx.application.Sphinx) -> None:
                 options[name] = pydantic.TypeAdapter(
                     registered_option.type_constraint
                 ).validate_python(value)
-            except Exception as e:  # pylint: disable=broad-except
+            except Exception as e:
                 logger.error(
                     "Invalid value %r for object description option"
                     " %r specified for pattern %r: %s",

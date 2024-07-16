@@ -4,4 +4,4 @@ nox
 -r requirements/cpp.txt
 -r requirements/dev-mypy.txt
 -r requirements/dev-black.txt
--r requirements/dev-pylint.txt
+-r requirements/dev-ruff.txt

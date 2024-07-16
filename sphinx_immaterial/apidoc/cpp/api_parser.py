@@ -73,7 +73,7 @@ import sphinx.domains.cpp
 import sphinx.util.logging
 from typing_extensions import NotRequired
 
-from . import ast_fixes  # pylint: disable=unused-import
+from . import ast_fixes  # noqa: F401
 
 
 logger = sphinx.util.logging.getLogger(__name__)
@@ -489,17 +489,17 @@ def _substitute_internal_type_names(config: Config, decl: str) -> str:
 
 
 def get_previous_line_location(tu, location: SourceLocation):
-    f = location.file
+    file = location.file
     line = location.line
-    return SourceLocation.from_position(tu, location.file, line - 1, 1)
+    return SourceLocation.from_position(tu, file, line - 1, 1)
 
 
 def get_presumed_location(location: SourceLocation) -> typing.Tuple[str, int, int]:
-    f, l, c = clang.cindex._CXString(), ctypes.c_uint(), ctypes.c_uint()
+    file, line, col = clang.cindex._CXString(), ctypes.c_uint(), ctypes.c_uint()
     clang.cindex.conf.lib.clang_getPresumedLocation(
-        location, ctypes.byref(f), ctypes.byref(l), ctypes.byref(c)
+        location, ctypes.byref(file), ctypes.byref(line), ctypes.byref(col)
     )
-    return (clang.cindex._CXString.from_result(f), int(l.value), int(c.value))
+    return (clang.cindex._CXString.from_result(file), int(line.value), int(col.value))
 
 
 def _get_template_cursor_kind(cursor: Cursor) -> CursorKind:
@@ -723,7 +723,6 @@ def get_extent_spelling(translation_unit: TranslationUnit, extent: SourceRange) 
     def get_spellings():
         prev_token = None
         COMMENT = TokenKind.COMMENT
-        spellings = []
         for token in translation_unit.get_tokens(extent=extent):
             if prev_token is not None:
                 yield prev_token.spelling
@@ -1059,7 +1058,6 @@ def _transform_enum_decl(config: Config, decl: Cursor) -> EnumEntity:
     if token1_spelling in ("class", "struct"):
         keyword = cast(ClassKeyword, token1_spelling)
 
-    name = decl.spelling
     enumerators: List[EnumeratorEntity] = []
     for child in decl.get_children():
         if child.kind != CursorKind.ENUM_CONSTANT_DECL:
@@ -1174,7 +1172,7 @@ def _maybe_wrap_requires_expr_in_parentheses(expr: str) -> str:
         parser.skip_ws()
         parser.assert_end()
         return expr
-    except:  # pylint: disable=bare-except
+    except Exception:
         return f"({expr})"
 
 
@@ -1583,7 +1581,7 @@ class JsonApiGenerator:
                 doc = None
                 self._document_with_parent[entity_id] = document_with
                 json_repr["document_with"] = document_with
-        extent = decl.extent
+        # extent = decl.extent
         json_repr["location"] = location
         nonitpick = get_nonitpick_directives(decl)
         if nonitpick:
@@ -2175,7 +2173,7 @@ def organize_entities(
             return False
         doc_text = doc["text"]
         for m in SPECIAL_GROUP_COMMAND_PATTERN.finditer(doc_text):
-            entity[cast(Literal["special_id"], "special_" + m.group(1))] = m.group(
+            entity[cast(Literal["special_id"], "special_" + m.group(1))] = m.group(  # noqa: F821
                 2
             ).strip()
         return True
@@ -2382,7 +2380,7 @@ def generate_output(config: Config) -> JsonApiData:
 def _load_config(config_path: str) -> Config:
     config_content = pathlib.Path(config_path).read_text(encoding="utf-8")
     context: dict = {}
-    exec(config_content, context)  # pylint: disable=exec-used
+    exec(config_content, context)
 
     config = context["config"]
     assert isinstance(config, Config)

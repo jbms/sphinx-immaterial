@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 """Test Module for sphinx_rtd_theme."""
+
 import functools
 from typing import Union
 
 
 class Foo:
-
     """Docstring for class Foo.
 
     This text tests for the formatting of docstrings generated from output

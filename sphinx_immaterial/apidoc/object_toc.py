@@ -73,7 +73,7 @@ def _monkey_patch_toc_tree_process_doc():
         source: docutils.nodes.field,
     ) -> Optional[docutils.nodes.section]:
         fieldname = cast(docutils.nodes.field_name, source[0])
-        fieldbody = cast(docutils.nodes.field_body, source[1])
+        # fieldbody = cast(docutils.nodes.field_body, source[1])
         ids = fieldname["ids"]
         if not ids:
             # Not indexed

@@ -19,9 +19,9 @@ from sphinx import version_info
 
 from . import html_translator_mixin
 from .apidoc import apidoc_formatting
-from .apidoc import fix_sphinx_issue_11147  # pylint: disable=unused-import
+from .apidoc import fix_sphinx_issue_11147  # noqa: F401
 from . import nav_adapt
-from . import sections  # pylint: disable=unused-import
+from . import sections  # noqa: F401
 
 logger = sphinx.util.logging.getLogger(__name__)
 

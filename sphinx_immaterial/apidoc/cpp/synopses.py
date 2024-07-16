@@ -24,7 +24,7 @@ def set_synopsis(
 def _monkey_patch_add_object_type_and_synopsis(
     domain_class: Union[
         Type[sphinx.domains.cpp.CPPDomain], Type[sphinx.domains.c.CDomain]
-    ]
+    ],
 ):
     """Patch C/C++ resolve_xref to add object type-dependent CSS classes."""
     orig_resolve_xref_inner = domain_class._resolve_xref_inner
@@ -40,7 +40,14 @@ def _monkey_patch_add_object_type_and_synopsis(
         contnode: docutils.nodes.Element,
     ) -> Tuple[Optional[docutils.nodes.Element], Optional[str]]:
         refnode, objtype = orig_resolve_xref_inner(
-            self, env, fromdocname, builder, typ, target, node, contnode  # type: ignore
+            self,
+            env,
+            fromdocname,
+            builder,
+            typ,
+            target,
+            node,
+            contnode,  # type: ignore
         )
         if refnode is None:
             return refnode, objtype
@@ -65,15 +72,15 @@ def _monkey_patch_add_object_type_and_synopsis(
             refnode["classes"].append("desctype")
 
         if last_symbol is not None:
-            refnode[
-                "reftitle"
-            ] = object_description_options.format_object_description_tooltip(
-                env,
-                object_description_options.get_object_description_options(
-                    env, self.name, objtype
-                ),
-                base_title=refnode["reftitle"],
-                synopsis=getattr(last_symbol.declaration, SYNOPSIS_ATTR, None),
+            refnode["reftitle"] = (
+                object_description_options.format_object_description_tooltip(
+                    env,
+                    object_description_options.get_object_description_options(
+                        env, self.name, objtype
+                    ),
+                    base_title=refnode["reftitle"],
+                    synopsis=getattr(last_symbol.declaration, SYNOPSIS_ATTR, None),
+                )
             )
 
         return refnode, objtype
@@ -82,7 +89,7 @@ def _monkey_patch_add_object_type_and_synopsis(
 
 
 def _monkey_patch_domain_get_object_synopses(
-    domain_class: Union[Type[CDomain], Type[CPPDomain]]
+    domain_class: Union[Type[CDomain], Type[CPPDomain]],
 ):
     def get_object_synopses(
         self: Union[CDomain, CPPDomain],

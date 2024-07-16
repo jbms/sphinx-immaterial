@@ -40,8 +40,9 @@ def create_sitemap(app: sphinx.application.Sphinx, exception):
 
     filename = str(app.outdir) + "/sitemap.xml"
     print(
-        "Generating sitemap for {0} pages in "
-        "{1}".format(len(sitemap_links), sphinx.util.console.colorize("blue", filename))
+        "Generating sitemap for {0} pages in {1}".format(
+            len(sitemap_links), sphinx.util.console.colorize("blue", filename)
+        )
     )
 
     root = ElementTree.Element("urlset")

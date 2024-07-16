@@ -1,5 +1,6 @@
 """Adds support for obtaining property types from docstring signatures, and
 improves formatting by PyProperty of type annotations."""
+
 import re
 from typing import Tuple, Optional, Any
 
@@ -70,7 +71,7 @@ def apply_property_documenter_type_annotation_fix():
                 ):
                     self.retann = stringify_annotation(signature.return_annotation)
                 return True
-            except:  # pylint: disable=bare-except
+            except Exception:
                 pass
 
         if not self.retann:

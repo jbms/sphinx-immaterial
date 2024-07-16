@@ -31,6 +31,7 @@ def test_code_annotation(immaterial_make_app):
     app.build()
     assert not app._warning.getvalue()  # type: ignore[attr-defined]
 
+
 def test_code_annotation_error(immaterial_make_app):
     app: SphinxTestApp = immaterial_make_app(
         files={
@@ -41,7 +42,8 @@ The Test
 .. code-annotations::
     This is not an enumerated list!
 
-"""},
+"""
+        },
     )
 
     app.build()

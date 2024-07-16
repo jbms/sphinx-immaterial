@@ -15,7 +15,7 @@ else:
     HTMLTranslatorMixinBase = object
 
 
-class HTMLTranslatorMixin(HTMLTranslatorMixinBase):  # pylint: disable=abstract-method
+class HTMLTranslatorMixin(HTMLTranslatorMixinBase):
     pass
 
 
@@ -72,8 +72,9 @@ def get_html_translator(
     base_translator: Type[sphinx.writers.html5.HTML5Translator],
 ) -> Type[sphinx.writers.html5.HTML5Translator]:
     class CustomHTMLTranslator(
-        HTMLTranslatorMixin, base_translator  # type: ignore
-    ):  # pylint: disable=abstract-method
+        HTMLTranslatorMixin,
+        base_translator,  # type: ignore
+    ):
         def __init__(self, *args, **kwargs):
             super().__init__(*args, **kwargs)
 

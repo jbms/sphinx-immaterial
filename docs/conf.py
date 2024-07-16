@@ -353,6 +353,7 @@ def get_colors(color_t: str):
         unique_colors.append(m.group(1))
     return unique_colors
 
+
 # jinja contexts
 example_python_apigen_modules = {
     "my_module": "my_api/",
@@ -373,8 +374,12 @@ jinja_contexts = {
             (
                 full_name,
                 overload_id,
-                python_apigen._get_docname(example_python_apigen_modules, full_name, overload_id, False),
-                python_apigen._get_docname(example_python_apigen_modules, full_name, overload_id, True),
+                python_apigen._get_docname(
+                    example_python_apigen_modules, full_name, overload_id, False
+                ),
+                python_apigen._get_docname(
+                    example_python_apigen_modules, full_name, overload_id, True
+                ),
             )
             for full_name, overload_id in example_python_apigen_objects
         ],

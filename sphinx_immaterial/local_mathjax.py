@@ -10,8 +10,7 @@ from sphinx.environment import BuildEnvironment
 
 def copy_mathjax_dist(app: Sphinx, env: BuildEnvironment) -> None:
     if (
-        app.builder.format != "html"
-        or app.builder.math_renderer_name != "mathjax"  # type: ignore[attr-defined]
+        app.builder.format != "html" or app.builder.math_renderer_name != "mathjax"  # type: ignore[attr-defined]
     ):
         return
     if not app.config.mathjax_path:

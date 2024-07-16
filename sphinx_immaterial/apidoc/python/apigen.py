@@ -61,7 +61,7 @@ else:
     stringify_annotation = sphinx.util.typing.stringify  # type: ignore[attr-defined]
 
 if sphinx.version_info >= (7, 3):
-    from sphinx.domains.python._annotations import _parse_annotation  # type: ignore[import-not-found]  # pylint: disable=import-error,no-name-in-module
+    from sphinx.domains.python._annotations import _parse_annotation  # type: ignore[import-not-found]
 else:
     from sphinx.domains.python import _parse_annotation
 
@@ -883,7 +883,7 @@ class PythonApigenTopLevelGroupDirective(sphinx.util.docutils.SphinxDirective):
         top_level_groups = data.top_level_groups
 
         group_id = docutils.nodes.make_id(self.arguments[0])
-        members = data.top_level_groups.get(group_id)
+        members = top_level_groups.get(group_id)
 
         if members is None:
             logger.warning(
@@ -1374,7 +1374,7 @@ def _get_documenter_members(
                 ),
                 is_inherited=True,
             )
-        except Exception as e:  # pylint: disable=broad-except
+        except Exception as e:
             logger.warning(
                 "Cannot obtain documenter for base class %r of %r: %r",
                 cls,
@@ -1487,8 +1487,10 @@ class _ApiEntityCollector:
         if isinstance(entry.documenter, sphinx.ext.autodoc.ClassDocumenter):
             canonical_full_name = entry.documenter.get_canonical_fullname()
         elif isinstance(entry.documenter, sphinx.ext.autodoc.FunctionDocumenter):
-            canonical_full_name = sphinx.ext.autodoc.ClassDocumenter.get_canonical_fullname(
-                entry.documenter  # type: ignore[arg-type]
+            canonical_full_name = (
+                sphinx.ext.autodoc.ClassDocumenter.get_canonical_fullname(
+                    entry.documenter  # type: ignore[arg-type]
+                )
             )
         if canonical_full_name is None:
             canonical_full_name = f"{entry.parent_canonical_full_name}.{entry.name}"
@@ -1854,15 +1856,13 @@ def _monkey_patch_napoleon_to_add_group_field():
     """
     orig_load_custom_sections = (
         sphinx.ext.napoleon.docstring.GoogleDocstring._load_custom_sections
-    )  # pylint: disable=protected-access
+    )
 
     def parse_section(
         self: sphinx.ext.napoleon.docstring.GoogleDocstring, section: str
     ) -> List[str]:
-        lines = self._strip_empty(
-            self._consume_to_next_section()
-        )  # pylint: disable=protected-access
-        lines = self._dedent(lines)  # pylint: disable=protected-access
+        lines = self._strip_empty(self._consume_to_next_section())
+        lines = self._dedent(lines)
         name = section.lower()
         if len(lines) != 1:
             raise ValueError(f"Expected exactly one {name} in {section} section")
@@ -1872,15 +1872,11 @@ def _monkey_patch_napoleon_to_add_group_field():
         self: sphinx.ext.napoleon.docstring.GoogleDocstring,
     ) -> None:
         orig_load_custom_sections(self)
-        self._sections["group"] = lambda section: parse_section(
-            self, section
-        )  # pylint: disable=protected-access
-        self._sections["order"] = lambda section: parse_section(
-            self, section
-        )  # pylint: disable=protected-access
+        self._sections["group"] = lambda section: parse_section(self, section)
+        self._sections["order"] = lambda section: parse_section(self, section)
 
     sphinx.ext.napoleon.docstring.GoogleDocstring._load_custom_sections = (  # type: ignore[assignment]
-        load_custom_sections  # pylint: disable=protected-access
+        load_custom_sections
     )
 
 

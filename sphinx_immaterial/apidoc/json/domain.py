@@ -41,7 +41,7 @@ import sphinx.util.docutils
 import sphinx.util.logging
 import sphinx.util.matching
 from sphinx.locale import _
-import yaml  # pylint: disable=import-error
+import yaml
 
 from .. import object_description_options
 from . import json_pprint
@@ -217,7 +217,7 @@ class LoadedSchemaData:
         return "%s:" % (filename,)
 
 
-def yaml_load(  # pylint: disable=invalid-name
+def yaml_load(
     stream,
     source_path: str,
 ) -> Tuple[Any, YamlSourceInfoMap]:
@@ -1148,7 +1148,7 @@ class JsonSchemaDomain(sphinx.domains.Domain):
                 else OBJECT_PRIORITY_UNIMPORTANT,
             )
 
-    def merge_domaindata(self, docnames: List[str], otherdata: Dict) -> None:  # pylint: disable=g-bare-generic
+    def merge_domaindata(self, docnames: List[str], otherdata: Dict) -> None:
         self.schemas.update(otherdata["schemas"])
 
     def _find_schema(
