@@ -40,7 +40,7 @@ def _monkey_patch_add_object_type_and_synopsis(
         contnode: docutils.nodes.Element,
     ) -> Tuple[Optional[docutils.nodes.Element], Optional[str]]:
         refnode, objtype = orig_resolve_xref_inner(
-            self,
+            self,  # type: ignore[arg-type]
             env,
             fromdocname,
             builder,

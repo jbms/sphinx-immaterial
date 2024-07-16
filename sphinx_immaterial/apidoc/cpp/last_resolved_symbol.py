@@ -71,7 +71,7 @@ def _monkey_patch_resolve_xref_save_symbol(
 
         try:
             return orig_resolve_xref_inner(
-                self,
+                self,  # type: ignore[arg-type]
                 env,
                 fromdocname,
                 builder,
