@@ -21,15 +21,15 @@ def _monkey_patch_python_domain_to_add_object_synopses_to_references():
         obj = self.objects.get(name)
         if obj is None:
             return
-        refnode["reftitle"] = (
-            object_description_options.format_object_description_tooltip(
-                env,
-                object_description_options.get_object_description_options(
-                    env, self.name, obj.objtype
-                ),
-                base_title=name,
-                synopsis=self.data["synopses"].get(name),
-            )
+        refnode[
+            "reftitle"
+        ] = object_description_options.format_object_description_tooltip(
+            env,
+            object_description_options.get_object_description_options(
+                env, self.name, obj.objtype
+            ),
+            base_title=name,
+            synopsis=self.data["synopses"].get(name),
         )
 
     orig_resolve_xref = PythonDomain.resolve_xref
@@ -100,8 +100,12 @@ def _monkey_patch_python_domain_to_support_synopses():
 
         symbols = []
         for signode in cast(List[docutils.nodes.Element], signodes):
-            modname = signode["module"]
-            fullname = signode["fullname"]
+            modname = signode.get("module", False)
+            if modname is False:
+                continue
+            fullname = signode.get("fullname", False)
+            if fullname is False:
+                continue
             symbol = (modname + "." if modname else "") + fullname
             symbols.append(symbol)
 
