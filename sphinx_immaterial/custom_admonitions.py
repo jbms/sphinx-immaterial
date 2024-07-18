@@ -20,7 +20,6 @@ import sphinx.ext.todo
 from sphinx.locale import admonitionlabels, _
 from sphinx.util.logging import getLogger
 from sphinx.writers.html5 import HTML5Translator
-from typing_extensions import Annotated
 from .css_and_javascript_bundles import add_global_css
 from .inline_icons import load_svg_into_builder_env, get_custom_icons
 from . import html_translator_mixin
@@ -43,8 +42,6 @@ INHERITED_ADMONITIONS = (
 
 _CUSTOM_ADMONITIONS_KEY = "sphinx_immaterial_custom_admonitions"
 
-
-CSSClassType = Annotated[str, pydantic.AfterValidator(nodes.make_id)]
 
 # defaults used for version directives re-styling
 VERSION_DIR_STYLE = {
@@ -80,7 +77,7 @@ class CustomAdmonitionConfig(pydantic.BaseModel):
     """The required name of the directive. This will be also used as a CSS class name.
     This value shall have characters that match the regular expression pattern
     ``[a-zA-Z0-9_-]``."""
-    title: Annotated[Optional[str], pydantic.Field(validate_default=True)] = None
+    title: Optional[str] = pydantic.Field(default=None, validate_default=True)
     """The default title to use when rendering the custom admonition. If this is
     not specified, then the `name` value is converted and used."""
     icon: Optional[str] = None
@@ -107,7 +104,7 @@ class CustomAdmonitionConfig(pydantic.BaseModel):
 
     .. note:: Any specified transparency (alpha value) is ignored.
     """
-    classes: List[CSSClassType] = []
+    classes: List[str] = []
     """If specified, this list of qualified names will be added to every rendered
     admonition (specific to the generated directive) element's ``class`` attribute.
 
@@ -148,7 +145,16 @@ class CustomAdmonitionConfig(pydantic.BaseModel):
             val = " ".join(
                 re.split(r"[\-_]+", cast(str, info.data.get("name")))
             ).title()
+
         return val
+
+    @pydantic.field_validator("classes")
+    @classmethod
+    def validate_classes(cls, val):
+        validated = []
+        for c in val:
+            validated.append(nodes.make_id(c))
+        return validated
 
 
 def visit_collapsible(self: HTML5Translator, node: nodes.Element, flag: str):
