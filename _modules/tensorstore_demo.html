@@ -854,9 +854,10 @@
 
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 <span class="kn">import</span> <span class="nn">typing</span>
-<span class="kn">import</span> <span class="nn">_abc</span>
 
-<span class="kn">from</span> <span class="nn">._tensorstore</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">._tensorstore</span> <span class="kn">import</span> <span class="o">*</span>  <span class="c1"># noqa: F403</span>
+
+<span class="c1"># fmt: off</span>
 
 
 <div class="viewcode-block" id="Dim">
@@ -2210,7 +2211,7 @@
   <small>
     
       Last update:
-      Jul 14, 2024
+      Jul 18, 2024
     
   </small>
 </div>
@@ -2251,7 +2252,7 @@
   
     Created using
     <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
-    7.3.7.
+    7.4.5.
      and
     <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
   

@@ -921,7 +921,7 @@
 <span class="kn">import</span> <span class="nn">sphinx.util.logging</span>
 <span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">NotRequired</span>
 
-<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">ast_fixes</span>  <span class="c1"># pylint: disable=unused-import</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">ast_fixes</span>  <span class="c1"># noqa: F401</span>
 
 
 <span class="n">logger</span> <span class="o">=</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
@@ -1340,17 +1340,17 @@
 
 
 <span class="k">def</span> <span class="nf">get_previous_line_location</span><span class="p">(</span><span class="n">tu</span><span class="p">,</span> <span class="n">location</span><span class="p">:</span> <span class="n">SourceLocation</span><span class="p">):</span>
-    <span class="n">f</span> <span class="o">=</span> <span class="n">location</span><span class="o">.</span><span class="n">file</span>
+    <span class="n">file</span> <span class="o">=</span> <span class="n">location</span><span class="o">.</span><span class="n">file</span>
     <span class="n">line</span> <span class="o">=</span> <span class="n">location</span><span class="o">.</span><span class="n">line</span>
-    <span class="k">return</span> <span class="n">SourceLocation</span><span class="o">.</span><span class="n">from_position</span><span class="p">(</span><span class="n">tu</span><span class="p">,</span> <span class="n">location</span><span class="o">.</span><span class="n">file</span><span class="p">,</span> <span class="n">line</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">SourceLocation</span><span class="o">.</span><span class="n">from_position</span><span class="p">(</span><span class="n">tu</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> <span class="n">line</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 
 
 <span class="k">def</span> <span class="nf">get_presumed_location</span><span class="p">(</span><span class="n">location</span><span class="p">:</span> <span class="n">SourceLocation</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">typing</span><span class="o">.</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
-    <span class="n">f</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">clang</span><span class="o">.</span><span class="n">cindex</span><span class="o">.</span><span class="n">_CXString</span><span class="p">(),</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_uint</span><span class="p">(),</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_uint</span><span class="p">()</span>
+    <span class="n">file</span><span class="p">,</span> <span class="n">line</span><span class="p">,</span> <span class="n">col</span> <span class="o">=</span> <span class="n">clang</span><span class="o">.</span><span class="n">cindex</span><span class="o">.</span><span class="n">_CXString</span><span class="p">(),</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_uint</span><span class="p">(),</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_uint</span><span class="p">()</span>
     <span class="n">clang</span><span class="o">.</span><span class="n">cindex</span><span class="o">.</span><span class="n">conf</span><span class="o">.</span><span class="n">lib</span><span class="o">.</span><span class="n">clang_getPresumedLocation</span><span class="p">(</span>
-        <span class="n">location</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="n">f</span><span class="p">),</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="n">l</span><span class="p">),</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+        <span class="n">location</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="n">file</span><span class="p">),</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="n">line</span><span class="p">),</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="n">col</span><span class="p">)</span>
     <span class="p">)</span>
-    <span class="k">return</span> <span class="p">(</span><span class="n">clang</span><span class="o">.</span><span class="n">cindex</span><span class="o">.</span><span class="n">_CXString</span><span class="o">.</span><span class="n">from_result</span><span class="p">(</span><span class="n">f</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">l</span><span class="o">.</span><span class="n">value</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">value</span><span class="p">))</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">clang</span><span class="o">.</span><span class="n">cindex</span><span class="o">.</span><span class="n">_CXString</span><span class="o">.</span><span class="n">from_result</span><span class="p">(</span><span class="n">file</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">value</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">col</span><span class="o">.</span><span class="n">value</span><span class="p">))</span>
 
 
 <span class="k">def</span> <span class="nf">_get_template_cursor_kind</span><span class="p">(</span><span class="n">cursor</span><span class="p">:</span> <span class="n">Cursor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">CursorKind</span><span class="p">:</span>
@@ -1574,7 +1574,6 @@
     <span class="k">def</span> <span class="nf">get_spellings</span><span class="p">():</span>
         <span class="n">prev_token</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="n">COMMENT</span> <span class="o">=</span> <span class="n">TokenKind</span><span class="o">.</span><span class="n">COMMENT</span>
-        <span class="n">spellings</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">translation_unit</span><span class="o">.</span><span class="n">get_tokens</span><span class="p">(</span><span class="n">extent</span><span class="o">=</span><span class="n">extent</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">prev_token</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="k">yield</span> <span class="n">prev_token</span><span class="o">.</span><span class="n">spelling</span>
@@ -1910,7 +1909,6 @@
     <span class="k">if</span> <span class="n">token1_spelling</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;class&quot;</span><span class="p">,</span> <span class="s2">&quot;struct&quot;</span><span class="p">):</span>
         <span class="n">keyword</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">ClassKeyword</span><span class="p">,</span> <span class="n">token1_spelling</span><span class="p">)</span>
 
-    <span class="n">name</span> <span class="o">=</span> <span class="n">decl</span><span class="o">.</span><span class="n">spelling</span>
     <span class="n">enumerators</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">EnumeratorEntity</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">decl</span><span class="o">.</span><span class="n">get_children</span><span class="p">():</span>
         <span class="k">if</span> <span class="n">child</span><span class="o">.</span><span class="n">kind</span> <span class="o">!=</span> <span class="n">CursorKind</span><span class="o">.</span><span class="n">ENUM_CONSTANT_DECL</span><span class="p">:</span>
@@ -2025,7 +2023,7 @@
         <span class="n">parser</span><span class="o">.</span><span class="n">skip_ws</span><span class="p">()</span>
         <span class="n">parser</span><span class="o">.</span><span class="n">assert_end</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">expr</span>
-    <span class="k">except</span><span class="p">:</span>  <span class="c1"># pylint: disable=bare-except</span>
+    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
         <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;(</span><span class="si">{</span><span class="n">expr</span><span class="si">}</span><span class="s2">)&quot;</span>
 
 
@@ -2434,7 +2432,7 @@
                 <span class="n">doc</span> <span class="o">=</span> <span class="kc">None</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_document_with_parent</span><span class="p">[</span><span class="n">entity_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">document_with</span>
                 <span class="n">json_repr</span><span class="p">[</span><span class="s2">&quot;document_with&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">document_with</span>
-        <span class="n">extent</span> <span class="o">=</span> <span class="n">decl</span><span class="o">.</span><span class="n">extent</span>
+        <span class="c1"># extent = decl.extent</span>
         <span class="n">json_repr</span><span class="p">[</span><span class="s2">&quot;location&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">location</span>
         <span class="n">nonitpick</span> <span class="o">=</span> <span class="n">get_nonitpick_directives</span><span class="p">(</span><span class="n">decl</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">nonitpick</span><span class="p">:</span>
@@ -3026,7 +3024,7 @@
             <span class="k">return</span> <span class="kc">False</span>
         <span class="n">doc_text</span> <span class="o">=</span> <span class="n">doc</span><span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">]</span>
         <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">SPECIAL_GROUP_COMMAND_PATTERN</span><span class="o">.</span><span class="n">finditer</span><span class="p">(</span><span class="n">doc_text</span><span class="p">):</span>
-            <span class="n">entity</span><span class="p">[</span><span class="n">cast</span><span class="p">(</span><span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;special_id&quot;</span><span class="p">],</span> <span class="s2">&quot;special_&quot;</span> <span class="o">+</span> <span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">))]</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span>
+            <span class="n">entity</span><span class="p">[</span><span class="n">cast</span><span class="p">(</span><span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;special_id&quot;</span><span class="p">],</span> <span class="s2">&quot;special_&quot;</span> <span class="o">+</span> <span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">))]</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span>  <span class="c1"># noqa: F821</span>
                 <span class="mi">2</span>
             <span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
         <span class="k">return</span> <span class="kc">True</span>
@@ -3233,7 +3231,7 @@
 <span class="k">def</span> <span class="nf">_load_config</span><span class="p">(</span><span class="n">config_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Config</span><span class="p">:</span>
     <span class="n">config_content</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">config_path</span><span class="p">)</span><span class="o">.</span><span class="n">read_text</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
     <span class="n">context</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="n">exec</span><span class="p">(</span><span class="n">config_content</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span>  <span class="c1"># pylint: disable=exec-used</span>
+    <span class="n">exec</span><span class="p">(</span><span class="n">config_content</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span>
 
     <span class="n">config</span> <span class="o">=</span> <span class="n">context</span><span class="p">[</span><span class="s2">&quot;config&quot;</span><span class="p">]</span>
     <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">Config</span><span class="p">)</span>
@@ -3259,7 +3257,7 @@
   <small>
     
       Last update:
-      Jul 14, 2024
+      Jul 18, 2024
     
   </small>
 </div>
@@ -3300,7 +3298,7 @@
   
     Created using
     <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
-    7.3.7.
+    7.4.5.
      and
     <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
   
