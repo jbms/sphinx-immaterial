@@ -1,4 +1,4 @@
-mypy==1.9.0
+mypy==1.10.1
 types-PyYAML
 docutils-stubs
 types-beautifulsoup4

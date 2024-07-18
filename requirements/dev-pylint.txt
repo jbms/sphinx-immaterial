@@ -1,5 +1,0 @@
-pylint==3.0.3
-
--r ./cpp.txt
--r ./json.txt
--r ../requirements.txt

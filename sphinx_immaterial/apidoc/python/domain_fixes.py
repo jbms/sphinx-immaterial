@@ -12,7 +12,7 @@ import sphinx.ext.napoleon
 import sphinx.util.logging
 import sphinx.util.nodes
 
-from . import autodoc_property_type  # pylint: disable=unused-import
+from . import autodoc_property_type  # noqa: F401
 
 PythonDomain = sphinx.domains.python.PythonDomain
 PyTypedField = sphinx.domains.python.PyTypedField

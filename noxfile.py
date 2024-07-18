@@ -6,8 +6,8 @@ import nox
 
 nox.options.reuse_existing_virtualenvs = True
 nox.options.sessions = [
-    "black",
-    "pylint",
+    "ruff_format",
+    "ruff_lint",
     "mypy",
     "check_yaml",
     "check_json",
@@ -21,17 +21,17 @@ SUPPORTED_PY_VER = list(f"3.{x}" for x in range(9, 13))
 
 
 @nox.session
-def black(session: nox.Session):
-    """Checks formatting linting and typing"""
-    session.install("-r", "requirements/dev-black.txt")
-    session.run("black", ".")
+def ruff_format(session: nox.Session):
+    """Checks formatting with ruff"""
+    session.install("-r", "requirements/dev-ruff.txt")
+    session.run("ruff", "format")
 
 
-@nox.session(python=False)
-def pylint(session: nox.Session):
-    """Run pylint using in default env"""
-    session.run("pip", "install", "-r", "requirements/dev-pylint.txt")
-    session.run("pylint", "sphinx_immaterial")
+@nox.session
+def ruff_lint(session: nox.Session):
+    """Run ruff as linter"""
+    session.install("-r", "requirements/dev-ruff.txt")
+    session.run("ruff", "check")
 
 
 @nox.session(python=False)
@@ -45,7 +45,7 @@ PRE_EXCLUDE = re.compile(
     "|".join(
         [
             "\\.git/",
-            "^\\.(?:mypy|pylint|pytest|eslint)_?cache",
+            "^\\.(?:mypy|ruff|pytest|eslint)_?cache",
             "^(?:\\.nox|\\.?env|\\.?venv)",
             "^\\.coverage.*",
             "^htmlcov/",

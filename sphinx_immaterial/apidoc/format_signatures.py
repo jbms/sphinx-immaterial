@@ -228,7 +228,7 @@ def _format_signature(node: sphinx.addnodes.desc_signature, formatted: str) -> N
         _extend_children_copy_source_info(node, child, process(child))
 
     if name_text_node_replacement is not None:
-        (  # pylint: disable=unpacking-non-sequence
+        (
             existing_node,
             new_node,
         ) = name_text_node_replacement

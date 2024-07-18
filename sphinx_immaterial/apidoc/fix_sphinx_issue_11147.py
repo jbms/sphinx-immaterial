@@ -28,7 +28,7 @@ def _monkey_patch_nested_parse_with_titles():
             return orig_nested_parse_with_titles(state, content, node)
 
     sphinx.util.nodes.nested_parse_with_titles = nested_parse_with_titles  # type: ignore[assignment]
-    sphinx.directives.nested_parse_with_titles = nested_parse_with_titles  # type: ignore[assignment]
+    sphinx.directives.nested_parse_with_titles = nested_parse_with_titles  # type: ignore[assignment,attr-defined]
 
 
 _monkey_patch_nested_parse_with_titles()

@@ -59,9 +59,9 @@ def format_directive(
         out.write(prefix + signature + "\n")
     if options:
         for key, value in options.items():
-            if value is False or value is None:  # pylint: disable=g-bool-id-comparison
+            if value is False or value is None:
                 continue
-            if value is True:  # pylint: disable=g-bool-id-comparison
+            if value is True:
                 value = ""
             out.write(f"   :{key}: {value}\n")
     if content:
@@ -110,9 +110,9 @@ def append_directive_to_stringlist(
     content_indent_str = base_indent_str + "   "
     if options:
         for key, value in options.items():
-            if value is False or value is None:  # pylint: disable=g-bool-id-comparison
+            if value is False or value is None:
                 continue
-            if value is True:  # pylint: disable=g-bool-id-comparison
+            if value is True:
                 value = ""
             out.append(f"{content_indent_str}:{key}: {value}", source_path, source_line)
     if content is not None:

@@ -6,7 +6,7 @@ import sphinx.addnodes
 import sphinx.domains.python
 
 if sphinx.version_info >= (7, 3):
-    from sphinx.domains.python._annotations import _parse_annotation  # type: ignore[import-not-found]  # pylint: disable=import-error,no-name-in-module
+    from sphinx.domains.python._annotations import _parse_annotation  # type: ignore[import-not-found]
 else:
     from sphinx.domains.python import _parse_annotation
 

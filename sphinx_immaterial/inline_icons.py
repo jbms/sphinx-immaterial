@@ -1,6 +1,7 @@
 """This module adds the md-icon role. This is specific to this this theme because,
 primarily, the icons bundled with this theme are supported (plus any svg files in the
 user project's static directories)."""
+
 from pathlib import Path
 from typing import Tuple, List, Dict
 

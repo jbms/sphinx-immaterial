@@ -6,9 +6,10 @@ pybind11.
 
 from __future__ import annotations
 import typing
-import _abc
 
-from ._tensorstore import *
+from ._tensorstore import *  # noqa: F403
+
+# fmt: off
 
 
 class Dim():

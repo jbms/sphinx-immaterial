@@ -1,15 +1,15 @@
 import sphinx.application
 
-from . import ast_fixes  # pylint: disable=unused-import
-from . import cpp_resolve_c_xrefs  # pylint: disable=unused-import
-from . import include_directives_in_signatures  # pylint: disable=unused-import
-from . import last_resolved_symbol  # pylint: disable=unused-import
-from . import macro_parameters  # pylint: disable=unused-import
-from . import parameter_objects  # pylint: disable=unused-import
-from . import signodes  # pylint: disable=unused-import
-from . import strip_namespaces_from_signatures  # pylint: disable=unused-import
-from . import symbol_ids  # pylint: disable=unused-import
-from . import synopses  # pylint: disable=unused-import
+from . import ast_fixes  # noqa: F401
+from . import cpp_resolve_c_xrefs  # noqa: F401
+from . import include_directives_in_signatures  # noqa: F401
+from . import last_resolved_symbol  # noqa: F401
+from . import macro_parameters  # noqa: F401
+from . import parameter_objects  # noqa: F401
+from . import signodes  # noqa: F401
+from . import strip_namespaces_from_signatures  # noqa: F401
+from . import symbol_ids  # noqa: F401
+from . import synopses  # noqa: F401
 
 
 def setup(app: sphinx.application.Sphinx):

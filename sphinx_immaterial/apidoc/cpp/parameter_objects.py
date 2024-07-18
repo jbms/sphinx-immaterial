@@ -125,25 +125,25 @@ def get_precise_template_parameter_object_type(
 
 def _monkey_patch_cpp_add_precise_template_parameter_object_types():
     """Adds more precise template{Type,NonType,Template}Param object types."""
-    sphinx.domains.cpp.CPPDomain.object_types[
-        "templateTypeParam"
-    ] = sphinx.domains.ObjType(
-        "type template parameter",
-        "identifier",
-        "class",
-        "struct",
-        "union",
-        "type",
+    sphinx.domains.cpp.CPPDomain.object_types["templateTypeParam"] = (
+        sphinx.domains.ObjType(
+            "type template parameter",
+            "identifier",
+            "class",
+            "struct",
+            "union",
+            "type",
+        )
     )
-    sphinx.domains.cpp.CPPDomain.object_types[
-        "templateNonTypeParam"
-    ] = sphinx.domains.ObjType(
-        "non-type template parameter", "identifier", "member", "var"
+    sphinx.domains.cpp.CPPDomain.object_types["templateNonTypeParam"] = (
+        sphinx.domains.ObjType(
+            "non-type template parameter", "identifier", "member", "var"
+        )
     )
-    sphinx.domains.cpp.CPPDomain.object_types[
-        "templateTemplateParam"
-    ] = sphinx.domains.ObjType(
-        "template template parameter", "identifier", "member", "var"
+    sphinx.domains.cpp.CPPDomain.object_types["templateTemplateParam"] = (
+        sphinx.domains.ObjType(
+            "template template parameter", "identifier", "member", "var"
+        )
     )
 
     def get_objects(

@@ -1,4 +1,5 @@
 """A custom directive that allows using mermaid diagrams"""
+
 from pathlib import Path
 import shutil
 from typing import List

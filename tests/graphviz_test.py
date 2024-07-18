@@ -1,4 +1,5 @@
 """Tests related to theme's patched graphviz ext."""
+
 import pytest
 from sphinx.testing.util import SphinxTestApp
 
@@ -50,9 +51,7 @@ A function
 A graph
 -------
 
-{}""".format(
-                graph
-            )
+{}""".format(graph)
         },
     )
 

@@ -1,4 +1,5 @@
 """A custom directive that allows using checkboxes for lists"""
+
 from typing import List
 from docutils import nodes
 from docutils.parsers.rst import directives

@@ -1,4 +1,5 @@
 """Tests related to theme's patched graphviz ext."""
+
 from sphinx.testing.util import SphinxTestApp
 
 

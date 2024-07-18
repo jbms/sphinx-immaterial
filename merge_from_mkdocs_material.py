@@ -27,7 +27,6 @@ import contextlib
 import json
 import os
 import pathlib
-import shutil
 import subprocess
 import tempfile
 from typing import Optional
@@ -243,7 +242,7 @@ def main():
             message=f"Original upstream {merge_base} (adjusted)",
         )
 
-        print(f"\nCreating adjusted commit for sphinx-immaterial")
+        print("\nCreating adjusted commit for sphinx-immaterial")
         subprocess.run(
             ["git", "remote", "rm", "local-sphinx-immaterial"],
             cwd=temp_workdir,
@@ -289,7 +288,7 @@ def main():
                 parent=old_tree_commit,
             )
 
-        print(f"\nRebasing")
+        print("\nRebasing")
         subprocess.run(["git", "rebase", new_tree_commit, "HEAD"], cwd=temp_workdir)
 
         with open(patch_path, "wb") as patch_f:
