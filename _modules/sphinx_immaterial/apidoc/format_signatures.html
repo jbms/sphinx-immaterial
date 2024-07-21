@@ -1253,7 +1253,10 @@
             <span class="k">break</span>
         <span class="k">if</span> <span class="n">found_name</span><span class="p">:</span>
             <span class="k">break</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">orig_child</span><span class="p">,</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">addnodes</span><span class="o">.</span><span class="n">desc_type_parameter_list</span><span class="p">):</span>
+        <span class="k">if</span> <span class="p">(</span>
+            <span class="nb">isinstance</span><span class="p">(</span><span class="n">orig_child</span><span class="p">,</span> <span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Element</span><span class="p">)</span>
+            <span class="ow">and</span> <span class="n">orig_child</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;sphinx_immaterial_parent_type_parameter_list&quot;</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">True</span>
+        <span class="p">):</span>
             <span class="c1"># This is the parent entity type parameter list added by apigen.</span>
             <span class="n">parent_type_param_i</span> <span class="o">=</span> <span class="n">i</span>
             <span class="k">break</span>
