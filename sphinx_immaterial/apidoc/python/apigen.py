@@ -257,15 +257,23 @@ def _summarize_signature(
         if isinstance(
             last_parameter, sphinx.addnodes.desc_parameter
         ) and not _has_default_value(last_parameter):
-            del last_parameter.children[1:]
-            if not _must_shorten():
-                return
+            for child_i, child in enumerate(last_parameter.children):
+                # Handle *args and **kwargs parameters.
+                if not isinstance(child, sphinx.addnodes.desc_sig_operator):
+                    del last_parameter[child_i + 1 :]
+                    if not _must_shorten():
+                        return
+                    break
 
         # Elide last parameter entirely
         del parameterlist.children[next_parameter_index]
         if not added_ellipsis:
             added_ellipsis = True
             ellipsis_node = sphinx.addnodes.desc_sig_punctuation("", "...")
+            # When using the `sphinx_immaterial.apidoc.format_signatures`
+            # extension, replace the text of this node to make it valid Python
+            # syntax.
+            ellipsis_node["munged_text_for_formatting"] = "___"
             param = sphinx.addnodes.desc_parameter()
             param += ellipsis_node
             parameterlist += param

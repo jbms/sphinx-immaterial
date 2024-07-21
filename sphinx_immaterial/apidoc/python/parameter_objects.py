@@ -469,16 +469,22 @@ def _monkey_patch_python_domain_to_cross_link_parameters():
         obj_desc = cast(
             sphinx.addnodes.desc_content, getattr(self, "contentnode")
         ).parent
-        signodes = obj_desc.children[:-1]
+        signodes = cast(list[sphinx.addnodes.desc_signature], obj_desc.children[:-1])
 
         noindex = "noindex" in self.options
 
         symbols = []
-        for signode in cast(List[docutils.nodes.Element], signodes):
-            modname = signode["module"]
-            fullname = signode["fullname"]
+        valid_signodes: list[sphinx.addnodes.desc_signature] = []
+        for signode in signodes:
+            modname = signode.get("module", False)
+            if modname is False:
+                continue
+            fullname = signode.get("fullname", False)
+            if fullname is False:
+                continue
             symbol = (modname + "." if modname else "") + fullname
             symbols.append(symbol)
+            valid_signodes.append(signode)
 
         if not symbols:
             return
@@ -492,7 +498,7 @@ def _monkey_patch_python_domain_to_cross_link_parameters():
         _cross_link_parameters(
             directive=self,
             app=self.env.app,
-            signodes=cast(List[sphinx.addnodes.desc_signature], signodes),
+            signodes=valid_signodes,
             content=getattr(self, "contentnode"),
             symbols=function_symbols,
             noindex=noindex,

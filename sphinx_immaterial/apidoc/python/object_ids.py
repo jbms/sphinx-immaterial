@@ -98,8 +98,15 @@ def _monkey_patch_python_domain_to_support_object_ids():
         noindexentry = "noindexentry" in self.options
 
         for signode in cast(List[docutils.nodes.Element], signodes):
-            modname = signode["module"]
-            fullname = signode["fullname"]
+            # If the Python signature could not be parsed by Sphinx, `module`
+            # and `fullname` won't be set. Such signatures should be gracefully
+            # ignored.
+            modname = signode.get("module", False)
+            if modname is False:
+                continue
+            fullname = signode.get("fullname", False)
+            if fullname is False:
+                continue
             symbol = (modname + "." if modname else "") + fullname
             if nonodeid and signode["ids"]:
                 orig_node_id = signode["ids"][0]
@@ -116,9 +123,9 @@ def _monkey_patch_python_domain_to_support_object_ids():
                         if new_entry[2] == orig_node_id:
                             new_entry[2] = ""
                         new_entries.append(tuple(new_entry))
-                    cast(docutils.nodes.Element, self.indexnode)["entries"] = (
-                        new_entries
-                    )
+                    cast(docutils.nodes.Element, self.indexnode)[
+                        "entries"
+                    ] = new_entries
 
     PyObject.after_content = after_content  # type: ignore[assignment]
 
