@@ -1,0 +1,1697 @@
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="icon" href="../../../_static/favicon.ico">
+    
+    
+      
+        <title>sphinx_immaterial.apidoc.format_signatures - Sphinx-Immaterial</title>
+      
+    
+    
+      
+        
+        
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+        <link rel="stylesheet" type="text/css" href="../../../_static/sphinx_immaterial_theme.a4d2c5990674c5726.min.css?v=f22bd06f" />
+        <link rel="stylesheet" type="text/css" href="../../../_static/extra_css.css?v=15999537" />
+        <link rel="stylesheet" type="text/css" href="../../../_static/custom_font_example.css?v=520ac564" />
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="light-green" data-md-color-accent="light-blue">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+    </div>
+    <div data-md-component="announce">
+      
+        <aside class="md-banner">
+          <div class="md-banner__inner md-grid md-typeset">
+            
+              <button class="md-banner__button md-icon" aria-label="Don't show this again">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+              </button>
+            
+            
+  <p>
+    Now includes
+    <a href="https://squidfunk.github.io/mkdocs-material/changelog/">changes from mkdocs-material theme</a>
+    v8.5.6
+  </p>
+
+          </div>
+          
+            <script>var content,el=document.querySelector("[data-md-component=announce]");el&&(content=el.querySelector(".md-typeset"),__md_hash(content.innerHTML)===__md_get("__announce")&&(el.hidden=!0))</script>
+          
+        </aside>
+      
+    </div>
+    
+      <div data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../index.html" title="Sphinx-Immaterial" class="md-header__button md-logo" aria-label="Sphinx-Immaterial" data-md-component="logo">
+      <img src="../../../_static/Ybin.gif" alt="logo">
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Sphinx-Immaterial
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              sphinx_immaterial.apidoc.format_signatures
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="light-green" data-md-color-accent="light-blue"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5Z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="deep-orange" data-md-color-accent="lime"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9v1Z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/jbms/sphinx-immaterial/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Sphinx-Immaterial
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../index.html" title="Sphinx-Immaterial" class="md-nav__button md-logo" aria-label="Sphinx-Immaterial" data-md-component="logo">
+      <img src="../../../_static/Ybin.gif" alt="logo">
+    </a>
+    Sphinx-Immaterial
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/jbms/sphinx-immaterial/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Sphinx-Immaterial
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../customization.html" class="md-nav__link">
+        <span class="md-ellipsis">Customization</span>
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../admonitions.html" class="md-nav__link">
+        <span class="md-ellipsis">Admonitions</span>
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../content_tabs.html" class="md-nav__link">
+        <span class="md-ellipsis">Content tabs</span>
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../task_lists.html" class="md-nav__link">
+        <span class="md-ellipsis">Task Lists</span>
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../keys.html" class="md-nav__link">
+        <span class="md-ellipsis">Keys extension</span>
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          <span class="md-ellipsis">Code Blocks</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Code Blocks" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Code Blocks</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code_syntax_highlighting.html" class="md-nav__link">
+        <span class="md-ellipsis">Code syntax highlighting</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code_annotations.html" class="md-nav__link">
+        <span class="md-ellipsis">Code Annotations</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          <span class="md-ellipsis">API documentation customization</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="API documentation customization" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">API documentation customization</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../apidoc/index.html" class="md-nav__link">
+        <span class="md-ellipsis">General API customization</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../apidoc/format_signatures.html" class="md-nav__link">
+        <span class="md-ellipsis">Formatting signatures</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../apidoc/python/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Python domain customization</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../apidoc/python/apigen.html" class="md-nav__link">
+        <span class="md-ellipsis">Python API documentation generation</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../apidoc/cpp/index.html" class="md-nav__link">
+        <span class="md-ellipsis">C++ domain customization</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../apidoc/cpp/external_cpp_references.html" class="md-nav__link">
+        <span class="md-ellipsis">External C++ symbol links</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../apidoc/cpp/cppreference.html" class="md-nav__link">
+        <span class="md-ellipsis">Automatic cross-<wbr>linking to cppreference.<wbr>com</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../apidoc/cpp/apigen.html" class="md-nav__link">
+        <span class="md-ellipsis">C++ API documentation generation</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../apidoc/json/domain.html" class="md-nav__link">
+        <span class="md-ellipsis">JSON domain</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../inline_icons.html" class="md-nav__link">
+        <span class="md-ellipsis">Inline icons</span>
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_9" type="checkbox" id="__nav_9" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_9">
+          <span class="md-ellipsis">Diagrams/graphs</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Diagrams/graphs" data-md-level="1">
+        <label class="md-nav__title" for="__nav_9">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Diagrams/graphs</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../graphviz.html" class="md-nav__link">
+        <span class="md-ellipsis">Graphviz</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mermaid_diagrams.html" class="md-nav__link">
+        <span class="md-ellipsis">Mermaid diagrams</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_10" type="checkbox" id="__nav_10" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_10">
+          <span class="md-ellipsis">Examples and Uses</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Examples and Uses" data-md-level="1">
+        <label class="md-nav__title" for="__nav_10">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Examples and Uses</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../demo_api.html" class="md-nav__link">
+        <span class="md-ellipsis">sample API documentation and generated content</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../python_apigen_demo.html" class="md-nav__link">
+        <span class="md-ellipsis">python_<wbr>apigen demo</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cpp_apigen_demo.html" class="md-nav__link">
+        <span class="md-ellipsis">cpp_<wbr>apigen demo</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../specimen.html" class="md-nav__link">
+        <span class="md-ellipsis">Specimen</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rst_basics.html" class="md-nav__link">
+        <span class="md-ellipsis">re<wbr>Structured<wbr>Text Primer</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rst-cheatsheet/rst-cheatsheet.html" class="md-nav__link">
+        <span class="md-ellipsis">rst Cheatsheet</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../additional_samples.html" class="md-nav__link">
+        <span class="md-ellipsis">Additional Samples</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../myst_typography.html" class="md-nav__link">
+        <span class="md-ellipsis">My<wbr>ST Mark<wbr>Down Typography</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../theme_result.html" class="md-nav__link">
+        <span class="md-ellipsis">Showcasing</span>
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset" role="main">
+                  
+
+
+  <a href="https://github.com/jbms/sphinx-immaterial/blob/main/docs/_modules/sphinx_immaterial/apidoc/format_signatures.rst" title="Edit this page" class="md-content__button md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"/></svg>
+  </a>
+
+<h1>Source code for sphinx_immaterial.apidoc.format_signatures</h1><div class="highlight"><pre>
+<span></span><code><span class="sd">&quot;&quot;&quot;Sphinx extension that formats signatures using an external tool.</span>
+
+<span class="sd">Currently black and clang-format are supported.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">collections</span>
+<span class="kn">import</span> <span class="nn">difflib</span>
+<span class="kn">import</span> <span class="nn">hashlib</span>
+<span class="kn">import</span> <span class="nn">io</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">subprocess</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">Dict</span><span class="p">,</span>
+    <span class="n">List</span><span class="p">,</span>
+    <span class="n">Any</span><span class="p">,</span>
+    <span class="n">Union</span><span class="p">,</span>
+    <span class="n">Optional</span><span class="p">,</span>
+    <span class="n">cast</span><span class="p">,</span>
+    <span class="n">Tuple</span><span class="p">,</span>
+    <span class="n">Type</span><span class="p">,</span>
+    <span class="n">Callable</span><span class="p">,</span>
+    <span class="n">NamedTuple</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="kn">import</span> <span class="nn">pydantic.dataclasses</span>
+<span class="kn">import</span> <span class="nn">docutils.nodes</span>
+<span class="kn">import</span> <span class="nn">sphinx.addnodes</span>
+<span class="kn">import</span> <span class="nn">sphinx.application</span>
+<span class="kn">import</span> <span class="nn">sphinx.environment</span>
+<span class="kn">import</span> <span class="nn">sphinx.transforms</span>
+<span class="kn">import</span> <span class="nn">sphinx.util.logging</span>
+<span class="kn">import</span> <span class="nn">sphinx.ext.viewcode</span>
+
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">object_description_options</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+<span class="n">_SIGNATURE_FORMAT_ID</span> <span class="o">=</span> <span class="s2">&quot;signature_format_id&quot;</span>
+
+<span class="n">_FORMATTED_SIGNATURES</span> <span class="o">=</span> <span class="s2">&quot;sphinx_immaterial_formatted_signatures&quot;</span>
+
+
+<span class="k">def</span> <span class="nf">_get_collected_signatures</span><span class="p">(</span>
+    <span class="n">env</span><span class="p">:</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">environment</span><span class="o">.</span><span class="n">BuildEnvironment</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]:</span>
+    <span class="n">attr</span> <span class="o">=</span> <span class="s2">&quot;_sphinx_immaterial_collected_signatures_to_format&quot;</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">attr</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">x</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">defaultdict</span><span class="p">(</span><span class="nb">dict</span><span class="p">)</span>
+        <span class="nb">setattr</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">attr</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">x</span>
+
+
+<span class="k">class</span> <span class="nc">SignatureText</span><span class="p">(</span><span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Text</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+
+<span class="k">def</span> <span class="nf">_html_visit_signature_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">SignatureText</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">encoded</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">astext</span><span class="p">())</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="s2">&quot;&amp;nbsp;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;&lt;br&gt;&quot;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">body</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">encoded</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_html_depart_signature_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">SignatureText</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">pass</span>
+
+
+<span class="k">def</span> <span class="nf">_latex_visit_signature_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">SignatureText</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">literal_whitespace</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">body</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">astext</span><span class="p">()))</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">literal_whitespace</span> <span class="o">-=</span> <span class="mi">1</span>
+
+
+<span class="k">def</span> <span class="nf">_latex_depart_signature_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">SignatureText</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">pass</span>
+
+
+<span class="k">class</span> <span class="nc">CollectSignaturesTransform</span><span class="p">(</span><span class="n">sphinx</span><span class="o">.</span><span class="n">transforms</span><span class="o">.</span><span class="n">SphinxTransform</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Collects signatures to be formatted.</span>
+
+<span class="sd">    For clang-format, this merely collects the signatures into the environment.</span>
+<span class="sd">    For efficiency, all of the collected signatures are formatted with a single</span>
+<span class="sd">    call to clang-format to avoid the overhead of starting the clang-format</span>
+<span class="sd">    process separately for each signature.</span>
+
+<span class="sd">    For black, this formats the signature immediately.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Late</span>
+    <span class="n">default_priority</span> <span class="o">=</span> <span class="mi">900</span>
+
+    <span class="k">def</span> <span class="nf">apply</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">collected_signatures</span> <span class="o">=</span> <span class="n">_get_collected_signatures</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">document</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">sphinx</span><span class="o">.</span><span class="n">addnodes</span><span class="o">.</span><span class="n">desc_signature</span><span class="p">):</span>
+            <span class="n">parent</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">parent</span>
+            <span class="n">domain</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">parent</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;domain&quot;</span><span class="p">)</span>
+            <span class="n">objtype</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">parent</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;objtype&quot;</span><span class="p">)</span>
+            <span class="n">options</span> <span class="o">=</span> <span class="n">object_description_options</span><span class="o">.</span><span class="n">get_object_description_options</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="p">,</span> <span class="n">domain</span><span class="p">,</span> <span class="n">objtype</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;black_format_style&quot;</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">_format_signature_with_black</span><span class="p">(</span><span class="n">domain</span><span class="p">,</span> <span class="n">objtype</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">options</span><span class="p">)</span>
+                <span class="k">continue</span>
+
+            <span class="k">if</span> <span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;clang_format_style&quot;</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="k">if</span> <span class="s2">&quot;api-include-path&quot;</span> <span class="ow">in</span> <span class="n">node</span><span class="p">[</span><span class="s2">&quot;classes&quot;</span><span class="p">]:</span>
+                <span class="k">continue</span>
+            <span class="n">parts</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">children</span><span class="p">:</span>
+                <span class="n">parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">child</span><span class="o">.</span><span class="n">astext</span><span class="p">())</span>
+            <span class="n">signature</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span>
+            <span class="n">sig_id</span> <span class="o">=</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">md5</span><span class="p">(</span>
+                <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">domain</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">objtype</span><span class="si">}</span><span class="s2">:&quot;</span> <span class="o">+</span> <span class="n">signature</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+            <span class="p">)</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span>
+            <span class="n">node</span><span class="p">[</span><span class="n">_SIGNATURE_FORMAT_ID</span><span class="p">]</span> <span class="o">=</span> <span class="n">sig_id</span>
+            <span class="n">collected_signatures</span><span class="p">[</span><span class="n">domain</span><span class="p">,</span> <span class="n">objtype</span><span class="p">][</span><span class="n">sig_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">signature</span>
+
+
+<span class="k">def</span> <span class="nf">_transform_node_list</span><span class="p">(</span>
+    <span class="n">source</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Node</span><span class="p">],</span>
+    <span class="n">transform</span><span class="p">,</span>
+    <span class="o">*</span><span class="n">args</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Node</span><span class="p">]:</span>
+    <span class="n">transformed</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">source</span><span class="p">:</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="n">transform</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">node</span><span class="p">)</span>
+        <span class="n">transformed</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">transformed</span>
+
+
+<span class="k">def</span> <span class="nf">_replace_text_nodes</span><span class="p">(</span>
+    <span class="n">nodes</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Node</span><span class="p">],</span>
+    <span class="n">ignored</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
+    <span class="n">replacements</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Node</span><span class="p">]],</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Node</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Replaces each text node descendant in `nodes` with the specified replacements.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">      nodes: List of nodes.</span>
+<span class="sd">      replacements: Maps `id(text_node)` to the list of replacements.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">      Deep copy of `nodes` with the replacements applied.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">_transform_node</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">id</span><span class="p">(</span><span class="n">node</span><span class="p">)</span> <span class="ow">in</span> <span class="n">ignored</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[</span><span class="n">node</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">()]</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Text</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">replacements</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">node</span><span class="p">))</span> <span class="ow">or</span> <span class="p">[]</span>
+        <span class="n">new_node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">new_node</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">_transform_node_list</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">children</span><span class="p">,</span> <span class="n">_transform_node</span><span class="p">))</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">new_node</span><span class="o">.</span><span class="n">children</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="c1"># A pending_xref with no children is an error and indicates a</span>
+            <span class="c1"># problem with applying the format.</span>
+            <span class="k">assert</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">new_node</span><span class="p">,</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">addnodes</span><span class="o">.</span><span class="n">pending_xref</span><span class="p">)</span>
+            <span class="k">return</span> <span class="p">[]</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">new_node</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">_transform_node_list</span><span class="p">(</span><span class="n">nodes</span><span class="p">,</span> <span class="n">_transform_node</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">FormatInputComponent</span><span class="p">(</span><span class="n">NamedTuple</span><span class="p">):</span>
+    <span class="n">orig_text</span><span class="p">:</span> <span class="nb">str</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Original text in the signature.</span>
+
+<span class="sd">    Equal to `node.astext()` if `node` is not `None`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">input_text</span><span class="p">:</span> <span class="nb">str</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Input text for the formatter.</span>
+
+<span class="sd">    Must have the same length as `orig_text`. In most cases this is equal to</span>
+<span class="sd">    `orig_text`, but in some cases may be modified in order to make the input</span>
+<span class="sd">    syntactically valid for the formatter.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">node</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Text</span><span class="p">]</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Corresponding text node.</span>
+
+<span class="sd">    May be `None` if this component was added only to make the syntax valid for</span>
+<span class="sd">    the formatter and should not be preserved.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+
+<span class="k">class</span> <span class="nc">FormatApplier</span><span class="p">:</span>
+    <span class="n">components</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">FormatInputComponent</span><span class="p">]</span>
+    <span class="n">adjusted_nodes</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Node</span><span class="p">]</span>
+    <span class="n">ignored_nodes</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">components</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">adjusted_nodes</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ignored_nodes</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">add_fake_component</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="n">FormatInputComponent</span><span class="p">(</span><span class="n">orig_text</span><span class="o">=</span><span class="n">text</span><span class="p">,</span> <span class="n">input_text</span><span class="o">=</span><span class="n">text</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">add_signature_child_nodes</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">signature_child_nodes</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Node</span><span class="p">]</span>
+    <span class="p">):</span>
+        <span class="n">new_adjusted_nodes</span> <span class="o">=</span> <span class="n">_sig_transform_nodes</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ignored_nodes</span><span class="p">,</span> <span class="n">signature_child_nodes</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">adjusted_nodes</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">new_adjusted_nodes</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">adjusted_node</span> <span class="ow">in</span> <span class="n">new_adjusted_nodes</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">text_node</span> <span class="ow">in</span> <span class="n">adjusted_node</span><span class="o">.</span><span class="n">traverse</span><span class="p">(</span><span class="n">condition</span><span class="o">=</span><span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Text</span><span class="p">):</span>
+                <span class="n">orig_text</span> <span class="o">=</span> <span class="n">text_node</span><span class="o">.</span><span class="n">astext</span><span class="p">()</span>
+                <span class="n">text</span> <span class="o">=</span> <span class="n">orig_text</span>
+                <span class="n">parent</span> <span class="o">=</span> <span class="n">text_node</span><span class="o">.</span><span class="n">parent</span>
+                <span class="k">if</span> <span class="n">parent</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">text</span> <span class="o">=</span> <span class="n">parent</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;munged_text_for_formatting&quot;</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                    <span class="n">FormatInputComponent</span><span class="p">(</span>
+                        <span class="n">orig_text</span><span class="o">=</span><span class="n">orig_text</span><span class="p">,</span> <span class="n">input_text</span><span class="o">=</span><span class="n">text</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="n">text_node</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">get_format_input</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">start_index</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">input_text</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="n">start_index</span><span class="p">:])</span>
+
+    <span class="k">def</span> <span class="nf">apply</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">formatted_input</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">formatted_output</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">signature_to_modify</span><span class="p">:</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">addnodes</span><span class="o">.</span><span class="n">desc_signature</span><span class="p">,</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Align formatted input and output and apply changes to the signature.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">          formatted_input: Input to the formatter.</span>
+<span class="sd">          formatted_output: Formatted output.</span>
+<span class="sd">          signature_to_modify: Signature to modify in place.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">components</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">components</span>
+        <span class="n">component_i</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">component_start_offset</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">component_end_offset</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">components</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">orig_text</span><span class="p">)</span>
+        <span class="n">replacements</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Node</span><span class="p">]]</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">defaultdict</span><span class="p">(</span>
+            <span class="nb">list</span>
+        <span class="p">)</span>
+        <span class="k">for</span> <span class="n">tag</span><span class="p">,</span> <span class="n">i1</span><span class="p">,</span> <span class="n">i2</span><span class="p">,</span> <span class="n">j1</span><span class="p">,</span> <span class="n">j2</span> <span class="ow">in</span> <span class="n">difflib</span><span class="o">.</span><span class="n">SequenceMatcher</span><span class="p">(</span>
+            <span class="kc">None</span><span class="p">,</span>
+            <span class="n">formatted_input</span><span class="p">,</span>
+            <span class="n">formatted_output</span><span class="p">,</span>
+            <span class="n">autojunk</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">get_opcodes</span><span class="p">():</span>
+            <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">i1</span> <span class="o">!=</span> <span class="n">i2</span> <span class="ow">and</span> <span class="n">i1</span> <span class="o">==</span> <span class="n">component_end_offset</span><span class="p">:</span>
+                    <span class="n">component_start_offset</span> <span class="o">=</span> <span class="n">component_end_offset</span>
+                    <span class="n">component_i</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="n">component_end_offset</span> <span class="o">=</span> <span class="n">component_start_offset</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span>
+                        <span class="n">components</span><span class="p">[</span><span class="n">component_i</span><span class="p">]</span><span class="o">.</span><span class="n">orig_text</span>
+                    <span class="p">)</span>
+                <span class="n">cur_replacements</span> <span class="o">=</span> <span class="n">replacements</span><span class="p">[</span><span class="nb">id</span><span class="p">(</span><span class="n">components</span><span class="p">[</span><span class="n">component_i</span><span class="p">]</span><span class="o">.</span><span class="n">node</span><span class="p">)]</span>
+                <span class="k">if</span> <span class="n">tag</span> <span class="o">==</span> <span class="s2">&quot;equal&quot;</span><span class="p">:</span>
+                    <span class="n">value</span> <span class="o">=</span> <span class="n">components</span><span class="p">[</span><span class="n">component_i</span><span class="p">]</span><span class="o">.</span><span class="n">orig_text</span><span class="p">[</span>
+                        <span class="n">i1</span> <span class="o">-</span> <span class="n">component_start_offset</span> <span class="p">:</span> <span class="n">i2</span> <span class="o">-</span> <span class="n">component_start_offset</span>
+                    <span class="p">]</span>
+                    <span class="n">i1</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+                    <span class="n">cur_replacements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">SignatureText</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">while</span> <span class="n">j1</span> <span class="o">&lt;</span> <span class="n">j2</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="p">(</span>
+                            <span class="n">m</span> <span class="o">:=</span> <span class="n">_PUNCTUATION_PATTERN</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">formatted_output</span><span class="p">,</span> <span class="n">j1</span><span class="p">,</span> <span class="n">j2</span><span class="p">)</span>
+                        <span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                            <span class="n">m_start</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+                            <span class="n">m_end</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">end</span><span class="p">()</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="n">m_start</span> <span class="o">=</span> <span class="n">m_end</span> <span class="o">=</span> <span class="n">j2</span>
+                        <span class="k">if</span> <span class="n">j1</span> <span class="o">!=</span> <span class="n">m_start</span><span class="p">:</span>
+                            <span class="n">cur_replacements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                                <span class="n">SignatureText</span><span class="p">(</span><span class="n">formatted_output</span><span class="p">[</span><span class="n">j1</span><span class="p">:</span><span class="n">m_start</span><span class="p">])</span>
+                            <span class="p">)</span>
+                        <span class="k">if</span> <span class="n">m_start</span> <span class="o">!=</span> <span class="n">m_end</span><span class="p">:</span>
+                            <span class="n">t</span> <span class="o">=</span> <span class="n">formatted_output</span><span class="p">[</span><span class="n">m_start</span><span class="p">:</span><span class="n">m_end</span><span class="p">]</span>
+                            <span class="n">cur_replacements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                                <span class="n">sphinx</span><span class="o">.</span><span class="n">addnodes</span><span class="o">.</span><span class="n">desc_sig_punctuation</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+                            <span class="p">)</span>
+                        <span class="n">j1</span> <span class="o">=</span> <span class="n">m_end</span>
+                    <span class="n">i1</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">i2</span><span class="p">,</span> <span class="n">component_end_offset</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">i1</span> <span class="o">==</span> <span class="n">i2</span><span class="p">:</span>
+                    <span class="k">break</span>
+
+        <span class="k">del</span> <span class="n">signature_to_modify</span><span class="p">[:]</span>
+        <span class="n">signature_to_modify</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span>
+            <span class="n">_replace_text_nodes</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">adjusted_nodes</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ignored_nodes</span><span class="p">,</span> <span class="n">replacements</span><span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="k">if</span> <span class="s2">&quot;sig-wrap&quot;</span> <span class="ow">in</span> <span class="n">signature_to_modify</span><span class="p">[</span><span class="s2">&quot;classes&quot;</span><span class="p">]:</span>
+            <span class="n">signature_to_modify</span><span class="p">[</span><span class="s2">&quot;classes&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s2">&quot;sig-wrap&quot;</span><span class="p">)</span>
+
+        <span class="n">signature_to_modify</span><span class="p">[</span><span class="s2">&quot;is_multiline&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+
+
+<span class="k">def</span> <span class="nf">_format_signature_with_black</span><span class="p">(</span>
+    <span class="n">domain</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">objtype</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">addnodes</span><span class="o">.</span><span class="n">desc_signature</span><span class="p">,</span> <span class="n">options</span>
+<span class="p">):</span>
+    <span class="kn">import</span> <span class="nn">black</span>
+
+    <span class="n">black_format_style</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;black_format_style&quot;</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">black_format_style</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+
+    <span class="n">mode</span> <span class="o">=</span> <span class="n">black</span><span class="o">.</span><span class="n">FileMode</span><span class="p">(</span>
+        <span class="n">line_length</span><span class="o">=</span><span class="n">black_format_style</span><span class="o">.</span><span class="n">line_length</span>
+        <span class="ow">or</span> <span class="n">options</span><span class="p">[</span><span class="s2">&quot;wrap_signatures_column_limit&quot;</span><span class="p">],</span>
+        <span class="n">string_normalization</span><span class="o">=</span><span class="n">black_format_style</span><span class="o">.</span><span class="n">string_normalization</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">applier</span> <span class="o">=</span> <span class="n">FormatApplier</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_format_with_black</span><span class="p">(</span>
+        <span class="n">signature</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">ensure_prefix</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">add_empty_body</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+        <span class="n">initial_indent</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]:</span>
+        <span class="k">if</span> <span class="n">add_empty_body</span><span class="p">:</span>
+            <span class="c1"># Note: Use `pass` rather than `...` as the empty body because black</span>
+            <span class="c1"># tries to put `...` on the same line, which impacts the line length</span>
+            <span class="c1"># limit.</span>
+            <span class="n">signature</span> <span class="o">+=</span> <span class="s2">&quot;:</span><span class="se">\n</span><span class="s2">    pass&quot;</span>
+
+        <span class="c1"># Extract the initial prefix of `signature` to be munged.</span>
+        <span class="c1">#</span>
+        <span class="c1"># Sphinx signatures may be invalid Python syntax, such as:</span>
+        <span class="c1">#</span>
+        <span class="c1">#   foo.bar.func(a, b, c)</span>
+        <span class="c1">#   class foo.bar.C</span>
+        <span class="c1">#   class foo.bar.C[A, B]</span>
+        <span class="c1">#   exception Foo(RuntimeError)</span>
+        <span class="c1">#   property foo : T</span>
+        <span class="c1">#   staticmethod foo(a, b, c)</span>
+        <span class="c1">#   async classmethod foo(a, b, c)</span>
+        <span class="c1">#</span>
+        <span class="c1"># To munge these signatures into a form that is syntactically valid, they</span>
+        <span class="c1"># are transformed as follows:</span>
+        <span class="c1">#</span>
+        <span class="c1"># 1. The initial prefix is defined to contain all of the initial</span>
+        <span class="c1">#    space-separated optionally-dotted identifiers/keywords.</span>
+        <span class="n">m</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;^[^=:(\[]*[^\s=:(\[]&quot;</span><span class="p">,</span> <span class="n">signature</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">m</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="s2">&quot;Failed to extract initial prefix from </span><span class="si">%r</span><span class="s2"> for black formatting&quot;</span><span class="p">,</span>
+                <span class="n">signature</span><span class="p">,</span>
+                <span class="n">location</span><span class="o">=</span><span class="n">node</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="n">initial_prefix</span> <span class="o">=</span> <span class="n">m</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="c1"># 2. All spaces and dots in the initial prefix are replaced with</span>
+        <span class="c1">#    underscores to produce a valid identifier.</span>
+        <span class="n">munged_prefix</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">&quot;[ .]&quot;</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span class="p">,</span> <span class="n">initial_prefix</span><span class="p">)</span>
+
+        <span class="c1"># 3. The first part of `munged_prefix` is replaced with `ensure_prefix`</span>
+        <span class="c1">#    if it is longer than `ensure_prefix`. This ensures that adding</span>
+        <span class="c1">#    `ensure_prefix` does not impact the effective line length. If</span>
+        <span class="c1">#    `munged_prefix` is too short, the effective line length will be</span>
+        <span class="c1">#    affected.</span>
+        <span class="n">ensure_prefix</span> <span class="o">+=</span> <span class="s2">&quot;_&quot;</span> <span class="o">*</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">initial_indent</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">ensure_prefix</span><span class="p">))</span>
+        <span class="n">extra_prefix_len</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span>
+            <span class="n">initial_indent</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">ensure_prefix</span><span class="p">)</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">munged_prefix</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="p">)</span>
+        <span class="n">munged_prefix</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">ensure_prefix</span> <span class="o">+</span> <span class="n">munged_prefix</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">ensure_prefix</span><span class="p">)</span> <span class="o">-</span> <span class="n">extra_prefix_len</span> <span class="p">:]</span>
+        <span class="p">)</span>
+        <span class="n">extra_prefix</span> <span class="o">=</span> <span class="n">ensure_prefix</span><span class="p">[:</span><span class="n">extra_prefix_len</span><span class="p">]</span>
+
+        <span class="n">signature</span> <span class="o">=</span> <span class="n">munged_prefix</span> <span class="o">+</span> <span class="n">signature</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">initial_prefix</span><span class="p">)</span> <span class="p">:]</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">formatted</span> <span class="o">=</span> <span class="n">black</span><span class="o">.</span><span class="n">format_str</span><span class="p">(</span><span class="n">signature</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="n">mode</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Failed to format </span><span class="si">%r</span><span class="s2">: </span><span class="si">%r</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">signature</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">location</span><span class="o">=</span><span class="n">node</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">formatted</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">extra_prefix</span><span class="p">):</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="s2">&quot;Expected formatted output </span><span class="si">%r</span><span class="s2"> to start with </span><span class="si">%r</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="n">formatted</span><span class="p">,</span>
+                <span class="n">extra_prefix</span><span class="p">,</span>
+                <span class="n">location</span><span class="o">=</span><span class="n">node</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="n">signature</span> <span class="o">=</span> <span class="n">signature</span><span class="p">[</span><span class="n">extra_prefix_len</span><span class="p">:]</span>
+        <span class="n">formatted</span> <span class="o">=</span> <span class="n">formatted</span><span class="p">[</span><span class="n">extra_prefix_len</span><span class="p">:]</span>
+
+        <span class="n">SUFFIX_PATTERN</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;(?::\s*pass)?\s*$&quot;</span>
+
+        <span class="n">formatted</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="n">SUFFIX_PATTERN</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">formatted</span><span class="p">)</span>
+        <span class="n">signature</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="n">SUFFIX_PATTERN</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">signature</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">signature</span><span class="p">,</span> <span class="n">formatted</span>
+
+    <span class="n">parent_type_param_i</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">orig_child</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">children</span><span class="p">):</span>
+        <span class="n">found_name</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">orig_child</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">condition</span><span class="o">=</span><span class="n">sphinx</span><span class="o">.</span><span class="n">addnodes</span><span class="o">.</span><span class="n">desc_name</span><span class="p">):</span>
+            <span class="n">found_name</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">break</span>
+        <span class="k">if</span> <span class="n">found_name</span><span class="p">:</span>
+            <span class="k">break</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">orig_child</span><span class="p">,</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">addnodes</span><span class="o">.</span><span class="n">desc_type_parameter_list</span><span class="p">):</span>
+            <span class="c1"># This is the parent entity type parameter list added by apigen.</span>
+            <span class="n">parent_type_param_i</span> <span class="o">=</span> <span class="n">i</span>
+            <span class="k">break</span>
+
+    <span class="k">if</span> <span class="n">parent_type_param_i</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># First format up to the end of the parent type parameters</span>
+        <span class="n">applier</span><span class="o">.</span><span class="n">add_signature_child_nodes</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">children</span><span class="p">[:</span> <span class="n">parent_type_param_i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span>
+        <span class="n">format_result</span> <span class="o">=</span> <span class="n">_format_with_black</span><span class="p">(</span>
+            <span class="n">applier</span><span class="o">.</span><span class="n">get_format_input</span><span class="p">(),</span>
+            <span class="s2">&quot;class &quot;</span> <span class="k">if</span> <span class="n">objtype</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;class&quot;</span><span class="p">,</span> <span class="s2">&quot;exception&quot;</span><span class="p">)</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="n">add_empty_body</span><span class="o">=</span><span class="n">objtype</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;class&quot;</span><span class="p">,</span> <span class="s2">&quot;exception&quot;</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">format_result</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="n">signature</span><span class="p">,</span> <span class="n">formatted</span> <span class="o">=</span> <span class="n">format_result</span>
+
+        <span class="n">remaining_component_i</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">applier</span><span class="o">.</span><span class="n">components</span><span class="p">)</span>
+
+        <span class="c1"># Format the remainder of the signature separately, prepending it with a</span>
+        <span class="c1"># suitable prefix to match the object type and the length of the last</span>
+        <span class="c1"># line of the previous formatted output.</span>
+        <span class="n">m</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;[^</span><span class="se">\n</span><span class="s2">]*$&quot;</span><span class="p">,</span> <span class="n">formatted</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">m</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+        <span class="n">prefix_len</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">m</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+        <span class="k">if</span> <span class="n">objtype</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;function&quot;</span><span class="p">,</span> <span class="s2">&quot;method&quot;</span><span class="p">):</span>
+            <span class="n">prefix</span> <span class="o">=</span> <span class="s2">&quot;def &quot;</span>
+        <span class="k">elif</span> <span class="n">objtype</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;class&quot;</span><span class="p">,</span> <span class="s2">&quot;exception&quot;</span><span class="p">):</span>
+            <span class="n">prefix</span> <span class="o">=</span> <span class="s2">&quot;class &quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">prefix</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+
+        <span class="n">applier</span><span class="o">.</span><span class="n">add_signature_child_nodes</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="n">parent_type_param_i</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">:])</span>
+        <span class="n">format_result</span> <span class="o">=</span> <span class="n">_format_with_black</span><span class="p">(</span>
+            <span class="n">applier</span><span class="o">.</span><span class="n">get_format_input</span><span class="p">(</span><span class="n">remaining_component_i</span><span class="p">),</span>
+            <span class="n">initial_indent</span><span class="o">=</span><span class="n">prefix_len</span><span class="p">,</span>
+            <span class="n">ensure_prefix</span><span class="o">=</span><span class="n">prefix</span><span class="p">,</span>
+            <span class="n">add_empty_body</span><span class="o">=</span><span class="n">objtype</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;class&quot;</span><span class="p">,</span> <span class="s2">&quot;exception&quot;</span><span class="p">,</span> <span class="s2">&quot;function&quot;</span><span class="p">,</span> <span class="s2">&quot;method&quot;</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">format_result</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="n">remaining_signature</span><span class="p">,</span> <span class="n">remaining_formatted</span> <span class="o">=</span> <span class="n">format_result</span>
+
+        <span class="n">signature</span> <span class="o">+=</span> <span class="n">remaining_signature</span>
+        <span class="n">formatted</span> <span class="o">+=</span> <span class="n">remaining_formatted</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">objtype</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;function&quot;</span><span class="p">,</span> <span class="s2">&quot;method&quot;</span><span class="p">):</span>
+            <span class="n">prefix</span> <span class="o">=</span> <span class="s2">&quot;def &quot;</span>
+        <span class="k">elif</span> <span class="n">objtype</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;class&quot;</span><span class="p">,</span> <span class="s2">&quot;exception&quot;</span><span class="p">):</span>
+            <span class="n">prefix</span> <span class="o">=</span> <span class="s2">&quot;class &quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">prefix</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+
+        <span class="n">applier</span><span class="o">.</span><span class="n">add_signature_child_nodes</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">children</span><span class="p">)</span>
+        <span class="n">format_result</span> <span class="o">=</span> <span class="n">_format_with_black</span><span class="p">(</span>
+            <span class="n">applier</span><span class="o">.</span><span class="n">get_format_input</span><span class="p">(),</span>
+            <span class="n">ensure_prefix</span><span class="o">=</span><span class="n">prefix</span><span class="p">,</span>
+            <span class="n">add_empty_body</span><span class="o">=</span><span class="n">objtype</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;class&quot;</span><span class="p">,</span> <span class="s2">&quot;exception&quot;</span><span class="p">,</span> <span class="s2">&quot;function&quot;</span><span class="p">,</span> <span class="s2">&quot;method&quot;</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">format_result</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="n">signature</span><span class="p">,</span> <span class="n">formatted</span> <span class="o">=</span> <span class="n">format_result</span>
+
+    <span class="n">applier</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">signature</span><span class="p">,</span> <span class="n">formatted</span><span class="p">,</span> <span class="n">node</span><span class="p">)</span>
+
+
+<span class="n">_PUNCTUATION_PATTERN</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;[(),]&quot;</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_make_text_node_from_source</span><span class="p">(</span>
+    <span class="bp">cls</span><span class="p">:</span> <span class="nb">type</span><span class="p">,</span> <span class="n">source</span><span class="p">:</span> <span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Node</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Element</span><span class="p">:</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+    <span class="n">node</span><span class="o">.</span><span class="n">source</span> <span class="o">=</span> <span class="n">source</span><span class="o">.</span><span class="n">source</span>
+    <span class="n">node</span><span class="o">.</span><span class="n">line</span> <span class="o">=</span> <span class="n">source</span><span class="o">.</span><span class="n">line</span>
+    <span class="k">return</span> <span class="n">node</span>
+
+
+<span class="k">def</span> <span class="nf">_sig_transform_nodes</span><span class="p">(</span>
+    <span class="n">ignored</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">nodes</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Node</span><span class="p">]</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Node</span><span class="p">]:</span>
+    <span class="k">return</span> <span class="n">_transform_node_list</span><span class="p">(</span><span class="n">nodes</span><span class="p">,</span> <span class="n">_sig_transform_node</span><span class="p">,</span> <span class="n">ignored</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_sig_transform_generic</span><span class="p">(</span>
+    <span class="n">ignored</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">node</span><span class="p">:</span> <span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Element</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Node</span><span class="p">]:</span>
+    <span class="n">new_node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">new_node</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">_sig_transform_nodes</span><span class="p">(</span><span class="n">ignored</span><span class="p">,</span> <span class="n">node</span><span class="o">.</span><span class="n">children</span><span class="p">))</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">new_node</span><span class="p">]</span>
+
+
+<span class="k">def</span> <span class="nf">_sig_transform_node_default</span><span class="p">(</span>
+    <span class="n">ignored</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">node</span><span class="p">:</span> <span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Node</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Node</span><span class="p">]:</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Text</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">node</span><span class="o">.</span><span class="n">copy</span><span class="p">()]</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">TextElement</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">node</span><span class="o">.</span><span class="n">child_text_separator</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">_sig_transform_generic</span><span class="p">(</span><span class="n">ignored</span><span class="p">,</span> <span class="n">node</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_sig_transform_desc_signature_line</span><span class="p">(</span>
+    <span class="n">ignored</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">node</span><span class="p">:</span> <span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Element</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Node</span><span class="p">]:</span>
+    <span class="k">return</span> <span class="n">_sig_transform_nodes</span><span class="p">(</span><span class="n">ignored</span><span class="p">,</span> <span class="n">node</span><span class="o">.</span><span class="n">children</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_sig_transform_desc_parameter_list</span><span class="p">(</span>
+    <span class="n">ignored</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">node</span><span class="p">:</span> <span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Element</span><span class="p">,</span> <span class="n">open_punct</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">close_punct</span><span class="p">:</span> <span class="nb">str</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Node</span><span class="p">]:</span>
+    <span class="n">new_nodes</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Node</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">_make_text_node_from_source</span><span class="p">(</span>
+            <span class="n">sphinx</span><span class="o">.</span><span class="n">addnodes</span><span class="o">.</span><span class="n">desc_sig_punctuation</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">open_punct</span>
+        <span class="p">)</span>
+    <span class="p">]</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">child</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">children</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">new_nodes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="n">_make_text_node_from_source</span><span class="p">(</span>
+                    <span class="n">sphinx</span><span class="o">.</span><span class="n">addnodes</span><span class="o">.</span><span class="n">desc_sig_punctuation</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="s2">&quot;,&quot;</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+        <span class="n">new_nodes</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">_sig_transform_node</span><span class="p">(</span><span class="n">ignored</span><span class="p">,</span> <span class="n">child</span><span class="p">))</span>
+    <span class="n">new_nodes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+        <span class="n">_make_text_node_from_source</span><span class="p">(</span>
+            <span class="n">sphinx</span><span class="o">.</span><span class="n">addnodes</span><span class="o">.</span><span class="n">desc_sig_punctuation</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">close_punct</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">new_nodes</span>
+
+
+<span class="k">def</span> <span class="nf">_sig_transform_desc_returns</span><span class="p">(</span>
+    <span class="n">ignored</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">node</span><span class="p">:</span> <span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Element</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Node</span><span class="p">]:</span>
+    <span class="k">return</span> <span class="p">[</span>
+        <span class="n">_make_text_node_from_source</span><span class="p">(</span><span class="n">sphinx</span><span class="o">.</span><span class="n">addnodes</span><span class="o">.</span><span class="n">desc_sig_punctuation</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="s2">&quot;-&gt;&quot;</span><span class="p">),</span>
+        <span class="o">*</span><span class="n">_sig_transform_nodes</span><span class="p">(</span><span class="n">ignored</span><span class="p">,</span> <span class="n">node</span><span class="o">.</span><span class="n">children</span><span class="p">),</span>
+    <span class="p">]</span>
+
+
+<span class="k">def</span> <span class="nf">_sig_transform_viewcode_anchor</span><span class="p">(</span>
+    <span class="n">ignored</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">node</span><span class="p">:</span> <span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Element</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Node</span><span class="p">]:</span>
+    <span class="n">new_node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">()</span>
+    <span class="n">ignored</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">new_node</span><span class="p">))</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">new_node</span><span class="p">]</span>
+
+
+<span class="k">def</span> <span class="nf">_sig_transform_parameter</span><span class="p">(</span>
+    <span class="n">ignored</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">node</span><span class="p">:</span> <span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Element</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Node</span><span class="p">]:</span>
+    <span class="n">new_node</span> <span class="o">=</span> <span class="n">_make_text_node_from_source</span><span class="p">(</span><span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">inline</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="n">new_node</span><span class="p">[</span><span class="s2">&quot;classes&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">node</span><span class="p">[</span><span class="s2">&quot;classes&quot;</span><span class="p">]</span>
+    <span class="n">new_node</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">_sig_transform_nodes</span><span class="p">(</span><span class="n">ignored</span><span class="p">,</span> <span class="n">node</span><span class="o">.</span><span class="n">children</span><span class="p">))</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">new_node</span><span class="p">]</span>
+
+
+<span class="n">_SIG_TRANSFORM_FUNCS</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span>
+    <span class="nb">type</span><span class="p">,</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">set</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Element</span><span class="p">],</span> <span class="nb">list</span><span class="p">[</span><span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Node</span><span class="p">]]</span>
+<span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">sphinx</span><span class="o">.</span><span class="n">addnodes</span><span class="o">.</span><span class="n">desc_signature_line</span><span class="p">:</span> <span class="n">_sig_transform_desc_signature_line</span><span class="p">,</span>
+    <span class="n">sphinx</span><span class="o">.</span><span class="n">addnodes</span><span class="o">.</span><span class="n">desc_parameterlist</span><span class="p">:</span> <span class="p">(</span>
+        <span class="k">lambda</span> <span class="n">ignored</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">_sig_transform_desc_parameter_list</span><span class="p">(</span>
+            <span class="n">ignored</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="s2">&quot;(&quot;</span><span class="p">,</span> <span class="s2">&quot;)&quot;</span>
+        <span class="p">)</span>
+    <span class="p">),</span>
+    <span class="n">sphinx</span><span class="o">.</span><span class="n">addnodes</span><span class="o">.</span><span class="n">desc_type_parameter_list</span><span class="p">:</span> <span class="p">(</span>
+        <span class="k">lambda</span> <span class="n">ignored</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">_sig_transform_desc_parameter_list</span><span class="p">(</span>
+            <span class="n">ignored</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="s2">&quot;[&quot;</span><span class="p">,</span> <span class="s2">&quot;]&quot;</span>
+        <span class="p">)</span>
+    <span class="p">),</span>
+    <span class="n">sphinx</span><span class="o">.</span><span class="n">addnodes</span><span class="o">.</span><span class="n">desc_parameter</span><span class="p">:</span> <span class="n">_sig_transform_parameter</span><span class="p">,</span>
+    <span class="n">sphinx</span><span class="o">.</span><span class="n">addnodes</span><span class="o">.</span><span class="n">desc_type_parameter</span><span class="p">:</span> <span class="n">_sig_transform_parameter</span><span class="p">,</span>
+    <span class="n">sphinx</span><span class="o">.</span><span class="n">addnodes</span><span class="o">.</span><span class="n">desc_returns</span><span class="p">:</span> <span class="n">_sig_transform_desc_returns</span><span class="p">,</span>
+    <span class="n">sphinx</span><span class="o">.</span><span class="n">addnodes</span><span class="o">.</span><span class="n">pending_xref</span><span class="p">:</span> <span class="n">_sig_transform_generic</span><span class="p">,</span>
+    <span class="n">sphinx</span><span class="o">.</span><span class="n">ext</span><span class="o">.</span><span class="n">viewcode</span><span class="o">.</span><span class="n">viewcode_anchor</span><span class="p">:</span> <span class="n">_sig_transform_viewcode_anchor</span><span class="p">,</span>
+<span class="p">}</span>
+
+
+<span class="k">def</span> <span class="nf">_sig_transform_node</span><span class="p">(</span>
+    <span class="n">ignored</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">node</span><span class="p">:</span> <span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Node</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Node</span><span class="p">]:</span>
+    <span class="k">return</span> <span class="n">_SIG_TRANSFORM_FUNCS</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">node</span><span class="p">),</span> <span class="n">_sig_transform_node_default</span><span class="p">)(</span>
+        <span class="n">ignored</span><span class="p">,</span>
+        <span class="n">node</span><span class="p">,</span>  <span class="c1"># type: ignore[arg-type]</span>
+    <span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">FormatSignaturesTransform</span><span class="p">(</span><span class="n">sphinx</span><span class="o">.</span><span class="n">transforms</span><span class="o">.</span><span class="n">SphinxTransform</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Applies the clang-format changes previously-computed by `env_updated` to</span>
+<span class="sd">    each individual signature.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Early</span>
+    <span class="n">default_priority</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">def</span> <span class="nf">apply</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">formatted_signatures</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="p">,</span> <span class="n">_FORMATTED_SIGNATURES</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">formatted_signatures</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">document</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">sphinx</span><span class="o">.</span><span class="n">addnodes</span><span class="o">.</span><span class="n">desc_signature</span><span class="p">):</span>
+            <span class="n">signature_id</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">_SIGNATURE_FORMAT_ID</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">signature_id</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">formatted_signature</span> <span class="o">=</span> <span class="n">formatted_signatures</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">signature_id</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">formatted_signature</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">applier</span> <span class="o">=</span> <span class="n">FormatApplier</span><span class="p">()</span>
+            <span class="n">applier</span><span class="o">.</span><span class="n">add_signature_child_nodes</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">children</span><span class="p">)</span>
+            <span class="n">applier</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">applier</span><span class="o">.</span><span class="n">get_format_input</span><span class="p">(),</span> <span class="n">formatted_signature</span><span class="p">,</span> <span class="n">node</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">merge_info</span><span class="p">(</span>
+    <span class="n">app</span><span class="p">:</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">Sphinx</span><span class="p">,</span>
+    <span class="n">env</span><span class="p">:</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">environment</span><span class="o">.</span><span class="n">BuildEnvironment</span><span class="p">,</span>
+    <span class="n">docnames</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+    <span class="n">other</span><span class="p">:</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">environment</span><span class="o">.</span><span class="n">BuildEnvironment</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Merges collected signatures to be formatted by clang-format.&quot;&quot;&quot;</span>
+    <span class="n">merged_sigs</span> <span class="o">=</span> <span class="n">_get_collected_signatures</span><span class="p">(</span><span class="n">env</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">sigs</span> <span class="ow">in</span> <span class="n">_get_collected_signatures</span><span class="p">(</span><span class="n">other</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">merged_sigs</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">sigs</span><span class="p">)</span>
+
+
+<span class="n">DOMAIN_CLANG_FORMAT_LANGUAGE</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;cpp&quot;</span><span class="p">:</span> <span class="s2">&quot;Cpp&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;c&quot;</span><span class="p">:</span> <span class="s2">&quot;Cpp&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;js&quot;</span><span class="p">:</span> <span class="s2">&quot;JavaScript&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="n">ClangFormatStyle</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span>
+
+
+<div class="viewcode-block" id="BlackFormatStyle">
+<a class="viewcode-back" href="../../../apidoc/format_signatures.html#sphinx_immaterial.apidoc.format_signatures.BlackFormatStyle">[docs]</a>
+<span class="nd">@pydantic</span><span class="o">.</span><span class="n">dataclasses</span><span class="o">.</span><span class="n">dataclass</span>
+<span class="k">class</span> <span class="nc">BlackFormatStyle</span><span class="p">:</span>
+    <span class="n">line_length</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Line length limit.</span>
+
+<span class="sd">    Defaults to the value of :objconf:`wrap_signatures_column_limit`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">string_normalization</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Indicates whether to normalize quotes. This corresponds to the inverse of Black</span>
+<span class="sd">    CLI&#39;s `--skip-string-normalization &lt;https://black.readthedocs.io/en/stable/</span>
+<span class="sd">    usage_and_configuration/the_basics.html#s-skip-string-normalization&gt;`_ option.&quot;&quot;&quot;</span></div>
+
+
+
+<span class="k">def</span> <span class="nf">env_updated</span><span class="p">(</span>
+    <span class="n">app</span><span class="p">:</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">Sphinx</span><span class="p">,</span> <span class="n">env</span><span class="p">:</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">environment</span><span class="o">.</span><span class="n">BuildEnvironment</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Hook for the `env-updated` event that invokes clang-format and stores the</span>
+<span class="sd">    formatted output in the environment.</span>
+
+<span class="sd">    This runs just once per build with all of the collected signatures.</span>
+
+<span class="sd">    The formatted output is applied later to individual signatures in each</span>
+<span class="sd">    individual writer process by `FormatSignaturesTransform`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">all_signatures</span> <span class="o">=</span> <span class="n">_get_collected_signatures</span><span class="p">(</span><span class="n">env</span><span class="p">)</span>
+    <span class="n">formatted_signatures</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="n">signatures_for_style</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">defaultdict</span><span class="p">(</span><span class="nb">dict</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="n">domain</span><span class="p">,</span> <span class="n">objtype</span><span class="p">),</span> <span class="n">signatures</span> <span class="ow">in</span> <span class="n">all_signatures</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">options</span> <span class="o">=</span> <span class="n">object_description_options</span><span class="o">.</span><span class="n">get_object_description_options</span><span class="p">(</span>
+            <span class="n">env</span><span class="p">,</span> <span class="n">domain</span><span class="p">,</span> <span class="n">objtype</span>
+        <span class="p">)</span>
+
+        <span class="n">style</span><span class="p">:</span> <span class="n">ClangFormatStyle</span> <span class="o">=</span> <span class="n">options</span><span class="p">[</span><span class="s2">&quot;clang_format_style&quot;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">style</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">style</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;BasedOnStyle&quot;</span><span class="p">:</span> <span class="n">style</span><span class="p">}</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">style</span> <span class="o">=</span> <span class="n">style</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+        <span class="n">style</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;ColumnLimit&quot;</span><span class="p">,</span> <span class="n">options</span><span class="p">[</span><span class="s2">&quot;wrap_signatures_column_limit&quot;</span><span class="p">])</span>
+        <span class="n">language</span> <span class="o">=</span> <span class="n">DOMAIN_CLANG_FORMAT_LANGUAGE</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">domain</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">language</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">style</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;Language&quot;</span><span class="p">,</span> <span class="n">language</span><span class="p">)</span>
+        <span class="n">style_key</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">style</span><span class="p">,</span> <span class="n">sort_keys</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">signatures_for_style</span><span class="p">[</span><span class="n">style_key</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">signatures</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">style_key</span><span class="p">,</span> <span class="n">signatures</span> <span class="ow">in</span> <span class="n">signatures_for_style</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">source</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">StringIO</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">sig_id</span><span class="p">,</span> <span class="n">signature</span> <span class="ow">in</span> <span class="n">signatures</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">source</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;// </span><span class="si">{</span><span class="n">sig_id</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">source</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">signature</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s2">&quot;;&quot;</span><span class="p">))</span>
+            <span class="n">source</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="n">result</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+            <span class="p">[</span><span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">clang_format_command</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;-style=</span><span class="si">{</span><span class="n">style_key</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">],</span>
+            <span class="nb">input</span><span class="o">=</span><span class="n">source</span><span class="o">.</span><span class="n">getvalue</span><span class="p">(),</span>
+            <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">,</span>
+            <span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span>
+            <span class="n">stderr</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span>
+            <span class="n">check</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">returncode</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">clang_format_command</span><span class="si">}</span><span class="s2"> exited with code %d: %s&quot;</span><span class="p">,</span>
+                <span class="n">result</span><span class="o">.</span><span class="n">returncode</span><span class="p">,</span>
+                <span class="n">result</span><span class="o">.</span><span class="n">stderr</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="k">return</span>
+        <span class="n">result</span><span class="o">.</span><span class="n">check_returncode</span><span class="p">()</span>
+        <span class="n">stdout</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">stdout</span>
+
+        <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">re</span><span class="o">.</span><span class="n">finditer</span><span class="p">(</span>
+            <span class="s2">&quot;^// ([0-9a-f]+)</span><span class="se">\n</span><span class="s2">((?:(?!</span><span class="se">\n</span><span class="s2">//).)+)&quot;</span><span class="p">,</span> <span class="n">stdout</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">MULTILINE</span> <span class="o">|</span> <span class="n">re</span><span class="o">.</span><span class="n">DOTALL</span>
+        <span class="p">):</span>
+            <span class="n">formatted_signatures</span><span class="p">[</span><span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+    <span class="nb">setattr</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">_FORMATTED_SIGNATURES</span><span class="p">,</span> <span class="n">formatted_signatures</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">setup</span><span class="p">(</span><span class="n">app</span><span class="p">:</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">Sphinx</span><span class="p">):</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">setup_extension</span><span class="p">(</span><span class="s2">&quot;sphinx_immaterial.apidoc.object_description_options&quot;</span><span class="p">)</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">add_transform</span><span class="p">(</span><span class="n">CollectSignaturesTransform</span><span class="p">)</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">add_post_transform</span><span class="p">(</span><span class="n">FormatSignaturesTransform</span><span class="p">)</span>
+    <span class="n">object_description_options</span><span class="o">.</span><span class="n">add_object_description_option</span><span class="p">(</span>
+        <span class="n">app</span><span class="p">,</span>
+        <span class="s2">&quot;clang_format_style&quot;</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">type_constraint</span><span class="o">=</span><span class="n">Optional</span><span class="p">[</span><span class="n">ClangFormatStyle</span><span class="p">],</span>
+    <span class="p">)</span>
+    <span class="n">object_description_options</span><span class="o">.</span><span class="n">add_object_description_option</span><span class="p">(</span>
+        <span class="n">app</span><span class="p">,</span>
+        <span class="s2">&quot;black_format_style&quot;</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">type_constraint</span><span class="o">=</span><span class="n">Optional</span><span class="p">[</span><span class="n">BlackFormatStyle</span><span class="p">],</span>
+    <span class="p">)</span>
+
+    <span class="n">app</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;env-merge-info&quot;</span><span class="p">,</span> <span class="n">merge_info</span><span class="p">)</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;env-updated&quot;</span><span class="p">,</span> <span class="n">env_updated</span><span class="p">)</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span>
+        <span class="n">cast</span><span class="p">(</span><span class="n">Type</span><span class="p">[</span><span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Element</span><span class="p">],</span> <span class="n">SignatureText</span><span class="p">),</span>
+        <span class="n">html</span><span class="o">=</span><span class="p">(</span><span class="n">_html_visit_signature_text</span><span class="p">,</span> <span class="n">_html_depart_signature_text</span><span class="p">),</span>
+        <span class="n">latex</span><span class="o">=</span><span class="p">(</span><span class="n">_latex_visit_signature_text</span><span class="p">,</span> <span class="n">_latex_depart_signature_text</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">add_config_value</span><span class="p">(</span>
+        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;clang_format_command&quot;</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="s2">&quot;clang-format&quot;</span><span class="p">,</span>
+        <span class="n">rebuild</span><span class="o">=</span><span class="s2">&quot;env&quot;</span><span class="p">,</span>
+        <span class="n">types</span><span class="o">=</span><span class="p">(</span><span class="nb">str</span><span class="p">,),</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;parallel_read_safe&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;parallel_write_safe&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
+</code></pre></div>
+
+  <hr>
+<div class="md-source-file">
+  <small>
+    
+      Last update:
+      Jul 21, 2024
+    
+  </small>
+</div>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var tab,labels=set.querySelector(".tabbed-labels");for(tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Back to top
+          </a>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  
+  
+  <div class="md-footer-meta md-typeset">
+    
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-footer-copyright__highlight">
+        &#169; Copyright 2021 The Sphinx-Immaterial Authors.
+        
+    </div>
+  
+    Created using
+    <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
+    7.4.7.
+     and
+    <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    <a href="https://github.com/jbms/sphinx-immaterial" target="_blank" rel="noopener" title="Source on github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+    
+    
+      
+      
+    
+    <a href="https://pypi.org/project/sphinx-immaterial/" target="_blank" rel="noopener" title="pypi.org" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.8 200.5c-7.7-30.9-22.3-54.2-53.4-54.2h-40.1v47.4c0 36.8-31.2 67.8-66.8 67.8H172.7c-29.2 0-53.4 25-53.4 54.3v101.8c0 29 25.2 46 53.4 54.3 33.8 9.9 66.3 11.7 106.8 0 26.9-7.8 53.4-23.5 53.4-54.3v-40.7H226.2v-13.6h160.2c31.1 0 42.6-21.7 53.4-54.2 11.2-33.5 10.7-65.7 0-108.6zM286.2 404c11.1 0 20.1 9.1 20.1 20.3 0 11.3-9 20.4-20.1 20.4-11 0-20.1-9.2-20.1-20.4.1-11.3 9.1-20.3 20.1-20.3zM167.8 248.1h106.8c29.7 0 53.4-24.5 53.4-54.3V91.9c0-29-24.4-50.7-53.4-55.6-35.8-5.9-74.7-5.6-106.8.1-45.2 8-53.4 24.7-53.4 55.6v40.7h106.9v13.6h-147c-31.1 0-58.3 18.7-66.8 54.2-9.8 40.7-10.2 66.1 0 108.6 7.6 31.6 25.7 54.2 56.8 54.2H101v-48.8c0-35.3 30.5-66.4 66.8-66.4zm-6.7-142.6c-11.1 0-20.1-9.1-20.1-20.3.1-11.3 9-20.4 20.1-20.4 11 0 20.1 9.2 20.1 20.4s-9 20.3-20.1 20.3z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+    
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.expand", "navigation.sections", "navigation.top", "search.share", "toc.follow", "toc.sticky", "content.tabs.link", "announce.dismiss"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": {"provider": "mike", "staticVersions": [{"aliases": [], "title": "ReadTheDocs", "version": "https://sphinx-immaterial.rtfd.io"}, {"aliases": [], "title": "Github Pages", "version": "https://jbms.github.io/sphinx-immaterial"}], "versionPath": null}}</script>
+    
+      
+        <script src="../../../_static/sphinx_immaterial_theme.f9d9eeeb247ace16c.min.js?v=9a299579"></script>
+    
+  </body>
+</html>

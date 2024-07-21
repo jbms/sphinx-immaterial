@@ -50,12 +50,22 @@ following to :file:`conf.py`:
                       finally_another: str = "some long string goes here"\
                     ) -> Tuple[str, bool, float, bytes, int]
 
-clang-format-based function parameter wrapping
------------------------------------------------
+External code formatter integration
+-----------------------------------
 
-There is a more powerful alternative formatting mechanism based on `clang-format
-<https://clang.llvm.org/docs/ClangFormat.html>`__.  This supports C, C++, Java,
-JavaScript, Objective-C, and C#.
+There is a more powerful alternative formatting mechanism that makes use of
+external code formatters.
+
+.. warning::
+
+   The LaTeX builder is supported. However, the spacing may not always line up correctly
+   because the Latex builder does not use a monospace font for the entire signature.
+
+clang-format
+^^^^^^^^^^^^
+
+The `clang-format <https://clang.llvm.org/docs/ClangFormat.html>`__ integration
+supports C, C++, Java, JavaScript, Objective-C, and C#.
 
 This functionality is available as a separate extension included with this
 theme.  To use it, you must include it in your :file:`conf.py` file and you must
@@ -119,3 +129,52 @@ which the extension should be used.
                        bool baz = false);
 
       Some function type thing
+
+black
+^^^^^
+
+The `Black <https://github.com/psf/black>`__ integration supports Python.
+
+This functionality is available as a separate extension included with this
+theme.  To use it, you must include it in your :file:`conf.py` file and you must
+also specify the :objconf:`black_format_style` option for the object types for
+which the extension should be used.
+
+.. code-block:: python
+
+    extensions = [
+        # other extensions...
+        "sphinx_immaterial.apidoc.format_signatures",
+    ]
+
+    object_description_options = [
+        # ...
+        ("py:.*", dict(black_format_style={"line_length": 60})),
+    ]
+
+.. objconf:: black_format_style
+
+   Specifies style options for black, or :python:`None` to disable black.
+
+   If the style does not explicitly specify a ``line_length``, the value of
+   :objconf:`wrap_signatures_column_limit` is used.
+
+   .. autoclass:: sphinx_immaterial.apidoc.format_signatures.BlackFormatStyle
+      :exclude-members: __new__, __init__
+
+      .. autoattribute:: line_length
+      .. autoattribute:: string_normalization
+
+.. rst-example::
+
+   .. py:function:: some_module.method_name( \
+                      some_parameter_with_a_long_name: \
+                        collections.abc.MutableMapping[\
+                          tuple[str, float, numbers.Real], \
+                          dict[int, tuple[list[frozenset[int]]]]], \
+                    ) -> collections.abc.MutableMapping[\
+                           tuple[str, float, numbers.Real], \
+                           dict[int, tuple[list[frozenset[int]]]]]
+      :noindex:
+
+      Some function doc.
