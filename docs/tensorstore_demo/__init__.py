@@ -735,8 +735,8 @@ class DimExpression():
             })
 
         More generally, specifying an ``n``-dimensional `bool` array is equivalent to
-        specifying ``n`` 1-dimensional index arrays, where the ``i``\ th index array specifies
-        the ``i``\ th coordinate of the `True` values:
+        specifying ``n`` 1-dimensional index arrays, where the ``i``\\ th index array specifies
+        the ``i``\\ th coordinate of the `True` values:
 
             >>> x = ts.array([[[1, 2, 3], [4, 5, 6]], [[7, 8, 9], [10, 11, 12]]],
             ...              dtype=ts.int32)
@@ -1049,8 +1049,8 @@ three cases:
           :python:`dims[i] = self.labels.index(other.labels[i])`.  It is an
           error if no such dimension exists.
 
-       2. Otherwise, ``i`` is the ``j``\ th unlabeled dimension of :python:`other`
-          (left to right), and :python:`dims[i] = k`, where ``k`` is the ``j``\ th
+       2. Otherwise, ``i`` is the ``j``\\ th unlabeled dimension of :python:`other`
+          (left to right), and :python:`dims[i] = k`, where ``k`` is the ``j``\\ th
           unlabeled dimension of :python:`self` (left to right).  It is an error
           if no such dimension exists.
 

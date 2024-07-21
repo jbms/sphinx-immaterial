@@ -123,9 +123,9 @@ def _monkey_patch_python_domain_to_support_object_ids():
                         if new_entry[2] == orig_node_id:
                             new_entry[2] = ""
                         new_entries.append(tuple(new_entry))
-                    cast(docutils.nodes.Element, self.indexnode)[
-                        "entries"
-                    ] = new_entries
+                    cast(docutils.nodes.Element, self.indexnode)["entries"] = (
+                        new_entries
+                    )
 
     PyObject.after_content = after_content  # type: ignore[assignment]
 
