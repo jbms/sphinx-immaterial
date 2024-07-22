@@ -597,10 +597,10 @@ class JsonSchemaDirective(sphinx.directives.ObjectDescription):
             if schema_node.get("minItems") == schema_node.get("maxItems"):
                 prefix.append(_json_literal(self.state, schema_node["minItems"]))
             else:
-                if schema_node["minItems"]:
+                if schema_node.get("minItems"):
                     prefix.append(_json_literal(self.state, schema_node["minItems"]))
                 prefix.append(sphinx.addnodes.desc_sig_punctuation("", ".."))
-                if schema_node["maxItems"]:
+                if "maxItems" in schema_node:
                     prefix.append(_json_literal(self.state, schema_node["maxItems"]))
             prefix.append(sphinx.addnodes.desc_sig_punctuation("", "]"))
 
