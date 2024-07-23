@@ -116,3 +116,26 @@ allOf:
         r"schema\.yml:4: ERROR: Reference to undefined JSON schema: 'OtherSchema'",
         app._warning.getvalue(),
     )
+
+
+def test_minitems_without_maxitems(immaterial_make_app):
+    app = immaterial_make_app(
+        extra_conf="\n".join(
+            [
+                'extensions.append("sphinx_immaterial.apidoc.json.domain")',
+                'json_schemas = ["schema.yml"]',
+            ]
+        ),
+        files={
+            "index.rst": """
+.. json:schema:: MySchema
+""",
+            "schema.yml": """$schema: http://json-schema.org/draft-07/schema#
+$id: MySchema
+type: array
+maxItems: 5
+""",
+        },
+    )
+    app.build()
+    assert not app._warning.getvalue()
