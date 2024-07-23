@@ -25,7 +25,15 @@ html_theme = "sphinx_immaterial"
 
     def make(extra_conf: str = "", **kwargs):
         (tmp_path / "conf.py").write_text(conf + extra_conf, encoding="utf-8")
-        (tmp_path / "index.rst").write_text("", encoding="utf-8")
+        (tmp_path / "index.rst").write_text(
+            """
+.. python-apigen-group:: Public Members
+
+.. python-apigen-group:: Classes
+
+""",
+            encoding="utf-8",
+        )
         return make_app(srcdir=SphinxPath(str(tmp_path)), **kwargs)
 
     yield make
@@ -157,3 +165,24 @@ def test_pure_python_property(apigen_make_app):
     assert member.name == "baz"
     assert len(member.siblings) == 1
     assert member.siblings[0].name == "bar"
+
+
+@pytest.mark.skipif(
+    sphinx.version_info < (7, 1),
+    reason=f"Type parameters are not supported by Sphinx {sphinx.version_info}",
+)
+def test_type_params(apigen_make_app):
+    """Tests that references to type parameters are all resolved."""
+    testmod = "python_apigen_test_modules.type_params"
+    app = apigen_make_app(
+        confoverrides=dict(
+            python_apigen_modules={
+                testmod: "api/",
+            },
+            nitpicky=True,
+        ),
+    )
+    app.build()
+    print(app._status.getvalue())
+    print(app._warning.getvalue())
+    assert not app._warning.getvalue()

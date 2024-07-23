@@ -253,16 +253,29 @@ def _monkey_patch_python_domain_to_deprioritize_params_in_search():
     PythonDomain.get_objects = get_objects  # type: ignore[assignment]
 
 
+def _fix_pending_xrefs_to_type_params(
+    type_param_symbols: dict[str, str], parent: docutils.nodes.Node
+) -> None:
+    for xref in parent.findall(condition=sphinx.addnodes.pending_xref):
+        if xref["refdomain"] == "py" and xref["reftype"] in ("class", "param"):
+            p_symbol = type_param_symbols.get(xref["reftarget"])
+            if p_symbol is not None:
+                xref["reftarget"] = p_symbol
+                xref["refspecific"] = False
+
+
 def _add_parameter_links_to_signature(
     env: sphinx.environment.BuildEnvironment,
     signode: sphinx.addnodes.desc_signature,
     type_param_symbol_prefix: str,
     function_param_symbol_prefix: str,
-) -> Dict[str, docutils.nodes.Element]:
+) -> tuple[dict[str, docutils.nodes.Element], dict[str, str]]:
     """Cross-links parameter names in signature to parameter objects.
 
     Returns:
-      Map of parameter name to original (not linked) parameter node.
+      Tuple of:
+      - Map of parameter name to original (not linked) parameter node.
+      - Map of type parameter name to parameter object symbol.
     """
     sig_param_nodes: Dict[str, docutils.nodes.Element] = {}
 
@@ -336,15 +349,13 @@ def _add_parameter_links_to_signature(
         refnode["implicit_sig_param_ref"] = True
         name_node.replace_self(refnode)
 
-    # Also cross-link references to type parameters in annotations.
-    for xref in signode.findall(condition=sphinx.addnodes.pending_xref):
-        if xref["refdomain"] == "py" and xref["reftype"] in ("class", "param"):
-            p_symbol = type_param_symbols.get(xref["reftarget"])
-            if p_symbol is not None:
-                xref["reftarget"] = p_symbol
-                xref["refspecific"] = False
+    if type_param_symbols:
+        # Also cross-link references to type parameters in annotations.
+        _fix_pending_xrefs_to_type_params(type_param_symbols, signode)
+        for parent in sig_param_nodes.values():
+            _fix_pending_xrefs_to_type_params(type_param_symbols, parent)
 
-    return sig_param_nodes
+    return sig_param_nodes, type_param_symbols
 
 
 def _collate_parameter_symbols(
@@ -550,6 +561,8 @@ def _cross_link_parameters(
     env = app.env
     assert isinstance(env, sphinx.environment.BuildEnvironment)
 
+    type_param_symbols: dict[str, str] = {}
+
     # Collect the docutils nodes corresponding to the declarations of the
     # parameters in each signature, and turn the parameter names into
     # cross-links to the parameter description.
@@ -559,9 +572,11 @@ def _cross_link_parameters(
     # e.g. `x : int = 10` rather than just `x`.
     sig_param_nodes_for_signature = []
     for signode, symbol, function_symbol in zip(signodes, symbols, function_symbols):
-        sig_param_nodes_for_signature.append(
-            _add_parameter_links_to_signature(env, signode, symbol, function_symbol)
+        sig_param_nodes, sig_type_param_symbols = _add_parameter_links_to_signature(
+            env, signode, symbol, function_symbol
         )
+        sig_param_nodes_for_signature.append(sig_param_nodes)
+        type_param_symbols.update(sig_type_param_symbols)
 
     # Find all parameter descriptions in the object description body, and mark
     # them as the target for cross links to that parameter.  Also substitute in
@@ -575,6 +590,10 @@ def _cross_link_parameters(
         function_symbols=function_symbols,
         noindex=noindex,
     )
+
+    # Fix any remaining references to type parameters.
+    if type_param_symbols:
+        _fix_pending_xrefs_to_type_params(type_param_symbols, content)
 
     if not noindex:
         py = cast(sphinx.domains.python.PythonDomain, env.get_domain("py"))

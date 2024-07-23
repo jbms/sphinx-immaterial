@@ -70,7 +70,11 @@ class Map(Generic[K, V]):
     def get(self, key: K, default: T) -> Union[V, T]: ...
 
     def get(self, key: K, default=None):
-        """Return the mapped value, or the specified default."""
+        """Return the mapped value, or the specified default.
+
+        :param key: Key to retrieve.
+        :param default: Default value to return if key is not present.
+        """
         ...
 
     def __len__(self) -> int:
