@@ -577,17 +577,19 @@ _SIG_TRANSFORM_FUNCS: dict[
             ignored, node, "(", ")"
         )
     ),
-    sphinx.addnodes.desc_type_parameter_list: (
-        lambda ignored, node: _sig_transform_desc_parameter_list(
-            ignored, node, "[", "]"
-        )
-    ),
     sphinx.addnodes.desc_parameter: _sig_transform_parameter,
-    sphinx.addnodes.desc_type_parameter: _sig_transform_parameter,
     sphinx.addnodes.desc_returns: _sig_transform_desc_returns,
     sphinx.addnodes.pending_xref: _sig_transform_generic,
     sphinx.ext.viewcode.viewcode_anchor: _sig_transform_viewcode_anchor,
 }
+
+if sphinx.version_info >= (7, 3):
+    _SIG_TRANSFORM_FUNCS[
+        sphinx.addnodes.desc_type_parameter_list
+    ] = lambda ignored, node: _sig_transform_desc_parameter_list(
+        ignored, node, "[", "]"
+    )
+    _SIG_TRANSFORM_FUNCS[sphinx.addnodes.desc_type_parameter] = _sig_transform_parameter
 
 
 def _sig_transform_node(
