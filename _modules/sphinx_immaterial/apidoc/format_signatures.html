@@ -1425,17 +1425,19 @@
             <span class="n">ignored</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="s2">&quot;(&quot;</span><span class="p">,</span> <span class="s2">&quot;)&quot;</span>
         <span class="p">)</span>
     <span class="p">),</span>
-    <span class="n">sphinx</span><span class="o">.</span><span class="n">addnodes</span><span class="o">.</span><span class="n">desc_type_parameter_list</span><span class="p">:</span> <span class="p">(</span>
-        <span class="k">lambda</span> <span class="n">ignored</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">_sig_transform_desc_parameter_list</span><span class="p">(</span>
-            <span class="n">ignored</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="s2">&quot;[&quot;</span><span class="p">,</span> <span class="s2">&quot;]&quot;</span>
-        <span class="p">)</span>
-    <span class="p">),</span>
     <span class="n">sphinx</span><span class="o">.</span><span class="n">addnodes</span><span class="o">.</span><span class="n">desc_parameter</span><span class="p">:</span> <span class="n">_sig_transform_parameter</span><span class="p">,</span>
-    <span class="n">sphinx</span><span class="o">.</span><span class="n">addnodes</span><span class="o">.</span><span class="n">desc_type_parameter</span><span class="p">:</span> <span class="n">_sig_transform_parameter</span><span class="p">,</span>
     <span class="n">sphinx</span><span class="o">.</span><span class="n">addnodes</span><span class="o">.</span><span class="n">desc_returns</span><span class="p">:</span> <span class="n">_sig_transform_desc_returns</span><span class="p">,</span>
     <span class="n">sphinx</span><span class="o">.</span><span class="n">addnodes</span><span class="o">.</span><span class="n">pending_xref</span><span class="p">:</span> <span class="n">_sig_transform_generic</span><span class="p">,</span>
     <span class="n">sphinx</span><span class="o">.</span><span class="n">ext</span><span class="o">.</span><span class="n">viewcode</span><span class="o">.</span><span class="n">viewcode_anchor</span><span class="p">:</span> <span class="n">_sig_transform_viewcode_anchor</span><span class="p">,</span>
 <span class="p">}</span>
+
+<span class="k">if</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">version_info</span> <span class="o">&gt;=</span> <span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">3</span><span class="p">):</span>
+    <span class="n">_SIG_TRANSFORM_FUNCS</span><span class="p">[</span>
+        <span class="n">sphinx</span><span class="o">.</span><span class="n">addnodes</span><span class="o">.</span><span class="n">desc_type_parameter_list</span>
+    <span class="p">]</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">ignored</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">_sig_transform_desc_parameter_list</span><span class="p">(</span>
+        <span class="n">ignored</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="s2">&quot;[&quot;</span><span class="p">,</span> <span class="s2">&quot;]&quot;</span>
+    <span class="p">)</span>
+    <span class="n">_SIG_TRANSFORM_FUNCS</span><span class="p">[</span><span class="n">sphinx</span><span class="o">.</span><span class="n">addnodes</span><span class="o">.</span><span class="n">desc_type_parameter</span><span class="p">]</span> <span class="o">=</span> <span class="n">_sig_transform_parameter</span>
 
 
 <span class="k">def</span> <span class="nf">_sig_transform_node</span><span class="p">(</span>
@@ -1615,7 +1617,7 @@
   <small>
     
       Last update:
-      Jul 23, 2024
+      Jul 25, 2024
     
   </small>
 </div>
