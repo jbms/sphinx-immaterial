@@ -52,6 +52,7 @@ from typing import (
     Literal,
     Callable,
     TypedDict,
+    Iterator,
 )
 from textwrap import dedent
 
@@ -231,7 +232,10 @@ class Config:
             TEMPLATE_PARAMETER_ENABLE_IF_NON_TYPE_PATTERN,
         ]
     )
+
     type_replacements: Dict[str, str] = dataclasses.field(default_factory=dict)
+    """Remaps type names."""
+
     hide_types: List[Pattern] = dataclasses.field(default_factory=list)
     """List of regular expressions matching *hidden* types.
 
@@ -502,16 +506,26 @@ def get_presumed_location(location: SourceLocation) -> typing.Tuple[str, int, in
     return (clang.cindex._CXString.from_result(file), int(line.value), int(col.value))
 
 
+_clang_getFileContents = clang.cindex.conf.lib.clang_getFileContents
+_clang_getFileContents.restype = ctypes.c_void_p
+_PyMemoryView_FromMemory = ctypes.pythonapi.PyMemoryView_FromMemory
+_PyMemoryView_FromMemory.argtypes = (ctypes.c_char_p, ctypes.c_ssize_t, ctypes.c_int)
+_PyMemoryView_FromMemory.restype = ctypes.py_object
+
+
+def _get_file_contents(tu, f):
+    size = ctypes.c_size_t()
+    ptr = _clang_getFileContents(tu, f, ctypes.byref(size))
+    buf = _PyMemoryView_FromMemory(ctypes.cast(ptr, ctypes.c_char_p), size.value, 0x100)
+    return buf
+
+
 def _get_template_cursor_kind(cursor: Cursor) -> CursorKind:
     return CursorKind.from_id(clang.cindex.conf.lib.clang_getTemplateCursorKind(cursor))
 
 
 def _get_specialized_cursor_template(cursor: Cursor) -> typing.Optional[Cursor]:
     return clang.cindex.conf.lib.clang_getSpecializedCursorTemplate(cursor)
-
-
-def _is_doc_comment(token: Token):
-    return token.spelling.startswith("///")
 
 
 def _get_full_nested_name(cursor: typing.Optional[Cursor]) -> str:
@@ -539,12 +553,17 @@ CLASS_KINDS = (
 )
 
 
-def _get_all_decls(config: Config, cursor: Cursor, allow_file):
+def _get_all_decls(
+    config: Config, cursor: Cursor, allow_file
+) -> Iterator[tuple[Cursor, SourceLocation]]:
     NAMESPACE = CursorKind.NAMESPACE
+    doc_comment_start_bound = cursor.location
     for child in cursor.get_children():
         location = child.location
         if location.file is None:
             continue
+        prev_doc_comment_start_bound = doc_comment_start_bound
+        doc_comment_start_bound = child.extent.end
         kind = child.kind
         if kind == NAMESPACE:
             if (
@@ -557,79 +576,272 @@ def _get_all_decls(config: Config, cursor: Cursor, allow_file):
         if allow_file and not allow_file(get_presumed_location(location)[0]):
             continue
         if child.kind == CursorKind.MACRO_DEFINITION:
-            yield child
+            yield (child, prev_doc_comment_start_bound)
             continue
-        yield child
+        yield (child, prev_doc_comment_start_bound)
         if kind in CLASS_KINDS:
             yield from _get_all_decls(config, child, None)
 
 
-def split_doc_comment_into_lines(cmt: str) -> List[str]:
-    """Strip the raw string of an object's comment into lines.
-    :param cmt: the comment to parse.
-    :returns: A list of the lines without the surrounding C++ comment syntax.
-    """
-    # split into a list of lines & account for CRLF and LF line endings
-    body = [line.rstrip("\r") for line in cmt.splitlines()]
+# Matches the start of a doc comment.
+#
+# This is used to test if an individual comment token is a doc comment.
+_DOC_COMMENT_START = re.compile(
+    r"""
+    (?:
+      //
+      (?:/|!)
+    )
+    |
+    (?:
+      /\*
+      (?:!|\*)
+    )
+    """,
+    re.VERBOSE,
+)
 
-    # strip all the comment syntax out
-    if body[0].startswith("//"):
-        body = [line.lstrip("/").lstrip("!").lstrip("<") for line in body]
-    elif body[0].startswith("/*"):
-        body[0] = body[0].lstrip("/").lstrip("*").lstrip("!")
-        multi_lined_asterisk = True  # works also for single-line comments blocks
-        if len(body) > 1:
-            line_has_asterisk = [line.startswith("*") for line in body[1:]]
-            multi_lined_asterisk = line_has_asterisk.count(True) == len(body) - 1
-        body = [
-            (line.lstrip("*").lstrip("<") if multi_lined_asterisk else line)
-            for line in body
-        ]
-        body[-1] = body[-1].rstrip("*/").rstrip()
-    body = dedent("\n".join(body)).splitlines()
-    return [""] if not body else body
-
-
-NON_DOC_COMMENT = re.compile(
-    r"(^//[^/\!].*$\n)|(^/\*[^\*\!](?:.|\n)*?\*/$\n)", re.MULTILINE
+# Matches one or more doc comments with a "<" introducer to indicate that the
+# doc comment applies to the entity before it, rather than the entity after it.
+#
+# This is used by `_get_raw_comments_after`.
+_DOC_COMMENT_AFTER = re.compile(
+    rb"""
+    (
+      \s*            # Skip leading whitespace
+      (?:
+        (
+          //           # Comment introducer
+          (?:/|!)<     # Doc comment indicator
+          [^\r\n]*     # Comment text
+          \r?          # Optionally ignored CR
+          $            # End of comment line
+        )
+        |
+        (
+          /\*         # Comment introducer
+          (?:!|\*)<   # Doc comment indicator
+          (?:.|\n)*?  # Comment text
+          \*/         # Comment terminator
+        )
+      )
+    )+
+    """,
+    re.MULTILINE | re.VERBOSE,
 )
 
 
-def get_doc_comment(config: Config, cursor: Cursor) -> Optional[JsonDocComment]:
-    translation_unit = cursor.translation_unit
-    for token in cursor.get_tokens():
-        location = token.location
-        break
-    else:
-        location = cursor.location
-    f = location.file
-    line = location.line
-    end_location = SourceLocation.from_position(translation_unit, f, line, 1)
-    comment = cursor.raw_comment
-    if not comment:
-        return None
-    comment_lines = []
-    # The first line is never indented (in `raw_comment` form).
-    # Clang doesn't strip indentation from subsequent lines in an indented block.
-    # So, dedent all subsequent lines only
-    first_line_end = comment.find("\n")
-    comment = comment[:first_line_end] + dedent(comment[first_line_end:])
+def _get_raw_comments(
+    cursor: Cursor, doc_comment_start_bound: SourceLocation
+) -> Optional[tuple[str, SourceLocation]]:
+    # libclang exposes `cursor.raw_comment` but in some cases it appears to be
+    # `None` even if there is in fact a comment. Instead, extract the comments
+    # by searching for comment tokens directly.
 
-    # remove any non-docstring comments
-    match = NON_DOC_COMMENT.search(comment)
-    while match is not None:
-        # strip comment syntax from the block before non-doc comment
-        comment_lines.extend(split_doc_comment_into_lines(comment[: match.start()]))
-        # Append blank lines as replacement of non-doc comment.
-        # This should retain the src's line numbers
-        comment_lines.extend(["\n"] * match.group(0).count("\n"))
-        comment = comment[match.end() :]
-        match = NON_DOC_COMMENT.search(comment)
-    if comment:  # strip comment from any block that remains after non-doc comment
-        comment_lines.extend(split_doc_comment_into_lines(comment))
+    translation_unit = cursor.translation_unit
+
+    if cursor.kind == CursorKind.MACRO_DEFINITION:
+        # The extent for macro definitions skips the initial "#define". As a
+        # workaround, set the end location to the beginning of the line.
+        orig_location = cursor.location
+        end_location = SourceLocation.from_position(
+            translation_unit, orig_location.file, orig_location.line, 1
+        )
+    else:
+        for token in cursor.get_tokens():
+            end_location = token.location
+            break
+        else:
+            end_location = cursor.location
+
+    if (
+        doc_comment_start_bound.file is None
+        or end_location.file is None
+        or doc_comment_start_bound.file.name != end_location.file.name  # type: ignore[attr-defined]
+    ):
+        doc_comment_start_bound = SourceLocation.from_offset(
+            translation_unit, end_location.file, 0
+        )
+
+    tokens = list(
+        translation_unit.get_tokens(
+            extent=SourceRange.from_locations(doc_comment_start_bound, end_location)
+        )
+    )
+
+    tokens.reverse()
+
+    COMMENT = TokenKind.COMMENT
+    comment_tokens: list[Token] = []
+    for token in tokens:
+        token_location = token.extent.end
+        if token_location.file.name != end_location.file.name:  # type: ignore[attr-defined]
+            break
+        if token_location.line < end_location.line - 1:
+            break
+        if token_location.offset >= end_location.offset:
+            continue
+        if token.kind != COMMENT:
+            break
+        end_location = token_location
+        comment_tokens.append(token)
+
+    if not comment_tokens:
+        return None
+
+    comment_tokens.reverse()
+    # Convert comment tokens back into a string, preserving indentation and line
+    # breaks.
+
+    comment_text_parts = []
+    prev_line = None
+    prev_indent = 0
+    first_doc_comment_token_i = -1
+    doc_comment_end_part_i = 0
+    for token_i, token in enumerate(comment_tokens):
+        spelling = token.spelling
+        is_doc_comment = _DOC_COMMENT_START.match(spelling) is not None
+        if first_doc_comment_token_i == -1:
+            if not is_doc_comment:
+                continue
+            first_doc_comment_token_i = token_i
+        token_location = token.location
+        line = token_location.line
+        if prev_line is not None and prev_line != line:
+            comment_text_parts.append("\n")
+        prev_line = line
+        prev_indent = 0
+        token_end_location = token.extent.end
+        column = token_location.column
+        extra_indent = column - prev_indent - 1
+        if extra_indent > 0:
+            comment_text_parts.append(" " * extra_indent)
+        comment_text_parts.append(spelling)
+        if is_doc_comment:
+            doc_comment_end_part_i = len(comment_text_parts)
+        prev_line = token_end_location.line
+        prev_indent = token_end_location.column
+
+    if not comment_text_parts:
+        return None
+
+    return (
+        "".join(comment_text_parts[:doc_comment_end_part_i]),
+        comment_tokens[first_doc_comment_token_i].location,
+    )
+
+
+def _get_raw_comments_after(
+    tu, location: SourceLocation
+) -> Optional[tuple[str, SourceLocation]]:
+    buf = memoryview(_get_file_contents(tu, location.file))
+    m = _DOC_COMMENT_AFTER.match(buf, location.offset + 1)
+    if m is None:
+        return None
+    return (" " * (location.column - 1) + m.group(0).decode("utf-8") + "\n", location)
+
+
+# Matches a single multi-line comment, a single-line non-doc comment, or a
+# sequence of single-line same-style doc comments.
+_COMMENT_PATTERN = re.compile(
+    r"""
+    (                  # "//" comment (capture group 1)
+      [ \t]*           # Skip leading whitespace on first line
+      //               # Comment introducer
+      ((?:/|!)<?)?     # Optional doc comment indicator (capture group 2)
+      [^\n]*           # Comment text
+      \n               # End of first line.
+      (?:              # Zero or more lines with the same doc comment indicator
+        [ \t]*         # Skip leading whitspace
+        //\2           # Comment introducer and doc comment indicator.
+        [^\n]*         # Comment text
+        \n             # End of comment line
+      )*
+    )
+    |
+    (                  # "/*" comment (capture group 3)
+      [ \t]*           # Skip leading whitespace
+      /\*              # Comment introducer
+      ((?:\*|!)<?)     # Optional doc comment indicator (capture group 4)
+      (?:.|\n)*?       # Comment text
+      \*/              # Comment terminator
+    )
+    """,
+    re.VERBOSE,
+)
+
+
+def _convert_raw_comment_into_doc_comment(raw_comment: str) -> str:
+    # Eliminate CR characters
+    raw_comment = raw_comment.replace("\r", "") + "\n"
+    pos = 0
+    parts: list[str] = []
+    while (m := _COMMENT_PATTERN.match(raw_comment, pos)) is not None:
+        pos = m.end(0)
+        if not m.group(2) and not m.group(4):
+            # Non-doc comment, replace with empty lines to preserve line number mapping
+            parts.append("\n" * m.group(0).count("\n"))
+            continue
+
+        if m.group(1):
+            # // comment
+            without_comment_prefix = re.sub(
+                r"^[ \t]*//" + re.escape(m.group(2)), "", m.group(0), flags=re.MULTILINE
+            )
+        else:
+            # /* comment
+            without_comment_prefix = (
+                raw_comment[m.start(0) : m.start(4) - 2]
+                + " " * (2 + len(m.group(4)))
+                + raw_comment[m.end(4) : m.end(0) - 2]
+            )
+            # Check if every line is prefixed with an asterisk at the same
+            # column as the initial "/*".
+            orig_text = m.group(0)
+            if re.fullmatch(r"([ \t]*)/\*[^\n]*(\n\1 \*[^\n]*)*(\s*\*/)?", orig_text):
+                without_comment_prefix = re.sub(
+                    r"^([ \t]*)\*", r"\1 ", without_comment_prefix, flags=re.MULTILINE
+                )
+        parts.append(dedent(without_comment_prefix))
+    assert not raw_comment[pos:].strip(), "Unexpected syntax in raw comment"
+    return "".join(parts).rstrip()
+
+
+_CURSOR_KINDS_THAT_ALLOW_DOC_COMMENTS_AFTER = frozenset(
+    [
+        CursorKind.VAR_DECL,
+        CursorKind.FIELD_DECL,
+        # May be variable template.
+        CursorKind.UNEXPOSED_DECL,
+        CursorKind.TYPE_ALIAS_DECL,
+        CursorKind.TYPEDEF_DECL,
+        CursorKind.TYPE_ALIAS_TEMPLATE_DECL,
+        CursorKind.ENUM_CONSTANT_DECL,
+    ]
+)
+
+
+def _get_doc_comment(
+    config: Config, cursor: Cursor, doc_comment_start_bound: SourceLocation
+) -> Optional[JsonDocComment]:
+    raw_comment = _get_raw_comments(cursor, doc_comment_start_bound)
+
+    if (
+        raw_comment is None
+        and cursor.kind in _CURSOR_KINDS_THAT_ALLOW_DOC_COMMENTS_AFTER
+    ):
+        raw_comment = _get_raw_comments_after(
+            cursor.translation_unit, cursor.extent.end
+        )
+
+    if raw_comment is None:
+        return None
+
+    raw_comment_text, comment_location = raw_comment
+    comment_text = _convert_raw_comment_into_doc_comment(raw_comment_text)
     return {
-        "text": "\n".join(comment_lines),
-        "location": _get_location_json(config, end_location),
+        "text": comment_text,
+        "location": _get_location_json(config, comment_location),
     }
 
 
@@ -1059,19 +1271,20 @@ def _transform_enum_decl(config: Config, decl: Cursor) -> EnumEntity:
         keyword = cast(ClassKeyword, token1_spelling)
 
     enumerators: List[EnumeratorEntity] = []
+    prev_decl_location = decl.location
     for child in decl.get_children():
-        if child.kind != CursorKind.ENUM_CONSTANT_DECL:
-            continue
-        enumerators.append(
-            {
-                "kind": "enumerator",
-                "id": get_entity_id(child),
-                "name": child.spelling,
-                "decl": get_extent_spelling(decl.translation_unit, child.extent),
-                "doc": get_doc_comment(config, child),
-                "location": _get_location_json(config, child.location),
-            }
-        )
+        if child.kind == CursorKind.ENUM_CONSTANT_DECL:
+            enumerators.append(
+                {
+                    "kind": "enumerator",
+                    "id": get_entity_id(child),
+                    "name": child.spelling,
+                    "decl": get_extent_spelling(decl.translation_unit, child.extent),
+                    "doc": _get_doc_comment(config, child, prev_decl_location),
+                    "location": _get_location_json(config, child.location),
+                }
+            )
+        prev_decl_location = child.extent.end
     return {
         "kind": "enum",
         "keyword": keyword,
@@ -1529,8 +1742,13 @@ class JsonApiGenerator:
             entity_id = document_with_parent
         return entity_id
 
-    def _transform_cursor_to_json(self, decl: Cursor, parent: Optional[Cursor]):
-        doc = get_doc_comment(self.config, decl)
+    def _transform_cursor_to_json(
+        self,
+        decl: Cursor,
+        parent: Optional[Cursor],
+        doc_comment_start_bound: SourceLocation,
+    ):
+        doc = _get_doc_comment(self.config, decl, doc_comment_start_bound)
         document_with = None
         location = _get_location_json(self.config, decl.location)
         if not doc:
@@ -1595,7 +1813,7 @@ class JsonApiGenerator:
         json_repr["id"] = entity_id
         return json_repr
 
-    def add(self, decl: Cursor):
+    def add(self, decl: Cursor, doc_comment_start_bound: SourceLocation):
         is_friend = False
         if decl.kind == CursorKind.FRIEND_DECL:
             # Check if this is a hidden friend function.
@@ -1609,7 +1827,9 @@ class JsonApiGenerator:
             parent = decl.lexical_parent
         else:
             parent = decl.semantic_parent
-        json_repr = self._transform_cursor_to_json(decl, parent)
+        json_repr = self._transform_cursor_to_json(
+            decl, parent, doc_comment_start_bound
+        )
         if json_repr is None:
             self._prev_decl = None
             return
@@ -1771,6 +1991,7 @@ _OPERATOR_PAGE_NAMES = {
     ("operator-=", 2): "operator-minus_assign",
     ("operator&=", 2): "operator-bitwise_and_assign",
     ("operator|=", 2): "operator-bitwise_or_assign",
+    ("operator^=", 2): "operator-bitwise_xor_assign",
     ("operator&&", 2): "operator-logical_and",
     ("operator||", 2): "operator-logical_or",
     ("operator|", 2): "operator-bitwise_or",
@@ -2259,7 +2480,16 @@ def organize_entities(
             key = (entity.get("parent"), entity.get("scope"), entity["name"])
             entity_id = entity["id"]
             if unspecialized_names.setdefault(key, entity_id) != entity_id:
-                raise ValueError("Duplicate unspecialized entity name: %r" % (key,))
+                other_entity_id = unspecialized_names[key]
+                other_entity = entities[other_entity_id]
+                raise ValueError(
+                    "Duplicate unspecialized entity name: %r %r %r"
+                    % (
+                        key,
+                        entity,
+                        other_entity,
+                    )
+                )
         if specializes is True:
             must_resolve_specializes.append(entity)
         if not _parse_entity_doc(entity):
@@ -2367,8 +2597,8 @@ def _get_output_json(extractor: Extractor) -> JsonApiData:
     generator = JsonApiGenerator(extractor)
     if extractor.config.verbose:
         logger.info("Found %d C++ declarations", len(extractor.decls))
-    for decl in extractor.decls:
-        generator.add(decl)
+    for decl, doc_comment_start_bound in extractor.decls:
+        generator.add(decl, doc_comment_start_bound)
     return organize_entities(extractor.config, generator.seen_decls)
 
 
