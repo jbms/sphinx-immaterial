@@ -850,7 +850,7 @@ def _html_page_context(
             [
                 repo_url.rstrip("/"),
                 edit_uri.strip("/"),
-                env.doc2path(pagename, False),
+                str(env.doc2path(pagename, False)),
             ]
         )
     context.update(

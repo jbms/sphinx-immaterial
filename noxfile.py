@@ -1,8 +1,16 @@
 import os
+import logging
 import pathlib
 import re
-from typing import Optional, List
+import sys
+from typing import Optional, List, cast
 import nox
+
+ci_logger = logging.getLogger("CI logger")
+ci_handler = logging.StreamHandler(stream=sys.stdout)
+ci_handler.formatter = logging.Formatter("%(msg)s")
+ci_logger.handlers.append(ci_handler)
+ci_logger.propagate = False
 
 nox.options.reuse_existing_virtualenvs = True
 nox.options.sessions = [
@@ -161,7 +169,7 @@ def dist(session: nox.Session, cmd: str):
     session.run("pip", "install", "wheel", "setuptools_scm", "setuptools>=42")
     github_output = os.environ.get("GITHUB_OUTPUT", None)
     if cmd == "--version":
-        version: str = session.run("python", "setup.py", "--version", silent=True)
+        version = cast(str, session.run("python", "setup.py", "--version", silent=True))
         version = version.splitlines()[-1].strip()
         if github_output is not None:
             with open(github_output, "a", encoding="utf-8") as output:
@@ -185,6 +193,7 @@ def dist(session: nox.Session, cmd: str):
 )
 def docs(session: nox.Session, builder: str):
     """Build docs."""
+    ci_logger.info(f"::group::Using {builder} builder")
     session.run("pip", "install", "-r", "docs/requirements.txt")
     session.run(
         "sphinx-build",
@@ -196,27 +205,40 @@ def docs(session: nox.Session, builder: str):
         "docs",
         f"docs/_build/{builder}",
     )
+    ci_logger.info("::endgroup::")
 
 
-@nox.session(python=SUPPORTED_PY_VER)
+SUPPORTED_SPHINX = [4, 5, 6, 7, 8]
+
+
+@nox.session
 @nox.parametrize(
-    "sphinx",
-    [">=4.5,<5", ">=5,<6", ">=6,<7", ">=7,<8"],
-    ids=["sphinx4", "sphinx5", "sphinx6", "sphinx7"],
+    "python,sphinx",
+    [
+        (py, sphinx)
+        for py in SUPPORTED_PY_VER
+        for sphinx in SUPPORTED_SPHINX
+        if (sphinx, py) != (8, "3.9")  # python v3.9 support dropped in sphinx v8
+    ],
 )
-def tests(session: nox.Session, sphinx: str):
+def tests(session: nox.Session, sphinx: int):
     """Run unit tests and collect code coverage analysis."""
+    ci_logger.info(f"::group::Using sphinx v{sphinx} and python v{session.python}")
     if not pathlib.Path("node_modules").exists():
         session.run("npm", "install", external=True)
     if not list(pathlib.Path().glob("sphinx_immaterial/*.html")):
         session.run("npm", "run", "build", external=True)
-    session.install(f"sphinx{sphinx}")
-    if sphinx.endswith("<5"):
+    sphinx_version = "sphinx>={},<{}".format(
+        str(sphinx) if sphinx > 4 else "4.5", sphinx + 1
+    )
+    session.install(sphinx_version)
+    if sphinx < 5:
         # sphinxcontrib deps that dropped support for sphinx v4.x
         session.install("-r", "tests/requirements-sphinx4.txt")
     session.install("-r", "tests/requirements.txt")
     session.run("coverage", "run", "-m", "pytest", "-vv", "-s", "--durations=5")
     # session.notify("docs") <- only calls docs(html), not dirhtml or latex builders
+    ci_logger.info("::endgroup::")
 
 
 @nox.session
@@ -224,7 +246,9 @@ def coverage(session: nox.Session):
     """Create coverage report."""
     session.install("coverage[toml]>=7.0")
     session.run("coverage", "combine")
-    total = int(session.run("coverage", "report", "--format=total", silent=True))
+    total = int(
+        cast(str, session.run("coverage", "report", "--format=total", silent=True))
+    )
     md = session.run("coverage", "report", "--format=markdown", silent=True)
     pathlib.Path(".coverage_.md").write_text(
         f"<details><summary>Coverage is {total}%</summary>\n\n{md}\n\n</details>",
