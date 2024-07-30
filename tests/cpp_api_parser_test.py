@@ -21,6 +21,35 @@ int foo(bool x, int y);
     assert len(entities) == 1
 
 
+def test_nondoc_comment():
+    config = api_parser.Config(
+        input_path="a.cpp",
+        input_content=rb"""
+struct string_view {};
+struct string{};
+
+/// Specifies a dimension of an index space by index or by label.
+class DimensionIdentifier {
+ public:
+  /// Constructs from a label.
+  DimensionIdentifier(string_view label) {
+    //assert(label.data() != nullptr);
+  }
+
+  // Constructs from a label.
+  //
+  // Stores a reference to the `std::string` data, does not copy it.
+  DimensionIdentifier(const string& label) {}
+};
+""",
+    )
+
+    output = api_parser.generate_output(config)
+    print(output)
+    entities = list(output["entities"].values())
+    assert len(entities) == 2
+
+
 def test_enable_if_transform():
     input_path = "a.cpp"
 
@@ -54,67 +83,99 @@ int foo(T x);
     assert requires
 
 
-class TestCommentStrip:
+@pytest.mark.parametrize(
+    "doc_str,expected",
+    [
+        pytest.param(
+            b"//! This is a docstring.\nint var = 0;",
+            "This is a docstring.",
+            id="slash-slash-bang",
+        ),
+        pytest.param(
+            b"/// This is a docstring.\nint var = 0;",
+            "This is a docstring.",
+            id="slash-slash-slash",
+        ),
+        pytest.param(
+            b"/** This is a docstring. */\nint var = 0;",
+            "This is a docstring.",
+            id="slash-star-star",
+        ),
+        pytest.param(
+            b"/*! This is a docstring. */\nint var = 0;",
+            "This is a docstring.",
+            id="slash-star-bang",
+        ),
+        pytest.param(
+            b"int var = 0; ///< This is a docstring.",
+            "This is a docstring.",
+            id="slash-slash-slash-lessthan",
+        ),
+        pytest.param(
+            b"int var = 0; /**< This is a docstring. */",
+            "This is a docstring.",
+            id="slash-star-star-lessthan",
+        ),
+        pytest.param(
+            b"int var = 0; /*!< This is a docstring. */",
+            "This is a docstring.",
+            id="slash-star-bang-lessthan",
+        ),
+        pytest.param(
+            b"/**\n * This is a docstring.\n */\nint var = 0;",
+            "\nThis is a docstring.",
+            id="slash-star-star-newline-star",
+        ),
+        pytest.param(
+            b"/*!\n * This is a docstring.\n */\nint var = 0;",
+            "\nThis is a docstring.",
+            id="slash-star-bang-newline-star",
+        ),
+        pytest.param(
+            b"// Skip this.\n/// This is a docstring.\n// Skip this.\nint var = 0;",
+            "This is a docstring.",
+            id="slash-slash-skip-non-doc",
+        ),
+        pytest.param(
+            b"/* Skip\n * this.*/\n/**This is a docstring.*/\n"
+            b"/*Skip this.*/\nint var = 0;",
+            "This is a docstring.",
+            id="slash-star-skip-non-doc",
+        ),
+        pytest.param(
+            b"""
+/// First line.
+// non-doc line
+//- non-doc line again
+/*! Fourth line. */
+void foo();
+""",
+            "First line.\n\n\nFourth line.",
+            id="doc-nondoc-doc",
+        ),
+        pytest.param(
+            b"""
+int foo; ///< First line.
+         ///< Second line.
+         /**< Third line. */
+""",
+            "First line.\nSecond line.\nThird line.",
+            id="postfix-multiple",
+        ),
+    ],
+)
+def test_comment_styles(doc_str: bytes, expected: str):
     config = api_parser.Config(
         input_path="a.cpp",
+        input_content=doc_str,
     )
-
-    def assert_output(self, expected: str):
-        output = api_parser.generate_output(self.config)
-        doc_strings = [
-            cast(api_parser.JsonDocComment, v["doc"])["text"]
-            for v in output.get("entities", {}).values()
-            if v.get("doc")
-        ]
-        assert expected in doc_strings
-
-    @pytest.mark.parametrize(
-        argnames="doc_str,expected",
-        argvalues=[
-            (b"//! This is a docstring.\nint var = 0;", "This is a docstring."),
-            (b"/// This is a docstring.\nint var = 0;", "This is a docstring."),
-            (b"/** This is a docstring. */\nint var = 0;", "This is a docstring."),
-            (
-                b"/*! This is a docstring. */\nint var = 0;",
-                "This is a docstring.",
-            ),
-            (
-                b"int var = 0; ///< This is a docstring.",
-                "This is a docstring.",
-            ),
-            (
-                b"/**\n * This is a docstring.\n */\nint var = 0;",
-                "\nThis is a docstring.",
-            ),
-            (
-                b"/*!\n * This is a docstring.\n */\nint var = 0;",
-                "\nThis is a docstring.",
-            ),
-            (
-                b"// Skip this.\n/// This is a docstring.\n// Skip this.\nint var = 0;",
-                "This is a docstring.",
-            ),
-            (
-                b"/* Skip\n * this.*/\n/**This is a docstring.*/\n"
-                b"/*Skip this.*/\nint var = 0;",
-                "This is a docstring.",
-            ),
-        ],
-        ids=[
-            "///",
-            "//!",
-            "/**",
-            "/*!",
-            "///<",
-            "/** \n * \n */",
-            "/*! \n * \n */",
-            "// \n /// \n //",
-            "/* \n * \n */\n /** */\n /* */",
-        ],
-    )
-    def test_comment_styles(self, doc_str: bytes, expected: str):
-        self.config.input_content = doc_str
-        self.assert_output(expected)
+    output = api_parser.generate_output(config)
+    doc_strings = [
+        cast(api_parser.JsonDocComment, v["doc"])["text"]
+        for v in output.get("entities", {}).values()
+        if v.get("doc")
+    ]
+    assert expected in doc_strings
 
 
 def test_function_fields():
