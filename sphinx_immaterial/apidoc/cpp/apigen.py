@@ -185,7 +185,7 @@ def _get_cpp_api_data(
 
 def _transform_doc_comment(
     env: sphinx.environment.BuildEnvironment,
-    doc: api_parser.JsonDocComment,
+    doc: Optional[api_parser.JsonDocComment],
     summary: bool,
 ) -> Optional[docutils.statemachine.StringList]:
     if not doc:
@@ -651,7 +651,6 @@ def _add_enumerators(
         )
         anchor = f"e-{name}"
         child_doc = child["doc"]
-        assert child_doc is not None
         sphinx_utils.append_directive_to_stringlist(
             out,
             "cpp:enumerator",
