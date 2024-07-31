@@ -32,7 +32,7 @@ SUPPORTED_PY_VER = list(f"3.{x}" for x in range(9, 13))
 def ruff_format(session: nox.Session):
     """Checks formatting with ruff"""
     session.install("-r", "requirements/dev-ruff.txt")
-    session.run("ruff", "format")
+    session.run("ruff", "format", "--diff")
 
 
 @nox.session
