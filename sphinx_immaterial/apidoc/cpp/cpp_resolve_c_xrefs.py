@@ -72,6 +72,13 @@ def _monkey_patch_cpp_resolve_c_xrefs():
         if refnode is not None:
             return refnode, objtype
 
+        if typ == "any":
+            # Don't forward to C domain for :any: xrefs, since it leads to an
+            # error determining the role type in CPPDomain.resolve_any_xref, and
+            # the C domain will have an opportunity to resolve this reference
+            # anyway.
+            return refnode, objtype
+
         macro_pattern = getattr(env.app, C_MACRO_PATTERN_ATTR, None)
 
         if (macro_pattern is not None and macro_pattern.fullmatch(target)) or (
