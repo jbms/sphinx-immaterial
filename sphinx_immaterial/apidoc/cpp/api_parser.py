@@ -1733,6 +1733,7 @@ class JsonApiGenerator:
         self.output_json = []
         self._prev_decl = None
         self._document_with_parent = {}
+        self._seen_unexposed_entities: set[tuple[str, int, str]] = set()
 
     def _resolve_document_with(self, entity_id: EntityId) -> EntityId:
         while True:
@@ -1782,6 +1783,28 @@ class JsonApiGenerator:
             json_repr["scope"] = _get_full_nested_name(parent)
         else:
             json_repr["parent"] = get_entity_id(parent)
+        if decl.kind != CursorKind.UNEXPOSED_DECL:
+            template_parameters = _get_template_parameters(self.config, decl)
+            if json_repr.get("specializes") and template_parameters is None:
+                template_parameters = []
+            json_repr["template_parameters"] = template_parameters
+
+        # Exclude duplicate UNEXPOSED_DECL entities.
+        #
+        # Some versions of libclang seem to also generate an UNEXPOSED_DECL for
+        # instantations of variable templates. These occur at the same source
+        # location as the original declaration, and are assumed to always occur
+        # after the original declaration.
+        if decl.kind == CursorKind.UNEXPOSED_DECL:
+            duplicate_key = (
+                decl.location.file.name,  # type: ignore[attr-defined]
+                decl.location.offset,
+                json.dumps(json_repr),
+            )
+            if duplicate_key in self._seen_unexposed_entities:
+                return None
+            self._seen_unexposed_entities.add(duplicate_key)
+
         entity_id = get_entity_id(decl)
         if document_with:
             prev_json = cast(Any, self._prev_decl)[1]
@@ -1799,17 +1822,11 @@ class JsonApiGenerator:
                 doc = None
                 self._document_with_parent[entity_id] = document_with
                 json_repr["document_with"] = document_with
-        # extent = decl.extent
         json_repr["location"] = location
         nonitpick = get_nonitpick_directives(decl)
         if nonitpick:
             json_repr["nonitpick"] = nonitpick
         json_repr["doc"] = doc
-        if decl.kind != CursorKind.UNEXPOSED_DECL:
-            template_parameters = _get_template_parameters(self.config, decl)
-            if json_repr.get("specializes") and template_parameters is None:
-                template_parameters = []
-            json_repr["template_parameters"] = template_parameters
         json_repr["id"] = entity_id
         return json_repr
 
