@@ -584,10 +584,10 @@ _SIG_TRANSFORM_FUNCS: dict[
 }
 
 if sphinx.version_info >= (7, 3):
-    _SIG_TRANSFORM_FUNCS[
-        sphinx.addnodes.desc_type_parameter_list
-    ] = lambda ignored, node: _sig_transform_desc_parameter_list(
-        ignored, node, "[", "]"
+    _SIG_TRANSFORM_FUNCS[sphinx.addnodes.desc_type_parameter_list] = (
+        lambda ignored, node: _sig_transform_desc_parameter_list(
+            ignored, node, "[", "]"
+        )
     )
     _SIG_TRANSFORM_FUNCS[sphinx.addnodes.desc_type_parameter] = _sig_transform_parameter
 
