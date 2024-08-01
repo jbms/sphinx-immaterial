@@ -208,7 +208,7 @@ class FormatApplier:
         )
         self.adjusted_nodes.extend(new_adjusted_nodes)
         for adjusted_node in new_adjusted_nodes:
-            for text_node in adjusted_node.traverse(condition=docutils.nodes.Text):
+            for text_node in adjusted_node.findall(condition=docutils.nodes.Text):
                 orig_text = text_node.astext()
                 text = orig_text
                 parent = text_node.parent
@@ -245,7 +245,7 @@ class FormatApplier:
             list
         )
         for tag, i1, i2, j1, j2 in difflib.SequenceMatcher(
-            None,
+            " \t\n".__contains__,
             formatted_input,
             formatted_output,
             autojunk=False,
