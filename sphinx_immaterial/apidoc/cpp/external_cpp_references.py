@@ -123,13 +123,14 @@ def _missing_reference(
     return newnode
 
 
+_CPPREFERENCE_APP_KEY = "_sphinx_immaterial_cppreference_objects"
+
+
 def get_mappings(app: sphinx.application.Sphinx) -> Dict[str, ObjectInfo]:
-    env = app.env
-    assert env is not None
-    cpp_objects = getattr(env, "cppreference_objects", None)
+    cpp_objects = getattr(app, _CPPREFERENCE_APP_KEY, None)
     if cpp_objects is None:
         cpp_objects = {}
-        setattr(env, "cppreference_objects", cpp_objects)
+        setattr(app, _CPPREFERENCE_APP_KEY, cpp_objects)
         return cpp_objects
     return cpp_objects
 

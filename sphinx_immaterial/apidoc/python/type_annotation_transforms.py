@@ -218,7 +218,7 @@ def _monkey_patch_python_domain_to_transform_type_annotations():
         orig_parse_annotation = sphinx.domains.python._parse_annotation
 
     def _parse_annotation(annotation: str, env: sphinx.environment.BuildEnvironment):
-        transformer_config = getattr(env, _CONFIG_ATTR, None)
+        transformer_config = getattr(env.app, _CONFIG_ATTR, None)
         if transformer_config is None or not transformer_config.transform:
             return orig_parse_annotation(annotation, env)
 
@@ -298,7 +298,7 @@ def _builder_inited(app: sphinx.application.Sphinx):
         )
 
     setattr(
-        app.env,
+        app,
         _CONFIG_ATTR,
         TypeTransformConfig(
             transform=bool(
@@ -360,7 +360,7 @@ def _monkey_patch_python_domain_to_transform_xref_titles():
             and len(node.children) == 1
             and node.children[0].astext() == target
         ):
-            transformer_config = getattr(env, _CONFIG_ATTR, None)
+            transformer_config = getattr(env.app, _CONFIG_ATTR, None)
             if transformer_config is not None:
                 strip_modules_from_xrefs_pattern = (
                     transformer_config.strip_modules_from_xrefs_pattern
