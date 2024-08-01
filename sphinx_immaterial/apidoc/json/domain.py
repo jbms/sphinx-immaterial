@@ -50,6 +50,8 @@ from .. import apigen_utils
 
 logger = sphinx.util.logging.getLogger(__name__)
 
+_SCHEMA_DATA_APP_KEY = "_sphinx_immaterial_json_schema_data"
+
 
 class JsonSchemaMapEntry(NamedTuple):
     path: str
@@ -289,7 +291,7 @@ def _get_json_schema_files(app: sphinx.application.Sphinx):
 def _populate_json_schema_id_map(app: sphinx.application.Sphinx):
     """Finds all schema files and loads them into `_json_schema_id_map`."""
     schema_data = LoadedSchemaData()
-    setattr(app.env, "json_schema_data", schema_data)
+    setattr(app, _SCHEMA_DATA_APP_KEY, schema_data)
     seen_ids: Dict[str, str] = {}
     all_paths = list(_get_json_schema_files(app))
     validate = app.config.json_schema_validate
@@ -675,7 +677,7 @@ class JsonSchemaDirective(sphinx.directives.ObjectDescription):
         :param properties: Dict to be filled with members.
         :param required: Set to which required members are added.
         """
-        schema_data: LoadedSchemaData = getattr(self.env, "json_schema_data")
+        schema_data: LoadedSchemaData = getattr(self.env.app, _SCHEMA_DATA_APP_KEY)
         if "$ref" in schema_node:
             ref = schema_node["$ref"]
             referenced_entry = schema_data.id_map.get(ref)
@@ -729,7 +731,7 @@ class JsonSchemaDirective(sphinx.directives.ObjectDescription):
 
         :returns: The rendered result as a list of docutils nodes.
         """
-        schema_data: LoadedSchemaData = getattr(self.env, "json_schema_data")
+        schema_data: LoadedSchemaData = getattr(self.env.app, _SCHEMA_DATA_APP_KEY)
         field_list, body = self._make_field("One of")
         one_ofs = self._schema_entry.schema["oneOf"]
         # If all oneof options are constant strings, generate fully-qualified
@@ -765,7 +767,7 @@ class JsonSchemaDirective(sphinx.directives.ObjectDescription):
         :returns: A tuple (path, line) specifying the source information.
         """
 
-        schema_data: LoadedSchemaData = getattr(self.env, "json_schema_data")
+        schema_data: LoadedSchemaData = getattr(self.env.app, _SCHEMA_DATA_APP_KEY)
         return schema_data.get_node_source_info_from_schema_string(
             source_string, self._schema_entry.path
         )
@@ -811,7 +813,7 @@ class JsonSchemaDirective(sphinx.directives.ObjectDescription):
 
     def _render_body(self) -> List[docutils.nodes.Node]:
         """Renders the body of the schema."""
-        schema_data: LoadedSchemaData = getattr(self.env, "json_schema_data")
+        schema_data: LoadedSchemaData = getattr(self.env.app, _SCHEMA_DATA_APP_KEY)
         schema_node = self._schema_entry.schema
         result: List[docutils.nodes.Node] = []
 
@@ -958,7 +960,7 @@ class JsonSchemaDirective(sphinx.directives.ObjectDescription):
         signode["ids"].append(self._node_id)
 
     def run(self) -> List[docutils.nodes.Node]:
-        schema_data: LoadedSchemaData = self.env.json_schema_data  # type: ignore
+        schema_data: LoadedSchemaData = getattr(self.env.app, _SCHEMA_DATA_APP_KEY)
         schema_id = self.arguments[0]
         schema_entry = schema_data.id_map.get(schema_id)
         if schema_entry is None:
