@@ -191,7 +191,7 @@ class IndexBuilder(sphinx.search.IndexBuilder):
                 filenames.append(url)
             else:
                 docnames.append(docname)
-                filenames.append(self.env.doc2path(docname, False))
+                filenames.append(str(self.env.doc2path(docname, False)))
         frozen["docnames"] = docnames
         frozen["filenames"] = filenames
         new_data = format.dumps(frozen)
