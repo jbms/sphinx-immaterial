@@ -1006,10 +1006,11 @@ TEMPLATE_PARAMETER_KIND_TO_JSON_KIND = {
 def _clang_template_parameter_to_json(config: Config, decl: Cursor):
     param_decl_str = get_extent_spelling(decl.translation_unit, decl.extent)
     param = _parse_template_parameter(param_decl_str)
+    spelling = decl.spelling
     if param is None:
         return {
             "declaration": param_decl_str,
-            "name": decl.spelling,
+            "name": spelling,
             "kind": TEMPLATE_PARAMETER_KIND_TO_JSON_KIND[decl.kind],
             # Heuristic to determine if it is a pack.
             "pack": "..." in param_decl_str,
@@ -1508,9 +1509,11 @@ def _sphinx_ast_template_parameter_to_json(
     else:
         kind = "non_type"
 
+    identifier = param.get_identifier()
+
     return {
         "declaration": _substitute_internal_type_names(config, str(param)),
-        "name": str(param.get_identifier()),
+        "name": str(identifier) if identifier else "",
         "kind": cast(TemplateParameterKind, kind),
         "pack": param.isPack,  # type: ignore[attr-defined]
     }

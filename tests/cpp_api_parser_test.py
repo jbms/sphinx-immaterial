@@ -222,3 +222,25 @@ int function(T arg1, T &arg2, T &arg3);
         ]
     )
     assert expected == doc_str
+
+
+def test_unnamed_template_parameter():
+    config = api_parser.Config(
+        input_path="a.cpp",
+        compiler_flags=["-std=c++17", "-x", "c++"],
+        input_content=rb"""
+/// Tests something.
+///
+/// \ingroup Array
+template <typename = void>
+constexpr inline bool IsArray = false;
+""",
+    )
+
+    output = api_parser.generate_output(config)
+    entities = output.get("entities", {})
+    assert len(entities) == 1
+    entity = list(entities.values())[0]
+    tparams = entity["template_parameters"]
+    assert tparams is not None
+    assert tparams[0]["name"] == ""
