@@ -30,6 +30,24 @@ PYBIND11_MODULE(sphinx_immaterial_pybind11_issue_134, m) {
                               [](const Example& self) -> int { return 42; });
   }
 
+  cls.def(
+      "foo", [](Example& self, int x) { return 1; }, R"docstr(
+Int overload.
+
+Overload:
+  int
+)docstr");
+
+  cls.def(
+      "foo", [](Example& self, bool x) { return 1; }, R"docstr(
+Bool overload.
+
+Overload:
+  bool
+)docstr");
+
+  cls.attr("bar") = cls.attr("foo");
+
   cls.def_readonly("is_set_by_init", &Example::is_set_by_init, R"docstr(
             This read-only ``bool`` attribute is set by the constructor.
         )docstr");
