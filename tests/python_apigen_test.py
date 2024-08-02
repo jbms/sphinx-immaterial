@@ -1,7 +1,9 @@
+import json
 import pathlib
 
 import pytest
 import sphinx
+
 
 from sphinx_immaterial.apidoc.python.apigen import _get_api_data
 
@@ -184,5 +186,41 @@ def test_type_params(apigen_make_app):
     )
     app.build()
     print(app._status.getvalue())
+    assert not app._warning.getvalue()
+
+
+def test_pybind11_overloaded_function(apigen_make_app, snapshot):
+    testmod = "sphinx_immaterial_pybind11_issue_134"
+    app = apigen_make_app(
+        confoverrides=dict(
+            python_apigen_modules={
+                testmod: "api/",
+            },
+        ),
+    )
+    print(app._status.getvalue())
     print(app._warning.getvalue())
     assert not app._warning.getvalue()
+
+    data = _get_api_data(app.env)
+
+    def get_entity_info(key):
+        entity = data.entities[key]
+        return json.dumps(
+            {
+                k: getattr(entity, k)
+                for k in ["signatures", "primary_entity", "siblings"]
+            },
+            indent=2,
+        )
+
+    for name in [
+        "Example.foo(int)",
+        "Example.foo(bool)",
+        "Example.bar(int)",
+        "Example.bar(bool)",
+    ]:
+        snapshot.assert_match(
+            get_entity_info(f"{testmod}.{name}"),
+            name.replace("(", "_").replace(")", "") + ".json",
+        )

@@ -119,10 +119,10 @@ class ParsedOverload(NamedTuple):
     overload_id: Optional[str] = None
     """Overload id specified in the docstring.
 
-  If there is just a single overload, will be `None`.  Otherwise, if no overload
-  id is specified, a warning is produced and the index of the overload,
-  i.e. "1", "2", etc., is used as the id.
-  """
+    If there is just a single overload, will be `None`.  Otherwise, if no overload
+    id is specified, a warning is produced and the index of the overload,
+    i.e. "1", "2", etc., is used as the id.
+    """
 
 
 def _extract_field(doc: str, field: str) -> Tuple[str, Optional[str]]:
@@ -1613,6 +1613,49 @@ def _summarize_rst_content(content: List[str]) -> List[str]:
     return content[:i]
 
 
+class _SiblingMatchKey(NamedTuple):
+    """Lookup key for finding siblings of a `_MemberDocumenterEntry`.
+
+    Normally siblings are determined based on the identity of the associated
+    Python object.
+
+    However, in the case of pybind11-overloaded functions, since all overloads
+    share the same Python object, the overload_id must also be taken into
+    account.
+    """
+
+    obj: Any
+    overload_id: Optional[str]
+
+    def __hash__(self):
+        return hash((id(self.obj), self.overload_id))
+
+    def __eq__(self, other):
+        if not isinstance(other, _SiblingMatchKey):
+            return False
+        return self.obj is other.obj and self.overload_id == other.overload_id
+
+
+def _get_sibling_match_key(entry: _MemberDocumenterEntry) -> Optional[_SiblingMatchKey]:
+    obj = None
+    if not isinstance(
+        entry.documenter,
+        (
+            sphinx.ext.autodoc.FunctionDocumenter,
+            sphinx.ext.autodoc.MethodDocumenter,
+            sphinx.ext.autodoc.PropertyDocumenter,
+        ),
+    ):
+        return None
+    obj = entry.documenter.object
+    overload_id: Optional[str] = None
+    overload = entry.overload
+    if overload is not None:
+        overload_id = overload.overload_id
+
+    return _SiblingMatchKey(obj, overload_id)
+
+
 class _ApiEntityCollector:
     def __init__(
         self,
@@ -1717,7 +1760,10 @@ class _ApiEntityCollector:
                         )
                     ]
         else:
-            signatures = entry.documenter.format_signature().split("\n")
+            if primary_entity is None:
+                signatures = entry.documenter.format_signature().split("\n")
+            else:
+                signatures = primary_entity.signatures
 
         overload_id: Optional[str] = None
         if entry.overload is not None:
@@ -1762,34 +1808,17 @@ class _ApiEntityCollector:
     ) -> List[_ApiEntityMemberReference]:
         members: List[_ApiEntityMemberReference] = []
 
-        object_to_api_entity_member_map: Dict[
-            int, Tuple[Any, _ApiEntityMemberReference]
-        ] = {}
+        sibling_match_map: dict[_SiblingMatchKey, _ApiEntityMemberReference] = {}
 
         for entry in _get_documenter_members(
             self.app, documenter, canonical_full_name=canonical_object_name
         ):
-            obj = None
-            if isinstance(
-                entry.documenter,
-                (
-                    sphinx.ext.autodoc.FunctionDocumenter,
-                    sphinx.ext.autodoc.MethodDocumenter,
-                    sphinx.ext.autodoc.PropertyDocumenter,
-                ),
-            ):
-                obj = entry.documenter.object
-            obj_and_primary_sibling_member: Optional[
-                Tuple[Any, _ApiEntityMemberReference]
-            ] = None
+            sibling_match_key = _get_sibling_match_key(entry)
             primary_sibling_entity: Optional[_ApiEntity] = None
             primary_sibling_member: Optional[_ApiEntityMemberReference] = None
-            if obj is not None:
-                obj_and_primary_sibling_member = object_to_api_entity_member_map.get(
-                    id(obj)
-                )
-                if obj_and_primary_sibling_member is not None:
-                    primary_sibling_member = obj_and_primary_sibling_member[1]
+            if (sibling_match_key := _get_sibling_match_key(entry)) is not None:
+                primary_sibling_member = sibling_match_map.get(sibling_match_key)
+                if primary_sibling_member is not None:
                     primary_sibling_entity = self.entities[
                         primary_sibling_member.canonical_object_name
                     ]
@@ -1816,8 +1845,8 @@ class _ApiEntityCollector:
                     member_canonical_object_name, True
                 )
             else:
-                if obj is not None:
-                    object_to_api_entity_member_map[id(obj)] = (obj, member)
+                if sibling_match_key is not None:
+                    sibling_match_map[sibling_match_key] = member
                 members.append(member)
 
             child.parents.append(member)

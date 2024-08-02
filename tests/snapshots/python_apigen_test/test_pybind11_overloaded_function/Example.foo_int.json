@@ -1,0 +1,9 @@
+{
+  "signatures": [
+    "(self: sphinx_immaterial_pybind11_issue_134.Example, arg0: int) -> int"
+  ],
+  "primary_entity": true,
+  "siblings": {
+    "sphinx_immaterial_pybind11_issue_134.Example.bar(int)": true
+  }
+}
