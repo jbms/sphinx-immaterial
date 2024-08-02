@@ -566,7 +566,8 @@ def _parse_confval_signature(
     if registry_option is None:
         logger.error("Invalid config option: %r", signature, location=node)
     else:
-        default, rebuild, types = registry_option
+        default = registry_option.default
+        types = registry_option.valid_types
         if isinstance(types, sphinx.config.ENUM):
             types = (typing.Literal[tuple(types.candidates)],)
         if isinstance(types, type):
