@@ -1056,7 +1056,7 @@
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">adjusted_nodes</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">new_adjusted_nodes</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">adjusted_node</span> <span class="ow">in</span> <span class="n">new_adjusted_nodes</span><span class="p">:</span>
-            <span class="k">for</span> <span class="n">text_node</span> <span class="ow">in</span> <span class="n">adjusted_node</span><span class="o">.</span><span class="n">traverse</span><span class="p">(</span><span class="n">condition</span><span class="o">=</span><span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Text</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">text_node</span> <span class="ow">in</span> <span class="n">adjusted_node</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">condition</span><span class="o">=</span><span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Text</span><span class="p">):</span>
                 <span class="n">orig_text</span> <span class="o">=</span> <span class="n">text_node</span><span class="o">.</span><span class="n">astext</span><span class="p">()</span>
                 <span class="n">text</span> <span class="o">=</span> <span class="n">orig_text</span>
                 <span class="n">parent</span> <span class="o">=</span> <span class="n">text_node</span><span class="o">.</span><span class="n">parent</span>
@@ -1093,7 +1093,7 @@
             <span class="nb">list</span>
         <span class="p">)</span>
         <span class="k">for</span> <span class="n">tag</span><span class="p">,</span> <span class="n">i1</span><span class="p">,</span> <span class="n">i2</span><span class="p">,</span> <span class="n">j1</span><span class="p">,</span> <span class="n">j2</span> <span class="ow">in</span> <span class="n">difflib</span><span class="o">.</span><span class="n">SequenceMatcher</span><span class="p">(</span>
-            <span class="kc">None</span><span class="p">,</span>
+            <span class="s2">&quot; </span><span class="se">\t\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="fm">__contains__</span><span class="p">,</span>
             <span class="n">formatted_input</span><span class="p">,</span>
             <span class="n">formatted_output</span><span class="p">,</span>
             <span class="n">autojunk</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
@@ -1432,10 +1432,10 @@
 <span class="p">}</span>
 
 <span class="k">if</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">version_info</span> <span class="o">&gt;=</span> <span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">3</span><span class="p">):</span>
-    <span class="n">_SIG_TRANSFORM_FUNCS</span><span class="p">[</span>
-        <span class="n">sphinx</span><span class="o">.</span><span class="n">addnodes</span><span class="o">.</span><span class="n">desc_type_parameter_list</span>
-    <span class="p">]</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">ignored</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">_sig_transform_desc_parameter_list</span><span class="p">(</span>
-        <span class="n">ignored</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="s2">&quot;[&quot;</span><span class="p">,</span> <span class="s2">&quot;]&quot;</span>
+    <span class="n">_SIG_TRANSFORM_FUNCS</span><span class="p">[</span><span class="n">sphinx</span><span class="o">.</span><span class="n">addnodes</span><span class="o">.</span><span class="n">desc_type_parameter_list</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="k">lambda</span> <span class="n">ignored</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">_sig_transform_desc_parameter_list</span><span class="p">(</span>
+            <span class="n">ignored</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="s2">&quot;[&quot;</span><span class="p">,</span> <span class="s2">&quot;]&quot;</span>
+        <span class="p">)</span>
     <span class="p">)</span>
     <span class="n">_SIG_TRANSFORM_FUNCS</span><span class="p">[</span><span class="n">sphinx</span><span class="o">.</span><span class="n">addnodes</span><span class="o">.</span><span class="n">desc_type_parameter</span><span class="p">]</span> <span class="o">=</span> <span class="n">_sig_transform_parameter</span>
 
@@ -1617,7 +1617,7 @@
   <small>
     
       Last update:
-      Aug 01, 2024
+      Aug 03, 2024
     
   </small>
 </div>

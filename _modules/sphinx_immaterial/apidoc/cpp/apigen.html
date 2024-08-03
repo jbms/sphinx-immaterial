@@ -1036,7 +1036,7 @@
 
 <span class="k">def</span> <span class="nf">_transform_doc_comment</span><span class="p">(</span>
     <span class="n">env</span><span class="p">:</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">environment</span><span class="o">.</span><span class="n">BuildEnvironment</span><span class="p">,</span>
-    <span class="n">doc</span><span class="p">:</span> <span class="n">api_parser</span><span class="o">.</span><span class="n">JsonDocComment</span><span class="p">,</span>
+    <span class="n">doc</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">api_parser</span><span class="o">.</span><span class="n">JsonDocComment</span><span class="p">],</span>
     <span class="n">summary</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">docutils</span><span class="o">.</span><span class="n">statemachine</span><span class="o">.</span><span class="n">StringList</span><span class="p">]:</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">doc</span><span class="p">:</span>
@@ -1502,7 +1502,6 @@
         <span class="p">)</span>
         <span class="n">anchor</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;e-</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span>
         <span class="n">child_doc</span> <span class="o">=</span> <span class="n">child</span><span class="p">[</span><span class="s2">&quot;doc&quot;</span><span class="p">]</span>
-        <span class="k">assert</span> <span class="n">child_doc</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
         <span class="n">sphinx_utils</span><span class="o">.</span><span class="n">append_directive_to_stringlist</span><span class="p">(</span>
             <span class="n">out</span><span class="p">,</span>
             <span class="s2">&quot;cpp:enumerator&quot;</span><span class="p">,</span>
@@ -1821,7 +1820,7 @@
   <small>
     
       Last update:
-      Aug 01, 2024
+      Aug 03, 2024
     
   </small>
 </div>

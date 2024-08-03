@@ -974,13 +974,14 @@
     <span class="k">return</span> <span class="n">newnode</span>
 
 
+<span class="n">_CPPREFERENCE_APP_KEY</span> <span class="o">=</span> <span class="s2">&quot;_sphinx_immaterial_cppreference_objects&quot;</span>
+
+
 <span class="k">def</span> <span class="nf">get_mappings</span><span class="p">(</span><span class="n">app</span><span class="p">:</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">Sphinx</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">ObjectInfo</span><span class="p">]:</span>
-    <span class="n">env</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">env</span>
-    <span class="k">assert</span> <span class="n">env</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-    <span class="n">cpp_objects</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="s2">&quot;cppreference_objects&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="n">cpp_objects</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">_CPPREFERENCE_APP_KEY</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">cpp_objects</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">cpp_objects</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="nb">setattr</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="s2">&quot;cppreference_objects&quot;</span><span class="p">,</span> <span class="n">cpp_objects</span><span class="p">)</span>
+        <span class="nb">setattr</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">_CPPREFERENCE_APP_KEY</span><span class="p">,</span> <span class="n">cpp_objects</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">cpp_objects</span>
     <span class="k">return</span> <span class="n">cpp_objects</span>
 
@@ -1010,7 +1011,7 @@
   <small>
     
       Last update:
-      Aug 01, 2024
+      Aug 03, 2024
     
   </small>
 </div>
