@@ -1,0 +1,165 @@
+<desc_signature _toc_name="LongFunctionSignatureExample()" _toc_parts="('LongFunctionSignatureExample',)" classes="sig sig-object highlight cpp" ids="_CPPv4I00_iEIQNSt10is_const_vI1TEEE28LongFunctionSignatureExampleK6MyTypeK6MyTypeP7uint8_tjb" is_multiline="False" multi_line_parameter_list="False" signature_format_id="353e40c43b4168678988580cfda2596c">
+    <desc_sig_keyword classes="k">
+        template
+         
+    <desc_sig_punctuation classes="p">
+        <
+    <desc_cpp_template_param>
+        <desc_sig_keyword classes="k">
+            typename
+        <desc_sig_space classes="w">
+             
+        <desc_name classes="sig-name descname sig-name-nonprimary" xml:space="preserve">
+            <reference classes="desctype n" internal="True" refid="_CPPv4I00_iEIQNSt10is_const_vI1TEEE28LongFunctionSignatureExampleK6MyTypeK6MyTypeP7uint8_tjb" reftitle="LongFunctionSignatureExample::T (C++ type template parameter)">
+                <desc_sig_name classes="n">
+                    T
+    <desc_sig_punctuation classes="p">
+        ,
+    <desc_sig_space classes="w">
+         
+    <desc_cpp_template_param>
+        <desc_sig_keyword classes="k">
+            typename
+        <desc_sig_space classes="w">
+             
+        <desc_name classes="sig-name descname sig-name-nonprimary" xml:space="preserve">
+            <reference classes="desctype n" internal="True" refid="_CPPv4I00_iEIQNSt10is_const_vI1TEEE28LongFunctionSignatureExampleK6MyTypeK6MyTypeP7uint8_tjb" reftitle="LongFunctionSignatureExample::U (C++ type template parameter)">
+                <desc_sig_name classes="n">
+                    U
+        <desc_sig_space classes="w">
+             
+        <desc_sig_punctuation classes="p">
+            =
+        <desc_sig_space classes="w">
+             
+        <desc_sig_keyword_type classes="kt">
+            void
+    <desc_sig_punctuation classes="p">
+        ,
+    <desc_sig_space classes="w">
+         
+    <desc_cpp_template_param>
+        <desc_sig_keyword_type classes="kt">
+            int
+        <desc_sig_space classes="w">
+             
+        <desc_name classes="sig-name descname sig-name-nonprimary" xml:space="preserve">
+            <reference classes="n" internal="True" refid="_CPPv4I00_iEIQNSt10is_const_vI1TEEE28LongFunctionSignatureExampleK6MyTypeK6MyTypeP7uint8_tjb" reftitle="LongFunctionSignatureExample::AnotherParameter (C++ non-type template parameter)">
+                <desc_sig_name classes="n">
+                    AnotherParameter
+        <desc_sig_space classes="w">
+             
+        <desc_sig_punctuation classes="p">
+            =
+        <desc_sig_space classes="w">
+             
+        <desc_sig_literal_number classes="m">
+            42
+    <desc_sig_punctuation classes="p">
+        >
+        
+          
+    <desc_cpp_requires_clause>
+        <desc_sig_keyword classes="k">
+            requires
+        <desc_sig_space classes="w">
+             
+        <desc_sig_name classes="n">
+            std
+        <desc_sig_punctuation classes="p">
+            ::
+        <desc_sig_name classes="n">
+            is_const_v
+        <desc_sig_punctuation classes="p">
+            <
+        <reference classes="desctype" internal="True" refid="_CPPv4I00_iEIQNSt10is_const_vI1TEEE28LongFunctionSignatureExampleK6MyTypeK6MyTypeP7uint8_tjb" reftitle="LongFunctionSignatureExample::T (C++ type template parameter)">
+            <desc_sig_name classes="n">
+                T
+        <desc_sig_punctuation classes="p">
+            >
+            
+    <desc_sig_keyword classes="k">
+        const
+    <desc_sig_space classes="w">
+         
+    <desc_sig_name classes="n">
+        MyType
+    <desc_sig_space classes="w">
+        
+    <desc_name classes="sig-name descname" xml:space="preserve">
+        <desc_sig_name classes="n">
+            LongFunctionSignatureExample
+    <desc_sig_punctuation classes="p">
+        (
+    <inline>
+        <desc_sig_keyword classes="k">
+            const
+        <desc_sig_space classes="w">
+             
+        <desc_sig_name classes="n">
+            MyType
+        <desc_sig_space classes="w">
+             
+        <reference classes="n sig-param" internal="True" refid="_CPPv4I00_iEIQNSt10is_const_vI1TEEE28LongFunctionSignatureExampleK6MyTypeK6MyTypeP7uint8_tjb" reftitle="LongFunctionSignatureExample::bar (C++ function parameter)">
+            <desc_sig_name classes="n sig-param">
+                bar
+    <desc_sig_punctuation classes="p">
+        ,
+         
+    <inline>
+        <desc_sig_name classes="n">
+            uint8_t
+        <desc_sig_space classes="w">
+             
+        <desc_sig_punctuation classes="p">
+            *
+        <reference classes="n sig-param" internal="True" refid="_CPPv4I00_iEIQNSt10is_const_vI1TEEE28LongFunctionSignatureExampleK6MyTypeK6MyTypeP7uint8_tjb" reftitle="LongFunctionSignatureExample::arr (C++ function parameter)">
+            <desc_sig_name classes="n sig-param">
+                arr
+    <desc_sig_punctuation classes="p">
+        ,
+        
+                                     
+    <inline>
+        <desc_sig_keyword_type classes="kt">
+            unsigned
+        <desc_sig_space classes="w">
+             
+        <desc_sig_keyword_type classes="kt">
+            int
+        <desc_sig_space classes="w">
+             
+        <reference classes="n sig-param" internal="True" refid="_CPPv4I00_iEIQNSt10is_const_vI1TEEE28LongFunctionSignatureExampleK6MyTypeK6MyTypeP7uint8_tjb" reftitle="LongFunctionSignatureExample::len (C++ function parameter)">
+            <desc_sig_name classes="n sig-param">
+                len
+        <desc_sig_space classes="w">
+             
+        <desc_sig_punctuation classes="p">
+            =
+        <desc_sig_space classes="w">
+             
+        <desc_sig_name classes="n">
+            DEFAULT_LENGTH
+    <desc_sig_punctuation classes="p">
+        ,
+        
+                                     
+    <inline>
+        <desc_sig_keyword_type classes="kt">
+            bool
+        <desc_sig_space classes="w">
+             
+        <reference classes="n sig-param" internal="True" refid="_CPPv4I00_iEIQNSt10is_const_vI1TEEE28LongFunctionSignatureExampleK6MyTypeK6MyTypeP7uint8_tjb" reftitle="LongFunctionSignatureExample::baz (C++ function parameter)">
+            <desc_sig_name classes="n sig-param">
+                baz
+        <desc_sig_space classes="w">
+             
+        <desc_sig_punctuation classes="p">
+            =
+        <desc_sig_space classes="w">
+             
+        <desc_sig_keyword classes="k">
+            false
+    <desc_sig_punctuation classes="p">
+        )
+        ;

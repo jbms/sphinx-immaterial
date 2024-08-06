@@ -136,7 +136,7 @@ def check_eof(session: nox.Session):
 def check_trailing_space(session: nox.Session):
     """Ensure no trailing whitespace."""
     session.install("-r", "requirements/dev-pre_commit_hooks.txt")
-    all_files = get_file_list("*")
+    all_files = get_file_list("*", exclude=re.compile("tests/snapshots/.*"))
     # error output is super long and unhelpful; we only need the stdout in case of error
     ret = session.run(
         "trailing-whitespace-fixer", *all_files, silent=True, success_codes=[0, 1]

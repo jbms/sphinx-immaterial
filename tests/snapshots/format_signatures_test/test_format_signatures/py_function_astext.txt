@@ -1,0 +1,9 @@
+some_module.method_name(
+    some_parameter_with_a_long_name: collections.abc.MutableMapping[
+        tuple[str, float, numbers.Real],
+        dict[int, tuple[list[frozenset[int]]]],
+    ]
+) -> collections.abc.MutableMapping[
+    tuple[str, float, numbers.Real],
+    dict[int, tuple[list[frozenset[int]]]],
+]
