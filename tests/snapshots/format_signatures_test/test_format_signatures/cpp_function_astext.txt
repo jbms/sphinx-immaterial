@@ -1,0 +1,2 @@
+void foo(int something, int something_else, bool third_param,
+         bool fourth_param, int fifth_param);

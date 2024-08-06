@@ -1,0 +1,2 @@
+std::integral_constant<ptrdiff_t, N>
+tensorstore::GetStaticOrDynamicExtent(span<X, N>);
