@@ -5,7 +5,7 @@ In developing the documentation for this theme, it became apparent that we neede
 duplicating code samples to show both document source syntax and HTML rendering of the
 document source code.
 
-Introducing the :rst:dir:`rst-example` and :rst:dir:`md-example` directives! To use these
+Introducing the :rst:dir:`rst-example` and :rst:dir:`myst-example` directives! To use these
 directives, enable the :python:`"sphinx_immaterial.theme_result"` extension.
 
 .. code-block:: python
@@ -191,7 +191,7 @@ directives, enable the :python:`"sphinx_immaterial.theme_result"` extension.
                 A :ref:`cross-reference link to this example <ref-this-example>`.
 
 
-.. rst:directive:: md-example
+.. rst:directive:: myst-example
 
     This is really just an alias of the :rst:dir:`rst-example` for readability
     in markdown document sources. It is meant to be used with Markdown code as
@@ -216,7 +216,7 @@ directives, enable the :python:`"sphinx_immaterial.theme_result"` extension.
 
     .. code-block:: md
 
-        ```{md-example} A showcase caption
+        ```{myst-example} A showcase caption
         :output-prefix: Which renders the following content:
         :class: custom-css-class
         :name: reference-this-example
