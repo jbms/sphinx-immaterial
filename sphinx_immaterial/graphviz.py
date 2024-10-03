@@ -313,7 +313,7 @@ def render_dot_html(
 
     with tempfile.TemporaryDirectory() as tempdir:
         env = os.environ.copy()
-        if config_info is not None:
+        if config_info is not None and ttf_font is not None:
             orig_lib_path = pathlib.Path(config_info.orig_config_path)
             new_lib_dir = pathlib.Path(tempdir, "plugins")
             pathlib.Path(tempdir, orig_lib_path.name).write_bytes(
