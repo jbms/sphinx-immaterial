@@ -320,7 +320,20 @@ def render_dot_html(
                 config_info.new_config
             )
 
+            # fontconfig will not be used when an explicit font path is
+            # specified to libgd, but graphviz will fail to load if support for
+            # fontconfig is compiled into libgd but a fontconfig config file is
+            # not found.
+            pathlib.Path(tempdir, "fonts.conf").write_bytes(
+                b"""<?xml version="1.0"?>
+<!DOCTYPE fontconfig SYSTEM "urn:fontconfig:fonts.dtd">
+<fontconfig></fontconfig>
+"""
+            )
+
             env["GVBINDIR"] = tempdir
+            env["FONTCONFIG_PATH"] = tempdir
+            env["FONTCONFIG_FILE"] = os.path.join(tempdir, "fonts.conf")
             new_lib_dir.symlink_to(orig_lib_path.parent, target_is_directory=True)
             cwd = str(orig_lib_path.parent)
         else:
