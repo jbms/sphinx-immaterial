@@ -244,7 +244,7 @@ def render_dot_html(
     if ttf_font_paths and font is not None:
         try:
             # can only support the chosen font if cache exists and a Google font is used
-            ttf_font = ttf_font_paths[(font, "400")]
+            ttf_font = ttf_font_paths[(font, "400")].replace("\\", "/")
         except KeyError as exc:
             # weight `400` might not exist for the specified font
             all_font_keys = [i for i in ttf_font_paths.keys() if i[0] == font]
@@ -253,7 +253,7 @@ def render_dot_html(
                     f"Font file for {font} could not be found in cache"
                 ) from exc
             # just use first weight for the specified font
-            ttf_font = ttf_font_paths[all_font_keys[0]]
+            ttf_font = ttf_font_paths[all_font_keys[0]].replace("\\", "/")
 
     code = _replace_resolved_xrefs(node, code)
 
