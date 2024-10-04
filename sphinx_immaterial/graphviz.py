@@ -244,7 +244,7 @@ def render_dot_html(
     if ttf_font_paths and font is not None:
         try:
             # can only support the chosen font if cache exists and a Google font is used
-            ttf_font = ttf_font_paths[(font, "400")].replace("\\", "/")
+            ttf_font = ttf_font_paths[(font, "400")]
         except KeyError as exc:
             # weight `400` might not exist for the specified font
             all_font_keys = [i for i in ttf_font_paths.keys() if i[0] == font]
@@ -253,7 +253,10 @@ def render_dot_html(
                     f"Font file for {font} could not be found in cache"
                 ) from exc
             # just use first weight for the specified font
-            ttf_font = ttf_font_paths[all_font_keys[0]].replace("\\", "/")
+            ttf_font = ttf_font_paths[all_font_keys[0]]
+
+    if ttf_font is not None and os.sep != "/":
+        ttf_font = ttf_font.replace(os.sep, "/")
 
     code = _replace_resolved_xrefs(node, code)
 
@@ -320,20 +323,7 @@ def render_dot_html(
                 config_info.new_config
             )
 
-            # fontconfig will not be used when an explicit font path is
-            # specified to libgd, but graphviz will fail to load if support for
-            # fontconfig is compiled into libgd but a fontconfig config file is
-            # not found.
-            pathlib.Path(tempdir, "fonts.conf").write_bytes(
-                b"""<?xml version="1.0"?>
-<!DOCTYPE fontconfig SYSTEM "urn:fontconfig:fonts.dtd">
-<fontconfig></fontconfig>
-"""
-            )
-
             env["GVBINDIR"] = tempdir
-            env["FONTCONFIG_PATH"] = tempdir
-            env["FONTCONFIG_FILE"] = os.path.join(tempdir, "fonts.conf")
             new_lib_dir.symlink_to(orig_lib_path.parent, target_is_directory=True)
             cwd = str(orig_lib_path.parent)
         else:
