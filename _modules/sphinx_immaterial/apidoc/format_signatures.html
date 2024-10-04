@@ -999,6 +999,9 @@
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Text</span><span class="p">):</span>
             <span class="k">return</span> <span class="n">replacements</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">node</span><span class="p">))</span> <span class="ow">or</span> <span class="p">[]</span>
         <span class="n">new_node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="c1"># Ensure the new node does not contain any children. `desc_sig_space`,</span>
+        <span class="c1"># for example, adds a default child text node with content &quot; &quot;.</span>
+        <span class="k">del</span> <span class="n">new_node</span><span class="p">[:]</span>
         <span class="n">new_node</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">_transform_node_list</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">children</span><span class="p">,</span> <span class="n">_transform_node</span><span class="p">))</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">new_node</span><span class="o">.</span><span class="n">children</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="c1"># A pending_xref with no children is an error and indicates a</span>
@@ -1031,6 +1034,30 @@
 <span class="sd">    May be `None` if this component was added only to make the syntax valid for</span>
 <span class="sd">    the formatter and should not be preserved.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
+
+<span class="n">_INDENTED_LINE_PATTERN</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;.*(?:^|\n)([ \t]+)$&quot;</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">DOTALL</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_find_first_primary_entity_name_text_node</span><span class="p">(</span>
+    <span class="n">adjusted_nodes</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Node</span><span class="p">],</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Text</span><span class="p">]:</span>
+    <span class="k">for</span> <span class="n">adjusted_node</span> <span class="ow">in</span> <span class="n">adjusted_nodes</span><span class="p">:</span>
+        <span class="n">node</span><span class="p">:</span> <span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Element</span>
+        <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">adjusted_node</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span>
+            <span class="k">lambda</span> <span class="n">node</span><span class="p">:</span> <span class="p">(</span>
+                <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">addnodes</span><span class="o">.</span><span class="n">desc_addname</span><span class="p">)</span>
+                <span class="ow">or</span> <span class="p">(</span>
+                    <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">addnodes</span><span class="o">.</span><span class="n">desc_name</span><span class="p">)</span>
+                    <span class="ow">and</span> <span class="s2">&quot;sig-name-nonprimary&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">node</span><span class="p">[</span><span class="s2">&quot;classes&quot;</span><span class="p">]</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+        <span class="p">):</span>
+            <span class="k">for</span> <span class="n">text_node</span> <span class="ow">in</span> <span class="n">cast</span><span class="p">(</span><span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Element</span><span class="p">,</span> <span class="n">node</span><span class="p">)</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span>
+                <span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Text</span>
+            <span class="p">):</span>
+                <span class="k">return</span> <span class="n">text_node</span>
+    <span class="k">return</span> <span class="kc">None</span>
 
 
 <span class="k">class</span> <span class="nc">FormatApplier</span><span class="p">:</span>
@@ -1092,12 +1119,71 @@
         <span class="n">replacements</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Node</span><span class="p">]]</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">defaultdict</span><span class="p">(</span>
             <span class="nb">list</span>
         <span class="p">)</span>
-        <span class="k">for</span> <span class="n">tag</span><span class="p">,</span> <span class="n">i1</span><span class="p">,</span> <span class="n">i2</span><span class="p">,</span> <span class="n">j1</span><span class="p">,</span> <span class="n">j2</span> <span class="ow">in</span> <span class="n">difflib</span><span class="o">.</span><span class="n">SequenceMatcher</span><span class="p">(</span>
-            <span class="s2">&quot; </span><span class="se">\t\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="fm">__contains__</span><span class="p">,</span>
-            <span class="n">formatted_input</span><span class="p">,</span>
-            <span class="n">formatted_output</span><span class="p">,</span>
-            <span class="n">autojunk</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-        <span class="p">)</span><span class="o">.</span><span class="n">get_opcodes</span><span class="p">():</span>
+
+        <span class="k">def</span> <span class="nf">_get_opcodes</span><span class="p">():</span>
+            <span class="k">return</span> <span class="n">difflib</span><span class="o">.</span><span class="n">SequenceMatcher</span><span class="p">(</span>
+                <span class="s2">&quot; </span><span class="se">\t\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="fm">__contains__</span><span class="p">,</span>
+                <span class="n">formatted_input</span><span class="p">,</span>
+                <span class="n">formatted_output</span><span class="p">,</span>
+                <span class="n">autojunk</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="p">)</span><span class="o">.</span><span class="n">get_opcodes</span><span class="p">()</span>
+
+        <span class="c1"># Align `formatted_input` to `formatted_output`.</span>
+        <span class="n">opcodes</span> <span class="o">=</span> <span class="n">_get_opcodes</span><span class="p">()</span>
+
+        <span class="c1"># Find the first text node of the entity name.</span>
+        <span class="c1">#</span>
+        <span class="c1"># Sometimes the formatter may indent the primary entity name, e.g.:</span>
+        <span class="c1">#</span>
+        <span class="c1">#     std::integral_constant&lt;ptrdiff_t, N&gt;</span>
+        <span class="c1">#         tensorstore::GetStaticOrDynamicExtent(span&lt;X, N&gt;);</span>
+        <span class="c1">#</span>
+        <span class="c1"># where the primary entity name is `tensorstore::GetStaticOrDynamicExtent`.</span>
+        <span class="c1">#</span>
+        <span class="c1"># This is not desirable for API documentation, and therefore is stripped</span>
+        <span class="c1"># out.</span>
+        <span class="c1">#</span>
+        <span class="c1"># To check for and remove such indentation, first locate the Text node</span>
+        <span class="c1"># corresponding to the start of the primary entity name.</span>
+        <span class="n">first_name_text_node</span> <span class="o">=</span> <span class="n">_find_first_primary_entity_name_text_node</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">adjusted_nodes</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Then determine the offests into `formatted_input` and</span>
+        <span class="c1"># `formatted_output` corresponding to `first_name_text_node`.</span>
+        <span class="n">first_name_text_node_input_offset</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">component</span> <span class="ow">in</span> <span class="n">components</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">component</span><span class="o">.</span><span class="n">node</span> <span class="ow">is</span> <span class="n">first_name_text_node</span><span class="p">:</span>
+                <span class="k">break</span>
+            <span class="n">first_name_text_node_input_offset</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">component</span><span class="o">.</span><span class="n">orig_text</span><span class="p">)</span>
+
+        <span class="c1"># Determine output offset of `first_name_text_node_input_offset`.</span>
+        <span class="n">first_name_text_node_output_offset</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">tag</span><span class="p">,</span> <span class="n">i1</span><span class="p">,</span> <span class="n">i2</span><span class="p">,</span> <span class="n">j1</span><span class="p">,</span> <span class="n">j2</span> <span class="ow">in</span> <span class="n">opcodes</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">i2</span> <span class="o">&gt;=</span> <span class="n">first_name_text_node_input_offset</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">tag</span> <span class="o">==</span> <span class="s2">&quot;equal&quot;</span><span class="p">:</span>
+                    <span class="n">first_name_text_node_output_offset</span> <span class="o">=</span> <span class="n">j1</span> <span class="o">+</span> <span class="p">(</span>
+                        <span class="n">first_name_text_node_input_offset</span> <span class="o">-</span> <span class="n">i1</span>
+                    <span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">first_name_text_node_output_offset</span> <span class="o">=</span> <span class="n">j1</span>
+                <span class="k">break</span>
+
+        <span class="c1"># Check if `first_name_text_node` is indented on a new line.</span>
+        <span class="k">if</span> <span class="p">(</span>
+            <span class="n">m</span> <span class="o">:=</span> <span class="n">_INDENTED_LINE_PATTERN</span><span class="o">.</span><span class="n">fullmatch</span><span class="p">(</span>
+                <span class="n">formatted_output</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">first_name_text_node_output_offset</span>
+            <span class="p">)</span>
+        <span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># Strip leading whitespace, and recompute opcodes.</span>
+            <span class="n">formatted_output</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">formatted_output</span><span class="p">[:</span> <span class="n">m</span><span class="o">.</span><span class="n">start</span><span class="p">(</span><span class="mi">1</span><span class="p">)]</span>
+                <span class="o">+</span> <span class="n">formatted_output</span><span class="p">[</span><span class="n">first_name_text_node_output_offset</span><span class="p">:]</span>
+            <span class="p">)</span>
+            <span class="n">opcodes</span> <span class="o">=</span> <span class="n">_get_opcodes</span><span class="p">()</span>
+
+        <span class="c1"># Compute the replacement text nodes for each component.</span>
+        <span class="k">for</span> <span class="n">tag</span><span class="p">,</span> <span class="n">i1</span><span class="p">,</span> <span class="n">i2</span><span class="p">,</span> <span class="n">j1</span><span class="p">,</span> <span class="n">j2</span> <span class="ow">in</span> <span class="n">opcodes</span><span class="p">:</span>
             <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">i1</span> <span class="o">!=</span> <span class="n">i2</span> <span class="ow">and</span> <span class="n">i1</span> <span class="o">==</span> <span class="n">component_end_offset</span><span class="p">:</span>
                     <span class="n">component_start_offset</span> <span class="o">=</span> <span class="n">component_end_offset</span>
