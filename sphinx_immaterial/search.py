@@ -11,7 +11,7 @@ import sphinx.application
 import sphinx.util.logging
 import sphinx.builders.html
 
-from .plugins.search import plugin as search_plugin
+from .plugins.search import plugin as search_plugin  # mypy: follow_imports=skip
 
 logger = sphinx.util.logging.getLogger(__name__)
 
