@@ -13,6 +13,10 @@ exclude = ['^setup\.py$', '^sphinx_immaterial/plugins/$']
 plugins = ["pydantic.mypy"]
 check_untyped_defs = true
 
+[[tool.mypy.overrides]]
+module = ['sphinx_immaterial.plugins.*']
+follow_imports = "skip"
+
 [tool.pytest.ini_options]
 minversion = "6.0"
 testpaths = ["tests"]
@@ -54,3 +58,9 @@ exclude_lines = [
 
 [tool.coverage.html]
 show_contexts = true
+
+[tool.ruff]
+# In addition to the standard set of exclusions
+extend-exclude = [
+    "sphinx_immaterial/plugins"
+]
