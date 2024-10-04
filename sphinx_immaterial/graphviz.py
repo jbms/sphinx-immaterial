@@ -255,6 +255,9 @@ def render_dot_html(
             # just use first weight for the specified font
             ttf_font = ttf_font_paths[all_font_keys[0]]
 
+    if ttf_font is not None and os.sep != "/":
+        ttf_font = ttf_font.replace(os.sep, "/")
+
     code = _replace_resolved_xrefs(node, code)
 
     var_replacements: Dict[str, str] = {}
@@ -313,7 +316,7 @@ def render_dot_html(
 
     with tempfile.TemporaryDirectory() as tempdir:
         env = os.environ.copy()
-        if config_info is not None:
+        if config_info is not None and ttf_font is not None:
             orig_lib_path = pathlib.Path(config_info.orig_config_path)
             new_lib_dir = pathlib.Path(tempdir, "plugins")
             pathlib.Path(tempdir, orig_lib_path.name).write_bytes(

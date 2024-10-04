@@ -49,9 +49,9 @@ options from :py:mod:`sphinx.ext.graphviz` are supported.
    This extension relies on the LibGD graphviz plugin to load the same font used
    by this theme, in order to correctly determine the size of text labels.
    While the LibGD plugin is normally included in the Linux and macOS graphviz
-   builds, the official x86_64 Windows build does not include it.  If the plugin
-   is not found, by default this theme logs a warning.  This option may be set
-   to :python:`True` silence that warning.
+   builds, the official x86_64 Windows build does not include it (before graphviz
+   v12.1.0).  If the plugin is not found, by default this theme logs a warning.
+   This option may be set to :python:`True` silence that warning.
 
    .. code-block:: python
       :caption: Add to :file:`conf.py` to silence the warning
