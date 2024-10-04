@@ -658,7 +658,7 @@
         
           <li class="md-nav__item">
   <a href="#confval-graphviz_ignore_incorrect_font_metrics" class="md-nav__link">
-    <span aria-label="configuration value" class="objinfo-icon objinfo-icon__data" title="configuration value">C</span><span title="graphviz_ignore_incorrect_font_metrics (configuration value) — This extension relies on the LibGD graphviz plugin to load the same font used by this theme, in order to correctly determine the size of text labels. While the LibGD plugin is normally included in the Linux and macOS graphviz builds, the official x86_64 Windows build does not include it." class="md-ellipsis">graphviz_<wbr>ignore_<wbr>incorrect_<wbr>font_<wbr>metrics</span>
+    <span aria-label="configuration value" class="objinfo-icon objinfo-icon__data" title="configuration value">C</span><span title="graphviz_ignore_incorrect_font_metrics (configuration value) — This extension relies on the LibGD graphviz plugin to load the same font used by this theme, in order to correctly determine the size of text labels. While the LibGD plugin is normally included in the Linux and macOS graphviz builds, the official x86_64 Windows build does not include it (before graphviz v12.1.0)." class="md-ellipsis">graphviz_<wbr>ignore_<wbr>incorrect_<wbr>font_<wbr>metrics</span>
   </a>
   
 </li>
@@ -940,7 +940,7 @@
         
           <li class="md-nav__item">
   <a href="#confval-graphviz_ignore_incorrect_font_metrics" class="md-nav__link">
-    <span aria-label="configuration value" class="objinfo-icon objinfo-icon__data" title="configuration value">C</span><span title="graphviz_ignore_incorrect_font_metrics (configuration value) — This extension relies on the LibGD graphviz plugin to load the same font used by this theme, in order to correctly determine the size of text labels. While the LibGD plugin is normally included in the Linux and macOS graphviz builds, the official x86_64 Windows build does not include it." class="md-ellipsis">graphviz_<wbr>ignore_<wbr>incorrect_<wbr>font_<wbr>metrics</span>
+    <span aria-label="configuration value" class="objinfo-icon objinfo-icon__data" title="configuration value">C</span><span title="graphviz_ignore_incorrect_font_metrics (configuration value) — This extension relies on the LibGD graphviz plugin to load the same font used by this theme, in order to correctly determine the size of text labels. While the LibGD plugin is normally included in the Linux and macOS graphviz builds, the official x86_64 Windows build does not include it (before graphviz v12.1.0)." class="md-ellipsis">graphviz_<wbr>ignore_<wbr>incorrect_<wbr>font_<wbr>metrics</span>
   </a>
   
 </li>
@@ -1046,9 +1046,9 @@ instead, the graph is always included as inline SVG in the HTML output.</p>
 <dd><p>This extension relies on the LibGD graphviz plugin to load the same font used
 by this theme, in order to correctly determine the size of text labels.
 While the LibGD plugin is normally included in the Linux and macOS graphviz
-builds, the official x86_64 Windows build does not include it.  If the plugin
-is not found, by default this theme logs a warning.  This option may be set
-to <code class="code highlight python docutils literal highlight-python"><span class="kc">True</span></code> silence that warning.</p>
+builds, the official x86_64 Windows build does not include it (before graphviz
+v12.1.0).  If the plugin is not found, by default this theme logs a warning.
+This option may be set to <code class="code highlight python docutils literal highlight-python"><span class="kc">True</span></code> silence that warning.</p>
 <div class="literal-block-wrapper docutils container" id="id1">
 <div class="code-block-caption highlight"><span class="filename"><span class="caption-text">
 </span>Add to <code class="file docutils literal notranslate"><span class="pre">conf.py</span></code> to silence the warning<a class="headerlink" href="#id1" title="Permalink to this code">¶</a></span></div>
@@ -1426,7 +1426,7 @@ because the manually specified <a class="extlink-graphvizattr reference external
   <small>
     
       Last update:
-      Oct 03, 2024
+      Oct 04, 2024
     
   </small>
 </div>
