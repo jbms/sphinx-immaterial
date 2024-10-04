@@ -194,7 +194,6 @@ _INDENTED_LINE_PATTERN = re.compile(r".*(?:^|\n)([ \t]+)$", re.DOTALL)
 def _find_first_primary_entity_name_text_node(
     adjusted_nodes: list[docutils.nodes.Node],
 ) -> Optional[docutils.nodes.Text]:
-    first_name_text_node: Optional[docutils.nodes.Text] = None
     for adjusted_node in adjusted_nodes:
         node: docutils.nodes.Element
         for node in adjusted_node.findall(
@@ -209,13 +208,8 @@ def _find_first_primary_entity_name_text_node(
             for text_node in cast(docutils.nodes.Element, node).findall(
                 docutils.nodes.Text
             ):
-                first_name_text_node = text_node
-                break
-            if first_name_text_node is not None:
-                break
-        if first_name_text_node is not None:
-            break
-    return first_name_text_node
+                return text_node
+    return None
 
 
 class FormatApplier:
