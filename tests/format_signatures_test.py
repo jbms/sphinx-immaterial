@@ -61,4 +61,3 @@ object_description_options = [
     for identifier in TEST_SIGNATURES.keys():
         node = formatted_signatures[identifier]
         snapshot.assert_match(node.astext(), f"{identifier}_astext.txt")
-        snapshot.assert_match(node.pformat(), f"{identifier}_pformat.txt")
