@@ -1,0 +1,6 @@
+template <typename T, typename U = void, int AnotherParameter = 42>
+  requires std::is_const_v<T>
+const MyType
+LongFunctionSignatureExample(const MyType bar, uint8_t *arr,
+                             unsigned int len = DEFAULT_LENGTH,
+                             bool baz = false);

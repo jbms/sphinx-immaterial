@@ -10,3 +10,5 @@ tests/issue_134/sphinx-immaterial-pybind11-issue-134
 -r ../requirements/json.txt
 -r ../requirements/jsonschema_validation.txt
 -r ../requirements/keys.txt
+-r ../requirements/black.txt
+-r ../requirements/clang-format.txt

@@ -151,6 +151,9 @@ def _replace_text_nodes(
         if isinstance(node, docutils.nodes.Text):
             return replacements.get(id(node)) or []
         new_node = node.copy()
+        # Ensure the new node does not contain any children. `desc_sig_space`,
+        # for example, adds a default child text node with content " ".
+        del new_node[:]
         new_node.extend(_transform_node_list(node.children, _transform_node))
         if len(new_node.children) == 0:
             # A pending_xref with no children is an error and indicates a
@@ -183,6 +186,30 @@ class FormatInputComponent(NamedTuple):
     May be `None` if this component was added only to make the syntax valid for
     the formatter and should not be preserved.
     """
+
+
+_INDENTED_LINE_PATTERN = re.compile(r".*(?:^|\n)([ \t]+)$", re.DOTALL)
+
+
+def _find_first_primary_entity_name_text_node(
+    adjusted_nodes: list[docutils.nodes.Node],
+) -> Optional[docutils.nodes.Text]:
+    for adjusted_node in adjusted_nodes:
+        node: docutils.nodes.Element
+        for node in adjusted_node.findall(
+            lambda node: (
+                isinstance(node, sphinx.addnodes.desc_addname)
+                or (
+                    isinstance(node, sphinx.addnodes.desc_name)
+                    and "sig-name-nonprimary" not in node["classes"]
+                )
+            )
+        ):
+            for text_node in cast(docutils.nodes.Element, node).findall(
+                docutils.nodes.Text
+            ):
+                return text_node
+    return None
 
 
 class FormatApplier:
@@ -244,12 +271,71 @@ class FormatApplier:
         replacements: dict[int, list[docutils.nodes.Node]] = collections.defaultdict(
             list
         )
-        for tag, i1, i2, j1, j2 in difflib.SequenceMatcher(
-            " \t\n".__contains__,
-            formatted_input,
-            formatted_output,
-            autojunk=False,
-        ).get_opcodes():
+
+        def _get_opcodes():
+            return difflib.SequenceMatcher(
+                " \t\n".__contains__,
+                formatted_input,
+                formatted_output,
+                autojunk=False,
+            ).get_opcodes()
+
+        # Align `formatted_input` to `formatted_output`.
+        opcodes = _get_opcodes()
+
+        # Find the first text node of the entity name.
+        #
+        # Sometimes the formatter may indent the primary entity name, e.g.:
+        #
+        #     std::integral_constant<ptrdiff_t, N>
+        #         tensorstore::GetStaticOrDynamicExtent(span<X, N>);
+        #
+        # where the primary entity name is `tensorstore::GetStaticOrDynamicExtent`.
+        #
+        # This is not desirable for API documentation, and therefore is stripped
+        # out.
+        #
+        # To check for and remove such indentation, first locate the Text node
+        # corresponding to the start of the primary entity name.
+        first_name_text_node = _find_first_primary_entity_name_text_node(
+            self.adjusted_nodes
+        )
+
+        # Then determine the offests into `formatted_input` and
+        # `formatted_output` corresponding to `first_name_text_node`.
+        first_name_text_node_input_offset = 0
+        for component in components:
+            if component.node is first_name_text_node:
+                break
+            first_name_text_node_input_offset += len(component.orig_text)
+
+        # Determine output offset of `first_name_text_node_input_offset`.
+        first_name_text_node_output_offset = 0
+        for tag, i1, i2, j1, j2 in opcodes:
+            if i2 >= first_name_text_node_input_offset:
+                if tag == "equal":
+                    first_name_text_node_output_offset = j1 + (
+                        first_name_text_node_input_offset - i1
+                    )
+                else:
+                    first_name_text_node_output_offset = j1
+                break
+
+        # Check if `first_name_text_node` is indented on a new line.
+        if (
+            m := _INDENTED_LINE_PATTERN.fullmatch(
+                formatted_output, 0, first_name_text_node_output_offset
+            )
+        ) is not None:
+            # Strip leading whitespace, and recompute opcodes.
+            formatted_output = (
+                formatted_output[: m.start(1)]
+                + formatted_output[first_name_text_node_output_offset:]
+            )
+            opcodes = _get_opcodes()
+
+        # Compute the replacement text nodes for each component.
+        for tag, i1, i2, j1, j2 in opcodes:
             while True:
                 if i1 != i2 and i1 == component_end_offset:
                     component_start_offset = component_end_offset
