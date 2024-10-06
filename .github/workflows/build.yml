@@ -75,7 +75,7 @@ jobs:
         python-version:
           - "3.x"
         node-version:
-          - "16.x"
+          - '20.x'
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
@@ -150,7 +150,7 @@ jobs:
           - "3.11"
           - "3.12"
         node-version:
-          - "16.x"
+          - '20.x'
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4

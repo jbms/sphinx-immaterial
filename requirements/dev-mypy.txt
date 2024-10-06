@@ -6,8 +6,10 @@ types-jsonschema
 types-appdirs
 types-requests
 types-clang
+types-regex
 pytest
 pydantic>=2.0
 pydantic-extra-types
 sphinx>=4.5
+jieba
 -r black.txt
