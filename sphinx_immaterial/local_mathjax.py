@@ -4,7 +4,8 @@ from typing import Dict, Any, cast
 from sphinx.application import Sphinx
 from sphinx.config import Config
 from sphinx.errors import ExtensionError
-from sphinx.ext.mathjax import MATHJAX_URL, MathDomain
+from sphinx.domains.math import MathDomain
+from sphinx.ext.mathjax import MATHJAX_URL
 from sphinx.environment import BuildEnvironment
 
 

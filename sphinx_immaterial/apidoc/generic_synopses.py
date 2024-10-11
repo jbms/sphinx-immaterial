@@ -50,7 +50,7 @@ def _monkey_patch_generic_object_to_support_synopses():
 
     orig_merge_domaindata = StandardDomain.merge_domaindata
 
-    def merge_domaindata(self, docnames: List[str], otherdata: dict) -> None:
+    def merge_domaindata(self, docnames, otherdata: dict) -> None:
         orig_merge_domaindata(self, docnames, otherdata)
         self.data["synopses"].update(otherdata["synopses"])
 
