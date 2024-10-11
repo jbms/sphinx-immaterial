@@ -1150,7 +1150,7 @@ class JsonSchemaDomain(sphinx.domains.Domain):
                 else OBJECT_PRIORITY_UNIMPORTANT,
             )
 
-    def merge_domaindata(self, docnames: List[str], otherdata: Dict) -> None:
+    def merge_domaindata(self, docnames, otherdata: Dict) -> None:
         self.schemas.update(otherdata["schemas"])
 
     def _find_schema(
