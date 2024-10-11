@@ -1961,8 +1961,8 @@ specifying the JSON schema definition files.</p>
 </div>
 <dl class="std confval objdesc">
 <dt class="sig sig-object highlight std" id="confval-json_schemas">
-<span class="sig-name descname"><span class="pre">json_schemas</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="p">[]</span></code><a class="headerlink" href="#confval-json_schemas" title="Link to this definition">¶</a></dt>
-<dd><p>List of <a class="reference external" href="https://docs.python.org/3/library/glob.html#module-glob" title="(in Python v3.12)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">glob</span></code></a> patterns matching JSON schema definition files
+<span class="sig-name descname"><span class="pre">json_schemas</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="p">[]</span></code><a class="headerlink" href="#confval-json_schemas" title="Link to this definition">¶</a></dt>
+<dd><p>List of <a class="reference external" href="https://docs.python.org/3/library/glob.html#module-glob" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">glob</span></code></a> patterns matching JSON schema definition files
 relative to the documentation source directory.</p>
 <p>Both JSON and YAML format are supported.</p>
 <p>The top-level schema in each file must specify an <code class="docutils literal notranslate"><span class="pre">$id</span></code>.</p>
@@ -1970,7 +1970,7 @@ relative to the documentation source directory.</p>
 
 <dl class="std confval objdesc">
 <dt class="sig sig-object highlight std" id="confval-json_schema_validate">
-<span class="sig-name descname"><span class="pre">json_schema_validate</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><span class="pre">bool</span></a></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="kc">False</span></code><a class="headerlink" href="#confval-json_schema_validate" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">json_schema_validate</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><span class="pre">bool</span></a></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="kc">False</span></code><a class="headerlink" href="#confval-json_schema_validate" title="Link to this definition">¶</a></dt>
 <dd><p>Indicates whether to validate the JSON schemas specified by
 <a class="reference internal" href="#confval-json_schemas" title="json_schemas (configuration value) — List of glob patterns matching JSON schema definition files relative to the documentation source directory."><code class="xref std std-confval docutils literal notranslate"><span class="pre">json_schemas</span></code></a>.</p>
 <p>Requires that the <a class="reference external" href="https://pypi.org/project/jsonschema/">jsonschema</a>
@@ -1983,7 +1983,7 @@ depend on the <code class="docutils literal notranslate"><span class="pre">jsons
 
 <dl class="std confval objdesc">
 <dt class="sig sig-object highlight std" id="confval-json_schema_rst_prolog">
-<span class="sig-name descname"><span class="pre">json_schema_rst_prolog</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="s1">&#39;&#39;</span></code><a class="headerlink" href="#confval-json_schema_rst_prolog" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">json_schema_rst_prolog</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="s1">&#39;&#39;</span></code><a class="headerlink" href="#confval-json_schema_rst_prolog" title="Link to this definition">¶</a></dt>
 <dd><p>A string of rST that will be prepended to the <code class="docutils literal notranslate"><span class="pre">title</span></code> and <code class="docutils literal notranslate"><span class="pre">description</span></code>
 fields of a schema before parsing them as rST.</p>
 <p>This may be used to set the <a class="extlink-dudir reference external" href="http://docutils.sourceforge.net/docs/ref/rst/directives.html#default-role">rST directive default-role</a>, <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/directives.html#directive-highlight" title="(in Sphinx v8.1.0)"><code class="xref rst rst-dir docutils literal notranslate"><span class="pre">highlight</span></code></a>
@@ -2019,7 +2019,7 @@ prior roles or highlight language.</p>
 
 <dl class="std confval objdesc">
 <dt class="sig sig-object highlight std" id="confval-json_schema_rst_epilog">
-<span class="sig-name descname"><span class="pre">json_schema_rst_epilog</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="s1">&#39;&#39;</span></code><a class="headerlink" href="#confval-json_schema_rst_epilog" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">json_schema_rst_epilog</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="s1">&#39;&#39;</span></code><a class="headerlink" href="#confval-json_schema_rst_epilog" title="Link to this definition">¶</a></dt>
 <dd><p>A string of rST that will be appended to the <code class="docutils literal notranslate"><span class="pre">title</span></code> and <code class="docutils literal notranslate"><span class="pre">description</span></code>
 fields of a schema before parsing them as rST.</p>
 <p>This option is supported for symmetry with <a class="reference internal" href="#confval-json_schema_rst_prolog" title="json_schema_rst_prolog (configuration value) — A string of rST that will be prepended to the title and description fields of a schema before parsing them as rST."><code class="xref std std-confval docutils literal notranslate"><span class="pre">json_schema_rst_prolog</span></code></a>,
@@ -2741,7 +2741,7 @@ JSON, but normally need not be specified manually.</p>
   <small>
     
       Last update:
-      Oct 05, 2024
+      Oct 11, 2024
     
   </small>
 </div>
@@ -2818,7 +2818,7 @@ JSON, but normally need not be specified manually.</p>
   
     Created using
     <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
-    8.0.2.
+    8.1.0.
      and
     <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
   

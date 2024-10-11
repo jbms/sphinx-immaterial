@@ -1285,11 +1285,11 @@
 
 <dl class="py method objdesc">
 <dt class="sig sig-object highlight py">
-<span class="sig-prename descclassname">tensorstore_demo.DimExpression.</span><span class="sig-name descname">__getitem__</span><span class="p">(<br>&nbsp;&nbsp;&nbsp;&nbsp;</span><span><a class="n reference internal" href="#tensorstore_demo.DimExpression.__getitem__" title="tensorstore_demo.DimExpression.__getitem__.self (Python parameter)"><span class="n">self</span></a></span><span class="p">,&nbsp;</span><span><a class="n reference internal" href="#tensorstore_demo.DimExpression.__getitem__" title="tensorstore_demo.DimExpression.__getitem__.indices (Python parameter)"><span class="n">indices</span></a><span class="p">:</span><span class="w">&nbsp;</span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)">Any</a></span></span></span><span class="p">)&nbsp;</span><span class="p">-&gt;&nbsp;</span><span class="desctype"><a class="reference internal" href="DimExpression.html" title="tensorstore_demo.DimExpression (Python class) — Specifies an advanced indexing operation.">DimExpression</a></span><a class="reference internal" href="../_modules/tensorstore_demo.html#DimExpression.__getitem__"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-prename descclassname">tensorstore_demo.DimExpression.</span><span class="sig-name descname">__getitem__</span><span class="p">(<br>&nbsp;&nbsp;&nbsp;&nbsp;</span><span><a class="n reference internal" href="#tensorstore_demo.DimExpression.__getitem__" title="tensorstore_demo.DimExpression.__getitem__.self (Python parameter)"><span class="n">self</span></a></span><span class="p">,&nbsp;</span><span><a class="n reference internal" href="#tensorstore_demo.DimExpression.__getitem__" title="tensorstore_demo.DimExpression.__getitem__.indices (Python parameter)"><span class="n">indices</span></a><span class="p">:</span><span class="w">&nbsp;</span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)">Any</a></span></span></span><span class="p">)&nbsp;</span><span class="p">-&gt;&nbsp;</span><span class="desctype"><a class="reference internal" href="DimExpression.html" title="tensorstore_demo.DimExpression (Python class) — Specifies an advanced indexing operation.">DimExpression</a></span><a class="reference internal" href="../_modules/tensorstore_demo.html#DimExpression.__getitem__"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Applies a NumPy-style indexing operation with default index array semantics.</p>
 <p>When using NumPy-style indexing with a dimension expression, all selected
 dimensions must be consumed by a term of the indexing spec; there is no implicit
-addition of an <a class="reference external" href="https://docs.python.org/3/library/constants.html#Ellipsis" title="(in Python v3.12)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Ellipsis</span></code></a> term to consume any remaining dimensions.</p>
+addition of an <a class="reference external" href="https://docs.python.org/3/library/constants.html#Ellipsis" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Ellipsis</span></code></a> term to consume any remaining dimensions.</p>
 <dl class="field-list simple">
 <dt class="field-odd" id="returns">Returns<span class="colon">:</span><a class="headerlink" href="#returns" title="Permalink to this headline">¶</a></dt>
 <dd class="field-odd"><p>Dimension expression with the indexing operation added.</p>
@@ -1353,7 +1353,7 @@ addition of an <a class="reference external" href="https://docs.python.org/3/lib
 </code></pre></div>
 </div>
 <p>As an extension, TensorStore allows the <code class="code highlight python docutils literal highlight-python"><span class="n">start</span></code>, <code class="code highlight python docutils literal highlight-python"><span class="n">stop</span></code>, and <code class="code highlight python docutils literal highlight-python"><span class="n">step</span></code>
-<a class="reference external" href="https://docs.python.org/3/library/functions.html#slice" title="(in Python v3.12)"><code class="docutils literal notranslate"><span class="pre">slice</span></code></a> terms to be vectors rather than scalars:</p>
+<a class="reference external" href="https://docs.python.org/3/library/functions.html#slice" title="(in Python v3.13)"><code class="docutils literal notranslate"><span class="pre">slice</span></code></a> terms to be vectors rather than scalars:</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">transform</span><span class="p">[</span><span class="n">ts</span><span class="o">.</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;z&#39;</span><span class="p">][[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">20</span><span class="p">]:[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">30</span><span class="p">]]]</span>
 <span class="go">Rank 3 -&gt; 3 index space transform:</span>
 <span class="go">  Input domain:</span>
@@ -1391,7 +1391,7 @@ dimensions:</p>
 </code></pre></div>
 </div>
 <h2 id="adding-singleton-dimensions">Adding singleton dimensions<a class="headerlink" href="#adding-singleton-dimensions" title="Link to this heading">¶</a></h2>
-<p>Specifying a value of <code class="code highlight python docutils literal highlight-python"><span class="n">newaxis</span></code> (equal to <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>) adds a new
+<p>Specifying a value of <code class="code highlight python docutils literal highlight-python"><span class="n">newaxis</span></code> (equal to <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>) adds a new
 dummy/singleton dimension with implicit bounds
 <span class="math notranslate nohighlight">\([0, 1)\)</span>:</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">transform</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">IndexTransform</span><span class="p">(</span><span class="n">input_labels</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">])</span>
@@ -1454,7 +1454,7 @@ label:</p>
 </div>
 </div>
 <h2 id="ellipsis">Ellipsis<a class="headerlink" href="#ellipsis" title="Link to this heading">¶</a></h2>
-<p>Specifying the special <a class="reference external" href="https://docs.python.org/3/library/constants.html#Ellipsis" title="(in Python v3.12)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Ellipsis</span></code></a> value (<code class="code highlight python docutils literal highlight-python"><span class="o">...</span></code>) is equivalent to
+<p>Specifying the special <a class="reference external" href="https://docs.python.org/3/library/constants.html#Ellipsis" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Ellipsis</span></code></a> value (<code class="code highlight python docutils literal highlight-python"><span class="o">...</span></code>) is equivalent to
 specifying as many full slices <code class="code highlight python docutils literal highlight-python"><span class="p">:</span></code> as needed to consume the remaining
 selected dimensions not consumed by other indexing terms:</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">transform</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">IndexTransform</span><span class="p">(</span><span class="n">input_rank</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
@@ -1470,7 +1470,7 @@ selected dimensions not consumed by other indexing terms:</p>
 <span class="go">    out[3] = 5</span>
 </code></pre></div>
 </div>
-<p>An indexing spec consisting solely of an <a class="reference external" href="https://docs.python.org/3/library/constants.html#Ellipsis" title="(in Python v3.12)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Ellipsis</span></code></a> term has no effect:</p>
+<p>An indexing spec consisting solely of an <a class="reference external" href="https://docs.python.org/3/library/constants.html#Ellipsis" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Ellipsis</span></code></a> term has no effect:</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">transform</span><span class="p">[</span><span class="n">ts</span><span class="o">.</span><span class="n">d</span><span class="p">[:][</span><span class="o">...</span><span class="p">]]</span>
 <span class="go">Rank 4 -&gt; 4 index space transform:</span>
 <span class="go">  Input domain:</span>
@@ -1533,11 +1533,11 @@ dimensions are not well-defined for dimension expressions:</p>
 </code></pre></div>
 </div>
 <h2 id="boolean-array-indexing">Boolean array indexing<a class="headerlink" href="#boolean-array-indexing" title="Link to this heading">¶</a></h2>
-<p>Specifying an <code class="code highlight python docutils literal highlight-python"><span class="n">array_like</span></code> of <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bool</span></code></a> values is equivalent to
+<p>Specifying an <code class="code highlight python docutils literal highlight-python"><span class="n">array_like</span></code> of <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bool</span></code></a> values is equivalent to
 specifying a sequence of integer index arrays containing the
-coordinates of <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.12)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a> values (in C order), e.g. as obtained from
+coordinates of <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a> values (in C order), e.g. as obtained from
 <code class="code highlight python docutils literal highlight-python"><span class="n">numpy</span><span class="o">.</span><span class="n">nonzero</span></code>:</p>
-<p>Specifying a 1-d <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bool</span></code></a> array is equivalent to a single index array of the
+<p>Specifying a 1-d <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bool</span></code></a> array is equivalent to a single index array of the
 non-zero coordinates:</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">ts</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="n">ts</span><span class="o">.</span><span class="n">d</span><span class="p">[:]</span><span class="o">.</span><span class="n">label</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">]]</span>
@@ -1570,9 +1570,9 @@ non-zero coordinates:</p>
 <span class="go">})</span>
 </code></pre></div>
 </div>
-<p>More generally, specifying an <code class="code highlight python docutils literal highlight-python"><span class="n">n</span></code>-dimensional <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bool</span></code></a> array is equivalent to
+<p>More generally, specifying an <code class="code highlight python docutils literal highlight-python"><span class="n">n</span></code>-dimensional <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bool</span></code></a> array is equivalent to
 specifying <code class="code highlight python docutils literal highlight-python"><span class="n">n</span></code> 1-dimensional index arrays, where the <code class="code highlight python docutils literal highlight-python"><span class="n">i</span></code>th index array specifies
-the <code class="code highlight python docutils literal highlight-python"><span class="n">i</span></code>th coordinate of the <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.12)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a> values:</p>
+the <code class="code highlight python docutils literal highlight-python"><span class="n">i</span></code>th coordinate of the <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a> values:</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">array</span><span class="p">([[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]],</span> <span class="p">[[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">],</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">12</span><span class="p">]]],</span>
 <span class="gp">... </span>             <span class="n">dtype</span><span class="o">=</span><span class="n">ts</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="n">ts</span><span class="o">.</span><span class="n">d</span><span class="p">[:]</span><span class="o">.</span><span class="n">label</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;z&#39;</span><span class="p">]]</span>
@@ -1607,7 +1607,7 @@ the <code class="code highlight python docutils literal highlight-python"><span 
 </div>
 <p>Note that as with integer array indexing, when using NumPy-styling indexing with
 a dimension expression, if boolean arrays are applied to more than one selected
-dimension, the added dimension corresponding to the <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.12)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a> values is always
+dimension, the added dimension corresponding to the <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a> values is always
 added to the beginning of the result domain, i.e. exactly the behavior of
 <a class="reference internal" href="DimExpression.vindex.html" title="tensorstore_demo.DimExpression.vindex (Python method) — Applies a NumPy-style indexing operation with vectorized indexing semantics."><code class="xref py py-obj docutils literal notranslate"><span class="pre">DimExpression.vindex</span></code></a>.</p>
 </dd></dl>
@@ -1619,7 +1619,7 @@ added to the beginning of the result domain, i.e. exactly the behavior of
   <small>
     
       Last update:
-      Oct 05, 2024
+      Oct 11, 2024
     
   </small>
 </div>
@@ -1696,7 +1696,7 @@ added to the beginning of the result domain, i.e. exactly the behavior of
   
     Created using
     <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
-    8.0.2.
+    8.1.0.
      and
     <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
   
