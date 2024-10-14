@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-2022 Martin Donath <martin.donath@squidfunk.com>
+ * Copyright (c) 2016-2023 Martin Donath <martin.donath@squidfunk.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -23,7 +23,7 @@
 import { build as esbuild } from "esbuild"
 import * as fs from "fs/promises"
 import * as path from "path"
-import postcss, { Plugin, Rule } from "postcss"
+import postcss from "postcss"
 import {
   EMPTY,
   Observable,
@@ -64,37 +64,6 @@ const root = new RegExp(`file://${path.resolve(".")}/`, "g")
 /* ----------------------------------------------------------------------------
  * Helper functions
  * ------------------------------------------------------------------------- */
-
-/**
- * Custom PostCSS plugin to polyfill newer CSS features
- *
- * @returns PostCSS plugin
- */
-function plugin(): Plugin {
-  const rules = new Set<Rule>()
-  return {
-    postcssPlugin: "mkdocs-material",
-    // eslint-disable-next-line @typescript-eslint/no-shadow
-    Root(root) {
-
-      /* Fallback for :is() */
-      root.walkRules(/:is\(/, rule => {
-        if (!rules.has(rule)) {
-          rules.add(rule)
-
-          /* Add prefixed versions */
-          for (const pseudo of [":-webkit-any(", ":-moz-any("])
-            rule.cloneBefore({
-              selectors: rule.selectors.map(selector => (
-                selector.replace(/:is\(/g, pseudo)
-              ))
-            })
-        }
-      })
-    }
-  }
-}
-plugin.postcss = true
 
 export type LicenseMap = Map<string, string>
 
@@ -142,7 +111,7 @@ export function transformStyle(
 ): Observable<{file: string, licenseMap: LicenseMap}> {
   return defer(() => of(compile(options.from, {
     loadPaths: [
-      "src/assets/stylesheets",
+      "src/templates/assets/stylesheets",
       "node_modules/modularscale-sass/stylesheets",
       "node_modules/material-design-color",
       "node_modules/material-shadows"
@@ -156,7 +125,7 @@ export function transformStyle(
           require("autoprefixer"),
           require("postcss-logical"),
           require("postcss-dir-pseudo-class"),
-          plugin,
+          require("postcss-pseudo-is"),
           require("postcss-inline-svg")({
           paths: [
             `${base}/.icons`
@@ -216,7 +185,6 @@ export function transformScript(
     write: false,
     bundle: true,
     sourcemap: true,
-    sourceRoot: "../../../..",
     legalComments: "inline",
     metafile: true,
     minify: process.argv.includes("--optimize"),
@@ -247,7 +215,7 @@ export function transformScript(
       catchError(() => EMPTY),
       switchMap(async ({ outputFiles: [file], metafile }) => {
         const contents = file.text.split("\n")
-        const licenseMap = await getLicenses(Object.keys(metafile!.inputs))
+        const licenseMap = await getLicenses(Object.keys(metafile.inputs))
         const [, data] = contents[contents.length - 2].split(",")
         return {
           js:  file.text,
