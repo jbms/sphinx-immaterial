@@ -209,6 +209,7 @@ jobs:
       - name: Create coverage report
         run: pipx run nox -s coverage
       - name: Post coverage summary
+        if: github.repository == 'jbms/sphinx-immaterial'
         uses: codecov/codecov-action@v4
         env:
           CODECOV_TOKEN: ${{secrets.CODECOV_TOKEN}}
