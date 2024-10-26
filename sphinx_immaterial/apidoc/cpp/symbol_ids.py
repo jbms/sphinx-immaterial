@@ -129,16 +129,23 @@ def _monkey_patch_cpp_noindex_option(
                         symbol.siblingBelow.siblingAbove = siblingAbove
                     symbol.siblingBelow = None
 
-                # Remove duplicate symbol that was just created
-                for other_symbol in symbol.parent._children:
-                    if other_symbol.declaration is declaration:
-                        assert other_symbol.isRedeclaration
-                        other_symbol.remove()
-                        break
+                parent_children = symbol.parent._children
+                if isinstance(parent_children, list):
+                    # Remove duplicate symbol that was just created
+                    for other_symbol in symbol.parent._children:
+                        if other_symbol.declaration is declaration:
+                            assert other_symbol.isRedeclaration
+                            other_symbol.remove()
+                            break
+                    else:
+                        raise AssertionError(
+                            "Duplicate symbol not found: %r" % (symbol.dump(2),)
+                        )
                 else:
-                    raise AssertionError(
-                        "Duplicate symbol not found: %r" % (symbol.dump(2),)
-                    )
+                    # Updated C domain that stores children as a dict and does
+                    # not create duplicates
+                    # (https://github.com/sphinx-doc/sphinx/pull/12162).
+                    pass
             return symbol
 
         parentSymbol.add_declaration = add_declaration
