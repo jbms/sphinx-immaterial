@@ -112,7 +112,7 @@ TEMPLATE_PARAMETER_ENABLE_IF_NON_TYPE_PATTERN = re.compile(
 )
 
 SPECIAL_GROUP_COMMAND_PATTERN = re.compile(
-    r"^(?:\\|@)(ingroup|relates|membergroup|id)\s+(.+[^\s])\s*$", re.MULTILINE
+    r"^(?:\\|@)(ingroup|relates|membergroup|id)\s+(.*[^\s])\s*$", re.MULTILINE
 )
 
 
@@ -2206,7 +2206,9 @@ def _format_template_arguments(entity: CppApiEntity) -> str:
 
 def _get_entity_base_page_name_component(entity: CppApiEntity) -> str:
     base_name = entity["name"]
-    if entity["kind"] == "class" and entity.get("specializes"):
+    if (entity["kind"] == "class" or entity["kind"] == "var") and entity.get(
+        "specializes"
+    ):
         # Strip any template arguments
         base_name = re.sub("([^<]*).*", r"\1", base_name)
     elif entity["kind"] == "conversion_function":
