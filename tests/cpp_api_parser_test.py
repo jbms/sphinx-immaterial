@@ -8,7 +8,7 @@ from sphinx_immaterial.apidoc.cpp import api_parser
 def test_basic():
     config = api_parser.Config(
         input_path="a.cpp",
-        input_content=b"""
+        input_content=rb"""
 
 /// This is the doc.
 int foo(bool x, int y);
@@ -17,6 +17,7 @@ int foo(bool x, int y);
     )
 
     output = api_parser.generate_output(config)
+    assert not output.get("errors")
     entities = list(output["entities"].values())
     assert len(entities) == 1
 
@@ -45,6 +46,7 @@ class DimensionIdentifier {
     )
 
     output = api_parser.generate_output(config)
+    assert not output.get("errors")
     print(output)
     entities = list(output["entities"].values())
     assert len(entities) == 2
@@ -62,6 +64,8 @@ constexpr inline bool is_convertible_v = false;
 }
 
 /// This is the doc.
+///
+/// \ingroup X
 template <typename U, typename T, typename = std::enable_if_t<std::is_convertible_v<U(*)[], T(*)[]>>>
 int foo(T x);
 
@@ -76,7 +80,8 @@ int foo(T x);
     )
 
     output = api_parser.generate_output(config)
-
+    assert not output.get("errors")
+    assert not output.get("warnings")
     entities = list(output["entities"].values())
     assert len(entities) == 1
     requires = entities[0].get("requires")
@@ -170,6 +175,7 @@ def test_comment_styles(doc_str: bytes, expected: str):
         input_content=doc_str,
     )
     output = api_parser.generate_output(config)
+    assert not output.get("errors")
     doc_strings = [
         cast(api_parser.JsonDocComment, v["doc"])["text"]
         for v in output.get("entities", {}).values()
@@ -198,6 +204,7 @@ int function(T arg1, T &arg2, T &arg3);
     )
 
     output = api_parser.generate_output(config)
+    assert not output.get("errors")
     entities = output.get("entities", {})
     doc_str = ""
     for entity in entities.values():
@@ -238,9 +245,41 @@ constexpr inline bool IsArray = false;
     )
 
     output = api_parser.generate_output(config)
+    assert not output.get("errors")
+    assert not output.get("warnings")
     entities = output.get("entities", {})
     assert len(entities) == 1
     entity = list(entities.values())[0]
     tparams = entity["template_parameters"]
     assert tparams is not None
     assert tparams[0]["name"] == ""
+
+
+def test_variable_template_specialization():
+    config = api_parser.Config(
+        input_path="a.cpp",
+        compiler_flags=["-std=c++17", "-x", "c++"],
+        input_content=rb"""
+/// Check if it has A.
+///
+/// \ingroup Array
+template <typename T>
+constexpr inline bool HasA = false;
+
+/// Specializes HasA for int.
+/// \ingroup Array
+/// \id int
+template <>
+constexpr inline bool HasA<int> = true;
+""",
+    )
+
+    output = api_parser.generate_output(config)
+    assert not output.get("errors")
+    assert not output.get("warnings")
+    entities = output.get("entities", {})
+    assert len(entities) == 2
+    assert sorted([entity["page_name"] for entity in entities.values()]) == [
+        "HasA",
+        "HasA-int",
+    ]
