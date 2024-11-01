@@ -5,7 +5,7 @@ global_toc:
   caption_only: false
   children: []
   current: false
-  title: <span class="md-ellipsis">A page</span>
+  title: A page
   url: a.html
 - active: false
   active_or_section_within_active: false
@@ -18,10 +18,10 @@ global_toc:
     caption_only: false
     children: []
     current: false
-    title: <span class="md-ellipsis">C page</span>
+    title: C page
     url: c.html
   current: false
-  title: <span class="md-ellipsis">TOC caption</span>
+  title: TOC caption
   url: c.html
 integrated_local_toc: []
 local_toc:
@@ -34,15 +34,15 @@ local_toc:
     caption_only: false
     children: []
     current: false
-    title: <span class="md-ellipsis">Getting started</span>
+    title: Getting started
     url: '#getting-started'
   - active: false
     aria_label: Another section
     caption_only: false
     children: []
     current: false
-    title: <span class="md-ellipsis">Another section</span>
+    title: Another section
     url: '#another-section'
   current: false
-  title: <span class="md-ellipsis">Overall title</span>
+  title: Overall title
   url: '#'
