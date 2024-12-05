@@ -230,7 +230,7 @@ jobs:
         with:
           name: python-packages-Linux
           path: dist
-      - run: mv dist/*.whl dist/sphinx_immaterial-0.0.post1.tip-py3-none-any.whl
+      - run: mv dist/*.whl dist/sphinx_immaterial-0.0.post1-py3-none-any.whl
       - uses: pyTooling/Actions/releaser@r0
         with:
           token: ${{ github.token }}
