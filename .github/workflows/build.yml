@@ -2,16 +2,11 @@ name: Build
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
     tags:
       - v**
   pull_request:
-    branches:
-      - main
-  workflow_dispatch:
-  schedule:
-    - cron: "0 0 1,16 * *"
+    branches: [main]
 
 jobs:
   mypy:
@@ -207,7 +202,6 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           path: ci-artifacts
-          pattern: coverage-data-*
       - run: mv ci-artifacts/**/.coverage* ./
       - uses: astral-sh/setup-uv@v5
         with:
@@ -215,18 +209,16 @@ jobs:
       - name: Setup python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.x"
+          python-version: '3.x'
       - name: Create coverage report
         run: uvx nox -s coverage
-      - name: Post coverage summary
-        if: github.repository == 'jbms/sphinx-immaterial'
-        uses: codecov/codecov-action@v4
-        env:
-          CODECOV_TOKEN: ${{secrets.CODECOV_TOKEN}}
+      - name: Upload comprehensive coverage HTML report
+        uses: actions/upload-artifact@v4
         with:
-          files: ./coverage.xml
-          fail_ci_if_error: true # optional (default = false)
-          verbose: true # optional (default = false)
+          name: coverage-report
+          path: htmlcov/
+      - name: Post coverage summary
+        run: cat .coverage_.md >> $GITHUB_STEP_SUMMARY
 
   python-publish-package:
     # Only publish package on push to tag or default branch.
