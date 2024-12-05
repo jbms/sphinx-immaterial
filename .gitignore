@@ -53,3 +53,9 @@ tests/**/build/
 tests/**/*.egg-info/
 tests/**/*.so
 tests/**/*.pyd
+
+# fonts
+sphinx_immaterial/resources/*.request
+sphinx_immaterial/resources/*.response
+sphinx_immaterial/resources/*.woff2
+sphinx_immaterial/resources/*.ttf

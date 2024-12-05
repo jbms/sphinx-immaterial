@@ -167,6 +167,7 @@ def check_lf(session: nox.Session):
 def dist(session: nox.Session, cmd: str):
     """Create distributions."""
     session.run("pip", "install", "wheel", "setuptools_scm", "setuptools>=42")
+    session.run("pip", "install", "-r", "requirements.txt")
     github_output = os.environ.get("GITHUB_OUTPUT", None)
     if cmd == "--version":
         version = cast(str, session.run("python", "setup.py", "--version", silent=True))

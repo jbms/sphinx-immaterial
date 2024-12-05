@@ -58,12 +58,26 @@ _MAX_CONCURRENT_FETCHES_ENV_KEY = "SPHINX_IMMATERIAL_FONT_FETCH_MAX_WORKERS"
 _TTF_FONT_PATHS_KEY = "sphinx_immaterial_ttf_font_paths"
 
 
-def add_google_fonts(app: sphinx.application.Sphinx, fonts: List[str]):
-    cache_dir = os.path.join(get_cache_dir(app), "google_fonts")
-    static_dir = os.path.join(app.outdir, "_static")
-    max_workers: Optional[int] = cast(
-        int, app.config.config_values.get(_MAX_CONCURRENT_FETCHES_KEY, 128)
-    )
+def install_google_fonts(cache_dir: str, font_dir: str, fonts: List[str]):
+    """
+    Saves google fonts to given directory.
+
+    Firstly, it tries to load fonts from cache directory.
+    If it fails, it downloads fonts from remote locations.
+
+    The font files are saved to font_dir.
+
+    Parameters
+    ----------
+    cache_dir : str
+        Directory with cached downloaded files.
+        If cache_dir is empty, skip checking cache
+    font_dir : str
+        Target directory where fonts are saved
+    fonts : List[str]
+        List of fonts to save
+    """
+    max_workers = 128
     if _MAX_CONCURRENT_FETCHES_ENV_KEY in os.environ:
         try:
             max_workers = int(os.environ[_MAX_CONCURRENT_FETCHES_ENV_KEY])
@@ -72,10 +86,7 @@ def add_google_fonts(app: sphinx.application.Sphinx, fonts: List[str]):
                 "Environment variable, %s, must be an integer value.",
                 _MAX_CONCURRENT_FETCHES_ENV_KEY,
             )
-    if max_workers is not None and max_workers <= 0:
-        max_workers = None  # use default from ThreadPoolExecutor
     # _static path
-    font_dir = os.path.join(static_dir, "fonts")
     os.makedirs(font_dir, exist_ok=True)
 
     with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
@@ -183,7 +194,16 @@ def add_google_fonts(app: sphinx.application.Sphinx, fonts: List[str]):
         #       issues if we're running in an environment with a loop already
         #       running (like within the Esbonio language server).  Technically
         #       that'll block that loop, but it's better than causing a crash.
-        css_content = executor.submit(lambda: asyncio.run(do_fetch())).result()
+        return executor.submit(lambda: asyncio.run(do_fetch())).result()
+
+
+def add_google_fonts(app: sphinx.application.Sphinx, fonts: List[str]):
+    cache_dir = os.path.join(get_cache_dir(app), "google_fonts")
+    static_dir = os.path.join(app.outdir, "_static")
+    # _static path
+    font_dir = os.path.join(static_dir, "fonts")
+
+    css_content = install_google_fonts(cache_dir, font_dir, fonts)
 
     # Write fonts css file
     ttf_font_paths = {}
