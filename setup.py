@@ -28,6 +28,12 @@ import setuptools.command.build_py
 import setuptools.command.develop
 import setuptools.command.install
 import setuptools.command.sdist
+from sphinx_immaterial.google_fonts import install_google_fonts
+
+from importlib.resources import files
+from sphinx_immaterial import resources
+
+from sphinx_immaterial import DEFAULT_THEME_OPTIONS
 
 root_dir = os.path.dirname(os.path.abspath(__file__))
 package_root = os.path.join(root_dir, "sphinx_immaterial")
@@ -151,6 +157,11 @@ class StaticBundlesCommand(
         target = {"min": "build", "dev": "build:dev"}
 
         try:
+            install_google_fonts(
+                files(resources),
+                files(resources),
+                DEFAULT_THEME_OPTIONS["font"].values(),
+            )
             tgt = target[self.bundle_type]
             node_modules_path = os.path.join(root_dir, "node_modules")
             if self.skip_npm_reinstall and os.path.exists(node_modules_path):
