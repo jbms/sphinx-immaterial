@@ -32,7 +32,7 @@
         <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
       
     
-        <link rel="stylesheet" type="text/css" href="../../../../_static/sphinx_immaterial_theme.116bfe6baf097be33.min.css?v=ee6a936f" />
+        <link rel="stylesheet" type="text/css" href="../../../../_static/sphinx_immaterial_theme.3bdac1653f54f9e56.min.css?v=bce22c20" />
         <link rel="stylesheet" type="text/css" href="../../../../_static/extra_css.css?v=15999537" />
         <link rel="stylesheet" type="text/css" href="../../../../_static/custom_font_example.css?v=520ac564" />
     <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
@@ -848,36 +848,36 @@
 <h1>Source code for sphinx_immaterial.apidoc.cpp.apigen</h1><div class="highlight"><pre>
 <span></span><code><span class="sd">&quot;&quot;&quot;C++ API documentation generation extension.&quot;&quot;&quot;</span>
 
-<span class="kn">import</span> <span class="nn">collections</span>
-<span class="kn">import</span> <span class="nn">contextlib</span>
-<span class="kn">import</span> <span class="nn">dataclasses</span>
-<span class="kn">import</span> <span class="nn">json</span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">re</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">cast</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Set</span><span class="p">,</span> <span class="n">Type</span><span class="p">,</span> <span class="n">Literal</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">collections</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">contextlib</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">dataclasses</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">cast</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Set</span><span class="p">,</span> <span class="n">Type</span><span class="p">,</span> <span class="n">Literal</span>
 
-<span class="kn">import</span> <span class="nn">docutils.core</span>
-<span class="kn">import</span> <span class="nn">docutils.nodes</span>
-<span class="kn">import</span> <span class="nn">docutils.parsers.rst.directives</span>
-<span class="kn">import</span> <span class="nn">docutils.utils</span>
-<span class="kn">import</span> <span class="nn">pydantic</span>
-<span class="kn">import</span> <span class="nn">pydantic.dataclasses</span>
-<span class="kn">import</span> <span class="nn">sphinx.application</span>
-<span class="kn">import</span> <span class="nn">sphinx.builders</span>
-<span class="kn">import</span> <span class="nn">sphinx.builders.html</span>
-<span class="kn">import</span> <span class="nn">sphinx.domains.c</span>
-<span class="kn">import</span> <span class="nn">sphinx.domains.cpp</span>
-<span class="kn">import</span> <span class="nn">sphinx.environment</span>
-<span class="kn">import</span> <span class="nn">sphinx.errors</span>
-<span class="kn">import</span> <span class="nn">sphinx.util.cfamily</span>
-<span class="kn">import</span> <span class="nn">sphinx.util.docfields</span>
-<span class="kn">import</span> <span class="nn">sphinx.util.logging</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">docutils.core</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">docutils.nodes</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">docutils.parsers.rst.directives</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">docutils.utils</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pydantic</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pydantic.dataclasses</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sphinx.application</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sphinx.builders</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sphinx.builders.html</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sphinx.domains.c</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sphinx.domains.cpp</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sphinx.environment</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sphinx.errors</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sphinx.util.cfamily</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sphinx.util.docfields</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sphinx.util.logging</span>
 
 
-<span class="kn">from</span> <span class="nn">..</span> <span class="kn">import</span> <span class="n">apigen_utils</span>
-<span class="kn">from</span> <span class="nn">...</span> <span class="kn">import</span> <span class="n">sphinx_utils</span>
-<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">api_parser</span>
-<span class="kn">from</span> <span class="nn">.signodes</span> <span class="kn">import</span> <span class="n">desc_cpp_explicit</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..</span><span class="w"> </span><span class="kn">import</span> <span class="n">apigen_utils</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">...</span><span class="w"> </span><span class="kn">import</span> <span class="n">sphinx_utils</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.</span><span class="w"> </span><span class="kn">import</span> <span class="n">api_parser</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.signodes</span><span class="w"> </span><span class="kn">import</span> <span class="n">desc_cpp_explicit</span>
 
 <span class="n">logger</span> <span class="o">=</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
@@ -887,7 +887,7 @@
 <div class="viewcode-block" id="ApigenConfig">
 <a class="viewcode-back" href="../../../../apidoc/cpp/apigen.html#sphinx_immaterial.apidoc.cpp.apigen.ApigenConfig">[docs]</a>
 <span class="nd">@pydantic</span><span class="o">.</span><span class="n">dataclasses</span><span class="o">.</span><span class="n">dataclass</span>
-<span class="k">class</span> <span class="nc">ApigenConfig</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ApigenConfig</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Specifies a C++ API generation configuration.&quot;&quot;&quot;</span>
 
     <span class="n">document_prefix</span><span class="p">:</span> <span class="nb">str</span>
@@ -917,12 +917,12 @@
 
 
 <span class="nd">@dataclasses</span><span class="o">.</span><span class="n">dataclass</span>
-<span class="k">class</span> <span class="nc">CppApiData</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">CppApiData</span><span class="p">:</span>
     <span class="n">groups</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">EntityId</span><span class="p">]]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
     <span class="n">entities</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">EntityId</span><span class="p">,</span> <span class="n">CppApiEntity</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
     <span class="n">nonitpick</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">set</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">get_entity_sub_groups</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_entity_sub_groups</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">entity_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">member</span><span class="p">:</span> <span class="nb">bool</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">EntityId</span><span class="p">]]:</span>
         <span class="n">entity</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">entities</span><span class="p">[</span><span class="n">entity_id</span><span class="p">]</span>
@@ -934,10 +934,10 @@
             <span class="n">cast</span><span class="p">(</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">EntityId</span><span class="p">]],</span> <span class="p">{}),</span>
         <span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">get_documented_entities</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_documented_entities</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">seen</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
 
-        <span class="k">def</span> <span class="nf">process_group</span><span class="p">(</span><span class="n">entity_ids</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]):</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">process_group</span><span class="p">(</span><span class="n">entity_ids</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]):</span>
             <span class="k">for</span> <span class="n">entity_id</span> <span class="ow">in</span> <span class="n">entity_ids</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">entity_id</span> <span class="ow">in</span> <span class="n">seen</span><span class="p">:</span>
                     <span class="k">continue</span>
@@ -952,10 +952,10 @@
         <span class="k">for</span> <span class="n">group_members</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">groups</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
             <span class="k">yield from</span> <span class="n">process_group</span><span class="p">(</span><span class="n">group_members</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">get_entity_toc_title</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">entity</span><span class="p">:</span> <span class="n">CppApiEntity</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_entity_toc_title</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">entity</span><span class="p">:</span> <span class="n">CppApiEntity</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">entity</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span>
 
-    <span class="k">def</span> <span class="nf">get_entity_scope</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">entity</span><span class="p">:</span> <span class="n">CppApiEntity</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_entity_scope</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">entity</span><span class="p">:</span> <span class="n">CppApiEntity</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="n">components</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">cur_entity</span> <span class="o">=</span> <span class="n">entity</span>
         <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
@@ -974,21 +974,21 @@
             <span class="n">components</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">cur_entity</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;scope&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;::&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">components</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">get_entity_object_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">entity</span><span class="p">:</span> <span class="n">CppApiEntity</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_entity_object_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">entity</span><span class="p">:</span> <span class="n">CppApiEntity</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_entity_scope</span><span class="p">(</span><span class="n">entity</span><span class="p">)</span> <span class="o">+</span> <span class="n">entity</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span>
         <span class="n">special_id</span> <span class="o">=</span> <span class="n">entity</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;special_id&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">special_id</span><span class="p">:</span>
             <span class="n">name</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="n">special_id</span><span class="si">}</span><span class="s2">]&quot;</span>
         <span class="k">return</span> <span class="n">name</span>
 
-    <span class="k">def</span> <span class="nf">get_entity_page_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">entity</span><span class="p">:</span> <span class="n">CppApiEntity</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_entity_page_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">entity</span><span class="p">:</span> <span class="n">CppApiEntity</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">entity</span><span class="p">[</span><span class="s2">&quot;page_name&quot;</span><span class="p">]</span>
 
-    <span class="k">def</span> <span class="nf">get_entity_page_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">entity</span><span class="p">:</span> <span class="n">CppApiEntity</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_entity_page_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">entity</span><span class="p">:</span> <span class="n">CppApiEntity</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">entity</span><span class="p">[</span><span class="s2">&quot;document_prefix&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_entity_page_name</span><span class="p">(</span><span class="n">entity</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">_get_cpp_api_data</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_get_cpp_api_data</span><span class="p">(</span>
     <span class="n">env</span><span class="p">:</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">environment</span><span class="o">.</span><span class="n">BuildEnvironment</span><span class="p">,</span> <span class="n">warn</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">CppApiData</span><span class="p">:</span>
     <span class="n">KEY</span> <span class="o">=</span> <span class="s2">&quot;_sphinx_immaterial_cpp_apigen_data&quot;</span>
@@ -1034,7 +1034,7 @@
     <span class="k">return</span> <span class="n">data</span>
 
 
-<span class="k">def</span> <span class="nf">_transform_doc_comment</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_transform_doc_comment</span><span class="p">(</span>
     <span class="n">env</span><span class="p">:</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">environment</span><span class="o">.</span><span class="n">BuildEnvironment</span><span class="p">,</span>
     <span class="n">doc</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">api_parser</span><span class="o">.</span><span class="n">JsonDocComment</span><span class="p">],</span>
     <span class="n">summary</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
@@ -1069,7 +1069,7 @@
     <span class="k">return</span> <span class="n">out</span>
 
 
-<span class="k">def</span> <span class="nf">_format_template_parameters</span><span class="p">(</span><span class="n">entity</span><span class="p">:</span> <span class="n">CppApiEntity</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_format_template_parameters</span><span class="p">(</span><span class="n">entity</span><span class="p">:</span> <span class="n">CppApiEntity</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
     <span class="n">template_parameters</span> <span class="o">=</span> <span class="n">entity</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;template_parameters&quot;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">template_parameters</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">return</span> <span class="s2">&quot;&quot;</span>
@@ -1082,7 +1082,7 @@
     <span class="k">return</span> <span class="n">tparams</span>
 
 
-<span class="k">def</span> <span class="nf">_format_template_arguments</span><span class="p">(</span><span class="n">entity</span><span class="p">:</span> <span class="n">CppApiEntity</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_format_template_arguments</span><span class="p">(</span><span class="n">entity</span><span class="p">:</span> <span class="n">CppApiEntity</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
     <span class="k">if</span> <span class="n">entity</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;specializes&quot;</span><span class="p">):</span>
         <span class="c1"># Template arguments already included in `entity[&quot;name&quot;]`.</span>
         <span class="k">return</span> <span class="s2">&quot;&quot;</span>
@@ -1101,7 +1101,7 @@
     <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;&lt;</span><span class="si">{</span><span class="n">args_str</span><span class="si">}</span><span class="s2">&gt;&quot;</span>
 
 
-<span class="k">def</span> <span class="nf">_validate_signature_line_tags</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_validate_signature_line_tags</span><span class="p">(</span>
     <span class="n">strip_tags</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Type</span><span class="p">[</span><span class="n">sphinx</span><span class="o">.</span><span class="n">addnodes</span><span class="o">.</span><span class="n">desc_sig_element</span><span class="p">]],</span>
     <span class="n">children</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Node</span><span class="p">],</span>
 <span class="p">):</span>
@@ -1114,7 +1114,7 @@
             <span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">_strip_template_parameters</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_strip_template_parameters</span><span class="p">(</span>
     <span class="n">api_data</span><span class="p">:</span> <span class="n">CppApiData</span><span class="p">,</span>
     <span class="n">entity</span><span class="p">:</span> <span class="n">CppApiEntity</span><span class="p">,</span>
     <span class="n">signode</span><span class="p">:</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">addnodes</span><span class="o">.</span><span class="n">desc_signature</span><span class="p">,</span>
@@ -1167,14 +1167,14 @@
         <span class="k">del</span> <span class="n">signode</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
 
 
-<span class="k">def</span> <span class="nf">_summarize_explicit</span><span class="p">(</span><span class="n">signode</span><span class="p">:</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">addnodes</span><span class="o">.</span><span class="n">desc_signature</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_summarize_explicit</span><span class="p">(</span><span class="n">signode</span><span class="p">:</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">addnodes</span><span class="o">.</span><span class="n">desc_signature</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">signode</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">condition</span><span class="o">=</span><span class="n">desc_cpp_explicit</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">children</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
             <span class="k">continue</span>
         <span class="n">node</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">addnodes</span><span class="o">.</span><span class="n">desc_sig_punctuation</span><span class="p">(</span><span class="s2">&quot;...&quot;</span><span class="p">,</span> <span class="s2">&quot;...&quot;</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">_format_entity_alias</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_format_entity_alias</span><span class="p">(</span>
     <span class="n">entity</span><span class="p">:</span> <span class="n">api_parser</span><span class="o">.</span><span class="n">TypeAliasEntity</span><span class="p">,</span> <span class="n">full_name</span><span class="p">:</span> <span class="nb">str</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
     <span class="n">underlying_type</span> <span class="o">=</span> <span class="n">entity</span><span class="p">[</span><span class="s2">&quot;underlying_type&quot;</span><span class="p">]</span>
@@ -1184,13 +1184,13 @@
     <span class="k">return</span> <span class="p">(</span><span class="s2">&quot;cpp:type&quot;</span><span class="p">,</span> <span class="n">signature</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">_format_entity_constructor</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_format_entity_constructor</span><span class="p">(</span>
     <span class="n">entity</span><span class="p">:</span> <span class="n">api_parser</span><span class="o">.</span><span class="n">FunctionEntity</span><span class="p">,</span> <span class="n">full_name</span><span class="p">:</span> <span class="nb">str</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
     <span class="k">return</span> <span class="n">_format_entity_function</span><span class="p">(</span><span class="n">entity</span><span class="p">,</span> <span class="n">full_name</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">_format_entity_class</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_format_entity_class</span><span class="p">(</span>
     <span class="n">entity</span><span class="p">:</span> <span class="n">api_parser</span><span class="o">.</span><span class="n">ClassEntity</span><span class="p">,</span> <span class="n">full_name</span><span class="p">:</span> <span class="nb">str</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
     <span class="n">prefix</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">entity</span><span class="p">[</span><span class="s2">&quot;prefix&quot;</span><span class="p">])</span>
@@ -1205,26 +1205,26 @@
     <span class="k">return</span> <span class="p">(</span><span class="sa">f</span><span class="s1">&#39;cpp:</span><span class="si">{</span><span class="n">entity</span><span class="p">[</span><span class="s2">&quot;keyword&quot;</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">signature</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">_format_entity_function</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_format_entity_function</span><span class="p">(</span>
     <span class="n">entity</span><span class="p">:</span> <span class="n">api_parser</span><span class="o">.</span><span class="n">FunctionEntity</span><span class="p">,</span> <span class="n">full_name</span><span class="p">:</span> <span class="nb">str</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
     <span class="n">signature</span> <span class="o">=</span> <span class="n">entity</span><span class="p">[</span><span class="s2">&quot;declaration&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">entity</span><span class="p">[</span><span class="s2">&quot;name_substitute&quot;</span><span class="p">],</span> <span class="n">full_name</span><span class="p">)</span>
     <span class="k">return</span> <span class="p">(</span><span class="s2">&quot;cpp:function&quot;</span><span class="p">,</span> <span class="n">signature</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">_format_entity_method</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_format_entity_method</span><span class="p">(</span>
     <span class="n">entity</span><span class="p">:</span> <span class="n">api_parser</span><span class="o">.</span><span class="n">FunctionEntity</span><span class="p">,</span> <span class="n">full_name</span><span class="p">:</span> <span class="nb">str</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
     <span class="k">return</span> <span class="n">_format_entity_function</span><span class="p">(</span><span class="n">entity</span><span class="p">,</span> <span class="n">full_name</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">_format_entity_conversion_function</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_format_entity_conversion_function</span><span class="p">(</span>
     <span class="n">entity</span><span class="p">:</span> <span class="n">api_parser</span><span class="o">.</span><span class="n">FunctionEntity</span><span class="p">,</span> <span class="n">full_name</span><span class="p">:</span> <span class="nb">str</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
     <span class="k">return</span> <span class="n">_format_entity_function</span><span class="p">(</span><span class="n">entity</span><span class="p">,</span> <span class="n">full_name</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">_format_entity_var</span><span class="p">(</span><span class="n">entity</span><span class="p">:</span> <span class="n">api_parser</span><span class="o">.</span><span class="n">VarEntity</span><span class="p">,</span> <span class="n">full_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_format_entity_var</span><span class="p">(</span><span class="n">entity</span><span class="p">:</span> <span class="n">api_parser</span><span class="o">.</span><span class="n">VarEntity</span><span class="p">,</span> <span class="n">full_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
     <span class="n">declaration</span> <span class="o">=</span> <span class="n">entity</span><span class="p">[</span><span class="s2">&quot;declaration&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">entity</span><span class="p">[</span><span class="s2">&quot;name_substitute&quot;</span><span class="p">],</span> <span class="n">full_name</span><span class="p">)</span>
     <span class="n">signature</span> <span class="o">=</span> <span class="n">declaration</span>
     <span class="n">initializer</span> <span class="o">=</span> <span class="n">entity</span><span class="p">[</span><span class="s2">&quot;initializer&quot;</span><span class="p">]</span>
@@ -1233,7 +1233,7 @@
     <span class="k">return</span> <span class="p">(</span><span class="s2">&quot;cpp:var&quot;</span><span class="p">,</span> <span class="n">signature</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">_format_entity_enum</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_format_entity_enum</span><span class="p">(</span>
     <span class="n">entity</span><span class="p">:</span> <span class="n">api_parser</span><span class="o">.</span><span class="n">EnumEntity</span><span class="p">,</span> <span class="n">full_name</span><span class="p">:</span> <span class="nb">str</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
     <span class="n">signature</span> <span class="o">=</span> <span class="n">full_name</span>
@@ -1243,7 +1243,7 @@
     <span class="k">return</span> <span class="p">(</span><span class="n">directive_name</span><span class="p">,</span> <span class="n">signature</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">_format_entity_macro</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_format_entity_macro</span><span class="p">(</span>
     <span class="n">entity</span><span class="p">:</span> <span class="n">api_parser</span><span class="o">.</span><span class="n">MacroEntity</span><span class="p">,</span> <span class="n">full_name</span><span class="p">:</span> <span class="nb">str</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
     <span class="n">signature</span> <span class="o">=</span> <span class="n">full_name</span>
@@ -1253,7 +1253,7 @@
     <span class="k">return</span> <span class="p">(</span><span class="s2">&quot;c:macro&quot;</span><span class="p">,</span> <span class="n">signature</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">_format_template_prefix</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_format_template_prefix</span><span class="p">(</span>
     <span class="n">api_data</span><span class="p">:</span> <span class="n">CppApiData</span><span class="p">,</span> <span class="n">entity</span><span class="p">:</span> <span class="n">CppApiEntity</span><span class="p">,</span> <span class="n">summary</span><span class="p">:</span> <span class="nb">bool</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
     <span class="n">inner_prefix</span> <span class="o">=</span> <span class="n">_format_template_parameters</span><span class="p">(</span><span class="n">entity</span><span class="p">)</span>
@@ -1270,7 +1270,7 @@
     <span class="k">return</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">prefixes</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">_format_trailing_requires</span><span class="p">(</span><span class="n">entity</span><span class="p">:</span> <span class="n">CppApiEntity</span><span class="p">,</span> <span class="n">summary</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_format_trailing_requires</span><span class="p">(</span><span class="n">entity</span><span class="p">:</span> <span class="n">CppApiEntity</span><span class="p">,</span> <span class="n">summary</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
     <span class="n">template_parameters</span> <span class="o">=</span> <span class="n">entity</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;template_parameters&quot;</span><span class="p">)</span>
     <span class="n">requires</span> <span class="o">=</span> <span class="n">entity</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;requires&quot;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">template_parameters</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">requires</span><span class="p">:</span>
@@ -1278,7 +1278,7 @@
     <span class="k">return</span> <span class="s2">&quot; requires &quot;</span> <span class="o">+</span> <span class="s2">&quot; &amp;&amp; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">expr</span> <span class="k">for</span> <span class="n">expr</span> <span class="ow">in</span> <span class="n">requires</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">_format_entity</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_format_entity</span><span class="p">(</span>
     <span class="n">api_data</span><span class="p">:</span> <span class="n">CppApiData</span><span class="p">,</span> <span class="n">entity</span><span class="p">:</span> <span class="n">CppApiEntity</span><span class="p">,</span> <span class="n">summary</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">include_scope</span><span class="p">:</span> <span class="nb">bool</span>
 <span class="p">):</span>
     <span class="n">full_name</span> <span class="o">=</span> <span class="n">api_data</span><span class="o">.</span><span class="n">get_entity_scope</span><span class="p">(</span><span class="n">entity</span><span class="p">)</span> <span class="k">if</span> <span class="n">include_scope</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
@@ -1301,7 +1301,7 @@
 
 
 <span class="nd">@contextlib</span><span class="o">.</span><span class="n">contextmanager</span>
-<span class="k">def</span> <span class="nf">save_cpp_scope</span><span class="p">(</span><span class="n">env</span><span class="p">:</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">environment</span><span class="o">.</span><span class="n">BuildEnvironment</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">save_cpp_scope</span><span class="p">(</span><span class="n">env</span><span class="p">:</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">environment</span><span class="o">.</span><span class="n">BuildEnvironment</span><span class="p">):</span>
     <span class="n">parent_symbol</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">temp_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;cpp:parent_symbol&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
     <span class="n">namespace_stack</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">temp_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;cpp:namespace_stack&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">namespace_stack</span><span class="p">:</span>
@@ -1326,7 +1326,7 @@
         <span class="n">env</span><span class="o">.</span><span class="n">ref_context</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;cpp:parent_key&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">_add_entity_description</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_add_entity_description</span><span class="p">(</span>
     <span class="n">env</span><span class="p">:</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">environment</span><span class="o">.</span><span class="n">BuildEnvironment</span><span class="p">,</span>
     <span class="n">api_data</span><span class="p">:</span> <span class="n">CppApiData</span><span class="p">,</span>
     <span class="n">entity</span><span class="p">:</span> <span class="n">CppApiEntity</span><span class="p">,</span>
@@ -1480,7 +1480,7 @@
     <span class="n">contentnode</span> <span class="o">+=</span> <span class="n">nodes</span>
 
 
-<span class="k">def</span> <span class="nf">_add_enumerators</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_add_enumerators</span><span class="p">(</span>
     <span class="n">env</span><span class="p">:</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">environment</span><span class="o">.</span><span class="n">BuildEnvironment</span><span class="p">,</span>
     <span class="n">api_data</span><span class="p">:</span> <span class="n">CppApiData</span><span class="p">,</span>
     <span class="n">entity</span><span class="p">:</span> <span class="n">api_parser</span><span class="o">.</span><span class="n">EnumEntity</span><span class="p">,</span>
@@ -1529,7 +1529,7 @@
         <span class="n">enumerator_signode</span><span class="p">[</span><span class="s2">&quot;toc_title&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">name</span>
 
 
-<span class="k">def</span> <span class="nf">_add_group_summary</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_add_group_summary</span><span class="p">(</span>
     <span class="n">env</span><span class="p">:</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">environment</span><span class="o">.</span><span class="n">BuildEnvironment</span><span class="p">,</span>
     <span class="n">api_data</span><span class="p">:</span> <span class="n">CppApiData</span><span class="p">,</span>
     <span class="n">state</span><span class="p">:</span> <span class="n">docutils</span><span class="o">.</span><span class="n">parsers</span><span class="o">.</span><span class="n">rst</span><span class="o">.</span><span class="n">states</span><span class="o">.</span><span class="n">RSTState</span><span class="p">,</span>
@@ -1572,7 +1572,7 @@
     <span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">_merge_summary_nodes_into</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_merge_summary_nodes_into</span><span class="p">(</span>
     <span class="n">env</span><span class="p">:</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">environment</span><span class="o">.</span><span class="n">BuildEnvironment</span><span class="p">,</span>
     <span class="n">api_data</span><span class="p">:</span> <span class="n">CppApiData</span><span class="p">,</span>
     <span class="n">state</span><span class="p">:</span> <span class="n">docutils</span><span class="o">.</span><span class="n">parsers</span><span class="o">.</span><span class="n">rst</span><span class="o">.</span><span class="n">states</span><span class="o">.</span><span class="n">RSTState</span><span class="p">,</span>
@@ -1603,7 +1603,7 @@
     <span class="p">)</span>
 
 
-<span class="k">class</span> <span class="nc">CppApigenEntityPageDirective</span><span class="p">(</span><span class="n">sphinx</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">docutils</span><span class="o">.</span><span class="n">SphinxDirective</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">CppApigenEntityPageDirective</span><span class="p">(</span><span class="n">sphinx</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">docutils</span><span class="o">.</span><span class="n">SphinxDirective</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Documents an entity and summarizes its members, if applicable.&quot;&quot;&quot;</span>
 
     <span class="n">has_content</span> <span class="o">=</span> <span class="kc">False</span>
@@ -1611,7 +1611,7 @@
     <span class="n">required_arguments</span> <span class="o">=</span> <span class="mi">1</span>
     <span class="n">optional_arguments</span> <span class="o">=</span> <span class="mi">0</span>
 
-    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Node</span><span class="p">]:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Node</span><span class="p">]:</span>
         <span class="c1"># Wrap in a section</span>
         <span class="n">section</span> <span class="o">=</span> <span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">section</span><span class="p">()</span>
         <span class="n">section</span><span class="p">[</span><span class="s2">&quot;ids&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
@@ -1656,7 +1656,7 @@
         <span class="k">return</span> <span class="p">[</span><span class="n">section</span><span class="p">]</span>
 
 
-<span class="k">class</span> <span class="nc">CppApigenTopLevelGroupDirective</span><span class="p">(</span><span class="n">sphinx</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">docutils</span><span class="o">.</span><span class="n">SphinxDirective</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">CppApigenTopLevelGroupDirective</span><span class="p">(</span><span class="n">sphinx</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">docutils</span><span class="o">.</span><span class="n">SphinxDirective</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Summarizes the members of a top-level group.&quot;&quot;&quot;</span>
 
     <span class="n">has_content</span> <span class="o">=</span> <span class="kc">False</span>
@@ -1668,7 +1668,7 @@
         <span class="s2">&quot;notoc&quot;</span><span class="p">:</span> <span class="n">docutils</span><span class="o">.</span><span class="n">parsers</span><span class="o">.</span><span class="n">rst</span><span class="o">.</span><span class="n">directives</span><span class="o">.</span><span class="n">flag</span><span class="p">,</span>
     <span class="p">}</span>
 
-    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Node</span><span class="p">]:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Node</span><span class="p">]:</span>
         <span class="n">env</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">env</span>
         <span class="n">api_data</span> <span class="o">=</span> <span class="n">_get_cpp_api_data</span><span class="p">(</span><span class="n">env</span><span class="p">)</span>
         <span class="n">group_id</span> <span class="o">=</span> <span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">make_id</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">arguments</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
@@ -1692,7 +1692,7 @@
         <span class="k">return</span> <span class="n">contentnode</span><span class="o">.</span><span class="n">children</span>
 
 
-<span class="k">class</span> <span class="nc">CppApigenEntitySummaryDirective</span><span class="p">(</span><span class="n">sphinx</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">docutils</span><span class="o">.</span><span class="n">SphinxDirective</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">CppApigenEntitySummaryDirective</span><span class="p">(</span><span class="n">sphinx</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">docutils</span><span class="o">.</span><span class="n">SphinxDirective</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Generates a summary/link to a C++ entity.&quot;&quot;&quot;</span>
 
     <span class="n">has_content</span> <span class="o">=</span> <span class="kc">False</span>
@@ -1704,7 +1704,7 @@
         <span class="s2">&quot;notoc&quot;</span><span class="p">:</span> <span class="n">docutils</span><span class="o">.</span><span class="n">parsers</span><span class="o">.</span><span class="n">rst</span><span class="o">.</span><span class="n">directives</span><span class="o">.</span><span class="n">flag</span><span class="p">,</span>
     <span class="p">}</span>
 
-    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Node</span><span class="p">]:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Node</span><span class="p">]:</span>
         <span class="n">env</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">env</span>
         <span class="n">api_data</span> <span class="o">=</span> <span class="n">_get_cpp_api_data</span><span class="p">(</span><span class="n">env</span><span class="p">)</span>
         <span class="n">entity_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">arguments</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -1728,7 +1728,7 @@
         <span class="k">return</span> <span class="n">contentnode</span><span class="o">.</span><span class="n">children</span>
 
 
-<span class="k">def</span> <span class="nf">_builder_inited</span><span class="p">(</span><span class="n">app</span><span class="p">:</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">Sphinx</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_builder_inited</span><span class="p">(</span><span class="n">app</span><span class="p">:</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">Sphinx</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Generates the rST files for API members.&quot;&quot;&quot;</span>
 
     <span class="n">api_data</span> <span class="o">=</span> <span class="n">_get_cpp_api_data</span><span class="p">(</span><span class="n">app</span><span class="o">.</span><span class="n">env</span><span class="p">,</span> <span class="n">warn</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -1751,7 +1751,7 @@
             <span class="n">page_name</span><span class="p">,</span> <span class="n">writer</span><span class="o">.</span><span class="n">case_insensitive_filesystem</span>
         <span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">get_entities</span><span class="p">():</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_entities</span><span class="p">():</span>
         <span class="k">for</span> <span class="n">entity_id</span> <span class="ow">in</span> <span class="n">api_data</span><span class="o">.</span><span class="n">get_documented_entities</span><span class="p">():</span>
             <span class="n">entity</span> <span class="o">=</span> <span class="n">api_data</span><span class="o">.</span><span class="n">entities</span><span class="p">[</span><span class="n">entity_id</span><span class="p">]</span>
             <span class="n">content</span> <span class="o">=</span> <span class="n">sphinx_utils</span><span class="o">.</span><span class="n">format_directive</span><span class="p">(</span>
@@ -1765,7 +1765,7 @@
     <span class="n">writer</span><span class="o">.</span><span class="n">write_files</span><span class="p">(</span><span class="n">get_entities</span><span class="p">())</span>
 
 
-<span class="k">def</span> <span class="nf">_warn_missing_reference</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_warn_missing_reference</span><span class="p">(</span>
     <span class="n">app</span><span class="p">:</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">Sphinx</span><span class="p">,</span> <span class="n">domain</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">addnodes</span><span class="o">.</span><span class="n">pending_xref</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">domain</span><span class="p">,</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">domains</span><span class="o">.</span><span class="n">cpp</span><span class="o">.</span><span class="n">CPPDomain</span><span class="p">):</span>
@@ -1778,7 +1778,7 @@
 <span class="n">_CONFIG_ATTR</span> <span class="o">=</span> <span class="s2">&quot;_sphinx_immaterial_cpp_apigen_configs&quot;</span>
 
 
-<span class="k">def</span> <span class="nf">_config_inited</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_config_inited</span><span class="p">(</span>
     <span class="n">app</span><span class="p">:</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">Sphinx</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">Config</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="n">apigen_configs</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span>
@@ -1790,7 +1790,7 @@
     <span class="nb">setattr</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">_CONFIG_ATTR</span><span class="p">,</span> <span class="n">apigen_configs</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">setup</span><span class="p">(</span><span class="n">app</span><span class="p">:</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">Sphinx</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">setup</span><span class="p">(</span><span class="n">app</span><span class="p">:</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">Sphinx</span><span class="p">):</span>
     <span class="n">app</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;config-inited&quot;</span><span class="p">,</span> <span class="n">_config_inited</span><span class="p">)</span>
     <span class="n">app</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;builder-inited&quot;</span><span class="p">,</span> <span class="n">_builder_inited</span><span class="p">)</span>
     <span class="n">app</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;warn-missing-reference&quot;</span><span class="p">,</span> <span class="n">_warn_missing_reference</span><span class="p">)</span>
@@ -1820,7 +1820,7 @@
   <small>
     
       Last update:
-      Jan 01, 2025
+      Jan 16, 2025
     
   </small>
 </div>

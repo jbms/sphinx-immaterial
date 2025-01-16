@@ -32,7 +32,7 @@
         <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
       
     
-        <link rel="stylesheet" type="text/css" href="../../_static/sphinx_immaterial_theme.116bfe6baf097be33.min.css?v=ee6a936f" />
+        <link rel="stylesheet" type="text/css" href="../../_static/sphinx_immaterial_theme.3bdac1653f54f9e56.min.css?v=bce22c20" />
         <link rel="stylesheet" type="text/css" href="../../_static/extra_css.css?v=15999537" />
         <link rel="stylesheet" type="text/css" href="../../_static/custom_font_example.css?v=520ac564" />
     <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
@@ -851,12 +851,12 @@
 <span class="sd">This defines some entities that are aliased into the `tensorstore_demo` module.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">import</span> <span class="nn">typing</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">typing</span>
 
 
 <div class="viewcode-block" id="Foo">
 <a class="viewcode-back" href="../../python_apigen_generated/Foo.html#tensorstore_demo.Foo">[docs]</a>
-<span class="k">class</span> <span class="nc">Foo</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Foo</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This is a class defined in the ``tensorstore_demo._tensorstore`` module</span>
 <span class="sd">    but should appear to be defined in the ``tensorstore_demo`` module.</span>
@@ -867,7 +867,7 @@
 
 <div class="viewcode-block" id="Foo.bar">
 <a class="viewcode-back" href="../../python_apigen_generated/FooSubclass.html#tensorstore_demo.Foo.bar">[docs]</a>
-    <span class="k">def</span> <span class="nf">bar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">bar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns :py:param:`x`.</span>
 
 <span class="sd">        :param x: Parameter to :py:obj:`.bar`.</span>
@@ -879,7 +879,7 @@
 
 <div class="viewcode-block" id="bar">
 <a class="viewcode-back" href="../../python_apigen_generated/bar.html#tensorstore_demo.bar">[docs]</a>
-<span class="k">def</span> <span class="nf">bar</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Foo</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Foo</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">bar</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Foo</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Foo</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns :py:param:`x`.</span>
 
 <span class="sd">    :param x: Parameter to :py:obj:`.bar`.</span>
@@ -896,7 +896,7 @@
 
 <div class="viewcode-block" id="FooSubclass">
 <a class="viewcode-back" href="../../python_apigen_generated/FooSubclass.html#tensorstore_demo.FooSubclass">[docs]</a>
-<span class="k">class</span> <span class="nc">FooSubclass</span><span class="p">(</span><span class="n">Foo</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">FooSubclass</span><span class="p">(</span><span class="n">Foo</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;This is a subclass of :py:obj:`.Foo`.</span>
 
 <span class="sd">    Group:</span>
@@ -905,22 +905,22 @@
 
 <div class="viewcode-block" id="FooSubclass.baz">
 <a class="viewcode-back" href="../../python_apigen_generated/FooSubclass.baz.html#tensorstore_demo.FooSubclass.baz">[docs]</a>
-    <span class="k">def</span> <span class="nf">baz</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">baz</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Does the baz operation.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">x</span></div>
 
 
     <span class="nd">@typing</span><span class="o">.</span><span class="n">overload</span>
-    <span class="k">def</span> <span class="nf">overloaded_method</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">overloaded_method</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
         <span class="k">pass</span>
 
     <span class="nd">@typing</span><span class="o">.</span><span class="n">overload</span>
-    <span class="k">def</span> <span class="nf">overloaded_method</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">overloaded_method</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="k">pass</span>
 
 <div class="viewcode-block" id="FooSubclass.overloaded_method">
 <a class="viewcode-back" href="../../python_apigen_generated/FooSubclass.overloaded_method.html#tensorstore_demo.FooSubclass.overloaded_method">[docs]</a>
-    <span class="k">def</span> <span class="nf">overloaded_method</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">overloaded_method</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns its argument.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">x</span></div>
 </div>
@@ -932,7 +932,7 @@
   <small>
     
       Last update:
-      Jan 01, 2025
+      Jan 16, 2025
     
   </small>
 </div>

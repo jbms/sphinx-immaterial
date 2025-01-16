@@ -32,7 +32,7 @@
         <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
       
     
-        <link rel="stylesheet" type="text/css" href="../../../_static/sphinx_immaterial_theme.116bfe6baf097be33.min.css?v=ee6a936f" />
+        <link rel="stylesheet" type="text/css" href="../../../_static/sphinx_immaterial_theme.3bdac1653f54f9e56.min.css?v=bce22c20" />
         <link rel="stylesheet" type="text/css" href="../../../_static/extra_css.css?v=15999537" />
         <link rel="stylesheet" type="text/css" href="../../../_static/custom_font_example.css?v=520ac564" />
     <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
@@ -851,14 +851,14 @@
 <span class="sd">Currently black and clang-format are supported.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">import</span> <span class="nn">collections</span>
-<span class="kn">import</span> <span class="nn">difflib</span>
-<span class="kn">import</span> <span class="nn">hashlib</span>
-<span class="kn">import</span> <span class="nn">io</span>
-<span class="kn">import</span> <span class="nn">json</span>
-<span class="kn">import</span> <span class="nn">re</span>
-<span class="kn">import</span> <span class="nn">subprocess</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">collections</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">difflib</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">hashlib</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">io</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">subprocess</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">Dict</span><span class="p">,</span>
     <span class="n">List</span><span class="p">,</span>
     <span class="n">Any</span><span class="p">,</span>
@@ -871,16 +871,16 @@
     <span class="n">NamedTuple</span><span class="p">,</span>
 <span class="p">)</span>
 
-<span class="kn">import</span> <span class="nn">pydantic.dataclasses</span>
-<span class="kn">import</span> <span class="nn">docutils.nodes</span>
-<span class="kn">import</span> <span class="nn">sphinx.addnodes</span>
-<span class="kn">import</span> <span class="nn">sphinx.application</span>
-<span class="kn">import</span> <span class="nn">sphinx.environment</span>
-<span class="kn">import</span> <span class="nn">sphinx.transforms</span>
-<span class="kn">import</span> <span class="nn">sphinx.util.logging</span>
-<span class="kn">import</span> <span class="nn">sphinx.ext.viewcode</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pydantic.dataclasses</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">docutils.nodes</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sphinx.addnodes</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sphinx.application</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sphinx.environment</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sphinx.transforms</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sphinx.util.logging</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sphinx.ext.viewcode</span>
 
-<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">object_description_options</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.</span><span class="w"> </span><span class="kn">import</span> <span class="n">object_description_options</span>
 
 <span class="n">logger</span> <span class="o">=</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
@@ -889,7 +889,7 @@
 <span class="n">_FORMATTED_SIGNATURES</span> <span class="o">=</span> <span class="s2">&quot;sphinx_immaterial_formatted_signatures&quot;</span>
 
 
-<span class="k">def</span> <span class="nf">_get_collected_signatures</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_get_collected_signatures</span><span class="p">(</span>
     <span class="n">env</span><span class="p">:</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">environment</span><span class="o">.</span><span class="n">BuildEnvironment</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]:</span>
     <span class="n">attr</span> <span class="o">=</span> <span class="s2">&quot;_sphinx_immaterial_collected_signatures_to_format&quot;</span>
@@ -900,30 +900,30 @@
     <span class="k">return</span> <span class="n">x</span>
 
 
-<span class="k">class</span> <span class="nc">SignatureText</span><span class="p">(</span><span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Text</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">SignatureText</span><span class="p">(</span><span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Text</span><span class="p">):</span>
     <span class="k">pass</span>
 
 
-<span class="k">def</span> <span class="nf">_html_visit_signature_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">SignatureText</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_html_visit_signature_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">SignatureText</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="n">encoded</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">astext</span><span class="p">())</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="s2">&quot;&amp;nbsp;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;&lt;br&gt;&quot;</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">body</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">encoded</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">_html_depart_signature_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">SignatureText</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_html_depart_signature_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">SignatureText</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="k">pass</span>
 
 
-<span class="k">def</span> <span class="nf">_latex_visit_signature_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">SignatureText</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_latex_visit_signature_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">SignatureText</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">literal_whitespace</span> <span class="o">+=</span> <span class="mi">1</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">body</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">astext</span><span class="p">()))</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">literal_whitespace</span> <span class="o">-=</span> <span class="mi">1</span>
 
 
-<span class="k">def</span> <span class="nf">_latex_depart_signature_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">SignatureText</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_latex_depart_signature_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">SignatureText</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="k">pass</span>
 
 
-<span class="k">class</span> <span class="nc">CollectSignaturesTransform</span><span class="p">(</span><span class="n">sphinx</span><span class="o">.</span><span class="n">transforms</span><span class="o">.</span><span class="n">SphinxTransform</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">CollectSignaturesTransform</span><span class="p">(</span><span class="n">sphinx</span><span class="o">.</span><span class="n">transforms</span><span class="o">.</span><span class="n">SphinxTransform</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Collects signatures to be formatted.</span>
 
 <span class="sd">    For clang-format, this merely collects the signatures into the environment.</span>
@@ -938,7 +938,7 @@
     <span class="c1"># Late</span>
     <span class="n">default_priority</span> <span class="o">=</span> <span class="mi">900</span>
 
-    <span class="k">def</span> <span class="nf">apply</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">apply</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">collected_signatures</span> <span class="o">=</span> <span class="n">_get_collected_signatures</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">document</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">sphinx</span><span class="o">.</span><span class="n">addnodes</span><span class="o">.</span><span class="n">desc_signature</span><span class="p">):</span>
             <span class="n">parent</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">parent</span>
@@ -966,7 +966,7 @@
             <span class="n">collected_signatures</span><span class="p">[</span><span class="n">domain</span><span class="p">,</span> <span class="n">objtype</span><span class="p">][</span><span class="n">sig_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">signature</span>
 
 
-<span class="k">def</span> <span class="nf">_transform_node_list</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_transform_node_list</span><span class="p">(</span>
     <span class="n">source</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Node</span><span class="p">],</span>
     <span class="n">transform</span><span class="p">,</span>
     <span class="o">*</span><span class="n">args</span><span class="p">,</span>
@@ -978,7 +978,7 @@
     <span class="k">return</span> <span class="n">transformed</span>
 
 
-<span class="k">def</span> <span class="nf">_replace_text_nodes</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_replace_text_nodes</span><span class="p">(</span>
     <span class="n">nodes</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Node</span><span class="p">],</span>
     <span class="n">ignored</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
     <span class="n">replacements</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Node</span><span class="p">]],</span>
@@ -993,7 +993,7 @@
 <span class="sd">      Deep copy of `nodes` with the replacements applied.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">_transform_node</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_transform_node</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">id</span><span class="p">(</span><span class="n">node</span><span class="p">)</span> <span class="ow">in</span> <span class="n">ignored</span><span class="p">:</span>
             <span class="k">return</span> <span class="p">[</span><span class="n">node</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">()]</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Text</span><span class="p">):</span>
@@ -1013,7 +1013,7 @@
     <span class="k">return</span> <span class="n">_transform_node_list</span><span class="p">(</span><span class="n">nodes</span><span class="p">,</span> <span class="n">_transform_node</span><span class="p">)</span>
 
 
-<span class="k">class</span> <span class="nc">FormatInputComponent</span><span class="p">(</span><span class="n">NamedTuple</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">FormatInputComponent</span><span class="p">(</span><span class="n">NamedTuple</span><span class="p">):</span>
     <span class="n">orig_text</span><span class="p">:</span> <span class="nb">str</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Original text in the signature.</span>
 
@@ -1039,7 +1039,7 @@
 <span class="n">_INDENTED_LINE_PATTERN</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;.*(?:^|\n)([ \t]+)$&quot;</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">DOTALL</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">_find_first_primary_entity_name_text_node</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_find_first_primary_entity_name_text_node</span><span class="p">(</span>
     <span class="n">adjusted_nodes</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Node</span><span class="p">],</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Text</span><span class="p">]:</span>
     <span class="k">for</span> <span class="n">adjusted_node</span> <span class="ow">in</span> <span class="n">adjusted_nodes</span><span class="p">:</span>
@@ -1060,22 +1060,22 @@
     <span class="k">return</span> <span class="kc">None</span>
 
 
-<span class="k">class</span> <span class="nc">FormatApplier</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">FormatApplier</span><span class="p">:</span>
     <span class="n">components</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">FormatInputComponent</span><span class="p">]</span>
     <span class="n">adjusted_nodes</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Node</span><span class="p">]</span>
     <span class="n">ignored_nodes</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">components</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">adjusted_nodes</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ignored_nodes</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="nf">add_fake_component</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_fake_component</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
             <span class="n">FormatInputComponent</span><span class="p">(</span><span class="n">orig_text</span><span class="o">=</span><span class="n">text</span><span class="p">,</span> <span class="n">input_text</span><span class="o">=</span><span class="n">text</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
         <span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">add_signature_child_nodes</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_signature_child_nodes</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">signature_child_nodes</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Node</span><span class="p">]</span>
     <span class="p">):</span>
         <span class="n">new_adjusted_nodes</span> <span class="o">=</span> <span class="n">_sig_transform_nodes</span><span class="p">(</span>
@@ -1095,10 +1095,10 @@
                     <span class="p">)</span>
                 <span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">get_format_input</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">start_index</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_format_input</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">start_index</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="k">return</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">input_text</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="n">start_index</span><span class="p">:])</span>
 
-    <span class="k">def</span> <span class="nf">apply</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">apply</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">formatted_input</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="n">formatted_output</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
@@ -1120,7 +1120,7 @@
             <span class="nb">list</span>
         <span class="p">)</span>
 
-        <span class="k">def</span> <span class="nf">_get_opcodes</span><span class="p">():</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">_get_opcodes</span><span class="p">():</span>
             <span class="k">return</span> <span class="n">difflib</span><span class="o">.</span><span class="n">SequenceMatcher</span><span class="p">(</span>
                 <span class="s2">&quot; </span><span class="se">\t\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="fm">__contains__</span><span class="p">,</span>
                 <span class="n">formatted_input</span><span class="p">,</span>
@@ -1232,10 +1232,10 @@
         <span class="n">signature_to_modify</span><span class="p">[</span><span class="s2">&quot;is_multiline&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
 
 
-<span class="k">def</span> <span class="nf">_format_signature_with_black</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_format_signature_with_black</span><span class="p">(</span>
     <span class="n">domain</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">objtype</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">addnodes</span><span class="o">.</span><span class="n">desc_signature</span><span class="p">,</span> <span class="n">options</span>
 <span class="p">):</span>
-    <span class="kn">import</span> <span class="nn">black</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">black</span>
 
     <span class="n">black_format_style</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;black_format_style&quot;</span><span class="p">)</span>
     <span class="k">assert</span> <span class="n">black_format_style</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
@@ -1248,7 +1248,7 @@
 
     <span class="n">applier</span> <span class="o">=</span> <span class="n">FormatApplier</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="nf">_format_with_black</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_format_with_black</span><span class="p">(</span>
         <span class="n">signature</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="n">ensure_prefix</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="n">add_empty_body</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
@@ -1413,7 +1413,7 @@
 <span class="n">_PUNCTUATION_PATTERN</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;[(),]&quot;</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">_make_text_node_from_source</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_make_text_node_from_source</span><span class="p">(</span>
     <span class="bp">cls</span><span class="p">:</span> <span class="nb">type</span><span class="p">,</span> <span class="n">source</span><span class="p">:</span> <span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Node</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Element</span><span class="p">:</span>
     <span class="n">node</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
@@ -1422,13 +1422,13 @@
     <span class="k">return</span> <span class="n">node</span>
 
 
-<span class="k">def</span> <span class="nf">_sig_transform_nodes</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_sig_transform_nodes</span><span class="p">(</span>
     <span class="n">ignored</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">nodes</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Node</span><span class="p">]</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Node</span><span class="p">]:</span>
     <span class="k">return</span> <span class="n">_transform_node_list</span><span class="p">(</span><span class="n">nodes</span><span class="p">,</span> <span class="n">_sig_transform_node</span><span class="p">,</span> <span class="n">ignored</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">_sig_transform_generic</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_sig_transform_generic</span><span class="p">(</span>
     <span class="n">ignored</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">node</span><span class="p">:</span> <span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Element</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Node</span><span class="p">]:</span>
     <span class="n">new_node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
@@ -1436,7 +1436,7 @@
     <span class="k">return</span> <span class="p">[</span><span class="n">new_node</span><span class="p">]</span>
 
 
-<span class="k">def</span> <span class="nf">_sig_transform_node_default</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_sig_transform_node_default</span><span class="p">(</span>
     <span class="n">ignored</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">node</span><span class="p">:</span> <span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Node</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Node</span><span class="p">]:</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Text</span><span class="p">):</span>
@@ -1446,13 +1446,13 @@
     <span class="k">return</span> <span class="n">_sig_transform_generic</span><span class="p">(</span><span class="n">ignored</span><span class="p">,</span> <span class="n">node</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">_sig_transform_desc_signature_line</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_sig_transform_desc_signature_line</span><span class="p">(</span>
     <span class="n">ignored</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">node</span><span class="p">:</span> <span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Element</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Node</span><span class="p">]:</span>
     <span class="k">return</span> <span class="n">_sig_transform_nodes</span><span class="p">(</span><span class="n">ignored</span><span class="p">,</span> <span class="n">node</span><span class="o">.</span><span class="n">children</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">_sig_transform_desc_parameter_list</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_sig_transform_desc_parameter_list</span><span class="p">(</span>
     <span class="n">ignored</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">node</span><span class="p">:</span> <span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Element</span><span class="p">,</span> <span class="n">open_punct</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">close_punct</span><span class="p">:</span> <span class="nb">str</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Node</span><span class="p">]:</span>
     <span class="n">new_nodes</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Node</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
@@ -1476,7 +1476,7 @@
     <span class="k">return</span> <span class="n">new_nodes</span>
 
 
-<span class="k">def</span> <span class="nf">_sig_transform_desc_returns</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_sig_transform_desc_returns</span><span class="p">(</span>
     <span class="n">ignored</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">node</span><span class="p">:</span> <span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Element</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Node</span><span class="p">]:</span>
     <span class="k">return</span> <span class="p">[</span>
@@ -1485,7 +1485,7 @@
     <span class="p">]</span>
 
 
-<span class="k">def</span> <span class="nf">_sig_transform_viewcode_anchor</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_sig_transform_viewcode_anchor</span><span class="p">(</span>
     <span class="n">ignored</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">node</span><span class="p">:</span> <span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Element</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Node</span><span class="p">]:</span>
     <span class="n">new_node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">()</span>
@@ -1493,7 +1493,7 @@
     <span class="k">return</span> <span class="p">[</span><span class="n">new_node</span><span class="p">]</span>
 
 
-<span class="k">def</span> <span class="nf">_sig_transform_parameter</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_sig_transform_parameter</span><span class="p">(</span>
     <span class="n">ignored</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">node</span><span class="p">:</span> <span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Element</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Node</span><span class="p">]:</span>
     <span class="n">new_node</span> <span class="o">=</span> <span class="n">_make_text_node_from_source</span><span class="p">(</span><span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">inline</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
@@ -1526,7 +1526,7 @@
     <span class="n">_SIG_TRANSFORM_FUNCS</span><span class="p">[</span><span class="n">sphinx</span><span class="o">.</span><span class="n">addnodes</span><span class="o">.</span><span class="n">desc_type_parameter</span><span class="p">]</span> <span class="o">=</span> <span class="n">_sig_transform_parameter</span>
 
 
-<span class="k">def</span> <span class="nf">_sig_transform_node</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_sig_transform_node</span><span class="p">(</span>
     <span class="n">ignored</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">node</span><span class="p">:</span> <span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Node</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Node</span><span class="p">]:</span>
     <span class="k">return</span> <span class="n">_SIG_TRANSFORM_FUNCS</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">node</span><span class="p">),</span> <span class="n">_sig_transform_node_default</span><span class="p">)(</span>
@@ -1535,7 +1535,7 @@
     <span class="p">)</span>
 
 
-<span class="k">class</span> <span class="nc">FormatSignaturesTransform</span><span class="p">(</span><span class="n">sphinx</span><span class="o">.</span><span class="n">transforms</span><span class="o">.</span><span class="n">SphinxTransform</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">FormatSignaturesTransform</span><span class="p">(</span><span class="n">sphinx</span><span class="o">.</span><span class="n">transforms</span><span class="o">.</span><span class="n">SphinxTransform</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Applies the clang-format changes previously-computed by `env_updated` to</span>
 <span class="sd">    each individual signature.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -1543,7 +1543,7 @@
     <span class="c1"># Early</span>
     <span class="n">default_priority</span> <span class="o">=</span> <span class="mi">0</span>
 
-    <span class="k">def</span> <span class="nf">apply</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">apply</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">formatted_signatures</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="p">,</span> <span class="n">_FORMATTED_SIGNATURES</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">formatted_signatures</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span>
@@ -1559,7 +1559,7 @@
             <span class="n">applier</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">applier</span><span class="o">.</span><span class="n">get_format_input</span><span class="p">(),</span> <span class="n">formatted_signature</span><span class="p">,</span> <span class="n">node</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">merge_info</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">merge_info</span><span class="p">(</span>
     <span class="n">app</span><span class="p">:</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">Sphinx</span><span class="p">,</span>
     <span class="n">env</span><span class="p">:</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">environment</span><span class="o">.</span><span class="n">BuildEnvironment</span><span class="p">,</span>
     <span class="n">docnames</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
@@ -1583,7 +1583,7 @@
 <div class="viewcode-block" id="BlackFormatStyle">
 <a class="viewcode-back" href="../../../apidoc/format_signatures.html#sphinx_immaterial.apidoc.format_signatures.BlackFormatStyle">[docs]</a>
 <span class="nd">@pydantic</span><span class="o">.</span><span class="n">dataclasses</span><span class="o">.</span><span class="n">dataclass</span>
-<span class="k">class</span> <span class="nc">BlackFormatStyle</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">BlackFormatStyle</span><span class="p">:</span>
     <span class="n">line_length</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Line length limit.</span>
 
@@ -1597,7 +1597,7 @@
 
 
 
-<span class="k">def</span> <span class="nf">env_updated</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">env_updated</span><span class="p">(</span>
     <span class="n">app</span><span class="p">:</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">Sphinx</span><span class="p">,</span> <span class="n">env</span><span class="p">:</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">environment</span><span class="o">.</span><span class="n">BuildEnvironment</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Hook for the `env-updated` event that invokes clang-format and stores the</span>
@@ -1665,7 +1665,7 @@
     <span class="nb">setattr</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">_FORMATTED_SIGNATURES</span><span class="p">,</span> <span class="n">formatted_signatures</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">setup</span><span class="p">(</span><span class="n">app</span><span class="p">:</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">Sphinx</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">setup</span><span class="p">(</span><span class="n">app</span><span class="p">:</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">Sphinx</span><span class="p">):</span>
     <span class="n">app</span><span class="o">.</span><span class="n">setup_extension</span><span class="p">(</span><span class="s2">&quot;sphinx_immaterial.apidoc.object_description_options&quot;</span><span class="p">)</span>
     <span class="n">app</span><span class="o">.</span><span class="n">add_transform</span><span class="p">(</span><span class="n">CollectSignaturesTransform</span><span class="p">)</span>
     <span class="n">app</span><span class="o">.</span><span class="n">add_post_transform</span><span class="p">(</span><span class="n">FormatSignaturesTransform</span><span class="p">)</span>
@@ -1703,7 +1703,7 @@
   <small>
     
       Last update:
-      Jan 01, 2025
+      Jan 16, 2025
     
   </small>
 </div>

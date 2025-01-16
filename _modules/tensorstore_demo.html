@@ -32,7 +32,7 @@
         <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
       
     
-        <link rel="stylesheet" type="text/css" href="../_static/sphinx_immaterial_theme.116bfe6baf097be33.min.css?v=ee6a936f" />
+        <link rel="stylesheet" type="text/css" href="../_static/sphinx_immaterial_theme.3bdac1653f54f9e56.min.css?v=bce22c20" />
         <link rel="stylesheet" type="text/css" href="../_static/extra_css.css?v=15999537" />
         <link rel="stylesheet" type="text/css" href="../_static/custom_font_example.css?v=520ac564" />
     <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
@@ -852,17 +852,17 @@
 <span class="sd">pybind11.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
-<span class="kn">import</span> <span class="nn">typing</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">typing</span>
 
-<span class="kn">from</span> <span class="nn">._tensorstore</span> <span class="kn">import</span> <span class="o">*</span>  <span class="c1"># noqa: F403</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">._tensorstore</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>  <span class="c1"># noqa: F403</span>
 
 <span class="c1"># fmt: off</span>
 
 
 <div class="viewcode-block" id="Dim">
 <a class="viewcode-back" href="../python_apigen_generated/Dim.html#tensorstore_demo.Dim">[docs]</a>
-<span class="k">class</span> <span class="nc">Dim</span><span class="p">():</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Dim</span><span class="p">():</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;1-d index interval with optionally-implicit bounds and dimension label.</span>
 
 <span class="sd">    Examples:</span>
@@ -878,7 +878,7 @@
 <span class="sd">    Group:</span>
 <span class="sd">      Indexing</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;__init__(*args, **kwargs)</span>
 <span class="sd">Overloaded function.</span>
 
@@ -995,7 +995,7 @@
 <span class="sd">  inclusive_max</span>
 <span class="sd">&quot;&quot;&quot;</span>
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">exclusive_max</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">exclusive_max</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Exclusive upper bound of the interval.</span>
 
 <span class="sd">        Equal to :python:`self.inclusive_max + 1`.  If the interval is unbounded above,</span>
@@ -1016,7 +1016,7 @@
 
 <span class="sd">        &quot;&quot;&quot;</span>
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">inclusive_min</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">inclusive_min</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Inclusive lower bound of the interval.</span>
 
 <span class="sd">        Equal to :python:`self.exclusive_min + 1`.  If the interval is unbounded below,</span>
@@ -1037,7 +1037,7 @@
 
 <span class="sd">        &quot;&quot;&quot;</span>
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">label</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">label</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Dimension label, or the empty string to indicate an unlabeled dimension.</span>
 
 <span class="sd">        Example:</span>
@@ -1053,7 +1053,7 @@
 
 <span class="sd">        &quot;&quot;&quot;</span>
     <span class="nd">@label</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">label</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arg1</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">label</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arg1</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Dimension label, or the empty string to indicate an unlabeled dimension.</span>
 
 <span class="sd">        Example:</span>
@@ -1067,7 +1067,7 @@
 <span class="sd">          Accessors</span>
 <span class="sd">        &quot;&quot;&quot;</span>
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">size</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">size</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Size of the interval.</span>
 
 <span class="sd">        Equal to :python:`self.exclusive_max - self.inclusive_min`.</span>
@@ -1099,7 +1099,7 @@
 
 <div class="viewcode-block" id="DimExpression">
 <a class="viewcode-back" href="../python_apigen_generated/DimExpression.html#tensorstore_demo.DimExpression">[docs]</a>
-<span class="k">class</span> <span class="nc">DimExpression</span><span class="p">():</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">DimExpression</span><span class="p">():</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Specifies an advanced indexing operation.</span>
 
 <span class="sd">    Dimension expressions permit indexing using</span>
@@ -1112,8 +1112,8 @@
 <span class="sd">    Operations</span>
 <span class="sd">    ==========</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">class</span> <span class="nc">_Label</span><span class="p">():</span>
-        <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">class</span><span class="w"> </span><span class="nc">_Label</span><span class="p">():</span>
+        <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">            </span><span class="sd">&quot;&quot;&quot;__getitem__(self: tensorstore_demo.DimExpression._Label, labels: Union[str, Sequence[str]]) -&gt; tensorstore_demo.DimExpression</span>
 
 
@@ -1179,8 +1179,8 @@
 <span class="sd">            &quot;&quot;&quot;</span>
         <span class="fm">__iter__</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="k">pass</span>
-    <span class="k">class</span> <span class="nc">_TranslateTo</span><span class="p">():</span>
-        <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">class</span><span class="w"> </span><span class="nc">_TranslateTo</span><span class="p">():</span>
+        <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">            </span><span class="sd">&quot;&quot;&quot;__getitem__(self: tensorstore_demo.DimExpression._TranslateTo, origins: Union[Sequence[Optional[int]], Optional[int]]) -&gt; tensorstore_demo.DimExpression</span>
 
 
@@ -1247,8 +1247,8 @@
 <span class="sd">            &quot;&quot;&quot;</span>
         <span class="fm">__iter__</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="k">pass</span>
-    <span class="k">class</span> <span class="nc">_Vindex</span><span class="p">():</span>
-        <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">class</span><span class="w"> </span><span class="nc">_Vindex</span><span class="p">():</span>
+        <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">            </span><span class="sd">&quot;&quot;&quot;__getitem__(self: tensorstore_demo.DimExpression._Vindex, indices: typing.Any) -&gt; tensorstore_demo.DimExpression</span>
 
 
@@ -1284,7 +1284,7 @@
         <span class="k">pass</span>
 <div class="viewcode-block" id="DimExpression.__getitem__">
 <a class="viewcode-back" href="../python_apigen_generated/DimensionSelection.html#tensorstore_demo.DimExpression.__getitem__">[docs]</a>
-    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;__getitem__(self: tensorstore_demo.DimExpression, indices: typing.Any) -&gt; tensorstore_demo.DimExpression</span>
 
 
@@ -1633,7 +1633,7 @@
 <span class="sd">        &quot;&quot;&quot;</span></div>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">diagonal</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DimExpression</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">diagonal</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DimExpression</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Extracts the diagonal of the selected dimensions.</span>
 
 <span class="sd">        The selection dimensions are removed from the resultant index space, and a new</span>
@@ -1700,20 +1700,20 @@
 
 <span class="sd">        &quot;&quot;&quot;</span>
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">label</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DimExpression</span><span class="o">.</span><span class="n">_Label</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">label</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DimExpression</span><span class="o">.</span><span class="n">_Label</span><span class="p">:</span>
         <span class="k">pass</span>
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">translate_to</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DimExpression</span><span class="o">.</span><span class="n">_TranslateTo</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">translate_to</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DimExpression</span><span class="o">.</span><span class="n">_TranslateTo</span><span class="p">:</span>
         <span class="k">pass</span>
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">vindex</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DimExpression</span><span class="o">.</span><span class="n">_Vindex</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">vindex</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DimExpression</span><span class="o">.</span><span class="n">_Vindex</span><span class="p">:</span>
         <span class="k">pass</span>
     <span class="fm">__iter__</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="k">pass</span></div>
 
 <div class="viewcode-block" id="IndexDomain">
 <a class="viewcode-back" href="../python_apigen_generated/IndexDomain.html#tensorstore_demo.IndexDomain">[docs]</a>
-<span class="k">class</span> <span class="nc">IndexDomain</span><span class="p">():</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">IndexDomain</span><span class="p">():</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Domain (including bounds and optional dimension labels) of an N-dimensional index space.</span>
 
 <span class="sd">    Logically, an :py:class:`.IndexDomain` is the cartesian product of a sequence of :py:obj:`.Dim` objects.</span>
@@ -1727,7 +1727,7 @@
 <span class="sd">      Indexing</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;__init__(*args, **kwargs)</span>
 <span class="sd">Overloaded function.</span>
 
@@ -1800,10 +1800,10 @@
 <span class="sd">Overload:</span>
 <span class="sd">  json</span>
 <span class="sd">&quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;__eq__(self: tensorstore_demo.IndexDomain, arg0: tensorstore_demo.IndexDomain) -&gt; bool</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;__getitem__(*args, **kwargs)</span>
 <span class="sd">Overloaded function.</span>
 
@@ -2047,7 +2047,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
 <div class="viewcode-block" id="IndexDomain.to_json">
 <a class="viewcode-back" href="../python_apigen_generated/IndexDomain.to_json.html#tensorstore_demo.IndexDomain.to_json">[docs]</a>
-    <span class="k">def</span> <span class="nf">to_json</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">to_json</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;to_json(self: tensorstore_demo.IndexDomain) -&gt; Any</span>
 
 
@@ -2058,7 +2058,7 @@
 <span class="sd">        &quot;&quot;&quot;</span></div>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">exclusive_max</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">typing</span><span class="o">.</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">exclusive_max</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">typing</span><span class="o">.</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Exclusive upper bound of the domain.</span>
 
 <span class="sd">        Example:</span>
@@ -2073,7 +2073,7 @@
 
 <span class="sd">        &quot;&quot;&quot;</span>
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">inclusive_min</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">typing</span><span class="o">.</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">inclusive_min</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">typing</span><span class="o">.</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Inclusive lower bound of the domain, alias of :py:obj:`.origin`.</span>
 
 <span class="sd">        Example:</span>
@@ -2088,7 +2088,7 @@
 
 <span class="sd">        &quot;&quot;&quot;</span>
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">labels</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">typing</span><span class="o">.</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">labels</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">typing</span><span class="o">.</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Dimension labels for each dimension.</span>
 
 <span class="sd">        Example:</span>
@@ -2108,7 +2108,7 @@
 
 <span class="sd">        &quot;&quot;&quot;</span>
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">origin</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">typing</span><span class="o">.</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">origin</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">typing</span><span class="o">.</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Inclusive lower bound of the domain.</span>
 
 <span class="sd">        Example:</span>
@@ -2123,7 +2123,7 @@
 
 <span class="sd">        &quot;&quot;&quot;</span>
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">rank</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">rank</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Number of dimensions in the index space.</span>
 
 <span class="sd">        Example:</span>
@@ -2138,7 +2138,7 @@
 
 <span class="sd">        &quot;&quot;&quot;</span>
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">shape</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">typing</span><span class="o">.</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">shape</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">typing</span><span class="o">.</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Shape of the domain.</span>
 
 <span class="sd">        Example:</span>
@@ -2153,7 +2153,7 @@
 
 <span class="sd">        &quot;&quot;&quot;</span>
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">size</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">size</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Total number of elements in the domain.</span>
 
 <span class="sd">        This is simply the product of the extents in :py:obj:`.shape`.</span>
@@ -2174,7 +2174,7 @@
 
 <div class="viewcode-block" id="VeryLongClassNameForTestingOutWordWrapping">
 <a class="viewcode-back" href="../python_apigen_generated/VeryLongClassNameForTestingOutWordWrapping.html#tensorstore_demo.VeryLongClassNameForTestingOutWordWrapping">[docs]</a>
-<span class="k">class</span> <span class="nc">VeryLongClassNameForTestingOutWordWrapping</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">VeryLongClassNameForTestingOutWordWrapping</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;This is a class with a very long name.</span>
 
 <span class="sd">    Group:</span>
@@ -2183,14 +2183,14 @@
 
 <div class="viewcode-block" id="VeryLongClassNameForTestingOutWordWrapping.very_long_method_name_for_testing_out_word_wrapper">
 <a class="viewcode-back" href="../python_apigen_generated/VeryLongClassNameForTestingOutWordWrapping.very_long_method_name_for_testing_out_word_wrapper.html#tensorstore_demo.VeryLongClassNameForTestingOutWordWrapping.very_long_method_name_for_testing_out_word_wrapper">[docs]</a>
-    <span class="k">def</span> <span class="nf">very_long_method_name_for_testing_out_word_wrapper</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">very_long_method_name_for_testing_out_word_wrapper</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;This is a method with a very long name.&quot;&quot;&quot;</span></div>
 </div>
 
 
 <div class="viewcode-block" id="DimensionSelection">
 <a class="viewcode-back" href="../python_apigen_generated/DimensionSelection.html#tensorstore_demo.DimensionSelection">[docs]</a>
-<span class="k">class</span> <span class="nc">DimensionSelection</span><span class="p">(</span><span class="n">DimExpression</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">DimensionSelection</span><span class="p">(</span><span class="n">DimExpression</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;This extends :py:obj:`DimExpression`.</span>
 
 <span class="sd">    Group:</span>
@@ -2199,7 +2199,7 @@
 
 <div class="viewcode-block" id="DimensionSelection.foo">
 <a class="viewcode-back" href="../python_apigen_generated/DimensionSelection.foo.html#tensorstore_demo.DimensionSelection.foo">[docs]</a>
-    <span class="k">def</span> <span class="nf">foo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bar</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">foo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bar</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Non-inherited method.&quot;&quot;&quot;</span>
         <span class="k">pass</span></div>
 </div>
@@ -2211,7 +2211,7 @@
   <small>
     
       Last update:
-      Jan 01, 2025
+      Jan 16, 2025
     
   </small>
 </div>

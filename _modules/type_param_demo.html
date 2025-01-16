@@ -32,7 +32,7 @@
         <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
       
     
-        <link rel="stylesheet" type="text/css" href="../_static/sphinx_immaterial_theme.116bfe6baf097be33.min.css?v=ee6a936f" />
+        <link rel="stylesheet" type="text/css" href="../_static/sphinx_immaterial_theme.3bdac1653f54f9e56.min.css?v=bce22c20" />
         <link rel="stylesheet" type="text/css" href="../_static/extra_css.css?v=15999537" />
         <link rel="stylesheet" type="text/css" href="../_static/custom_font_example.css?v=520ac564" />
     <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
@@ -846,8 +846,8 @@
   </a>
 
 <h1>Source code for type_param_demo</h1><div class="highlight"><pre>
-<span></span><code><span class="kn">import</span> <span class="nn">collections.abc</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="p">(</span>
+<span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">collections.abc</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">TypeVar</span><span class="p">,</span>
     <span class="n">Generic</span><span class="p">,</span>
     <span class="n">overload</span><span class="p">,</span>
@@ -868,7 +868,7 @@
 
 <div class="viewcode-block" id="Map">
 <a class="viewcode-back" href="../python_apigen_generated/Map.html#type_param_demo.Map">[docs]</a>
-<span class="k">class</span> <span class="nc">Map</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">K</span><span class="p">,</span> <span class="n">V</span><span class="p">]):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Map</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">K</span><span class="p">,</span> <span class="n">V</span><span class="p">]):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Maps keys of type :py:param:`.K` to values of type :py:param:`.V`.</span>
 
 <span class="sd">    Type parameters:</span>
@@ -882,61 +882,61 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="nd">@overload</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="o">...</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="o">...</span>
 
     <span class="nd">@overload</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">items</span><span class="p">:</span> <span class="n">collections</span><span class="o">.</span><span class="n">abc</span><span class="o">.</span><span class="n">Mapping</span><span class="p">[</span><span class="n">K</span><span class="p">,</span> <span class="n">V</span><span class="p">]):</span> <span class="o">...</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">items</span><span class="p">:</span> <span class="n">collections</span><span class="o">.</span><span class="n">abc</span><span class="o">.</span><span class="n">Mapping</span><span class="p">[</span><span class="n">K</span><span class="p">,</span> <span class="n">V</span><span class="p">]):</span> <span class="o">...</span>
 
     <span class="nd">@overload</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">items</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="n">K</span><span class="p">,</span> <span class="n">V</span><span class="p">]]):</span> <span class="o">...</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">items</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="n">K</span><span class="p">,</span> <span class="n">V</span><span class="p">]]):</span> <span class="o">...</span>
 
 <div class="viewcode-block" id="Map.__init__">
 <a class="viewcode-back" href="../python_apigen_generated/Map.__init__.html#type_param_demo.Map.__init__">[docs]</a>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">items</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">items</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Construct from the specified items.&quot;&quot;&quot;</span>
         <span class="o">...</span></div>
 
 
 <div class="viewcode-block" id="Map.clear">
 <a class="viewcode-back" href="../python_apigen_generated/Map.clear.html#type_param_demo.Map.clear">[docs]</a>
-    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Clear the map.&quot;&quot;&quot;</span>
         <span class="o">...</span></div>
 
 
 <div class="viewcode-block" id="Map.keys">
 <a class="viewcode-back" href="../python_apigen_generated/Map.keys.html#type_param_demo.Map.keys">[docs]</a>
-    <span class="k">def</span> <span class="nf">keys</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">KeysView</span><span class="p">[</span><span class="n">K</span><span class="p">]:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">keys</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">KeysView</span><span class="p">[</span><span class="n">K</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a dynamic view of the keys.&quot;&quot;&quot;</span>
         <span class="o">...</span></div>
 
 
 <div class="viewcode-block" id="Map.items">
 <a class="viewcode-back" href="../python_apigen_generated/Map.items.html#type_param_demo.Map.items">[docs]</a>
-    <span class="k">def</span> <span class="nf">items</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ItemsView</span><span class="p">[</span><span class="n">K</span><span class="p">,</span> <span class="n">V</span><span class="p">]:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">items</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ItemsView</span><span class="p">[</span><span class="n">K</span><span class="p">,</span> <span class="n">V</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a dynamic view of the items.&quot;&quot;&quot;</span>
         <span class="o">...</span></div>
 
 
 <div class="viewcode-block" id="Map.values">
 <a class="viewcode-back" href="../python_apigen_generated/Map.values.html#type_param_demo.Map.values">[docs]</a>
-    <span class="k">def</span> <span class="nf">values</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ValuesView</span><span class="p">[</span><span class="n">V</span><span class="p">]:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">values</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ValuesView</span><span class="p">[</span><span class="n">V</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a dynamic view of the values.&quot;&quot;&quot;</span>
         <span class="o">...</span></div>
 
 
     <span class="nd">@overload</span>
-    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">K</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">V</span><span class="p">]:</span> <span class="o">...</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">K</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">V</span><span class="p">]:</span> <span class="o">...</span>
 
     <span class="nd">@overload</span>
-    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">K</span><span class="p">,</span> <span class="n">default</span><span class="p">:</span> <span class="n">V</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">V</span><span class="p">:</span> <span class="o">...</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">K</span><span class="p">,</span> <span class="n">default</span><span class="p">:</span> <span class="n">V</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">V</span><span class="p">:</span> <span class="o">...</span>
 
     <span class="nd">@overload</span>
-    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">K</span><span class="p">,</span> <span class="n">default</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">V</span><span class="p">,</span> <span class="n">T</span><span class="p">]:</span> <span class="o">...</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">K</span><span class="p">,</span> <span class="n">default</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">V</span><span class="p">,</span> <span class="n">T</span><span class="p">]:</span> <span class="o">...</span>
 
 <div class="viewcode-block" id="Map.get">
 <a class="viewcode-back" href="../python_apigen_generated/Map.get.html#type_param_demo.Map.get">[docs]</a>
-    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">K</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">K</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the mapped value, or the specified default.</span>
 
 <span class="sd">        :param key: Key to retrieve.</span>
@@ -947,21 +947,21 @@
 
 <div class="viewcode-block" id="Map.__len__">
 <a class="viewcode-back" href="../python_apigen_generated/Map.__len__.html#type_param_demo.Map.__len__">[docs]</a>
-    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the number of items in the map.&quot;&quot;&quot;</span>
         <span class="o">...</span></div>
 
 
 <div class="viewcode-block" id="Map.__contains__">
 <a class="viewcode-back" href="../python_apigen_generated/Map.__contains__.html#type_param_demo.Map.__contains__">[docs]</a>
-    <span class="k">def</span> <span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">K</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">K</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Check if the map contains :py:param:`.key`.&quot;&quot;&quot;</span>
         <span class="o">...</span></div>
 
 
 <div class="viewcode-block" id="Map.__getitem__">
 <a class="viewcode-back" href="../python_apigen_generated/Map.__getitem__.html#type_param_demo.Map.__getitem__">[docs]</a>
-    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">K</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">V</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">K</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">V</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the value associated with :py:param:`.key`.</span>
 
 <span class="sd">        Raises:</span>
@@ -972,14 +972,14 @@
 
 <div class="viewcode-block" id="Map.__setitem__">
 <a class="viewcode-back" href="../python_apigen_generated/Map.__setitem__.html#type_param_demo.Map.__setitem__">[docs]</a>
-    <span class="k">def</span> <span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">K</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">V</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">K</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">V</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the value associated with the specified key.&quot;&quot;&quot;</span>
         <span class="o">...</span></div>
 
 
 <div class="viewcode-block" id="Map.__delitem__">
 <a class="viewcode-back" href="../python_apigen_generated/Map.__delitem__.html#type_param_demo.Map.__delitem__">[docs]</a>
-    <span class="k">def</span> <span class="fm">__delitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">K</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__delitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">K</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Remove the value associated with the specified key.</span>
 
 <span class="sd">        Raises:</span>
@@ -990,7 +990,7 @@
 
 <div class="viewcode-block" id="Map.__iter__">
 <a class="viewcode-back" href="../python_apigen_generated/Map.__iter__.html#type_param_demo.Map.__iter__">[docs]</a>
-    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">K</span><span class="p">]:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">K</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Iterate over the keys.&quot;&quot;&quot;</span>
         <span class="o">...</span></div>
 </div>
@@ -999,7 +999,7 @@
 
 <div class="viewcode-block" id="Derived">
 <a class="viewcode-back" href="../python_apigen_generated/Derived.html#type_param_demo.Derived">[docs]</a>
-<span class="k">class</span> <span class="nc">Derived</span><span class="p">(</span><span class="n">Map</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">U</span><span class="p">],</span> <span class="n">Generic</span><span class="p">[</span><span class="n">U</span><span class="p">]):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Derived</span><span class="p">(</span><span class="n">Map</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">U</span><span class="p">],</span> <span class="n">Generic</span><span class="p">[</span><span class="n">U</span><span class="p">]):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Map from integer keys to arbitrary values.</span>
 
 <span class="sd">    Type parameters:</span>
@@ -1021,7 +1021,7 @@
   <small>
     
       Last update:
-      Jan 01, 2025
+      Jan 16, 2025
     
   </small>
 </div>

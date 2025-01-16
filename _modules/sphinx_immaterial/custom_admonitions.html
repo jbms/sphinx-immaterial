@@ -32,7 +32,7 @@
         <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
       
     
-        <link rel="stylesheet" type="text/css" href="../../_static/sphinx_immaterial_theme.116bfe6baf097be33.min.css?v=ee6a936f" />
+        <link rel="stylesheet" type="text/css" href="../../_static/sphinx_immaterial_theme.3bdac1653f54f9e56.min.css?v=bce22c20" />
         <link rel="stylesheet" type="text/css" href="../../_static/extra_css.css?v=15999537" />
         <link rel="stylesheet" type="text/css" href="../../_static/custom_font_example.css?v=520ac564" />
     <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
@@ -849,28 +849,28 @@
 <span></span><code><span class="sd">&quot;&quot;&quot;This module inherits from the generic ``admonition`` directive and makes the</span>
 <span class="sd">title optional.&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span>
-<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">PurePath</span>
-<span class="kn">import</span> <span class="nn">re</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Type</span><span class="p">,</span> <span class="n">cast</span>
-<span class="kn">from</span> <span class="nn">docutils</span> <span class="kn">import</span> <span class="n">nodes</span>
-<span class="kn">from</span> <span class="nn">docutils.parsers.rst</span> <span class="kn">import</span> <span class="n">directives</span><span class="p">,</span> <span class="n">Directive</span>
-<span class="kn">import</span> <span class="nn">jinja2</span>
-<span class="kn">import</span> <span class="nn">pydantic</span>
-<span class="kn">from</span> <span class="nn">pydantic_extra_types.color</span> <span class="kn">import</span> <span class="n">Color</span>
-<span class="kn">import</span> <span class="nn">sphinx</span>
-<span class="kn">import</span> <span class="nn">sphinx.addnodes</span>
-<span class="kn">from</span> <span class="nn">sphinx.application</span> <span class="kn">import</span> <span class="n">Sphinx</span>
-<span class="kn">from</span> <span class="nn">sphinx.config</span> <span class="kn">import</span> <span class="n">Config</span>
-<span class="kn">from</span> <span class="nn">sphinx.domains.changeset</span> <span class="kn">import</span> <span class="n">VersionChange</span>
-<span class="kn">from</span> <span class="nn">sphinx.environment</span> <span class="kn">import</span> <span class="n">BuildEnvironment</span>
-<span class="kn">import</span> <span class="nn">sphinx.ext.todo</span>
-<span class="kn">from</span> <span class="nn">sphinx.locale</span> <span class="kn">import</span> <span class="n">admonitionlabels</span><span class="p">,</span> <span class="n">_</span>
-<span class="kn">from</span> <span class="nn">sphinx.util.logging</span> <span class="kn">import</span> <span class="n">getLogger</span>
-<span class="kn">from</span> <span class="nn">sphinx.writers.html5</span> <span class="kn">import</span> <span class="n">HTML5Translator</span>
-<span class="kn">from</span> <span class="nn">.css_and_javascript_bundles</span> <span class="kn">import</span> <span class="n">add_global_css</span>
-<span class="kn">from</span> <span class="nn">.inline_icons</span> <span class="kn">import</span> <span class="n">load_svg_into_builder_env</span><span class="p">,</span> <span class="n">get_custom_icons</span>
-<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">html_translator_mixin</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">ABC</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">PurePath</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Type</span><span class="p">,</span> <span class="n">cast</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">docutils</span><span class="w"> </span><span class="kn">import</span> <span class="n">nodes</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">docutils.parsers.rst</span><span class="w"> </span><span class="kn">import</span> <span class="n">directives</span><span class="p">,</span> <span class="n">Directive</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">jinja2</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pydantic</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pydantic_extra_types.color</span><span class="w"> </span><span class="kn">import</span> <span class="n">Color</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sphinx</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sphinx.addnodes</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sphinx.application</span><span class="w"> </span><span class="kn">import</span> <span class="n">Sphinx</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sphinx.config</span><span class="w"> </span><span class="kn">import</span> <span class="n">Config</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sphinx.domains.changeset</span><span class="w"> </span><span class="kn">import</span> <span class="n">VersionChange</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sphinx.environment</span><span class="w"> </span><span class="kn">import</span> <span class="n">BuildEnvironment</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sphinx.ext.todo</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sphinx.locale</span><span class="w"> </span><span class="kn">import</span> <span class="n">admonitionlabels</span><span class="p">,</span> <span class="n">_</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sphinx.util.logging</span><span class="w"> </span><span class="kn">import</span> <span class="n">getLogger</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sphinx.writers.html5</span><span class="w"> </span><span class="kn">import</span> <span class="n">HTML5Translator</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.css_and_javascript_bundles</span><span class="w"> </span><span class="kn">import</span> <span class="n">add_global_css</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.inline_icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_svg_into_builder_env</span><span class="p">,</span> <span class="n">get_custom_icons</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.</span><span class="w"> </span><span class="kn">import</span> <span class="n">html_translator_mixin</span>
 
 <span class="n">logger</span> <span class="o">=</span> <span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
@@ -916,7 +916,7 @@
 
 <div class="viewcode-block" id="CustomAdmonitionConfig">
 <a class="viewcode-back" href="../../admonitions.html#sphinx_immaterial.custom_admonitions.CustomAdmonitionConfig">[docs]</a>
-<span class="k">class</span> <span class="nc">CustomAdmonitionConfig</span><span class="p">(</span><span class="n">pydantic</span><span class="o">.</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">CustomAdmonitionConfig</span><span class="p">(</span><span class="n">pydantic</span><span class="o">.</span><span class="n">BaseModel</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;This data class validates the user&#39;s configuration value(s) in</span>
 <span class="sd">    :confval:`sphinx_immaterial_custom_admonitions`. Each validated object</span>
 <span class="sd">    corresponds to a generated custom :rst:dir:`admonition` directive tailored with</span>
@@ -980,7 +980,7 @@
 
     <span class="nd">@pydantic</span><span class="o">.</span><span class="n">field_validator</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;before&quot;</span><span class="p">)</span>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">validate_name</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">validate_name</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
         <span class="n">illegal</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;([^a-zA-Z0-9\-_])&quot;</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">illegal</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
@@ -990,7 +990,7 @@
 
     <span class="nd">@pydantic</span><span class="o">.</span><span class="n">field_validator</span><span class="p">(</span><span class="s2">&quot;title&quot;</span><span class="p">)</span>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">validate_title</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">val</span><span class="p">,</span> <span class="n">info</span><span class="p">:</span> <span class="n">pydantic</span><span class="o">.</span><span class="n">ValidationInfo</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">validate_title</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">val</span><span class="p">,</span> <span class="n">info</span><span class="p">:</span> <span class="n">pydantic</span><span class="o">.</span><span class="n">ValidationInfo</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">val</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">val</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
                 <span class="n">re</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;[\-_]+&quot;</span><span class="p">,</span> <span class="n">cast</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">info</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">)))</span>
@@ -1000,7 +1000,7 @@
 
     <span class="nd">@pydantic</span><span class="o">.</span><span class="n">field_validator</span><span class="p">(</span><span class="s2">&quot;classes&quot;</span><span class="p">)</span>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">validate_classes</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">validate_classes</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
         <span class="n">validated</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">val</span><span class="p">:</span>
             <span class="n">validated</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nodes</span><span class="o">.</span><span class="n">make_id</span><span class="p">(</span><span class="n">c</span><span class="p">))</span>
@@ -1008,7 +1008,7 @@
 
 
 
-<span class="k">def</span> <span class="nf">visit_collapsible</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">HTML5Translator</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Element</span><span class="p">,</span> <span class="n">flag</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">visit_collapsible</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">HTML5Translator</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Element</span><span class="p">,</span> <span class="n">flag</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
     <span class="n">tag_extra_args</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;CLASS&quot;</span><span class="p">:</span> <span class="s2">&quot;admonition&quot;</span><span class="p">}</span>
     <span class="k">if</span> <span class="n">flag</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;open&quot;</span><span class="p">:</span>
         <span class="n">tag_extra_args</span><span class="p">[</span><span class="s2">&quot;open&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
@@ -1023,10 +1023,10 @@
     <span class="k">del</span> <span class="n">node</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
 
-<span class="k">def</span> <span class="nf">patch_visit_admonition</span><span class="p">():</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">patch_visit_admonition</span><span class="p">():</span>
     <span class="n">orig_func</span> <span class="o">=</span> <span class="n">HTML5Translator</span><span class="o">.</span><span class="n">visit_admonition</span>
 
-    <span class="k">def</span> <span class="nf">visit_admonition</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">HTML5Translator</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Element</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">visit_admonition</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">HTML5Translator</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">nodes</span><span class="o">.</span><span class="n">Element</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">):</span>
         <span class="n">collapsible</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;collapsible&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">collapsible</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">nodes</span><span class="o">.</span><span class="n">title</span><span class="p">)</span>
@@ -1037,10 +1037,10 @@
     <span class="n">HTML5Translator</span><span class="o">.</span><span class="n">visit_admonition</span> <span class="o">=</span> <span class="n">visit_admonition</span>  <span class="c1"># type: ignore[assignment]</span>
 
 
-<span class="k">def</span> <span class="nf">patch_depart_admonition</span><span class="p">():</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">patch_depart_admonition</span><span class="p">():</span>
     <span class="n">orig_func</span> <span class="o">=</span> <span class="n">HTML5Translator</span><span class="o">.</span><span class="n">depart_admonition</span>
 
-    <span class="k">def</span> <span class="nf">depart_admonition</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">HTML5Translator</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">nodes</span><span class="o">.</span><span class="n">Element</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">depart_admonition</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">HTML5Translator</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">nodes</span><span class="o">.</span><span class="n">Element</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">node</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">node</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;collapsible&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">orig_func</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
@@ -1050,7 +1050,7 @@
 
 
 <span class="nd">@html_translator_mixin</span><span class="o">.</span><span class="n">override</span>
-<span class="k">def</span> <span class="nf">visit_versionmodified</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">visit_versionmodified</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">:</span> <span class="n">html_translator_mixin</span><span class="o">.</span><span class="n">HTMLTranslatorMixin</span><span class="p">,</span>
     <span class="n">node</span><span class="p">:</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">addnodes</span><span class="o">.</span><span class="n">versionmodified</span><span class="p">,</span>
     <span class="n">super_func</span><span class="p">:</span> <span class="n">html_translator_mixin</span><span class="o">.</span><span class="n">BaseVisitCallback</span><span class="p">[</span>
@@ -1079,7 +1079,7 @@
 
 
 <span class="nd">@html_translator_mixin</span><span class="o">.</span><span class="n">override</span>
-<span class="k">def</span> <span class="nf">depart_versionmodified</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">depart_versionmodified</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">:</span> <span class="n">html_translator_mixin</span><span class="o">.</span><span class="n">HTMLTranslatorMixin</span><span class="p">,</span>
     <span class="n">node</span><span class="p">:</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">addnodes</span><span class="o">.</span><span class="n">versionmodified</span><span class="p">,</span>
     <span class="n">super_func</span><span class="p">:</span> <span class="n">html_translator_mixin</span><span class="o">.</span><span class="n">BaseVisitCallback</span><span class="p">[</span>
@@ -1097,7 +1097,7 @@
 <span class="n">patch_depart_admonition</span><span class="p">()</span>
 
 
-<span class="k">class</span> <span class="nc">CustomVersionChange</span><span class="p">(</span><span class="n">VersionChange</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">CustomVersionChange</span><span class="p">(</span><span class="n">VersionChange</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Derivative of the original version directives to add theme-specific admonition</span>
 <span class="sd">    options&quot;&quot;&quot;</span>
 
@@ -1107,7 +1107,7 @@
         <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">directives</span><span class="o">.</span><span class="n">unchanged</span><span class="p">,</span>
     <span class="p">}</span>
 
-    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">ret</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
         <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">ret</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ret</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">addnodes</span><span class="o">.</span><span class="n">versionmodified</span><span class="p">)</span>
         <span class="k">if</span> <span class="s2">&quot;collapsible&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">:</span>
@@ -1123,7 +1123,7 @@
         <span class="k">return</span> <span class="n">ret</span>
 
 
-<span class="k">class</span> <span class="nc">CustomAdmonitionDirective</span><span class="p">(</span><span class="n">Directive</span><span class="p">,</span> <span class="n">ABC</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">CustomAdmonitionDirective</span><span class="p">(</span><span class="n">Directive</span><span class="p">,</span> <span class="n">ABC</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;A base class to define custom admonition directives.</span>
 
 <span class="sd">    .. warning::</span>
@@ -1145,7 +1145,7 @@
         <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="n">directives</span><span class="o">.</span><span class="n">unchanged</span><span class="p">,</span>
     <span class="p">}</span>
 
-    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="c1"># docutils.parsers.rst.roles.set_classes() is deprecated &amp;</span>
         <span class="c1"># its replacement is not available in older versions, so</span>
         <span class="c1"># manually convert key from &quot;class&quot; to &quot;classes&quot;</span>
@@ -1195,7 +1195,7 @@
         <span class="k">return</span> <span class="p">[</span><span class="n">admonition_node</span><span class="p">]</span>
 
 
-<span class="k">def</span> <span class="nf">get_directive_class</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">classes</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Type</span><span class="p">[</span><span class="n">CustomAdmonitionDirective</span><span class="p">]:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_directive_class</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">classes</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Type</span><span class="p">[</span><span class="n">CustomAdmonitionDirective</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;A helper function to produce a admonition directive&#39;s class.&quot;&quot;&quot;</span>
     <span class="c1"># alias upstream-deprecated CSS classes for pre-defined admonitions in sphinx</span>
     <span class="n">class_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">nodes</span><span class="o">.</span><span class="n">make_id</span><span class="p">(</span><span class="n">name</span><span class="p">)]</span>
@@ -1212,7 +1212,7 @@
     <span class="c1"># elif name == &quot;todo&quot;:</span>
     <span class="c1">#     class_list.append(&quot;info&quot;)</span>
 
-    <span class="k">class</span> <span class="nc">CustomizedAdmonition</span><span class="p">(</span><span class="n">CustomAdmonitionDirective</span><span class="p">):</span>
+    <span class="k">class</span><span class="w"> </span><span class="nc">CustomizedAdmonition</span><span class="p">(</span><span class="n">CustomAdmonitionDirective</span><span class="p">):</span>
         <span class="n">default_title</span> <span class="o">=</span> <span class="n">title</span>
         <span class="n">classes</span> <span class="o">=</span> <span class="n">class_list</span>
         <span class="n">optional_arguments</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">admonitionlabels</span><span class="p">)</span>
@@ -1224,7 +1224,7 @@
     <span class="k">return</span> <span class="n">CustomizedAdmonition</span>
 
 
-<span class="k">def</span> <span class="nf">on_builder_inited</span><span class="p">(</span><span class="n">app</span><span class="p">:</span> <span class="n">Sphinx</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">on_builder_inited</span><span class="p">(</span><span class="n">app</span><span class="p">:</span> <span class="n">Sphinx</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;register the directives for the custom admonitions and build the CSS.&quot;&quot;&quot;</span>
     <span class="n">custom_admonitions</span> <span class="o">=</span> <span class="p">[</span>
         <span class="n">x</span><span class="o">.</span><span class="n">model_copy</span><span class="p">()</span>
@@ -1286,7 +1286,7 @@
     <span class="nb">setattr</span><span class="p">(</span><span class="n">app</span><span class="o">.</span><span class="n">builder</span><span class="o">.</span><span class="n">env</span><span class="p">,</span> <span class="s2">&quot;sphinx_immaterial_custom_admonitions&quot;</span><span class="p">,</span> <span class="n">custom_admonitions</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">on_config_inited</span><span class="p">(</span><span class="n">app</span><span class="p">:</span> <span class="n">Sphinx</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">on_config_inited</span><span class="p">(</span><span class="n">app</span><span class="p">:</span> <span class="n">Sphinx</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Add admonitions based on CSS classes inherited from mkdocs-material theme.&quot;&quot;&quot;</span>
 
     <span class="c1"># override the generic admonition directive</span>
@@ -1322,7 +1322,7 @@
             <span class="n">app</span><span class="o">.</span><span class="n">add_directive</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">CustomVersionChange</span><span class="p">,</span> <span class="n">override</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">add_admonition_and_icon_css</span><span class="p">(</span><span class="n">app</span><span class="p">:</span> <span class="n">Sphinx</span><span class="p">,</span> <span class="n">env</span><span class="p">:</span> <span class="n">BuildEnvironment</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">add_admonition_and_icon_css</span><span class="p">(</span><span class="n">app</span><span class="p">:</span> <span class="n">Sphinx</span><span class="p">,</span> <span class="n">env</span><span class="p">:</span> <span class="n">BuildEnvironment</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Generates the CSS for icons and admonitions, then appends that to the</span>
 <span class="sd">    theme&#39;s bundled CSS.&quot;&quot;&quot;</span>
 
@@ -1342,7 +1342,7 @@
     <span class="n">add_global_css</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">generated</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">))</span>
 
 
-<span class="k">def</span> <span class="nf">setup</span><span class="p">(</span><span class="n">app</span><span class="p">:</span> <span class="n">Sphinx</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">setup</span><span class="p">(</span><span class="n">app</span><span class="p">:</span> <span class="n">Sphinx</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;register our custom directive.&quot;&quot;&quot;</span>
     <span class="n">app</span><span class="o">.</span><span class="n">add_config_value</span><span class="p">(</span>
         <span class="n">name</span><span class="o">=</span><span class="s2">&quot;sphinx_immaterial_custom_admonitions&quot;</span><span class="p">,</span>
@@ -1390,7 +1390,7 @@
   <small>
     
       Last update:
-      Jan 01, 2025
+      Jan 16, 2025
     
   </small>
 </div>

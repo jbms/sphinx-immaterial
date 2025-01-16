@@ -32,7 +32,7 @@
         <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
       
     
-        <link rel="stylesheet" type="text/css" href="../../../../_static/sphinx_immaterial_theme.116bfe6baf097be33.min.css?v=ee6a936f" />
+        <link rel="stylesheet" type="text/css" href="../../../../_static/sphinx_immaterial_theme.3bdac1653f54f9e56.min.css?v=bce22c20" />
         <link rel="stylesheet" type="text/css" href="../../../../_static/extra_css.css?v=15999537" />
         <link rel="stylesheet" type="text/css" href="../../../../_static/custom_font_example.css?v=520ac564" />
     <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
@@ -878,16 +878,16 @@
 <span class="sd">- Internal return types are elided (replaced with auto).</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">import</span> <span class="nn">argparse</span>
-<span class="kn">import</span> <span class="nn">dataclasses</span>
-<span class="kn">import</span> <span class="nn">functools</span>
-<span class="kn">import</span> <span class="nn">json</span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">pathlib</span>
-<span class="kn">import</span> <span class="nn">re</span>
-<span class="kn">import</span> <span class="nn">time</span>
-<span class="kn">import</span> <span class="nn">typing</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">argparse</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">dataclasses</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">functools</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pathlib</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">typing</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">cast</span><span class="p">,</span>
     <span class="n">Dict</span><span class="p">,</span>
     <span class="n">Any</span><span class="p">,</span>
@@ -902,12 +902,12 @@
     <span class="n">TypedDict</span><span class="p">,</span>
     <span class="n">Iterator</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">textwrap</span> <span class="kn">import</span> <span class="n">dedent</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">textwrap</span><span class="w"> </span><span class="kn">import</span> <span class="n">dedent</span>
 
-<span class="kn">import</span> <span class="nn">ctypes</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">ctypes</span>
 
-<span class="kn">import</span> <span class="nn">clang.cindex</span>
-<span class="kn">from</span> <span class="nn">clang.cindex</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">clang.cindex</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">clang.cindex</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">Cursor</span><span class="p">,</span>
     <span class="n">CursorKind</span><span class="p">,</span>
     <span class="n">Token</span><span class="p">,</span>
@@ -916,13 +916,13 @@
     <span class="n">SourceLocation</span><span class="p">,</span>
     <span class="n">SourceRange</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">import</span> <span class="nn">docutils.nodes</span>
-<span class="kn">import</span> <span class="nn">pydantic.dataclasses</span>
-<span class="kn">import</span> <span class="nn">sphinx.domains.cpp</span>
-<span class="kn">import</span> <span class="nn">sphinx.util.logging</span>
-<span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">NotRequired</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">docutils.nodes</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pydantic.dataclasses</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sphinx.domains.cpp</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sphinx.util.logging</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing_extensions</span><span class="w"> </span><span class="kn">import</span> <span class="n">NotRequired</span>
 
-<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">ast_fixes</span>  <span class="c1"># noqa: F401</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.</span><span class="w"> </span><span class="kn">import</span> <span class="n">ast_fixes</span>  <span class="c1"># noqa: F401</span>
 
 
 <span class="n">logger</span> <span class="o">=</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
@@ -930,11 +930,11 @@
 <span class="n">_UNMATCHABLE_REGEXP</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;a^&quot;</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">_combine_regexp_list</span><span class="p">(</span><span class="n">items</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Pattern</span><span class="p">[</span><span class="nb">str</span><span class="p">]]])</span> <span class="o">-&gt;</span> <span class="n">re</span><span class="o">.</span><span class="n">Pattern</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_combine_regexp_list</span><span class="p">(</span><span class="n">items</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Pattern</span><span class="p">[</span><span class="nb">str</span><span class="p">]]])</span> <span class="o">-&gt;</span> <span class="n">re</span><span class="o">.</span><span class="n">Pattern</span><span class="p">:</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">items</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">_UNMATCHABLE_REGEXP</span>
 
-    <span class="k">def</span> <span class="nf">get_parenthesized_source</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Pattern</span><span class="p">[</span><span class="nb">str</span><span class="p">]]):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_parenthesized_source</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Pattern</span><span class="p">[</span><span class="nb">str</span><span class="p">]]):</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">Pattern</span><span class="p">):</span>
             <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">pattern</span>
         <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;(?:</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2">)&quot;</span>
@@ -942,7 +942,7 @@
     <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;|&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">get_parenthesized_source</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">items</span><span class="p">))</span>
 
 
-<span class="k">def</span> <span class="nf">_make_replacement_pattern</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_make_replacement_pattern</span><span class="p">(</span>
     <span class="n">strings</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">prefix</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">suffix</span><span class="p">:</span> <span class="nb">str</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">re</span><span class="o">.</span><span class="n">Pattern</span><span class="p">:</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">strings</span><span class="p">:</span>
@@ -967,7 +967,7 @@
 <div class="viewcode-block" id="Config">
 <a class="viewcode-back" href="../../../../apidoc/cpp/apigen.html#sphinx_immaterial.apidoc.cpp.api_parser.Config">[docs]</a>
 <span class="nd">@pydantic</span><span class="o">.</span><span class="n">dataclasses</span><span class="o">.</span><span class="n">dataclass</span>
-<span class="k">class</span> <span class="nc">Config</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Config</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Specifies a C++ API parsing configuration.</span>
 
 <span class="sd">    Based on this configuration, a description of the API is generated.</span>
@@ -1145,7 +1145,7 @@
 
     <span class="n">disallow_namespaces_pattern</span><span class="p">:</span> <span class="n">Pattern</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">init</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">allow_path_pattern</span> <span class="o">=</span> <span class="n">_combine_regexp_list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">allow_paths</span><span class="p">)</span>  <span class="c1"># type: ignore[misc]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">disallow_path_pattern</span> <span class="o">=</span> <span class="n">_combine_regexp_list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">disallow_paths</span><span class="p">)</span>  <span class="c1"># type: ignore[misc]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">allow_path_pattern</span> <span class="o">=</span> <span class="n">_combine_regexp_list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">allow_paths</span><span class="p">)</span>  <span class="c1"># type: ignore[misc]</span>
@@ -1180,7 +1180,7 @@
     <span class="n">normalized_include_directory_map</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">init</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">cached_mapped_include_directories</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">init</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">map_include_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">map_include_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="n">mapped</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cached_mapped_include_directories</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">mapped</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">mapped</span>
@@ -1214,13 +1214,13 @@
 <span class="n">ClassKeyword</span> <span class="o">=</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;class&quot;</span><span class="p">,</span> <span class="s2">&quot;struct&quot;</span><span class="p">]</span>
 
 
-<span class="k">class</span> <span class="nc">JsonLocation</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">JsonLocation</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
     <span class="n">file</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">line</span><span class="p">:</span> <span class="nb">int</span>
     <span class="n">col</span><span class="p">:</span> <span class="nb">int</span>
 
 
-<span class="k">class</span> <span class="nc">JsonDocComment</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">JsonDocComment</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
     <span class="n">text</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">location</span><span class="p">:</span> <span class="n">JsonLocation</span>
 
@@ -1228,14 +1228,14 @@
 <span class="n">TemplateParameterKind</span> <span class="o">=</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">,</span> <span class="s2">&quot;template&quot;</span><span class="p">,</span> <span class="s2">&quot;non_type&quot;</span><span class="p">]</span>
 
 
-<span class="k">class</span> <span class="nc">TemplateParameter</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">TemplateParameter</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
     <span class="n">declaration</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">kind</span><span class="p">:</span> <span class="n">TemplateParameterKind</span>
     <span class="n">pack</span><span class="p">:</span> <span class="nb">bool</span>
 
 
-<span class="k">class</span> <span class="nc">CppApiEntityBase</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">,</span> <span class="n">total</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">CppApiEntityBase</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">,</span> <span class="n">total</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="nb">id</span><span class="p">:</span> <span class="n">EntityId</span>
     <span class="n">parent</span><span class="p">:</span> <span class="n">NotRequired</span><span class="p">[</span><span class="n">EntityId</span><span class="p">]</span>
     <span class="n">scope</span><span class="p">:</span> <span class="n">NotRequired</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
@@ -1258,7 +1258,7 @@
     <span class="n">nonitpick</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
 
 
-<span class="k">class</span> <span class="nc">FunctionEntity</span><span class="p">(</span><span class="n">CppApiEntityBase</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">FunctionEntity</span><span class="p">(</span><span class="n">CppApiEntityBase</span><span class="p">):</span>
     <span class="n">kind</span><span class="p">:</span> <span class="n">FunctionEntityKind</span>
     <span class="n">arity</span><span class="p">:</span> <span class="nb">int</span>
     <span class="n">name_substitute</span><span class="p">:</span> <span class="nb">str</span>
@@ -1266,36 +1266,36 @@
     <span class="n">declaration</span><span class="p">:</span> <span class="nb">str</span>
 
 
-<span class="k">class</span> <span class="nc">BaseClass</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">BaseClass</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
     <span class="nb">type</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">access</span><span class="p">:</span> <span class="nb">str</span>
 
 
-<span class="k">class</span> <span class="nc">ClassEntity</span><span class="p">(</span><span class="n">CppApiEntityBase</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ClassEntity</span><span class="p">(</span><span class="n">CppApiEntityBase</span><span class="p">):</span>
     <span class="n">kind</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;class&quot;</span><span class="p">]</span>
     <span class="n">keyword</span><span class="p">:</span> <span class="n">ClassKeyword</span>
     <span class="n">prefix</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
     <span class="n">bases</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">BaseClass</span><span class="p">]</span>
 
 
-<span class="k">class</span> <span class="nc">VarEntity</span><span class="p">(</span><span class="n">CppApiEntityBase</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">VarEntity</span><span class="p">(</span><span class="n">CppApiEntityBase</span><span class="p">):</span>
     <span class="n">kind</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;var&quot;</span><span class="p">]</span>
     <span class="n">declaration</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">name_substitute</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">initializer</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
 
 
-<span class="k">class</span> <span class="nc">TypeAliasEntity</span><span class="p">(</span><span class="n">CppApiEntityBase</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">TypeAliasEntity</span><span class="p">(</span><span class="n">CppApiEntityBase</span><span class="p">):</span>
     <span class="n">kind</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;alias&quot;</span><span class="p">]</span>
     <span class="n">underlying_type</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
 
 
-<span class="k">class</span> <span class="nc">MacroEntity</span><span class="p">(</span><span class="n">CppApiEntityBase</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">MacroEntity</span><span class="p">(</span><span class="n">CppApiEntityBase</span><span class="p">):</span>
     <span class="n">kind</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;macro&quot;</span><span class="p">]</span>
     <span class="n">parameters</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span>
 
 
-<span class="k">class</span> <span class="nc">EnumeratorEntity</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">EnumeratorEntity</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
     <span class="n">kind</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;enumerator&quot;</span><span class="p">]</span>
     <span class="nb">id</span><span class="p">:</span> <span class="n">EntityId</span>
     <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
@@ -1304,7 +1304,7 @@
     <span class="n">location</span><span class="p">:</span> <span class="n">JsonLocation</span>
 
 
-<span class="k">class</span> <span class="nc">EnumEntity</span><span class="p">(</span><span class="n">CppApiEntityBase</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">EnumEntity</span><span class="p">(</span><span class="n">CppApiEntityBase</span><span class="p">):</span>
     <span class="n">kind</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;enum&quot;</span><span class="p">]</span>
     <span class="n">keyword</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ClassKeyword</span><span class="p">]</span>
     <span class="n">enumerators</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">EnumeratorEntity</span><span class="p">]</span>
@@ -1315,13 +1315,13 @@
 <span class="p">]</span>
 
 
-<span class="k">def</span> <span class="nf">json_location_to_string</span><span class="p">(</span><span class="n">location</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">JsonLocation</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">json_location_to_string</span><span class="p">(</span><span class="n">location</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">JsonLocation</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
     <span class="k">if</span> <span class="n">location</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">None</span>
     <span class="k">return</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">:</span><span class="si">%s</span><span class="s2">:</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">location</span><span class="p">[</span><span class="s2">&quot;file&quot;</span><span class="p">],</span> <span class="n">location</span><span class="p">[</span><span class="s2">&quot;line&quot;</span><span class="p">],</span> <span class="n">location</span><span class="p">[</span><span class="s2">&quot;col&quot;</span><span class="p">])</span>
 
 
-<span class="k">def</span> <span class="nf">get_entity_id</span><span class="p">(</span><span class="n">cursor</span><span class="p">:</span> <span class="n">Cursor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">EntityId</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_entity_id</span><span class="p">(</span><span class="n">cursor</span><span class="p">:</span> <span class="n">Cursor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">EntityId</span><span class="p">:</span>
     <span class="c1"># USR workarounds from:</span>
     <span class="c1"># https://github.com/foonathan/cppast/blob/e558e2d58f519e3a83af770d460672b1d4ba2886/src/libclang/parse_functions.cpp#L13</span>
     <span class="n">usr</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">get_usr</span><span class="p">()</span>
@@ -1337,19 +1337,19 @@
     <span class="k">return</span> <span class="n">usr</span>
 
 
-<span class="k">def</span> <span class="nf">_substitute_internal_type_names</span><span class="p">(</span><span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">,</span> <span class="n">decl</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_substitute_internal_type_names</span><span class="p">(</span><span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">,</span> <span class="n">decl</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
     <span class="k">return</span> <span class="n">config</span><span class="o">.</span><span class="n">type_replacements_pattern</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span>
         <span class="k">lambda</span> <span class="n">m</span><span class="p">:</span> <span class="n">config</span><span class="o">.</span><span class="n">type_replacements</span><span class="p">[</span><span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">)],</span> <span class="n">decl</span>
     <span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">get_previous_line_location</span><span class="p">(</span><span class="n">tu</span><span class="p">,</span> <span class="n">location</span><span class="p">:</span> <span class="n">SourceLocation</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_previous_line_location</span><span class="p">(</span><span class="n">tu</span><span class="p">,</span> <span class="n">location</span><span class="p">:</span> <span class="n">SourceLocation</span><span class="p">):</span>
     <span class="n">file</span> <span class="o">=</span> <span class="n">location</span><span class="o">.</span><span class="n">file</span>
     <span class="n">line</span> <span class="o">=</span> <span class="n">location</span><span class="o">.</span><span class="n">line</span>
     <span class="k">return</span> <span class="n">SourceLocation</span><span class="o">.</span><span class="n">from_position</span><span class="p">(</span><span class="n">tu</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> <span class="n">line</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">get_presumed_location</span><span class="p">(</span><span class="n">location</span><span class="p">:</span> <span class="n">SourceLocation</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">typing</span><span class="o">.</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_presumed_location</span><span class="p">(</span><span class="n">location</span><span class="p">:</span> <span class="n">SourceLocation</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">typing</span><span class="o">.</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
     <span class="n">file</span><span class="p">,</span> <span class="n">line</span><span class="p">,</span> <span class="n">col</span> <span class="o">=</span> <span class="n">clang</span><span class="o">.</span><span class="n">cindex</span><span class="o">.</span><span class="n">_CXString</span><span class="p">(),</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_uint</span><span class="p">(),</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_uint</span><span class="p">()</span>
     <span class="n">clang</span><span class="o">.</span><span class="n">cindex</span><span class="o">.</span><span class="n">conf</span><span class="o">.</span><span class="n">lib</span><span class="o">.</span><span class="n">clang_getPresumedLocation</span><span class="p">(</span>
         <span class="n">location</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="n">file</span><span class="p">),</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="n">line</span><span class="p">),</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="n">col</span><span class="p">)</span>
@@ -1364,22 +1364,22 @@
 <span class="n">_PyMemoryView_FromMemory</span><span class="o">.</span><span class="n">restype</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">py_object</span>
 
 
-<span class="k">def</span> <span class="nf">_get_file_contents</span><span class="p">(</span><span class="n">tu</span><span class="p">,</span> <span class="n">f</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_get_file_contents</span><span class="p">(</span><span class="n">tu</span><span class="p">,</span> <span class="n">f</span><span class="p">):</span>
     <span class="n">size</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_size_t</span><span class="p">()</span>
     <span class="n">ptr</span> <span class="o">=</span> <span class="n">_clang_getFileContents</span><span class="p">(</span><span class="n">tu</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="n">size</span><span class="p">))</span>
     <span class="n">buf</span> <span class="o">=</span> <span class="n">_PyMemoryView_FromMemory</span><span class="p">(</span><span class="n">ctypes</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">ptr</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">),</span> <span class="n">size</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="mh">0x100</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">buf</span>
 
 
-<span class="k">def</span> <span class="nf">_get_template_cursor_kind</span><span class="p">(</span><span class="n">cursor</span><span class="p">:</span> <span class="n">Cursor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">CursorKind</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_get_template_cursor_kind</span><span class="p">(</span><span class="n">cursor</span><span class="p">:</span> <span class="n">Cursor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">CursorKind</span><span class="p">:</span>
     <span class="k">return</span> <span class="n">CursorKind</span><span class="o">.</span><span class="n">from_id</span><span class="p">(</span><span class="n">clang</span><span class="o">.</span><span class="n">cindex</span><span class="o">.</span><span class="n">conf</span><span class="o">.</span><span class="n">lib</span><span class="o">.</span><span class="n">clang_getTemplateCursorKind</span><span class="p">(</span><span class="n">cursor</span><span class="p">))</span>
 
 
-<span class="k">def</span> <span class="nf">_get_specialized_cursor_template</span><span class="p">(</span><span class="n">cursor</span><span class="p">:</span> <span class="n">Cursor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="n">Cursor</span><span class="p">]:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_get_specialized_cursor_template</span><span class="p">(</span><span class="n">cursor</span><span class="p">:</span> <span class="n">Cursor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="n">Cursor</span><span class="p">]:</span>
     <span class="k">return</span> <span class="n">clang</span><span class="o">.</span><span class="n">cindex</span><span class="o">.</span><span class="n">conf</span><span class="o">.</span><span class="n">lib</span><span class="o">.</span><span class="n">clang_getSpecializedCursorTemplate</span><span class="p">(</span><span class="n">cursor</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">_get_full_nested_name</span><span class="p">(</span><span class="n">cursor</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="n">Cursor</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_get_full_nested_name</span><span class="p">(</span><span class="n">cursor</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="n">Cursor</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
     <span class="k">if</span> <span class="n">cursor</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">return</span> <span class="s2">&quot;&quot;</span>
     <span class="n">ancestors</span> <span class="o">=</span> <span class="p">[]</span>
@@ -1404,7 +1404,7 @@
 <span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">_get_all_decls</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_get_all_decls</span><span class="p">(</span>
     <span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">,</span> <span class="n">cursor</span><span class="p">:</span> <span class="n">Cursor</span><span class="p">,</span> <span class="n">allow_file</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="n">Cursor</span><span class="p">,</span> <span class="n">SourceLocation</span><span class="p">]]:</span>
     <span class="n">NAMESPACE</span> <span class="o">=</span> <span class="n">CursorKind</span><span class="o">.</span><span class="n">NAMESPACE</span>
@@ -1482,7 +1482,7 @@
 <span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">_get_raw_comments</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_get_raw_comments</span><span class="p">(</span>
     <span class="n">cursor</span><span class="p">:</span> <span class="n">Cursor</span><span class="p">,</span> <span class="n">doc_comment_start_bound</span><span class="p">:</span> <span class="n">SourceLocation</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">SourceLocation</span><span class="p">]]:</span>
     <span class="c1"># libclang exposes `cursor.raw_comment` but in some cases it appears to be</span>
@@ -1582,7 +1582,7 @@
     <span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">_get_raw_comments_after</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_get_raw_comments_after</span><span class="p">(</span>
     <span class="n">tu</span><span class="p">,</span> <span class="n">location</span><span class="p">:</span> <span class="n">SourceLocation</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">SourceLocation</span><span class="p">]]:</span>
     <span class="n">buf</span> <span class="o">=</span> <span class="nb">memoryview</span><span class="p">(</span><span class="n">_get_file_contents</span><span class="p">(</span><span class="n">tu</span><span class="p">,</span> <span class="n">location</span><span class="o">.</span><span class="n">file</span><span class="p">))</span>
@@ -1622,7 +1622,7 @@
 <span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">_convert_raw_comment_into_doc_comment</span><span class="p">(</span><span class="n">raw_comment</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_convert_raw_comment_into_doc_comment</span><span class="p">(</span><span class="n">raw_comment</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
     <span class="c1"># Eliminate CR characters</span>
     <span class="n">raw_comment</span> <span class="o">=</span> <span class="n">raw_comment</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\r</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
     <span class="n">pos</span> <span class="o">=</span> <span class="mi">0</span>
@@ -1672,7 +1672,7 @@
 <span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">_get_doc_comment</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_get_doc_comment</span><span class="p">(</span>
     <span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">,</span> <span class="n">cursor</span><span class="p">:</span> <span class="n">Cursor</span><span class="p">,</span> <span class="n">doc_comment_start_bound</span><span class="p">:</span> <span class="n">SourceLocation</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">JsonDocComment</span><span class="p">]:</span>
     <span class="n">raw_comment</span> <span class="o">=</span> <span class="n">_get_raw_comments</span><span class="p">(</span><span class="n">cursor</span><span class="p">,</span> <span class="n">doc_comment_start_bound</span><span class="p">)</span>
@@ -1696,8 +1696,8 @@
     <span class="p">}</span>
 
 
-<span class="k">class</span> <span class="nc">Extractor</span><span class="p">:</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Extractor</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">config</span>
 
         <span class="n">input_path</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">input_path</span>
@@ -1738,7 +1738,7 @@
                 <span class="n">diag</span><span class="o">.</span><span class="n">spelling</span><span class="p">,</span> <span class="n">location</span><span class="o">=</span><span class="n">_get_location_string</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">diag</span><span class="o">.</span><span class="n">location</span><span class="p">)</span>
             <span class="p">)</span>
 
-        <span class="k">def</span> <span class="nf">_allow_file</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">_allow_file</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
             <span class="n">path</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">map_include_path</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">config</span><span class="o">.</span><span class="n">allow_path_pattern</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
                 <span class="k">return</span> <span class="kc">False</span>
@@ -1760,7 +1760,7 @@
 <span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">_transform_type_alias_decl</span><span class="p">(</span><span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">,</span> <span class="n">decl</span><span class="p">:</span> <span class="n">Cursor</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_transform_type_alias_decl</span><span class="p">(</span><span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">,</span> <span class="n">decl</span><span class="p">:</span> <span class="n">Cursor</span><span class="p">):</span>
     <span class="n">underlying_type</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">_substitute_internal_type_names</span><span class="p">(</span>
         <span class="n">config</span><span class="p">,</span> <span class="n">decl</span><span class="o">.</span><span class="n">underlying_typedef_type</span><span class="o">.</span><span class="n">spelling</span>
     <span class="p">)</span>
@@ -1775,7 +1775,7 @@
     <span class="p">}</span>
 
 
-<span class="k">def</span> <span class="nf">get_extent_spelling</span><span class="p">(</span><span class="n">translation_unit</span><span class="p">:</span> <span class="n">TranslationUnit</span><span class="p">,</span> <span class="n">extent</span><span class="p">:</span> <span class="n">SourceRange</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_extent_spelling</span><span class="p">(</span><span class="n">translation_unit</span><span class="p">:</span> <span class="n">TranslationUnit</span><span class="p">,</span> <span class="n">extent</span><span class="p">:</span> <span class="n">SourceRange</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns the C++ source representation for the specified extent.</span>
 
 <span class="sd">    Comments are excluded and for simplicity all tokens are separated by</span>
@@ -1783,7 +1783,7 @@
 <span class="sd">    because this is intended to be parsed by the Sphinx cpp domain anyway.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">get_spellings</span><span class="p">():</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_spellings</span><span class="p">():</span>
         <span class="n">prev_token</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="n">COMMENT</span> <span class="o">=</span> <span class="n">TokenKind</span><span class="o">.</span><span class="n">COMMENT</span>
         <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">translation_unit</span><span class="o">.</span><span class="n">get_tokens</span><span class="p">(</span><span class="n">extent</span><span class="o">=</span><span class="n">extent</span><span class="p">):</span>
@@ -1808,7 +1808,7 @@
     <span class="k">return</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">get_spellings</span><span class="p">())</span>
 
 
-<span class="k">def</span> <span class="nf">get_related_comments</span><span class="p">(</span><span class="n">decl</span><span class="p">:</span> <span class="n">Cursor</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_related_comments</span><span class="p">(</span><span class="n">decl</span><span class="p">:</span> <span class="n">Cursor</span><span class="p">):</span>
     <span class="c1"># casts below are workaround for: https://github.com/tgockel/types-clang/pull/2</span>
     <span class="n">start</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">SourceLocation</span><span class="p">,</span> <span class="n">decl</span><span class="o">.</span><span class="n">extent</span><span class="o">.</span><span class="n">start</span><span class="p">)</span>
     <span class="n">end</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">SourceLocation</span><span class="p">,</span> <span class="n">decl</span><span class="o">.</span><span class="n">extent</span><span class="o">.</span><span class="n">end</span><span class="p">)</span>
@@ -1827,7 +1827,7 @@
 <span class="n">NONITPICK_PATTERN</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;//\s*NONITPICK:\s*(.*[^\s])\s*&quot;</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">get_nonitpick_directives</span><span class="p">(</span><span class="n">decl</span><span class="p">:</span> <span class="n">Cursor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_nonitpick_directives</span><span class="p">(</span><span class="n">decl</span><span class="p">:</span> <span class="n">Cursor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
     <span class="n">directives</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">comment</span> <span class="ow">in</span> <span class="n">get_related_comments</span><span class="p">(</span><span class="n">decl</span><span class="p">):</span>
         <span class="n">text</span> <span class="o">=</span> <span class="n">comment</span><span class="o">.</span><span class="n">spelling</span>
@@ -1854,7 +1854,7 @@
 <span class="p">}</span>
 
 
-<span class="k">def</span> <span class="nf">_clang_template_parameter_to_json</span><span class="p">(</span><span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">,</span> <span class="n">decl</span><span class="p">:</span> <span class="n">Cursor</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_clang_template_parameter_to_json</span><span class="p">(</span><span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">,</span> <span class="n">decl</span><span class="p">:</span> <span class="n">Cursor</span><span class="p">):</span>
     <span class="n">param_decl_str</span> <span class="o">=</span> <span class="n">get_extent_spelling</span><span class="p">(</span><span class="n">decl</span><span class="o">.</span><span class="n">translation_unit</span><span class="p">,</span> <span class="n">decl</span><span class="o">.</span><span class="n">extent</span><span class="p">)</span>
     <span class="n">param</span> <span class="o">=</span> <span class="n">_parse_template_parameter</span><span class="p">(</span><span class="n">param_decl_str</span><span class="p">)</span>
     <span class="n">spelling</span> <span class="o">=</span> <span class="n">decl</span><span class="o">.</span><span class="n">spelling</span>
@@ -1869,7 +1869,7 @@
     <span class="k">return</span> <span class="n">_sphinx_ast_template_parameter_to_json</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">param</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">_get_template_parameters</span><span class="p">(</span><span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">,</span> <span class="n">decl</span><span class="p">:</span> <span class="n">Cursor</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_get_template_parameters</span><span class="p">(</span><span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">,</span> <span class="n">decl</span><span class="p">:</span> <span class="n">Cursor</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">decl</span><span class="o">.</span><span class="n">kind</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">TEMPLATE_CURSOR_KINDS</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">None</span>
     <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
@@ -1884,14 +1884,14 @@
     <span class="k">return</span> <span class="n">result</span>
 
 
-<span class="k">def</span> <span class="nf">_get_non_template_kind</span><span class="p">(</span><span class="n">cursor</span><span class="p">:</span> <span class="n">Cursor</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_get_non_template_kind</span><span class="p">(</span><span class="n">cursor</span><span class="p">:</span> <span class="n">Cursor</span><span class="p">):</span>
     <span class="n">kind</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">kind</span>
     <span class="k">if</span> <span class="n">kind</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">TEMPLATE_CURSOR_KINDS</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">kind</span>
     <span class="k">return</span> <span class="n">_get_template_cursor_kind</span><span class="p">(</span><span class="n">cursor</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">_transform_type_alias_template_decl</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_transform_type_alias_template_decl</span><span class="p">(</span>
     <span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">,</span> <span class="n">decl</span><span class="p">:</span> <span class="n">Cursor</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TypeAliasEntity</span><span class="p">:</span>
     <span class="n">underlying_type</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
@@ -1932,11 +1932,11 @@
     <span class="p">}</span>
 
 
-<span class="k">def</span> <span class="nf">_get_class_keyword</span><span class="p">(</span><span class="n">kind</span><span class="p">:</span> <span class="n">CursorKind</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ClassKeyword</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_get_class_keyword</span><span class="p">(</span><span class="n">kind</span><span class="p">:</span> <span class="n">CursorKind</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ClassKeyword</span><span class="p">:</span>
     <span class="k">return</span> <span class="s2">&quot;class&quot;</span> <span class="k">if</span> <span class="n">kind</span> <span class="o">==</span> <span class="n">CursorKind</span><span class="o">.</span><span class="n">CLASS_DECL</span> <span class="k">else</span> <span class="s2">&quot;struct&quot;</span>
 
 
-<span class="k">def</span> <span class="nf">_get_bases</span><span class="p">(</span><span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">,</span> <span class="n">decl</span><span class="p">:</span> <span class="n">Cursor</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_get_bases</span><span class="p">(</span><span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">,</span> <span class="n">decl</span><span class="p">:</span> <span class="n">Cursor</span><span class="p">):</span>
     <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">decl</span><span class="o">.</span><span class="n">get_children</span><span class="p">():</span>
         <span class="k">if</span> <span class="n">child</span><span class="o">.</span><span class="n">kind</span> <span class="o">!=</span> <span class="n">CursorKind</span><span class="o">.</span><span class="n">CXX_BASE_SPECIFIER</span><span class="p">:</span>
             <span class="k">continue</span>
@@ -1946,7 +1946,7 @@
         <span class="k">yield</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="n">type_spelling</span><span class="p">,</span> <span class="s2">&quot;access&quot;</span><span class="p">:</span> <span class="n">child</span><span class="o">.</span><span class="n">access_specifier</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">lower</span><span class="p">()}</span>
 
 
-<span class="k">def</span> <span class="nf">_transform_class_decl</span><span class="p">(</span><span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">,</span> <span class="n">decl</span><span class="p">:</span> <span class="n">Cursor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ClassEntity</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_transform_class_decl</span><span class="p">(</span><span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">,</span> <span class="n">decl</span><span class="p">:</span> <span class="n">Cursor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ClassEntity</span><span class="p">:</span>
     <span class="n">obj</span><span class="p">:</span> <span class="n">ClassEntity</span> <span class="o">=</span> <span class="p">{</span>
         <span class="s2">&quot;kind&quot;</span><span class="p">:</span> <span class="s2">&quot;class&quot;</span><span class="p">,</span>
         <span class="s2">&quot;keyword&quot;</span><span class="p">:</span> <span class="n">_get_class_keyword</span><span class="p">(</span><span class="n">decl</span><span class="o">.</span><span class="n">kind</span><span class="p">),</span>
@@ -1960,7 +1960,7 @@
     <span class="k">return</span> <span class="n">obj</span>
 
 
-<span class="k">def</span> <span class="nf">_transform_class_template_decl</span><span class="p">(</span><span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">,</span> <span class="n">decl</span><span class="p">:</span> <span class="n">Cursor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ClassEntity</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_transform_class_template_decl</span><span class="p">(</span><span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">,</span> <span class="n">decl</span><span class="p">:</span> <span class="n">Cursor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ClassEntity</span><span class="p">:</span>
     <span class="k">return</span> <span class="p">{</span>
         <span class="s2">&quot;kind&quot;</span><span class="p">:</span> <span class="s2">&quot;class&quot;</span><span class="p">,</span>
         <span class="s2">&quot;keyword&quot;</span><span class="p">:</span> <span class="n">_get_class_keyword</span><span class="p">(</span><span class="n">_get_template_cursor_kind</span><span class="p">(</span><span class="n">decl</span><span class="p">)),</span>
@@ -1970,7 +1970,7 @@
     <span class="p">}</span>
 
 
-<span class="k">def</span> <span class="nf">_transform_class_template_partial_specialization_decl</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_transform_class_template_partial_specialization_decl</span><span class="p">(</span>
     <span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">,</span> <span class="n">decl</span><span class="p">:</span> <span class="n">Cursor</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ClassEntity</span><span class="p">:</span>
     <span class="k">return</span> <span class="p">{</span>
@@ -1985,7 +1985,7 @@
     <span class="p">}</span>
 
 
-<span class="k">def</span> <span class="nf">_get_function_parameters</span><span class="p">(</span><span class="n">decl</span><span class="p">:</span> <span class="n">Cursor</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_get_function_parameters</span><span class="p">(</span><span class="n">decl</span><span class="p">:</span> <span class="n">Cursor</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">decl</span><span class="o">.</span><span class="n">kind</span> <span class="o">==</span> <span class="n">CursorKind</span><span class="o">.</span><span class="n">FUNCTION_DECL</span><span class="p">:</span>
         <span class="k">yield from</span> <span class="n">decl</span><span class="o">.</span><span class="n">get_arguments</span><span class="p">()</span>
         <span class="k">return</span>
@@ -2004,7 +2004,7 @@
 <span class="p">}</span>
 
 
-<span class="k">def</span> <span class="nf">_parse_declaration_prefix</span><span class="p">(</span><span class="n">decl</span><span class="p">:</span> <span class="n">Cursor</span><span class="p">,</span> <span class="n">is_class</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">typing</span><span class="o">.</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_parse_declaration_prefix</span><span class="p">(</span><span class="n">decl</span><span class="p">:</span> <span class="n">Cursor</span><span class="p">,</span> <span class="n">is_class</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">typing</span><span class="o">.</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
     <span class="n">decl_extent</span> <span class="o">=</span> <span class="n">decl</span><span class="o">.</span><span class="n">extent</span>
     <span class="n">start_location</span> <span class="o">=</span> <span class="n">decl_extent</span><span class="o">.</span><span class="n">start</span>
     <span class="n">end_location</span> <span class="o">=</span> <span class="kc">None</span>
@@ -2037,7 +2037,7 @@
     <span class="k">return</span> <span class="n">prefix_parts</span>
 
 
-<span class="k">def</span> <span class="nf">_get_declaration_spelling</span><span class="p">(</span><span class="n">decl</span><span class="p">:</span> <span class="n">Cursor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_get_declaration_spelling</span><span class="p">(</span><span class="n">decl</span><span class="p">:</span> <span class="n">Cursor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
     <span class="n">decl_extent</span> <span class="o">=</span> <span class="n">decl</span><span class="o">.</span><span class="n">extent</span>
     <span class="n">start_location</span> <span class="o">=</span> <span class="n">decl_extent</span><span class="o">.</span><span class="n">start</span>
     <span class="n">end_location</span> <span class="o">=</span> <span class="kc">None</span>
@@ -2053,7 +2053,7 @@
     <span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">_transform_function_decl</span><span class="p">(</span><span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">,</span> <span class="n">decl</span><span class="p">:</span> <span class="n">Cursor</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_transform_function_decl</span><span class="p">(</span><span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">,</span> <span class="n">decl</span><span class="p">:</span> <span class="n">Cursor</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="n">decl</span><span class="o">.</span><span class="n">spelling</span>
     <span class="k">if</span> <span class="n">name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;&lt;deduction guide for &quot;</span><span class="p">):</span>
         <span class="c1"># Exclude deduction guides for now</span>
@@ -2113,7 +2113,7 @@
     <span class="k">return</span> <span class="n">obj</span>
 
 
-<span class="k">def</span> <span class="nf">_transform_enum_decl</span><span class="p">(</span><span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">,</span> <span class="n">decl</span><span class="p">:</span> <span class="n">Cursor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">EnumEntity</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_transform_enum_decl</span><span class="p">(</span><span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">,</span> <span class="n">decl</span><span class="p">:</span> <span class="n">Cursor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">EnumEntity</span><span class="p">:</span>
     <span class="n">keyword</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">tokens</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">decl</span><span class="o">.</span><span class="n">get_tokens</span><span class="p">())</span>
     <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">tokens</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">2</span>
@@ -2145,7 +2145,7 @@
     <span class="p">}</span>
 
 
-<span class="k">def</span> <span class="nf">_pick_name_substitute</span><span class="p">(</span><span class="n">code</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_pick_name_substitute</span><span class="p">(</span><span class="n">code</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
     <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
         <span class="n">substitute</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;__x</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span>
@@ -2154,7 +2154,7 @@
         <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
 
 
-<span class="k">def</span> <span class="nf">_transform_var_decl</span><span class="p">(</span><span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">,</span> <span class="n">decl</span><span class="p">:</span> <span class="n">Cursor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">VarEntity</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_transform_var_decl</span><span class="p">(</span><span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">,</span> <span class="n">decl</span><span class="p">:</span> <span class="n">Cursor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">VarEntity</span><span class="p">:</span>
     <span class="n">exprs</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">decl</span><span class="o">.</span><span class="n">get_children</span><span class="p">()</span> <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">kind</span><span class="o">.</span><span class="n">is_expression</span><span class="p">()]</span>
     <span class="n">presumed_filename</span><span class="p">,</span> <span class="n">presumed_line</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">get_presumed_location</span><span class="p">(</span><span class="n">decl</span><span class="o">.</span><span class="n">location</span><span class="p">)</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">exprs</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
@@ -2187,12 +2187,12 @@
     <span class="p">}</span>
 
 
-<span class="k">class</span> <span class="nc">SphinxConfig</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">SphinxConfig</span><span class="p">:</span>
     <span class="n">cpp_id_attributes</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">cpp_paren_attributes</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="p">[]</span>
 
 
-<span class="k">def</span> <span class="nf">_parse_name</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">template_prefix</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">domains</span><span class="o">.</span><span class="n">cpp</span><span class="o">.</span><span class="n">ASTNestedName</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_parse_name</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">template_prefix</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">domains</span><span class="o">.</span><span class="n">cpp</span><span class="o">.</span><span class="n">ASTNestedName</span><span class="p">:</span>
     <span class="n">parser</span> <span class="o">=</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">domains</span><span class="o">.</span><span class="n">cpp</span><span class="o">.</span><span class="n">DefinitionParser</span><span class="p">(</span>
         <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">template_prefix</span><span class="si">}</span><span class="s2"> int </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
         <span class="n">location</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
@@ -2204,7 +2204,7 @@
     <span class="k">return</span> <span class="n">ast</span><span class="o">.</span><span class="n">name</span>
 
 
-<span class="k">def</span> <span class="nf">_substitute_name</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_substitute_name</span><span class="p">(</span>
     <span class="n">top_ast</span><span class="p">:</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">domains</span><span class="o">.</span><span class="n">cpp</span><span class="o">.</span><span class="n">ASTDeclaration</span><span class="p">,</span>
     <span class="n">ast</span><span class="p">:</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">domains</span><span class="o">.</span><span class="n">cpp</span><span class="o">.</span><span class="n">ASTType</span><span class="p">,</span>
     <span class="n">source_code</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
@@ -2226,7 +2226,7 @@
     <span class="k">return</span> <span class="n">name_substitute_with_args</span>
 
 
-<span class="k">def</span> <span class="nf">_maybe_wrap_requires_expr_in_parentheses</span><span class="p">(</span><span class="n">expr</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_maybe_wrap_requires_expr_in_parentheses</span><span class="p">(</span><span class="n">expr</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
     <span class="n">parser</span> <span class="o">=</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">domains</span><span class="o">.</span><span class="n">cpp</span><span class="o">.</span><span class="n">DefinitionParser</span><span class="p">(</span>
         <span class="s2">&quot;requires &quot;</span> <span class="o">+</span> <span class="n">expr</span><span class="p">,</span>
         <span class="n">location</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
@@ -2241,7 +2241,7 @@
         <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;(</span><span class="si">{</span><span class="n">expr</span><span class="si">}</span><span class="s2">)&quot;</span>
 
 
-<span class="k">def</span> <span class="nf">_extract_requires_from_enable_if_t_type</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_extract_requires_from_enable_if_t_type</span><span class="p">(</span>
     <span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">,</span> <span class="n">ast</span><span class="p">:</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">domains</span><span class="o">.</span><span class="n">cpp</span><span class="o">.</span><span class="n">ASTType</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span>
@@ -2268,7 +2268,7 @@
 
     <span class="n">new_decl_specs</span> <span class="o">=</span> <span class="n">new_ast</span><span class="o">.</span><span class="n">declSpecs</span>
 
-    <span class="k">def</span> <span class="nf">copy_qualifiers</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">copy_qualifiers</span><span class="p">(</span>
         <span class="n">orig_d</span><span class="p">:</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">domains</span><span class="o">.</span><span class="n">cpp</span><span class="o">.</span><span class="n">ASTDeclarator</span><span class="p">,</span>
         <span class="n">new_d</span><span class="p">:</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">domains</span><span class="o">.</span><span class="n">cpp</span><span class="o">.</span><span class="n">ASTDeclarator</span><span class="p">,</span>
     <span class="p">):</span>
@@ -2310,7 +2310,7 @@
 <span class="p">}</span>
 
 
-<span class="k">def</span> <span class="nf">_parse_function</span><span class="p">(</span><span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">,</span> <span class="n">decl</span><span class="p">:</span> <span class="n">Cursor</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_parse_function</span><span class="p">(</span><span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">,</span> <span class="n">decl</span><span class="p">:</span> <span class="n">Cursor</span><span class="p">):</span>
     <span class="n">presumed_file</span><span class="p">,</span> <span class="n">presumed_line</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">get_presumed_location</span><span class="p">(</span><span class="n">decl</span><span class="o">.</span><span class="n">location</span><span class="p">)</span>
     <span class="n">source_code</span> <span class="o">=</span> <span class="n">_get_declaration_spelling</span><span class="p">(</span><span class="n">decl</span><span class="p">)</span>
     <span class="n">parser</span> <span class="o">=</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">domains</span><span class="o">.</span><span class="n">cpp</span><span class="o">.</span><span class="n">DefinitionParser</span><span class="p">(</span>
@@ -2343,14 +2343,14 @@
     <span class="k">return</span> <span class="n">decl_string</span><span class="p">,</span> <span class="n">bare_name</span><span class="p">,</span> <span class="n">template_args_str</span><span class="p">,</span> <span class="n">name_substitute</span><span class="p">,</span> <span class="n">requires_expr</span>
 
 
-<span class="k">def</span> <span class="nf">_is_internal_initializer</span><span class="p">(</span><span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">,</span> <span class="n">initializer</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_is_internal_initializer</span><span class="p">(</span><span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">,</span> <span class="n">initializer</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
     <span class="k">return</span> <span class="p">(</span>
         <span class="n">config</span><span class="o">.</span><span class="n">hide_initializers_pattern</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">initializer</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
         <span class="ow">or</span> <span class="n">config</span><span class="o">.</span><span class="n">hide_types_pattern</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">initializer</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
     <span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">_sphinx_ast_template_parameter_to_json</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_sphinx_ast_template_parameter_to_json</span><span class="p">(</span>
     <span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">,</span> <span class="n">param</span><span class="p">:</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">domains</span><span class="o">.</span><span class="n">cpp</span><span class="o">.</span><span class="n">ASTTemplateParam</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TemplateParameter</span><span class="p">:</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">param</span><span class="p">,</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">domains</span><span class="o">.</span><span class="n">cpp</span><span class="o">.</span><span class="n">ASTTemplateParamType</span><span class="p">):</span>
@@ -2370,7 +2370,7 @@
     <span class="p">}</span>
 
 
-<span class="k">def</span> <span class="nf">_transform_unexposed_decl</span><span class="p">(</span><span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">,</span> <span class="n">decl</span><span class="p">:</span> <span class="n">Cursor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">VarEntity</span><span class="p">]:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_transform_unexposed_decl</span><span class="p">(</span><span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">,</span> <span class="n">decl</span><span class="p">:</span> <span class="n">Cursor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">VarEntity</span><span class="p">]:</span>
     <span class="c1"># libclang unfortunately does not support variable templates; they are only</span>
     <span class="c1"># exposed as an unexposed decl.</span>
 
@@ -2440,11 +2440,11 @@
         <span class="k">return</span> <span class="n">obj</span>
 
     <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Failed to parse unexposed&quot;</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">e</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Failed to parse unexposed&quot;</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span>
     <span class="k">return</span> <span class="kc">None</span>
 
 
-<span class="k">def</span> <span class="nf">_parse_macro_parameters</span><span class="p">(</span><span class="n">decl</span><span class="p">:</span> <span class="n">Cursor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="n">typing</span><span class="o">.</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_parse_macro_parameters</span><span class="p">(</span><span class="n">decl</span><span class="p">:</span> <span class="n">Cursor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="n">typing</span><span class="o">.</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>
     <span class="c1"># Check if the macro is a function-like macro</span>
     <span class="c1"># `cast` below is workaround for: https://github.com/tgockel/types-clang/pull/2</span>
     <span class="n">token_iterator</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">typing</span><span class="o">.</span><span class="n">Iterator</span><span class="p">[</span><span class="n">Token</span><span class="p">],</span> <span class="n">decl</span><span class="o">.</span><span class="n">get_tokens</span><span class="p">())</span>
@@ -2481,7 +2481,7 @@
     <span class="k">return</span> <span class="n">parameters</span>
 
 
-<span class="k">def</span> <span class="nf">_transform_macro</span><span class="p">(</span><span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">,</span> <span class="n">decl</span><span class="p">:</span> <span class="n">Cursor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">MacroEntity</span><span class="p">]:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_transform_macro</span><span class="p">(</span><span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">,</span> <span class="n">decl</span><span class="p">:</span> <span class="n">Cursor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">MacroEntity</span><span class="p">]:</span>
     <span class="n">name</span> <span class="o">=</span> <span class="n">decl</span><span class="o">.</span><span class="n">spelling</span>
     <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">disallow_macros_pattern</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">None</span>
@@ -2516,14 +2516,14 @@
 <span class="n">ALLOWED_KINDS</span> <span class="o">=</span> <span class="nb">frozenset</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">TRANSFORMERS</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="o">+</span> <span class="p">[</span><span class="n">CursorKind</span><span class="o">.</span><span class="n">FRIEND_DECL</span><span class="p">])</span>
 
 
-<span class="k">def</span> <span class="nf">_parse_args</span><span class="p">(</span><span class="n">output_required</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_parse_args</span><span class="p">(</span><span class="n">output_required</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
     <span class="n">ap</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">()</span>
     <span class="n">ap</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--config&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">ap</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--output&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="n">output_required</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">ap</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
 
 
-<span class="k">def</span> <span class="nf">_merge_decl_json</span><span class="p">(</span><span class="n">existing_json</span><span class="p">,</span> <span class="n">new_json</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_merge_decl_json</span><span class="p">(</span><span class="n">existing_json</span><span class="p">,</span> <span class="n">new_json</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">existing_json</span><span class="p">[</span><span class="s2">&quot;doc&quot;</span><span class="p">]</span> <span class="ow">and</span> <span class="n">new_json</span><span class="p">[</span><span class="s2">&quot;doc&quot;</span><span class="p">]:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Duplicate doc strings: </span><span class="si">%r</span><span class="s2"> and </span><span class="si">%r</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">existing_json</span><span class="p">,</span> <span class="n">new_json</span><span class="p">))</span>
     <span class="n">existing_json</span><span class="p">[</span><span class="s2">&quot;doc&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">existing_json</span><span class="p">[</span><span class="s2">&quot;doc&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">new_json</span><span class="p">[</span><span class="s2">&quot;doc&quot;</span><span class="p">]</span>
@@ -2541,19 +2541,19 @@
                 <span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">_get_location_json</span><span class="p">(</span><span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">,</span> <span class="n">location</span><span class="p">:</span> <span class="n">SourceLocation</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">JsonLocation</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_get_location_json</span><span class="p">(</span><span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">,</span> <span class="n">location</span><span class="p">:</span> <span class="n">SourceLocation</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">JsonLocation</span><span class="p">:</span>
     <span class="n">filename</span><span class="p">,</span> <span class="n">line</span><span class="p">,</span> <span class="n">col</span> <span class="o">=</span> <span class="n">get_presumed_location</span><span class="p">(</span><span class="n">location</span><span class="p">)</span>
     <span class="n">filename</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">map_include_path</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
     <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;file&quot;</span><span class="p">:</span> <span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;line&quot;</span><span class="p">:</span> <span class="n">line</span><span class="p">,</span> <span class="s2">&quot;col&quot;</span><span class="p">:</span> <span class="n">col</span><span class="p">}</span>
 
 
-<span class="k">def</span> <span class="nf">_get_location_string</span><span class="p">(</span><span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">,</span> <span class="n">location</span><span class="p">:</span> <span class="n">SourceLocation</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_get_location_string</span><span class="p">(</span><span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">,</span> <span class="n">location</span><span class="p">:</span> <span class="n">SourceLocation</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
     <span class="n">filename</span><span class="p">,</span> <span class="n">line</span><span class="p">,</span> <span class="n">col</span> <span class="o">=</span> <span class="n">get_presumed_location</span><span class="p">(</span><span class="n">location</span><span class="p">)</span>
     <span class="n">filename</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">map_include_path</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
     <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">line</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">col</span><span class="si">}</span><span class="s2">&quot;</span>
 
 
-<span class="k">def</span> <span class="nf">_is_immediately_after</span><span class="p">(</span><span class="n">decl</span><span class="p">:</span> <span class="n">Cursor</span><span class="p">,</span> <span class="n">prev_decl</span><span class="p">:</span> <span class="n">Cursor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_is_immediately_after</span><span class="p">(</span><span class="n">decl</span><span class="p">:</span> <span class="n">Cursor</span><span class="p">,</span> <span class="n">prev_decl</span><span class="p">:</span> <span class="n">Cursor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
     <span class="c1"># casts below are workaround for: https://github.com/tgockel/types-clang/pull/2</span>
     <span class="n">prev_end</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">SourceLocation</span><span class="p">,</span> <span class="n">prev_decl</span><span class="o">.</span><span class="n">extent</span><span class="o">.</span><span class="n">end</span><span class="p">)</span>
     <span class="n">cur_start</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">SourceLocation</span><span class="p">,</span> <span class="n">decl</span><span class="o">.</span><span class="n">extent</span><span class="o">.</span><span class="n">start</span><span class="p">)</span>
@@ -2575,12 +2575,12 @@
 <span class="p">}</span>
 
 
-<span class="k">def</span> <span class="nf">_kinds_are_compatible</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_kinds_are_compatible</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
     <span class="k">return</span> <span class="n">_NORMALIZED_KIND</span><span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="o">==</span> <span class="n">_NORMALIZED_KIND</span><span class="p">[</span><span class="n">b</span><span class="p">]</span>
 
 
-<span class="k">class</span> <span class="nc">JsonApiGenerator</span><span class="p">:</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">extractor</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">JsonApiGenerator</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">extractor</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">extractor</span> <span class="o">=</span> <span class="n">extractor</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">extractor</span><span class="o">.</span><span class="n">config</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">seen_decls</span> <span class="o">=</span> <span class="p">{}</span>
@@ -2589,7 +2589,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_document_with_parent</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_seen_unexposed_entities</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="nf">_resolve_document_with</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">entity_id</span><span class="p">:</span> <span class="n">EntityId</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">EntityId</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_resolve_document_with</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">entity_id</span><span class="p">:</span> <span class="n">EntityId</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">EntityId</span><span class="p">:</span>
         <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
             <span class="n">document_with_parent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_document_with_parent</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">entity_id</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">document_with_parent</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -2597,7 +2597,7 @@
             <span class="n">entity_id</span> <span class="o">=</span> <span class="n">document_with_parent</span>
         <span class="k">return</span> <span class="n">entity_id</span>
 
-    <span class="k">def</span> <span class="nf">_transform_cursor_to_json</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_transform_cursor_to_json</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">decl</span><span class="p">:</span> <span class="n">Cursor</span><span class="p">,</span>
         <span class="n">parent</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Cursor</span><span class="p">],</span>
@@ -2684,7 +2684,7 @@
         <span class="n">json_repr</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">entity_id</span>
         <span class="k">return</span> <span class="n">json_repr</span>
 
-    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">decl</span><span class="p">:</span> <span class="n">Cursor</span><span class="p">,</span> <span class="n">doc_comment_start_bound</span><span class="p">:</span> <span class="n">SourceLocation</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">decl</span><span class="p">:</span> <span class="n">Cursor</span><span class="p">,</span> <span class="n">doc_comment_start_bound</span><span class="p">:</span> <span class="n">SourceLocation</span><span class="p">):</span>
         <span class="n">is_friend</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="k">if</span> <span class="n">decl</span><span class="o">.</span><span class="n">kind</span> <span class="o">==</span> <span class="n">CursorKind</span><span class="o">.</span><span class="n">FRIEND_DECL</span><span class="p">:</span>
             <span class="c1"># Check if this is a hidden friend function.</span>
@@ -2718,7 +2718,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">seen_decls</span><span class="p">[</span><span class="n">entity_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">json_repr</span>
 
 
-<span class="k">def</span> <span class="nf">_parse_template_parameter</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_parse_template_parameter</span><span class="p">(</span>
     <span class="n">decl</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">sphinx</span><span class="o">.</span><span class="n">domains</span><span class="o">.</span><span class="n">cpp</span><span class="o">.</span><span class="n">ASTTemplateParam</span><span class="p">]:</span>
     <span class="c1"># Note: We must include an extra trailing &quot;&gt;&quot; because</span>
@@ -2737,7 +2737,7 @@
         <span class="k">return</span> <span class="kc">None</span>
 
 
-<span class="k">def</span> <span class="nf">_extract_sfinae_replacement</span><span class="p">(</span><span class="n">template_parameter</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_extract_sfinae_replacement</span><span class="p">(</span><span class="n">template_parameter</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]:</span>
     <span class="n">param</span> <span class="o">=</span> <span class="n">_parse_template_parameter</span><span class="p">(</span><span class="n">template_parameter</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">param</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">None</span>
@@ -2767,7 +2767,7 @@
 <span class="n">CONDITIONALLY_EXPLICIT_PATTERN</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\(ExplicitRequires\((.+)\)\)&quot;</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">_match_template_parameter_enable_if_pattern</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_match_template_parameter_enable_if_pattern</span><span class="p">(</span>
     <span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">,</span> <span class="n">decl</span><span class="p">:</span> <span class="nb">str</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
     <span class="k">for</span> <span class="n">pattern</span> <span class="ow">in</span> <span class="n">config</span><span class="o">.</span><span class="n">template_parameter_enable_if_patterns</span><span class="p">:</span>
@@ -2777,7 +2777,7 @@
     <span class="k">return</span> <span class="kc">None</span>
 
 
-<span class="k">def</span> <span class="nf">_transform_template_parameters</span><span class="p">(</span><span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">,</span> <span class="n">template_parameters</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_transform_template_parameters</span><span class="p">(</span><span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">,</span> <span class="n">template_parameters</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Transforms template parameters to C++20 form.&quot;&quot;&quot;</span>
 
     <span class="n">requires</span> <span class="o">=</span> <span class="p">[]</span>
@@ -2812,7 +2812,7 @@
     <span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">_strip_return_type</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_strip_return_type</span><span class="p">(</span>
     <span class="n">declaration</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">template_prefix</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">location</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
     <span class="n">parser</span> <span class="o">=</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">domains</span><span class="o">.</span><span class="n">cpp</span><span class="o">.</span><span class="n">DefinitionParser</span><span class="p">(</span>
@@ -2897,13 +2897,13 @@
 <span class="p">}</span>
 
 
-<span class="k">def</span> <span class="nf">_get_default_member_group</span><span class="p">(</span><span class="n">entity</span><span class="p">:</span> <span class="n">CppApiEntity</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_get_default_member_group</span><span class="p">(</span><span class="n">entity</span><span class="p">:</span> <span class="n">CppApiEntity</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
     <span class="k">if</span> <span class="n">entity</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;parent&quot;</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">DEFAULT_MEMBER_GROUP_FOR_MEMBER_ENTITY_TYPE</span><span class="p">[</span><span class="n">entity</span><span class="p">[</span><span class="s2">&quot;kind&quot;</span><span class="p">]]</span>
     <span class="k">return</span> <span class="n">DEFAULT_MEMBER_GROUP_FOR_NON_MEMBER_ENTITY_TYPE</span><span class="p">[</span><span class="n">entity</span><span class="p">[</span><span class="s2">&quot;kind&quot;</span><span class="p">]]</span>
 
 
-<span class="k">def</span> <span class="nf">_normalize_doc_text</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_normalize_doc_text</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
     <span class="n">text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;^((?:</span><span class="se">\\</span><span class="s2">|@)(?:brief|details)\s+)&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">MULTILINE</span><span class="p">)</span>
     <span class="n">text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span>
         <span class="sa">r</span><span class="s2">&quot;^(?:</span><span class="se">\\</span><span class="s2">|@)(t?param)(\[(?:in|out|in,\sout)\])?\s+([a-zA-Z_][^ ]*)&quot;</span><span class="p">,</span>
@@ -2930,16 +2930,16 @@
 <span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">_is_function</span><span class="p">(</span><span class="n">entity</span><span class="p">:</span> <span class="n">CppApiEntity</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_is_function</span><span class="p">(</span><span class="n">entity</span><span class="p">:</span> <span class="n">CppApiEntity</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
     <span class="k">return</span> <span class="n">entity</span><span class="p">[</span><span class="s2">&quot;kind&quot;</span><span class="p">]</span> <span class="ow">in</span> <span class="n">FUNCTION_ENTITY_KINDS</span>
 
 
-<span class="k">def</span> <span class="nf">_get_path_component_from_special_id</span><span class="p">(</span><span class="n">special_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_get_path_component_from_special_id</span><span class="p">(</span><span class="n">special_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
     <span class="n">special_id</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">&quot;[^a-zA-Z0-9_]+&quot;</span><span class="p">,</span> <span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="n">special_id</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">special_id</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">_apply_identifier_replacements</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_apply_identifier_replacements</span><span class="p">(</span>
     <span class="n">requires_term</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">replacements</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
     <span class="k">for</span> <span class="n">orig_identifier</span><span class="p">,</span> <span class="n">replacement</span> <span class="ow">in</span> <span class="n">replacements</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
@@ -2949,7 +2949,7 @@
     <span class="k">return</span> <span class="n">requires_term</span>
 
 
-<span class="k">def</span> <span class="nf">_make_explicit_conditional</span><span class="p">(</span><span class="n">decl</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">explicit</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_make_explicit_conditional</span><span class="p">(</span><span class="n">decl</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">explicit</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
     <span class="n">new_str</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\bexplicit\b&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;explicit(</span><span class="si">{</span><span class="n">explicit</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">,</span> <span class="n">decl</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">new_str</span> <span class="o">==</span> <span class="n">decl</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
@@ -2962,7 +2962,7 @@
     <span class="k">return</span> <span class="n">new_str</span>
 
 
-<span class="k">def</span> <span class="nf">_is_uniform_binary_expr</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_is_uniform_binary_expr</span><span class="p">(</span>
     <span class="n">expr</span><span class="p">:</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">domains</span><span class="o">.</span><span class="n">cpp</span><span class="o">.</span><span class="n">ASTBase</span><span class="p">,</span> <span class="n">allowed_ops</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">expr</span><span class="p">,</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">domains</span><span class="o">.</span><span class="n">cpp</span><span class="o">.</span><span class="n">ASTBinOpExpr</span><span class="p">):</span>
@@ -2970,11 +2970,11 @@
     <span class="k">return</span> <span class="nb">all</span><span class="p">(</span><span class="n">op</span> <span class="ow">in</span> <span class="n">allowed_ops</span> <span class="k">for</span> <span class="n">op</span> <span class="ow">in</span> <span class="n">expr</span><span class="o">.</span><span class="n">ops</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">_is_logical_and_expr</span><span class="p">(</span><span class="n">expr</span><span class="p">:</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">domains</span><span class="o">.</span><span class="n">cpp</span><span class="o">.</span><span class="n">ASTBase</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_is_logical_and_expr</span><span class="p">(</span><span class="n">expr</span><span class="p">:</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">domains</span><span class="o">.</span><span class="n">cpp</span><span class="o">.</span><span class="n">ASTBase</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
     <span class="k">return</span> <span class="n">_is_uniform_binary_expr</span><span class="p">(</span><span class="n">expr</span><span class="p">,</span> <span class="p">(</span><span class="s2">&quot;&amp;&amp;&quot;</span><span class="p">,</span> <span class="s2">&quot;and&quot;</span><span class="p">))</span>
 
 
-<span class="k">def</span> <span class="nf">_is_primary_expr</span><span class="p">(</span><span class="n">expr</span><span class="p">:</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">domains</span><span class="o">.</span><span class="n">cpp</span><span class="o">.</span><span class="n">ASTBase</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_is_primary_expr</span><span class="p">(</span><span class="n">expr</span><span class="p">:</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">domains</span><span class="o">.</span><span class="n">cpp</span><span class="o">.</span><span class="n">ASTBase</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
     <span class="k">return</span> <span class="nb">isinstance</span><span class="p">(</span>
         <span class="n">expr</span><span class="p">,</span>
         <span class="p">(</span>
@@ -2985,7 +2985,7 @@
     <span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">_normalize_requires_terms</span><span class="p">(</span><span class="n">terms</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_normalize_requires_terms</span><span class="p">(</span><span class="n">terms</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">terms</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">terms</span>
     <span class="n">expr</span> <span class="o">=</span> <span class="s2">&quot; &amp;&amp; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;(</span><span class="si">{</span><span class="n">term</span><span class="si">}</span><span class="s2">)&quot;</span> <span class="k">for</span> <span class="n">term</span> <span class="ow">in</span> <span class="n">terms</span><span class="p">)</span>
@@ -3005,7 +3005,7 @@
 
     <span class="n">new_terms</span> <span class="o">=</span> <span class="p">[]</span>
 
-    <span class="k">def</span> <span class="nf">process</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">process</span><span class="p">(</span>
         <span class="n">expr</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">sphinx</span><span class="o">.</span><span class="n">domains</span><span class="o">.</span><span class="n">cpp</span><span class="o">.</span><span class="n">ASTType</span><span class="p">,</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">domains</span><span class="o">.</span><span class="n">cpp</span><span class="o">.</span><span class="n">ASTExpression</span><span class="p">],</span>
     <span class="p">):</span>
         <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
@@ -3036,7 +3036,7 @@
     <span class="k">return</span> <span class="n">new_terms</span>
 
 
-<span class="k">def</span> <span class="nf">_format_template_arguments</span><span class="p">(</span><span class="n">entity</span><span class="p">:</span> <span class="n">CppApiEntity</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_format_template_arguments</span><span class="p">(</span><span class="n">entity</span><span class="p">:</span> <span class="n">CppApiEntity</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
     <span class="k">if</span> <span class="n">entity</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;specializes&quot;</span><span class="p">):</span>
         <span class="c1"># Template arguments already included in `entity[&quot;name&quot;]`.</span>
         <span class="k">return</span> <span class="s2">&quot;&quot;</span>
@@ -3055,7 +3055,7 @@
     <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;&lt;</span><span class="si">{</span><span class="n">args_str</span><span class="si">}</span><span class="s2">&gt;&quot;</span>
 
 
-<span class="k">def</span> <span class="nf">_get_entity_base_page_name_component</span><span class="p">(</span><span class="n">entity</span><span class="p">:</span> <span class="n">CppApiEntity</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_get_entity_base_page_name_component</span><span class="p">(</span><span class="n">entity</span><span class="p">:</span> <span class="n">CppApiEntity</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
     <span class="n">base_name</span> <span class="o">=</span> <span class="n">entity</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">entity</span><span class="p">[</span><span class="s2">&quot;kind&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;class&quot;</span> <span class="ow">or</span> <span class="n">entity</span><span class="p">[</span><span class="s2">&quot;kind&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;var&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">entity</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
         <span class="s2">&quot;specializes&quot;</span>
@@ -3078,7 +3078,7 @@
     <span class="k">return</span> <span class="n">base_name</span>
 
 
-<span class="k">def</span> <span class="nf">_get_entity_page_name_component</span><span class="p">(</span><span class="n">entity</span><span class="p">:</span> <span class="n">CppApiEntity</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_get_entity_page_name_component</span><span class="p">(</span><span class="n">entity</span><span class="p">:</span> <span class="n">CppApiEntity</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
     <span class="n">page_name</span> <span class="o">=</span> <span class="n">_get_entity_base_page_name_component</span><span class="p">(</span><span class="n">entity</span><span class="p">)</span>
     <span class="n">special_id</span> <span class="o">=</span> <span class="n">entity</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;special_id&quot;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">special_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -3086,7 +3086,7 @@
     <span class="k">return</span> <span class="n">page_name</span>
 
 
-<span class="k">def</span> <span class="nf">_ensure_unique_page_names</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_ensure_unique_page_names</span><span class="p">(</span>
     <span class="n">entities_with_page_names</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">EntityId</span><span class="p">],</span>
     <span class="n">entities</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">EntityId</span><span class="p">,</span> <span class="n">CppApiEntity</span><span class="p">],</span>
     <span class="n">warning</span><span class="p">,</span>
@@ -3122,18 +3122,18 @@
             <span class="n">entity</span><span class="p">[</span><span class="s2">&quot;special_id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
 
 
-<span class="k">class</span> <span class="nc">JsonDiagnostic</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">JsonDiagnostic</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
     <span class="n">message</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">location</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">JsonLocation</span><span class="p">]</span>
 
 
-<span class="k">class</span> <span class="nc">JsonNitpickExclusion</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">JsonNitpickExclusion</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
     <span class="n">file</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">line</span><span class="p">:</span> <span class="nb">int</span>
     <span class="n">target</span><span class="p">:</span> <span class="nb">str</span>
 
 
-<span class="k">class</span> <span class="nc">JsonApiData</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">JsonApiData</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
     <span class="n">errors</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">JsonDiagnostic</span><span class="p">]</span>
     <span class="n">warnings</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">JsonDiagnostic</span><span class="p">]</span>
     <span class="n">nonitpick</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">JsonNitpickExclusion</span><span class="p">]</span>
@@ -3141,19 +3141,19 @@
     <span class="n">entities</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">CppApiEntity</span><span class="p">]</span>
 
 
-<span class="k">def</span> <span class="nf">organize_entities</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">organize_entities</span><span class="p">(</span>
     <span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">,</span> <span class="n">entities</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">EntityId</span><span class="p">,</span> <span class="n">CppApiEntity</span><span class="p">]</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">JsonApiData</span><span class="p">:</span>
     <span class="n">errors</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">JsonDiagnostic</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">warnings</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">JsonDiagnostic</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
 
-    <span class="k">def</span> <span class="nf">error</span><span class="p">(</span><span class="n">msg</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">location</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">JsonLocation</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">error</span><span class="p">(</span><span class="n">msg</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">location</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">JsonLocation</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
         <span class="n">errors</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="n">msg</span> <span class="o">%</span> <span class="n">args</span><span class="p">,</span> <span class="s2">&quot;location&quot;</span><span class="p">:</span> <span class="n">location</span><span class="p">})</span>
 
-    <span class="k">def</span> <span class="nf">warning</span><span class="p">(</span><span class="n">msg</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">location</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">JsonLocation</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">warning</span><span class="p">(</span><span class="n">msg</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">location</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">JsonLocation</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
         <span class="n">warnings</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="n">msg</span> <span class="o">%</span> <span class="n">args</span><span class="p">,</span> <span class="s2">&quot;location&quot;</span><span class="p">:</span> <span class="n">location</span><span class="p">})</span>
 
-    <span class="k">def</span> <span class="nf">_handle_document_with</span><span class="p">(</span><span class="n">entity</span><span class="p">:</span> <span class="n">CppApiEntity</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_handle_document_with</span><span class="p">(</span><span class="n">entity</span><span class="p">:</span> <span class="n">CppApiEntity</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
         <span class="n">document_with</span> <span class="o">=</span> <span class="n">entity</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;document_with&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">document_with</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">False</span>
@@ -3163,7 +3163,7 @@
         <span class="n">sibling_entity</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;siblings&quot;</span><span class="p">,</span> <span class="p">[])</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">entity</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">])</span>
         <span class="k">return</span> <span class="kc">True</span>
 
-    <span class="k">def</span> <span class="nf">_normalize_entity_requires</span><span class="p">(</span><span class="n">entity</span><span class="p">:</span> <span class="n">CppApiEntity</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_normalize_entity_requires</span><span class="p">(</span><span class="n">entity</span><span class="p">:</span> <span class="n">CppApiEntity</span><span class="p">):</span>
         <span class="n">template_parameters</span> <span class="o">=</span> <span class="n">entity</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;template_parameters&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">template_parameters</span><span class="p">:</span>
             <span class="p">(</span>
@@ -3244,7 +3244,7 @@
         <span class="n">requires</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">requires</span> <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">hide_types_pattern</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">]</span>
         <span class="n">entity</span><span class="p">[</span><span class="s2">&quot;requires&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">requires</span>
 
-    <span class="k">def</span> <span class="nf">get_entity_page_name</span><span class="p">(</span><span class="n">entity</span><span class="p">:</span> <span class="n">CppApiEntity</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_entity_page_name</span><span class="p">(</span><span class="n">entity</span><span class="p">:</span> <span class="n">CppApiEntity</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="n">components</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">cur_entity</span> <span class="o">=</span> <span class="n">entity</span>
         <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
@@ -3259,7 +3259,7 @@
         <span class="n">page_name</span> <span class="o">=</span> <span class="p">(</span><span class="n">cur_entity</span><span class="p">[</span><span class="s2">&quot;scope&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;::&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">components</span><span class="p">))</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;::&quot;</span><span class="p">,</span> <span class="s2">&quot;.&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">page_name</span>
 
-    <span class="k">def</span> <span class="nf">_parse_entity_doc</span><span class="p">(</span><span class="n">entity</span><span class="p">:</span> <span class="n">CppApiEntity</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_parse_entity_doc</span><span class="p">(</span><span class="n">entity</span><span class="p">:</span> <span class="n">CppApiEntity</span><span class="p">):</span>
         <span class="n">doc</span> <span class="o">=</span> <span class="n">entity</span><span class="p">[</span><span class="s2">&quot;doc&quot;</span><span class="p">]</span>
         <span class="k">if</span> <span class="n">doc</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">_handle_document_with</span><span class="p">(</span><span class="n">entity</span><span class="p">):</span>
@@ -3272,7 +3272,7 @@
             <span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
         <span class="k">return</span> <span class="kc">True</span>
 
-    <span class="k">def</span> <span class="nf">get_entity_scope</span><span class="p">(</span><span class="n">entity</span><span class="p">:</span> <span class="n">CppApiEntity</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_entity_scope</span><span class="p">(</span><span class="n">entity</span><span class="p">:</span> <span class="n">CppApiEntity</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="n">components</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">cur_entity</span> <span class="o">=</span> <span class="n">entity</span>
         <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
@@ -3291,7 +3291,7 @@
             <span class="n">components</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">cur_entity</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;scope&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;::&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">components</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">get_entity_object_name</span><span class="p">(</span><span class="n">entity</span><span class="p">:</span> <span class="n">CppApiEntity</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_entity_object_name</span><span class="p">(</span><span class="n">entity</span><span class="p">:</span> <span class="n">CppApiEntity</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="n">name</span> <span class="o">=</span> <span class="n">get_entity_scope</span><span class="p">(</span><span class="n">entity</span><span class="p">)</span> <span class="o">+</span> <span class="n">entity</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span>
         <span class="n">special_id</span> <span class="o">=</span> <span class="n">entity</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;special_id&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">special_id</span><span class="p">:</span>
@@ -3304,7 +3304,7 @@
 
     <span class="n">names</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">EntityId</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
 
-    <span class="k">def</span> <span class="nf">resolve_entity_name</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">resolve_entity_name</span><span class="p">(</span>
         <span class="n">scope</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">relative_entity_name</span><span class="p">:</span> <span class="nb">str</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">EntityId</span><span class="p">]:</span>
         <span class="k">if</span> <span class="n">relative_entity_name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;::&quot;</span><span class="p">):</span>
@@ -3331,7 +3331,7 @@
 
     <span class="n">all_nonitpick</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">JsonNitpickExclusion</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
 
-    <span class="k">def</span> <span class="nf">_handle_nitpick</span><span class="p">(</span><span class="n">entity</span><span class="p">:</span> <span class="n">CppApiEntity</span><span class="p">,</span> <span class="n">targets</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_handle_nitpick</span><span class="p">(</span><span class="n">entity</span><span class="p">:</span> <span class="n">CppApiEntity</span><span class="p">,</span> <span class="n">targets</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">document_with</span> <span class="o">=</span> <span class="n">entity</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;document_with&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">document_with</span><span class="p">:</span>
             <span class="n">entity</span> <span class="o">=</span> <span class="n">entities</span><span class="p">[</span><span class="n">document_with</span><span class="p">]</span>
@@ -3466,7 +3466,7 @@
     <span class="p">}</span>
 
 
-<span class="k">def</span> <span class="nf">_get_output_json</span><span class="p">(</span><span class="n">extractor</span><span class="p">:</span> <span class="n">Extractor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">JsonApiData</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_get_output_json</span><span class="p">(</span><span class="n">extractor</span><span class="p">:</span> <span class="n">Extractor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">JsonApiData</span><span class="p">:</span>
     <span class="n">generator</span> <span class="o">=</span> <span class="n">JsonApiGenerator</span><span class="p">(</span><span class="n">extractor</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">extractor</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">verbose</span><span class="p">:</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Found </span><span class="si">%d</span><span class="s2"> C++ declarations&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">extractor</span><span class="o">.</span><span class="n">decls</span><span class="p">))</span>
@@ -3475,12 +3475,12 @@
     <span class="k">return</span> <span class="n">organize_entities</span><span class="p">(</span><span class="n">extractor</span><span class="o">.</span><span class="n">config</span><span class="p">,</span> <span class="n">generator</span><span class="o">.</span><span class="n">seen_decls</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">generate_output</span><span class="p">(</span><span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">JsonApiData</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">generate_output</span><span class="p">(</span><span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">JsonApiData</span><span class="p">:</span>
     <span class="n">extractor</span> <span class="o">=</span> <span class="n">Extractor</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">_get_output_json</span><span class="p">(</span><span class="n">extractor</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">_load_config</span><span class="p">(</span><span class="n">config_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Config</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_load_config</span><span class="p">(</span><span class="n">config_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Config</span><span class="p">:</span>
     <span class="n">config_content</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">config_path</span><span class="p">)</span><span class="o">.</span><span class="n">read_text</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
     <span class="n">context</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="n">exec</span><span class="p">(</span><span class="n">config_content</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span>
@@ -3490,7 +3490,7 @@
     <span class="k">return</span> <span class="n">config</span>
 
 
-<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">():</span>
     <span class="n">args</span> <span class="o">=</span> <span class="n">_parse_args</span><span class="p">(</span><span class="n">output_required</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">config</span> <span class="o">=</span> <span class="n">_load_config</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">config</span><span class="p">)</span>
     <span class="n">output_json</span> <span class="o">=</span> <span class="n">generate_output</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
@@ -3509,7 +3509,7 @@
   <small>
     
       Last update:
-      Jan 01, 2025
+      Jan 16, 2025
     
   </small>
 </div>
