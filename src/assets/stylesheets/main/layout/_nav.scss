@@ -453,7 +453,7 @@
     // sphinx-immaterial: hide nested nav items of current page, since
     // they are redundant with integrated toc.
     &__current-nested {
-      display: none;
+      display: none !important;
     }
 
     // Show link to table of contents
@@ -514,7 +514,7 @@
 
     // sphinx-immaterial: hide integreated toc, since it is redundant with any nested items.
     &__current-toc {
-      display: none;
+      display: none !important;
     }
 
     // Navigation title

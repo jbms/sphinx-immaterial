@@ -56,7 +56,7 @@
     "custom-property-empty-line-before": null,
     "custom-property-pattern": null,
     "declaration-colon-space-after": null,
-    "declaration-no-important": true,
+    "declaration-no-important": null,
     "declaration-block-single-line-max-declarations": 0,
     "function-calc-no-unspaced-operator": null,
     "function-no-unknown": null,
