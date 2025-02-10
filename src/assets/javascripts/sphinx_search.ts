@@ -724,7 +724,7 @@ export async function getResults(query: string): Promise<SearchResultStream> {
     // The search term made be made up of multiple "words" separated
     // by special characters like [-._].  Split them up and treat each
     // as a separate search term.
-    for (const wordMatch of lowerTerm.matchAll(/\w+/g)) {
+    for (const wordMatch of lowerTerm.matchAll(/\p{L}+/gu)) {
       const subTerm = wordMatch[0]
       if (stopwords.indexOf(subTerm) !== -1) {
         // skip this "word"
@@ -794,8 +794,8 @@ export async function getResults(query: string): Promise<SearchResultStream> {
   }
 
   const pattern = new RegExp(
-    `\\b(?:${  hlterms.map(escapeRegExp).join("|")  })`,
-    "img"
+    `(?:${  hlterms.map(escapeRegExp).join("|")  })`,
+    "imgu"
   )
   const highlight = (s: unknown) => {
     return `<mark data-md-highlight>${s}</mark>`
@@ -803,7 +803,7 @@ export async function getResults(query: string): Promise<SearchResultStream> {
   const highlightTerms = (text: string) => {
     return escapeHTML(text)
       .replace(pattern, highlight)
-      .replace(/<\/mark>(\s+)<mark[^>]*>/gim, "$1")
+      .replace(/<\/mark>(\s+)<mark[^>]*>/gimu, "$1")
   }
 
   return {
