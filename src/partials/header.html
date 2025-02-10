@@ -134,6 +134,21 @@
       </div>
     {% endif %}
 
+    <!-- Link to PDF -->
+    {% if config.pdf_url %}
+      <div class="md-header__button">
+        <a
+          href="{{ config.pdf_url }}"
+          title="PDF - {{ config.pdf_url }}"
+        >
+          <div class="md-icon">
+            {% set icon = config.theme.icon.pdf or "fontawesome/solid/file-pdf" %}
+            {% include ".icons/" ~ icon ~ ".svg" %}
+          </div>
+        </a>
+      </div>
+    {% endif %}
+
     <!-- Button to open search modal -->
     {% if "search" in config.plugins %}
       <label class="md-header__button md-icon" for="__search">
