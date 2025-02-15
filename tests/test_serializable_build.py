@@ -30,4 +30,4 @@ def test_serializable_build(
     )
 
     app.build()
-    assert not app.warning.getvalue()
+    assert not app._warning.getvalue() # type: ignore[attr-defined]
