@@ -764,7 +764,7 @@ def _html_page_context(
     context.update(nav=_NavContextObject(global_toc))
     master_doc = context.get("master_doc", app.config.master_doc)
     context["nav"].homepage = {
-        "url": context["pathto"](master_doc),
+        "url": context.get("pathto", lambda p: p)(master_doc),
     }
 
     toc_title = theme_options.get("toc_title")
