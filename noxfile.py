@@ -189,7 +189,9 @@ def dist(session: nox.Session, cmd: str):
 
 @nox.session(python=False)
 @nox.parametrize(
-    "builder", ["html", "dirhtml", "latex"], ids=["html", "dirhtml", "latex"]
+    "builder",
+    ["html", "dirhtml", "latex", "json", "pickle"],
+    ids=["html", "dirhtml", "latex", "json", "pickle"],
 )
 def docs(session: nox.Session, builder: str):
     """Build docs."""
