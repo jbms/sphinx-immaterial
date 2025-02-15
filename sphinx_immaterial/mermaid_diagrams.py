@@ -8,6 +8,7 @@ from docutils.parsers.rst import directives
 from sphinx.util.docutils import SphinxDirective
 from sphinx.application import Sphinx
 from sphinx.environment import BuildEnvironment
+from sphinx.builders.html import StandaloneHTMLBuilder
 
 # name of a flag to track if the mermaid dist is needed in the docs build
 _COPY_MERMAID_DIST_ENV_KEY = "sphinx_immaterial_copy_mermaid_dist"
@@ -68,7 +69,7 @@ def on_builder_init(app: Sphinx):
 
 
 def copy_mermaid_dist(app: Sphinx, env: BuildEnvironment):
-    if app.builder.name not in ("html", "dirhtml"):
+    if not issubclass(type(app.builder), StandaloneHTMLBuilder):
         return  # mermaid src is only used in HTML output
     if getattr(app.env, _COPY_MERMAID_DIST_ENV_KEY, False) is True:
         # copy the mermaid dist file (if not already done)
