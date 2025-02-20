@@ -5,11 +5,12 @@ https://github.com/sphinx-doc/sphinx/pull/10296
 
 from typing import Optional, Iterator, Any, Union
 
+import sphinx
 import sphinx.domains.cpp
 from sphinx.domains.cpp import Symbol
 
-# Different version of the patch required for Sphinx < 8.2.
-assert sphinx.version_info >= (8, 2)
+# Different version of the patch required for Sphinx >= 8.2.
+assert sphinx.version_info < (8, 2)
 
 
 def _monkey_patch_cpp_domain_symbol_resolution_through_type_aliases():
@@ -80,27 +81,27 @@ def _monkey_patch_cpp_domain_symbol_resolution_through_type_aliases():
 
     def _find_named_symbols(
         self: Symbol,
-        ident_or_op: Union[
+        identOrOp: Union[
             sphinx.domains.cpp.ASTIdentifier, sphinx.domains.cpp.ASTOperator
         ],
-        template_params: Any,
-        template_args: sphinx.domains.cpp.ASTTemplateArgs,
-        template_shorthand: bool,
-        match_self: bool,
-        recurse_in_anon: bool,
-        correct_primary_template_args: bool,
-        search_in_siblings: bool,
+        templateParams: Any,
+        templateArgs: sphinx.domains.cpp.ASTTemplateArgs,
+        templateShorthand: bool,
+        matchSelf: bool,
+        recurseInAnon: bool,
+        correctPrimaryTemplateArgs: bool,
+        searchInSiblings: bool,
     ) -> Iterator[Symbol]:
         results = orig_find_named_symbols(
             self,
-            ident_or_op,
-            template_params,
-            template_args,
-            template_shorthand,
-            match_self,
-            recurse_in_anon,
-            correct_primary_template_args,
-            search_in_siblings,
+            identOrOp,
+            templateParams,
+            templateArgs,
+            templateShorthand,
+            matchSelf,
+            recurseInAnon,
+            correctPrimaryTemplateArgs,
+            searchInSiblings,
         )
         found_match = False
         for result in results:
@@ -110,21 +111,21 @@ def _monkey_patch_cpp_domain_symbol_resolution_through_type_aliases():
         if found_match:
             return
 
-        if not template_shorthand:
+        if not templateShorthand:
             return
 
-        if template_params is not None or template_args is not None:
+        if templateParams is not None or templateArgs is not None:
             # Try match again, ignoring template params and args.
             results = orig_find_named_symbols(
                 self,
-                ident_or_op,
+                identOrOp,
                 None,  # type: ignore[arg-type]
                 None,  # type: ignore[arg-type]
-                template_shorthand,
-                match_self,
-                recurse_in_anon,
-                correct_primary_template_args,
-                search_in_siblings,
+                templateShorthand,
+                matchSelf,
+                recurseInAnon,
+                correctPrimaryTemplateArgs,
+                searchInSiblings,
             )
             for result in results:
                 found_match = True
@@ -138,14 +139,14 @@ def _monkey_patch_cpp_domain_symbol_resolution_through_type_aliases():
             if resolved_symbol is self:
                 continue
             yield from resolved_symbol._find_named_symbols(  # type: ignore[call-arg]
-                ident_or_op,
-                template_params,
-                template_args,
-                template_shorthand,
-                match_self,
-                recurse_in_anon,
-                correct_primary_template_args=False,
-                search_in_siblings=False,
+                identOrOp,
+                templateParams,
+                templateArgs,
+                templateShorthand,
+                matchSelf,
+                recurseInAnon,
+                correctPrimaryTemplateArgs=False,
+                searchInSiblings=False,
             )
 
     Symbol._find_named_symbols = _find_named_symbols  # type: ignore[assignment]
@@ -156,32 +157,32 @@ def _monkey_patch_cpp_domain_symbol_resolution_through_type_aliases():
 
     def _symbol_lookup(
         self,
-        nested_name,
-        template_decls,
-        on_missing_qualified_symbol,
-        strict_template_param_arg_lists: bool,
-        ancestor_lookup_type: str,
-        template_shorthand: bool,
-        match_self: bool,
-        recurse_in_anon: bool,
-        correct_primary_template_args: bool,
-        search_in_siblings: bool,
+        nestedName,
+        templateDecls,
+        onMissingQualifiedSymbol,
+        strictTemplateParamArgLists: bool,
+        ancestorLookupType: str,
+        templateShorthand: bool,
+        matchSelf: bool,
+        recurseInAnon: bool,
+        correctPrimaryTemplateArgs: bool,
+        searchInSiblings: bool,
     ):
         try:
-            in_symbol_lookup_with_shorthand.append(template_shorthand)
+            in_symbol_lookup_with_shorthand.append(templateShorthand)
 
             return orig_symbol_lookup(
                 self,
-                nested_name,
-                template_decls,
-                on_missing_qualified_symbol,
-                strict_template_param_arg_lists,
-                ancestor_lookup_type,
-                template_shorthand,
-                match_self,
-                recurse_in_anon,
-                correct_primary_template_args,
-                search_in_siblings,
+                nestedName,
+                templateDecls,
+                onMissingQualifiedSymbol,
+                strictTemplateParamArgLists,
+                ancestorLookupType,
+                templateShorthand,
+                matchSelf,
+                recurseInAnon,
+                correctPrimaryTemplateArgs,
+                searchInSiblings,
             )
 
         finally:

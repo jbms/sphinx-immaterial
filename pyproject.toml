@@ -1,13 +1,88 @@
+[project]
+name = "sphinx_immaterial"
+description = "Adaptation of mkdocs-material theme for the Sphinx documentation system"
+requires-python = ">= 3.10"
+dynamic = ["version"]
+authors = [
+  { name = "Jeremy Maitin-Shepard", email = "jeremy@jeremyms.com" },
+  { name = "Brendan", email = "2bndy5@gmail.com" },
+]
+license = { file = "LICENSE" }
+readme = "README.rst"
+classifiers = [
+  "Development Status :: 5 - Production/Stable",
+  "Intended Audience :: Developers",
+  "Natural Language :: English",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python",
+  "Framework :: Sphinx :: Extension",
+  "Framework :: Sphinx :: Theme",
+  "Topic :: Documentation :: Sphinx",
+]
+dependencies = [
+  "sphinx>=4.5",
+  "markupsafe",
+  "pydantic>=2.4",
+  "pydantic-extra-types",
+  "typing-extensions",
+  "appdirs",
+  "requests",
+]
+
+[project.entry-points."sphinx.html_themes"]
+sphinx_immaterial = "sphinx_immaterial"
+
+[project.urls]
+Repository = "https://github.com/jbms/sphinx-immaterial"
+Issues = "https://github.com/jbms/sphinx-immaterial/issues"
+Documentation = "https://jbms.github.io/sphinx-immaterial"
+
 [build-system]
-requires = ["setuptools>=42", "wheel", "setuptools_scm"]
+requires = [
+  "setuptools>=64",
+  "wheel",
+  "setuptools_scm>=8.1.0",
+]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.package-dir]
+sphinx_immaterial = "sphinx_immaterial"
+
+[tool.setuptools.package-data]
+"sphinx_immaterial" = [
+  ".icons/*/**",
+  ".icons/*/*/**",
+  "partials/*.html",
+  "partials/*/*.html",
+  "partials/*/*/*.html",
+  "partials/*/*/*/*.html",
+  "bundles/*/**",
+  "LICENSE",
+  "*.html",
+  "custom_admonitions.css",
+  "theme.conf",
+]
+"sphinx_immaterial.apidoc.cpp.cppreference_data" = ["*.xml"]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["sphinx_immaterial", "sphinx_immaterial.*"]
+
+[tool.setuptools_scm]
+# It would be nice to include the commit hash in the version, but that
+# can't be done in a PEP 440-compatible way.
+version_scheme = "no-guess-dev"
+# Test PyPI does not support local versions.
+local_scheme = "no-local-version"
+fallback_version = "0.0.0"
 
 [tool.mypy]
 show_error_codes = true
 pretty = true
 mypy_path = "typings_py"
 files = [
-    "sphinx_immaterial/**/*.py",
-    "tests/**/*.py",
+  "sphinx_immaterial/**/*.py",
+  "tests/**/*.py",
 ]
 exclude = "setup.py"
 plugins = ["pydantic.mypy"]
@@ -24,33 +99,139 @@ dynamic_context = "test_function"
 parallel = true
 relative_files = true
 omit = [
-    "sphinx_immaterial/.icons/**/*",
-    "sphinx_immaterial/bundles/*",
-    "sphinx_immaterial/partials/**/*",
-    "sphinx_immaterial/*.html",
-    "sphinx_immaterial/LICENSE",
-    "sphinx_immaterial/theme.conf",
+  "sphinx_immaterial/.icons/**/*",
+  "sphinx_immaterial/bundles/*",
+  "sphinx_immaterial/partials/**/*",
+  "sphinx_immaterial/*.html",
+  "sphinx_immaterial/LICENSE",
+  "sphinx_immaterial/theme.conf",
 ]
 
 [tool.coverage.report]
 skip_empty = true
 # Regexes for lines to exclude from consideration
 exclude_lines = [
-    # Have to re-enable the standard pragma
-    "pragma: no cover",
-    # Don't complain about missing debug-only code:
-    "def __repr__",
-    # the point of unit tests is to test parts of main()
-    "def main",
-    # ignore any branch that makes the module executable
-    'if __name__ == "__main__"',
-    # ignore missing implementations
-    "raise NotImplementedError",
-    # ignore the type checking specific code (only executed by mypy)
-    "if typing.TYPE_CHECKING",
-    # ignore import errors for conditional deps (test run with a strict set of deps)
-    "except ImportError",
+  # Have to re-enable the standard pragma
+  "pragma: no cover",
+  # Don't complain about missing debug-only code:
+  "def __repr__",
+  # the point of unit tests is to test parts of main()
+  "def main",
+  # ignore any branch that makes the module executable
+  'if __name__ == "__main__"',
+  # ignore missing implementations
+  "raise NotImplementedError",
+  # ignore the type checking specific code (only executed by mypy)
+  "if typing.TYPE_CHECKING",
+  # ignore import errors for conditional deps (test run with a strict set of deps)
+  "except ImportError",
 ]
 
 [tool.coverage.html]
 show_contexts = true
+
+[dependency-groups]
+dev = [
+  "wheel",
+  "nox",
+]
+ruff = [
+  "ruff==0.5.2",
+]
+mypy = [
+  "mypy==1.10.1",
+  "types-PyYAML",
+  "docutils-stubs",
+  "types-beautifulsoup4",
+  "types-jsonschema",
+  "types-appdirs",
+  "types-requests",
+  "types-clang",
+  "pytest",
+  "pydantic>=2.0",
+  "pydantic-extra-types",
+  "sphinx>=4.5",
+  { include-group = "black" },
+]
+pre_commit_hooks = [
+  "pre-commit-hooks==4.4.0",
+]
+docs = [
+  "sphinx-jinja",
+  "myst-parser",
+  "sphinx-immaterial[cpp,json,keys,black,clang-format]",
+]
+black = [
+  "black",
+]
+test = [
+  "pytest",
+  "pytest-snapshot",
+  "beautifulsoup4",
+  "sphinx[test]",
+  "sphinx-immaterial-pybind11-issue-134",
+  "sphinx-immaterial[cpp,json,jsonschema_validation,keys,black,clang-format]",
+  { include-group = "coverage" },
+]
+coverage = [
+  "coverage[toml]>=7.0",
+]
+sphinx4 = [
+  "sphinx>=4.5,<5",
+  "sphinxcontrib-applehelp<1.0.5",
+  "sphinxcontrib-devhelp<1.0.3",
+  "sphinxcontrib-htmlhelp<2.0.2",
+  "sphinxcontrib-serializinghtml<1.1.6",
+  "sphinxcontrib-qthelp<1.0.4",
+]
+sphinx5 = [
+  "sphinx>=5,<6",
+]
+sphinx6 = [
+  "sphinx>=6,<7",
+]
+sphinx7 = [
+  "sphinx>=7,<8",
+]
+sphinx8 = [
+  "sphinx>=8,<9",
+]
+
+[project.optional-dependencies]
+json = [
+  "pyyaml",
+]
+clang-format = [
+  "clang-format",
+]
+black = [
+  "black",
+]
+cpp = [
+  "libclang",
+]
+jsonschema_validation = [
+  "jsonschema",
+]
+keys = [
+  "pymdown-extensions",
+]
+
+[tool.uv.workspace]
+members = [
+  "tests/issue_134/sphinx-immaterial-pybind11-issue-134",
+]
+
+[tool.uv.sources]
+sphinx-immaterial-pybind11-issue-134 = { workspace = true }
+
+[tool.uv]
+conflicts = [
+  [
+    { group = "sphinx4" },
+    { group = "sphinx5" },
+    { group = "sphinx6" },
+    { group = "sphinx7" },
+    { group = "sphinx8" },
+  ],
+]

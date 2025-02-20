@@ -14,6 +14,7 @@ conf = [
     {
         "name": "attention",
         "classes": ["important"],
+        "override": True,
     },
     {
         "name": "versionremoved",

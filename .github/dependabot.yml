@@ -5,13 +5,14 @@
 
 version: 2
 updates:
-  - package-ecosystem: "pip" # See documentation for possible values
-    directory: "/" # recursive; requirements.txt in subdirectories are also monitored
-    schedule:
-      interval: "weekly"
-    ignore:
-      - dependency-name: sphinxcontrib-*help
-      - dependency-name: sphinxcontrib-serializinghtml
+  # Note: Disable dependabot for Python until uv support is available: https://github.com/dependabot/dependabot-core/issues/10478
+  # - package-ecosystem: "pip" # See documentation for possible values
+  #   directory: "/" # recursive; requirements.txt in subdirectories are also monitored
+  #   schedule:
+  #     interval: "weekly"
+  #   ignore:
+  #     - dependency-name: sphinxcontrib-*help
+  #     - dependency-name: sphinxcontrib-serializinghtml
   # node.js dependencies are pinned to last merge from upstream.
   # - package-ecosystem: "npm"
   #   directory: "/" # Location of package manifests

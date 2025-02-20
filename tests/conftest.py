@@ -31,3 +31,7 @@ html_theme = "sphinx_immaterial"
         return app
 
     yield make
+
+
+def pytest_report_header(config):
+    return f"sphinx: {sphinx.__version__}"

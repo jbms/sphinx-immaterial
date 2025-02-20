@@ -14,57 +14,60 @@ on:
     - cron: "0 0 1,16 * *"
 
 jobs:
+  mypy:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version:
+          - "3.10"
+          - "3.11"
+          - "3.12"
+          - "3.13"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: false
+      - name: Setup Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        id: python-setup
+        with:
+          python-version: ${{ matrix.python-version }}
+      - run: uvx nox -s mypy --python ${{ matrix.python-version }}
   check_conventions:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
         include:
-          - nox-sessions: "ruff_format ruff_lint check_yaml check_json check_toml check_eof check_trailing_space check_lf"
-            python-version: "3.x"
+          - python-version: "3.x"
             node-version: "16.x"
-          - nox-sessions: "mypy"
-            python-version: "3.9"
-          - nox-sessions: "mypy"
-            python-version: "3.10"
-          - nox-sessions: "mypy"
-            python-version: "3.11"
-          - nox-sessions: "mypy"
-            python-version: "3.12"
     steps:
       - uses: actions/checkout@v4
       - name: Setup Node.js
-        if: matrix.node-version
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
+      - uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: false
       - name: Setup Python ${{ matrix.python-version }}
         uses: actions/setup-python@v5
         id: python-setup
         with:
           python-version: ${{ matrix.python-version }}
       - name: Cache node.js modules
-        if: matrix.node-version
         uses: actions/cache@v4
         with:
           path: "**/node_modules"
           key: ${{ runner.os }}-${{ matrix.node-version }}-node_modules-${{ hashFiles('**/package-lock.json') }}
-      - name: Cache nox environments
-        uses: actions/cache@v4
-        if: matrix.node-version
-        with:
-          path: |
-            .nox/ruff_*
-            .nox/check_*
-          key: nox-${{ steps.python-setup.outputs.python-version }}-${{ hashFiles('requirements/dev-ruff.txt', 'requirements/dev-pre_commit_hooks.txt') }}
       - run: npm install
-        if: matrix.node-version
       - run: npm run check
-        if: matrix.node-version
-      - run: pipx run nox -s ${{ matrix.nox-sessions }}
+      - run: uvx nox -s ruff_format ruff_lint check_yaml check_json check_toml check_eof check_trailing_space check_lf
 
   build:
-    needs: [check_conventions]
+    needs: ["mypy", "check_conventions"]
     strategy:
       fail-fast: false
       matrix:
@@ -86,6 +89,9 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
+      - uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: false
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v5
         with:
@@ -98,19 +104,21 @@ jobs:
       - run: npm install
       - name: Check for dirty working directory
         run: git diff --exit-code
-      - run: python -m pip install nox
       - name: Build distributions
         id: dist
-        run: nox -s dist
+        run: uvx nox -s build
       - name: Install wheel
-        run: python -m pip install "${{ steps.dist.outputs.wheel }}"
+        run: |
+          uv venv install-test-venv
+          export VIRTUAL_ENV="${PWD}/install-test-venv"
+          uv pip install dist/*.whl
+        shell: bash
       - name: Upload wheels as artifacts
         uses: actions/upload-artifact@v4
         with:
           name: python-packages-${{ runner.os }}
           path: |
             dist/*.whl
-            dist/*.tar.*
       - name: Setup Graphviz
         uses: ts-graphviz/setup-graphviz@b1de5da23ed0a6d14e0aeee8ed52fdd87af2363c # v2.0.2
         with:
@@ -122,7 +130,7 @@ jobs:
       - name: Build docs
         env:
           SPHINX_IMMATERIAL_EXTERNAL_RESOURCE_CACHE_DIR: ${{ github.workspace }}/theme_build_cache
-        run: nox -s docs --forcecolor
+        run: uvx nox -s docs --forcecolor
       - name: Upload doc builds as artifacts
         uses: actions/upload-artifact@v4
         with:
@@ -136,7 +144,7 @@ jobs:
           publish_dir: ./docs/_build/html
 
   test:
-    needs: [check_conventions, build]
+    needs: ["build"]
     strategy:
       fail-fast: false
       matrix:
@@ -145,10 +153,10 @@ jobs:
           - "windows-latest"
           - "macos-latest"
         python-version:
-          - "3.9"
           - "3.10"
           - "3.11"
           - "3.12"
+          - "3.13"
         node-version:
           - "16.x"
     runs-on: ${{ matrix.os }}
@@ -157,6 +165,9 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
+      - uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: false
       - name: Setup python
         uses: actions/setup-python@v5
         with:
@@ -183,7 +194,7 @@ jobs:
           COVERAGE_FILE: .coverage.${{ github.run_id }}.${{ github.run_attempt }}.${{ runner.os }}.${{ matrix.python-version }}
           PY_COLORS: 1
         # `coverage run` cmd adds the working dir to python path, so no need to install pkg here
-        run: pipx run nox -s tests --forcecolor --python ${{ matrix.python-version }}
+        run: uvx nox -s tests --forcecolor --python ${{ matrix.python-version }}
       - name: Upload coverage data
         uses: actions/upload-artifact@v4
         with:
@@ -202,12 +213,15 @@ jobs:
           path: ci-artifacts
           pattern: coverage-data-*
       - run: mv ci-artifacts/**/.coverage* ./
+      - uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: false
       - name: Setup python
         uses: actions/setup-python@v5
         with:
           python-version: "3.x"
       - name: Create coverage report
-        run: pipx run nox -s coverage
+        run: uvx nox -s coverage
       - name: Post coverage summary
         if: github.repository == 'jbms/sphinx-immaterial'
         uses: codecov/codecov-action@v4

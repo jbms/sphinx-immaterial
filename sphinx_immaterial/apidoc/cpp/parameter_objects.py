@@ -34,7 +34,7 @@ class CppParamField(sphinx.util.docfields.GroupedField):
         self,
         types: Dict[str, List[docutils.nodes.Node]],
         domain: str,
-        items: Tuple,
+        items: list[tuple[str, list[docutils.nodes.Node]]],  # type: ignore[override]
         env: Optional[sphinx.environment.BuildEnvironment] = None,
         inliner: Optional[docutils.parsers.rst.states.Inliner] = None,
         location: Optional[docutils.nodes.Node] = None,

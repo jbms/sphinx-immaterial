@@ -20,9 +20,7 @@
 import setuptools
 
 import atexit
-import distutils.command.build
 import os
-import pathlib
 import subprocess
 import tempfile
 
@@ -31,18 +29,8 @@ import setuptools.command.develop
 import setuptools.command.install
 import setuptools.command.sdist
 
-with open("requirements.txt", encoding="utf-8") as reqs:
-    REQUIREMENTS = [reqs.readlines()]
-
 root_dir = os.path.dirname(os.path.abspath(__file__))
 package_root = os.path.join(root_dir, "sphinx_immaterial")
-
-optional_requirements = pathlib.Path("requirements")
-
-
-def read_optional_reqs(name: str):
-    reqs = optional_requirements / name
-    return reqs.read_text(encoding="utf-8").splitlines()
 
 
 def _setup_temp_egg_info(cmd):
@@ -81,7 +69,7 @@ class InstallCommand(setuptools.command.install.install):
         super().run()
 
 
-class BuildCommand(distutils.command.build.build):
+class BuildCommand(setuptools.command.build.build):
     def finalize_options(self):
         if self.build_base == "build":
             # Use temporary directory instead, to avoid littering the source directory
@@ -97,13 +85,23 @@ class BuildCommand(distutils.command.build.build):
         super().run()
 
 
+class BuildPyCommand(setuptools.command.build_py.build_py):
+    def run(self):
+        self.run_command("static_bundles")
+        super().run()
+
+
 class DevelopCommand(setuptools.command.develop.develop):
     def run(self):
         self.run_command("static_bundles")
         super().run()
 
 
-class StaticBundlesCommand(setuptools.command.build_py.build_py):
+class StaticBundlesCommand(
+    setuptools.command.build.build, setuptools.command.build.SubCommand
+):
+    editable_mode: bool = False
+
     user_options = setuptools.command.build_py.build_py.user_options + [
         (
             "bundle-type=",
@@ -171,76 +169,10 @@ class StaticBundlesCommand(setuptools.command.build_py.build_py):
 
 
 setuptools.setup(
-    name="sphinx_immaterial",
-    description="Adaptation of mkdocs-material theme for the Sphinx documentation system",
-    long_description=pathlib.Path("README.rst").read_text(encoding="utf-8"),
-    long_description_content_type="text/x-rst",
-    author="Jeremy Maitin-Shepard",
-    author_email="jeremy@jeremyms.com",
-    url="https://github.com/jbms/sphinx-immaterial",
-    packages=setuptools.find_packages(
-        where=".", include=["sphinx_immaterial", "sphinx_immaterial.*"]
-    ),
-    package_dir={"sphinx_immaterial": "sphinx_immaterial"},
-    package_data={
-        "sphinx_immaterial": [
-            ".icons/*/**",
-            ".icons/*/*/**",
-            "partials/*.html",
-            "partials/*/*.html",
-            "partials/*/*/*.html",
-            "partials/*/*/*/*.html",
-            "bundles/*/**",
-            "LICENSE",
-            "*.html",
-            "custom_admonitions.css",
-            "theme.conf",
-        ],
-        "sphinx_immaterial.apidoc.cpp.cppreference_data": ["*.xml"],
-    },
-    python_requires=">=3.9",
-    install_requires=REQUIREMENTS,
-    use_scm_version={
-        # It would be nice to include the commit hash in the version, but that
-        # can't be done in a PEP 440-compatible way.
-        "version_scheme": "no-guess-dev",
-        # Test PyPI does not support local versions.
-        "local_scheme": "no-local-version",
-        "fallback_version": "0.0.0",
-    },
-    license="MIT",
-    classifiers=[
-        "Development Status :: 3 - Alpha",
-        "Intended Audience :: Developers",
-        "Natural Language :: English",
-        "License :: OSI Approved :: MIT License",
-        "Programming Language :: Python",
-        "Framework :: Sphinx :: Extension",
-        "Framework :: Sphinx :: Theme",
-        "Topic :: Documentation :: Sphinx",
-    ],
-    entry_points={
-        "sphinx.html_themes": [
-            "sphinx_immaterial = sphinx_immaterial",
-        ]
-    },
-    setup_requires=[
-        "setuptools_scm>=6.3.2",
-    ],
-    extras_require={
-        k: read_optional_reqs(f"{k}.txt")
-        for k in [
-            "json",
-            "jsonschema_validation",
-            "clang-format",
-            "keys",
-            "cpp",
-            "black",
-        ]
-    },
     cmdclass=dict(
         sdist=SdistCommand,
         build=BuildCommand,
+        build_py=BuildPyCommand,
         install=InstallCommand,
         static_bundles=StaticBundlesCommand,
         develop=DevelopCommand,

@@ -223,11 +223,12 @@ def _monkey_patch_stringify_annotation_to_support_type_params():
     def stringify_annotation(
         annotation: typing.Any,
         /,
-        mode="fully-qualified-except-typing",
+        *args,
+        **kwargs,
     ) -> str:
         if (encode := _ENCODE_TYPE_PARAM.get(type(annotation))) is not None:
             return encode(annotation)
-        return orig(annotation, mode=mode)
+        return orig(annotation, *args, **kwargs)
 
     for module in [
         "sphinx.util.typing",

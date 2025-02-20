@@ -1145,9 +1145,11 @@ class JsonSchemaDomain(sphinx.domains.Domain):
                 obj.objtype,
                 obj.docname,
                 obj.node_id,
-                OBJECT_PRIORITY_DEFAULT
-                if obj.objtype == "schema"
-                else OBJECT_PRIORITY_UNIMPORTANT,
+                (
+                    OBJECT_PRIORITY_DEFAULT
+                    if obj.objtype == "schema"
+                    else OBJECT_PRIORITY_UNIMPORTANT
+                ),
             )
 
     def merge_domaindata(self, docnames, otherdata: Dict) -> None:
@@ -1190,7 +1192,7 @@ class JsonSchemaDomain(sphinx.domains.Domain):
         target: str,
         node: sphinx.addnodes.pending_xref,
         contnode: docutils.nodes.Element,
-    ) -> Optional[docutils.nodes.Element]:
+    ) -> Optional[docutils.nodes.reference]:
         del typ
         match = self._find_schema(
             target=target,
@@ -1209,7 +1211,7 @@ class JsonSchemaDomain(sphinx.domains.Domain):
         fromdocname: str,
         contnode: docutils.nodes.Element,
         match: Tuple[str, DomainSchemaEntry],
-    ) -> docutils.nodes.Element:
+    ) -> docutils.nodes.reference:
         full_name, domain_entry = match
         options = object_description_options.get_object_description_options(
             self.env, "json", domain_entry.objtype
@@ -1226,7 +1228,7 @@ class JsonSchemaDomain(sphinx.domains.Domain):
             title=tooltip,
         )
 
-    def resolve_any_xref(
+    def resolve_any_xref(  # type: ignore[override]
         self,
         env: sphinx.environment.BuildEnvironment,
         fromdocname: str,
@@ -1234,11 +1236,11 @@ class JsonSchemaDomain(sphinx.domains.Domain):
         target: str,
         node: sphinx.addnodes.pending_xref,
         contnode: docutils.nodes.Element,
-    ) -> List[Tuple[str, docutils.nodes.Element]]:
+    ) -> List[Tuple[str, docutils.nodes.reference]]:
         match = self._find_schema(
             target=target, parent_schema=node.get("json:schema"), refspecific=True
         )
-        results: List[Tuple[str, docutils.nodes.Element]] = []
+        results: List[Tuple[str, docutils.nodes.reference]] = []
         if match is not None:
             results.append(
                 (
