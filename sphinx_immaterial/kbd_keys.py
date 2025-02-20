@@ -46,7 +46,7 @@ def visit_kbd(self: HTMLTranslator, node: kbd_node):
         cls, text = map_filter(key.strip().lower(), self.builder.config["keys_map"])
         keys_out += f'<kbd class="key-{cls}">{text}</kbd>'
         if i + 1 != len(keys):
-            keys_out += f'<span>{self.builder.config["keys_separator"]}</span>'
+            keys_out += f"<span>{self.builder.config['keys_separator']}</span>"
     self.body.append(keys_out)
 
 
@@ -61,7 +61,7 @@ def visit_kbd_latex(self, node):
         _, text = map_filter(key.strip().lower(), self.builder.config["keys_map"])
         self.body.append(text)
         if i + 1 < len(keys):
-            self.body.append(f' {self.builder.config["keys_separator"]} ')
+            self.body.append(f" {self.builder.config['keys_separator']} ")
 
 
 def depart_kbd_latex(self, node):

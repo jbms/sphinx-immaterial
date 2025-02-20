@@ -346,12 +346,12 @@ def _format_entity_class(
     signature = f"{prefix} {full_name}"
     base_strs = []
     for base in entity["bases"]:
-        base_strs.append(f'{base["access"]} {base["type"]}')
+        base_strs.append(f"{base['access']} {base['type']}")
     if base_strs:
         signature += " : "
         signature += ", ".join(base_strs)
 
-    return (f'cpp:{entity["keyword"]}', signature)
+    return (f"cpp:{entity['keyword']}", signature)
 
 
 def _format_entity_function(
@@ -388,7 +388,7 @@ def _format_entity_enum(
     signature = full_name
     directive_name = "cpp:enum"
     if entity["keyword"]:
-        directive_name += f'-{entity["keyword"]}'
+        directive_name += f"-{entity['keyword']}"
     return (directive_name, signature)
 
 
@@ -398,7 +398,7 @@ def _format_entity_macro(
     signature = full_name
     parameters = entity["parameters"]
     if parameters is not None:
-        signature += f'({", ".join(parameters)})'
+        signature += f"({', '.join(parameters)})"
     return ("c:macro", signature)
 
 
@@ -645,7 +645,7 @@ def _add_enumerators(
         sphinx_utils.append_directive_to_stringlist(
             out,
             "cpp:namespace",
-            f'{parent_scope}::{entity["name"]}',
+            f"{parent_scope}::{entity['name']}",
             source_path=location["file"],
             source_line=location["line"] - 1,
         )

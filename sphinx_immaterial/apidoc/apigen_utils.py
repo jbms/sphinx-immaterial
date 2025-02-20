@@ -188,7 +188,8 @@ def merge_groups_into(
 
 @contextlib.contextmanager
 def save_rst_defaults(env: sphinx.environment.BuildEnvironment):
-    with default_literal_role.save_default_literal_role(), sphinx_utils.save_default_role(
-        env
+    with (
+        default_literal_role.save_default_literal_role(),
+        sphinx_utils.save_default_role(env),
     ):
         yield
