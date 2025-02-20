@@ -17,12 +17,17 @@
 # IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+
 import setuptools
 
 import atexit
 import os
 import subprocess
 import tempfile
+
+import sys
+
+sys.path.append(os.path.dirname(__file__))
 
 import setuptools.command.build_py
 import setuptools.command.develop

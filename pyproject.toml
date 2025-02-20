@@ -42,6 +42,13 @@ requires = [
   "setuptools>=64",
   "wheel",
   "setuptools_scm>=8.1.0",
+  "sphinx>=4.5",
+  "markupsafe",
+  "pydantic>=2.4",
+  "pydantic-extra-types",
+  "typing-extensions",
+  "appdirs",
+  "requests",
 ]
 build-backend = "setuptools.build_meta"
 
@@ -57,6 +64,8 @@ sphinx_immaterial = "sphinx_immaterial"
   "partials/*/*/*.html",
   "partials/*/*/*/*.html",
   "bundles/*/**",
+  "resources/*/**",
+  "resources/**",
   "LICENSE",
   "*.html",
   "custom_admonitions.css",
