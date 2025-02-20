@@ -144,7 +144,7 @@ jobs:
           publish_dir: ./docs/_build/html
 
   test:
-    needs: ["mypy", "check_conventions", "build"]
+    needs: ["build"]
     strategy:
       fail-fast: false
       matrix:
