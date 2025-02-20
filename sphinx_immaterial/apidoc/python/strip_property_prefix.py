@@ -1,4 +1,4 @@
-from typing import Type, Union, List, cast
+from typing import Type, Union, List, cast, Sequence
 
 import docutils.nodes
 import sphinx.domains.python
@@ -9,7 +9,9 @@ def _monkey_patch_python_get_signature_prefix(
 ) -> None:
     orig_get_signature_prefix = directive_cls.get_signature_prefix
 
-    def get_signature_prefix(self, sig: str) -> Union[str, List[docutils.nodes.Node]]:
+    def get_signature_prefix(
+        self, sig: str
+    ) -> Union[str, Sequence[docutils.nodes.Node]]:
         prefix = orig_get_signature_prefix(self, sig)
         if not self.env.config.python_strip_property_prefix:
             return prefix

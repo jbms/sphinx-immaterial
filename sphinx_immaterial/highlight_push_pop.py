@@ -1,6 +1,6 @@
 """Extension that adds `highlight-push` and `highlight-pop` directives."""
 
-from typing import List
+from typing import List, cast, Optional
 
 import docutils.nodes
 import sphinx.addnodes
@@ -18,8 +18,11 @@ class HighlightPushDirective(sphinx.util.docutils.SphinxDirective):
     optional_arguments = 0
 
     def run(self) -> List[docutils.nodes.Node]:
-        stack = self.env.temp_data.setdefault("highlight_language_stack", [])
-        stack.append(self.env.temp_data.get("highlight_language"))
+        stack = cast(
+            list[Optional[str]],
+            self.env.temp_data.setdefault("highlight_language_stack", []),
+        )
+        stack.append(cast(Optional[str], self.env.temp_data.get("highlight_language")))
         return [sphinx.addnodes.highlightlang(push=True)]
 
 

@@ -51,6 +51,11 @@ def _get_all_synopses(
 
 
 class IndexBuilder(sphinx.search.IndexBuilder):
+    def __init__(self, env: sphinx.environment.BuildEnvironment, *args, **kwargs):
+        super().__init__(env, *args, **kwargs)
+        # Sphinx >=8.2 does not assign `self.env`, which is needed by this adapter.
+        self.env = env
+
     def get_objects(  # type: ignore[override]
         self, fn2index: Dict[str, int]
     ) -> Dict[
@@ -163,7 +168,7 @@ class IndexBuilder(sphinx.search.IndexBuilder):
 
     def load(
         self,
-        stream: IO,
+        stream: IO,  # type: ignore[override]
         format: Any,
     ) -> None:
         if isinstance(format, str):

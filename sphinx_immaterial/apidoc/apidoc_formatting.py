@@ -127,25 +127,53 @@ def depart_desc_inline(
     self.body.append("</code>")
 
 
-@html_translator_mixin.override
-def visit_productionlist(
-    self: html_translator_mixin.HTMLTranslatorMixin,
-    node: sphinx.addnodes.productionlist,
-    super_func: html_translator_mixin.BaseVisitCallback[sphinx.addnodes.productionlist],
-):
-    # we only need to patch in a code element around the production list
-    before_len = len(self.body)
-    try:
+if sphinx.version_info < (8, 2):
+
+    @html_translator_mixin.override
+    def visit_productionlist(
+        self: html_translator_mixin.HTMLTranslatorMixin,
+        node: sphinx.addnodes.productionlist,
+        super_func: html_translator_mixin.BaseVisitCallback[
+            sphinx.addnodes.productionlist
+        ],
+    ):
+        # we only need to patch in a code element around the production list
+        before_len = len(self.body)
+        try:
+            super_func(self, node)
+        except docutils.nodes.SkipNode:
+            pass
+        # be sure that there wasn't an incompatible change to sphinx
+        assert self.body[before_len].endswith("<pre>\n") and self.body[-1].startswith(
+            "</pre>"
+        )
+        self.body[before_len] += "<code>"
+        self.body[-1] = "</code>" + self.body[-1]
+        raise docutils.nodes.SkipNode()
+
+else:
+
+    @html_translator_mixin.override
+    def visit_productionlist(
+        self: html_translator_mixin.HTMLTranslatorMixin,
+        node: sphinx.addnodes.productionlist,
+        super_func: html_translator_mixin.BaseVisitCallback[
+            sphinx.addnodes.productionlist
+        ],
+    ):
         super_func(self, node)
-    except docutils.nodes.SkipNode:
-        pass
-    # be sure that there wasn't an incompatible change to sphinx
-    assert self.body[before_len].endswith("<pre>\n") and self.body[-1].startswith(
-        "</pre>"
-    )
-    self.body[before_len] += "<code>"
-    self.body[-1] = "</code>" + self.body[-1]
-    raise docutils.nodes.SkipNode()
+        self.body.append("<code>")
+
+    @html_translator_mixin.override
+    def depart_productionlist(
+        self: html_translator_mixin.HTMLTranslatorMixin,
+        node: sphinx.addnodes.productionlist,
+        super_func: html_translator_mixin.BaseVisitCallback[
+            sphinx.addnodes.productionlist
+        ],
+    ):
+        self.body.append("</code>")
+        super_func(self, node)
 
 
 @html_translator_mixin.init

@@ -1,7 +1,0 @@
-sphinx>=4.5
-markupsafe
-pydantic>=2.4
-pydantic-extra-types
-typing-extensions
-appdirs
-requests

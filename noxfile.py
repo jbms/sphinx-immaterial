@@ -13,6 +13,8 @@ ci_logger.handlers.append(ci_handler)
 ci_logger.propagate = False
 
 nox.options.reuse_existing_virtualenvs = True
+nox.options.default_venv_backend = "uv"
+
 nox.options.sessions = [
     "ruff_format",
     "ruff_lint",
@@ -25,27 +27,36 @@ nox.options.sessions = [
     "check_lf",
 ]
 
-SUPPORTED_PY_VER = list(f"3.{x}" for x in range(9, 13))
+SUPPORTED_PY_VER = list(f"3.{x}" for x in range(10, 14))
+
+
+def uv_sync(session: nox.Session, *args: list[str]):
+    session.run_install(
+        "uv",
+        "sync",
+        *args,
+        env={"UV_PROJECT_ENVIRONMENT": session.virtualenv.location},
+    )
 
 
 @nox.session
 def ruff_format(session: nox.Session):
     """Checks formatting with ruff"""
-    session.install("-r", "requirements/dev-ruff.txt")
+    uv_sync(session, "--only-group", "ruff")
     session.run("ruff", "format", "--diff")
 
 
 @nox.session
 def ruff_lint(session: nox.Session):
     """Run ruff as linter"""
-    session.install("-r", "requirements/dev-ruff.txt")
+    uv_sync(session, "--only-group", "ruff")
     session.run("ruff", "check")
 
 
-@nox.session(python=False)
+@nox.session(python=SUPPORTED_PY_VER)
 def mypy(session: nox.Session):
     """Run mypy using in default env"""
-    session.run("pip", "install", "-r", "requirements/dev-mypy.txt")
+    uv_sync(session, "--only-group", "mypy")
     session.run("mypy")
 
 
@@ -53,8 +64,9 @@ PRE_EXCLUDE = re.compile(
     "|".join(
         [
             "\\.git/",
-            "^\\.(?:mypy|ruff|pytest|eslint)_?cache",
-            "^(?:\\.nox|\\.?env|\\.?venv)",
+            "(^|/)\\.(?:mypy|ruff|pytest|eslint)_?cache",
+            "^(?:\\.nox|\\.?env|\\.?venv|\\.log|\\.eggs)",
+            "\\.egg-info/",
             "^\\.coverage.*",
             "^htmlcov/",
             "__pycache__",
@@ -62,6 +74,7 @@ PRE_EXCLUDE = re.compile(
             "^sphinx_immaterial/(?:\\.icons|bundles|static|.*\\.html)",
             "^tests/issue_134/.*(?:/build|\\.egg\\-info)",
             "^node_modules",
+            "^dist/",
             "^docs/(?:_build|\\w+_apigen_generated)",
             ".*\\.(?:woff2?|ico|xcf|gif|jpg|png)$",
         ]
@@ -95,7 +108,7 @@ def get_file_list(ext: str, exclude: Optional[re.Pattern] = None) -> List[str]:
 @nox.session
 def check_yaml(session: nox.Session):
     """Check for yaml syntax errors."""
-    session.install("-r", "requirements/dev-pre_commit_hooks.txt")
+    uv_sync(session, "--only-group", "pre_commit_hooks")
     yml_exclude = re.compile("^tests/snapshots")
     yaml_files = get_file_list("yaml", exclude=yml_exclude)
     yaml_files += get_file_list("yml", exclude=yml_exclude)
@@ -105,15 +118,15 @@ def check_yaml(session: nox.Session):
 @nox.session
 def check_json(session: nox.Session):
     """Check for json syntax errors."""
-    session.install("-r", "requirements/dev-pre_commit_hooks.txt")
-    json_files = get_file_list("json", re.compile("^tsconfig.json$"))
+    uv_sync(session, "--only-group", "pre_commit_hooks")
+    json_files = get_file_list("json", re.compile("^(tsconfig|dprint)|.json$"))
     session.run("check-json", *json_files)
 
 
 @nox.session
 def check_toml(session: nox.Session):
     """Check for toml syntax errors."""
-    session.install("-r", "requirements/dev-pre_commit_hooks.txt")
+    uv_sync(session, "--only-group", "pre_commit_hooks")
     toml_files = get_file_list("toml")
     session.run("check-toml", *toml_files)
 
@@ -121,7 +134,7 @@ def check_toml(session: nox.Session):
 @nox.session
 def check_eof(session: nox.Session):
     """Ensure EoF is a single blank line."""
-    session.install("-r", "requirements/dev-pre_commit_hooks.txt")
+    uv_sync(session, "--only-group", "pre_commit_hooks")
     eof_exclude = re.compile("^typings/.*|tests/snapshots/.*|^tsconfig.json$|.*\\.svg$")
     eof_files = get_file_list("*", exclude=eof_exclude)
     # error output is super long and unhelpful; we only need the stdout in case of error
@@ -135,7 +148,7 @@ def check_eof(session: nox.Session):
 @nox.session
 def check_trailing_space(session: nox.Session):
     """Ensure no trailing whitespace."""
-    session.install("-r", "requirements/dev-pre_commit_hooks.txt")
+    uv_sync(session, "--only-group", "pre_commit_hooks")
     all_files = get_file_list("*", exclude=re.compile("tests/snapshots/.*"))
     # error output is super long and unhelpful; we only need the stdout in case of error
     ret = session.run(
@@ -148,7 +161,7 @@ def check_trailing_space(session: nox.Session):
 @nox.session
 def check_lf(session: nox.Session):
     """ensure LF used."""
-    session.install("-r", "requirements/dev-pre_commit_hooks.txt")
+    uv_sync(session, "--only-group", "pre_commit_hooks")
     all_files = get_file_list("*")
     # error output is super long and unhelpful; we only need the stdout in case of error
     ret = session.run(
@@ -159,42 +172,25 @@ def check_lf(session: nox.Session):
 
 
 @nox.session(python=False)
-@nox.parametrize(
-    "cmd",
-    ["sdist", "bdist_wheel", "--version"],
-    ids=["src", "wheel", "version"],
-)
-def dist(session: nox.Session, cmd: str):
+def build(session: nox.Session):
     """Create distributions."""
-    session.run("pip", "install", "wheel", "setuptools_scm", "setuptools>=42")
+    session.run("uv", "build", "--wheel")
     github_output = os.environ.get("GITHUB_OUTPUT", None)
-    if cmd == "--version":
-        version = cast(str, session.run("python", "setup.py", "--version", silent=True))
-        version = version.splitlines()[-1].strip()
-        if github_output is not None:
-            with open(github_output, "a", encoding="utf-8") as output:
-                output.write(f"version={version}\n")
-        session.log("Package version: %s", version)
-        return
-    session.run("python", "setup.py", cmd)
-    if cmd == "bdist_wheel":
-        deployable = list(pathlib.Path().glob("dist/*.whl"))[0]
-        if github_output is not None:
-            with open(github_output, "a", encoding="utf-8") as output:
-                output.write(f"wheel={deployable}\n")
-    else:
-        deployable = list(pathlib.Path().glob("dist/*.tar.*"))[0]
+    deployable = list(pathlib.Path().glob("dist/*.whl"))[0]
+    if github_output is not None:
+        with open(github_output, "a", encoding="utf-8") as output:
+            output.write(f"wheel={deployable}\n")
     session.log("Created distribution: %s", deployable)
 
 
-@nox.session(python=False)
+@nox.session
 @nox.parametrize(
     "builder", ["html", "dirhtml", "latex"], ids=["html", "dirhtml", "latex"]
 )
 def docs(session: nox.Session, builder: str):
     """Build docs."""
     ci_logger.info(f"::group::Using {builder} builder")
-    session.run("pip", "install", "-r", "docs/requirements.txt")
+    uv_sync(session, "--group", "docs")
     session.run(
         "sphinx-build",
         "-b",
@@ -210,32 +206,31 @@ def docs(session: nox.Session, builder: str):
 
 SUPPORTED_SPHINX = [4, 5, 6, 7, 8]
 
+EXCLUDED_PYTHON_SPHINX = {
+    # Sphinx<6 depends on imghdr module that was removed from the Python 3.13
+    # standard library.
+    ("3.13", 4),
+    ("3.13", 5),
+}
+
 
 @nox.session
 @nox.parametrize(
-    "python,sphinx",
+    ["python", "sphinx"],
     [
-        (py, sphinx)
+        nox.param(py, sphinx, id=f"py{py}-sphinx{sphinx}", tags=[f"sphinx{sphinx}"])
         for py in SUPPORTED_PY_VER
         for sphinx in SUPPORTED_SPHINX
-        if (sphinx, py) != (8, "3.9")  # python v3.9 support dropped in sphinx v8
+        if (py, sphinx) not in EXCLUDED_PYTHON_SPHINX
     ],
 )
 def tests(session: nox.Session, sphinx: int):
     """Run unit tests and collect code coverage analysis."""
     ci_logger.info(f"::group::Using sphinx v{sphinx} and python v{session.python}")
-    if not pathlib.Path("node_modules").exists():
-        session.run("npm", "install", external=True)
-    if not list(pathlib.Path().glob("sphinx_immaterial/*.html")):
-        session.run("npm", "run", "build", external=True)
-    sphinx_version = "sphinx>={},<{}".format(
-        str(sphinx) if sphinx > 4 else "4.5", sphinx + 1
-    )
-    session.install(sphinx_version)
-    if sphinx < 5:
-        # sphinxcontrib deps that dropped support for sphinx v4.x
-        session.install("-r", "tests/requirements-sphinx4.txt")
-    session.install("-r", "tests/requirements.txt")
+    uv_sync(session, "--group", "test")
+    # Must be done as a separate step due to https://github.com/astral-sh/uv/issues/11648
+    uv_sync(session, "--inexact", "--group", f"sphinx{sphinx}")
+
     session.run("coverage", "run", "-m", "pytest", "-vv", "-s", "--durations=5")
     # session.notify("docs") <- only calls docs(html), not dirhtml or latex builders
     ci_logger.info("::endgroup::")
@@ -244,7 +239,7 @@ def tests(session: nox.Session, sphinx: int):
 @nox.session
 def coverage(session: nox.Session):
     """Create coverage report."""
-    session.install("coverage[toml]>=7.0")
+    uv_sync(session, "--only-group", "coverage")
     session.run("coverage", "combine")
     total = int(
         cast(str, session.run("coverage", "report", "--format=total", silent=True))

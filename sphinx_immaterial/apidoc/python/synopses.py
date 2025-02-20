@@ -63,13 +63,13 @@ def _monkey_patch_python_domain_to_add_object_synopses_to_references():
         target: str,
         node: sphinx.addnodes.pending_xref,
         contnode: docutils.nodes.Element,
-    ) -> List[Tuple[str, docutils.nodes.Element]]:
+    ) -> List[Tuple[str, docutils.nodes.reference]]:
         results = orig_resolve_any_xref(
             self, env, fromdocname, builder, target, node, contnode
         )
         for _, refnode in results:
             _add_synopsis(self, env, refnode)
-        return results
+        return results  # type: ignore[return-value]
 
     PythonDomain.resolve_any_xref = resolve_any_xref  # type: ignore[assignment]
 
