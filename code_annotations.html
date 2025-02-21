@@ -999,10 +999,10 @@ feature.</p>
 <dt class="sig sig-object highlight rst" id="directive-code-annotations">
 <span class="sig-name descname"><span class="pre">..</span> <span class="pre">code-annotations::</span></span><a class="headerlink" href="#directive-code-annotations" title="Link to this definition">¶</a></dt>
 <dd><p>This directive shall hold an <a class="extlink-duref reference external" href="http://docutils.sourceforge.net/docs/ref/rst/restructuredtext.html#enumerated-lists">enumerated list</a> of annotations that can be used in a
-<a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/directives.html#directive-code-block" title="(in Sphinx v8.2.0)"><code class="xref any docutils literal notranslate"><span class="pre">code-block</span></code></a> immediately prior to this directive. The given list will not be rendered in the
-generated output, unless there is no immediately prior <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/directives.html#directive-code-block" title="(in Sphinx v8.2.0)"><code class="xref any docutils literal notranslate"><span class="pre">code-block</span></code></a> to annotate or there are no
-annotated comments in the immediately prior <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/directives.html#directive-code-block" title="(in Sphinx v8.2.0)"><code class="xref any docutils literal notranslate"><span class="pre">code-block</span></code></a>. Additionally, all annotations will be
-excluded when using the “copy to clipboard” button for an annotated <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/directives.html#directive-code-block" title="(in Sphinx v8.2.0)"><code class="xref any docutils literal notranslate"><span class="pre">code-block</span></code></a>; the annotated
+<a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/directives.html#directive-code-block" title="(in Sphinx v8.2.1)"><code class="xref any docutils literal notranslate"><span class="pre">code-block</span></code></a> immediately prior to this directive. The given list will not be rendered in the
+generated output, unless there is no immediately prior <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/directives.html#directive-code-block" title="(in Sphinx v8.2.1)"><code class="xref any docutils literal notranslate"><span class="pre">code-block</span></code></a> to annotate or there are no
+annotated comments in the immediately prior <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/directives.html#directive-code-block" title="(in Sphinx v8.2.1)"><code class="xref any docutils literal notranslate"><span class="pre">code-block</span></code></a>. Additionally, all annotations will be
+excluded when using the “copy to clipboard” button for an annotated <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/directives.html#directive-code-block" title="(in Sphinx v8.2.1)"><code class="xref any docutils literal notranslate"><span class="pre">code-block</span></code></a>; the annotated
 comments’ text will still be copied (if not <a class="reference internal" href="#hiding-the-annotated-comment">Hiding the annotated comment</a>).</p>
 <p>An error will be shown in the build log if the given list is not recognized as an
 <a class="extlink-duref reference external" href="http://docutils.sourceforge.net/docs/ref/rst/restructuredtext.html#enumerated-lists">enumerated list</a>.</p>
@@ -1019,8 +1019,8 @@ parentheses (<code class="docutils literal notranslate"><span class="pre">(1)</s
 list of <a class="reference internal" href="#directive-code-annotations" title="code-annotations directive"><code class="xref rst rst-dir docutils literal notranslate"><span class="pre">code-annotations</span></code></a>.</p>
 <div class="note admonition">
 <p class="admonition-title">Note</p>
-<p>Remember to specify the language syntax for pygments to highlight the <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/directives.html#directive-code-block" title="(in Sphinx v8.2.0)"><code class="xref any docutils literal notranslate"><span class="pre">code-block</span></code></a>. Without
-this information, pygments may incorrectly identify comments in a <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/directives.html#directive-code-block" title="(in Sphinx v8.2.0)"><code class="xref any docutils literal notranslate"><span class="pre">code-block</span></code></a> which is
+<p>Remember to specify the language syntax for pygments to highlight the <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/directives.html#directive-code-block" title="(in Sphinx v8.2.1)"><code class="xref any docutils literal notranslate"><span class="pre">code-block</span></code></a>. Without
+this information, pygments may incorrectly identify comments in a <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/directives.html#directive-code-block" title="(in Sphinx v8.2.1)"><code class="xref any docutils literal notranslate"><span class="pre">code-block</span></code></a> which is
 required for the detection of annotations.</p>
 </div>
 <div class="hint admonition">
@@ -1071,7 +1071,7 @@ automatically enables the feature.</p>
 <p>The <a class="extlink-duref reference external" href="http://docutils.sourceforge.net/docs/ref/rst/restructuredtext.html#enumerated-lists">enumerated lists’</a> markers are arbitrary and do not directly
 correspond to the identifying numbers used in the annotated comment. Because of this arbitrariness,
 the identifying numbers in the annotated comments <strong>must always start counting from</strong> <code class="docutils literal notranslate"><span class="pre">1</span></code> (for
-each <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/directives.html#directive-code-block" title="(in Sphinx v8.2.0)"><code class="xref any docutils literal notranslate"><span class="pre">code-block</span></code></a>). Remember, the <code class="docutils literal notranslate"><span class="pre">#</span></code> character can be used instead of numbers/letters in the
+each <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/directives.html#directive-code-block" title="(in Sphinx v8.2.1)"><code class="xref any docutils literal notranslate"><span class="pre">code-block</span></code></a>). Remember, the <code class="docutils literal notranslate"><span class="pre">#</span></code> character can be used instead of numbers/letters in the
 <a class="extlink-duref reference external" href="http://docutils.sourceforge.net/docs/ref/rst/restructuredtext.html#enumerated-lists">enumerated lists’</a> markers.</p>
 <p>The below example demonstrates this arbitrariness as the annotated comment <code class="docutils literal notranslate"><span class="pre">(1)</span></code> corresponds to
 the first annotated list item (beginning with the marker <code class="docutils literal notranslate"><span class="pre">3.</span></code>).</p>
@@ -1170,7 +1170,7 @@ the last button into hyperlinks that target to the last button.</p>
 </div>
 </div>
 <h3 id="hiding-the-annotated-comment">Hiding the annotated comment<a class="headerlink" href="#hiding-the-annotated-comment" title="Link to this heading">¶</a></h3>
-<p>The annotated comment can be hidden in the <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/directives.html#directive-code-block" title="(in Sphinx v8.2.0)"><code class="xref any docutils literal notranslate"><span class="pre">code-block</span></code></a> if the annotation’s identifying number
+<p>The annotated comment can be hidden in the <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/directives.html#directive-code-block" title="(in Sphinx v8.2.1)"><code class="xref any docutils literal notranslate"><span class="pre">code-block</span></code></a> if the annotation’s identifying number
 ends with a exclamation mark (<code class="docutils literal notranslate"><span class="pre">!</span></code>) after the closing parenthesis.</p>
 <div class="results docutils container">
 <div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><code><span class="p">..</span> <span class="ow">code-block</span><span class="p">::</span> cmake
@@ -1296,7 +1296,7 @@ in <a class="reference internal" href="#arbitrary-list-markers">Arbitrary list m
   <small>
     
       Last update:
-      Feb 20, 2025
+      Feb 21, 2025
     
   </small>
 </div>
@@ -1411,7 +1411,7 @@ in <a class="reference internal" href="#arbitrary-list-markers">Arbitrary list m
     <script id="__config" type="application/json">{"base": ".", "features": ["navigation.expand", "navigation.sections", "navigation.top", "search.share", "toc.follow", "toc.sticky", "content.tabs.link", "announce.dismiss"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": {"provider": "mike", "staticVersions": [{"aliases": [], "title": "ReadTheDocs", "version": "https://sphinx-immaterial.rtfd.io"}, {"aliases": [], "title": "Github Pages", "version": "https://jbms.github.io/sphinx-immaterial"}], "versionPath": null}}</script>
     
       
-        <script src="_static/sphinx_immaterial_theme.f9d9eeeb247ace16c.min.js?v=9a299579"></script>
+        <script src="_static/sphinx_immaterial_theme.48b1f36c1777f6fe9.min.js?v=b6c9f4c0"></script>
     
   </body>
 </html>
