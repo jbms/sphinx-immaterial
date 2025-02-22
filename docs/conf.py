@@ -56,7 +56,6 @@ extensions = [
     "sphinx.ext.intersphinx",
     "sphinx.ext.napoleon",
     "sphinx.ext.todo",
-    "sphinx.ext.mathjax",
     "sphinx.ext.viewcode",
     "sphinx_immaterial.theme_result",
     "sphinx_immaterial.kbd_keys",
@@ -104,6 +103,7 @@ html_last_updated_fmt = ""
 html_title = "Sphinx-Immaterial"
 html_favicon = "_static/images/favicon.ico"  # colored version of material/bookshelf.svg
 html_logo = "_static/images/Ybin.gif"  # from https://gifer.com/en/Ybin
+html_math_renderer = "mathml"
 
 # -- HTML theme specific settings ------------------------------------------------
 
