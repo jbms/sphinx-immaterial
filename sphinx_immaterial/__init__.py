@@ -22,7 +22,7 @@ from .apidoc import apidoc_formatting
 from .apidoc import fix_sphinx_issue_11147  # noqa: F401
 from . import nav_adapt
 from . import sections  # noqa: F401
-from . import jsonimpl
+from . import json_builder_serializing_implementation
 
 logger = sphinx.util.logging.getLogger(__name__)
 
@@ -176,8 +176,8 @@ def _get_html_builder(base_builder: Type[sphinx.builders.html.StandaloneHTMLBuil
             return orig_uri
 
     if issubclass(base_builder, JSONHTMLBuilder):
-        CustomHTMLBuilder.implementation = jsonimpl
-        CustomHTMLBuilder.indexer_format = jsonimpl
+        CustomHTMLBuilder.implementation = json_builder_serializing_implementation
+        CustomHTMLBuilder.indexer_format = json_builder_serializing_implementation
 
     return CustomHTMLBuilder
 
