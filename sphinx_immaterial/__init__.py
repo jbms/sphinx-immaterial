@@ -328,6 +328,8 @@ def setup(app: Sphinx):
 
     app.add_html_theme("sphinx_immaterial", os.path.abspath(os.path.dirname(__file__)))
 
+    app.setup_extension("sphinx_immaterial.mathml_math_renderer")
+
     # register our custom directives/roles that are tied to this theme
     app.setup_extension("sphinx_immaterial.content_tabs")
     app.setup_extension("sphinx_immaterial.mermaid_diagrams")
