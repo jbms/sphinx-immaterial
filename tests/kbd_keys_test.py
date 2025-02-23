@@ -15,7 +15,7 @@ The Test
 """
 
 
-@pytest.mark.parametrize("builder", ["html", "latex"])
+@pytest.mark.parametrize("builder", ["html", "latex", "json", "pickle"])
 def test_keys_role(builder: str, immaterial_make_app):
     app: SphinxTestApp = immaterial_make_app(
         extra_conf="\n".join(

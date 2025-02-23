@@ -185,7 +185,9 @@ def build(session: nox.Session):
 
 @nox.session
 @nox.parametrize(
-    "builder", ["html", "dirhtml", "latex"], ids=["html", "dirhtml", "latex"]
+    "builder",
+    ["html", "dirhtml", "latex", "json", "pickle"],
+    ids=["html", "dirhtml", "latex", "json", "pickle"],
 )
 def docs(session: nox.Session, builder: str):
     """Build docs."""

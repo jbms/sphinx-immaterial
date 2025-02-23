@@ -16,12 +16,13 @@ import sphinx.util.matching
 import sphinx.util.docutils
 import sphinx.writers.html5
 from sphinx import version_info
-
+from sphinxcontrib.serializinghtml import JSONHTMLBuilder
 from . import html_translator_mixin
 from .apidoc import apidoc_formatting
 from .apidoc import fix_sphinx_issue_11147  # noqa: F401
 from . import nav_adapt
 from . import sections  # noqa: F401
+from . import json_builder_serializing_implementation
 
 logger = sphinx.util.logging.getLogger(__name__)
 
@@ -174,6 +175,10 @@ def _get_html_builder(base_builder: Type[sphinx.builders.html.StandaloneHTMLBuil
                     return orig_uri[: -len(index_suffix)]
             return orig_uri
 
+    if issubclass(base_builder, JSONHTMLBuilder):
+        CustomHTMLBuilder.implementation = json_builder_serializing_implementation
+        CustomHTMLBuilder.indexer_format = json_builder_serializing_implementation
+
     return CustomHTMLBuilder
 
 
@@ -244,7 +249,7 @@ def html_page_context(
             {
                 "theme": theme_options,
                 "site_url": theme_options.get("site_url"),
-                "site_name": context["docstitle"],
+                "site_name": context.get("docstitle", app.config.html_title),
                 "repo_url": theme_options.get("repo_url"),
                 "repo_name": theme_options.get("repo_name", None),
                 "extra": extra,
@@ -315,16 +320,12 @@ def setup(app: Sphinx):
     app.add_config_value(
         "html_use_directory_uris_for_index_pages", False, rebuild="html", types=bool
     )
-    for builder in ("html", "dirhtml"):
-        app.add_builder(
-            _get_html_builder(
-                cast(
-                    Type[sphinx.builders.html.StandaloneHTMLBuilder],
-                    app.registry.builders[builder],
-                )
-            ),
-            override=True,
-        )
+    for builder in app.registry.builders.values():
+        if not issubclass(builder, sphinx.builders.html.StandaloneHTMLBuilder):
+            continue
+
+        app.add_builder(_get_html_builder(builder), override=True)
+
     app.add_html_theme("sphinx_immaterial", os.path.abspath(os.path.dirname(__file__)))
 
     # register our custom directives/roles that are tied to this theme
