@@ -201,11 +201,25 @@ class MkdocsNavEntry:
 
     # URL of this page, or the first descendent if `caption_only` is `True`.
     url: Optional[str]
+
+    @property
+    def id(self) -> Optional[str]:
+        """Returns the fragment portion of `url`."""
+        url = self.url
+        if url is None:
+            return None
+        fragment = url.replace("^[^#]*#", "")
+        if fragment:
+            return fragment
+        return None
+
     # List of children
     children: List["MkdocsNavEntry"]
+
     # Set to `True` if this page, or a descendent, is the current page.
     # Excludes links to sections within in an active page.
     active: bool
+
     # Set to `True` if this page is the current page.  Excludes links to
     # sections within an active page.
     current: bool
@@ -217,9 +231,12 @@ class MkdocsNavEntry:
     # a TOC caption.
     caption_only: bool
 
+    # Arbitrary HTML to include as icon.
+    icon_html: Optional[str] = None
+
     def __init__(self, title_text: str, **kwargs):
         self.__dict__.update(kwargs)
-        self.title = f'<span class="md-ellipsis">{_insert_wbr(title_text)}</span>'
+        self.title = _insert_wbr(title_text)
         if not self.aria_label:
             self.aria_label = title_text
 
@@ -454,22 +471,16 @@ def _add_domain_info_to_toc(
         tooltip = object_description_options.format_object_description_tooltip(
             env, options, objinfo.name, objinfo.synopsis
         )
+        if tooltip:
+            entry.title = f'<span title="{markupsafe.Markup.escape(tooltip)}">{entry.title}</span>'
         toc_icon_text = options["toc_icon_text"]
         toc_icon_class = options["toc_icon_class"]
-        title_prefix = ""
         if toc_icon_text is not None and toc_icon_class is not None:
-            title_prefix = (
+            entry.icon_html = (
                 f'<span aria-label="{label}" '
                 f'class="objinfo-icon objinfo-icon__{toc_icon_class}" '
                 f'title="{label}">{toc_icon_text}</span>'
             )
-        span_prefix = "<span "
-        assert entry.title.startswith(span_prefix)
-        entry.title = (
-            title_prefix
-            + f'<span title="{markupsafe.Markup.escape(tooltip)}" '
-            + entry.title[len(span_prefix) :]
-        )
 
 
 def _get_current_page_in_toc(toc: List[MkdocsNavEntry]) -> Optional[MkdocsNavEntry]:
@@ -776,7 +787,7 @@ def _html_page_context(
         and len(local_toc) == 1
     ):
         # Use single top-level heading as table of contents heading.
-        toc_title = local_toc[0].title
+        toc_title = (local_toc[0].icon_html or "") + local_toc[0].title
 
     context.update(
         config={

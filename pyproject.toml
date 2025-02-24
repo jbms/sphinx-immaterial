@@ -84,9 +84,13 @@ files = [
   "sphinx_immaterial/**/*.py",
   "tests/**/*.py",
 ]
-exclude = "setup.py"
+exclude = ['^setup\.py$', '^sphinx_immaterial/plugins/$']
 plugins = ["pydantic.mypy"]
 check_untyped_defs = true
+
+[[tool.mypy.overrides]]
+module = ['sphinx_immaterial.plugins.*']
+follow_imports = "skip"
 
 [tool.pytest.ini_options]
 minversion = "6.0"
@@ -234,4 +238,10 @@ conflicts = [
     { group = "sphinx7" },
     { group = "sphinx8" },
   ],
+]
+
+[tool.ruff]
+# In addition to the standard set of exclusions
+extend-exclude = [
+  "sphinx_immaterial/plugins",
 ]

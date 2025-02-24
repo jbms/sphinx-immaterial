@@ -1,5 +1,5 @@
 <!--
-  Copyright (c) 2016-2022 Martin Donath <martin.donath@squidfunk.com>
+  Copyright (c) 2016-2025 Martin Donath <martin.donath@squidfunk.com>
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to
@@ -39,15 +39,26 @@
   {% set actions = ["accept", "manage"] %}
 {% endif %}
 
+<!-- Determine initial settings state -->
+{% if "manage" not in actions %}
+  {% set checked = "checked" %}
+{% endif %}
+
 <!-- Consent title -->
 <h4>{{ config.extra.consent.title }}</h4>
 <p>{{ config.extra.consent.description }}</p>
 
 <!-- Consent settings -->
-<input type="checkbox" class="md-toggle" id="__settings" />
+<input
+  class="md-toggle"
+  type="checkbox"
+  id="__settings"
+  {{ checked }}
+/>
 <div class="md-consent__settings">
   <ul class="task-list">
     {% for type in cookies %}
+      {% set checked = "" %}
       {% if cookies[type] is string %}
         {% set name = cookies[type] %}
         {% set checked = "checked" %}
@@ -62,7 +73,7 @@
           <input type="checkbox" name="{{ type }}" {{ checked }}>
           <span class="task-list-indicator"></span>
           {{ name }}
-        <label>
+        </label>
       </li>
     {% endfor %}
   </ul>

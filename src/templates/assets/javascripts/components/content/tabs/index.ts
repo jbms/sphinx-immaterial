@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-2022 Martin Donath <martin.donath@squidfunk.com>
+ * Copyright (c) 2016-2025 Martin Donath <martin.donath@squidfunk.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -28,14 +28,16 @@ import {
   auditTime,
   combineLatest,
   defer,
+  endWith,
+  filter,
   finalize,
   fromEvent,
+  ignoreElements,
   map,
   merge,
   skip,
   startWith,
   subscribeOn,
-  takeLast,
   takeUntil,
   tap,
   withLatestFrom
@@ -51,9 +53,11 @@ import {
   getElementSize,
   getElements,
   watchElementContentOffset,
-  watchElementSize
+  watchElementSize,
+  watchElementVisibility
 } from "~/browser"
 import { renderTabbedControl } from "~/templates"
+import { h } from "~/utilities"
 
 import { Component } from "../../_"
 
@@ -77,6 +81,7 @@ export interface ContentTabs {
  */
 interface MountOptions {
   viewport$: Observable<Viewport>      /* Viewport observable */
+  target$: Observable<HTMLElement>     /* Location target observable */
 }
 
 /* ----------------------------------------------------------------------------
@@ -86,14 +91,13 @@ interface MountOptions {
 /**
  * Watch content tabs
  *
- * @param el - Content tabs element
+ * @param inputs - Content tabs input elements
  *
  * @returns Content tabs observable
  */
 export function watchContentTabs(
-  el: HTMLElement
+  inputs: HTMLInputElement[]
 ): Observable<ContentTabs> {
-  const inputs = getElements<HTMLInputElement>(":scope > input", el)
   const initial = inputs.find(input => input.checked) || inputs[0]
   return merge(...inputs.map(input => fromEvent(input, "change")
     .pipe(
@@ -109,19 +113,16 @@ export function watchContentTabs(
 /**
  * Mount content tabs
  *
- * This function scrolls the active tab into view. While this functionality is
- * provided by browsers as part of `scrollInfoView`, browsers will always also
- * scroll the vertical axis, which we do not want. Thus, we decided to provide
- * this functionality ourselves.
- *
  * @param el - Content tabs element
  * @param options - Options
  *
  * @returns Content tabs component observable
  */
 export function mountContentTabs(
-  el: HTMLElement, { viewport$ }: MountOptions
+  el: HTMLElement, { viewport$, target$ }: MountOptions
 ): Observable<Component<ContentTabs>> {
+  const container = getElement(".tabbed-labels", el)
+  const inputs = getElements<HTMLInputElement>(":scope > input", el)
 
   /* Render content tab previous button for pagination */
   const prev = renderTabbedControl("prev")
@@ -132,14 +133,13 @@ export function mountContentTabs(
   el.append(next)
 
   /* Mount component on subscription */
-  const container = getElement(".tabbed-labels", el)
   return defer(() => {
     const push$ = new Subject<ContentTabs>()
-    const done$ = push$.pipe(takeLast(1))
-    combineLatest([push$, watchElementSize(el)])
+    const done$ = push$.pipe(ignoreElements(), endWith(true))
+    combineLatest([push$, watchElementSize(el), watchElementVisibility(el)])
       .pipe(
-        auditTime(1, animationFrameScheduler),
-        takeUntil(done$)
+        takeUntil(done$),
+        auditTime(1, animationFrameScheduler)
       )
         .subscribe({
 
@@ -201,6 +201,40 @@ export function mountContentTabs(
           })
         })
 
+    /* Switch to content tab target */
+    target$
+      .pipe(
+        takeUntil(done$),
+        filter(input => inputs.includes(input as HTMLInputElement))
+      )
+        .subscribe(input => input.click())
+
+    /* Add link to each content tab label */
+    container.classList.add("tabbed-labels--linked")
+    for (const input of inputs) {
+      const label = getElement<HTMLLabelElement>(`label[for="${input.id}"]`)
+      label.replaceChildren(h("a", {
+        href: `#${label.htmlFor}`,
+        tabIndex: -1
+      }, ...Array.from(label.childNodes)))
+
+      /* Allow to copy link without scrolling to anchor */
+      fromEvent<MouseEvent>(label.firstElementChild!, "click")
+        .pipe(
+          takeUntil(done$),
+          filter(ev => !(ev.metaKey || ev.ctrlKey)),
+          tap(ev => {
+            ev.preventDefault()
+            ev.stopPropagation()
+          })
+        )
+          // @todo we might need to remove the anchor link on complete
+          .subscribe(() => {
+            history.replaceState({}, "", `#${label.htmlFor}`)
+            label.click()
+          })
+    }
+
     /* Set up linking of content tabs, if enabled */
     if (feature("content.tabs.link"))
       push$.pipe(
@@ -243,8 +277,15 @@ export function mountContentTabs(
           }
         })
 
+    /* Pause media (audio, video) on switch - see https://bit.ly/3Bk6cel */
+    push$.pipe(takeUntil(done$))
+      .subscribe(() => {
+        for (const media of getElements<HTMLAudioElement>("audio, video", el))
+          media.pause()
+      })
+
     /* Create and return component */
-    return watchContentTabs(el)
+    return watchContentTabs(inputs)
       .pipe(
         tap(state => push$.next(state)),
         finalize(() => push$.complete()),

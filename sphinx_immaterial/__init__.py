@@ -31,7 +31,7 @@ DEFAULT_THEME_OPTIONS = {
     "features": [],
     "font": {"text": "Roboto", "code": "Roboto Mono"},
     "plugins": {
-        "search": {},
+        "material/search": {},
     },
     "icon": {},
     "repo_url": "",
@@ -261,10 +261,15 @@ def html_page_context(
 
 
 def _builder_inited(app: sphinx.application.Sphinx) -> None:
-    # For compatibility with mkdocs
+    # Latex builder does not have a `templates` attribute
     if isinstance(app.builder, sphinx.builders.html.StandaloneHTMLBuilder):
-        # Latex builder does not have a `templates` attribute
+        # For compatibility with mkdocs
         app.builder.templates.environment.filters["url"] = lambda url: url
+
+        def script_tag_stub(s):
+            raise NotImplementedError
+
+        app.builder.templates.environment.filters["script_tag"] = script_tag_stub
 
 
 def _config_inited(

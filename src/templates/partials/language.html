@@ -1,5 +1,5 @@
 <!--
-  Copyright (c) 2016-2022 Martin Donath <martin.donath@squidfunk.com>
+  Copyright (c) 2016-2025 Martin Donath <martin.donath@squidfunk.com>
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to
@@ -25,4 +25,4 @@
 {% import "partials/languages/en.html" as fallback %}
 
 <!-- Re-export translations -->
-{% macro t(key) %}{{ lang.t(key) or fallback.t(key) }}{% endmacro %}
+{% macro t(key) %}{{ lang.t(key) or fallback.t(key) or key }}{% endmacro %}

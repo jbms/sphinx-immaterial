@@ -1,5 +1,5 @@
 ////
-/// Copyright (c) 2016-2022 Martin Donath <martin.donath@squidfunk.com>
+/// Copyright (c) 2016-2025 Martin Donath <martin.donath@squidfunk.com>
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -27,31 +27,6 @@
 // Color variables
 :root {
   @extend %root;
-}
-
-// ----------------------------------------------------------------------------
-
-// Allow to explicitly use color schemes in nested content
-[data-md-color-scheme="default"] {
-  @extend %root;
-}
-
-// ----------------------------------------------------------------------------
-// Placeholders
-// ----------------------------------------------------------------------------
-
-// Default theme, i.e. light mode
-%root {
-
-  // Default color shades
-  --md-default-fg-color:               hsla(0, 0%, 0%, 0.87);
-  --md-default-fg-color--light:        hsla(0, 0%, 0%, 0.54);
-  --md-default-fg-color--lighter:      hsla(0, 0%, 0%, 0.32);
-  --md-default-fg-color--lightest:     hsla(0, 0%, 0%, 0.07);
-  --md-default-bg-color:               hsla(0, 0%, 100%, 1);
-  --md-default-bg-color--light:        hsla(0, 0%, 100%, 0.7);
-  --md-default-bg-color--lighter:      hsla(0, 0%, 100%, 0.3);
-  --md-default-bg-color--lightest:     hsla(0, 0%, 100%, 0.12);
 
   // Primary color shades
   --md-primary-fg-color:               hsla(#{hex2hsl($clr-indigo-500)}, 1);
@@ -65,13 +40,54 @@
   --md-accent-fg-color--transparent:   hsla(#{hex2hsl($clr-indigo-a200)}, 0.1);
   --md-accent-bg-color:                hsla(0, 0%, 100%, 1);
   --md-accent-bg-color--light:         hsla(0, 0%, 100%, 0.7);
+}
+
+// ----------------------------------------------------------------------------
+
+// Allow to explicitly use color schemes in nested content
+[data-md-color-scheme="default"] {
+  @extend %root;
+
+  // Indicate that the site is rendered with a light color scheme
+  color-scheme: light;
+
+  // Hide images for dark mode
+  img[src$="#only-dark"],
+  img[src$="#gh-dark-mode-only"] {
+    display: none;
+  }
+}
+
+// ----------------------------------------------------------------------------
+// Placeholders
+// ----------------------------------------------------------------------------
+
+// Default theme, i.e. light mode
+%root {
+
+  // Color hue in the range [0,360] - change this variable to alter the tone
+  // of the theme, e.g. to make it more redish or greenish
+  --md-hue: 225deg;
+
+  // Default color shades
+  --md-default-fg-color:               hsla(0, 0%, 0%, 0.87);
+  --md-default-fg-color--light:        hsla(0, 0%, 0%, 0.54);
+  --md-default-fg-color--lighter:      hsla(0, 0%, 0%, 0.32);
+  --md-default-fg-color--lightest:     hsla(0, 0%, 0%, 0.07);
+  --md-default-bg-color:               hsla(0, 0%, 100%, 1);
+  --md-default-bg-color--light:        hsla(0, 0%, 100%, 0.7);
+  --md-default-bg-color--lighter:      hsla(0, 0%, 100%, 0.3);
+  --md-default-bg-color--lightest:     hsla(0, 0%, 100%, 0.12);
 
   // Code color shades
   --md-code-fg-color:                  hsla(200, 18%, 26%, 1);
-  --md-code-bg-color:                  hsla(0, 0%, 96%, 1);
+  --md-code-bg-color:                  hsla(200, 0%, 96%, 1);
 
   // Code highlighting color shades
-  --md-code-hl-color:                  hsla(#{hex2hsl($clr-yellow-a200)}, 0.5);
+  --md-code-hl-color:                  hsla(#{hex2hsl($clr-blue-a200)}, 1);
+  --md-code-hl-color--light:           hsla(#{hex2hsl($clr-blue-a200)}, 0.1);
+
+  // Code highlighting syntax color shades
   --md-code-hl-number-color:           hsla(0, 67%, 50%, 1);
   --md-code-hl-special-color:          hsla(340, 83%, 47%, 1);
   --md-code-hl-function-color:         hsla(291, 45%, 50%, 1);
@@ -91,9 +107,6 @@
   // Typeset `a` color shades
   --md-typeset-a-color:                var(--md-primary-fg-color);
 
-  // Typeset `mark` color shades
-  --md-typeset-mark-color:             hsla(#{hex2hsl($clr-yellow-a200)}, 0.5);
-
   // Typeset `del` and `ins` color shades
   --md-typeset-del-color:              hsla(6, 90%, 60%, 0.15);
   --md-typeset-ins-color:              hsla(150, 90%, 44%, 0.15);
@@ -103,17 +116,25 @@
   --md-typeset-kbd-accent-color:       hsla(0, 100%, 100%, 1);
   --md-typeset-kbd-border-color:       hsla(0, 0%, 72%, 1);
 
+  // Typeset `mark` color shades
+  --md-typeset-mark-color:             hsla(#{hex2hsl($clr-yellow-a200)}, 0.5);
+
   // Typeset `table` color shades
   --md-typeset-table-color:            hsla(0, 0%, 0%, 0.12);
+  --md-typeset-table-color--light:     hsla(0, 0%, 0%, 0.035);
 
   // Admonition color shades
   --md-admonition-fg-color:            var(--md-default-fg-color);
   --md-admonition-bg-color:            var(--md-default-bg-color);
 
+  // Warning color shades
+  --md-warning-fg-color:              hsla(0, 0%, 0%, 0.87);
+  --md-warning-bg-color:              hsla(60, 100%, 80%, 1);
+
   // Footer color shades
   --md-footer-fg-color:                hsla(0, 0%, 100%, 1);
   --md-footer-fg-color--light:         hsla(0, 0%, 100%, 0.7);
-  --md-footer-fg-color--lighter:       hsla(0, 0%, 100%, 0.3);
+  --md-footer-fg-color--lighter:       hsla(0, 0%, 100%, 0.45);
   --md-footer-bg-color:                hsla(0, 0%, 0%, 0.87);
   --md-footer-bg-color--dark:          hsla(0, 0%, 0%, 0.32);
 

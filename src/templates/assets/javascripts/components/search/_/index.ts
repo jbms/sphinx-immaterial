@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-2022 Martin Donath <martin.donath@squidfunk.com>
+ * Copyright (c) 2016-2025 Martin Donath <martin.donath@squidfunk.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -24,6 +24,7 @@ import {
   NEVER,
   Observable,
   filter,
+  fromEvent,
   merge,
   mergeWith
 } from "rxjs"
@@ -78,6 +79,7 @@ export type Search =
  * Mount options
  */
 interface MountOptions {
+  // sphinx-immaterial: upstream search index not used
   keyboard$: Observable<Keyboard>      /* Keyboard observable */
 }
 
@@ -104,6 +106,15 @@ export function mountSearch(
     /* Retrieve query and result components */
     const query  = getComponentElement("search-query", el)
     const result = getComponentElement("search-result", el)
+
+    /* Always close search on result selection */
+    fromEvent<PointerEvent>(el, "click")
+      .pipe(
+        filter(({ target }) => (
+          target instanceof Element && !!target.closest("a")
+        ))
+      )
+        .subscribe(() => setToggle("search", false))
 
     /* Set up search keyboard handlers */
     keyboard$
@@ -177,7 +188,7 @@ export function mountSearch(
     /* Set up global keyboard handlers */
     keyboard$
       .pipe(
-        filter(({ mode }) => mode === "global"),
+        filter(({ mode }) => mode === "global")
       )
         .subscribe(key => {
           switch (key.type) {
@@ -196,9 +207,11 @@ export function mountSearch(
         })
 
     /* Create and return component */
-    const query$  = mountSearchQuery(query)
-    const result$ = mountSearchResult(result, { query$ })
-    return merge(query$, result$)
+    const query$ = mountSearchQuery(query)
+    return merge(
+      query$,
+      mountSearchResult(result, { query$ })
+    )
       .pipe(
         mergeWith(
 

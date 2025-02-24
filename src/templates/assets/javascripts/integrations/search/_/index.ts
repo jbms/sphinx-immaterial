@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-2022 Martin Donath <martin.donath@squidfunk.com>
+ * Copyright (c) 2016-2025 Martin Donath <martin.donath@squidfunk.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -22,8 +22,7 @@
 
 import {
   SearchDocument
-} from "../document"
-import { SearchOptions } from "../options"
+} from "../config"
 import {
   SearchQueryTerms
 } from "../query"
@@ -33,66 +32,19 @@ import {
  * ------------------------------------------------------------------------- */
 
 /**
- * Search index configuration
+ * Search item
  */
-export interface SearchIndexConfig {
-  lang: string[]                       /* Search languages */
-  separator: string                    /* Search separator */
-}
-
-/**
- * Search index document
- */
-export interface SearchIndexDocument {
-  location: string                     /* Document location */
-  title: string                        /* Document title */
-  text: string                         /* Document text */
-  tags?: string[]                      /* Document tags */
-  boost?: number                       /* Document boost */
-}
-
-/* ------------------------------------------------------------------------- */
-
-/**
- * Search index
- *
- * This interfaces describes the format of the `search_index.json` file which
- * is automatically built by the MkDocs search plugin.
- */
-export interface SearchIndex {
-  config: SearchIndexConfig            /* Search index configuration */
-  docs: SearchIndexDocument[]          /* Search index documents */
-  options: SearchOptions               /* Search options */
-}
-
-/* ------------------------------------------------------------------------- */
-
-/**
- * Search metadata
- */
-export interface SearchMetadata {
+export interface SearchItem
+  extends SearchDocument
+{
   score: number                        /* Score (relevance) */
   terms: SearchQueryTerms              /* Search query terms */
 }
-
-/* ------------------------------------------------------------------------- */
-
-/**
- * Search result document
- */
-export type SearchResultDocument = SearchDocument & SearchMetadata
-
-/**
- * Search result item
- */
-export type SearchResultItem = SearchResultDocument[]
-
-/* ------------------------------------------------------------------------- */
 
 /**
  * Search result
  */
 export interface SearchResult {
-  items: SearchResultItem[]            /* Search result items */
-  suggestions?: string[]               /* Search suggestions */
+  items: SearchItem[][]                /* Search items */
+  suggest?: string[]                   /* Search suggestions */
 }

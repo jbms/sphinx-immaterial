@@ -48,15 +48,19 @@ MKDOCS_EXCLUDE_PATTERNS = [
     "material",
     # mkdocs-specific files
     "src/**/*.py",
-    "src/mkdocs_theme.yml",
-    "src/404.html",
+    "src/templates/mkdocs_theme.yml",
+    "src/templates/404.html",
     "mkdocs.yml",
     # Unneeded files
     "typings/lunr",
     "src/assets/javascripts/browser/worker",
     "src/templates/assets/javascripts/browser/worker",
+    "src/templates/assets/javascripts/workers",
     "src/assets/javascripts/integrations/search/worker",
     "src/templates/assets/javascripts/integrations/search/worker",
+    "src/templates/assets/javascripts/integrations/search/internal",
+    "includes",
+    "src/templates/fragments",  # Used by tags plugin
     # Files specific to mkdocs' own documentation
     "src/overrides",
     "src/assets/images/favicon.png",
@@ -195,7 +199,14 @@ def _create_adjusted_commit(
 
 def _get_git_status(workdir: str):
     status_output = subprocess.run(
-        ["git", "status", "--porcelain=v1", "-z", "--no-renames"],
+        [
+            "git",
+            "status",
+            "--porcelain=v1",
+            "-z",
+            "--no-renames",
+            "--untracked-files=all",
+        ],
         stdout=subprocess.PIPE,
         check=True,
         text=True,
@@ -209,6 +220,21 @@ def _get_git_status(workdir: str):
         filename = line[3:]
         result[filename] = status_code
     return result
+
+
+def _get_all_files(workdir: str):
+    ls_output = subprocess.run(
+        [
+            "git",
+            "ls-files",
+            "-z",
+        ],
+        stdout=subprocess.PIPE,
+        check=True,
+        text=True,
+        cwd=workdir,
+    ).stdout
+    return [x for x in ls_output.split("\x00") if x]
 
 
 def _characterize_git_status(file_status):
@@ -299,8 +325,13 @@ def main():
                 stdout=patch_f,
             )
         file_status = _get_git_status(temp_workdir)
+        all_files = _get_all_files(temp_workdir)
 
-    updated_files, conflict_files = _characterize_git_status(file_status)
+    _, conflict_files = _characterize_git_status(file_status)
+
+    conflict_files_set = set(conflict_files)
+
+    all_updated_files = [f for f in all_files if f not in conflict_files_set]
 
     print("Patch in: " + patch_path)
 
@@ -311,10 +342,10 @@ def main():
             subprocess.run(
                 ["patch", "-p1"], stdin=std_in_file, check=True, cwd=script_dir
             )
-        if updated_files:
+        if all_updated_files:
             print("\nStaging non-conflicting files.")
             subprocess.run(
-                ["git", "add", "--"] + updated_files, check=True, cwd=script_dir
+                ["git", "add", "--"] + all_updated_files, check=True, cwd=script_dir
             )
         else:
             print("There are no files to update.")

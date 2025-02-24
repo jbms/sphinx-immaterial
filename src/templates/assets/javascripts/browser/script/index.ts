@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-2022 Martin Donath <martin.donath@squidfunk.com>
+ * Copyright (c) 2016-2025 Martin Donath <martin.donath@squidfunk.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -42,7 +42,7 @@ import { h } from "~/utilities"
  * Create and load a `script` element
  *
  * This function returns an observable that will emit when the script was
- * successfully loaded, or throw an error if it didn't.
+ * successfully loaded, or throw an error if it wasn't.
  *
  * @param src - Script URL
  *

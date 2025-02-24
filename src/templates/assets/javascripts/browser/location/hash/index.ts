@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-2022 Martin Donath <martin.donath@squidfunk.com>
+ * Copyright (c) 2016-2025 Martin Donath <martin.donath@squidfunk.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -25,6 +25,7 @@ import {
   filter,
   fromEvent,
   map,
+  merge,
   shareReplay,
   startWith
 } from "rxjs"
@@ -42,7 +43,7 @@ import { h } from "~/utilities"
  * @returns Location hash
  */
 export function getLocationHash(): string {
-  return location.hash.substring(1)
+  return location.hash.slice(1)
 }
 
 /**
@@ -66,10 +67,17 @@ export function setLocationHash(hash: string): void {
 /**
  * Watch location hash
  *
+ * @param location$ - Location observable
+ *
  * @returns Location hash observable
  */
-export function watchLocationHash(): Observable<string> {
-  return fromEvent<HashChangeEvent>(window, "hashchange")
+export function watchLocationHash(
+  location$: Observable<URL>
+): Observable<string> {
+  return merge(
+    fromEvent<HashChangeEvent>(window, "hashchange"),
+    location$
+  )
     .pipe(
       map(getLocationHash),
       startWith(getLocationHash()),
@@ -81,10 +89,14 @@ export function watchLocationHash(): Observable<string> {
 /**
  * Watch location target
  *
+ * @param location$ - Location observable
+ *
  * @returns Location target observable
  */
-export function watchLocationTarget(): Observable<HTMLElement> {
-  return watchLocationHash()
+export function watchLocationTarget(
+  location$: Observable<URL>
+): Observable<HTMLElement> {
+  return watchLocationHash(location$)
     .pipe(
       map(id => getOptionalElement(`[id="${id}"]`)!),
       filter(el => typeof el !== "undefined")

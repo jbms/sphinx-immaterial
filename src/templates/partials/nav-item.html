@@ -1,5 +1,5 @@
 <!--
-  Copyright (c) 2016-2022 Martin Donath <martin.donath@squidfunk.com>
+  Copyright (c) 2016-2025 Martin Donath <martin.donath@squidfunk.com>
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to
@@ -20,10 +20,79 @@
   IN THE SOFTWARE.
 -->
 
-<!-- Wrap everything with a macro to reduce file roundtrips (see #2213) -->
+<!-- Render navigation link status -->
+{% macro render_status(nav_item, type) %}
+  {% set class = "md-status md-status--" ~ type %}
+
+  <!-- Render icon with title (or tooltip), if given -->
+  {% if config.extra.status and config.extra.status[type] %}
+    <span
+      class="{{ class }}"
+      title="{{ config.extra.status[type] }}"
+    >
+    </span>
+
+  <!-- Render icon only -->
+  {% else %}
+    <span class="{{ class }}"></span>
+  {% endif %}
+{% endmacro %}
+
+<!-- Render navigation link content -->
+{% macro render_content(nav_item, ref = nav_item) %}
+
+  <!-- Navigation link icon -->
+  {% if nav_item.meta and nav_item.meta.icon %}
+    {% include ".icons/" ~ nav_item.meta.icon ~ ".svg" %}
+  {% endif %}
+
+  <!-- sphinx-immaterial: include additional arbitrary HTML icon -->
+  {% if nav_item.icon_html %}
+    {{ nav_item.icon_html }}
+  {% endif %}
+
+  <!-- Navigation link title -->
+  <span class="md-ellipsis">
+    {{ ref.title }}
+
+    <!-- Navigation link subtitle -->
+    {% if nav_item.meta and nav_item.meta.subtitle %}
+      <br />
+      <small>{{ nav_item.meta.subtitle }}</small>
+    {% endif %}
+  </span>
+
+  <!-- Navigation link status -->
+  {% if nav_item.meta and nav_item.meta.status %}
+    {{ render_status(nav_item, nav_item.meta.status) }}
+  {% endif %}
+{% endmacro %}
+
+<!-- Render navigation item (pruned) -->
+{% macro render_pruned(nav_item, ref = nav_item) %}
+  {% set first = nav_item.children | first %}
+
+  <!-- Recurse, if the first item has further nested items -->
+  {% if first and first.children %}
+    {{ render_pruned(first, ref) }}
+
+  <!-- Navigation link -->
+  {% else %}
+    <a href="{{ first.url | url }}" class="md-nav__link">
+      {{ render_content(ref) }}
+
+      <!-- Only render toggle if there's at least one nested item -->
+      {% if nav_item.children | length > 0 %}
+        <span class="md-nav__icon md-icon"></span>
+      {% endif %}
+    </a>
+  {% endif %}
+{% endmacro %}
+
+<!-- Render navigation item -->
 {% macro render(nav_item, path, level) %}
 
-  <!-- Determine class according to state -->
+  <!-- Determine classes -->
   {% set class = "md-nav__item" %}
   {% if nav_item.active %}
     {% set class = class ~ " md-nav__item--active" %}
@@ -35,84 +104,149 @@
     {% set class = class ~ " md-nav__current-nested" %}
   {%- endif %}
 
-  <!-- Main navigation item with nested items -->
+
+  <!-- Determine active page for paginated views -->
+  {% if nav_item.pages %}
+    {% if page in nav_item.pages %}
+      {% set nav_item = page %}
+    {% endif %}
+  {% endif %}
+
+  <!-- Navigation item with nested items -->
   {% if nav_item.children %}
 
-    <!-- Determine whether to render item as a section -->
-    {% if "navigation.sections" in features and level == 1 + (
-      "navigation.tabs" in features
-    ) %}
-      {% set class = class ~ " md-nav__item--section" %}
+    <!-- Determine all nested items that are index pages -->
+    <!-- sphinx-immaterial: "navigation.indexes" feature is built into sphinx -->
+    <!-- set indexes to an empty list here since it is referenced below -->
+    {% set indexes = [] %}
+
+    <!-- Navigation tabs -->
+    {% if "navigation.tabs" in features %}
+
+      <!-- Render 1st level active item as section -->
+      {% if level == 1 and nav_item.active %}
+        {% set class = class ~ " md-nav__item--section" %}
+        {% set is_section = true %}
+      {% endif %}
+
+      <!-- Navigation tabs + sections -->
+      {% if "navigation.sections" in features %}
+
+        <!-- Render 2nd level items with nested items as sections -->
+        {% if level == 2 and nav_item.parent.active %}
+          {% set class = class ~ " md-nav__item--section" %}
+          {% set is_section = true %}
+        {% endif %}
+      {% endif %}
+
+    <!-- Navigation sections -->
+    {% elif "navigation.sections" in features %}
+
+      <!-- Render 1st level items with nested items as sections -->
+      {% if level == 1 %}
+        {% set class = class ~ " md-nav__item--section" %}
+        {% set is_section = true %}
+      {% endif %}
     {% endif %}
 
-    <!-- Render item with nested items -->
-    <li class="{{ class }} md-nav__item--nested">
+    <!-- Navigation pruning -->
+    {% if "navigation.prune" in features %}
 
-      <!-- Active checkbox expands items contained within nested section -->
-      {% set checked = "checked" if nav_item.active %}
-      {% if "navigation.expand" in features and not checked %}
+      <!-- Prune item if it is not a section and not active -->
+      {% if not is_section and not nav_item.active %}
+        {% set class = class ~ " md-nav__item--pruned" %}
+        {% set is_pruned = true %}
+      {% endif %}
+    {% endif %}
+
+    <!-- Nested navigation item -->
+    <li class="{{ class }} md-nav__item--nested">
+      {% if not is_pruned %}
+        {% set checked = "checked" if nav_item.active %}
+
+        <!-- Determine checked and indeterminate state -->
+        {% if "navigation.expand" in features and not checked %}
+          {% set indeterminate = "md-toggle--indeterminate" %}
+        {% endif %}
+
+        <!-- Active checkbox expands items contained within nested section -->
         <input
-          class="md-nav__toggle md-toggle md-toggle--indeterminate"
-          data-md-toggle="{{ path }}"
-          type="checkbox"
-          id="{{ path }}"
-          checked
-        />
-      {% else %}
-        <input
-          class="md-nav__toggle md-toggle"
-          data-md-toggle="{{ path }}"
+          class="md-nav__toggle md-toggle {{ indeterminate }}"
           type="checkbox"
           id="{{ path }}"
           {{ checked }}
         />
-      {% endif %}
 
-      <!-- sphinx-immaterial: "navigation.indexes" feature is built into sphinx -->
-      <!-- set indexes to an empty list here since it is reference below -->
-      {% set indexes = [] %}
+        <!-- Toggle to expand nested items -->
+        <!-- sphinx-immaterial: check nav_item.caption_only instead of indexes  -->
+        {% if nav_item.caption_only %}
+          {% set tabindex = "0" if not is_section %}
+          <label
+            class="md-nav__link"
+            for="{{ path }}"
+            id="{{ path }}_label"
+            tabindex="{{ tabindex }}"
+          >
+            {{ render_content(nav_item) }}
+            <span class="md-nav__icon md-icon"></span>
+          </label>
 
-      <!-- Render toggle to expand nested items -->
-      {% if nav_item.caption_only %}
-        <label class="md-nav__link" for="{{ path }}">
-          {{ nav_item.title }}
-          <span class="md-nav__icon md-icon"></span>
-        </label>
+        <!-- Toggle to expand nested items with link to index page -->
+        {% else %}
+          <!-- sphinx-immaterial: check nav_item.current instead of indexes -->
+          {% set class = "md-nav__link--active" if nav_item.current %}
+          <div class="md-nav__link md-nav__container">
+            <!-- sphinx-immaterial: use nav_item.url directly since there is no separate index -->
+            <a
+              href="{{ nav_item.url | url }}"
+              class="md-nav__link {{ class }}"
+            >
+              <!-- sphinx-immaterial: use nav_item directly rather than separate index -->
+              {{ render_content(nav_item) }}
+            </a>
 
-      <!-- Render link to index page + toggle -->
-      {% else %}
-        {% set class = "md-nav__link--active" if nav_item.current %}
-        <div class="md-nav__link md-nav__link--index {{ class }}">
-          <a href="{{ nav_item.url|e }}">{{ nav_item.title }}</a>
-          <!-- sphinx-immaterial: already checked for children above -->
-          {% if True %}
-            <label for="{{ path }}">
-              <span class="md-nav__icon md-icon"></span>
-            </label>
-          {% endif %}
-        </div>
-      {% endif %}
-
-      <!-- Render nested navigation -->
-      <nav
-        class="md-nav"
-        aria-label="{{ nav_item.aria_label }}"
-        data-md-level="{{ level }}"
-      >
-        <label class="md-nav__title" for="{{ path }}">
-          <span class="md-nav__icon md-icon"></span>
-          {{ nav_item.title }}
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
-
-          <!-- Render nested item list -->
-          {% for nav_item in nav_item.children %}
-            {% if not indexes or nav_item != indexes | first %}
-              {{ render(nav_item, path ~ "_" ~ loop.index, level + 1) }}
+            <!-- Only render toggle if there's at least one more page -->
+            <!-- sphinx-immaterial: already checked for children above -->
+            {% if True %}
+              {% set tabindex = "0" if not is_section %}
+              <label
+                class="md-nav__link {{ class }}"
+                for="{{ path }}"
+                id="{{ path }}_label"
+                tabindex="{{ tabindex }}"
+              >
+                <span class="md-nav__icon md-icon"></span>
+              </label>
             {% endif %}
-          {% endfor %}
-        </ul>
-      </nav>
+          </div>
+        {% endif %}
+
+        <!-- Nested navigation -->
+        <nav
+          class="md-nav"
+          data-md-level="{{ level }}"
+          aria-labelledby="{{ path }}_label"
+          aria-expanded="{{ nav_item.active | tojson }}"
+        >
+          <label class="md-nav__title" for="{{ path }}">
+            <span class="md-nav__icon md-icon"></span>
+            {{ nav_item.title }}
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+
+            <!-- Nested navigation item -->
+            {% for nav_item in nav_item.children %}
+              {% if not indexes or nav_item != indexes | first %}
+                {{ render(nav_item, path ~ "_" ~ loop.index, level + 1) }}
+              {% endif %}
+            {% endfor %}
+          </ul>
+        </nav>
+
+      <!-- Pruned navigation item -->
+      {% else %}
+        {{ render_pruned(nav_item) }}
+      {% endif %}
     </li>
 
   <!-- Currently active page -->
@@ -131,18 +265,20 @@
       {% set toc = page.integrated_local_toc %}
       {% set use_integrated_local_toc = True %}
 
-      <!-- Active checkbox expands items contained within nested section -->
+      <!-- State toggle -->
       <input
         class="md-nav__toggle md-toggle"
-        data-md-toggle="toc"
         type="checkbox"
         id="__toc"
       />
 
-      <!-- Render table of contents, if not empty -->
+      <!-- sphinx-immaterial: no need to check toc level -->
+
+      <!-- Navigation link to table of contents -->
+      <!-- sphinx-immaterial: check if toc has at least one entry -->
       {% if toc | first is defined %}
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          {{ nav_item.title }}
+          {{ render_content(nav_item) }}
           <span class="md-nav__icon md-icon"></span>
         </label>
       {% endif %}
@@ -150,25 +286,23 @@
         href="{{ nav_item.url | url }}"
         class="md-nav__link md-nav__link--active"
       >
-        {{ nav_item.title }}
+        {{ render_content(nav_item) }}
       </a>
 
-      <!-- Show table of contents -->
-      {% if toc | first is defined %}
+      <!-- Table of contents -->
+      <!-- sphinx-immaterial: check if toc has at least one entry -->
+      {% if toc | first is defined%}
         {% include "partials/toc.html" %}
       {% endif %}
     </li>
 
-  <!-- Main navigation item -->
+  <!-- Navigation item -->
   <!-- sphinx-immaterial: exclude nested nav items which are handled above -->
   {% elif not nav_item.children %}
     <li class="{{ class }}">
       <a href="{{ nav_item.url | url }}" class="md-nav__link">
-        {{ nav_item.title }}
+        {{ render_content(nav_item) }}
       </a>
     </li>
   {% endif %}
 {% endmacro %}
-
-<!-- Render current and nested navigation items -->
-{{ render(nav_item, path, level) }}

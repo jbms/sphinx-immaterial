@@ -21,8 +21,8 @@ $objinfo-icon-size: 16px;
 
     .sig-name:not(.sig-name-nonprimary) {
       padding: 0;
-      color: $api-color-name;
       font-weight: 700;
+      color: $api-color-name;
     }
 
     .sig-param {
@@ -110,9 +110,9 @@ $objinfo-icon-size: 16px;
 
       // Prefix like "class", "staticmethod".
       .property {
-        color: $api-color-keyword;
-        font-weight: 700;
         font-style: normal;
+        font-weight: 700;
+        color: $api-color-keyword;
       }
 
       .sig-prename {
@@ -147,8 +147,8 @@ $objinfo-icon-size: 16px;
       dl.field-list {
         > dt {
           margin-bottom: 1em;
-          font-weight: 700;
           font-size: 1em;
+          font-weight: 700;
         }
       }
       // JSON domain uses noindent class to avoid an extra level of
@@ -244,10 +244,10 @@ $objinfo-icon-size: 16px;
   width: $objinfo-icon-size;
   height: $objinfo-icon-size;
   margin-right: 8px;
-  color: var(--objinfo-icon-fg-default);
-  font-weight: 500;
   font-family: var(--md-text-font-family);
+  font-weight: 500;
   line-height: $objinfo-icon-size;
+  color: var(--objinfo-icon-fg-default);
   text-align: center;
   vertical-align: middle;
   background-color: var(--objinfo-icon-bg-default);

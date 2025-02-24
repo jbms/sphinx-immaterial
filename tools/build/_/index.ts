@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-2022 Martin Donath <martin.donath@squidfunk.com>
+ * Copyright (c) 2016-2023 Martin Donath <martin.donath@squidfunk.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -26,7 +26,6 @@ import {
   EMPTY,
   Observable,
   catchError,
-  concatAll,
   defer,
   from,
   fromEvent,
@@ -34,6 +33,7 @@ import {
   map,
   mergeWith,
   of,
+  switchMap,
   tap
 } from "rxjs"
 import glob from "tiny-glob"
@@ -48,6 +48,7 @@ import glob from "tiny-glob"
 interface ResolveOptions {
   cwd: string                          /* Working directory */
   watch?: boolean                      /* Watch mode */
+  dot?: boolean                        /* Hidden files or directories */
 }
 
 /* ----------------------------------------------------------------------------
@@ -98,32 +99,33 @@ function now() {
 export function resolve(
   pattern: string, options?: ResolveOptions
 ): Observable<string> {
-  return from(glob(pattern, options))
+  return from(glob(pattern, { dot: true, ...options }))
     .pipe(
       catchError(() => EMPTY),
-      concatAll(),
+      switchMap(files => from(files).pipe(
 
-      /* Start file watcher */
-      options?.watch
-        ? mergeWith(watch(pattern, options))
-        : identity
+        /* Start file watcher */
+        options?.watch
+          ? mergeWith(watch(files, options))
+          : identity
+      )),
     )
 }
 
 /**
- * Watch all files matching the given pattern
+ * Watch all given files
  *
- * @param pattern - Pattern
+ * @param files - Files
  * @param options - Options
  *
  * @returns File observable
  */
 export function watch(
-  pattern: string | ReadonlyArray<string>, options: chokidar.WatchOptions
+  files: string[], options: chokidar.ChokidarOptions
 ): Observable<string> {
   return fromEvent(
-    chokidar.watch(pattern, options),
-    "change"
+    chokidar.watch(files, options),
+    "change", file => file // see https://t.ly/dli_k
   ) as Observable<string>
 }
 

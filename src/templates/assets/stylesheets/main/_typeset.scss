@@ -1,5 +1,5 @@
 ////
-/// Copyright (c) 2016-2022 Martin Donath <martin.donath@squidfunk.com>
+/// Copyright (c) 2016-2025 Martin Donath <martin.donath@squidfunk.com>
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -42,19 +42,19 @@ body {
 
 // Define default fonts
 body,
-input {
-  color: var(--md-typeset-color);
-  font-feature-settings: "kern", "liga";
+input,
+aside {
   font-family: var(--md-text-font-family);
+  font-feature-settings: "kern", "liga";
+  color: var(--md-typeset-color);
 }
 
 // Define monospaced fonts
 code,
 pre,
 kbd {
-  color: var(--md-typeset-color);
-  font-feature-settings: "kern";
   font-family: var(--md-code-font-family);
+  font-feature-settings: "kern";
 }
 
 // ----------------------------------------------------------------------------
@@ -75,6 +75,7 @@ kbd {
 .md-typeset {
   font-size: px2rem(16px);
   line-height: 1.6;
+  overflow-wrap: break-word;
   color-adjust: exact;
 
   // [print]: We'll use a smaller `font-size` for printing, so code examples
@@ -96,18 +97,18 @@ kbd {
   // Headline on level 1
   h1 {
     margin: 0 0 px2em(40px, 32px);
-    color: var(--md-default-fg-color--light);
-    font-weight: 300;
     font-size: px2em(32px);
+    font-weight: 300;
     line-height: 1.3;
+    color: var(--md-default-fg-color--light);
     letter-spacing: -0.01em;
   }
 
   // Headline on level 2
   h2 {
     margin: px2em(40px, 25px) 0 px2em(16px, 25px);
-    font-weight: 300;
     font-size: px2em(25px);
+    font-weight: 300;
     line-height: 1.4;
     letter-spacing: -0.01em;
   }
@@ -115,8 +116,8 @@ kbd {
   // Headline on level 3
   h3 {
     margin: px2em(32px, 20px) 0 px2em(16px, 20px);
-    font-weight: 400;
     font-size: px2em(20px);
+    font-weight: 400;
     line-height: 1.5;
     letter-spacing: -0.01em;
   }
@@ -137,15 +138,20 @@ kbd {
   h5,
   h6 {
     margin: px2em(16px, 12.8px) 0;
-    color: var(--md-default-fg-color--light);
-    font-weight: 700;
     font-size: px2em(12.8px);
+    font-weight: 700;
+    color: var(--md-default-fg-color--light);
     letter-spacing: -0.01em;
   }
 
   // Headline on level 5
   h5 {
     text-transform: uppercase;
+
+    // Don't uppercase code blocks
+    code {
+      text-transform: none;
+    }
   }
 
   // Horizontal separator
@@ -167,8 +173,7 @@ kbd {
     }
 
     // Text link on focus/hover
-    &:focus,
-    &:hover {
+    &:is(:focus, :hover) {
       color: var(--md-accent-fg-color);
 
       // Inline code block
@@ -194,9 +199,9 @@ kbd {
   code,
   pre,
   kbd {
+    font-variant-ligatures: none;
     color: var(--md-code-fg-color);
     direction: ltr;
-    font-variant-ligatures: none;
 
     // [print]: Wrap text and hide scollbars
     @media print {
@@ -229,16 +234,16 @@ kbd {
     // Code block
     > code {
       display: block;
-      margin: 0;
       padding: px2em(10.5px, 13.6px) px2em(16px, 13.6px);
+      margin: 0;
       overflow: auto;
       word-break: normal;
+      touch-action: auto;
+      scrollbar-color: var(--md-default-fg-color--lighter) transparent;
+      scrollbar-width: thin;
       outline-color: var(--md-accent-fg-color);
       box-shadow: none;
       box-decoration-break: slice;
-      touch-action: auto;
-      scrollbar-width: thin;
-      scrollbar-color: var(--md-default-fg-color--lighter) transparent;
 
       // Code block on hover
       &:hover {
@@ -275,10 +280,10 @@ kbd {
   kbd {
     display: inline-block;
     padding: 0 px2em(8px, 12px);
-    color: var(--md-default-fg-color);
     font-size: px2em(12px);
-    vertical-align: text-top;
+    color: var(--md-default-fg-color);
     word-break: break-word;
+    vertical-align: text-top;
     background-color: var(--md-typeset-kbd-color);
     border-radius: px2rem(2px);
     box-shadow:
@@ -298,31 +303,8 @@ kbd {
   // Abbreviation
   abbr {
     text-decoration: none;
-    border-bottom: px2rem(1px) dotted var(--md-default-fg-color--light);
     cursor: help;
-
-    // Show tooltip for touch devices
-    @media (hover: none) {
-      position: relative;
-
-      // Tooltip
-      &[title]:is(:focus, :hover)::after {
-        position: absolute;
-        inset-inline-start: 0;
-        display: inline-block;
-        width: auto;
-        min-width: max-content;
-        max-width: 80%;
-        margin-top: 2em;
-        padding: px2rem(4px) px2rem(6px);
-        color: var(--md-default-bg-color);
-        font-size: px2rem(14px);
-        background-color: var(--md-default-fg-color);
-        border-radius: px2rem(2px);
-        box-shadow: var(--md-shadow-z3);
-        content: attr(title);
-      }
-    }
+    border-bottom: px2rem(1px) dotted var(--md-default-fg-color--light);
   }
 
   // Small text
@@ -347,33 +329,55 @@ kbd {
   // Unordered list
   ul {
     list-style-type: disc;
+
+    // Hack: allow to override `list-style-type` via `type`, without breaking
+    // compatibility for explicitly setting it in CSS - see https://t.ly/izJyH
+    &[type] {
+      list-style-type: revert-layer;
+    }
   }
 
   // Unordered and ordered list
   ul,
   ol {
-    margin-inline-start: px2em(10px);
     padding: 0;
+    margin-inline-start: px2em(10px);
 
     // Adjust display mode if not hidden
     &:not([hidden]) {
       display: flow-root;
     }
 
-    // Nested ordered list
+    // 2nd layer nested ordered list
     ol {
       list-style-type: lower-alpha;
 
-      // Triply nested ordered list
+      // 3rd layer nested ordered list
       ol {
         list-style-type: lower-roman;
+
+        // 4th layer nested ordered list
+        ol {
+          list-style-type: upper-alpha;
+
+          // 5th layer nested ordered list
+          ol {
+            list-style-type: upper-roman;
+          }
+        }
       }
+    }
+
+    // Hack: allow to override `list-style-type` via `type`, without breaking
+    // compatibility for explicitly setting it in CSS - see https://t.ly/izJyH
+    &[type] {
+      list-style-type: revert-layer;
     }
 
     // List element
     li {
-      margin-bottom: 0.5em;
       margin-inline-start: px2em(20px);
+      margin-bottom: 0.5em;
 
       // Adjust spacing
       p,
@@ -427,12 +431,6 @@ kbd {
     &[align]:only-child {
       margin-top: 0;
     }
-
-    // Hide images for dark mode
-    &[src$="#only-dark"],
-    &[src$="#gh-dark-mode-only"] {
-      display: none;
-    }
   }
 
   // Figure
@@ -446,6 +444,7 @@ kbd {
     // Figure images
     img {
       display: block;
+      margin: 0 auto;
     }
   }
 
@@ -474,10 +473,10 @@ kbd {
     max-width: 100%;
     overflow: auto;
     font-size: px2rem(12.8px);
+    touch-action: auto;
     background-color: var(--md-default-bg-color);
     border: px2rem(1px) solid var(--md-typeset-table-color);
     border-radius: px2rem(2px);
-    touch-action: auto;
 
     // [print]: Reset display mode so table header wraps when printing
     @media print {
@@ -536,7 +535,7 @@ kbd {
 
       // Table row on hover
       &:hover {
-        background-color: rgba(0, 0, 0, 0.035);
+        background-color: var(--md-typeset-table-color--light);
         box-shadow: 0 px2rem(1px) 0 var(--md-default-bg-color) inset;
       }
     }
@@ -558,11 +557,11 @@ kbd {
       height: 1.2em;
       margin-inline-start: 0.5em;
       vertical-align: text-bottom;
+      content: "";
       mask-image: var(--md-typeset-table-sort-icon);
       mask-repeat: no-repeat;
       mask-size: contain;
       transition: background-color 125ms;
-      content: "";
     }
 
     // Show sort icon on hover
@@ -593,8 +592,8 @@ kbd {
   // Data table wrapper
   &__table {
     display: inline-block;
-    margin-bottom: 0.5em;
     padding: 0 px2rem(16px);
+    margin-bottom: 0.5em;
 
     // [print]: Reset display mode so table header wraps when printing
     @media print {
