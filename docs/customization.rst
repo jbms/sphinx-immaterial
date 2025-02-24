@@ -300,7 +300,7 @@ Configuration Options
             described above.
 
           .. warning::
-              When enabling the ``toc.follow`` feature,
+             When enabling the ``toc.follow`` feature,
              a `palette` must be set to avoid some known undesirable behavior.
              See `issue 380 <https://github.com/jbms/sphinx-immaterial/issues/380>`_.
         - ``toc.sticky``
