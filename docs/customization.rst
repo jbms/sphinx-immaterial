@@ -299,8 +299,10 @@ Configuration Options
             sidebar is instead scrolled for the local table-of-contents as
             described above.
 
-          .. note::
-              To enable the ``toc.follow`` feature, a `palette` must be set.
+          .. warning::
+              When enabling the ``toc.follow`` feature,
+             a `palette` must be set to avoid some known undesirable behavior.
+             See `issue 380 <https://github.com/jbms/sphinx-immaterial/issues/380>`_.
         - ``toc.sticky``
 
           Makes headings in the left and right sidebars "sticky", such that the
