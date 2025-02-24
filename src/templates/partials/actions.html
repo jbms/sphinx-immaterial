@@ -1,5 +1,5 @@
 <!--
-  Copyright (c) 2016-2022 Martin Donath <martin.donath@squidfunk.com>
+  Copyright (c) 2016-2025 Martin Donath <martin.donath@squidfunk.com>
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to
@@ -20,14 +20,35 @@
   IN THE SOFTWARE.
 -->
 
-<!-- Edit button -->
+<!-- Actions -->
 {% if page.edit_url %}
-  <a
-    href="{{ page.edit_url }}"
-    title="{{ lang.t('edit.link.title') }}"
-    class="md-content__button md-icon"
-  >
-    {% set icon = config.theme.icon.edit or "material/pencil" %}
-    {% include ".icons/" ~ icon ~ ".svg" %}
-  </a>
+
+  <!-- Edit button -->
+  {% if "content.action.edit" in features %}
+    <a
+      href="{{ page.edit_url }}"
+      title="{{ lang.t('action.edit') }}"
+      class="md-content__button md-icon"
+    >
+      {% set icon = config.theme.icon.edit or "material/file-edit-outline" %}
+      {% include ".icons/" ~ icon ~ ".svg" %}
+    </a>
+  {% endif %}
+
+  <!-- View button -->
+  {% if "content.action.view" in features %}
+    {% if "/blob/" in page.edit_url %}
+      {% set part = "blob" %}
+    {% else %}
+      {% set part = "edit" %}
+    {% endif %}
+    <a
+      href="{{ page.edit_url | replace(part, 'raw') }}"
+      title="{{ lang.t('action.view') }}"
+      class="md-content__button md-icon"
+    >
+      {% set icon = config.theme.icon.view or "material/file-eye-outline" %}
+      {% include ".icons/" ~ icon ~ ".svg" %}
+    </a>
+  {% endif %}
 {% endif %}

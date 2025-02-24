@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-2022 Martin Donath <martin.donath@squidfunk.com>
+ * Copyright (c) 2016-2025 Martin Donath <martin.donath@squidfunk.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -55,9 +55,12 @@ interface SetupOptions {
  */
 function extract(el: HTMLElement): string {
   el.setAttribute("data-md-copying", "")
-  const text = el.innerText
+  const copy = el.closest("[data-copy]")
+  const text = copy
+    ? copy.getAttribute("data-copy")!
+    : el.innerText
   el.removeAttribute("data-md-copying")
-  return text
+  return text.trimEnd()
 }
 
 /* ----------------------------------------------------------------------------

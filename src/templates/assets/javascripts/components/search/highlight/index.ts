@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-2022 Martin Donath <martin.donath@squidfunk.com>
+ * Copyright (c) 2016-2025 Martin Donath <martin.donath@squidfunk.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -55,6 +55,7 @@ export interface SearchHighlight {
  * Mount options
  */
 interface MountOptions {
+  // sphinx-immaterial: upstream search index not used
   location$: Observable<URL>           /* Location observable */
 }
 
@@ -73,7 +74,8 @@ interface MountOptions {
 export function mountSearchHiglight(
   el: HTMLElement, { location$ }: MountOptions
 ): Observable<Component<SearchHighlight>> {
-  const indexConfig = {lang: [], separator: "\\s+"}
+  // sphinx-immaterial: hard-coded fake index config
+  const indexConfig = {lang: [], separator: "\\s+", pipeline: []}
   return combineLatest([
     location$
       .pipe(
@@ -82,7 +84,7 @@ export function mountSearchHiglight(
       )
   ])
     .pipe(
-      map(([url]) => setupSearchHighlighter(indexConfig, true)(
+      map(([url]) => setupSearchHighlighter(indexConfig)(
         url.searchParams.get("h")!
       )),
       map(fn => {

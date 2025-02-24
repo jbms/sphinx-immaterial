@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-2022 Martin Donath <martin.donath@squidfunk.com>
+ * Copyright (c) 2016-2025 Martin Donath <martin.donath@squidfunk.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -80,7 +80,7 @@ if (typeof Element !== "undefined") {
         /* Replace children and create text nodes */
         for (let i = nodes.length - 1; i >= 0; i--) {
           let node = nodes[i]
-          if (typeof node !== "object")
+          if (typeof node === "string")
             node = document.createTextNode(node)
           else if (node.parentNode)
             node.parentNode.removeChild(node)

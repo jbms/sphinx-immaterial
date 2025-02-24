@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-2022 Martin Donath <martin.donath@squidfunk.com>
+ * Copyright (c) 2016-2025 Martin Donath <martin.donath@squidfunk.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -23,9 +23,12 @@
 import {
   Observable,
   Subject,
+  endWith,
   finalize,
   fromEvent,
+  ignoreElements,
   map,
+  takeUntil,
   tap
 } from "rxjs"
 
@@ -83,8 +86,15 @@ export function watchSearchShare(
       map(({ value }) => {
         const url = getLocation()
         url.hash = ""
-        url.searchParams.delete("h")
-        url.searchParams.set("q", value)
+
+        /* Compute readable query strings */
+        value = value
+          .replace(/\s+/g, "+")        /* Collapse whitespace */
+          .replace(/&/g, "%26")        /* Escape '&' character */
+          .replace(/=/g, "%3D")        /* Escape '=' character */
+
+        /* Replace query string */
+        url.search = `q=${value}`
         return { url }
       })
     )
@@ -102,6 +112,7 @@ export function mountSearchShare(
   el: HTMLAnchorElement, options: MountOptions
 ): Observable<Component<SearchShare>> {
   const push$ = new Subject<SearchShare>()
+  const done$ = push$.pipe(ignoreElements(), endWith(true))
   push$.subscribe(({ url }) => {
     el.setAttribute("data-clipboard-text", el.href)
     el.href = `${url}`
@@ -109,7 +120,10 @@ export function mountSearchShare(
 
   /* Prevent following of link */
   fromEvent(el, "click")
-    .subscribe(ev => ev.preventDefault())
+    .pipe(
+      takeUntil(done$)
+    )
+      .subscribe(ev => ev.preventDefault())
 
   /* Create and return component */
   return watchSearchShare(el, options)

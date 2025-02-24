@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-2022 Martin Donath <martin.donath@squidfunk.com>
+ * Copyright (c) 2016-2025 Martin Donath <martin.donath@squidfunk.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -33,12 +33,15 @@ import { Version } from "~/templates/version"
 export type Flag =
   | "announce.dismiss"                 /* Dismissable announcement bar */
   | "content.code.annotate"            /* Code annotations */
+  | "content.code.copy"                /* Code copy button */
   | "content.lazy"                     /* Lazy content elements */
   | "content.tabs.link"                /* Link content tabs */
+  | "content.tooltips"                 /* Tooltips */
   | "header.autohide"                  /* Hide header */
   | "navigation.expand"                /* Automatic expansion */
   | "navigation.indexes"               /* Section pages */
-  | "navigation.instant"               /* Instant loading */
+  | "navigation.instant"               /* Instant navigation */
+  | "navigation.instant.progress"      /* Instant navigation progress */
   | "navigation.sections"              /* Section navigation */
   | "navigation.tabs"                  /* Tabs navigation */
   | "navigation.tabs.sticky"           /* Tabs navigation (sticky) */
@@ -59,10 +62,6 @@ export type Flag =
 export type Translation =
   | "clipboard.copy"                   /* Copy to clipboard */
   | "clipboard.copied"                 /* Copied to clipboard */
-  | "search.config.lang"               /* Search language */
-  | "search.config.pipeline"           /* Search pipeline */
-  | "search.config.separator"          /* Search separator */
-  | "search.placeholder"               /* Search */
   | "search.result.placeholder"        /* Type to start searching */
   | "search.result.none"               /* No matching documents */
   | "search.result.one"                /* 1 matching document */
@@ -70,12 +69,13 @@ export type Translation =
   | "search.result.more.one"           /* 1 more on this page */
   | "search.result.more.other"         /* # more on this page */
   | "search.result.term.missing"       /* Missing */
-  | "select.version.title"             /* Version selector */
+  | "select.version"                   /* Version selector */
 
 /**
  * Translations
  */
-export type Translations = Record<Translation, string>
+export type Translations =
+  Record<Translation, string>
 
 /* ------------------------------------------------------------------------- */
 
@@ -84,9 +84,11 @@ export type Translations = Record<Translation, string>
  */
 export interface Versioning {
   provider: "mike"                     /* Version provider */
-  staticVersions?: Version[]          /* Static version list to use */
-  versionPath?: string                /* Base-relative path to versions.json */
-  default?: string                     /* Default version */
+  // sphinx-immaterial: add staticVersions
+  staticVersions?: Version[]           /* Static version list to use */
+  versionPath?: string                 /* Base-relative path to versions.json */
+  default?: string | string[]          /* Default version */
+  alias?: boolean                      /* Show alias */
 }
 
 /**
@@ -96,6 +98,8 @@ export interface Config {
   base: string                         /* Base URL */
   features: Flag[]                     /* Feature flags */
   translations: Translations           /* Translations */
+  // sphinx-immaterial: search worker not used
+  // search: string                    /* Search worker URL */
   tags?: Record<string, string>        /* Tags mapping */
   version?: Versioning                 /* Versioning */
 }

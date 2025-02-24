@@ -7,7 +7,7 @@ import escapeHTML from "escape-html"
 
 import { configuration } from "~/_"
 
-import { SearchResultItem } from "./integrations/search/_"
+import { SearchItem } from "./integrations/search/_"
 
 interface SphinxSearchResult {
   docurl: string
@@ -252,7 +252,7 @@ function splitQuery(query: string) {
  * @returns Escaped regular expression.
  */
 function escapeRegExp(s: string) {
-  return s.replace(/[.*+\-?^${}()|[\]\\]/g, "\\$&") // $& means the whole matched string
+  return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") // $& means the whole matched string
 }
 
 /**
@@ -594,7 +594,7 @@ async function convertSphinxResult(
   result: SphinxSearchResult,
   hlterms: string[],
   highlight: (s: string) => string
-): Promise<SearchResultItem> {
+): Promise<SearchItem[]> {
   const location = getAbsoluteUrl(result.docurl) + result.anchor
   // The title provided by the sphinx search index can include HTML
   // markup, which we need to strip.
@@ -634,7 +634,7 @@ async function convertSphinxResult(
     sectionMatches = [{score: -1, title: "", anchor: "", snippet: "", terms: allTerms}]
   }
   // Add entry for parent document.
-  const searchResults: SearchResultItem = []
+  const searchResults: SearchItem[] = []
   if (sectionMatches[0].score !== -1) {
     searchResults.push({
         location,
@@ -672,7 +672,7 @@ export interface SearchResultStream {
    *
    * @param index - Result index, in range `[0, count)`.
    */
-  get(index: number): Promise<SearchResultItem>
+  get(index: number): Promise<SearchItem[]>
 }
 
 /**
@@ -713,7 +713,7 @@ export async function getResults(query: string): Promise<SearchResultStream> {
     let negative = false
     if (origTerm[0] === "-") {
       negative = true
-      origTerm = origTerm.substr(1)
+      origTerm = origTerm.substring(1)
     }
     const lowerTerm = origTerm.toLowerCase()
     if (lowerTerm.length === 0) {

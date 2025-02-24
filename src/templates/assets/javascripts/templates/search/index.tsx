@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-2022 Martin Donath <martin.donath@squidfunk.com>
+ * Copyright (c) 2016-2025 Martin Donath <martin.donath@squidfunk.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -20,15 +20,12 @@
  * IN THE SOFTWARE.
  */
 
+import escapeHTML from "escape-html"
 import { ComponentChild } from "preact"
 
 import { configuration, feature, translation } from "~/_"
-import {
-  SearchDocument,
-  SearchMetadata,
-  SearchResultItem
-} from "~/integrations/search"
-import { h, truncate } from "~/utilities"
+import { SearchItem } from "~/integrations/search"
+import { h } from "~/utilities"
 
 /* ----------------------------------------------------------------------------
  * Helper types
@@ -55,7 +52,7 @@ const enum Flag {
  * @returns Element
  */
 function renderSearchDocument(
-  document: SearchDocument & SearchMetadata, flag: Flag
+  document: SearchItem, flag: Flag
 ): HTMLElement {
   const parent = flag & Flag.PARENT
   const teaser = flag & Flag.TEASER
@@ -64,12 +61,13 @@ function renderSearchDocument(
   const missing = Object.keys(document.terms)
     .filter(key => !document.terms[key])
     .reduce<ComponentChild[]>((list, key) => [
-      ...list, <del>{key}</del>, " "
+      ...list, <del>{escapeHTML(key)}</del>, " "
     ], [])
     .slice(0, -1)
 
   /* Assemble query string for highlighting */
-  const url = new URL(document.location)
+  const config = configuration()
+  const url = new URL(document.location, config.base)
   if (feature("search.highlight"))
     url.searchParams.set("h", Object.entries(document.terms)
       .filter(([, match]) => match)
@@ -81,33 +79,28 @@ function renderSearchDocument(
   return (
     <a href={`${url}`} class="md-search-result__link" tabIndex={-1}>
       <article
-        class={["md-search-result__article", ...parent
-          ? ["md-search-result__article--document"]
-          : []
-        ].join(" ")}
+        class="md-search-result__article md-typeset"
         data-md-score={document.score.toFixed(2)}
       >
         {parent > 0 && <div class="md-search-result__icon md-icon"></div>}
-        <h1 class="md-search-result__title">{document.title}</h1>
+        {parent > 0 && <h1>{document.title}</h1>}
+        {parent <= 0 && <h2>{document.title}</h2>}
         {teaser > 0 && document.text.length > 0 &&
-          <p class="md-search-result__teaser">
-            {truncate(document.text, 320)}
-          </p>
+          document.text
         }
         {document.tags && (
-          <div class="md-typeset">
+          <nav class="md-tags">
             {document.tags.map(tag => {
-              const id = tag.replace(/<[^>]+>/g, "")
               const type = tags
-                ? id in tags
-                  ? `md-tag-icon md-tag-icon--${tags[id]}`
+                ? tag in tags
+                  ? `md-tag-icon md-tag--${tags[tag]}`
                   : "md-tag-icon"
                 : ""
               return (
                 <span class={`md-tag ${type}`}>{tag}</span>
               )
             })}
-          </div>
+          </nav>
         )}
         {teaser > 0 && missing.length > 0 &&
           <p class="md-search-result__terms">
@@ -131,14 +124,19 @@ function renderSearchDocument(
  * @returns Element
  */
 export function renderSearchResultItem(
-  result: SearchResultItem
+  result: SearchItem[]
 ): HTMLElement {
   const threshold = result[0].score
   const docs = [...result]
 
+  const config = configuration()
+
   /* Find and extract parent article */
-  const parent = docs.findIndex(doc => !doc.location.includes("#"))
-  const [article] = docs.splice(parent === -1 ? 0 : parent, 1)
+  const parent = docs.findIndex(doc => {
+    const l = `${new URL(doc.location, config.base)}` // @todo hacky
+    return !l.includes("#")
+  })
+  const [article] = docs.splice(parent, 1)
 
   /* Determine last index above threshold */
   let index = docs.findIndex(doc => doc.score < threshold)
@@ -149,17 +147,22 @@ export function renderSearchResultItem(
   const best = docs.slice(0, index)
   const more = docs.slice(index)
 
+  console.log("rendering search result", article.location, {parent, index});
+
   /* Render children */
   const children = [
+    // sphinx-immaterial: always include teaser for "parent" since redundant text is already excluded by sphinx_search.ts
     renderSearchDocument(article, Flag.PARENT | Flag.TEASER),
     ...best.map(section => renderSearchDocument(section, Flag.TEASER)),
     ...more.length ? [
       <details class="md-search-result__more">
         <summary tabIndex={-1}>
-          {more.length > 0 && more.length === 1
-            ? translation("search.result.more.one")
-            : translation("search.result.more.other", more.length)
-          }
+          <div>
+            {more.length > 0 && more.length === 1
+              ? translation("search.result.more.one")
+              : translation("search.result.more.other", more.length)
+            }
+          </div>
         </summary>
         {...more.map(section => renderSearchDocument(section, Flag.TEASER))}
       </details>

@@ -351,15 +351,16 @@ def get_directive_class(name, title, classes=None) -> Type[CustomAdmonitionDirec
     if classes:
         class_list.extend(classes)
 
-    # uncomment this block when we merge v9.x from upstream
-    # if name in ("caution", "attention"):
-    #     class_list.append("warning")
-    # elif name == "error":
-    #     class_list.append("danger")
-    # elif name in ("important", "hint"):
-    #     class_list.append("tip")
-    # elif name == "todo":
-    #     class_list.append("info")
+    # make sphinx/docutils admonitions compatible with
+    # supported admonition types in upstream v9+
+    if name in ("caution", "attention"):
+        class_list.append("warning")
+    elif name == "error":
+        class_list.append("danger")
+    elif name in ("important", "hint"):
+        class_list.append("tip")
+    elif name == "todo":
+        class_list.append("info")
 
     class CustomizedAdmonition(CustomAdmonitionDirective):
         default_title = title

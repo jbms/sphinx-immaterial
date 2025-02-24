@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-2022 Martin Donath <martin.donath@squidfunk.com>
+ * Copyright (c) 2016-2025 Martin Donath <martin.donath@squidfunk.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -33,7 +33,8 @@ import {
 
 import { translation } from "~/_"
 import {
-  getElement
+  getElement,
+  watchToggle
 } from "~/browser"
 import {
   SearchResult
@@ -54,6 +55,7 @@ import { SearchQuery } from "../query"
  */
 interface MountOptions {
   query$: Observable<SearchQuery>      /* Search query observable */
+  // sphinx-immaterial: upstream search worker not used
 }
 
 /* ----------------------------------------------------------------------------
@@ -74,9 +76,17 @@ interface MountOptions {
 export function mountSearchResult(
   el: HTMLElement, { query$ }: MountOptions
 ): Observable<Component<SearchResult>> {
+  // sphinx-immaterial: upstream search implementation not used
+
   /* Retrieve nested components */
   const meta = getElement(":scope > :first-child", el)
   const list = getElement(":scope > :last-child", el)
+
+  /* Reveal to accessibility tree – see https://bit.ly/3iAA7t8 */
+  watchToggle("search")
+    .subscribe(active => list.setAttribute(
+      "role", active ? "list" : "presentation"
+    ))
 
   let lastResults: SearchResultStream|undefined
   let blocked: (() => void)|undefined
@@ -130,29 +140,27 @@ export function mountSearchResult(
         observeOn(animationFrameScheduler))
       .subscribe(results => {
         list.innerHTML = ""
+        switch (results ? results.count : 0) {
+
+          /* No results */
+          case 0:
+            meta.textContent = results
+              ? translation("search.result.none")
+              : translation("search.result.placeholder")
+            break
+
+          /* One result */
+          case 1:
+            meta.textContent = translation("search.result.one")
+            break
+
+          /* Multiple result */
+          default:
+            const count = round(results!.count)
+            meta.textContent = translation("search.result.other", count)
+        }
         if (results) {
-          switch (results.count) {
-
-            /* No results */
-            case 0:
-              meta.textContent = translation("search.result.none")
-              break
-
-            /* One result */
-            case 1:
-              meta.textContent = translation("search.result.one")
-              break
-
-            /* Multiple result */
-            default:
-              meta.textContent = translation(
-                "search.result.other",
-                round(results.count)
-              )
-          }
           void startAddingResults(results)
-        } else {
-          meta.textContent = translation("search.result.placeholder")
         }
       })
   return of()

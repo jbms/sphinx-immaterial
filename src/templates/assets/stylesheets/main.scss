@@ -1,5 +1,5 @@
 ////
-/// Copyright (c) 2016-2022 Martin Donath <martin.donath@squidfunk.com>
+/// Copyright (c) 2016-2025 Martin Donath <martin.donath@squidfunk.com>
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -41,27 +41,35 @@
 @import "main/icons";
 @import "main/typeset";
 
-@import "main/layout/banner";
-@import "main/layout/base";
-@import "main/layout/clipboard";
-@import "main/layout/consent";
-@import "main/layout/content";
-@import "main/layout/dialog";
-@import "main/layout/feedback";
-@import "main/layout/footer";
-@import "main/layout/form";
-@import "main/layout/header";
-@import "main/layout/hero";
-@import "main/layout/nav";
-@import "main/layout/search";
-@import "main/layout/select";
-@import "main/layout/sidebar";
-@import "main/layout/source";
-@import "main/layout/tabs";
-@import "main/layout/tag";
-@import "main/layout/tooltip";
-@import "main/layout/top";
-@import "main/layout/version";
+@import "main/components/author";
+@import "main/components/banner";
+@import "main/components/base";
+@import "main/components/clipboard";
+@import "main/components/code";
+@import "main/components/consent";
+@import "main/components/content";
+@import "main/components/dialog";
+@import "main/components/feedback";
+@import "main/components/footer";
+@import "main/components/form";
+@import "main/components/header";
+@import "main/components/hero";
+@import "main/components/meta";
+@import "main/components/nav";
+@import "main/components/pagination";
+@import "main/components/post";
+@import "main/components/progress";
+@import "main/components/search";
+@import "main/components/select";
+@import "main/components/sidebar";
+@import "main/components/source";
+@import "main/components/status";
+@import "main/components/tabs";
+@import "main/components/tag";
+@import "main/components/tooltip";
+@import "main/components/tooltip2";
+@import "main/components/top";
+@import "main/components/version";
 
 @import "main/extensions/markdown/admonition";
 @import "main/extensions/markdown/footnotes";
@@ -78,10 +86,12 @@
 
 @import "main/extensions/readthedocs/readthedocs";
 
+@import "main/integrations/giscus";
 @import "main/integrations/mermaid";
 @import "main/integrations/graphviz";
 
-@import "main/modifiers";
+@import "main/modifiers/grid";
+@import "main/modifiers/inline";
 
 @import "main/sphinx";
 @import "main/api";

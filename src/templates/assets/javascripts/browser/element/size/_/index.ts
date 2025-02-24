@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-2022 Martin Donath <martin.donath@squidfunk.com>
+ * Copyright (c) 2016-2025 Martin Donath <martin.donath@squidfunk.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -20,7 +20,6 @@
  * IN THE SOFTWARE.
  */
 
-import ResizeObserver from "resize-observer-polyfill"
 import {
   NEVER,
   Observable,
@@ -36,6 +35,8 @@ import {
   switchMap,
   tap
 } from "rxjs"
+
+import { watchScript } from "../../../script"
 
 /* ----------------------------------------------------------------------------
  * Types
@@ -66,20 +67,25 @@ const entry$ = new Subject<ResizeObserverEntry>()
  * It's quite important to centralize observation in a single `ResizeObserver`,
  * as the performance difference can be quite dramatic, as the link shows.
  *
+ * If the browser doesn't have a `ResizeObserver` implementation available, a
+ * polyfill is automatically downloaded from unpkg.com. This is also compatible
+ * with the built-in privacy plugin, which will download the polyfill and put
+ * it alongside the built site for self-hosting.
+ *
  * @see https://bit.ly/3iIYfEm - Google Groups on performance
  */
-const observer$ = defer(() => of(
-  new ResizeObserver(entries => {
-    for (const entry of entries)
-      entry$.next(entry)
-  })
+const observer$ = defer(() => (
+  typeof ResizeObserver === "undefined"
+    ? watchScript("https://unpkg.com/resize-observer-polyfill")
+    : of(undefined)
 ))
   .pipe(
-    switchMap(observer => merge(NEVER, of(observer))
-      .pipe(
-        finalize(() => observer.disconnect())
-      )
-    ),
+    map(() => new ResizeObserver(entries => (
+      entries.forEach(entry => entry$.next(entry))
+    ))),
+    switchMap(observer => merge(NEVER, of(observer)).pipe(
+      finalize(() => observer.disconnect())
+    )),
     shareReplay(1)
   )
 
@@ -127,16 +133,27 @@ export function getElementSize(
 export function watchElementSize(
   el: HTMLElement
 ): Observable<ElementSize> {
-  return observer$
-    .pipe(
-      tap(observer => observer.observe(el)),
-      switchMap(observer => entry$
-        .pipe(
-          filter(({ target }) => target === el),
-          finalize(() => observer.unobserve(el)),
-          map(() => getElementSize(el))
-        )
-      ),
-      startWith(getElementSize(el))
-    )
+
+  // Compute target element - since inline elements cannot be observed by the
+  // current `ResizeObserver` implementation as provided by browsers, we need
+  // to determine the first containing parent element and use that one as a
+  // target, while we always compute the actual size from the element.
+  let target = el
+  while (target.clientWidth === 0)
+    if (target.parentElement)
+      target = target.parentElement
+    else
+      break
+
+  // Observe target element and recompute element size on resize - as described
+  // above, the target element is not necessarily the element of interest
+  return observer$.pipe(
+    tap(observer => observer.observe(target)),
+    switchMap(observer => entry$.pipe(
+      filter(entry => entry.target === target),
+      finalize(() => observer.unobserve(target))
+    )),
+    map(() => getElementSize(el)),
+    startWith(getElementSize(el))
+  )
 }

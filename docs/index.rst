@@ -105,6 +105,11 @@ or ``theme.conf`` for more details.
     code_annotations
 
 .. toctree::
+    :hidden:
+
+    block_annotations
+
+.. toctree::
     :caption: API documentation customization
     :hidden:
 

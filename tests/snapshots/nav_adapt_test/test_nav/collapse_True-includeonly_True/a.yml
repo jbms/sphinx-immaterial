@@ -15,13 +15,13 @@ global_toc:
       caption_only: false
       children: []
       current: false
-      title: <span class="md-ellipsis">B page</span>
+      title: B page
       url: b.html
     current: false
-    title: <span class="md-ellipsis">Section 1</span>
+    title: Section 1
     url: '#section-1'
   current: true
-  title: <span class="md-ellipsis">A page</span>
+  title: A page
   url: '#'
 - active: false
   active_or_section_within_active: false
@@ -34,10 +34,10 @@ global_toc:
     caption_only: false
     children: []
     current: false
-    title: <span class="md-ellipsis">C page</span>
+    title: C page
     url: c.html
   current: false
-  title: <span class="md-ellipsis">TOC caption</span>
+  title: TOC caption
   url: c.html
 integrated_local_toc:
 - active: true
@@ -56,10 +56,10 @@ integrated_local_toc:
       caption_only: false
       children: []
       current: false
-      title: <span class="md-ellipsis">B page</span>
+      title: B page
       url: b.html
     current: false
-    title: <span class="md-ellipsis">Section 1</span>
+    title: Section 1
     url: '#section-1'
   - active: false
     active_or_section_within_active: true
@@ -72,14 +72,15 @@ integrated_local_toc:
       caption_only: false
       children: []
       current: false
-      title: <span aria-label="Python class" class="objinfo-icon objinfo-icon__data"
-        title="Python class">C</span><span title="Bar (Python class)" class="md-ellipsis">Bar</span>
+      icon_html: <span aria-label="Python class" class="objinfo-icon objinfo-icon__data"
+        title="Python class">C</span>
+      title: <span title="Bar (Python class)">Bar</span>
       url: '#Bar'
     current: false
-    title: <span class="md-ellipsis">Section 2</span>
+    title: Section 2
     url: '#section-2'
   current: true
-  title: <span class="md-ellipsis">A page</span>
+  title: A page
   url: '#'
 local_toc:
 - active: true
@@ -93,7 +94,7 @@ local_toc:
     caption_only: false
     children: []
     current: false
-    title: <span class="md-ellipsis">Section 1</span>
+    title: Section 1
     url: '#section-1'
   - active: false
     active_or_section_within_active: true
@@ -106,12 +107,13 @@ local_toc:
       caption_only: false
       children: []
       current: false
-      title: <span aria-label="Python class" class="objinfo-icon objinfo-icon__data"
-        title="Python class">C</span><span title="Bar (Python class)" class="md-ellipsis">Bar</span>
+      icon_html: <span aria-label="Python class" class="objinfo-icon objinfo-icon__data"
+        title="Python class">C</span>
+      title: <span title="Bar (Python class)">Bar</span>
       url: '#Bar'
     current: false
-    title: <span class="md-ellipsis">Section 2</span>
+    title: Section 2
     url: '#section-2'
   current: true
-  title: <span class="md-ellipsis">A page</span>
+  title: A page
   url: '#'

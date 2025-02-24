@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-2022 Martin Donath <martin.donath@squidfunk.com>
+ * Copyright (c) 2016-2025 Martin Donath <martin.donath@squidfunk.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -48,6 +48,8 @@ import {
 
 import { fetchSitemap } from "../sitemap"
 
+import { selectedVersionCorrespondingURL } from "./findurl"
+
 /* ----------------------------------------------------------------------------
  * Helper types
  * ------------------------------------------------------------------------- */
@@ -74,9 +76,9 @@ export function setupVersionSelector(
   const config = configuration()
   const versions$: Observable<Version[]> =
       config.version!.staticVersions ?
-        of(config.version!.staticVersions) :
-        requestJSON<Version[]>(new URL(
-          config.version!.versionPath ?? "../versions.json", config.base))
+          of(config.version!.staticVersions) :
+          requestJSON<Version[]>(new URL(
+            config.version!.versionPath ?? "../versions.json", config.base))
 
   /* Determine current version */
   const versionBase = new URL("..", config.base)
@@ -113,8 +115,8 @@ export function setupVersionSelector(
                 // find the same page, as we might have different deployments
                 // due to aliases. However, if we're outside the version
                 // selector, we must abort here, because we might otherwise
-                // interfere with instant loading. We need to refactor this
-                // at some point together with instant loading.
+                // interfere with instant navigation. We need to refactor this
+                // at some point together with instant navigation.
                 //
                 // See https://github.com/squidfunk/mkdocs-material/issues/4012
                 if (!ev.target.closest(".md-version")) {
@@ -123,28 +125,28 @@ export function setupVersionSelector(
                     return EMPTY
                 }
                 ev.preventDefault()
-                return of(url)
+                return of(new URL(url))
               }
             }
             return EMPTY
           }),
-          switchMap(url => {
-            const { version } = urls.get(url)!
-            return fetchSitemap(new URL(url))
-              .pipe(
-                map(sitemap => {
-                  const location = getLocation()
-                  const path = location.href.replace(config.base, "")
-                  return sitemap.includes(path.split("#")[0])
-                    ? new URL(`../${version}/${path}`, config.base)
-                    : new URL(url)
-                })
-              )
+          switchMap(selectedVersionBaseURL => {
+            return fetchSitemap(selectedVersionBaseURL).pipe(
+              map(
+                sitemap =>
+                  selectedVersionCorrespondingURL({
+                    selectedVersionSitemap: sitemap,
+                    selectedVersionBaseURL,
+                    currentLocation: getLocation(),
+                    currentBaseURL: config.base
+                  }) ?? selectedVersionBaseURL,
+              ),
+            )
           })
         )
       )
     )
-      .subscribe(url => setLocation(url))
+      .subscribe(url => setLocation(url, true))
 
   /* Render version selector and warning */
   combineLatest([versions$, current$])
@@ -153,18 +155,33 @@ export function setupVersionSelector(
       topic.appendChild(renderVersionSelector(versions, current))
     })
 
-  /* Integrate outdated version banner with instant loading */
+  /* Integrate outdated version banner with instant navigation */
   document$.pipe(switchMap(() => current$))
     .subscribe(current => {
 
+      // Always scope outdate version banner to the base URL of the site
+      const base = new URL(config.base)
+
       /* Check if version state was already determined */
-      let outdated = __md_get("__outdated", sessionStorage)
+      let outdated = __md_get("__outdated", sessionStorage, base)
       if (outdated === null) {
-        const latest = config.version?.default || "latest"
-        outdated = !current.aliases.includes(latest)
+        outdated = true
+
+        /* Obtain and normalize default versions */
+        let ignored = config.version?.default || "latest"
+        if (!Array.isArray(ignored))
+          ignored = [ignored]
+
+        /* Check if version is considered a default */
+        main: for (const ignore of ignored)
+          for (const version of current.aliases.concat(current.version))
+            if (new RegExp(ignore, "i").test(version)) {
+              outdated = false
+              break main
+            }
 
         /* Persist version state in session storage */
-        __md_set("__outdated", outdated, sessionStorage)
+        __md_set("__outdated", outdated, sessionStorage, base)
       }
 
       /* Unhide outdated version banner */

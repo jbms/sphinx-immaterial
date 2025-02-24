@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-2022 Martin Donath <martin.donath@squidfunk.com>
+ * Copyright (c) 2016-2025 Martin Donath <martin.donath@squidfunk.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -28,7 +28,6 @@ import {
   finalize,
   fromEvent,
   map,
-  startWith,
   tap
 } from "rxjs"
 
@@ -83,21 +82,22 @@ export function mountAnnounce(
   if (!feature("announce.dismiss") || !el.childElementCount)
     return EMPTY
 
+  /* Support instant navigation - see https://t.ly/3FTme */
+  if (!el.hidden) {
+    const content = getElement(".md-typeset", el)
+    if (__md_hash(content.innerHTML) === __md_get("__announce"))
+      el.hidden = true
+  }
+
   /* Mount component on subscription */
   return defer(() => {
     const push$ = new Subject<Announce>()
-    push$
-      .pipe(
-        startWith({ hash: __md_get<number>("__announce") })
-      )
-        .subscribe(({ hash }) => {
-          if (hash && hash === (__md_get<number>("__announce") ?? hash)) {
-            el.hidden = true
+    push$.subscribe(({ hash }) => {
+      el.hidden = true
 
-            /* Persist preference in local storage */
-            __md_set<number>("__announce", hash)
-          }
-        })
+      /* Persist preference in local storage */
+      __md_set<number>("__announce", hash)
+    })
 
     /* Create and return component */
     return watchAnnounce(el)

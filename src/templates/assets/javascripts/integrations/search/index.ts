@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-2022 Martin Donath <martin.donath@squidfunk.com>
+ * Copyright (c) 2016-2025 Martin Donath <martin.donath@squidfunk.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -21,7 +21,8 @@
  */
 
 export * from "./_"
-export * from "./document"
+export * from "./config"
 export * from "./highlighter"
-export * from "./options"
 export * from "./query"
+// sphinx-immaterial: upstream search worker not used
+// export * from "./worker"

@@ -1,6 +1,6 @@
 :hero: Configuration options to personalize your site.
 
-.. _any of the icons bundled with this theme: https://github.com/squidfunk/mkdocs-material/tree/master/material/.icons
+.. _any of the icons bundled with this theme: https://github.com/squidfunk/mkdocs-material/tree/master/material/templates/.icons
 
 .. _customization:
 
@@ -157,11 +157,106 @@ Configuration Options
 
     .. themeconf:: icon
 
+        This is a `dict` of icons that can be customized. As usual,
+        `any of the icons bundled with this theme`_ can be used as values.
+
         .. literalinclude:: conf.py
             :language: python
             :caption: This is the setting currently used by this documentation.
             :start-at: "icon": {
             :end-before: "site_url":
+
+        .. themeconf:: logo
+
+            The icon that is used as a fallback when :confval:`html_logo` is not specified.
+            The behavior of this option is inherited from the mkdocs-material theme, so
+            `any of the icons bundled with this theme`_ can be used here.
+            Defaults to ``material/library`` (:si-icon:`material/library`) when :confval:`html_logo` is not set.
+
+            .. code-block:: python
+
+                html_theme_options = {
+                    "icon": {
+                        "logo": "material/library"
+                    },
+                }
+
+        .. themeconf:: menu
+
+            This icon is used as the "open drawer" button (commonly referred to as the
+            "hamburger button" in web design). Defaults to ``material/menu`` (:si-icon:`material/menu`).
+
+        .. themeconf:: alternate
+
+            The icon used for the language selector button. See :themeconf:`languages` to
+            configure the options in the language selector drop-down menu.
+            Defaults to ``material/translate`` (:si-icon:`material/translate`).
+
+        .. themeconf:: annotation
+
+            The icon used for the annotation button. See :doc:`block_annotations` or
+            :doc:`code_annotations` for usage information.
+            Defaults to ``material/plus-circle`` (:si-icon:`material/plus-circle`).
+
+            Some popular choices:
+
+            - :si-icon:`material/plus-circle` ``material/plus-circle``
+            - :si-icon:`material/circle-medium` ``material/circle-medium``
+            - :si-icon:`material/record-circle` ``material/record-circle``
+            - :si-icon:`material/arrow-right-circle` ``material/arrow-right-circle``
+            - :si-icon:`material/arrow-right-circle-outline` ``material/arrow-right-circle-outline``
+            - :si-icon:`material/chevron-right-circle` ``material/chevron-right-circle``
+            - :si-icon:`material/star-four-points-circle` ``material/star-four-points-circle``
+            - :si-icon:`material/plus-circle-outline` ``material/plus-circle-outline``
+
+        .. themeconf:: search
+
+            This icon is used as the search icon.
+            Defaults to ``material/magnify`` (:si-icon:`material/magnify`).
+
+        .. themeconf:: share
+
+            This icon is used as the share icon when viewing search results.
+            Defaults to ``material/share-variant`` (:si-icon:`material/share-variant`).
+
+        .. themeconf:: close
+
+            This icon is used as the close icon when viewing search results (or to dismiss the
+            announcement banner).
+            Defaults to ``material/close`` (:si-icon:`material/close`).
+
+        .. themeconf:: top
+
+            This icon is used as the "back-to-top" icon when scrolling up the page.
+            Defaults to ``material/arrow-up`` (:si-icon:`material/arrow-up`).
+
+        .. themeconf:: edit
+
+            The icon used for the "edit this page" button at the top of the document.
+            This is only used if the following conditions are satisfied:
+
+            .. task-list::
+                :custom:
+
+                - [x] :themeconf:`edit_uri` is configured
+                - [x] :python:`"content.actions.edit"` is in the list of :themeconf:`features`
+                - [x] :themeconf:`hide-edit-link` is *not* present for the page
+
+            Defaults to ``material/file-edit-outline`` (:si-icon:`material/file-edit-outline`).
+
+        .. themeconf:: view
+
+            The icon used for the "view the source of this page" button at the top of the document.
+            This is only used if the following conditions are satisfied:
+
+            .. task-list::
+                :custom:
+
+                - [x] :themeconf:`edit_uri` is configured
+                - [x] :python:`"content.actions.view"` is in the list of :themeconf:`features`
+                - [x] :themeconf:`hide-edit-link` is *not* present for the page
+
+            Defaults to ``material/file-eye-outline`` (:si-icon:`material/file-eye-outline`).
 
         .. themeconf:: repo
 
@@ -188,41 +283,20 @@ Configuration Options
             .. seealso::
                 Refer to the :ref:`change_admonition_icon` section for more detail.
 
-        .. themeconf:: edit
+        .. themeconf:: previous
 
-            The icon used for the generated "edit this page" button at the top of the document.
-            This is only used if :themeconf:`edit_uri` is configured and when not explicitly hidden
-            using :themeconf:`hide-edit-link`.
+            The icon used in various places of the site that mean "go back":
 
-            As usual, `any of the icons bundled with this theme`_ can be used here. While the default is
-            ``material/pencil``, this documentation uses ``material/file-edit-outline``
+            - footer's previous page link icon when :python:`"navigation.footer"` is in the list of :themeconf:`features`
+            - hide search on mobile browsers
+            - nested menus in the navigation drawer
 
-        .. themeconf:: logo
+            Defaults to ``material/arrow-left`` (:si-icon:`material/arrow-left`).
 
-            The icon that is used as a fallback when :confval:`html_logo` is not specified.
-            The behavior of this option is inherited from the mkdocs-material theme, so
-            `any of the icons bundled with this theme`_ can be used here.
+        .. themeconf:: next
 
-            .. code-block:: python
-
-                html_theme_options = {
-                    "icon": {
-                        "logo": "material/library"
-                    },
-                }
-
-        .. themeconf:: alternate
-
-            The icon used for the language selector button. See :themeconf:`languages` to
-            configure the options in the language selector drop-down menu.
-
-            .. code-block:: python
-
-                html_theme_options = {
-                    "icon": {
-                        "logo": "material/translate"
-                    },
-                }
+            The icon used as the footer's next page link icon when :python:`"navigation.footer"` is in the list of :themeconf:`features`.
+            Defaults to ``material/arrow-right`` (:si-icon:`material/arrow-right`).
 
     .. themeconf:: edit_uri
 
@@ -235,17 +309,68 @@ Configuration Options
         Some features that have been ported from the mkdocs-material theme and can be enabled by
         specifying the feature's name in a list of strings. The following features are supported:
 
+        - `content.action.* <https://squidfunk.github.io/mkdocs-material/setup/adding-a-git-repository/#code-actions>`_
+
+          - ``content.action.view`` will enable the :si-icon:`material/file-eye-outline` "View source of this page" link at the top of the page.
+          - ``content.action.edit`` will enable the :si-icon:`material/file-edit-outline` "Edit this page" link at the top of the page.
+
+          .. seealso::
+              Using the :themeconf:`hide-edit-link` metadata field will suppress both of these features on a per-page basis.
+
         - `content.code.annotate <https://squidfunk.github.io/mkdocs-material/reference/code-blocks/#code-annotations>`_
 
           .. seealso:: Refer to the :doc:`code_annotations` document for more detail.
+
+        - `content.code.copy <https://squidfunk.github.io/mkdocs-material/reference/code-blocks/#code-copy-button>`_
+
+          .. info:: Enabling or disabling code copy buttons for a specific code block
+
+              If you don't want to enable code copy buttons globally, you can enable them for a
+              specific code block by adding a ``copy`` value to the :rst:dir:`code-block`
+              directives' :rst:`:class:` option.
+
+              .. rst-example:: Enable the copy button
+
+                  .. code-block:: yaml
+                      :class: copy
+
+                      # Code block content
+
+              Alternatively, you can disable the copy button with the ``no-copy`` :rst:`:class:`
+              for a specific code block when the :python:`"content.code.copy"` feature is globally
+              enabled.
+
+              .. rst-example:: Disable the copy button
+
+                  .. code-block:: yaml
+                      :class: no-copy
+
+                      # Code block content
 
         - `content.tabs.link <https://squidfunk.github.io/mkdocs-material/reference/content-tabs/#linked-content-tabs>`_
 
           .. seealso::
               Please refer to the :ref:`linked_tabs` section for more information.
 
+        - `content.tooltips <https://squidfunk.github.io/mkdocs-material/reference/tooltips/#improved-tooltips>`_
+
+          There is currently no way to use custom tooltips in rST
+          :duref:`hyperlink syntax <hyperlink-references>`, but
+          some extensions do make use of the ``docutils.nodes.reference`` object's ``reftitle``
+          attribute that corresponds to the hyperlink reference's title (which is rendered as a
+          tooltip in web browsers).
+
+          Some examples with the :python:`"content.tooltips"` feature enabled:
+
+          - :py:mod:`sphinx.ext.intersphinx` (an intersphinx link)
+          - :cpp:expr:`synopses_ex::Foo` (a demo C++ function expression)
+          - :cpp:func:`Foo` (a demo C++ function reference)
+          - :json:schema:`Pet` (a demo JSON schema reference)
+          - :py:class:`test_py_module.test.Foo` (a demo Python class reference)
+
         - `header.autohide <https://squidfunk.github.io/mkdocs-material/setup/setting-up-the-header/#automatic-hiding>`_
         - `navigation.expand <https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#navigation-expansion>`_
+        - `navigation.footer <https://squidfunk.github.io/mkdocs-material/setup/setting-up-the-footer/#navigation>`_
         - `navigation.instant <https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#instant-loading>`_
         - `navigation.sections <https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#navigation-sections>`_
         - `navigation.tabs <https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#navigation-tabs>`_
@@ -438,7 +563,7 @@ Configuration Options
 
         .. themeconf:: media (palette preference)
 
-            In order to automatically set the color palette based on the user's system preference, a media
+            In order to automatically set the color palette based on the user's or system's preference, a media
             query can be specified with the ``media`` field.
 
             .. code-block:: python
@@ -446,10 +571,18 @@ Configuration Options
                 html_theme_options = {
                     "palette": [
                         {
+                            "media": "(prefers-color-scheme)",
+                            "scheme": "default",
+                            "toggle": {
+                                "icon": "material/toggle-switch",
+                                "name": "Switch to light mode",
+                            }
+                        },
+                        {
                             "media": "(prefers-color-scheme: light)",
                             "scheme": "default",
                             "toggle": {
-                                "icon": "material/toggle-switch-off-outline",
+                                "icon": "material/toggle-switch",
                                 "name": "Switch to dark mode",
                             }
                         },
@@ -457,8 +590,8 @@ Configuration Options
                             "media": "(prefers-color-scheme: dark)",
                             "scheme": "slate",
                             "toggle": {
-                                "icon": "material/toggle-switch",
-                                "name": "Switch to light mode",
+                                "icon": "material/toggle-switch-off-outline",
+                                "name": "Switch to system preference",
                             }
                         },
                     ]

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-2022 Martin Donath <martin.donath@squidfunk.com>
+ * Copyright (c) 2016-2025 Martin Donath <martin.donath@squidfunk.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -50,7 +50,7 @@ export function renderTabbedControl(
   const classes = `tabbed-control tabbed-control--${type}`
   return (
     <div class={classes} hidden>
-      <button class="tabbed-button" tabIndex={-1}></button>
+      <button class="tabbed-button" tabIndex={-1} aria-hidden="true"></button>
     </div>
   )
 }

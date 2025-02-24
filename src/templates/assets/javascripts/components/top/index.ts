@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-2022 Martin Donath <martin.donath@squidfunk.com>
+ * Copyright (c) 2016-2025 Martin Donath <martin.donath@squidfunk.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -29,10 +29,11 @@ import {
   distinctUntilKeyChanged,
   endWith,
   finalize,
+  fromEvent,
+  ignoreElements,
   map,
   repeat,
   skip,
-  takeLast,
   takeUntil,
   tap
 } from "rxjs"
@@ -134,7 +135,7 @@ export function mountBackToTop(
   el: HTMLElement, { viewport$, header$, main$, target$ }: MountOptions
 ): Observable<Component<BackToTop>> {
   const push$ = new Subject<BackToTop>()
-  const done$ = push$.pipe(takeLast(1))
+  const done$ = push$.pipe(ignoreElements(), endWith(true))
   push$.subscribe({
 
     /* Handle emission */
@@ -165,6 +166,13 @@ export function mountBackToTop(
       .subscribe(({ height }) => {
         el.style.top = `${height + 16}px`
       })
+
+  /* Go back to top */
+  fromEvent(el, "click")
+    .subscribe(ev => {
+      ev.preventDefault()
+      window.scrollTo({ top: 0 })
+    })
 
   /* Create and return component */
   return watchBackToTop(el, { viewport$, main$, target$ })

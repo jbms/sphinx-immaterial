@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-2022 Martin Donath <martin.donath@squidfunk.com>
+ * Copyright (c) 2016-2025 Martin Donath <martin.donath@squidfunk.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -115,13 +115,22 @@ export function mountHeaderTitle(
 ): Observable<Component<HeaderTitle>> {
   return defer(() => {
     const push$ = new Subject<HeaderTitle>()
-    push$.subscribe(({ active }) => {
-      el.classList.toggle("md-header__title--active", active)
+    push$.subscribe({
+
+      /* Handle emission */
+      next({ active }) {
+        el.classList.toggle("md-header__title--active", active)
+      },
+
+      /* Handle complete */
+      complete() {
+        el.classList.remove("md-header__title--active")
+      }
     })
 
     /* Obtain headline, if any */
     /* sphinx-immaterial: treat first object description as title if there is no h1 */
-    const heading = getOptionalElement("article h1, .objdesc > dt .descname")
+    const heading = getOptionalElement(".md-content h1, .objdesc > dt .descname")
     if (typeof heading === "undefined")
       return EMPTY
 

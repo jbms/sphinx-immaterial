@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-2022 Martin Donath <martin.donath@squidfunk.com>
+ * Copyright (c) 2016-2025 Martin Donath <martin.donath@squidfunk.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -21,11 +21,15 @@
  */
 
 import {
+  EMPTY,
   Observable,
   filter,
   fromEvent,
   map,
-  share
+  merge,
+  share,
+  startWith,
+  switchMap
 } from "rxjs"
 
 import { getActiveElement } from "../element"
@@ -94,12 +98,27 @@ function isSusceptibleToKeyboard(
  * ------------------------------------------------------------------------- */
 
 /**
+ * Watch composition events
+ *
+ * @returns Composition observable
+ */
+export function watchComposition(): Observable<boolean> {
+  return merge(
+    fromEvent(window, "compositionstart").pipe(map(() => true)),
+    fromEvent(window, "compositionend").pipe(map(() => false))
+  )
+    .pipe(
+      startWith(false)
+    )
+}
+
+/**
  * Watch keyboard
  *
  * @returns Keyboard observable
  */
 export function watchKeyboard(): Observable<Keyboard> {
-  return fromEvent<KeyboardEvent>(window, "keydown")
+  const keyboard$ = fromEvent<KeyboardEvent>(window, "keydown")
     .pipe(
       filter(ev => !(ev.metaKey || ev.ctrlKey)),
       map(ev => ({
@@ -119,5 +138,11 @@ export function watchKeyboard(): Observable<Keyboard> {
         return true
       }),
       share()
+    )
+
+  /* Don't emit during composition events - see https://bit.ly/3te3Wl8 */
+  return watchComposition()
+    .pipe(
+      switchMap(active => !active ? keyboard$ : EMPTY)
     )
 }

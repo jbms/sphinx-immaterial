@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-2022 Martin Donath <martin.donath@squidfunk.com>
+ * Copyright (c) 2016-2025 Martin Donath <martin.donath@squidfunk.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -24,26 +24,22 @@ import {
   Observable,
   Subject,
   combineLatest,
-  delay,
   distinctUntilChanged,
   distinctUntilKeyChanged,
-  filter,
+  endWith,
   finalize,
+  first,
   fromEvent,
+  ignoreElements,
   map,
   merge,
-  of,
-  share,
   shareReplay,
-  startWith,
-  take,
-  takeLast,
   takeUntil,
   tap
 } from "rxjs"
 
-import { translation } from "~/_"
 import {
+  getElement,
   getLocation,
   setToggle,
   watchElementFocus,
@@ -79,52 +75,39 @@ export interface SearchQuery {
  * @returns Search query observable
  */
 export function watchSearchQuery(
-  el: HTMLInputElement
+  el: HTMLInputElement,
 ): Observable<SearchQuery> {
-  const fn = (value: string) => value.trim()
 
-  /* Immediately show search dialog */
+  /* Support search deep linking */
   const { searchParams } = getLocation()
-  let param$: Observable<string>
   if (searchParams.has("q")) {
     setToggle("search", true)
-    const value = searchParams.get("q")!
-    param$ = of(value)
-  } else {
-    param$ = of()
+
+    /* Set query from parameter */
+    el.value = searchParams.get("q")!
+    el.focus()
+
+    /* Remove query parameter on close */
+    watchToggle("search")
+      .pipe(
+        first(active => !active)
+      )
+        .subscribe(() => {
+          const url = getLocation()
+          url.searchParams.delete("q")
+          history.replaceState({}, "", `${url}`)
+        })
   }
-
-  /* Remove query parameter when search is closed */
-  watchToggle("search")
-    .pipe(
-      filter(active => !active),
-      take(1)
-    )
-      .subscribe(() => {
-        const url = new URL(location.href)
-        url.searchParams.delete("q")
-        history.replaceState({}, "", `${url}`)
-      })
-
-  /* Set query from parameter */
-  param$.subscribe(value => { // TODO: not ideal - find a better way
-    if (value) {
-      el.value = value
-      el.focus()
-    }
-  })
 
   /* Intercept focus and input events */
   const focus$ = watchElementFocus(el)
   const value$ = merge(
     fromEvent(el, "keyup"),
-    fromEvent(el, "focus").pipe(delay(1)),
-    param$
+    focus$
   )
     .pipe(
-      map(() => fn(el.value)),
-      startWith(""),
-      distinctUntilChanged(),
+      map(() => el.value),
+      distinctUntilChanged()
     )
 
   /* Combine into single observable */
@@ -146,20 +129,16 @@ export function mountSearchQuery(
   el: HTMLInputElement,
 ): Observable<Component<SearchQuery, HTMLInputElement>> {
   const push$ = new Subject<SearchQuery>()
-  const done$ = push$.pipe(takeLast(1))
+  const done$ = push$.pipe(ignoreElements(), endWith(true))
 
-  /* Handle focus changes */
+  /* Handle focus change */
   push$
     .pipe(
       distinctUntilKeyChanged("focus")
     )
       .subscribe(({ focus }) => {
-        if (focus) {
+        if (focus)
           setToggle("search", focus)
-          el.placeholder = ""
-        } else {
-          el.placeholder = translation("search.placeholder")
-        }
       })
 
   /* Handle reset */
@@ -169,12 +148,20 @@ export function mountSearchQuery(
     )
       .subscribe(() => el.focus())
 
+  // Focus search query on label click - note that this is necessary to bring
+  // up the keyboard on iOS and other mobile platforms, as the search dialog is
+  // not visible at first, and programatically focusing an input element must
+  // be triggered by a user interaction - see https://t.ly/Cb30n
+  const label = getElement("header [for=__search]")
+  fromEvent(label, "click")
+    .subscribe(() => el.focus())
+
   /* Create and return component */
   return watchSearchQuery(el)
     .pipe(
       tap(state => push$.next(state)),
       finalize(() => push$.complete()),
       map(state => ({ ref: el, ...state })),
-      share()
+      shareReplay(1)
     )
 }

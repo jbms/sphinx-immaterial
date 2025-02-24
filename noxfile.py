@@ -43,21 +43,21 @@ def uv_sync(session: nox.Session, *args: list[str]):
 def ruff_format(session: nox.Session):
     """Checks formatting with ruff"""
     uv_sync(session, "--only-group", "ruff")
-    session.run("ruff", "format", "--diff")
+    session.run("ruff", "format", "--diff", *session.posargs)
 
 
 @nox.session
 def ruff_lint(session: nox.Session):
     """Run ruff as linter"""
     uv_sync(session, "--only-group", "ruff")
-    session.run("ruff", "check")
+    session.run("ruff", "check", *session.posargs)
 
 
 @nox.session(python=SUPPORTED_PY_VER)
 def mypy(session: nox.Session):
     """Run mypy using in default env"""
     uv_sync(session, "--only-group", "mypy")
-    session.run("mypy")
+    session.run("mypy", *session.posargs)
 
 
 PRE_EXCLUDE = re.compile(
@@ -174,7 +174,7 @@ def check_lf(session: nox.Session):
 @nox.session(python=False)
 def build(session: nox.Session):
     """Create distributions."""
-    session.run("uv", "build", "--wheel")
+    session.run("uv", "build", "--wheel", *session.posargs)
     github_output = os.environ.get("GITHUB_OUTPUT", None)
     deployable = list(pathlib.Path().glob("dist/*.whl"))[0]
     if github_output is not None:
@@ -202,6 +202,7 @@ def docs(session: nox.Session, builder: str):
         "-T",
         "docs",
         f"docs/_build/{builder}",
+        *session.posargs,
     )
     ci_logger.info("::endgroup::")
 
@@ -233,7 +234,16 @@ def tests(session: nox.Session, sphinx: int):
     # Must be done as a separate step due to https://github.com/astral-sh/uv/issues/11648
     uv_sync(session, "--inexact", "--group", f"sphinx{sphinx}")
 
-    session.run("coverage", "run", "-m", "pytest", "-vv", "-s", "--durations=5")
+    session.run(
+        "coverage",
+        "run",
+        "-m",
+        "pytest",
+        "-vv",
+        "-s",
+        "--durations=5",
+        *session.posargs,
+    )
     # session.notify("docs") <- only calls docs(html), not dirhtml or latex builders
     ci_logger.info("::endgroup::")
 

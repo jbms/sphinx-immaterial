@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-2022 Martin Donath <martin.donath@squidfunk.com>
+ * Copyright (c) 2016-2025 Martin Donath <martin.donath@squidfunk.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -20,10 +20,7 @@
  * IN THE SOFTWARE.
  */
 
-import "array-flat-polyfill"
 import "focus-visible"
-import "unfetch/polyfill"
-import "url-polyfill"
 
 import {
   EMPTY,
@@ -41,7 +38,9 @@ import {
 import { configuration, feature } from "./_"
 import {
   at,
+  getActiveElement,
   getOptionalElement,
+  setLocation,
   setToggle,
   watchDocument,
   watchKeyboard,
@@ -62,6 +61,7 @@ import {
   mountHeader,
   mountHeaderTitle,
   mountPalette,
+  mountProgress,
   mountSearch,
   mountSearchHiglight,
   mountSidebar,
@@ -73,10 +73,11 @@ import {
 } from "./components"
 import {
   setupClipboardJS,
-  setupInstantLoading,
+  setupInstantNavigation,
   setupVersionSelector
 } from "./integrations"
 import {
+  patchEllipsis,
   patchIndeterminate,
   patchScrollfix,
   patchScrolllock
@@ -94,7 +95,7 @@ document.documentElement.classList.add("js")
 /* Set up navigation observables and subjects */
 const document$ = watchDocument()
 const location$ = watchLocation()
-const target$   = watchLocationTarget()
+const target$   = watchLocationTarget(location$)
 const keyboard$ = watchKeyboard()
 
 /* Set up media observables */
@@ -103,15 +104,21 @@ const tablet$   = watchMedia("(min-width: 960px)")
 const screen$   = watchMedia("(min-width: 1220px)")
 const print$    = watchPrint()
 
+/* Retrieve search index, if search is enabled */
 const config = configuration()
+// sphinx-immaterial: upstream search implementation not used
 
 /* Set up Clipboard.js integration */
 const alert$ = new Subject<string>()
 setupClipboardJS({ alert$ })
 
-/* Set up instant loading, if enabled */
+/* Set up progress indicator */
+const progress$ = new Subject<number>()
+
+/* Set up instant navigation, if enabled */
 if (feature("navigation.instant"))
-  setupInstantLoading({ document$, location$, viewport$ })
+  setupInstantNavigation({ location$, viewport$, progress$ })
+    .subscribe(document$)
 
 /* Set up version selector */
 if (config.version?.provider === "mike")
@@ -138,22 +145,29 @@ keyboard$
         /* Go to previous page */
         case "p":
         case ",":
-          const prev = getOptionalElement("[href][rel=prev]")
+          const prev = getOptionalElement<HTMLLinkElement>("link[rel=prev]")
           if (typeof prev !== "undefined")
-            prev.click()
+            setLocation(prev)
           break
 
         /* Go to next page */
         case "n":
         case ".":
-          const next = getOptionalElement("[href][rel=next]")
+          const next = getOptionalElement<HTMLLinkElement>("link[rel=next]")
           if (typeof next !== "undefined")
-            next.click()
+            setLocation(next)
           break
+
+        /* Expand navigation, see https://bit.ly/3ZjG5io */
+        case "Enter":
+          const active = getActiveElement()
+          if (active instanceof HTMLLabelElement)
+            active.click()
       }
     })
 
 /* Set up patches */
+patchEllipsis({ viewport$, document$ })
 patchIndeterminate({ document$, tablet$ })
 patchScrollfix({ document$ })
 patchScrolllock({ viewport$, tablet$ })
@@ -178,13 +192,13 @@ const control$ = merge(
   ...getComponentElements("dialog")
     .map(el => mountDialog(el, { alert$ })),
 
-  /* Header */
-  ...getComponentElements("header")
-    .map(el => mountHeader(el, { viewport$, header$, main$ })),
-
   /* Color palette */
   ...getComponentElements("palette")
     .map(el => mountPalette(el)),
+
+  /* Progress bar */
+  ...getComponentElements("progress")
+    .map(el => mountProgress(el, { progress$ })),
 
   /* Search */
   ...getComponentElements("search")
@@ -213,6 +227,10 @@ const content$ = defer(() => merge(
       : EMPTY
     ),
 
+  /* Header */
+  ...getComponentElements("header")
+    .map(el => mountHeader(el, { viewport$, header$, main$ })),
+
   /* Header title */
   ...getComponentElements("header-title")
     .map(el => mountHeaderTitle(el, { viewport$, header$ })),
@@ -230,12 +248,17 @@ const content$ = defer(() => merge(
 
   /* Table of contents */
   ...getComponentElements("toc")
-    .map(el => mountTableOfContents(el, { viewport$, header$, target$, localToc: true })),
+    .map(el => mountTableOfContents(el, {
+      viewport$, header$, main$, target$
+    })),
 
-  /* Global Table of contents */
+  /* sphinx-immaterial: also apply `mountTableOfContents` to global toc for toc.follow,
+     toc.sticky, and highlighting based on position */
   ...getComponentElements("sidebar")
     .filter(el => el.getAttribute("data-md-type") === "navigation")
-    .map(el => mountTableOfContents(el, { viewport$, header$, target$, localToc: false })),
+    .map(el => mountTableOfContents(el, {
+      viewport$, header$, main$, target$
+    })),
 
   /* Back-to-top button */
   ...getComponentElements("top")
@@ -266,4 +289,5 @@ window.tablet$    = tablet$            /* Media tablet observable */
 window.screen$    = screen$            /* Media screen observable */
 window.print$     = print$             /* Media print observable */
 window.alert$     = alert$             /* Alert subject */
+window.progress$  = progress$          /* Progress indicator subject */
 window.component$ = component$         /* Component observable */

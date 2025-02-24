@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-2022 Martin Donath <martin.donath@squidfunk.com>
+ * Copyright (c) 2016-2025 Martin Donath <martin.donath@squidfunk.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -29,7 +29,9 @@ import {
   defer,
   distinctUntilChanged,
   distinctUntilKeyChanged,
+  endWith,
   finalize,
+  ignoreElements,
   map,
   of,
   repeat,
@@ -38,7 +40,6 @@ import {
   skip,
   startWith,
   switchMap,
-  takeLast,
   takeUntil,
   tap,
   withLatestFrom
@@ -59,6 +60,7 @@ import {
   getComponentElement
 } from "../_"
 import { Header } from "../header"
+import { Main } from "../main"
 
 /* ----------------------------------------------------------------------------
  * Types
@@ -91,8 +93,8 @@ interface WatchOptions {
 interface MountOptions {
   viewport$: Observable<Viewport>      /* Viewport observable */
   header$: Observable<Header>          /* Header observable */
+  main$: Observable<Main>              /* Main area observable */
   target$: Observable<HTMLElement>     /* Location target observable */
-  localToc: boolean
 }
 
 /* ----------------------------------------------------------------------------
@@ -183,6 +185,11 @@ export function watchTableOfContents(
             target = target.parentElement
             offset = target.offsetTop
           }
+
+          /* Fix anchor offsets in tables - see https://bit.ly/3CUFOcn */
+          let parent = target.offsetParent as HTMLElement
+          for (; parent; parent = parent.offsetParent as HTMLElement)
+            offset += parent.offsetTop
 
           /* Map reversed anchor path to vertical offset */
           return index.set(
@@ -278,13 +285,16 @@ export function watchTableOfContents(
  * @returns Table of contents component observable
  */
 export function mountTableOfContents(
-  el: HTMLElement, { viewport$, header$, target$, localToc }: MountOptions
+  el: HTMLElement, { viewport$, header$, target$ }: MountOptions
 ): Observable<Component<TableOfContents>> {
   return defer(() => {
     const push$ = new Subject<TableOfContents>()
+    const done$ = push$.pipe(ignoreElements(), endWith(true))
 
     /* sphinx-immaterial: use separate active class for local vs global toc */
+    const localToc = el.dataset.mdComponent === "toc"
     const activeClassName = localToc ? "md-nav__link--active" : "md-nav__link--in-viewport"
+
     push$.subscribe(({ prev, next }) => {
       /* Look forward */
       for (const [anchor] of next) {
@@ -341,7 +351,7 @@ export function mountTableOfContents(
     if (localToc && feature("navigation.tracking"))
       viewport$
         .pipe(
-          takeUntil(push$.pipe(takeLast(1))),
+          takeUntil(done$),
           distinctUntilKeyChanged("offset"),
           debounceTime(250),
           skip(1),
