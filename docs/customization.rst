@@ -298,6 +298,9 @@ Configuration Options
             Note that if the ``toc.integrate`` feature is enabled, the left
             sidebar is instead scrolled for the local table-of-contents as
             described above.
+
+          .. note::
+              To enable the ``toc.follow`` feature, a `palette` must be set.
         - ``toc.sticky``
 
           Makes headings in the left and right sidebars "sticky", such that the
