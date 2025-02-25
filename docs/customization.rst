@@ -298,6 +298,11 @@ Configuration Options
             Note that if the ``toc.integrate`` feature is enabled, the left
             sidebar is instead scrolled for the local table-of-contents as
             described above.
+
+          .. warning::
+             When enabling the ``toc.follow`` feature,
+             a `palette` must be set to avoid some known undesirable behavior.
+             See `issue 380 <https://github.com/jbms/sphinx-immaterial/issues/380>`_.
         - ``toc.sticky``
 
           Makes headings in the left and right sidebars "sticky", such that the
