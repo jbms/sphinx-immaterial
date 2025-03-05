@@ -1213,28 +1213,30 @@
 <span></span><code><span class="sd">&quot;&quot;&quot;This module inherits from the generic ``admonition`` directive and makes the</span>
 <span class="sd">title optional.&quot;&quot;&quot;</span>
 
+<span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">ABC</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">PurePath</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Type</span><span class="p">,</span> <span class="n">cast</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">docutils</span><span class="w"> </span><span class="kn">import</span> <span class="n">nodes</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">docutils.parsers.rst</span><span class="w"> </span><span class="kn">import</span> <span class="n">directives</span><span class="p">,</span> <span class="n">Directive</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Type</span><span class="p">,</span> <span class="n">cast</span>
+
 <span class="kn">import</span><span class="w"> </span><span class="nn">jinja2</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">pydantic</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pydantic_extra_types.color</span><span class="w"> </span><span class="kn">import</span> <span class="n">Color</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">sphinx</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">sphinx.addnodes</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sphinx.ext.todo</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">docutils</span><span class="w"> </span><span class="kn">import</span> <span class="n">nodes</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">docutils.parsers.rst</span><span class="w"> </span><span class="kn">import</span> <span class="n">Directive</span><span class="p">,</span> <span class="n">directives</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pydantic_extra_types.color</span><span class="w"> </span><span class="kn">import</span> <span class="n">Color</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">sphinx.application</span><span class="w"> </span><span class="kn">import</span> <span class="n">Sphinx</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">sphinx.config</span><span class="w"> </span><span class="kn">import</span> <span class="n">Config</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">sphinx.domains.changeset</span><span class="w"> </span><span class="kn">import</span> <span class="n">VersionChange</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">sphinx.environment</span><span class="w"> </span><span class="kn">import</span> <span class="n">BuildEnvironment</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">sphinx.ext.todo</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">sphinx.locale</span><span class="w"> </span><span class="kn">import</span> <span class="n">admonitionlabels</span><span class="p">,</span> <span class="n">_</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sphinx.locale</span><span class="w"> </span><span class="kn">import</span> <span class="n">_</span><span class="p">,</span> <span class="n">admonitionlabels</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">sphinx.util.logging</span><span class="w"> </span><span class="kn">import</span> <span class="n">getLogger</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">sphinx.writers.html5</span><span class="w"> </span><span class="kn">import</span> <span class="n">HTML5Translator</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">.css_and_javascript_bundles</span><span class="w"> </span><span class="kn">import</span> <span class="n">add_global_css</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">.inline_icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_svg_into_builder_env</span><span class="p">,</span> <span class="n">get_custom_icons</span>
+
 <span class="kn">from</span><span class="w"> </span><span class="nn">.</span><span class="w"> </span><span class="kn">import</span> <span class="n">html_translator_mixin</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.css_and_javascript_bundles</span><span class="w"> </span><span class="kn">import</span> <span class="n">add_global_css</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.inline_icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_custom_icons</span><span class="p">,</span> <span class="n">load_svg_into_builder_env</span>
 
 <span class="n">logger</span> <span class="o">=</span> <span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
@@ -1769,7 +1771,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    Mar 01, 2025
+    Mar 05, 2025
   </span>
 
     
