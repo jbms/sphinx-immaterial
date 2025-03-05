@@ -2,7 +2,7 @@
 improves formatting by PyProperty of type annotations."""
 
 import re
-from typing import Tuple, Optional, Any
+from typing import Any, Optional, Tuple
 
 import sphinx
 import sphinx.addnodes

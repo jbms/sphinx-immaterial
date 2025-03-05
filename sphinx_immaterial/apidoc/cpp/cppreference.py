@@ -6,8 +6,8 @@ import pathlib
 import re
 import typing
 import urllib.parse
-
 import xml.etree.ElementTree as ET
+
 import sphinx.application
 
 from . import external_cpp_references

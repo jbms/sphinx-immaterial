@@ -1,8 +1,8 @@
 import docutils.nodes
 import sphinx
+import sphinx.addnodes
 import sphinx.domains.python
 import sphinx.environment
-import sphinx.addnodes
 
 
 def _monkey_patch_python_parse_arglist():

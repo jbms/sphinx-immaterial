@@ -1,6 +1,6 @@
 """Adds support for #include directives in C/C++ signatures."""
 
-from typing import Type, List
+from typing import List, Type
 
 import docutils.nodes
 import sphinx.directives

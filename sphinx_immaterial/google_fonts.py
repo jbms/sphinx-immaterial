@@ -12,15 +12,15 @@ import io
 import json
 import os
 import re
-from typing import Dict, List, Set, Tuple, Optional, cast, Any
 import urllib.parse
+from typing import Any, Dict, List, Optional, Set, Tuple, cast
 
 import sphinx.application
 import sphinx.config
 import sphinx.util.logging
 
 from .css_and_javascript_bundles import add_global_css
-from .external_resource_cache import get_url, get_cache_dir
+from .external_resource_cache import get_cache_dir, get_url
 
 logger = sphinx.util.logging.getLogger(__name__)
 

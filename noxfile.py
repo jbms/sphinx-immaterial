@@ -1,9 +1,10 @@
-import os
 import logging
+import os
 import pathlib
 import re
 import sys
-from typing import Optional, List, cast
+from typing import List, Optional, cast
+
 import nox
 
 ci_logger = logging.getLogger("CI logger")

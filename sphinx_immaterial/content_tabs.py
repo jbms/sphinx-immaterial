@@ -3,10 +3,11 @@ A special theme-specific extension to support "content tabs" from mkdocs-materia
 """
 
 from typing import List
+
 from docutils import nodes
 from docutils.parsers.rst import directives
-from sphinx.util.docutils import SphinxDirective
 from sphinx.application import Sphinx
+from sphinx.util.docutils import SphinxDirective
 from sphinx.util.logging import getLogger
 from sphinx.writers.html import HTMLTranslator
 

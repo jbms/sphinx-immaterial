@@ -1,12 +1,13 @@
 """Adds support for `macroParam` as an object type."""
 
 import sphinx.domains.c
-
 from sphinx.domains.c import (
-    Symbol as CSymbol,
+    ASTDeclaration,
     ASTMacro,
     ASTMacroParameter,
-    ASTDeclaration,
+)
+from sphinx.domains.c import (
+    Symbol as CSymbol,
 )
 
 

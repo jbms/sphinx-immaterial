@@ -1,6 +1,5 @@
 import sphinx.addnodes
 
-
 TEST_SIGNATURES = {
     "cpp_function": "cpp:function:: void foo(int something, int something_else, bool third_param, bool fourth_param, int fifth_param)",
     "cpp_function_long": r"cpp:function:: template <typename T, \

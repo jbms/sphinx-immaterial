@@ -3,11 +3,13 @@
 from __future__ import annotations
 
 import json
-from typing import TYPE_CHECKING
 from functools import partial
-from sphinxcontrib.serializinghtml.jsonimpl import SphinxJSONEncoder
-from sphinx_immaterial.nav_adapt import MkdocsNavEntry
+from typing import TYPE_CHECKING
+
 from sphinx.locale import _TranslationProxy
+from sphinxcontrib.serializinghtml.jsonimpl import SphinxJSONEncoder
+
+from sphinx_immaterial.nav_adapt import MkdocsNavEntry
 
 if TYPE_CHECKING:
     from typing import Any

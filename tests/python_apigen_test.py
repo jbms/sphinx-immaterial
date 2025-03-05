@@ -4,7 +4,6 @@ import pathlib
 import pytest
 import sphinx
 
-
 from sphinx_immaterial.apidoc.python.apigen import _get_api_data
 
 if sphinx.version_info < (7, 2):

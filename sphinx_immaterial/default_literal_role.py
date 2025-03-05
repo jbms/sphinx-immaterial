@@ -4,9 +4,9 @@ import contextlib
 from typing import List
 
 import docutils.nodes
-from docutils.parsers.rst.states import Inliner
 import sphinx.application
 import sphinx.util.docutils
+from docutils.parsers.rst.states import Inliner
 from sphinx.util.docutils import CustomReSTDispatcher
 
 _LITERAL_KEY = "``"

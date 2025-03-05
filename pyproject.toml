@@ -140,7 +140,7 @@ dev = [
   "nox",
 ]
 ruff = [
-  "ruff==0.5.2",
+  "ruff",
 ]
 mypy = [
   "mypy==1.10.1",
@@ -241,7 +241,4 @@ conflicts = [
 ]
 
 [tool.ruff]
-# In addition to the standard set of exclusions
-extend-exclude = [
-  "sphinx_immaterial/plugins",
-]
+lint.extend-select = ["I"]

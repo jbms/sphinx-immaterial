@@ -3,7 +3,7 @@
 https://github.com/sphinx-doc/sphinx/pull/10296
 """
 
-from typing import Optional, Iterator, Any, Union
+from typing import Any, Iterator, Optional, Union
 
 import sphinx.domains.cpp
 from sphinx.domains.cpp import Symbol

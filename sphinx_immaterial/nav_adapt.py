@@ -131,26 +131,27 @@ import collections
 import copy
 import os
 import re
+import urllib.parse
 from typing import (
-    cast,
-    List,
-    Union,
-    NamedTuple,
-    Optional,
-    Tuple,
-    Iterator,
     Dict,
     Iterable,
+    Iterator,
+    List,
+    NamedTuple,
+    Optional,
     Set,
+    Tuple,
     Type,
+    Union,
+    cast,
 )
-import urllib.parse
+
 import docutils.nodes
 import markupsafe
 import sphinx
+import sphinx.application
 import sphinx.builders
 import sphinx.builders.html
-import sphinx.application
 import sphinx.environment.adapters.toctree
 import sphinx.util.docutils
 import sphinx.util.osutil
@@ -164,6 +165,8 @@ if sphinx.version_info >= (6,):
 else:
     from sphinx.addnodes import (  # type: ignore[attr-defined]
         docutils_meta,
+    )
+    from sphinx.addnodes import (  # type: ignore[attr-defined]
         meta as sphinx_meta,
     )
 

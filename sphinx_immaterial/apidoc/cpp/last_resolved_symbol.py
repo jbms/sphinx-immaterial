@@ -3,15 +3,16 @@
 This also other customizations to make use of the resolved symbol.
 """
 
-from typing import Union, Type, Tuple, Optional
+from typing import Optional, Tuple, Type, Union
 
 import docutils.nodes
 import sphinx.addnodes
 import sphinx.domains.c
 import sphinx.domains.cpp
-
-from sphinx.domains.c import Symbol as CSymbol, CDomain
-from sphinx.domains.cpp import Symbol as CPPSymbol, CPPDomain
+from sphinx.domains.c import CDomain
+from sphinx.domains.c import Symbol as CSymbol
+from sphinx.domains.cpp import CPPDomain
+from sphinx.domains.cpp import Symbol as CPPSymbol
 
 _last_resolved_symbol: Optional[Union[CSymbol, CPPSymbol]] = None
 """Symbol resolved by `_resolve_xref_inner` or `get_objects`.

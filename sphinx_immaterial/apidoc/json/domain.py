@@ -5,17 +5,17 @@ import json
 import os
 import re
 from typing import (
-    List,
     Any,
-    Optional,
     Dict,
-    cast,
-    NamedTuple,
-    Tuple,
-    Iterator,
-    Set,
-    Union,
     Iterable,
+    Iterator,
+    List,
+    NamedTuple,
+    Optional,
+    Set,
+    Tuple,
+    Union,
+    cast,
 )
 
 import docutils
@@ -40,13 +40,12 @@ import sphinx.util
 import sphinx.util.docutils
 import sphinx.util.logging
 import sphinx.util.matching
-from sphinx.locale import _
 import yaml
+from sphinx.locale import _
 
-from .. import object_description_options
-from . import json_pprint
 from ... import sphinx_utils
-from .. import apigen_utils
+from .. import apigen_utils, object_description_options
+from . import json_pprint
 
 logger = sphinx.util.logging.getLogger(__name__)
 

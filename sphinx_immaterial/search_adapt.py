@@ -10,12 +10,12 @@
 """
 
 import io
-from typing import cast, Any, Dict, IO, List, Tuple, Union, Optional, Set
+from typing import IO, Any, Dict, List, Optional, Set, Tuple, Union, cast
 
 import sphinx
-import sphinx.search
 import sphinx.application
 import sphinx.builders.html
+import sphinx.search
 import sphinx.util.logging
 
 logger = sphinx.util.logging.getLogger(__name__)

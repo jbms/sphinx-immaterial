@@ -1,6 +1,7 @@
 """Adds all Sphinx "objects" to the table of contents."""
 
-from typing import cast, Optional, Union, Any, List
+from typing import Any, List, Optional, Union, cast
+
 import docutils.nodes
 import sphinx.addnodes
 import sphinx.application
@@ -8,8 +9,8 @@ import sphinx.directives
 from sphinx.environment.collectors.toctree import TocTreeCollector
 from sphinx.locale import _
 
-from . import object_description_options
 from .. import html_translator_mixin
+from . import object_description_options
 
 
 def _monkey_patch_toc_tree_process_doc():

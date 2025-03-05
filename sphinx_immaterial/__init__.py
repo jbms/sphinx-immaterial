@@ -2,27 +2,32 @@
 
 import os
 import re
+from typing import Dict, List, Mapping, Optional, Type, cast
 from urllib.parse import urlparse
-from typing import cast, List, Type, Dict, Mapping, Optional
 
 import docutils.nodes
-from sphinx.application import Sphinx
 import sphinx.builders
 import sphinx.builders.html
 import sphinx.theming
-import sphinx.util.logging
-import sphinx.util.fileutil
-import sphinx.util.matching
 import sphinx.util.docutils
+import sphinx.util.fileutil
+import sphinx.util.logging
+import sphinx.util.matching
 import sphinx.writers.html5
 from sphinx import version_info
+from sphinx.application import Sphinx
 from sphinxcontrib.serializinghtml import JSONHTMLBuilder
-from . import html_translator_mixin
-from .apidoc import apidoc_formatting
-from .apidoc import fix_sphinx_issue_11147  # noqa: F401
-from . import nav_adapt
-from . import sections  # noqa: F401
-from . import json_builder_serializing_implementation
+
+from . import (
+    html_translator_mixin,
+    json_builder_serializing_implementation,
+    nav_adapt,
+    sections,  # noqa: F401
+)
+from .apidoc import (
+    apidoc_formatting,
+    fix_sphinx_issue_11147,  # noqa: F401
+)
 
 logger = sphinx.util.logging.getLogger(__name__)
 

@@ -4,15 +4,15 @@ import ast
 import functools
 import re
 from typing import (
-    cast,
     Dict,
-    Union,
-    Optional,
-    Tuple,
-    Sequence,
-    NamedTuple,
-    Pattern,
     List,
+    NamedTuple,
+    Optional,
+    Pattern,
+    Sequence,
+    Tuple,
+    Union,
+    cast,
 )
 
 import docutils.nodes

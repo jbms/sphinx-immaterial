@@ -1,10 +1,10 @@
-from typing import Optional, List
+from typing import List, Optional
 
 import docutils.nodes
-import sphinx.domains.python
-import sphinx.environment
 import sphinx
 import sphinx.addnodes
+import sphinx.domains.python
+import sphinx.environment
 
 
 def ensure_wrapped_in_desc_type(

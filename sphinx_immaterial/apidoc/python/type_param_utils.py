@@ -1,13 +1,12 @@
 """Utilities related to Python type parameter lists."""
 
-import sys
 import re
+import sys
 import typing
 
 import sphinx
-from sphinx.util.inspect import safe_getattr
 import sphinx.util.typing
-
+from sphinx.util.inspect import safe_getattr
 
 TYPE_VAR_ANNOTATION_PREFIX = "__SPHINX_IMMATERIAL_TYPE_VAR__"
 """Prefix used by monkey-patched `stringify_annotation` to indicate a TypeVar.

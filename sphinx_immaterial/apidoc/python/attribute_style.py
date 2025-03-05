@@ -1,4 +1,4 @@
-from typing import Type, Tuple
+from typing import Tuple, Type
 
 import docutils.nodes
 import sphinx
@@ -6,7 +6,9 @@ import sphinx.addnodes
 import sphinx.domains.python
 
 if sphinx.version_info >= (7, 3):
-    from sphinx.domains.python._annotations import _parse_annotation  # type: ignore[import-not-found]
+    from sphinx.domains.python._annotations import (
+        _parse_annotation,  # type: ignore[import-not-found]
+    )
 else:
     from sphinx.domains.python import _parse_annotation
 

@@ -1,10 +1,8 @@
 import docutils.nodes
 import docutils.statemachine
-
 import sphinx
-from sphinx.domains.python import PyObject
 import sphinx.util.nodes
-
+from sphinx.domains.python import PyObject
 
 # Not needed in Sphinx 5.3
 assert sphinx.version_info < (5, 3)

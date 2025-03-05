@@ -2,7 +2,7 @@
 
 import json
 import re
-from typing import Optional, Union, Type, List, Tuple
+from typing import List, Optional, Tuple, Type, Union
 
 import docutils.parsers.rst.directives
 import sphinx.addnodes

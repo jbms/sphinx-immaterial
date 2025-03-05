@@ -3,15 +3,14 @@ primarily, the icons bundled with this theme are supported (plus any svg files i
 user project's static directories)."""
 
 from pathlib import Path
-from typing import Tuple, List, Dict
+from typing import Dict, List, Tuple
 
+import sphinx.environment
 from docutils import nodes
 from sphinx.application import Sphinx
 from sphinx.builders import Builder
-import sphinx.environment
-from sphinx.writers.html5 import HTML5Translator
 from sphinx.util.docutils import SphinxRole
-
+from sphinx.writers.html5 import HTML5Translator
 
 CUSTOM_ICON_KEY = "_sphinx_immaterial_custom_icons"
 

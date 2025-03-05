@@ -11,26 +11,26 @@ import json
 import re
 import subprocess
 from typing import (
+    Any,
+    Callable,
     Dict,
     List,
-    Any,
-    Union,
+    NamedTuple,
     Optional,
-    cast,
     Tuple,
     Type,
-    Callable,
-    NamedTuple,
+    Union,
+    cast,
 )
 
-import pydantic.dataclasses
 import docutils.nodes
+import pydantic.dataclasses
 import sphinx.addnodes
 import sphinx.application
 import sphinx.environment
+import sphinx.ext.viewcode
 import sphinx.transforms
 import sphinx.util.logging
-import sphinx.ext.viewcode
 
 from . import object_description_options
 

@@ -2,6 +2,7 @@ import re
 from typing import cast
 
 import pytest
+
 from sphinx_immaterial.apidoc.cpp import api_parser
 
 

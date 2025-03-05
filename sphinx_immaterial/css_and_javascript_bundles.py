@@ -4,7 +4,7 @@ import hashlib
 import json
 import os
 import pathlib
-from typing import NamedTuple, Optional, List
+from typing import List, NamedTuple, Optional
 
 import sphinx.application
 import sphinx.environment

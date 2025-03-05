@@ -1,6 +1,7 @@
 """Tests related to theme's postprocess_html extension (which creates a sitemap)."""
 
 from pathlib import Path
+
 from sphinx.testing.util import SphinxTestApp
 
 index_rst = """

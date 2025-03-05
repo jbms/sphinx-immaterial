@@ -2,7 +2,7 @@
 
 import contextlib
 import io
-from typing import Optional, Union, List, Tuple, Mapping, Sequence, Literal
+from typing import List, Literal, Mapping, Optional, Sequence, Tuple, Union
 
 import docutils.nodes
 import docutils.parsers.rst.roles

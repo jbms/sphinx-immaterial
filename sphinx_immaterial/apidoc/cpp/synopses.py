@@ -1,6 +1,6 @@
 """Adds support for synopses to C/C++ domains."""
 
-from typing import Union, Type, Optional, Tuple, Iterator
+from typing import Iterator, Optional, Tuple, Type, Union
 
 import docutils.nodes
 import sphinx.domains.c
@@ -8,10 +8,8 @@ import sphinx.domains.cpp
 from sphinx.domains.c import CDomain
 from sphinx.domains.cpp import CPPDomain
 
-from . import last_resolved_symbol
-from . import parameter_objects
-from . import symbol_ids
 from .. import object_description_options
+from . import last_resolved_symbol, parameter_objects, symbol_ids
 
 SYNOPSIS_ATTR = "_sphinx_immaterial_synopsis"
 

@@ -1,6 +1,6 @@
 import functools
 import re
-from typing import List, Tuple, Pattern, Dict, Any, Optional, NamedTuple, cast
+from typing import Any, Dict, List, NamedTuple, Optional, Pattern, Tuple, cast
 
 import pydantic
 import sphinx.application

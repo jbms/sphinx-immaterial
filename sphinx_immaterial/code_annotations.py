@@ -3,11 +3,13 @@ See comments in visit_literal_block() override below for detailed explanation ab
 why this directive is needed."""
 
 from typing import List, cast
+
 from docutils import nodes
 from sphinx.application import Sphinx
 from sphinx.util.docutils import SphinxDirective
-from sphinx.writers.html import HTMLTranslator
 from sphinx.util.logging import getLogger
+from sphinx.writers.html import HTMLTranslator
+
 from . import html_translator_mixin
 
 LOGGER = getLogger(__name__)
