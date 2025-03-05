@@ -1,9 +1,10 @@
 from typing import List, Tuple
+
 from docutils import nodes
 from sphinx.application import Sphinx
 from sphinx.config import Config
-from sphinx.writers.html import HTMLTranslator
 from sphinx.util.logging import getLogger
+from sphinx.writers.html import HTMLTranslator
 
 LOGGER = getLogger(__name__)
 
@@ -46,7 +47,7 @@ def visit_kbd(self: HTMLTranslator, node: kbd_node):
         cls, text = map_filter(key.strip().lower(), self.builder.config["keys_map"])
         keys_out += f'<kbd class="key-{cls}">{text}</kbd>'
         if i + 1 != len(keys):
-            keys_out += f'<span>{self.builder.config["keys_separator"]}</span>'
+            keys_out += f"<span>{self.builder.config['keys_separator']}</span>"
     self.body.append(keys_out)
 
 
@@ -61,7 +62,7 @@ def visit_kbd_latex(self, node):
         _, text = map_filter(key.strip().lower(), self.builder.config["keys_map"])
         self.body.append(text)
         if i + 1 < len(keys):
-            self.body.append(f' {self.builder.config["keys_separator"]} ')
+            self.body.append(f" {self.builder.config['keys_separator']} ")
 
 
 def depart_kbd_latex(self, node):

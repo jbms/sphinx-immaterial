@@ -1,8 +1,9 @@
 """Tests related to theme's content tabs."""
 
-from docutils.nodes import Node
 import pytest
+from docutils.nodes import Node
 from sphinx.testing.util import SphinxTestApp
+
 from sphinx_immaterial.content_tabs import is_md_tab_type
 
 index_rst = """

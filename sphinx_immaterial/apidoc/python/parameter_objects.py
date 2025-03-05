@@ -1,32 +1,29 @@
 from typing import (
-    Optional,
-    cast,
-    List,
+    Any,
     Dict,
+    Iterator,
+    List,
+    Literal,
+    Optional,
     Sequence,
     Tuple,
-    Any,
-    Iterator,
-    Literal,
+    cast,
 )
 
 import docutils.nodes
-from sphinx.domains.python import PyTypedField
-from sphinx.domains.python import PythonDomain
-from sphinx.domains.python import PyObject
-from sphinx.locale import _
-import sphinx.util.logging
 import sphinx.ext.autodoc
-import sphinx.util.typing
 import sphinx.ext.autodoc.typehints
-import sphinx.util.inspect
 import sphinx.ext.napoleon.docstring
+import sphinx.util.inspect
+import sphinx.util.logging
+import sphinx.util.typing
+from sphinx.domains.python import PyObject, PythonDomain, PyTypedField
 from sphinx.ext.napoleon.docstring import GoogleDocstring
+from sphinx.locale import _
 
-
-from . import annotation_style
-from .. import object_description_options
 from ... import sphinx_utils
+from .. import object_description_options
+from . import annotation_style
 
 logger = sphinx.util.logging.getLogger(__name__)
 

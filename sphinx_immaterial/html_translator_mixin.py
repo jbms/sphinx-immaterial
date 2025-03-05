@@ -3,10 +3,9 @@
 Other extensions included with this theme add methods to the mixin.
 """
 
-from typing import TYPE_CHECKING, TypeVar, Type, Callable, List
+from typing import TYPE_CHECKING, Callable, List, Type, TypeVar
 
 import docutils.nodes
-
 import sphinx.writers.html5
 
 if TYPE_CHECKING:

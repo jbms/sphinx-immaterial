@@ -6,15 +6,14 @@ import hashlib
 import os
 import pathlib
 import secrets
-from typing import Optional, List, Dict, Iterator, Tuple, TypeVar, Callable
+from typing import Callable, Dict, Iterator, List, Optional, Tuple, TypeVar
 
 import docutils.nodes
 import sphinx.application
 import sphinx.environment
 import sphinx.util.logging
 
-from .. import default_literal_role
-from .. import sphinx_utils
+from .. import default_literal_role, sphinx_utils
 
 logger = sphinx.util.logging.getLogger(__name__)
 

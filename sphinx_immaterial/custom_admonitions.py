@@ -1,28 +1,30 @@
 """This module inherits from the generic ``admonition`` directive and makes the
 title optional."""
 
+import re
 from abc import ABC
 from pathlib import PurePath
-import re
-from typing import List, Dict, Any, Tuple, Optional, Type, cast
-from docutils import nodes
-from docutils.parsers.rst import directives, Directive
+from typing import Any, Dict, List, Optional, Tuple, Type, cast
+
 import jinja2
 import pydantic
-from pydantic_extra_types.color import Color
 import sphinx
 import sphinx.addnodes
+import sphinx.ext.todo
+from docutils import nodes
+from docutils.parsers.rst import Directive, directives
+from pydantic_extra_types.color import Color
 from sphinx.application import Sphinx
 from sphinx.config import Config
 from sphinx.domains.changeset import VersionChange
 from sphinx.environment import BuildEnvironment
-import sphinx.ext.todo
-from sphinx.locale import admonitionlabels, _
+from sphinx.locale import _, admonitionlabels
 from sphinx.util.logging import getLogger
 from sphinx.writers.html5 import HTML5Translator
-from .css_and_javascript_bundles import add_global_css
-from .inline_icons import load_svg_into_builder_env, get_custom_icons
+
 from . import html_translator_mixin
+from .css_and_javascript_bundles import add_global_css
+from .inline_icons import get_custom_icons, load_svg_into_builder_env
 
 logger = getLogger(__name__)
 

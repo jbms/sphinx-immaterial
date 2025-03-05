@@ -1,8 +1,8 @@
 import json
 
 import pytest
-import yaml
 import sphinx.application
+import yaml
 
 import sphinx_immaterial.nav_adapt
 

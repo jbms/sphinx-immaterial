@@ -1,9 +1,9 @@
 import docutils.nodes
-import sphinx.application
 import sphinx.addnodes
+import sphinx.application
 
-from . import object_description_options
 from .. import html_translator_mixin
+from . import object_description_options
 
 
 def _wrap_signature(node: sphinx.addnodes.desc_signature, limit: int):

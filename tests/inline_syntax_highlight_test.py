@@ -1,8 +1,8 @@
 """Tests related to theme's syntax highlighting
 (default-literal inline and code-block)."""
 
-from sphinx.testing.util import SphinxTestApp
 import pytest
+from sphinx.testing.util import SphinxTestApp
 
 rst_prologue = """.. role:: python(code)
    :language: python

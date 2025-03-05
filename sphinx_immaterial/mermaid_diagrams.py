@@ -1,14 +1,15 @@
 """A custom directive that allows using mermaid diagrams"""
 
-from pathlib import Path
 import shutil
+from pathlib import Path
 from typing import List
+
 from docutils import nodes
 from docutils.parsers.rst import directives
-from sphinx.util.docutils import SphinxDirective
 from sphinx.application import Sphinx
-from sphinx.environment import BuildEnvironment
 from sphinx.builders.html import StandaloneHTMLBuilder
+from sphinx.environment import BuildEnvironment
+from sphinx.util.docutils import SphinxDirective
 
 # name of a flag to track if the mermaid dist is needed in the docs build
 _COPY_MERMAID_DIST_ENV_KEY = "sphinx_immaterial_copy_mermaid_dist"

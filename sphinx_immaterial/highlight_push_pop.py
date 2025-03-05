@@ -1,6 +1,6 @@
 """Extension that adds `highlight-push` and `highlight-pop` directives."""
 
-from typing import List, cast, Optional
+from typing import List, Optional, cast
 
 import docutils.nodes
 import sphinx.addnodes

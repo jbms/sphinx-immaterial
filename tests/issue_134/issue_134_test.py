@@ -1,6 +1,7 @@
 """Test specific to https://github.com/jbms/sphinx-immaterial/issues/134"""
 
 from typing import List
+
 import pytest
 from sphinx.testing.util import SphinxTestApp
 from sphinx_immaterial_pybind11_issue_134 import Example  # type: ignore

@@ -22,16 +22,16 @@ import json
 import re
 import typing
 from typing import (
-    List,
-    Tuple,
     Any,
+    Dict,
+    Iterator,
+    List,
+    NamedTuple,
     Optional,
+    Set,
+    Tuple,
     Type,
     cast,
-    Dict,
-    NamedTuple,
-    Iterator,
-    Set,
 )
 
 import docutils.nodes
@@ -40,7 +40,6 @@ import docutils.statemachine
 import sphinx
 import sphinx.addnodes
 import sphinx.application
-from sphinx.domains.python import PythonDomain
 import sphinx.environment
 import sphinx.ext.autodoc
 import sphinx.ext.autodoc.directive
@@ -51,10 +50,10 @@ import sphinx.util.docutils
 import sphinx.util.inspect
 import sphinx.util.logging
 import sphinx.util.typing
+from sphinx.domains.python import PythonDomain
 
-from .. import object_description_options
 from ... import sphinx_utils
-from .. import apigen_utils
+from .. import apigen_utils, object_description_options
 from . import type_param_utils
 from .parameter_objects import TYPE_PARAM_SYMBOL_PREFIX_ATTR_KEY
 
@@ -64,7 +63,9 @@ else:
     stringify_annotation = sphinx.util.typing.stringify  # type: ignore[attr-defined]
 
 if sphinx.version_info >= (7, 3):
-    from sphinx.domains.python._annotations import _parse_annotation  # type: ignore[import-not-found]
+    from sphinx.domains.python._annotations import (
+        _parse_annotation,  # type: ignore[import-not-found]
+    )
 else:
     from sphinx.domains.python import _parse_annotation
 

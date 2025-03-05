@@ -28,9 +28,9 @@
 #
 # https://github.com/sphinx-doc/sphinx/pull/6916
 
-import docutils.parsers.rst.roles
-import docutils.parsers.rst
 import docutils.nodes
+import docutils.parsers.rst
+import docutils.parsers.rst.roles
 import sphinx.application
 import sphinx.writers.html
 import sphinx.writers.html5

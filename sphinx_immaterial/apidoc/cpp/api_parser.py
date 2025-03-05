@@ -31,6 +31,7 @@ This program performs a number of transformations on the declarations:
 """
 
 import argparse
+import ctypes
 import dataclasses
 import functools
 import json
@@ -39,43 +40,40 @@ import pathlib
 import re
 import time
 import typing
-from typing import (
-    cast,
-    Dict,
-    Any,
-    List,
-    Tuple,
-    Optional,
-    Sequence,
-    Union,
-    Pattern,
-    Literal,
-    Callable,
-    TypedDict,
-    Iterator,
-)
 from textwrap import dedent
-
-import ctypes
+from typing import (
+    Any,
+    Callable,
+    Dict,
+    Iterator,
+    List,
+    Literal,
+    Optional,
+    Pattern,
+    Sequence,
+    Tuple,
+    TypedDict,
+    Union,
+    cast,
+)
 
 import clang.cindex
-from clang.cindex import (
-    Cursor,
-    CursorKind,
-    Token,
-    TokenKind,
-    TranslationUnit,
-    SourceLocation,
-    SourceRange,
-)
 import docutils.nodes
 import pydantic.dataclasses
 import sphinx.domains.cpp
 import sphinx.util.logging
+from clang.cindex import (
+    Cursor,
+    CursorKind,
+    SourceLocation,
+    SourceRange,
+    Token,
+    TokenKind,
+    TranslationUnit,
+)
 from typing_extensions import NotRequired
 
 from . import ast_fixes  # noqa: F401
-
 
 logger = sphinx.util.logging.getLogger(__name__)
 

@@ -12,8 +12,8 @@ else:
     )
 
 if sphinx.version_info < (5, 2):
-    from . import fix_cpp_domain_requires_clause  # noqa: F401
-    from . import fix_cpp_is_pack  # noqa: F401
     from . import (  # noqa: F401
+        fix_cpp_domain_requires_clause,  # noqa: F401
+        fix_cpp_is_pack,  # noqa: F401
         fix_cpp_symbol_to_normalize_template_args,
     )

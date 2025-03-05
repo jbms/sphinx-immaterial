@@ -2,6 +2,7 @@ import typing
 
 import pytest
 import sphinx
+
 from sphinx_immaterial.apidoc.python import type_param_utils
 
 if sphinx.version_info < (7, 1):

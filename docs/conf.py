@@ -8,11 +8,11 @@
 
 # add docs path to python sys.path to allow autodoc-ing a test_py_module
 import os
-from pathlib import Path
 import re
-import sys
 import string
+import sys
 import typing
+from pathlib import Path
 
 from sphinx.util.docutils import SphinxRole
 
@@ -29,8 +29,10 @@ from sphinx_immaterial.apidoc import (
     object_description_options as _object_description_options,
 )
 from sphinx_immaterial.apidoc.python import (
-    type_annotation_transforms,
     apigen as python_apigen,
+)
+from sphinx_immaterial.apidoc.python import (
+    type_annotation_transforms,
 )
 
 logger = sphinx.util.logging.getLogger(__name__)

@@ -1,12 +1,13 @@
-from pathlib import Path
 import shutil
-from typing import Dict, Any, cast
+from pathlib import Path
+from typing import Any, Dict, cast
+
 from sphinx.application import Sphinx
 from sphinx.config import Config
-from sphinx.errors import ExtensionError
 from sphinx.domains.math import MathDomain
-from sphinx.ext.mathjax import MATHJAX_URL
 from sphinx.environment import BuildEnvironment
+from sphinx.errors import ExtensionError
+from sphinx.ext.mathjax import MATHJAX_URL
 
 
 def copy_mathjax_dist(app: Sphinx, env: BuildEnvironment) -> None:

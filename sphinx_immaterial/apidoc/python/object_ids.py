@@ -1,13 +1,12 @@
 import json
-from typing import Tuple, cast, List
+from typing import List, Tuple, cast
 
 import docutils.nodes
-import sphinx.ext.autodoc
 import sphinx.addnodes
 import sphinx.domains.python
-from sphinx.domains.python import PyObject
-from sphinx.domains.python import PythonDomain
+import sphinx.ext.autodoc
 import sphinx.util.logging
+from sphinx.domains.python import PyObject, PythonDomain
 
 logger = sphinx.util.logging.getLogger(__name__)
 

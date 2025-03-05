@@ -26,7 +26,7 @@ as part of the "summary".  This monkey patch ensures that the representation
 is consistent regardless of whether the class is declared first.
 """
 
-from typing import Union, Any
+from typing import Any, Union
 
 import sphinx
 import sphinx.domains.cpp

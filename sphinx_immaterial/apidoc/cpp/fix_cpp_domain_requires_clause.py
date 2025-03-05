@@ -8,8 +8,7 @@ from typing import Optional, Union
 
 import sphinx
 import sphinx.domains.cpp
-from sphinx.domains.cpp import DefinitionParser, ASTDeclaration
-
+from sphinx.domains.cpp import ASTDeclaration, DefinitionParser
 
 # Not needed in Sphinx 5.2
 assert sphinx.version_info < (5, 2)

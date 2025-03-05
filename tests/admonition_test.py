@@ -1,8 +1,8 @@
 """Tests related to theme's patched admonitions."""
 
 import pytest
-from sphinx.testing.util import SphinxTestApp
 from sphinx.errors import ExtensionError
+from sphinx.testing.util import SphinxTestApp
 
 conf = [
     {

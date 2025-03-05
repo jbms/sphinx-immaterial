@@ -1,11 +1,12 @@
 """A directive designed to reduce example snippets duplication."""
 
 from pathlib import PurePath
-from docutils.parsers.rst import directives
+
 from docutils import nodes
+from docutils.parsers.rst import directives
 from sphinx.application import Sphinx
-from sphinx.util.docutils import SphinxDirective
 from sphinx.directives.code import container_wrapper
+from sphinx.util.docutils import SphinxDirective
 
 
 class ResultsDirective(SphinxDirective):

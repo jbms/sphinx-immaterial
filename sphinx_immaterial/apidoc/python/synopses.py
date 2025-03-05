@@ -1,14 +1,13 @@
-from typing import Optional, List, Tuple, cast, Iterator
-import docutils.nodes
+from typing import Iterator, List, Optional, Tuple, cast
 
+import docutils.nodes
 import sphinx.addnodes
 import sphinx.builders
-from sphinx.domains.python import PythonDomain
-from sphinx.domains.python import PyObject
 import sphinx.environment
+from sphinx.domains.python import PyObject, PythonDomain
 
-from .. import object_description_options
 from ... import sphinx_utils
+from .. import object_description_options
 
 
 def _monkey_patch_python_domain_to_add_object_synopses_to_references():

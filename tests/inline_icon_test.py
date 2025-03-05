@@ -1,8 +1,10 @@
 """Tests related to theme's inline icon extension."""
 
 from pathlib import Path
+
 import pytest
 from sphinx.testing.util import SphinxTestApp
+
 from sphinx_immaterial.inline_icons import get_custom_icons
 
 index_rst = """

@@ -10,12 +10,12 @@ cases.
 """
 
 import re
-from typing import List, Dict, NamedTuple, Optional, TypedDict
+from typing import Dict, List, NamedTuple, Optional, TypedDict
 
 import docutils.nodes
+import sphinx.addnodes
 import sphinx.application
 import sphinx.environment
-import sphinx.addnodes
 
 
 class ObjectInfo(NamedTuple):

@@ -7,8 +7,8 @@ import pathlib
 import re
 import subprocess
 import tempfile
-from typing import Optional, Any, Tuple, Dict, Type, Sequence, NamedTuple, Union
 import xml.etree.ElementTree as ET
+from typing import Any, Dict, NamedTuple, Optional, Sequence, Tuple, Type, Union
 
 import docutils.nodes
 import sphinx.application
@@ -18,8 +18,7 @@ import sphinx.util.logging
 from sphinx.writers.html import HTMLTranslator
 from sphinx.writers.html5 import HTML5Translator
 
-from . import google_fonts
-from . import sphinx_utils
+from . import google_fonts, sphinx_utils
 
 logger = sphinx.util.logging.getLogger(__name__)
 

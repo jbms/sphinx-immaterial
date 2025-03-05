@@ -1,4 +1,4 @@
-from typing import Type, Union, List, cast, Sequence
+from typing import List, Sequence, Type, Union, cast
 
 import docutils.nodes
 import sphinx.domains.python

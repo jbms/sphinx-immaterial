@@ -1,6 +1,6 @@
 """Adds synopsis support to the std domain."""
 
-from typing import cast, Optional, List, Iterator, Tuple, Literal
+from typing import Iterator, List, Literal, Optional, Tuple, cast
 
 import docutils.nodes
 import sphinx.application
@@ -9,9 +9,8 @@ import sphinx.domains
 import sphinx.domains.std
 import sphinx.util.nodes
 
-from . import object_description_options
 from .. import sphinx_utils
-
+from . import object_description_options
 
 StandardDomain = sphinx.domains.std.StandardDomain
 GenericObject = sphinx.domains.std.GenericObject

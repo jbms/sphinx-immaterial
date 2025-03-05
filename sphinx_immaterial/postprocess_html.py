@@ -1,6 +1,5 @@
 import multiprocessing
-from typing import cast, Any
-
+from typing import Any, cast
 from xml.etree import ElementTree
 
 import docutils.nodes

@@ -3,8 +3,8 @@
 import inspect
 
 import sphinx.directives
-import sphinx.util.nodes
 import sphinx.util.docutils
+import sphinx.util.nodes
 
 
 def _monkey_patch_nested_parse_with_titles():

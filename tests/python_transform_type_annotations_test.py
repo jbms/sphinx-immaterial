@@ -1,8 +1,7 @@
 import pathlib
 
-import pytest
-
 import docutils.nodes
+import pytest
 import sphinx
 import sphinx.application
 import sphinx.domains.python

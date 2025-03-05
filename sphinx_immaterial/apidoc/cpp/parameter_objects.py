@@ -1,5 +1,5 @@
 import re
-from typing import cast, Optional, Dict, List, Tuple, Iterator, Type, Union
+from typing import Dict, Iterator, List, Optional, Tuple, Type, Union, cast
 
 import docutils.nodes
 import docutils.parsers.rst.states
@@ -10,13 +10,10 @@ import sphinx.environment
 import sphinx.util.docfields
 import sphinx.util.logging
 
-from . import last_resolved_symbol
-from . import symbol_ids
-from .signodes import desc_cpp_template_param
-
-from .. import object_description_options
 from ... import sphinx_utils
-from . import synopses
+from .. import object_description_options
+from . import last_resolved_symbol, symbol_ids, synopses
+from .signodes import desc_cpp_template_param
 
 logger = sphinx.util.logging.getLogger(__name__)
 
