@@ -246,7 +246,12 @@ class MkdocsNavEntry:
             self.aria_label = title_text
 
     def __repr__(self):
-        return repr(self.__dict__)
+        return repr(self.to_json())
+
+    def to_json(self):
+        obj = self.__dict__.copy()
+        obj.pop("parent", None)
+        return obj
 
 
 class _TocVisitor(docutils.nodes.NodeVisitor):

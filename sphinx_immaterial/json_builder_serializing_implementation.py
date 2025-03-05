@@ -20,7 +20,7 @@ class SphinxImmaterialJSONEncoder(SphinxJSONEncoder):
         if isinstance(obj, _TranslationProxy):
             return str(obj)
         if isinstance(obj, MkdocsNavEntry):
-            return obj.__dict__
+            return obj.to_json()
         return super().default(obj)
 
 

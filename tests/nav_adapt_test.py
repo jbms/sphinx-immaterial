@@ -8,6 +8,8 @@ import sphinx_immaterial.nav_adapt
 
 
 def _default_json_encode(obj):
+    if isinstance(obj, sphinx_immaterial.nav_adapt.MkdocsNavEntry):
+        return obj.to_json()
     return obj.__dict__
 
 
