@@ -219,6 +219,8 @@ class MkdocsNavEntry:
     # List of children
     children: List["MkdocsNavEntry"]
 
+    parent: "MkdocsNavEntry | None" = None
+
     # Set to `True` if this page, or a descendent, is the current page.
     # Excludes links to sections within in an active page.
     active: bool
@@ -316,21 +318,22 @@ class _TocVisitor(docutils.nodes.NodeVisitor):
             children = child_visitor._children
             if children:
                 url = children[0].url
-            self._children.append(
-                MkdocsNavEntry(
-                    title_text=title_text,
-                    url=url,
-                    children=children,
-                    active=False,
-                    current=False,
-                    caption_only=True,
-                )
+            entry = MkdocsNavEntry(
+                title_text=title_text,
+                url=url,
+                children=children,
+                active=False,
+                current=False,
+                caption_only=True,
             )
+            for child in children:
+                child.parent = entry
+            self._children.append(entry)
             raise docutils.nodes.SkipChildren
         # Otherwise, just process each list_item as direct children.
 
     def get_result(self) -> MkdocsNavEntry:
-        return MkdocsNavEntry(
+        entry = MkdocsNavEntry(
             title_text=cast(str, self._rendered_title_text),
             url=self._url,
             children=self._children,
@@ -338,6 +341,9 @@ class _TocVisitor(docutils.nodes.NodeVisitor):
             current=False,
             caption_only=False,
         )
+        for child in self._children:
+            child.parent = entry
+        return entry
 
     def visit_list_item(self, node: docutils.nodes.list_item):
         # Child node.  Collect its url, title, and any children using a separate
@@ -520,6 +526,7 @@ def _prune_toc_by_active(
     for child in entry.children:
         new_child = _prune_toc_by_active(child, active)
         if new_child is not None:
+            new_child.parent = entry
             new_children.append(new_child)
     entry.children = new_children
 
