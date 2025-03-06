@@ -239,7 +239,7 @@ Configuration Options
                 :custom:
 
                 - [x] :themeconf:`edit_uri` is configured
-                - [x] :python:`"content.actions.edit"` is in the list of :themeconf:`features`
+                - [x] :python:`"content.action.edit"` is in the list of :themeconf:`features`
                 - [x] :themeconf:`hide-edit-link` is *not* present for the page
 
             Defaults to ``material/file-edit-outline`` (:si-icon:`material/file-edit-outline`).
@@ -253,7 +253,7 @@ Configuration Options
                 :custom:
 
                 - [x] :themeconf:`edit_uri` is configured
-                - [x] :python:`"content.actions.view"` is in the list of :themeconf:`features`
+                - [x] :python:`"content.action.view"` is in the list of :themeconf:`features`
                 - [x] :themeconf:`hide-edit-link` is *not* present for the page
 
             Defaults to ``material/file-eye-outline`` (:si-icon:`material/file-eye-outline`).
