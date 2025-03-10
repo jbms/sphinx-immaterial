@@ -154,12 +154,29 @@ def _replace_text_nodes(
         # Ensure the new node does not contain any children. `desc_sig_space`,
         # for example, adds a default child text node with content " ".
         del new_node[:]
-        new_node.extend(_transform_node_list(node.children, _transform_node))
-        if len(new_node.children) == 0:
+
+        new_children = _transform_node_list(node.children, _transform_node)
+
+        if isinstance(new_node, sphinx.addnodes.pending_xref):
+            num_new_children = len(new_children)
+            assert num_new_children != 0
             # A pending_xref with no children is an error and indicates a
             # problem with applying the format.
-            assert not isinstance(new_node, sphinx.addnodes.pending_xref)
+
+            if num_new_children != 1:
+                # Wrap children in an `inline` node because Sphinx expects
+                # pending_xref nodes to only have one child.
+                wrapper = docutils.nodes.inline()
+                wrapper.extend(new_children)
+                new_children = [wrapper]
+
+        new_node.extend(new_children)
+
+        if len(new_node.children) == 0:
+            # Exclude nodes with no content (presumably the content got moved to
+            # a different node).
             return []
+
         return [new_node]
 
     return _transform_node_list(nodes, _transform_node)
@@ -187,6 +204,13 @@ class FormatInputComponent(NamedTuple):
     the formatter and should not be preserved.
     """
 
+    not_preferred_for_inserts: bool
+    """Try not to add text to this component.
+
+    Set on pending_xref nodes to indicate that inserts should be associated with
+    the next node if possible.
+    """
+
 
 _INDENTED_LINE_PATTERN = re.compile(r".*(?:^|\n)([ \t]+)$", re.DOTALL)
 
@@ -212,6 +236,17 @@ def _find_first_primary_entity_name_text_node(
     return None
 
 
+def _findall(
+    root: docutils.nodes.Node, condition, ancestor_condition, ancestor_matches: bool
+):
+    if isinstance(root, condition):
+        yield (root, ancestor_matches)
+    if isinstance(root, ancestor_condition):
+        ancestor_matches = True
+    for child in root.children:  # type: ignore[attr-defined]
+        yield from _findall(child, condition, ancestor_condition, ancestor_matches)
+
+
 class FormatApplier:
     components: list[FormatInputComponent]
     adjusted_nodes: list[docutils.nodes.Node]
@@ -222,11 +257,6 @@ class FormatApplier:
         self.adjusted_nodes = []
         self.ignored_nodes = set()
 
-    def add_fake_component(self, text: str):
-        self.components.append(
-            FormatInputComponent(orig_text=text, input_text=text, node=None)
-        )
-
     def add_signature_child_nodes(
         self, signature_child_nodes: list[docutils.nodes.Node]
     ):
@@ -235,7 +265,12 @@ class FormatApplier:
         )
         self.adjusted_nodes.extend(new_adjusted_nodes)
         for adjusted_node in new_adjusted_nodes:
-            for text_node in adjusted_node.findall(condition=docutils.nodes.Text):
+            for text_node, in_xref in _findall(
+                adjusted_node,
+                condition=docutils.nodes.Text,
+                ancestor_condition=sphinx.addnodes.pending_xref,
+                ancestor_matches=False,
+            ):
                 orig_text = text_node.astext()
                 text = orig_text
                 parent = text_node.parent
@@ -243,7 +278,10 @@ class FormatApplier:
                     text = parent.get("munged_text_for_formatting", text)
                 self.components.append(
                     FormatInputComponent(
-                        orig_text=orig_text, input_text=text, node=text_node
+                        orig_text=orig_text,
+                        input_text=text,
+                        node=text_node,
+                        not_preferred_for_inserts=in_xref,
                     )
                 )
 
@@ -266,8 +304,10 @@ class FormatApplier:
 
         components = self.components
         component_i = 0
+        num_components = len(components)
+        cur_component = components[0]
         component_start_offset = 0
-        component_end_offset = len(components[0].orig_text)
+        component_end_offset = len(cur_component.orig_text)
         replacements: dict[int, list[docutils.nodes.Node]] = collections.defaultdict(
             list
         )
@@ -337,15 +377,23 @@ class FormatApplier:
         # Compute the replacement text nodes for each component.
         for tag, i1, i2, j1, j2 in opcodes:
             while True:
-                if i1 != i2 and i1 == component_end_offset:
+                if i1 == component_end_offset and (
+                    i1 != i2
+                    or (
+                        cur_component.not_preferred_for_inserts
+                        and component_i != num_components
+                    )
+                ):
                     component_start_offset = component_end_offset
                     component_i += 1
+                    cur_component = components[component_i]
+
                     component_end_offset = component_start_offset + len(
-                        components[component_i].orig_text
+                        cur_component.orig_text
                     )
-                cur_replacements = replacements[id(components[component_i].node)]
+                cur_replacements = replacements[id(cur_component.node)]
                 if tag == "equal":
-                    value = components[component_i].orig_text[
+                    value = cur_component.orig_text[
                         i1 - component_start_offset : i2 - component_start_offset
                     ]
                     i1 += len(value)

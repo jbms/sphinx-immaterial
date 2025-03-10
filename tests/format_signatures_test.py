@@ -1,3 +1,5 @@
+import re
+
 import sphinx.addnodes
 
 TEST_SIGNATURES = {
@@ -20,6 +22,7 @@ TEST_SIGNATURES = {
                             ) -> collections.abc.MutableMapping[\
                                    tuple[str, float, numbers.Real], \
                                    dict[int, tuple[list[frozenset[int]]]]]",
+    "py_function2": r"py:method:: create(chunk_key_encoding: zarr.core.chunk_key_encodings.ChunkKeyEncoding | tuple[Literal['default'], Literal['.', '/']] | tuple[Literal['v2'], Literal['.', '/']] | None = None) -> Array",
 }
 
 
@@ -44,19 +47,41 @@ object_description_options = [
         },
     )
 
+    def validate(doc):
+        formatted_signatures = {
+            identifier: signature
+            for identifier, signature in zip(
+                TEST_SIGNATURES.keys(),
+                doc.findall(condition=sphinx.addnodes.desc_signature),
+            )
+        }
+        for identifier in TEST_SIGNATURES.keys():
+            node = formatted_signatures[identifier]
+            snapshot.assert_match(node.astext(), f"{identifier}_astext.txt")
+
+            for refnode in node.findall(condition=sphinx.addnodes.pending_xref):
+                refnode_text = refnode.astext()
+                # Whitespace or added parentheses in a pending_xref node could
+                # lead to slightly weird display of the hyperref. It is hard to
+                # avoid entirely but should be avoided for these examples.
+                assert not re.search(r"[ \t\n\(\)]", refnode_text)
+
+    class AfterFormatSignatures(sphinx.transforms.SphinxTransform):
+        # 1 larger than `FormatSignaturesTransform` priority
+        default_priority = 1
+
+        def apply(self, **kwargs):
+            validate(self.document)
+
+    # Validate before resolving references, to ensure that pending_xref nodes
+    # don't contain whitespace.
+    app.add_post_transform(AfterFormatSignatures)
+
     app.build()
 
     assert not app._warning.getvalue()
 
+    # Validate that the correct formatted result is preserved after references
+    # are resolved.
     doc = app.env.get_and_resolve_doctree("index", app.builder)
-
-    formatted_signatures = {
-        identifier: signature
-        for identifier, signature in zip(
-            TEST_SIGNATURES.keys(),
-            doc.findall(condition=sphinx.addnodes.desc_signature),
-        )
-    }
-    for identifier in TEST_SIGNATURES.keys():
-        node = formatted_signatures[identifier]
-        snapshot.assert_match(node.astext(), f"{identifier}_astext.txt")
+    validate(doc)

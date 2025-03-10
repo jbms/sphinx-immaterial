@@ -1,0 +1,8 @@
+create(
+    chunk_key_encoding: (
+        zarr.core.chunk_key_encodings.ChunkKeyEncoding
+        | tuple["default", "." | "/"]
+        | tuple["v2", "." | "/"]
+        | None
+    ) = None,
+) -> Array
