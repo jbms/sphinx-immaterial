@@ -301,6 +301,12 @@ def _config_inited(
             ".git"
         )
 
+    if "numpydoc" in app.extensions:
+        logger.warning(
+            "The sphinx-immaterial theme is incompatible with the numpydoc extension.  "
+            + "The sphinx.ext.napoleon extension may be used instead for NumPy-style docstring support."
+        )
+
 
 def setup(app: Sphinx):
     app.connect("config-inited", _config_inited)
