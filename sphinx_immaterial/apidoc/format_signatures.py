@@ -304,7 +304,7 @@ class FormatApplier:
 
         components = self.components
         component_i = 0
-        num_components = len(components)
+        max_component_i = len(components) - 1
         cur_component = components[0]
         component_start_offset = 0
         component_end_offset = len(cur_component.orig_text)
@@ -381,7 +381,7 @@ class FormatApplier:
                     i1 != i2
                     or (
                         cur_component.not_preferred_for_inserts
-                        and component_i != num_components
+                        and component_i != max_component_i
                     )
                 ):
                     component_start_offset = component_end_offset
@@ -450,9 +450,9 @@ def _format_signature_with_black(
 
     def _format_with_black(
         signature: str,
-        ensure_prefix: str,
+        ensure_prefix_choices: list[str],
         add_empty_body: bool,
-        initial_indent: int = 0,
+        initial_indent: int,
     ) -> Optional[tuple[str, str]]:
         if add_empty_body:
             # Note: Use `pass` rather than `...` as the empty body because black
@@ -489,47 +489,77 @@ def _format_signature_with_black(
 
         # 2. All spaces and dots in the initial prefix are replaced with
         #    underscores to produce a valid identifier.
-        munged_prefix = re.sub("[ .]", "_", initial_prefix)
+        base_munged_prefix = re.sub("[ .]", "_", initial_prefix)
 
-        # 3. The first part of `munged_prefix` is replaced with `ensure_prefix`
-        #    if it is longer than `ensure_prefix`. This ensures that adding
-        #    `ensure_prefix` does not impact the effective line length. If
-        #    `munged_prefix` is too short, the effective line length will be
-        #    affected.
-        ensure_prefix += "_" * max(0, initial_indent - len(ensure_prefix))
-        extra_prefix_len = max(
-            initial_indent, len(ensure_prefix) - len(munged_prefix) + 1
-        )
-        munged_prefix = (
-            ensure_prefix + munged_prefix[len(ensure_prefix) - extra_prefix_len :]
-        )
-        extra_prefix = ensure_prefix[:extra_prefix_len]
-
-        signature = munged_prefix + signature[len(initial_prefix) :]
-
-        try:
-            formatted = black.format_str(signature, mode=mode)
-        except Exception as e:
-            logger.warning("Failed to format %r: %r", signature, e, location=node)
-            return None
-
-        if not formatted.startswith(extra_prefix):
-            logger.warning(
-                "Expected formatted output %r to start with %r",
-                formatted,
-                extra_prefix,
-                location=node,
+        for ensure_prefix_i, ensure_prefix in enumerate(ensure_prefix_choices):
+            # 3. The first part of `base_munged_prefix` is replaced with
+            #    `ensure_prefix` if it is longer than `ensure_prefix`. This
+            #    ensures that adding `ensure_prefix` does not impact the
+            #    effective line length. If `base_munged_prefix` is too short,
+            #    the effective line length will be affected.
+            ensure_prefix += "_" * max(0, initial_indent - len(ensure_prefix))
+            extra_prefix_len = max(
+                initial_indent, len(ensure_prefix) - len(base_munged_prefix) + 1
             )
-            return None
+            munged_prefix = (
+                ensure_prefix
+                + base_munged_prefix[len(ensure_prefix) - extra_prefix_len :]
+            )
+            extra_prefix = ensure_prefix[:extra_prefix_len]
 
-        signature = signature[extra_prefix_len:]
-        formatted = formatted[extra_prefix_len:]
+            munged_signature = munged_prefix + signature[len(initial_prefix) :]
 
-        SUFFIX_PATTERN = r"(?::\s*pass)?\s*$"
+            try:
+                formatted = black.format_str(munged_signature, mode=mode)
+            except Exception as e:
+                if ensure_prefix_i + 1 != len(ensure_prefix_choices):
+                    continue
+                logger.warning(
+                    "Failed to format %r: %r", munged_signature, e, location=node
+                )
+                return None
 
-        formatted = re.sub(SUFFIX_PATTERN, "", formatted)
-        signature = re.sub(SUFFIX_PATTERN, "", signature)
-        return signature, formatted
+            if not formatted.startswith(extra_prefix):
+                logger.warning(
+                    "Expected formatted output %r to start with %r",
+                    formatted,
+                    extra_prefix,
+                    location=node,
+                )
+                return None
+
+            munged_signature = munged_signature[extra_prefix_len:]
+            formatted = formatted[extra_prefix_len:]
+
+            SUFFIX_PATTERN = r"(?::\s*pass)?\s*$"
+
+            formatted = re.sub(SUFFIX_PATTERN, "", formatted)
+            munged_signature = re.sub(SUFFIX_PATTERN, "", munged_signature)
+            return munged_signature, formatted
+
+        assert False  # At least one prefix must be specified
+
+    def _format_objtype_with_black(
+        signature: str,
+        objtype: str,
+        initial_indent: int,
+    ) -> Optional[tuple[str, str]]:
+        if objtype in ("function", "method"):
+            ensure_prefix_choices = ["def "]
+        elif objtype in ("class", "exception"):
+            # If formatting as a class fails, attempt to format as a `def` to
+            # accommodate the Sphinx `class Foo(a: int, b: int = 3)` constructor
+            # syntax.
+            ensure_prefix_choices = ["class ", "def "]
+        else:
+            ensure_prefix_choices = [""]
+
+        return _format_with_black(
+            signature=signature,
+            initial_indent=initial_indent,
+            ensure_prefix_choices=ensure_prefix_choices,
+            add_empty_body=objtype in ("class", "exception", "function", "method"),
+        )
 
     parent_type_param_i = None
     for i, orig_child in enumerate(node.children):
@@ -552,8 +582,9 @@ def _format_signature_with_black(
         applier.add_signature_child_nodes(node.children[: parent_type_param_i + 1])
         format_result = _format_with_black(
             applier.get_format_input(),
-            "class " if objtype in ("class", "exception") else "",
+            ["class " if objtype in ("class", "exception") else ""],
             add_empty_body=objtype in ("class", "exception"),
+            initial_indent=0,
         )
         if format_result is None:
             return
@@ -568,19 +599,11 @@ def _format_signature_with_black(
         assert m is not None
         prefix_len = len(m[0])
 
-        if objtype in ("function", "method"):
-            prefix = "def "
-        elif objtype in ("class", "exception"):
-            prefix = "class "
-        else:
-            prefix = ""
-
         applier.add_signature_child_nodes(node.children[parent_type_param_i + 1 :])
-        format_result = _format_with_black(
-            applier.get_format_input(remaining_component_i),
+        format_result = _format_objtype_with_black(
+            signature=applier.get_format_input(remaining_component_i),
             initial_indent=prefix_len,
-            ensure_prefix=prefix,
-            add_empty_body=objtype in ("class", "exception", "function", "method"),
+            objtype=objtype,
         )
         if format_result is None:
             return
@@ -590,18 +613,11 @@ def _format_signature_with_black(
         formatted += remaining_formatted
 
     else:
-        if objtype in ("function", "method"):
-            prefix = "def "
-        elif objtype in ("class", "exception"):
-            prefix = "class "
-        else:
-            prefix = ""
-
         applier.add_signature_child_nodes(node.children)
-        format_result = _format_with_black(
-            applier.get_format_input(),
-            ensure_prefix=prefix,
-            add_empty_body=objtype in ("class", "exception", "function", "method"),
+        format_result = _format_objtype_with_black(
+            signature=applier.get_format_input(),
+            objtype=objtype,
+            initial_indent=0,
         )
         if format_result is None:
             return
@@ -632,6 +648,9 @@ def _sig_transform_generic(
     ignored: set[int], node: docutils.nodes.Element
 ) -> list[docutils.nodes.Node]:
     new_node = node.copy()
+    # Ensure the new node does not contain any children. `desc_sig_space`, for
+    # example, adds a default child text node with content " ".
+    del new_node[:]
     new_node.extend(_sig_transform_nodes(ignored, node.children))
     return [new_node]
 

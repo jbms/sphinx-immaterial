@@ -1,0 +1,8 @@
+class zarr.abc.store.Store2(
+    some_long_positional_parameter: collections.abc.MutableMapping[
+        tuple[str, float, numbers.Real],
+        dict[int, tuple[list[frozenset[int]]]],
+    ],
+    *,
+    read_only: bool = False
+)

@@ -1,0 +1,6 @@
+class my.very.long.python_class.ClassName(
+    zarr.core.chunk_key_encodings.ChunkKeyEncoding1,
+    zarr.core.chunk_key_encodings.GenericBase[
+        tuple[str, float, numbers.Real], dict[int, str]
+    ],
+)

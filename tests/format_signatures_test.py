@@ -23,6 +23,15 @@ TEST_SIGNATURES = {
                                    tuple[str, float, numbers.Real], \
                                    dict[int, tuple[list[frozenset[int]]]]]",
     "py_function2": r"py:method:: create(chunk_key_encoding: zarr.core.chunk_key_encodings.ChunkKeyEncoding | tuple[Literal['default'], Literal['.', '/']] | tuple[Literal['v2'], Literal['.', '/']] | None = None) -> Array",
+    # Note: This style of class signature, while valid Python syntax, is not
+    # natively supported by Sphinx, but is produced by the
+    # sphinx_immaterial.apidoc.python.apigen extension.
+    "py_class": r"py:class:: my.very.long.python_class.ClassName(zarr.core.chunk_key_encodings.ChunkKeyEncoding1, zarr.core.chunk_key_encodings.GenericBase[tuple[str, float, numbers.Real], dict[int, str]])",
+    # Sphinx-style "constructor" syntax, not valid Python syntax.
+    "py_class_constructor": r"py:class:: zarr.abc.store.Store(*, read_only: bool = False)",
+    "py_class_constructor_long": r"py:class:: zarr.abc.store.Store2(some_long_positional_parameter: collections.abc.MutableMapping[\
+                                  tuple[str, float, numbers.Real], \
+                                  dict[int, tuple[list[frozenset[int]]]]], *, read_only: bool = False)",
 }
 
 
