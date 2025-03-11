@@ -33,6 +33,15 @@ $objinfo-icon-size: 16px;
       color: $api-color-param-name;
     }
 
+    // These elements are added by Sphinx when the
+    // `maximum_signature_line_length` is specified. Override the margins
+    // specified in `_typeset.scss`.
+    dl,
+    dd {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
     .sig-param a.reference .n:not(.desctype):hover {
       color: var(--md-accent-fg-color);
     }
@@ -161,7 +170,6 @@ $objinfo-icon-size: 16px;
 
   dl.api-field {
     > dt {
-
       // Display as table so that background is just the width of the
       // content.
       display: table;
@@ -227,7 +235,6 @@ $objinfo-icon-size: 16px;
 
 // Only use dark mode on screens
 @media screen {
-
   // Slate theme, i.e. dark mode
   [data-md-color-scheme="slate"] {
     --objinfo-icon-fg-alias: #{$clr-orange-300};

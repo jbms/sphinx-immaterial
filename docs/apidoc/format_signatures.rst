@@ -1,23 +1,37 @@
 Formatting signatures
 =====================
 
-This theme provides two alternative ways to automatically format/indent API
+This theme supports three alternative ways to automatically format/indent API
 documentation signatures.
 
-CSS-based function parameter wrapping
--------------------------------------
+Basic function parameter wrapping
+---------------------------------
 
-There is a CSS-based formatting rule that can be enabled for long function
-signatures that displays each function parameter on a separate line.  This is
-enabled by default, and works fairly well for Python signatures.
+As of Sphinx 7.1, the :confval:`maximum_signature_line_length` option (and its
+domain-specific variants) may be used to enable basic automatic parameter
+wrapping. The recommended limit for this theme is :python:`68`.
+
+.. warning::
+
+   Even with the recommended limit of :python:`68`, signature lines may be too
+   long and display poorly on very narrow browser viewports, such as mobile
+   phones in portrait mode.
+
+This theme also supports a CSS-based formatting rule that can be enabled for
+long function signatures that displays each function parameter on a separate
+line. This is enabled by default (when the
+:confval:`maximum_signature_line_length` option is not enabled), and works
+fairly well for Python signatures.
 
 It is controlled by the following `object description
 options<object-description-options>`:
 
 .. objconf:: wrap_signatures_with_css
 
-   Indicates whether CSS-based formatting is enabled.  Disabled automatically if
-   :objconf:`clang_format_style` is specified.
+   Indicates whether CSS-based formatting is enabled. Disabled automatically if
+   :objconf:`clang_format_style` or :objconf:`black_format_style` is specified.
+   Also disabled automatically if the global or domain-specific
+   :confval:`maximum_signature_line_length` option is enabled.
 
 .. objconf:: wrap_signatures_column_limit
 
@@ -49,6 +63,25 @@ following to :file:`conf.py`:
                       yet_another: bool = False, \
                       finally_another: str = "some long string goes here"\
                     ) -> Tuple[str, bool, float, bytes, int]
+
+.. note::
+
+   The :confval:`maximum_signature_line_length` and
+   :objconf:`wrap_signatures_with_css` options produce similar results.
+
+   The key differences are:
+
+   - :confval:`maximum_signature_line_length` wraps Python type parameters in a
+     more sophisticated way.
+
+   - :objconf:`wrap_signatures_with_css` properly accounts for
+     :confval:`python_type_aliases` and other related type annotation
+     transformations.
+
+   With either option, individual parameters that are too long to fit on a
+   single line will *not* be wrapped/indented properly. For more advanced
+   formatting, the `External code formatter integration`_ is recommended
+   instead.
 
 External code formatter integration
 -----------------------------------
