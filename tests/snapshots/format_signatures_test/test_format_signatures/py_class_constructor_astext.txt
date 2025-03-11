@@ -1,0 +1,1 @@
+class zarr.abc.store.Store(*, read_only: bool = False)
