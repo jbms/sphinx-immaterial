@@ -17,6 +17,15 @@ def _wrap_signature(node: sphinx.addnodes.desc_signature, limit: int):
         node["classes"].append("sig-wrap")
 
 
+def _get_maximum_signature_line_length_option(
+    app: sphinx.application.Sphinx, domain: str
+) -> int | None:
+    config = app.config
+    return getattr(config, f"{domain}_maximum_signature_line_length", None) or getattr(
+        config, "maximum_signature_line_length", None
+    )
+
+
 def _wrap_signatures(
     app: sphinx.application.Sphinx,
     domain: str,
@@ -31,6 +40,10 @@ def _wrap_signatures(
     if (
         not options["wrap_signatures_with_css"]
         or options.get("clang_format_style") is not None
+        or options.get("black_format_style") is not None
+        # Disable if the Sphinx `maximum_signature_length_length` option is
+        # enabled for this domain.
+        or _get_maximum_signature_line_length_option(app, domain)
     ):
         return
     signatures = content.parent[:-1]
