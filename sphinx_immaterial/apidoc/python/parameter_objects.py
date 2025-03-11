@@ -61,7 +61,7 @@ def _monkey_patch_python_doc_fields():
         def handle_item(fieldarg: str, content: Any) -> docutils.nodes.Node:
             node = docutils.nodes.definition_list_item()
             term_node = docutils.nodes.term()
-            term_node["paramname"] = fieldarg
+            term_node["paramname"] = fieldarg.lstrip("*")
             term_node += sphinx.addnodes.desc_name(fieldarg, fieldarg)
             fieldtype = types.pop(fieldarg, None)
             if fieldtype:
