@@ -321,10 +321,6 @@ def setup(app: Sphinx):
     app.setup_extension("sphinx_immaterial.apidoc.cpp.default")
     app.setup_extension(nav_adapt.__name__)
     app.setup_extension("sphinx_immaterial.postprocess_html")
-
-    if sphinx.version_info < (5, 0):
-        app.setup_extension("sphinx_immaterial.inlinesyntaxhighlight")
-
     app.setup_extension("sphinx_immaterial.apidoc.object_toc")
     app.setup_extension("sphinx_immaterial.search_adapt")
     app.setup_extension("sphinx_immaterial.apidoc.object_description_options")

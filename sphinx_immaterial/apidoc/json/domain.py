@@ -269,22 +269,10 @@ def _get_json_schema_files(app: sphinx.application.Sphinx):
         + sphinx.project.EXCLUDE_PATHS
     )
 
-    if sphinx.version_info >= (6, 0):
-        yield from sphinx.util.matching.get_matching_files(
-            app.srcdir, include_patterns=include_globs, exclude_patterns=exclude_globs
-        )
-        return
-
-    # Use older predicate-based `get_matching_files`.
-    include_re = _globs_to_re(include_globs)
-    exclude_re = _globs_to_re(exclude_globs)
-    matching_files = sphinx.util.get_matching_files(
-        app.srcdir, (lambda s: exclude_re.fullmatch(s) is not None,)
+    yield from sphinx.util.matching.get_matching_files(
+        app.srcdir, include_patterns=include_globs, exclude_patterns=exclude_globs
     )
-    for name in matching_files:
-        if not include_re.fullmatch(name):
-            continue
-        yield name
+    return
 
 
 def _populate_json_schema_id_map(app: sphinx.application.Sphinx):

@@ -141,7 +141,6 @@ from typing import (
     Optional,
     Set,
     Tuple,
-    Type,
     Union,
     cast,
 )
@@ -157,20 +156,6 @@ import sphinx.util.docutils
 import sphinx.util.osutil
 
 from .apidoc import object_description_options
-
-meta_node_types: Tuple[Type[docutils.nodes.Element], ...]
-
-if sphinx.version_info >= (6,):
-    meta_node_types = (docutils.nodes.meta,)  # type: ignore[attr-defined]
-else:
-    from sphinx.addnodes import (  # type: ignore[attr-defined]
-        docutils_meta,
-    )
-    from sphinx.addnodes import (  # type: ignore[attr-defined]
-        meta as sphinx_meta,
-    )
-
-    meta_node_types = (docutils_meta, sphinx_meta)
 
 StandaloneHTMLBuilder = sphinx.builders.html.StandaloneHTMLBuilder
 
@@ -839,7 +824,7 @@ def _html_page_context(
         meta_tags = [
             doc_node
             for doc_node in doctree.document.children
-            if isinstance(doc_node, meta_node_types)
+            if isinstance(doc_node, docutils.nodes.meta)  # type: ignore[attr-defined]
         ]
         for tag in meta_tags:
             assert isinstance(tag, docutils.nodes.Element)

@@ -208,14 +208,9 @@ def docs(session: nox.Session, builder: str):
     ci_logger.info("::endgroup::")
 
 
-SUPPORTED_SPHINX = [4, 5, 6, 7, 8]
+SUPPORTED_SPHINX = [6, 7, 8]
 
-EXCLUDED_PYTHON_SPHINX = {
-    # Sphinx<6 depends on imghdr module that was removed from the Python 3.13
-    # standard library.
-    ("3.13", 4),
-    ("3.13", 5),
-}
+EXCLUDED_PYTHON_SPHINX = {}
 
 
 @nox.session

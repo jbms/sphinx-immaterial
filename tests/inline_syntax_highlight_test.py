@@ -63,7 +63,6 @@ The following block will be highlighted as JSON::
 )
 def test_syntax_highlighting(doc: str, immaterial_make_app):
     app: SphinxTestApp = immaterial_make_app(
-        extra_conf="extensions.append('sphinx_immaterial.inlinesyntaxhighlight')",
         files={"index.rst": doc},
     )
 
