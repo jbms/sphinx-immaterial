@@ -41,7 +41,7 @@
         <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
       
     
-        <link rel="stylesheet" type="text/css" href="../_static/sphinx_immaterial_theme.257f10976cae118df.min.css?v=20c305c7" />
+        <link rel="stylesheet" type="text/css" href="../_static/sphinx_immaterial_theme.e9c6626c056ed2e6b.min.css?v=cdce7934" />
         <link rel="stylesheet" type="text/css" href="../_static/extra_css.css?v=e7860b37" />
         <link rel="stylesheet" type="text/css" href="../_static/custom_font_example.css?v=520ac564" />
     <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
@@ -70,7 +70,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#css-based-function-parameter-wrapping" class="md-skip">
+        <a href="#basic-function-parameter-wrapping" class="md-skip">
           Skip to content
         </a>
       
@@ -641,14 +641,14 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#css-based-function-parameter-wrapping" class="md-nav__link">
+  <a href="#basic-function-parameter-wrapping" class="md-nav__link">
     
     <span class="md-ellipsis">
-      CSS-<wbr>based function parameter wrapping
+      Basic function parameter wrapping
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="CSS-based function parameter wrapping">
+    <nav class="md-nav" aria-label="Basic function parameter wrapping">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1433,14 +1433,14 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#css-based-function-parameter-wrapping" class="md-nav__link">
+  <a href="#basic-function-parameter-wrapping" class="md-nav__link">
     
     <span class="md-ellipsis">
-      CSS-<wbr>based function parameter wrapping
+      Basic function parameter wrapping
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="CSS-based function parameter wrapping">
+    <nav class="md-nav" aria-label="Basic function parameter wrapping">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1658,19 +1658,32 @@
   
 
 <h1 id="formatting-signatures">Formatting signatures<a class="headerlink" href="#formatting-signatures" title="Link to this heading">¶</a></h1>
-<p>This theme provides two alternative ways to automatically format/indent API
+<p>This theme supports three alternative ways to automatically format/indent API
 documentation signatures.</p>
-<h2 id="css-based-function-parameter-wrapping">CSS-based function parameter wrapping<a class="headerlink" href="#css-based-function-parameter-wrapping" title="Link to this heading">¶</a></h2>
-<p>There is a CSS-based formatting rule that can be enabled for long function
-signatures that displays each function parameter on a separate line.  This is
-enabled by default, and works fairly well for Python signatures.</p>
+<h2 id="basic-function-parameter-wrapping">Basic function parameter wrapping<a class="headerlink" href="#basic-function-parameter-wrapping" title="Link to this heading">¶</a></h2>
+<p>As of Sphinx 7.1, the <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/configuration.html#confval-maximum_signature_line_length" title="(in Sphinx v8.3.0)"><code class="xref std std-confval docutils literal notranslate"><span class="pre">maximum_signature_line_length</span></code></a> option (and its
+domain-specific variants) may be used to enable basic automatic parameter
+wrapping. The recommended limit for this theme is <code class="code highlight python docutils literal highlight-python"><span class="mi">68</span></code>.</p>
+<div class="warning admonition">
+<p class="admonition-title">Warning</p>
+<p>Even with the recommended limit of <code class="code highlight python docutils literal highlight-python"><span class="mi">68</span></code>, signature lines may be too
+long and display poorly on very narrow browser viewports, such as mobile
+phones in portrait mode.</p>
+</div>
+<p>This theme also supports a CSS-based formatting rule that can be enabled for
+long function signatures that displays each function parameter on a separate
+line. This is enabled by default (when the
+<a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/configuration.html#confval-maximum_signature_line_length" title="(in Sphinx v8.3.0)"><code class="xref std std-confval docutils literal notranslate"><span class="pre">maximum_signature_line_length</span></code></a> option is not enabled), and works
+fairly well for Python signatures.</p>
 <p>It is controlled by the following <a class="reference internal" href="index.html#object-description-options"><span class="std std-ref">object description
 options</span></a>:</p>
 <dl class="std objconf objdesc">
 <dt class="sig sig-object highlight std" id="objconf-wrap_signatures_with_css">
 <span class="sig-name descname"><span class="pre">wrap_signatures_with_css</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><span class="pre">bool</span></a></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="kc">True</span></code><a class="headerlink" href="#objconf-wrap_signatures_with_css" title="Link to this definition">¶</a></dt>
-<dd><p>Indicates whether CSS-based formatting is enabled.  Disabled automatically if
-<a class="reference internal" href="#objconf-clang_format_style" title="clang_format_style (object description option)"><code class="xref std std-objconf docutils literal notranslate"><span class="pre">clang_format_style</span></code></a> is specified.</p>
+<dd><p>Indicates whether CSS-based formatting is enabled. Disabled automatically if
+<a class="reference internal" href="#objconf-clang_format_style" title="clang_format_style (object description option)"><code class="xref std std-objconf docutils literal notranslate"><span class="pre">clang_format_style</span></code></a> or <a class="reference internal" href="#objconf-black_format_style" title="black_format_style (object description option)"><code class="xref std std-objconf docutils literal notranslate"><span class="pre">black_format_style</span></code></a> is specified.
+Also disabled automatically if the global or domain-specific
+<a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/configuration.html#confval-maximum_signature_line_length" title="(in Sphinx v8.3.0)"><code class="xref std std-confval docutils literal notranslate"><span class="pre">maximum_signature_line_length</span></code></a> option is enabled.</p>
 </dd></dl>
 
 <dl class="std objconf objdesc">
@@ -1713,6 +1726,23 @@ following to <code class="file docutils literal notranslate"><span class="pre">c
 <dd></dd></dl>
 
 </div>
+</div>
+<div class="note admonition">
+<p class="admonition-title">Note</p>
+<p>The <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/configuration.html#confval-maximum_signature_line_length" title="(in Sphinx v8.3.0)"><code class="xref std std-confval docutils literal notranslate"><span class="pre">maximum_signature_line_length</span></code></a> and
+<a class="reference internal" href="#objconf-wrap_signatures_with_css" title="wrap_signatures_with_css (object description option)"><code class="xref std std-objconf docutils literal notranslate"><span class="pre">wrap_signatures_with_css</span></code></a> options produce similar results.</p>
+<p>The key differences are:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/configuration.html#confval-maximum_signature_line_length" title="(in Sphinx v8.3.0)"><code class="xref std std-confval docutils literal notranslate"><span class="pre">maximum_signature_line_length</span></code></a> wraps Python type parameters in a
+more sophisticated way.</p></li>
+<li><p><a class="reference internal" href="#objconf-wrap_signatures_with_css" title="wrap_signatures_with_css (object description option)"><code class="xref std std-objconf docutils literal notranslate"><span class="pre">wrap_signatures_with_css</span></code></a> properly accounts for
+<a class="reference internal" href="python/index.html#confval-python_type_aliases" title="python_type_aliases (configuration value) — Maps names or dotted names appearing in type annotations in Python signatures to the corresponding fully-qualified name."><code class="xref std std-confval docutils literal notranslate"><span class="pre">python_type_aliases</span></code></a> and other related type annotation
+transformations.</p></li>
+</ul>
+<p>With either option, individual parameters that are too long to fit on a
+single line will <em>not</em> be wrapped/indented properly. For more advanced
+formatting, the <a class="reference internal" href="#external-code-formatter-integration">External code formatter integration</a> is recommended
+instead.</p>
 </div>
 <h2 id="external-code-formatter-integration">External code formatter integration<a class="headerlink" href="#external-code-formatter-integration" title="Link to this heading">¶</a></h2>
 <p>There is a more powerful alternative formatting mechanism that makes use of
