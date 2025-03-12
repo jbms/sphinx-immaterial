@@ -60,11 +60,7 @@ class IndexBuilder(sphinx.search.IndexBuilder):
         self, fn2index: Dict[str, int]
     ) -> Dict[
         str,
-        Union[
-            # From sphinx 4.3 onwards the children dict is now a list
-            Dict[str, Tuple[int, int, int, Union[int, str]]],
-            List[Tuple[int, int, int, Union[int, str], str]],
-        ],
+        List[Tuple[int, int, int, Union[int, str], str]],
     ]:
         rv = super().get_objects(fn2index)
         onames = self._objnames
@@ -72,19 +68,11 @@ class IndexBuilder(sphinx.search.IndexBuilder):
         all_objs = _get_all_objects(self.env)
         synopses = _get_all_synopses(self.env)
 
-        for prefix, prefix_value in rv.items():
+        for prefix, children in rv.items():
             if prefix:
                 name_prefix = prefix + "."
             else:
                 name_prefix = ""
-            if sphinx.version_info >= (4, 3):
-                # From sphinx 4.3 onwards the children dict is now a list
-                children = prefix_value
-            else:
-                children = [
-                    (*values, name)  # type: ignore[misc]
-                    for name, values in cast(dict, prefix_value).items()
-                ]
             for i, (docindex, typeindex, prio, shortanchor, name) in enumerate(
                 children
             ):
@@ -135,23 +123,14 @@ class IndexBuilder(sphinx.search.IndexBuilder):
                 else:
                     new_shortanchor = anchor
 
-                if sphinx.version_info >= (4, 3):
-                    prefix_value[i] = (  # type: ignore
-                        docindex,  # type: ignore
-                        typeindex,
-                        prio,
-                        new_shortanchor,
-                        name,
-                        synopsis,
-                    )
-                else:
-                    prefix_value[name] = (  # type: ignore
-                        docindex,
-                        typeindex,
-                        prio,
-                        new_shortanchor,
-                        synopsis,
-                    )
+                children[i] = (  # type: ignore
+                    docindex,  # type: ignore
+                    typeindex,
+                    prio,
+                    new_shortanchor,
+                    name,
+                    synopsis,
+                )
         return cast(Any, rv)
 
     def freeze(self):

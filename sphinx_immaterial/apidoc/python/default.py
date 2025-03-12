@@ -16,9 +16,6 @@ from . import (
     type_annotation_transforms,
 )
 
-if sphinx.version_info < (5, 3):
-    from . import section_titles  # noqa: F401
-
 
 def setup(app: sphinx.application.Sphinx):
     app.setup_extension(parameter_objects.__name__)
