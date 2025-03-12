@@ -1366,12 +1366,29 @@
         <span class="c1"># Ensure the new node does not contain any children. `desc_sig_space`,</span>
         <span class="c1"># for example, adds a default child text node with content &quot; &quot;.</span>
         <span class="k">del</span> <span class="n">new_node</span><span class="p">[:]</span>
-        <span class="n">new_node</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">_transform_node_list</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">children</span><span class="p">,</span> <span class="n">_transform_node</span><span class="p">))</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">new_node</span><span class="o">.</span><span class="n">children</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+
+        <span class="n">new_children</span> <span class="o">=</span> <span class="n">_transform_node_list</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">children</span><span class="p">,</span> <span class="n">_transform_node</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">new_node</span><span class="p">,</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">addnodes</span><span class="o">.</span><span class="n">pending_xref</span><span class="p">):</span>
+            <span class="n">num_new_children</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">new_children</span><span class="p">)</span>
+            <span class="k">assert</span> <span class="n">num_new_children</span> <span class="o">!=</span> <span class="mi">0</span>
             <span class="c1"># A pending_xref with no children is an error and indicates a</span>
             <span class="c1"># problem with applying the format.</span>
-            <span class="k">assert</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">new_node</span><span class="p">,</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">addnodes</span><span class="o">.</span><span class="n">pending_xref</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">num_new_children</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="c1"># Wrap children in an `inline` node because Sphinx expects</span>
+                <span class="c1"># pending_xref nodes to only have one child.</span>
+                <span class="n">wrapper</span> <span class="o">=</span> <span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">inline</span><span class="p">()</span>
+                <span class="n">wrapper</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">new_children</span><span class="p">)</span>
+                <span class="n">new_children</span> <span class="o">=</span> <span class="p">[</span><span class="n">wrapper</span><span class="p">]</span>
+
+        <span class="n">new_node</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">new_children</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">new_node</span><span class="o">.</span><span class="n">children</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="c1"># Exclude nodes with no content (presumably the content got moved to</span>
+            <span class="c1"># a different node).</span>
             <span class="k">return</span> <span class="p">[]</span>
+
         <span class="k">return</span> <span class="p">[</span><span class="n">new_node</span><span class="p">]</span>
 
     <span class="k">return</span> <span class="n">_transform_node_list</span><span class="p">(</span><span class="n">nodes</span><span class="p">,</span> <span class="n">_transform_node</span><span class="p">)</span>
@@ -1399,6 +1416,13 @@
 <span class="sd">    the formatter and should not be preserved.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
+    <span class="n">not_preferred_for_inserts</span><span class="p">:</span> <span class="nb">bool</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Try not to add text to this component.</span>
+
+<span class="sd">    Set on pending_xref nodes to indicate that inserts should be associated with</span>
+<span class="sd">    the next node if possible.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
 
 <span class="n">_INDENTED_LINE_PATTERN</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;.*(?:^|\n)([ \t]+)$&quot;</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">DOTALL</span><span class="p">)</span>
 
@@ -1424,6 +1448,17 @@
     <span class="k">return</span> <span class="kc">None</span>
 
 
+<span class="k">def</span><span class="w"> </span><span class="nf">_findall</span><span class="p">(</span>
+    <span class="n">root</span><span class="p">:</span> <span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Node</span><span class="p">,</span> <span class="n">condition</span><span class="p">,</span> <span class="n">ancestor_condition</span><span class="p">,</span> <span class="n">ancestor_matches</span><span class="p">:</span> <span class="nb">bool</span>
+<span class="p">):</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">condition</span><span class="p">):</span>
+        <span class="k">yield</span> <span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">ancestor_matches</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">ancestor_condition</span><span class="p">):</span>
+        <span class="n">ancestor_matches</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">children</span><span class="p">:</span>  <span class="c1"># type: ignore[attr-defined]</span>
+        <span class="k">yield from</span> <span class="n">_findall</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="n">condition</span><span class="p">,</span> <span class="n">ancestor_condition</span><span class="p">,</span> <span class="n">ancestor_matches</span><span class="p">)</span>
+
+
 <span class="k">class</span><span class="w"> </span><span class="nc">FormatApplier</span><span class="p">:</span>
     <span class="n">components</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">FormatInputComponent</span><span class="p">]</span>
     <span class="n">adjusted_nodes</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Node</span><span class="p">]</span>
@@ -1434,11 +1469,6 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">adjusted_nodes</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ignored_nodes</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">add_fake_component</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-            <span class="n">FormatInputComponent</span><span class="p">(</span><span class="n">orig_text</span><span class="o">=</span><span class="n">text</span><span class="p">,</span> <span class="n">input_text</span><span class="o">=</span><span class="n">text</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-        <span class="p">)</span>
-
     <span class="k">def</span><span class="w"> </span><span class="nf">add_signature_child_nodes</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">signature_child_nodes</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Node</span><span class="p">]</span>
     <span class="p">):</span>
@@ -1447,7 +1477,12 @@
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">adjusted_nodes</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">new_adjusted_nodes</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">adjusted_node</span> <span class="ow">in</span> <span class="n">new_adjusted_nodes</span><span class="p">:</span>
-            <span class="k">for</span> <span class="n">text_node</span> <span class="ow">in</span> <span class="n">adjusted_node</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">condition</span><span class="o">=</span><span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Text</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">text_node</span><span class="p">,</span> <span class="n">in_xref</span> <span class="ow">in</span> <span class="n">_findall</span><span class="p">(</span>
+                <span class="n">adjusted_node</span><span class="p">,</span>
+                <span class="n">condition</span><span class="o">=</span><span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Text</span><span class="p">,</span>
+                <span class="n">ancestor_condition</span><span class="o">=</span><span class="n">sphinx</span><span class="o">.</span><span class="n">addnodes</span><span class="o">.</span><span class="n">pending_xref</span><span class="p">,</span>
+                <span class="n">ancestor_matches</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="p">):</span>
                 <span class="n">orig_text</span> <span class="o">=</span> <span class="n">text_node</span><span class="o">.</span><span class="n">astext</span><span class="p">()</span>
                 <span class="n">text</span> <span class="o">=</span> <span class="n">orig_text</span>
                 <span class="n">parent</span> <span class="o">=</span> <span class="n">text_node</span><span class="o">.</span><span class="n">parent</span>
@@ -1455,7 +1490,10 @@
                     <span class="n">text</span> <span class="o">=</span> <span class="n">parent</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;munged_text_for_formatting&quot;</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
                     <span class="n">FormatInputComponent</span><span class="p">(</span>
-                        <span class="n">orig_text</span><span class="o">=</span><span class="n">orig_text</span><span class="p">,</span> <span class="n">input_text</span><span class="o">=</span><span class="n">text</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="n">text_node</span>
+                        <span class="n">orig_text</span><span class="o">=</span><span class="n">orig_text</span><span class="p">,</span>
+                        <span class="n">input_text</span><span class="o">=</span><span class="n">text</span><span class="p">,</span>
+                        <span class="n">node</span><span class="o">=</span><span class="n">text_node</span><span class="p">,</span>
+                        <span class="n">not_preferred_for_inserts</span><span class="o">=</span><span class="n">in_xref</span><span class="p">,</span>
                     <span class="p">)</span>
                 <span class="p">)</span>
 
@@ -1478,8 +1516,10 @@
 
         <span class="n">components</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">components</span>
         <span class="n">component_i</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">num_components</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">components</span><span class="p">)</span>
+        <span class="n">cur_component</span> <span class="o">=</span> <span class="n">components</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="n">component_start_offset</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="n">component_end_offset</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">components</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">orig_text</span><span class="p">)</span>
+        <span class="n">component_end_offset</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">cur_component</span><span class="o">.</span><span class="n">orig_text</span><span class="p">)</span>
         <span class="n">replacements</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Node</span><span class="p">]]</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">defaultdict</span><span class="p">(</span>
             <span class="nb">list</span>
         <span class="p">)</span>
@@ -1549,15 +1589,23 @@
         <span class="c1"># Compute the replacement text nodes for each component.</span>
         <span class="k">for</span> <span class="n">tag</span><span class="p">,</span> <span class="n">i1</span><span class="p">,</span> <span class="n">i2</span><span class="p">,</span> <span class="n">j1</span><span class="p">,</span> <span class="n">j2</span> <span class="ow">in</span> <span class="n">opcodes</span><span class="p">:</span>
             <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">i1</span> <span class="o">!=</span> <span class="n">i2</span> <span class="ow">and</span> <span class="n">i1</span> <span class="o">==</span> <span class="n">component_end_offset</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">i1</span> <span class="o">==</span> <span class="n">component_end_offset</span> <span class="ow">and</span> <span class="p">(</span>
+                    <span class="n">i1</span> <span class="o">!=</span> <span class="n">i2</span>
+                    <span class="ow">or</span> <span class="p">(</span>
+                        <span class="n">cur_component</span><span class="o">.</span><span class="n">not_preferred_for_inserts</span>
+                        <span class="ow">and</span> <span class="n">component_i</span> <span class="o">!=</span> <span class="n">num_components</span>
+                    <span class="p">)</span>
+                <span class="p">):</span>
                     <span class="n">component_start_offset</span> <span class="o">=</span> <span class="n">component_end_offset</span>
                     <span class="n">component_i</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="n">cur_component</span> <span class="o">=</span> <span class="n">components</span><span class="p">[</span><span class="n">component_i</span><span class="p">]</span>
+
                     <span class="n">component_end_offset</span> <span class="o">=</span> <span class="n">component_start_offset</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span>
-                        <span class="n">components</span><span class="p">[</span><span class="n">component_i</span><span class="p">]</span><span class="o">.</span><span class="n">orig_text</span>
+                        <span class="n">cur_component</span><span class="o">.</span><span class="n">orig_text</span>
                     <span class="p">)</span>
-                <span class="n">cur_replacements</span> <span class="o">=</span> <span class="n">replacements</span><span class="p">[</span><span class="nb">id</span><span class="p">(</span><span class="n">components</span><span class="p">[</span><span class="n">component_i</span><span class="p">]</span><span class="o">.</span><span class="n">node</span><span class="p">)]</span>
+                <span class="n">cur_replacements</span> <span class="o">=</span> <span class="n">replacements</span><span class="p">[</span><span class="nb">id</span><span class="p">(</span><span class="n">cur_component</span><span class="o">.</span><span class="n">node</span><span class="p">)]</span>
                 <span class="k">if</span> <span class="n">tag</span> <span class="o">==</span> <span class="s2">&quot;equal&quot;</span><span class="p">:</span>
-                    <span class="n">value</span> <span class="o">=</span> <span class="n">components</span><span class="p">[</span><span class="n">component_i</span><span class="p">]</span><span class="o">.</span><span class="n">orig_text</span><span class="p">[</span>
+                    <span class="n">value</span> <span class="o">=</span> <span class="n">cur_component</span><span class="o">.</span><span class="n">orig_text</span><span class="p">[</span>
                         <span class="n">i1</span> <span class="o">-</span> <span class="n">component_start_offset</span> <span class="p">:</span> <span class="n">i2</span> <span class="o">-</span> <span class="n">component_start_offset</span>
                     <span class="p">]</span>
                     <span class="n">i1</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
@@ -2081,7 +2129,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    Mar 06, 2025
+    Mar 12, 2025
   </span>
 
     
