@@ -32,6 +32,7 @@ TEST_SIGNATURES = {
     "py_class_constructor_long": r"py:class:: zarr.abc.store.Store2(some_long_positional_parameter: collections.abc.MutableMapping[\
                                   tuple[str, float, numbers.Real], \
                                   dict[int, tuple[list[frozenset[int]]]]], *, read_only: bool = False)",
+    "py_function3": "py:method:: zarr.Array.from_dict(store_path: StorePath,data: dict[str, str | int | float | Mapping[str, str | int | float | Mapping[str, JSON] | Sequence[JSON] | None] | Sequence[str | int | float | Mapping[str, JSON] | Sequence[JSON] | None] | None])->Array",
 }
 
 
@@ -87,7 +88,6 @@ object_description_options = [
     app.add_post_transform(AfterFormatSignatures)
 
     app.build()
-
     assert not app._warning.getvalue()
 
     # Validate that the correct formatted result is preserved after references
