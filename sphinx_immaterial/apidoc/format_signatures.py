@@ -215,6 +215,122 @@ class FormatInputComponent(NamedTuple):
 _INDENTED_LINE_PATTERN = re.compile(r".*(?:^|\n)([ \t]+)$", re.DOTALL)
 
 
+_ASCII_UPPERCASE_PATTERN = re.compile("[A-Z]+")
+_ALPHANUMERIC_PATTERN = re.compile(r"\w+", re.UNICODE)
+
+
+def _normalize_ascii_letters(x: str) -> str:
+    """Convert all ASCII letters to lowercase.
+
+    This ensures that any numeric literal normalization (e.g. hex A-F or "E" in
+    exponents) is supported.
+    """
+    return _ASCII_UPPERCASE_PATTERN.sub(lambda m: m.group().lower(), x)
+
+
+def _align_generic(
+    a_offset: int,
+    a: str,
+    b_offset: int,
+    b: str,
+    ops: list[tuple[str, int, int, int, int]],
+) -> None:
+    """Generic alignment with offsets.
+
+    This is used to align gaps between alphanumeric sequences.
+
+    Appends the opcodes to `ops`.
+    """
+    if len(a) == 0:
+        if len(b) == 0:
+            return
+        ops.append(("insert", a_offset, a_offset, b_offset, b_offset + len(b)))
+        return
+    if len(b) == 0:
+        ops.append(("delete", a_offset, a_offset + len(a), b_offset, b_offset))
+        return
+
+    if a == b:
+        a_len = len(a)
+        ops.append(("equal", a_offset, a_offset + a_len, b_offset, b_offset + a_len))
+        return
+
+    for tag, i1, i2, j1, j2 in difflib.SequenceMatcher(None, a, b, False).get_opcodes():
+        ops.append((tag, i1 + a_offset, i2 + a_offset, j1 + b_offset, j2 + b_offset))
+
+
+def _align_strings(a: str, b: str) -> list[tuple[str, int, int, int, int]]:
+    """Aligns two strings with special handling of Unicode word characters.
+
+    Using `difflib.SequenceMatcher` directly often produces poor alignments.
+
+    This function improves on the alignment using the assumption that the
+    subsequence of unicode word characters is identical in both `a` and `b`.
+
+    Consequently, the unicode word characters can be aligned precisely, and
+    `difflib.SequenceMatcher` is used only for the gaps between alphanumeric
+    characters.
+
+    """
+    a = _normalize_ascii_letters(a)
+    b = _normalize_ascii_letters(b)
+
+    a_index = 0
+    b_index = 0
+
+    ops: list[tuple[str, int, int, int, int]] = []
+
+    while True:
+        m_a = _ALPHANUMERIC_PATTERN.search(a, a_index)
+        m_b = _ALPHANUMERIC_PATTERN.search(b, b_index)
+
+        if m_a is None or m_b is None:
+            if (m_a is None) != (m_b is None):
+                raise ValueError(
+                    "Expected alphanumeric parts to be equal, but they differ starting at %r and %r"
+                    % (a[a_index:], b[b_index:])
+                )
+
+            _align_generic(a_index, a[a_index:], b_index, b[b_index:], ops)
+            break
+
+        m_a_start = m_a.start()
+        m_b_start = m_b.start()
+        m_a_group = m_a.group()
+        m_b_group = m_b.group()
+
+        m_len = min(len(m_a_group), len(m_b_group))
+
+        _align_generic(
+            a_index, a[a_index:m_a_start], b_index, b[b_index:m_b_start], ops
+        )
+
+        a_index = m_a_start + m_len
+        b_index = m_b_start + m_len
+
+        if a[m_a_start:a_index] != b[m_b_start:b_index]:
+            raise ValueError(
+                "Expected alphanumeric parts to be equal, but they differ starting at %r and %r"
+                % (a[m_a_start:], b[m_b_start:])
+            )
+
+        ops.append(("equal", m_a_start, a_index, m_b_start, b_index))
+
+    merged_opcodes: list[tuple[str, int, int, int, int]] = []
+    last_tag = None
+    for tag, i1, i2, j1, j2 in ops:
+        if tag == last_tag:
+            _, prev_i1, prev_i2, prev_j1, prev_j2 = merged_opcodes[-1]
+            assert prev_i2 == i1
+            assert prev_j2 == j1
+            merged_opcodes[-1] = (tag, prev_i1, i2, prev_j1, j2)
+            continue
+        merged_opcodes.append((tag, i1, i2, j1, j2))
+        last_tag = tag
+
+    return merged_opcodes
+
+
 def _find_first_primary_entity_name_text_node(
     adjusted_nodes: list[docutils.nodes.Node],
 ) -> Optional[docutils.nodes.Text]:
@@ -245,6 +361,15 @@ def _findall(
         ancestor_matches = True
     for child in root.children:  # type: ignore[attr-defined]
         yield from _findall(child, condition, ancestor_condition, ancestor_matches)
+
+
+# For debugging
+def _dump_opcodes(ops, a, b):
+    for tag, i1, i2, j1, j2 in ops:
+        print(
+            "%r : (%d..%d) %r -> (%d..%d) %r"
+            % (tag, i1, i2, a[i1:i2], j1, j2, b[j1:j2])
+        )
 
 
 class FormatApplier:
@@ -313,15 +438,19 @@ class FormatApplier:
         )
 
         def _get_opcodes():
-            return difflib.SequenceMatcher(
-                " \t\n".__contains__,
-                formatted_input,
-                formatted_output,
-                autojunk=False,
-            ).get_opcodes()
+            return _align_strings(formatted_input, formatted_output)
 
         # Align `formatted_input` to `formatted_output`.
-        opcodes = _get_opcodes()
+
+        try:
+            opcodes = _get_opcodes()
+        except ValueError as e:
+            logger.warning(
+                "Failed to align formatted output to input, skipping formatting: %s",
+                e,
+                location=signature_to_modify,
+            )
+            return
 
         # Find the first text node of the entity name.
         #
@@ -359,6 +488,7 @@ class FormatApplier:
                     )
                 else:
                     first_name_text_node_output_offset = j1
+            if i2 > first_name_text_node_input_offset:
                 break
 
         # Check if `first_name_text_node` is indented on a new line.
@@ -421,10 +551,20 @@ class FormatApplier:
                 if i1 == i2:
                     break
 
+        try:
+            replacement_nodes = _replace_text_nodes(
+                self.adjusted_nodes, self.ignored_nodes, replacements
+            )
+        except Exception as e:
+            logger.warning(
+                "Failed to apply formatting, skipping formatting: %s",
+                e,
+                location=signature_to_modify,
+            )
+            return
+
         del signature_to_modify[:]
-        signature_to_modify.extend(
-            _replace_text_nodes(self.adjusted_nodes, self.ignored_nodes, replacements)
-        )
+        signature_to_modify.extend(replacement_nodes)
 
         if "sig-wrap" in signature_to_modify["classes"]:
             signature_to_modify["classes"].remove("sig-wrap")

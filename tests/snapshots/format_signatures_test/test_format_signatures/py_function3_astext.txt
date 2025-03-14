@@ -1,0 +1,27 @@
+zarr.Array.from_dict(
+    store_path: StorePath,
+    data: dict[
+        str,
+        str
+        | int
+        | float
+        | Mapping[
+            str,
+            str
+            | int
+            | float
+            | Mapping[str, JSON]
+            | collections.abc.Sequence[JSON]
+            | None,
+        ]
+        | collections.abc.Sequence[
+            str
+            | int
+            | float
+            | Mapping[str, JSON]
+            | collections.abc.Sequence[JSON]
+            | None
+        ]
+        | None,
+    ],
+) -> Array
