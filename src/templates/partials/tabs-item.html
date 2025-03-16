@@ -44,7 +44,8 @@
   {% endif %}
 
   <!-- Navigation item with nested items -->
-  {% if nav_item.children %}
+  <!-- sphinx-immaterial: handle non-leaf page -->
+  {% if not nav_item.url %}
     {% set first = nav_item.children | first %}
 
     <!-- Recurse, if the first item has further nested items -->
