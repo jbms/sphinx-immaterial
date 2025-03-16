@@ -5,6 +5,9 @@ global_toc:
   caption_only: false
   children: []
   current: false
+  meta:
+    icon: material/test-tube
+    subtitle: A subtitle
   title: A page
   url: a.html
 - active: true
@@ -18,9 +21,11 @@ global_toc:
     caption_only: false
     children: []
     current: true
+    meta: {}
     title: C page
     url: '#'
   current: false
+  meta: {}
   title: TOC caption
   url: '#'
 integrated_local_toc: []

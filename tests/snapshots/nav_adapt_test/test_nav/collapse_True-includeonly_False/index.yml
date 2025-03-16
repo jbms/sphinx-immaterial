@@ -5,6 +5,9 @@ global_toc:
   caption_only: false
   children: []
   current: false
+  meta:
+    icon: material/test-tube
+    subtitle: A subtitle
   title: A page
   url: a.html
 - active: false
@@ -18,9 +21,11 @@ global_toc:
     caption_only: false
     children: []
     current: false
+    meta: {}
     title: C page
     url: c.html
   current: false
+  meta: {}
   title: TOC caption
   url: c.html
 integrated_local_toc: []
@@ -34,6 +39,7 @@ local_toc:
     caption_only: false
     children: []
     current: false
+    meta: {}
     title: Getting started
     url: '#getting-started'
   - active: false
@@ -41,8 +47,10 @@ local_toc:
     caption_only: false
     children: []
     current: false
+    meta: {}
     title: Another section
     url: '#another-section'
   current: false
+  meta: {}
   title: Overall title
   url: '#'

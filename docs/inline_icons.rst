@@ -24,11 +24,13 @@ This theme has a builtin role to use icons within lines of text.
 
 .. confval:: sphinx_immaterial_icon_path
 
-    This `list` of paths will contain custom SVG icons that can be used in the documentation via
-    :rst:role:`si-icon` or :confval:`sphinx_immaterial_custom_admonitions`. These paths must be
-    relative to the documentation project's conf.py file. The icons stored here will be (if used)
-    rendered as CSS variables in the documentation's HTML output. This is designed to allow for
-    less duplicated code in generated output.
+    This `list` of paths will contain custom SVG icons that can be used in the
+    documentation via :rst:role:`si-icon` or
+    :confval:`sphinx_immaterial_custom_admonitions` or :themeconf:`status`.
+    These paths must be relative to the documentation project's :file:`conf.py`
+    file. The icons stored here will be (if used) rendered as CSS variables in
+    the documentation's HTML output. This is designed to allow for less
+    duplicated code in generated output.
 
     The icons in these paths will not be copied to the HTML output (like they would be for
     `html_static_path`).

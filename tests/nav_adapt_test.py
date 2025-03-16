@@ -67,6 +67,9 @@ Another section
    c
 """,
             "a.rst": """
+:icon: material/test-tube
+:subtitle: A subtitle
+
 A page
 ======
 
@@ -87,6 +90,8 @@ Section 2
 
 """,
             "b.rst": """
+:status: new
+
 B page
 ======
 """,

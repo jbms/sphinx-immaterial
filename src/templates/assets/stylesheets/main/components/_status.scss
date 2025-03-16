@@ -25,6 +25,12 @@
 // ----------------------------------------------------------------------------
 
 // Status variables
+
+/* stylelint-disable scss/comment-no-loud */
+
+/* sphinx-immaterial: exclude default status icons,
+   they are defined by custom_admonitions.css instead
+
 :root {
   --md-status: svg-load("material/information-outline.svg");
   --md-status--new: svg-load("material/alert-decagram.svg");
@@ -32,11 +38,12 @@
   --md-status--encrypted: svg-load("material/shield-lock.svg");
 }
 
+sphinx-immaterial: end exclude default status icons */
+
 // ----------------------------------------------------------------------------
 
 // Status
 .md-status {
-
   // Status icon
   &::after {
     display: inline-block;
@@ -45,7 +52,11 @@
     vertical-align: text-bottom;
     content: "";
     background-color: var(--md-default-fg-color--light);
+
+    /* sphinx-immaterial: exclude default status icon,
+       all status icons should be defined
     mask-image: var(--md-status);
+       sphinx_immaterial: end exclude default status icon */
     mask-repeat: no-repeat;
     mask-position: center;
     mask-size: contain;
@@ -55,6 +66,8 @@
   &:hover::after {
     background-color: currentcolor;
   }
+
+  /* sphinx-immaterial: exclude default status icons
 
   // Status: new
   &--new::after {
@@ -70,4 +83,6 @@
   &--encrypted::after {
     mask-image: var(--md-status--encrypted);
   }
+
+  sphinx-immaterial: end exclude default status icons */
 }

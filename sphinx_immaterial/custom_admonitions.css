@@ -24,3 +24,9 @@
 }
   {%- endif -%}
 {%- endfor -%}
+{%- for name, icon in status.items() -%}
+.md-status--{{name}}::after {
+  mask-image: var(--si-icon--{{icon}});
+  -webkit-mask-image: var(--si-icon--{{icon}});
+}
+{%- endfor -%}

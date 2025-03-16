@@ -25,7 +25,8 @@
   {% set class = "md-status md-status--" ~ type %}
 
   <!-- Render icon with title (or tooltip), if given -->
-  {% if config.extra.status and config.extra.status[type] %}
+  <!-- sphinx-immaterial: require all status identifiers to be defined -->
+  {% if True %}
     <span
       class="{{ class }}"
       title="{{ config.extra.status[type] }}"

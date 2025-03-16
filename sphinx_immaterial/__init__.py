@@ -44,6 +44,16 @@ DEFAULT_THEME_OPTIONS = {
     "globaltoc_collapse": True,
     "toc_title": None,
     "toc_title_is_page_title": False,
+    "status": {
+        "new": {
+            "title": "Recently added",
+            "icon": "material/alert-decagram",
+        },
+        "deprecated": {
+            "title": "Deprecated",
+            "icon": "material/trash-can",
+        },
+    },
 }
 
 
@@ -243,6 +253,7 @@ def html_page_context(
         "manifest": theme_options.get("pwa_manifest"),
         "analytics": analytics,
         "alternate": theme_options.get("languages"),
+        "status": {k: v["title"] for k, v in theme_options.get("status").items()},
     }
     scope = theme_options.get("scope")
     if scope is not None:

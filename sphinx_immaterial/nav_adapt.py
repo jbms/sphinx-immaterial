@@ -133,6 +133,7 @@ import os
 import re
 import urllib.parse
 from typing import (
+    Any,
     Dict,
     Iterable,
     Iterator,
@@ -224,11 +225,15 @@ class MkdocsNavEntry:
     # Arbitrary HTML to include as icon.
     icon_html: Optional[str] = None
 
+    meta: dict[str, Any]
+
     def __init__(self, title_text: str, **kwargs):
         self.__dict__.update(kwargs)
         self.title = _insert_wbr(title_text)
         if not self.aria_label:
             self.aria_label = title_text
+        if "meta" not in kwargs:
+            self.meta = {}
 
     def __repr__(self):
         return repr(self.to_json())
@@ -287,12 +292,6 @@ class _TocVisitor(docutils.nodes.NodeVisitor):
     def visit_paragraph(self, node: docutils.nodes.Node):
         pass
 
-    # In sphinx < 3.5.4, TOC captions are represented using a caption node.
-    def visit_caption(self, node: docutils.nodes.caption):
-        self._prev_caption = node
-        raise docutils.nodes.SkipChildren
-
-    # In sphinx >= 3.5.4, TOC captions are represented using a title node.
     def visit_title(self, node: docutils.nodes.title):
         self._prev_caption = node
         raise docutils.nodes.SkipChildren
@@ -392,14 +391,17 @@ class DomainAnchorEntry(NamedTuple):
     synopsis: Optional[str]
 
 
+DomainAnchorMap = Dict[Tuple[str, str], DomainAnchorEntry]
+
+
 def _make_domain_anchor_map(
     env: sphinx.environment.BuildEnvironment,
-) -> Dict[Tuple[str, str], DomainAnchorEntry]:
+) -> DomainAnchorMap:
     builder = cast(sphinx.builders.Builder, env.app.builder)
     docname_to_url = {
         docname: builder.get_target_uri(docname) for docname in env.found_docs
     }
-    m: Dict[Tuple[str, str], DomainAnchorEntry] = {}
+    m: DomainAnchorMap = {}
     for domain_name, domain in env.domains.items():
         synopses: Dict[Tuple[str, str], str] = {}
         get_object_synopses = getattr(domain, "get_object_synopses", None)
@@ -437,17 +439,57 @@ def _get_domain_anchor_map(
     key = "sphinx_immaterial_domain_anchor_map"
     env = app.env
     assert env is not None
-    m = getattr(env, key, None)
+    m = getattr(app, key, None)
     if m is None:
         m = _make_domain_anchor_map(env)
-        setattr(env, key, m)
+        setattr(app, key, m)
     return m
+
+
+def _get_url_docname_map(app: sphinx.application.Sphinx) -> dict[str, str]:
+    key = "sphinx_immaterial_url_docname_map"
+    env = app.env
+    assert env is not None
+    m = getattr(app, key, None)
+    if m is None:
+        builder = cast(sphinx.builders.Builder, app.builder)
+        m = {builder.get_target_uri(docname): docname for docname in env.found_docs}
+        setattr(app, key, m)
+    return m
+
+
+def _add_objinfo_to_entry(
+    env: sphinx.environment.BuildEnvironment,
+    objinfo: DomainAnchorEntry,
+    entry: MkdocsNavEntry,
+) -> None:
+    domain = env.domains[objinfo.domain_name]
+    label = domain.get_type_name(domain.object_types[objinfo.objtype])
+    options = object_description_options.get_object_description_options(
+        env, objinfo.domain_name, objinfo.objtype
+    )
+    tooltip = object_description_options.format_object_description_tooltip(
+        env, options, objinfo.name, objinfo.synopsis
+    )
+    if tooltip:
+        entry.title = (
+            f'<span title="{markupsafe.Markup.escape(tooltip)}">{entry.title}</span>'
+        )
+    toc_icon_text = options["toc_icon_text"]
+    toc_icon_class = options["toc_icon_class"]
+    if toc_icon_text is not None and toc_icon_class is not None:
+        entry.icon_html = (
+            f'<span aria-label="{label}" '
+            f'class="objinfo-icon objinfo-icon__{toc_icon_class}" '
+            f'title="{label}">{toc_icon_text}</span>'
+        )
 
 
 def _add_domain_info_to_toc(
     app: sphinx.application.Sphinx, toc: List[MkdocsNavEntry], pagename: str
 ) -> None:
     m = _get_domain_anchor_map(app)
+    docname_map = _get_url_docname_map(app)
     assert isinstance(app.builder, StandaloneHTMLBuilder)
     env = app.env
     assert env is not None
@@ -460,26 +502,11 @@ def _add_domain_info_to_toc(
         if refinfo is None:
             continue
         objinfo = m.get(refinfo)
-        if objinfo is None:
-            continue
-        domain = env.domains[objinfo.domain_name]
-        label = domain.get_type_name(domain.object_types[objinfo.objtype])
-        options = object_description_options.get_object_description_options(
-            env, objinfo.domain_name, objinfo.objtype
-        )
-        tooltip = object_description_options.format_object_description_tooltip(
-            env, options, objinfo.name, objinfo.synopsis
-        )
-        if tooltip:
-            entry.title = f'<span title="{markupsafe.Markup.escape(tooltip)}">{entry.title}</span>'
-        toc_icon_text = options["toc_icon_text"]
-        toc_icon_class = options["toc_icon_class"]
-        if toc_icon_text is not None and toc_icon_class is not None:
-            entry.icon_html = (
-                f'<span aria-label="{label}" '
-                f'class="objinfo-icon objinfo-icon__{toc_icon_class}" '
-                f'title="{label}">{toc_icon_text}</span>'
-            )
+        if objinfo is not None:
+            _add_objinfo_to_entry(env, objinfo, entry)
+        if not refinfo[1] and (docname := docname_map.get(refinfo[0])) is not None:
+            meta = env.metadata.get(docname) or {}
+            entry.meta = meta
 
 
 def _get_current_page_in_toc(toc: List[MkdocsNavEntry]) -> Optional[MkdocsNavEntry]:

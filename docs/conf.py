@@ -25,6 +25,7 @@ import sphinx.environment
 import sphinx.util.logging
 import sphinx.util.typing
 
+from sphinx_immaterial import DEFAULT_THEME_OPTIONS
 from sphinx_immaterial.apidoc import (
     object_description_options as _object_description_options,
 )
@@ -126,6 +127,7 @@ html_theme_options = {
     "features": [
         "navigation.expand",
         # "navigation.tabs",
+        # "navigation.tabs.sticky",
         # "toc.integrate",
         "navigation.sections",
         # "navigation.instant",
@@ -327,6 +329,15 @@ object_description_options.append(
     )
 )
 
+object_description_options.append(
+    (
+        "std:filemeta",
+        dict(
+            toc_icon_class="data", toc_icon_text="M", generate_synopses="first_sentence"
+        ),
+    )
+)
+
 python_type_aliases = {}
 
 # BEGIN: python_type_aliases example
@@ -406,6 +417,7 @@ jinja_contexts = {
         "supported_primary": get_colors("primary"),
         "supported_accent": get_colors("accent"),
     },
+    "default_theme_options": {"DEFAULT_THEME_OPTIONS": DEFAULT_THEME_OPTIONS},
 }
 
 
@@ -695,6 +707,13 @@ def setup(app):
         "themeconf",
         objname="theme configuration option",
         indextemplate="pair: %s; theme option",
+    )
+
+    app.add_object_type(
+        "filemeta",
+        "filemeta",
+        objname="file-wide metadata option",
+        indextemplate="pair: %s; file-wide metadata option",
     )
 
     app.add_object_type(

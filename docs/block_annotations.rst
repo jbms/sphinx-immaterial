@@ -87,7 +87,7 @@ Annotating admonitions
 ----------------------
 
 The :rst:dir:`admonition` directives already contain an option to specify CSS classes.
-Therefor, we don't need to use the ``rst-class`` directive for admonitions.
+Therefore, we don't need to use the ``rst-class`` directive for admonitions.
 Instead, we can just add the ``annotate`` class to the admonition's :rst:`:class:` option.
 
 .. rst-example::
