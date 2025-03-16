@@ -295,14 +295,9 @@ const docs$ = (() => {
   let building = false
   let dirty = false
   return defer(() => process.argv.includes("--watch")
-    ? watch(["docs/**", "sphinx_immaterial/**"],
-            { ignored: ["**/*.pyc",
-              "docs/_build/**",
-              "docs/.mypy_cache/**",
-              "sphinx_immaterial/.mypy_cache/**",
-              "docs/python_apigen_generated/**",
-              "docs/cpp_apigen_generated/**"
-            ]
+    ? watch(["docs", "sphinx_immaterial"],
+            { ignored: /\.pyc$|^docs\/(?:_build|python_apigen_generated|cpp_apigen_generated)\/|(?:^|\/)\.mypy_cache\//,
+              followSymlinks: false
             })
         : EMPTY
   ).pipe(startWith("*"),
@@ -321,7 +316,7 @@ const docs$ = (() => {
                     dirty = false
                     await rimraf("docs/_build")
                     await rimraf("docs/python_apigen_generated")
-                    const child = spawn("uv", ["run", "--group", "docs", "sphinx-build", "docs", "docs/_build", "-a", "-j", "auto"],
+                    const child = spawn("uv", ["run", "--group", "docs", "sphinx-build", "docs", "docs/_build/html", "-a", "-j", "auto", "-T"],
                                         {stdio: "inherit"})
                     await new Promise(res => {
                       child.on("exit", res)
