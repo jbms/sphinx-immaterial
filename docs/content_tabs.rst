@@ -1,3 +1,5 @@
+:icon: material/tab
+
 .. _sphinx-design tabs: https://sphinx-design.readthedocs.io/en/furo-theme/tabs.html
 
 Content tabs

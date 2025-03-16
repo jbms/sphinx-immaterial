@@ -15,12 +15,18 @@ global_toc:
       caption_only: false
       children: []
       current: false
+      meta:
+        status: new
       title: B page
       url: b.html
     current: false
+    meta: {}
     title: Section 1
     url: a.html#section-1
   current: false
+  meta:
+    icon: material/test-tube
+    subtitle: A subtitle
   title: A page
   url: a.html
 - active: false
@@ -34,9 +40,11 @@ global_toc:
     caption_only: false
     children: []
     current: false
+    meta: {}
     title: C page
     url: c.html
   current: false
+  meta: {}
   title: TOC caption
   url: c.html
 integrated_local_toc: []
@@ -56,9 +64,11 @@ local_toc:
       current: false
       icon_html: <span aria-label="Python class" class="objinfo-icon objinfo-icon__data"
         title="Python class">C</span>
+      meta: {}
       title: <span title="Foo (Python class)">Foo</span>
       url: '#Foo'
     current: false
+    meta: {}
     title: Getting started
     url: '#getting-started'
   - active: false
@@ -66,8 +76,10 @@ local_toc:
     caption_only: false
     children: []
     current: false
+    meta: {}
     title: Another section
     url: '#another-section'
   current: false
+  meta: {}
   title: Overall title
   url: '#'

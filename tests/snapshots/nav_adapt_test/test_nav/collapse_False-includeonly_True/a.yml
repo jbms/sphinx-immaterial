@@ -15,12 +15,18 @@ global_toc:
       caption_only: false
       children: []
       current: false
+      meta:
+        status: new
       title: B page
       url: b.html
     current: false
+    meta: {}
     title: Section 1
     url: '#section-1'
   current: true
+  meta:
+    icon: material/test-tube
+    subtitle: A subtitle
   title: A page
   url: '#'
 - active: false
@@ -34,9 +40,11 @@ global_toc:
     caption_only: false
     children: []
     current: false
+    meta: {}
     title: C page
     url: c.html
   current: false
+  meta: {}
   title: TOC caption
   url: c.html
 integrated_local_toc:
@@ -56,9 +64,12 @@ integrated_local_toc:
       caption_only: false
       children: []
       current: false
+      meta:
+        status: new
       title: B page
       url: b.html
     current: false
+    meta: {}
     title: Section 1
     url: '#section-1'
   - active: false
@@ -74,12 +85,17 @@ integrated_local_toc:
       current: false
       icon_html: <span aria-label="Python class" class="objinfo-icon objinfo-icon__data"
         title="Python class">C</span>
+      meta: {}
       title: <span title="Bar (Python class)">Bar</span>
       url: '#Bar'
     current: false
+    meta: {}
     title: Section 2
     url: '#section-2'
   current: true
+  meta:
+    icon: material/test-tube
+    subtitle: A subtitle
   title: A page
   url: '#'
 local_toc:
@@ -94,6 +110,7 @@ local_toc:
     caption_only: false
     children: []
     current: false
+    meta: {}
     title: Section 1
     url: '#section-1'
   - active: false
@@ -109,11 +126,16 @@ local_toc:
       current: false
       icon_html: <span aria-label="Python class" class="objinfo-icon objinfo-icon__data"
         title="Python class">C</span>
+      meta: {}
       title: <span title="Bar (Python class)">Bar</span>
       url: '#Bar'
     current: false
+    meta: {}
     title: Section 2
     url: '#section-2'
   current: true
+  meta:
+    icon: material/test-tube
+    subtitle: A subtitle
   title: A page
   url: '#'

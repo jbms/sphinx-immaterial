@@ -1,3 +1,4 @@
+
 :hero: Configuration options to personalize your site.
 
 .. _any of the icons bundled with this theme: https://github.com/squidfunk/mkdocs-material/tree/master/material/templates/.icons
@@ -11,17 +12,16 @@ Customization
 Metadata for a single page
 ==========================
 
-Each page can support a set of page-specific options. These are configured using metadata roles.
-Each metadata is evaluated as a :rst:`:key: value` pair.
+Each page can support a set of page-specific options. These are specified as
+:ref:`Sphinx file-wide metadata<metadata>`, i.e. a :rst:`:key: value` field at the top of the
+file.
 
-.. seealso::
-    Review the
-    `File-wide metadata <https://www.sphinx-doc.org/en/master/usage/restructuredtext/field-lists.html#file-wide-metadata>`_
-    section in the sphinx docs.
+This theme adds support for the following fields in addition to those
+:ref:`supported by Sphinx<metadata>`:
 
-.. themeconf:: hero
+.. filemeta:: hero
 
-    Unlike, newer versions of mkdocs-material theme, this theme also supports the use of a textual
+    Unlike newer versions of mkdocs-material theme, this theme also supports the use of a textual
     "hero" section.
 
     To set the hero's text for an individual page, use the :rst:`:hero:` metadata field for the desired page.
@@ -32,7 +32,7 @@ Each metadata is evaluated as a :rst:`:key: value` pair.
 
         :hero: Configuration options to personalize your site.
 
-.. themeconf:: hide-navigation
+.. filemeta:: hide-navigation
 
     If specified, hides the global navigation sidebar shown on the left side of the page.
     By default, the navigation menu is shown if the browser viewport is sufficiently wide.
@@ -42,7 +42,7 @@ Each metadata is evaluated as a :rst:`:key: value` pair.
 
         :hide-navigation:
 
-.. themeconf:: hide-toc
+.. filemeta:: hide-toc
 
     If specified, hides the local table of contents shown on the right side of the page.
     By default the local table of contents is shown if the page contains sub-sections and the
@@ -62,7 +62,7 @@ Each metadata is evaluated as a :rst:`:key: value` pair.
 
         :tocdepth: 0
 
-.. themeconf:: hide-edit-link
+.. filemeta:: hide-edit-link
 
     If specified, hides the "Edit this page" link at the top of the page.  By
     default, an edit link is shown if :themeconf:`edit_uri` is specified.  This
@@ -76,7 +76,7 @@ Each metadata is evaluated as a :rst:`:key: value` pair.
     A common use case for this option is to specify it on automatically-generated
     pages, as for those pages there is no source document to edit.
 
-.. themeconf:: hide-footer
+.. filemeta:: hide-footer
 
     If specified, hides the current page's footer (specifically the part containing the
     "Previous" and "Next" links).
@@ -86,7 +86,7 @@ Each metadata is evaluated as a :rst:`:key: value` pair.
 
         :hide-footer:
 
-.. themeconf:: hide-feedback
+.. filemeta:: hide-feedback
 
     If specified, hides the user :themeconf:`feedback` buttons at the bottom of the current page.
 
@@ -95,7 +95,22 @@ Each metadata is evaluated as a :rst:`:key: value` pair.
 
         :hide-feedback:
 
-.. themeconf:: show-comments
+.. filemeta:: icon
+
+   Assigns an icon for the page. The icon is displayed to the left of the title
+   in the navigation sidebar and in the navigation tab bar, if enabled.
+
+   .. code-block:: rst
+       :caption: Assign an icon for a page:
+
+       :icon: material/emoticon-happy
+
+       Page title
+       ==========
+
+       Page content
+
+.. filemeta:: show-comments
 
     If specified, allows comments to be enabled at the bottom of the current page.
 
@@ -106,6 +121,38 @@ Each metadata is evaluated as a :rst:`:key: value` pair.
 
     .. seealso::
         Using comments requires extra steps. See `Adding a comment system`_ instructions.
+
+.. filemeta:: status
+
+   Assigns a status to the page. The status is displayed as an icon to the right
+   of the title in the navigation sidebar.
+
+   The value must be a status identifier specified in the :themeconf:`status`
+   configuration option.
+
+   .. code-block:: rst
+       :caption: Assign a status for a page:
+
+       :status: new
+
+       Page title
+       ==========
+
+       Page content
+
+.. filemeta:: subtitle
+
+   Specifies a subtitle for the page.  The subtitle is displayed below the title in the navigation sidebar.
+
+   .. code-block:: rst
+       :caption: Assign a subtitle for a page:
+
+       :subtitle: Page subtitle
+
+       Page title
+       ==========
+
+       Page content
 
 Configuration Options
 =====================
@@ -240,7 +287,7 @@ Configuration Options
 
                 - [x] :themeconf:`edit_uri` is configured
                 - [x] :python:`"content.action.edit"` is in the list of :themeconf:`features`
-                - [x] :themeconf:`hide-edit-link` is *not* present for the page
+                - [x] :filemeta:`hide-edit-link` is *not* present for the page
 
             Defaults to ``material/file-edit-outline`` (:si-icon:`material/file-edit-outline`).
 
@@ -254,7 +301,7 @@ Configuration Options
 
                 - [x] :themeconf:`edit_uri` is configured
                 - [x] :python:`"content.action.view"` is in the list of :themeconf:`features`
-                - [x] :themeconf:`hide-edit-link` is *not* present for the page
+                - [x] :filemeta:`hide-edit-link` is *not* present for the page
 
             Defaults to ``material/file-eye-outline`` (:si-icon:`material/file-eye-outline`).
 
@@ -315,7 +362,7 @@ Configuration Options
           - ``content.action.edit`` will enable the :si-icon:`material/file-edit-outline` "Edit this page" link at the top of the page.
 
           .. seealso::
-              Using the :themeconf:`hide-edit-link` metadata field will suppress both of these features on a per-page basis.
+              Using the :filemeta:`hide-edit-link` metadata field will suppress both of these features on a per-page basis.
 
         - `content.code.annotate <https://squidfunk.github.io/mkdocs-material/reference/code-blocks/#code-annotations>`_
 
@@ -743,7 +790,7 @@ Configuration Options
                 }
 
             .. seealso::
-                User feedback can be hidden for a certain page by using the :themeconf:`hide-feedback`
+                User feedback can be hidden for a certain page by using the :filemeta:`hide-feedback`
                 metadata tag in the document's source.
 
     .. themeconf:: globaltoc_collapse
@@ -857,6 +904,41 @@ Configuration Options
                     },
                 ]
             }
+
+
+    .. themeconf:: status
+
+        Defines page status identifiers that may be referenced by the
+        :filemeta:`status` file-wide metadata option.
+
+        Must be a dictionary where the key is the status identifier, e.g.
+        :python:`"new"`, and the value is a dictionary with the following required fields:
+
+        ``title``
+            Tooltip to show.
+
+        ``icon``
+            Path to icon, resolved in the same way as for :rst:role:`si-icon`.
+
+        .. jinja:: default_theme_options
+
+            The default value is:
+
+            .. code-block:: python
+
+                {{ '{' }}{% for k, v in DEFAULT_THEME_OPTIONS["status"].items() %}
+                    {{k|pprint}}: {
+                        "title": {{v.title|pprint}},
+                        "icon": {{v.icon|pprint}}
+                    },{% endfor %}
+                }
+
+            which results in the following statuses:
+
+            {% for k, v in DEFAULT_THEME_OPTIONS["status"].items() %}
+            ``{{k}}``
+              :si-icon:`{{v.icon}}` {{v.title}}
+            {% endfor %}
 
 .. confval:: sphinx_immaterial_external_resource_cache_dir
 
@@ -1203,7 +1285,7 @@ demonstrates using Giscus_ which is Open Source and built on Github's Discussion
        {% endif %}
 
    .. code-annotations::
-       #. This template will only be used if the :themeconf:`show-comments` metadata is added to the document's
+       #. This template will only be used if the :filemeta:`show-comments` metadata is added to the document's
           source.
        #. This should be the snippet generated from step 1.
        #. This code block ensures that Giscus renders with a dark theme when the
@@ -1213,7 +1295,7 @@ demonstrates using Giscus_ which is Open Source and built on Github's Discussion
           this takes affect when toggling between light and dark color :themeconf:`scheme`\ s.
        #. If changing the dark theme used by Giscus, then also change the dark theme name here as
           this takes affect when toggling between light and dark color :themeconf:`scheme`\ s.
-3. Enable comments for a certain page by adding the :themeconf:`show-comments` metadata to the document's source.
+3. Enable comments for a certain page by adding the :filemeta:`show-comments` metadata to the document's source.
 
 Version Banner
 --------------

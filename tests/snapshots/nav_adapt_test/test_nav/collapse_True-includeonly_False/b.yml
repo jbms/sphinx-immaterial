@@ -15,12 +15,18 @@ global_toc:
       caption_only: false
       children: []
       current: true
+      meta:
+        status: new
       title: B page
       url: '#'
     current: false
+    meta: {}
     title: Section 1
     url: a.html#section-1
   current: false
+  meta:
+    icon: material/test-tube
+    subtitle: A subtitle
   title: A page
   url: a.html
 - active: false
@@ -34,9 +40,11 @@ global_toc:
     caption_only: false
     children: []
     current: false
+    meta: {}
     title: C page
     url: c.html
   current: false
+  meta: {}
   title: TOC caption
   url: c.html
 integrated_local_toc: []

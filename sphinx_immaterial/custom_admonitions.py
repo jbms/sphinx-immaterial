@@ -437,6 +437,16 @@ def on_builder_inited(app: Sphinx):
         custom_admonitions.append(version_dir_style)
     setattr(app.builder.env, "sphinx_immaterial_custom_admonitions", custom_admonitions)
 
+    # Handle custom page status identifiers
+    html_theme_options = getattr(app.config, "html_theme_options", None)
+    custom_status = {}
+    if html_theme_options is not None:
+        for identifier, props in html_theme_options.get("status", {}).items():
+            custom_status[identifier] = load_svg_into_builder_env(
+                app.builder, cast(str, props["icon"])
+            )
+    setattr(app.builder.env, "sphinx_immaterial_custom_status", custom_status)
+
 
 def on_config_inited(app: Sphinx, config: Config):
     """Add admonitions based on CSS classes inherited from mkdocs-material theme."""
@@ -480,6 +490,7 @@ def add_admonition_and_icon_css(app: Sphinx, env: BuildEnvironment):
 
     custom_admonitions = getattr(env, _CUSTOM_ADMONITIONS_KEY)
     custom_icons = get_custom_icons(env)
+    status = getattr(app.builder.env, "sphinx_immaterial_custom_status")
 
     jinja_env = jinja2.Environment(
         loader=jinja2.FileSystemLoader(str(PurePath(__file__).parent))
@@ -488,6 +499,7 @@ def add_admonition_and_icon_css(app: Sphinx, env: BuildEnvironment):
     generated = template.render(
         icons=custom_icons,
         admonitions=custom_admonitions,
+        status=status,
     )
 
     # append the generated CSS for icons and admonitions
