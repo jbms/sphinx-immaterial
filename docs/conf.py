@@ -372,9 +372,9 @@ CSS_PALETTE_BUNDLE = (
 def get_colors(color_t: str):
     unique_colors = []
     for m in re.finditer(
-        r"\}\[data-md-color-"
+        r"\}\s*\[data-md-color-"
         + color_t
-        + r"=([a-z\-]+)\]\{.*?-fg-color:.*?;.*?-bg-color:.*?;",
+        + r"=([a-z\-]+)\]\s*\{\s*[^}]*?-fg-color:[^};]*?;\s*[^}]*?-bg-color:[^};]*?;",
         CSS_PALETTE_BUNDLE.read_text(encoding="utf-8"),
     ):
         unique_colors.append(m.group(1))
