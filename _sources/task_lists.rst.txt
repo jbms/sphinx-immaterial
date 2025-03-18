@@ -1,5 +1,7 @@
+:icon: octicons/tasklist-16
+
 Task Lists
-==============
+==========
 
 This Sphinx extension mimics the HTML output of the ``pymdownx.tasklist`` Markdown
 extension, which allows for the definition of task lists. With this extension and the

@@ -1,3 +1,5 @@
+:icon: material/keyboard
+
 Keys extension
 ==============
 

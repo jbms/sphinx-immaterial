@@ -1,3 +1,4 @@
+:icon: material/alert-outline
 
 Admonitions
 ===========
