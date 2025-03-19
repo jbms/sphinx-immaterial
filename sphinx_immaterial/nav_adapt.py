@@ -787,9 +787,6 @@ def _html_page_context(
     theme_options: dict = app.config["html_theme_options"]
     features = theme_options.get("features", ())
     assert isinstance(features, collections.abc.Sequence)
-    page_title = markupsafe.Markup.escape(
-        markupsafe.Markup(context.get("title")).striptags()
-    )
     meta = context.get("meta")
     if meta is None:
         meta = {}
@@ -839,13 +836,21 @@ def _html_page_context(
 
     # Add other context values in mkdocs/mkdocs-material format.
     page = {
-        "title": page_title,
         "is_homepage": (pagename == master_doc),
         "toc": local_toc,
         "integrated_local_toc": integrated_local_toc,
-        "meta": {"hide": [], "revision_date": context.get("last_updated"), "meta": []},
-        "content": context.get("body"),
+        "meta": {"hide": [], "meta": []},
     }
+    if "title" in context:
+        page["title"] = markupsafe.Markup.escape(
+            markupsafe.Markup(context.get("title")).striptags()
+        )
+
+    # If a `body` is present, this is a "regular" page.
+    if "body" in context:
+        page["content"] = context["body"]
+        page["meta"]["revision_date"] = context.get("last_updated")
+
     if doctree is not None:
         # extract meta nodes from document node only (not descendants)
         meta_tags = [
@@ -884,7 +889,8 @@ def _html_page_context(
         }
     repo_url: Optional[str] = theme_options.get("repo_url")
     edit_uri: Optional[str] = theme_options.get("edit_uri")
-    if repo_url and edit_uri and "hide-edit-link" not in meta:
+    if repo_url and edit_uri and "hide-edit-link" not in meta and "body" in context:
+        # Exclude special pages.
         page["edit_url"] = "/".join(
             [
                 repo_url.rstrip("/"),
@@ -892,8 +898,25 @@ def _html_page_context(
                 str(env.doc2path(pagename, False)),
             ]
         )
+
+    # Allow page title to be overridden by template. This has to be provided as
+    # a method because Jinja does not allow templates to write to properties
+    # directly.
+    def _set_page_title(new_page_title: str):
+        if "title" not in page:
+            page["title"] = new_page_title
+        return ""
+
+    def _set_body(new_body: str):
+        new_body = new_body.strip()
+        if new_body:
+            page["content"] = new_body
+        return ""
+
     context.update(
         page=page,
+        sphinx_immaterial_set_page_title=_set_page_title,
+        sphinx_immaterial_set_body=_set_body,
     )
 
 
