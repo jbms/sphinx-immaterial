@@ -22,6 +22,9 @@
 
 {% import "partials/language.html" as lang with context %}
 
+<!-- sphinx-immaterial handle title overrides in template -->
+{{ sphinx_immaterial_set_page_title(title) }}
+
 <!doctype html>
 <html lang="{{ lang.t('language') }}" class="no-js">
   <head>
@@ -327,7 +330,7 @@
               <article class="md-content__inner md-typeset" role="main">
                 <!-- sphinx-immaterial: make content of `body` block visible to `content.html` -->
                 {%- if False %}{% block body %}{% endblock body %}{% endif %}
-                {%- set sphinx_rendered_body = self.body() -%}
+                {{ sphinx_immaterial_set_body(self.body()) }}
                 {% block content %}
                   {% include "partials/content.html" %}
                 {% endblock %}
