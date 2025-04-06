@@ -33,7 +33,7 @@ class MermaidDirective(SphinxDirective):
         self.assert_has_content()
         content = "\n".join(self.content)
         diagram = mermaid_node("", classes=["mermaid"], content=content)
-        diagram += nodes.literal("", content, format="html")
+        diagram += nodes.literal_block("", content, language="none", format="html")
         diagram_div = nodes.container(
             "",
             is_div=True,
