@@ -1571,12 +1571,15 @@ edges, describing the necessary order of steps.</p>
 <div class="result docutils container">
 <div class="mermaid-diagram docutils" id="flowcharts">
 <pre class="mermaid">
-<code class="docutils literal notranslate"><span class="pre">graph</span> <span class="pre">LR</span>
-&#160; <span class="pre">A[Start]</span> <span class="pre">--&gt;</span> <span class="pre">B{Error?};</span>
-&#160; <span class="pre">B</span> <span class="pre">--&gt;|Yes|</span> <span class="pre">C[Hmm...];</span>
-&#160; <span class="pre">C</span> <span class="pre">--&gt;</span> <span class="pre">D[Debug];</span>
-&#160; <span class="pre">D</span> <span class="pre">--&gt;</span> <span class="pre">B;</span>
-&#160; <span class="pre">B</span> <span class="pre">----&gt;|No|</span> <span class="pre">E[Yay!];</span></code></pre></div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><code>graph LR
+  A[Start] --&gt; B{Error?};
+  B --&gt;|Yes| C[Hmm...];
+  C --&gt; D[Debug];
+  D --&gt; B;
+  B ----&gt;|No| E[Yay!];
+</code></pre></div>
+</div>
+</pre></div>
 </div>
 </div>
 <h2 id="using-sequence-diagrams">Using sequence diagrams<a class="headerlink" href="#using-sequence-diagrams" title="Link to this heading">¶</a></h2>
@@ -1602,16 +1605,19 @@ exchanged between those actors.</p>
 <div class="result docutils container">
 <div class="mermaid-diagram docutils" id="id1">
 <pre class="mermaid">
-<code class="docutils literal notranslate"><span class="pre">sequenceDiagram</span>
-&#160; <span class="pre">autonumber</span>
-&#160; <span class="pre">Alice-&gt;&gt;John:</span> <span class="pre">Hello</span> <span class="pre">John,</span> <span class="pre">how</span> <span class="pre">are</span> <span class="pre">you?</span>
-&#160; <span class="pre">loop</span> <span class="pre">Healthcheck</span>
-&#160;&#160;&#160;&#160;&#160; <span class="pre">John-&gt;&gt;John:</span> <span class="pre">Fight</span> <span class="pre">against</span> <span class="pre">hypochondria</span>
-&#160; <span class="pre">end</span>
-&#160; <span class="pre">Note</span> <span class="pre">right</span> <span class="pre">of</span> <span class="pre">John:</span> <span class="pre">Rational</span> <span class="pre">thoughts!</span>
-&#160; <span class="pre">John--&gt;&gt;Alice:</span> <span class="pre">Great!</span>
-&#160; <span class="pre">John-&gt;&gt;Bob:</span> <span class="pre">How</span> <span class="pre">about</span> <span class="pre">you?</span>
-&#160; <span class="pre">Bob--&gt;&gt;John:</span> <span class="pre">Jolly</span> <span class="pre">good!</span></code></pre></div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><code>sequenceDiagram
+  autonumber
+  Alice-&gt;&gt;John: Hello John, how are you?
+  loop Healthcheck
+      John-&gt;&gt;John: Fight against hypochondria
+  end
+  Note right of John: Rational thoughts!
+  John--&gt;&gt;Alice: Great!
+  John-&gt;&gt;Bob: How about you?
+  Bob--&gt;&gt;John: Jolly good!
+</code></pre></div>
+</div>
+</pre></div>
 </div>
 </div>
 <h2 id="using-state-diagrams">Using state diagrams<a class="headerlink" href="#using-state-diagrams" title="Link to this heading">¶</a></h2>
@@ -1638,17 +1644,20 @@ those states.</p>
 <div class="result docutils container">
 <div class="mermaid-diagram docutils" id="id2">
 <pre class="mermaid">
-<code class="docutils literal notranslate"><span class="pre">stateDiagram-v2</span>
-&#160; <span class="pre">state</span> <span class="pre">fork_state</span> <span class="pre">&lt;&lt;fork&gt;&gt;</span>
-&#160;&#160;&#160; <span class="pre">[*]</span> <span class="pre">--&gt;</span> <span class="pre">fork_state</span>
-&#160;&#160;&#160; <span class="pre">fork_state</span> <span class="pre">--&gt;</span> <span class="pre">State2</span>
-&#160;&#160;&#160; <span class="pre">fork_state</span> <span class="pre">--&gt;</span> <span class="pre">State3</span>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><code>stateDiagram-v2
+  state fork_state &lt;&lt;fork&gt;&gt;
+    [*] --&gt; fork_state
+    fork_state --&gt; State2
+    fork_state --&gt; State3
 
-&#160;&#160;&#160; <span class="pre">state</span> <span class="pre">join_state</span> <span class="pre">&lt;&lt;join&gt;&gt;</span>
-&#160;&#160;&#160; <span class="pre">State2</span> <span class="pre">--&gt;</span> <span class="pre">join_state</span>
-&#160;&#160;&#160; <span class="pre">State3</span> <span class="pre">--&gt;</span> <span class="pre">join_state</span>
-&#160;&#160;&#160; <span class="pre">join_state</span> <span class="pre">--&gt;</span> <span class="pre">State4</span>
-&#160;&#160;&#160; <span class="pre">State4</span> <span class="pre">--&gt;</span> <span class="pre">[*]</span></code></pre></div>
+    state join_state &lt;&lt;join&gt;&gt;
+    State2 --&gt; join_state
+    State3 --&gt; join_state
+    join_state --&gt; State4
+    State4 --&gt; [*]
+</code></pre></div>
+</div>
+</pre></div>
 </div>
 </div>
 <h2 id="using-class-diagrams">Using class diagrams<a class="headerlink" href="#using-class-diagrams" title="Link to this heading">¶</a></h2>
@@ -1690,32 +1699,35 @@ relationships between them.</p>
 <div class="result docutils container">
 <div class="mermaid-diagram docutils" id="id3">
 <pre class="mermaid">
-<code class="docutils literal notranslate"><span class="pre">classDiagram</span>
-&#160; <span class="pre">Person</span> <span class="pre">&lt;|--</span> <span class="pre">Student</span>
-&#160; <span class="pre">Person</span> <span class="pre">&lt;|--</span> <span class="pre">Professor</span>
-&#160; <span class="pre">Person</span> <span class="pre">:</span> <span class="pre">+String</span> <span class="pre">name</span>
-&#160; <span class="pre">Person</span> <span class="pre">:</span> <span class="pre">+String</span> <span class="pre">phoneNumber</span>
-&#160; <span class="pre">Person</span> <span class="pre">:</span> <span class="pre">+String</span> <span class="pre">emailAddress</span>
-&#160; <span class="pre">Person:</span> <span class="pre">+purchaseParkingPass()</span>
-&#160; <span class="pre">Address</span> <span class="pre">&quot;1&quot;</span> <span class="pre">&lt;--</span> <span class="pre">&quot;0..1&quot;</span> <span class="pre">Person:lives</span> <span class="pre">at</span>
-&#160; <span class="pre">class</span> <span class="pre">Student{</span>
-&#160;&#160;&#160; <span class="pre">+int</span> <span class="pre">studentNumber</span>
-&#160;&#160;&#160; <span class="pre">+int</span> <span class="pre">averageMark</span>
-&#160;&#160;&#160; <span class="pre">+isEligibleToEnrol()</span>
-&#160;&#160;&#160; <span class="pre">+getSeminarsTaken()</span>
-&#160; <span class="pre">}</span>
-&#160; <span class="pre">class</span> <span class="pre">Professor{</span>
-&#160;&#160;&#160; <span class="pre">+int</span> <span class="pre">salary</span>
-&#160; <span class="pre">}</span>
-&#160; <span class="pre">class</span> <span class="pre">Address{</span>
-&#160;&#160;&#160; <span class="pre">+String</span> <span class="pre">street</span>
-&#160;&#160;&#160; <span class="pre">+String</span> <span class="pre">city</span>
-&#160;&#160;&#160; <span class="pre">+String</span> <span class="pre">state</span>
-&#160;&#160;&#160; <span class="pre">+int</span> <span class="pre">postalCode</span>
-&#160;&#160;&#160; <span class="pre">+String</span> <span class="pre">country</span>
-&#160;&#160;&#160; <span class="pre">-validate()</span>
-&#160;&#160;&#160; <span class="pre">+outputAsLabel()</span>
-&#160; <span class="pre">}</span></code></pre></div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><code>classDiagram
+  Person &lt;|-- Student
+  Person &lt;|-- Professor
+  Person : +String name
+  Person : +String phoneNumber
+  Person : +String emailAddress
+  Person: +purchaseParkingPass()
+  Address &quot;1&quot; &lt;-- &quot;0..1&quot; Person:lives at
+  class Student{
+    +int studentNumber
+    +int averageMark
+    +isEligibleToEnrol()
+    +getSeminarsTaken()
+  }
+  class Professor{
+    +int salary
+  }
+  class Address{
+    +String street
+    +String city
+    +String state
+    +int postalCode
+    +String country
+    -validate()
+    +outputAsLabel()
+  }
+</code></pre></div>
+</div>
+</pre></div>
 </div>
 </div>
 <h2 id="using-entity-relationship-diagrams">Using entity-relationship diagrams<a class="headerlink" href="#using-entity-relationship-diagrams" title="Link to this heading">¶</a></h2>
@@ -1739,14 +1751,17 @@ It describes inter-related things in a specific domain of knowledge.</p>
 <div class="result docutils container">
 <div class="mermaid-diagram docutils" id="entity-relationship-diagrams">
 <pre class="mermaid">
-<code class="docutils literal notranslate"><span class="pre">erDiagram</span>
-&#160; <span class="pre">CUSTOMER</span> <span class="pre">||--o{</span> <span class="pre">ORDER</span> <span class="pre">:</span> <span class="pre">places</span>
-&#160; <span class="pre">ORDER</span> <span class="pre">||--|{</span> <span class="pre">LINE-ITEM</span> <span class="pre">:</span> <span class="pre">contains</span>
-&#160; <span class="pre">LINE-ITEM</span> <span class="pre">{</span>
-&#160;&#160;&#160; <span class="pre">string</span> <span class="pre">name</span>
-&#160;&#160;&#160; <span class="pre">int</span> <span class="pre">pricePerUnit</span>
-&#160; <span class="pre">}</span>
-&#160; <span class="pre">CUSTOMER</span> <span class="pre">}|..|{</span> <span class="pre">DELIVERY-ADDRESS</span> <span class="pre">:</span> <span class="pre">uses</span></code></pre></div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><code>erDiagram
+  CUSTOMER ||--o{ ORDER : places
+  ORDER ||--|{ LINE-ITEM : contains
+  LINE-ITEM {
+    string name
+    int pricePerUnit
+  }
+  CUSTOMER }|..|{ DELIVERY-ADDRESS : uses
+</code></pre></div>
+</div>
+</pre></div>
 </div>
 </div>
 <h2 id="other-diagram-types">Other diagram types<a class="headerlink" href="#other-diagram-types" title="Link to this heading">¶</a></h2>
@@ -1779,7 +1794,7 @@ choice, mostly as they don’t work well on mobile.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    Apr 01, 2025
+    Apr 06, 2025
   </span>
 
     
