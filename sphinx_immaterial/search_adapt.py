@@ -161,7 +161,7 @@ class IndexBuilder(sphinx.search.IndexBuilder):
             builder.get_target_uri(docname): docname
             for docname in self.env.all_docs.keys()
         }
-        docurls = frozen["docurls"]
+        docurls = frozen.get("docurls", [])
         # Note: For documents that have been removed (and are therefore missing
         # from `url_to_docname`), `docnames` and `filenames` will just contain
         # the URL rather than the docname/filename.  However, since these will
