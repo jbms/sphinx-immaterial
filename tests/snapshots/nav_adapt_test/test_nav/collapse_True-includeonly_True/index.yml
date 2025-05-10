@@ -8,7 +8,7 @@ global_toc:
   meta:
     icon: material/test-tube
     subtitle: A subtitle
-  title: A page
+  title: <span>A page</span>
   url: a.html
 - active: false
   active_or_section_within_active: false
@@ -22,11 +22,11 @@ global_toc:
     children: []
     current: false
     meta: {}
-    title: C page
+    title: <span>C page</span>
     url: c.html
   current: false
   meta: {}
-  title: TOC caption
+  title: <span>TOC caption</span>
   url: c.html
 integrated_local_toc: []
 local_toc:
@@ -46,11 +46,11 @@ local_toc:
       icon_html: <span aria-label="Python class" class="objinfo-icon objinfo-icon__data"
         title="Python class">C</span>
       meta: {}
-      title: <span title="Foo (Python class)">Foo</span>
+      title: <span title="Foo (Python class)"><span>Foo</span></span>
       url: '#Foo'
     current: false
     meta: {}
-    title: Getting started
+    title: <span>Getting started</span>
     url: '#getting-started'
   - active: false
     aria_label: Another section
@@ -58,9 +58,9 @@ local_toc:
     children: []
     current: false
     meta: {}
-    title: Another section
+    title: <span>Another section</span>
     url: '#another-section'
   current: false
   meta: {}
-  title: Overall title
+  title: <span>Overall title</span>
   url: '#'

@@ -4,5 +4,5 @@ create(
         | tuple["default", "." | "/"]
         | tuple["v2", "." | "/"]
         | None
-    ) = None,
+    ) = None
 ) -> Array
