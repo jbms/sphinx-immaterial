@@ -17,17 +17,17 @@ global_toc:
       current: false
       meta:
         status: new
-      title: B page
+      title: <span>B page</span>
       url: b.html
     current: false
     meta: {}
-    title: Section 1
+    title: <span>Section 1</span>
     url: a.html#section-1
   current: false
   meta:
     icon: material/test-tube
     subtitle: A subtitle
-  title: A page
+  title: <span>A page</span>
   url: a.html
 - active: true
   active_or_section_within_active: true
@@ -41,11 +41,11 @@ global_toc:
     children: []
     current: true
     meta: {}
-    title: C page
+    title: <span>C page</span>
     url: '#'
   current: false
   meta: {}
-  title: TOC caption
+  title: <span>TOC caption</span>
   url: '#'
 integrated_local_toc: []
 local_toc: []
