@@ -229,7 +229,7 @@ class MkdocsNavEntry:
 
     def __init__(self, title_text: str, **kwargs):
         self.__dict__.update(kwargs)
-        self.title = _insert_wbr(title_text)
+        self.title = f"<span>{_insert_wbr(title_text)}</span>"
         if not self.aria_label:
             self.aria_label = title_text
         if "meta" not in kwargs:
