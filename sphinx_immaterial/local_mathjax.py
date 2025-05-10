@@ -62,7 +62,8 @@ def copy_mathjax_dist(app: Sphinx) -> None:
 
 def build_finished(app: Sphinx, exc: Exception | None):
     """Only called when sphinx is v8.2 or newer."""
-    copy_mathjax_dist(app)
+    if exc is None:
+        copy_mathjax_dist(app)
 
 
 def env_updated(app: Sphinx, env: BuildEnvironment):
