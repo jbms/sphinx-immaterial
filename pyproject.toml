@@ -2,7 +2,7 @@
 name = "sphinx_immaterial"
 description = "Adaptation of mkdocs-material theme for the Sphinx documentation system"
 requires-python = ">= 3.10"
-dynamic = ["version"]
+version = "0.0.post1"
 authors = [
   { name = "Jeremy Maitin-Shepard", email = "jeremy@jeremyms.com" },
   { name = "Brendan", email = "2bndy5@gmail.com" },
@@ -76,14 +76,6 @@ sphinx_immaterial = "sphinx_immaterial"
 [tool.setuptools.packages.find]
 where = ["."]
 include = ["sphinx_immaterial", "sphinx_immaterial.*"]
-
-[tool.setuptools_scm]
-# It would be nice to include the commit hash in the version, but that
-# can't be done in a PEP 440-compatible way.
-version_scheme = "no-guess-dev"
-# Test PyPI does not support local versions.
-local_scheme = "no-local-version"
-fallback_version = "0.0.0"
 
 [tool.mypy]
 show_error_codes = true
