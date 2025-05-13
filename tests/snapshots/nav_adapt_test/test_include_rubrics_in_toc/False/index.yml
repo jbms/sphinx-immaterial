@@ -13,9 +13,9 @@ local_toc:
     icon_html: <span aria-label="Python class" class="objinfo-icon objinfo-icon__data"
       title="Python class">C</span>
     meta: {}
-    title: "<span title=\"Foo (Python class) \u2014 Some text.\">Foo</span>"
+    title: "<span title=\"Foo (Python class) \u2014 Some text.\"><span>Foo</span></span>"
     url: '#Foo'
   current: false
   meta: {}
-  title: Overall title
+  title: <span>Overall title</span>
   url: '#'
