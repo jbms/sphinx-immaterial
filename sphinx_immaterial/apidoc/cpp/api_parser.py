@@ -523,7 +523,17 @@ def _get_template_cursor_kind(cursor: Cursor) -> CursorKind:
 
 
 def _get_specialized_cursor_template(cursor: Cursor) -> typing.Optional[Cursor]:
-    return clang.cindex.conf.lib.clang_getSpecializedCursorTemplate(cursor)
+    result = clang.cindex.conf.lib.clang_getSpecializedCursorTemplate(cursor)
+    if result is None:
+        return None
+
+    # Newer versions of libclang return a Cursor object containing a
+    # null pointer that must be checked separately.  Normally this
+    # would be done using `Cursor.from_result` but that method has an
+    # unstable signature across versions.
+    if result == clang.cindex.conf.lib.clang_getNullCursor():
+        return None
+    return result
 
 
 def _get_full_nested_name(cursor: typing.Optional[Cursor]) -> str:
