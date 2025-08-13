@@ -208,11 +208,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Download all artifacts
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v5
         with:
-          path: ci-artifacts
+          merge-multiple: true
           pattern: coverage-data-*
-      - run: mv ci-artifacts/**/.coverage* ./
       - uses: astral-sh/setup-uv@v5
         with:
           enable-cache: false
@@ -237,17 +236,17 @@ jobs:
     needs: [build]
     steps:
       - name: Download Linux package
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v5
         with:
           name: python-packages-Linux
           path: dist-Linux
       - name: Download macOS package
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v5
         with:
           name: python-packages-macOS
           path: dist-macOS
       - name: Download Windows package
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v5
         with:
           name: python-packages-Windows
           path: dist-Windows
@@ -267,7 +266,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: [build, test]
     steps:
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v5
         with:
           name: python-packages-Linux
           path: dist
