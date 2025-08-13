@@ -210,9 +210,8 @@ jobs:
       - name: Download all artifacts
         uses: actions/download-artifact@v5
         with:
-          path: ci-artifacts
+          merge-multiple: true
           pattern: coverage-data-*
-      - run: mv ci-artifacts/**/.coverage* ./
       - uses: astral-sh/setup-uv@v5
         with:
           enable-cache: false
