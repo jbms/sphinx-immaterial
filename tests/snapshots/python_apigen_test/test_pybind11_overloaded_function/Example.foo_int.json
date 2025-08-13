@@ -1,6 +1,6 @@
 {
   "signatures": [
-    "(self: sphinx_immaterial_pybind11_issue_134.Example, arg0: int) -> int"
+    "(self: sphinx_immaterial_pybind11_issue_134.Example, arg0: typing.SupportsInt) -> int"
   ],
   "primary_entity": true,
   "siblings": {
