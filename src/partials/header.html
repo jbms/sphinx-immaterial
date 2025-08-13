@@ -138,7 +138,7 @@
     {% if config.pdf_url %}
       <div class="md-header__button">
         <a
-          href="{{ config.pdf_url }}"
+          href="{{ pathto(config.pdf_url, 1) }}"
           title="PDF - {{ config.pdf_url }}"
         >
           <div class="md-icon">
