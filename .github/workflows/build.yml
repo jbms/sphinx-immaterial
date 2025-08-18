@@ -25,7 +25,7 @@ jobs:
           - "3.12"
           - "3.13"
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: astral-sh/setup-uv@v6
         with:
           enable-cache: false
@@ -44,7 +44,7 @@ jobs:
           - python-version: "3.x"
             node-version: "20.x"
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -81,7 +81,7 @@ jobs:
           - '20.x'
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           # Need full history to determine version number.
           fetch-depth: 0
@@ -161,7 +161,7 @@ jobs:
           - '20.x'
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
@@ -206,7 +206,7 @@ jobs:
     needs: [test]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Download all artifacts
         uses: actions/download-artifact@v5
         with:
@@ -284,7 +284,7 @@ jobs:
           user: __token__
           password: ${{ secrets.pypi_token }}
         if: ${{ startsWith(github.ref, 'refs/tags/v') }}
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         if: ${{ startsWith(github.ref, 'refs/tags/v') }}
       - name: Create a Github Release
         if: ${{ startsWith(github.ref, 'refs/tags/v') }}
