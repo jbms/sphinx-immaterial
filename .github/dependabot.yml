@@ -5,7 +5,7 @@
 
 version: 2
 updates:
-  # Note: Disable dependabot for Python until uv support is available: https://github.com/dependabot/dependabot-core/issues/10478
+  # Note: Disable dependabot for Python until uv support is reliable: https://github.com/dependabot/dependabot-core/issues?q=state%3Aopen%20label%3A%22L%3A%20python%3Auv%22
   # - package-ecosystem: "pip" # See documentation for possible values
   #   directory: "/" # recursive; requirements.txt in subdirectories are also monitored
   #   schedule:
@@ -22,3 +22,7 @@ updates:
     directory: "/" # auto-scans .github/workflows/*.yml
     schedule:
       interval: "weekly"
+    groups:
+      actions:
+        patterns:
+          - "*"
