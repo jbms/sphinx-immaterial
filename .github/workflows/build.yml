@@ -46,7 +46,7 @@ jobs:
     steps:
       - uses: actions/checkout@v5
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: ${{ matrix.node-version }}
       - uses: astral-sh/setup-uv@v6
@@ -86,7 +86,7 @@ jobs:
           # Need full history to determine version number.
           fetch-depth: 0
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: ${{ matrix.node-version }}
       - uses: astral-sh/setup-uv@v6
@@ -162,7 +162,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v5
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version: ${{ matrix.node-version }}
       - uses: astral-sh/setup-uv@v6
