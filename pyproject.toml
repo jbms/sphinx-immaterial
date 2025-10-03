@@ -229,3 +229,6 @@ conflicts = [
 
 [tool.ruff]
 lint.extend-select = ["I"]
+
+[too.ruff.per-file-target-version]
+"tests/python_apigen_test_modules/pep695.py" = "py312"

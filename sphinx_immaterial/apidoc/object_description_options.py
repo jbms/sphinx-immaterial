@@ -50,6 +50,7 @@ DEFAULT_OBJECT_DESCRIPTION_OPTIONS: List[Tuple[str, dict]] = [
     ("py:property", {"toc_icon_class": "alias", "toc_icon_text": "P"}),
     ("py:attribute", {"toc_icon_class": "alias", "toc_icon_text": "A"}),
     ("py:data", {"toc_icon_class": "alias", "toc_icon_text": "V"}),
+    ("py:type", {"toc_icon_class": "alias", "toc_icon_text": "T"}),
     (
         "py:parameter",
         {

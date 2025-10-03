@@ -1,0 +1,46 @@
+[
+  {
+    "canonical_full_name": "python_apigen_test_modules.pep613.MyAlias",
+    "directive": "py:type",
+    "options": {
+      "canonical": "int | float",
+      "module": "python_apigen_test_modules.pep613"
+    },
+    "type_params": "()"
+  },
+  {
+    "canonical_full_name": "python_apigen_test_modules.pep613.MyGenericAlias",
+    "directive": "py:type",
+    "options": {
+      "canonical": "list[__SPHINX_IMMATERIAL_TYPE_VAR__V_T] | tuple[__SPHINX_IMMATERIAL_TYPE_VAR__V_T, ...]",
+      "module": "python_apigen_test_modules.pep613"
+    },
+    "type_params": "(~T,)"
+  },
+  {
+    "canonical_full_name": "python_apigen_test_modules.pep613.Foo",
+    "directive": "py:class",
+    "options": {
+      "module": "python_apigen_test_modules.pep613"
+    },
+    "type_params": "()"
+  },
+  {
+    "canonical_full_name": "python_apigen_test_modules.pep613.Foo.MyMemberAlias",
+    "directive": "py:type",
+    "options": {
+      "canonical": "int | float",
+      "module": "python_apigen_test_modules.pep613"
+    },
+    "type_params": "()"
+  },
+  {
+    "canonical_full_name": "python_apigen_test_modules.pep613.Foo.MyGenericMemberAlias",
+    "directive": "py:type",
+    "options": {
+      "canonical": "list[__SPHINX_IMMATERIAL_TYPE_VAR__V_T] | tuple[__SPHINX_IMMATERIAL_TYPE_VAR__V_U, ...]",
+      "module": "python_apigen_test_modules.pep613"
+    },
+    "type_params": "(~T, ~U)"
+  }
+]

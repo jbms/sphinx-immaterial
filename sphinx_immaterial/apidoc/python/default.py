@@ -16,12 +16,17 @@ from . import (
     type_annotation_transforms,
 )
 
+if sphinx.version_info >= (7, 4):
+    from . import autodoc_type_alias_support
+
 
 def setup(app: sphinx.application.Sphinx):
     app.setup_extension(parameter_objects.__name__)
     app.setup_extension(strip_property_prefix.__name__)
     app.setup_extension(type_annotation_transforms.__name__)
     app.setup_extension(strip_self_and_return_type_annotations.__name__)
+    if sphinx.version_info >= (7, 4):
+        app.setup_extension(autodoc_type_alias_support.__name__)
 
     return {
         "parallel_read_safe": True,
