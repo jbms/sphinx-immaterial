@@ -57,6 +57,11 @@ from .. import apigen_utils, object_description_options
 from . import type_param_utils
 from .parameter_objects import TYPE_PARAM_SYMBOL_PREFIX_ATTR_KEY
 
+if sphinx.version_info >= (7, 4):
+    from .autodoc_type_alias_support import TypeAliasDocumenter
+else:
+    TypeAliasDocumenter = ()
+
 if sphinx.version_info >= (6, 1):
     stringify_annotation = sphinx.util.typing.stringify_annotation
 else:
@@ -730,11 +735,12 @@ def _generate_entity_desc_node(
     if summary:
         content = _summarize_rst_content(content)
         options["noindex"] = ""
-    # Avoid "canonical" option because it results in duplicate object warnings
-    # when combined with multiple signatures that produce different object ids.
-    #
-    # Instead, the canonical aliases are handled separately below.
-    options.pop("canonical", None)
+    if entity.objtype != "type":
+        # Avoid "canonical" option because it results in duplicate object warnings
+        # when combined with multiple signatures that produce different object ids.
+        #
+        # Instead, the canonical aliases are handled separately below.
+        options.pop("canonical", None)
     try:
         with apigen_utils.save_rst_defaults(env):
             rst_input = docutils.statemachine.StringList()
@@ -1760,6 +1766,11 @@ class _ApiEntityCollector:
                             and typing.get_origin(base) is not typing.Generic
                         )
                     ]
+        elif isinstance(entry.documenter, TypeAliasDocumenter):
+            type_params = type_param_utils.get_type_alias_params(
+                entry.documenter.object
+            )
+            signatures = [type_param_utils.stringify_type_params(type_params)]
         else:
             if primary_entity is None:
                 signatures = entry.documenter.format_signature().split("\n")

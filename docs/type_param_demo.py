@@ -6,6 +6,7 @@ from typing import (
     Iterator,
     KeysView,
     Optional,
+    TypeAlias,
     TypeVar,
     Union,
     ValuesView,
@@ -123,4 +124,41 @@ class Derived(Map[int, U], Generic[U]):
     pass
 
 
-__all__ = ["Map", "Derived"]
+MyAlias: TypeAlias = int | float
+"""PEP 613 type alias that can be an int or float.
+
+Group:
+  type-param
+"""
+
+
+MyGenericAlias: TypeAlias = list[T] | tuple[T, ...]
+"""PEP 613 generic alias that can be a list or tuple with the given element type.
+
+Group:
+  type-param
+"""
+
+
+type MyAliasType = int | float
+"""PEP 695 type that can be an int or float.
+
+Group:
+  type-param
+"""
+
+type MyGenericAliasType[T, U] = list[T] | tuple[U, ...]
+"""PEP 695 generic alias that can be a list or tuple with the given element types.
+
+Group:
+  type-param
+"""
+
+__all__ = [
+    "Map",
+    "Derived",
+    "MyAlias",
+    "MyGenericAlias",
+    "MyAliasType",
+    "MyGenericAliasType",
+]

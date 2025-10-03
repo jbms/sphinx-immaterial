@@ -1,5 +1,6 @@
 import json
 import pathlib
+import sys
 
 import pytest
 import sphinx
@@ -19,6 +20,7 @@ def apigen_make_app(tmp_path: pathlib.Path, make_app):
     conf = """
 extensions = [
     "sphinx_immaterial",
+    "sphinx.ext.napoleon",
     "sphinx_immaterial.apidoc.python.apigen",
 ]
 html_theme = "sphinx_immaterial"
@@ -186,6 +188,51 @@ def test_type_params(apigen_make_app):
     app.build()
     print(app._status.getvalue())
     assert not app._warning.getvalue()
+
+
+@pytest.mark.skipif(
+    sphinx.version_info < (7, 4),
+    reason=f"Type aliases are not supported by Sphinx {sphinx.version_info}",
+)
+@pytest.mark.parametrize(
+    "modname",
+    ["pep613"] + (["pep695"] if sys.version_info >= (3, 12) else []),
+)
+def test_type_aliases(apigen_make_app, modname: str, snapshot):
+    """Tests that type aliases work."""
+    testmod = f"python_apigen_test_modules.{modname}"
+    app = apigen_make_app(
+        confoverrides=dict(
+            python_apigen_modules={
+                testmod: "api/",
+            },
+            nitpicky=True,
+        ),
+    )
+
+    data = _get_api_data(app.env)
+
+    print(app._status.getvalue())
+    print(app._warning.getvalue())
+    assert not app._warning.getvalue()
+
+    print(data.entities)
+
+    snapshot.assert_match(
+        json.dumps(
+            [
+                {
+                    "canonical_full_name": entity.canonical_full_name,
+                    "directive": entity.directive,
+                    "options": entity.options,
+                    "type_params": str(entity.type_params),
+                }
+                for entity in data.entities.values()
+            ],
+            indent=2,
+        ),
+        "entities.json",
+    )
 
 
 def test_pybind11_overloaded_function(apigen_make_app, snapshot):

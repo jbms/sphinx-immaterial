@@ -60,6 +60,20 @@ def get_class_type_params(cls: type) -> tuple[TypeParam, ...]:
     return tuple(params)
 
 
+def get_type_alias_params(obj: typing.Any) -> tuple[TypeParam, ...]:
+    """Returns the ordered list of type parameters of a type alias."""
+
+    type_params = safe_getattr(obj, "__type_params__", ())
+    if type_params:
+        return type_params
+
+    return tuple(
+        get_type_params_from_signature(
+            sphinx.util.typing.stringify_annotation(obj)
+        ).values()
+    )
+
+
 def stringify_type_params(type_params: typing.Iterable[TypeParam]) -> str:
     """Convert a type parameter list to its string representation.
 
@@ -254,6 +268,9 @@ if sphinx.version_info < (7, 1):
     # empty type parameter list.
 
     def get_class_type_params(cls: type) -> tuple[TypeParam, ...]:
+        return ()
+
+    def get_type_alias_params(obj: typing.Any) -> tuple[TypeParam, ...]:
         return ()
 
     def get_type_params_from_signature(signature: str) -> dict[str, TypeParam]:
