@@ -1330,3 +1330,18 @@ class DimensionSelection(DimExpression):
     def foo(self, bar: int) -> None:
         """Non-inherited method."""
         pass
+
+class _DimSelection:
+    def __getitem__(self, key: int) -> DimensionSelection:
+        """Constructs a DimensionSelection from an int.
+
+        Group:
+          Indexing
+        """
+        pass
+
+d = _DimSelection()
+"""Object used to construct DimensionSelection objects.
+
+Note: A docstring is required but will not be included in the docs.
+"""

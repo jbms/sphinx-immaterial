@@ -144,6 +144,7 @@ ruff = [
 ]
 mypy = [
   "mypy==1.10.1",
+  "inline-snapshot",
   "types-PyYAML",
   "docutils-stubs",
   "types-beautifulsoup4",
@@ -175,6 +176,7 @@ test = [
   "sphinx[test]",
   "sphinx-immaterial-pybind11-issue-134",
   "sphinx-immaterial[cpp,json,jsonschema_validation,keys,black,clang-format]",
+  "inline-snapshot>=0.29.3",
   { include-group = "coverage" },
 ]
 coverage = [
