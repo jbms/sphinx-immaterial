@@ -492,19 +492,6 @@ def _get_order(default_order: List[Tuple[re.Pattern, int]], entity: _ApiEntity) 
     return order
 
 
-def _mark_subscript_parameterlist(signode: sphinx.addnodes.desc_signature) -> None:
-    """Modifies an object description to display as a "subscript method".
-
-    A "subscript method" is a property that defines __getitem__ and is intended to
-    be treated as a method invoked using [] rather than (), in order to allow
-    subscript syntax like ':'.
-
-    :param node: Signature to modify in place.
-    """
-    for sub_node in signode.findall(condition=sphinx.addnodes.desc_parameterlist):
-        sub_node["parens"] = ("[", "]")
-
-
 def _clean_init_signature(signode: sphinx.addnodes.desc_signature) -> None:
     """Modifies an object description of an __init__ method.
 
@@ -656,8 +643,6 @@ def _generate_entity_desc_node(
                 # to transform them here.
                 return
             assert isinstance(signode, sphinx.addnodes.desc_signature)
-            if entity.subscript:
-                _mark_subscript_parameterlist(signode)
 
             if entity.documented_name in ("__init__", "__new__"):
                 _clean_init_signature(signode)
@@ -708,6 +693,10 @@ def _generate_entity_desc_node(
     content = entity.content
     options = dict(entity.options)
     options["nonodeid"] = ""
+
+    if entity.subscript:
+        options["subscript"] = ""
+
     all_members: List[Optional[_ApiEntityMemberReference]]
     if member is not None:
         all_members = cast(

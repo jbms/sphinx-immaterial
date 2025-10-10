@@ -1,0 +1,1 @@
+tensorstore.d2[foo: int] -> bool

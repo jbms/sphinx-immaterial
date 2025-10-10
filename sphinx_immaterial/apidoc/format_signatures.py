@@ -770,7 +770,9 @@ _PUNCTUATION_PATTERN = re.compile("[(),]")
 
 
 def _make_text_node_from_source(
-    cls: type, source: docutils.nodes.Node, text: str
+    cls: type,
+    source: docutils.nodes.Node,
+    text: str,
 ) -> docutils.nodes.Element:
     node = cls(text, text)
     node.source = source.source
@@ -812,13 +814,27 @@ def _sig_transform_desc_signature_line(
 
 
 def _sig_transform_desc_parameter_list(
-    ignored: set[int], node: docutils.nodes.Element, open_punct: str, close_punct: str
+    ignored: set[int],
+    node: docutils.nodes.Element,
+    munged_open_punct: str,
+    munged_close_punct: str,
 ) -> list[docutils.nodes.Node]:
-    new_nodes: list[docutils.nodes.Node] = [
-        _make_text_node_from_source(
-            sphinx.addnodes.desc_sig_punctuation, node, open_punct
-        )
-    ]
+    open_punct, close_punct = node.get(
+        "parens", (munged_open_punct, munged_close_punct)
+    )
+
+    open_node = _make_text_node_from_source(
+        sphinx.addnodes.desc_sig_punctuation, node, open_punct
+    )
+    close_node = _make_text_node_from_source(
+        sphinx.addnodes.desc_sig_punctuation, node, close_punct
+    )
+    if munged_open_punct != open_punct:
+        open_node["munged_text_for_formatting"] = munged_open_punct
+    if munged_close_punct != close_punct:
+        close_node["munged_text_for_formatting"] = munged_close_punct
+
+    new_nodes: list[docutils.nodes.Node] = [open_node]
     for i, child in enumerate(node.children):
         if i != 0:
             new_nodes.append(
@@ -827,11 +843,7 @@ def _sig_transform_desc_parameter_list(
                 )
             )
         new_nodes.extend(_sig_transform_node(ignored, child))
-    new_nodes.append(
-        _make_text_node_from_source(
-            sphinx.addnodes.desc_sig_punctuation, node, close_punct
-        )
-    )
+    new_nodes.append(close_node)
     return new_nodes
 
 
