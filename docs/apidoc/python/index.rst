@@ -272,3 +272,83 @@ Additionally, any table of contents entry for the page will have an associated
    In contrast, if the :rst:`:nonodeid:` option is specified, a cross-reference
    target is still created, and the object is still included in search results.
    However, any cross references to the object will link to the containing page.
+
+.. _python-subscript-functions:
+
+Subscript functions and methods
+-------------------------------
+
+*Subscript methods* and *subscript functions* are class-scope and
+module-scope attributes, respectively, that support subscript syntax.
+For example:
+
+.. code-block:: python
+
+   >>> arr.vindex[1, 2:5, [1, 2, 3]]
+   ndarray(...)
+   >>> tensorstore.d[1, "x", 3]
+   DimSelection(1, "x", 3)
+
+This theme extends the Python domain to support a ``:subscript:``
+option to indicate that a function or method signature should be
+displayed with ``[`` and ``]`` instead of ``(`` and ``)``.  While this
+is not valid Python syntax, it allows subscript methods and functions
+to be documented in a natural way.
+
+.. note::
+
+   Type parameters are always indicated with ``[`` and ``]``; this
+   option affects the regular parameters.  However, to avoid
+   confusion, it is recommended to avoid using this option on
+   signatures that also have type parameters.
+
+.. rst-example::
+
+   .. py:function:: tensorstore.d(selection: collections.abc.Sequence[int]) \
+                      -> tensorstore_demo.DimensionSelection
+      :subscript:
+
+      Construct a dimension selection from a sequence of numbers.
+
+      >>> d[1, 2, 3]
+      DimensionSelection(1, 2, 3)
+
+   .. py:class:: MyArray
+
+      .. py:method:: vindex(self, indexing_expr) -> MyArray
+         :subscript:
+
+         Indexes the array using *vindex* semantics.
+
+         >>> arr = MyArray([1, 2, 3])
+         >>> arr.vindex[1]
+         MyArray(...)
+
+Typically a subscript function or method is implemented by defining a
+helper class with a ``__getitem__`` member:
+
+.. code-block:: python
+
+   class _DHelper:
+       @staticmethod
+       def __getitem__(
+               selection: collections.abc.Sequence[int],
+           ) -> tensorstore_demo.DimensionSelection:
+           """Construct a dimension selection from a sequence of numbers."""
+           return DimensionSelection(selection)
+
+   d = _DHelper()
+
+   class MyArray:
+       """My special array type."""
+       class _VIndex:
+           def __init__(self, array):
+               self.array = array
+
+           def __getitem__(self, indexing_expr) -> MyArray:
+               """Indexes the array using *vindex* semantics."""
+               return self.array._vindex(indexing_expr)
+
+       @property
+       def vindex(self) -> MyArray._Vindex:
+           return MyArray._Vindex(self)

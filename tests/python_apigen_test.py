@@ -1,10 +1,17 @@
+import dataclasses
 import json
 import pathlib
+import re
 
 import pytest
 import sphinx
+from inline_snapshot import snapshot
 
-from sphinx_immaterial.apidoc.python.apigen import _get_api_data
+from sphinx_immaterial.apidoc.python.apigen import (
+    _ApiEntity,
+    _ApiEntityMemberReference,
+    _get_api_data,
+)
 
 if sphinx.version_info < (7, 2):
     from sphinx.testing.path import path as SphinxPath
@@ -12,6 +19,17 @@ else:
     from pathlib import Path as SphinxPath  # type: ignore[assignment]
 
 pytest_plugins = ("sphinx.testing.fixtures",)
+
+
+def _get_api_data_snapshot(app):
+    data = _get_api_data(app.env)
+    return {
+        "entities": {
+            k: dataclasses.replace(v, docname=re.sub("-[0-9a-f]{8}$", "", v.docname))
+            for k, v in data.entities.items()
+        },
+        "top_level_groups": data.top_level_groups,
+    }
 
 
 @pytest.fixture
@@ -223,3 +241,64 @@ def test_pybind11_overloaded_function(apigen_make_app, snapshot):
             get_entity_info(f"{testmod}.{name}"),
             name.replace("(", "_").replace(")", "") + ".json",
         )
+
+
+def test_subscript_function(apigen_make_app):
+    testmod = "python_apigen_test_modules.subscript_function"
+    app = apigen_make_app(
+        confoverrides=dict(
+            python_apigen_modules={
+                testmod: "api/",
+            },
+            nitpicky=True,
+        ),
+    )
+    assert not app._warning.getvalue()
+    assert _get_api_data_snapshot(app) == snapshot(
+        {
+            "entities": {
+                "python_apigen_test_modules.subscript_function.h": _ApiEntity(
+                    canonical_full_name="python_apigen_test_modules.subscript_function.h",
+                    objtype="method",
+                    directive="py:method",
+                    overload_id="",
+                    signatures=["(arg: int) -> bool"],
+                    options={
+                        "subscript": "",
+                        "module": "python_apigen_test_modules.subscript_function",
+                    },
+                    content=["Subscript function.", ""],
+                    group_name="Public members",
+                    order=0,
+                    members=[],
+                    parents=[
+                        _ApiEntityMemberReference(
+                            name="h",
+                            canonical_object_name="python_apigen_test_modules.subscript_function.h",
+                            parent_canonical_object_name="python_apigen_test_modules.subscript_function",
+                            inherited=False,
+                            siblings=[],
+                            type_param_substitutions=None,
+                        )
+                    ],
+                    docname="api/h",
+                    documented_full_name="python_apigen_test_modules.subscript_function.h",
+                    documented_name="h",
+                    top_level=True,
+                    type_params=(),
+                )
+            },
+            "top_level_groups": {
+                "public-members": [
+                    _ApiEntityMemberReference(
+                        name="h",
+                        canonical_object_name="python_apigen_test_modules.subscript_function.h",
+                        parent_canonical_object_name="python_apigen_test_modules.subscript_function",
+                        inherited=False,
+                        siblings=[],
+                        type_param_substitutions=None,
+                    )
+                ]
+            },
+        }
+    )

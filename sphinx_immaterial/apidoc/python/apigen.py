@@ -354,7 +354,6 @@ class _ApiEntity:
     content: List[str]
     group_name: str
     order: Optional[int]
-    subscript: bool
 
     members: List[_ApiEntityMemberReference]
     """Members of this entity."""
@@ -693,9 +692,6 @@ def _generate_entity_desc_node(
     content = entity.content
     options = dict(entity.options)
     options["nonodeid"] = ""
-
-    if entity.subscript:
-        options["subscript"] = ""
 
     all_members: List[Optional[_ApiEntityMemberReference]]
     if member is not None:
@@ -1174,7 +1170,7 @@ def _include_member(member_name: str, member_value: Any, is_attr: bool) -> bool:
 
 def _get_subscript_method(
     parent_documenter: sphinx.ext.autodoc.Documenter, entry: _MemberDocumenterEntry
-) -> Any:
+) -> tuple[type, str] | None:
     """Checks for a property that defines a subscript method.
 
     A subscript method is a property like `Class.vindex` where `fget` has a return
@@ -1182,12 +1178,15 @@ def _get_subscript_method(
 
     :param parent_documenter: Parent documenter for `entry`.
     :param entry: Entry to check.
-    :returns: The type object (e.g. `Class._Vindex`) representing the subscript
-        method, or None if `entry` does not define a subscript method.
+    :returns: A tuple of the type object (e.g. `Class._Vindex`) representing the subscript
+        method, and its importable name, or None if `entry` does not define a subscript
+        method.
     """
-    if not isinstance(entry.documenter, sphinx.ext.autodoc.PropertyDocumenter):
-        return None
-    retann = entry.documenter.retann
+    retann = None
+    if isinstance(entry.documenter, sphinx.ext.autodoc.PropertyDocumenter):
+        retann = entry.documenter.retann
+    elif isinstance(entry.documenter, sphinx.ext.autodoc.DataDocumenter):
+        retann = stringify_annotation(type(entry.documenter.object))
     if not retann:
         return None
 
@@ -1209,11 +1208,11 @@ def _get_subscript_method(
         return None
     if not mem:
         return None
-    getitem = getattr(mem, "__getitem__", None)
+    getitem = sphinx.util.inspect.safe_getattr(mem, "__getitem__", None)
     if getitem is None:
         return None
 
-    return mem
+    return mem, retann
 
 
 def _transform_member(
@@ -1231,14 +1230,14 @@ def _transform_member(
     if entry.name == "__class_getitem__":
         entry = entry._replace(subscript=True)
 
-    mem = _get_subscript_method(parent_documenter, entry)
-    if mem is None:
+    subscript_method = _get_subscript_method(parent_documenter, entry)
+    if subscript_method is None:
         yield entry
         return
-    retann = entry.documenter.retann
+    mem, retann = subscript_method
 
     for suffix in ("__getitem__", "__setitem__"):
-        method = getattr(mem, suffix, None)
+        method = sphinx.util.inspect.safe_getattr(mem, suffix, None)
         if method is None:
             continue
         import_name = f"{retann}.{suffix}"
@@ -1759,6 +1758,9 @@ class _ApiEntityCollector:
         if entry.overload is not None:
             overload_id = entry.overload.overload_id
 
+        if entry.subscript:
+            options["subscript"] = ""
+
         entity = _ApiEntity(
             documented_full_name="",
             canonical_full_name=canonical_full_name,
@@ -1771,7 +1773,6 @@ class _ApiEntityCollector:
             content=content,
             members=[],
             parents=[],
-            subscript=entry.subscript,
             overload_id=overload_id or "",
             base_classes=base_classes,
             primary_entity=primary_entity is None,
