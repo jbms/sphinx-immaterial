@@ -1,3 +1,5 @@
+import sphinx.domains.python
+from docutils.parsers.rst import directives
 from sphinx.addnodes import desc_parameterlist
 
 from ... import html_translator_mixin
@@ -33,4 +35,45 @@ def _monkey_patch_parameterlist_to_support_subscript():
     desc_parameterlist.astext = astext  # type: ignore
 
 
+def _mark_subscript_parameterlist(signode: sphinx.addnodes.desc_signature) -> None:
+    """Modifies an object description to display as a "subscript method".
+
+    A "subscript method" is a property that defines __getitem__ and is intended to
+    be treated as a method invoked using [] rather than (), in order to allow
+    subscript syntax like ':'.
+
+    :param node: Signature to modify in place.
+    """
+    for sub_node in signode.findall(condition=sphinx.addnodes.desc_parameterlist):
+        sub_node["parens"] = ("[", "]")
+
+
+def _monkey_patch_python_domain_to_support_subscript_option():
+    for object_class in sphinx.domains.python.PythonDomain.directives.values():
+        if not issubclass(
+            object_class,
+            (sphinx.domains.python.PyMethod, sphinx.domains.python.PyFunction),
+        ):
+            continue
+        object_class.option_spec["subscript"] = directives.flag
+
+    def _monkey_patch_handle_signature(
+        cls: type[sphinx.domains.python.PyObject],
+    ) -> None:
+        def handle_signature(
+            self, sig: str, signode: sphinx.addnodes.desc_signature
+        ) -> tuple[str, str]:
+            result = super(cls, self).handle_signature(sig, signode)
+            if "subscript" in self.options:
+                _mark_subscript_parameterlist(signode)
+
+            return result
+
+        setattr(cls, "handle_signature", handle_signature)
+
+    _monkey_patch_handle_signature(sphinx.domains.python.PyFunction)
+    _monkey_patch_handle_signature(sphinx.domains.python.PyMethod)
+
+
 _monkey_patch_parameterlist_to_support_subscript()
+_monkey_patch_python_domain_to_support_subscript_option()

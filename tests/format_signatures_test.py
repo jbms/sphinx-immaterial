@@ -33,6 +33,8 @@ TEST_SIGNATURES = {
                                   tuple[str, float, numbers.Real], \
                                   dict[int, tuple[list[frozenset[int]]]]], *, read_only: bool = False)",
     "py_function3": "py:method:: zarr.Array.from_dict(store_path: StorePath,data: dict[str, str | int | float | Mapping[str, str | int | float | Mapping[str, JSON] | Sequence[JSON] | None] | Sequence[str | int | float | Mapping[str, JSON] | Sequence[JSON] | None] | None])->Array",
+    "py_method_subscript": "py:method:: tensorstore.d1(foo: int) -> bool\n   :subscript:",
+    "py_function_subscript": "py:function:: tensorstore.d2(foo: int) -> bool\n   :subscript:",
 }
 
 
