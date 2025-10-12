@@ -475,35 +475,12 @@ Configuration
    any changes to the default role, default literal role, and default highlight
    language due to :confval:`python_apigen_rst_prolog` are undone automatically.
 
-Subscript methods
-^^^^^^^^^^^^^^^^^
+Subscript functions and methods
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-*Subscript methods* are attributes defined on an object that support subscript
-syntax.  For example:
-
-.. code-block:: python
-
-   arr.vindex[1, 2:5, [1, 2, 3]]
-
-These subscript methods can be implemented as follows:
-
-.. code-block:: python
-
-   class MyArray:
-       class _Vindex:
-           def __init__(self, arr: MyArray):
-               self.arr = arr
-
-           def __getitem__(self, sel: Selection):
-               # Do something with `self.arr` and `sel`.
-               return result
-
-       @property
-       def vindex(self) -> MyArray._Vindex:
-           return MyArray._Vindex(self)
-
-Based on the :confval:`python_apigen_subscript_method_types` option, this
-extension can recognize this pattern and display :python:`vindex` as:
+Based on the :confval:`python_apigen_subscript_method_types` option,
+this extension can recognize :ref:`subscript functions and
+methods<python-subscript-functions>` and display :python:`vindex` as:
 
 .. code-block::
 
