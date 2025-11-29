@@ -68,11 +68,9 @@ def _get_html_builder(base_builder: Type[sphinx.builders.html.StandaloneHTMLBuil
         theme: sphinx.theming.Theme
         templates: sphinx.jinja2glue.BuiltinTemplateLoader
 
-        @property
-        def default_translator_class(self):
-            return html_translator_mixin.get_html_translator(
-                super().default_translator_class
-            )
+        default_translator_class = html_translator_mixin.get_html_translator(
+            base_builder.default_translator_class
+        )
 
         def init_js_files(self):
             super().init_js_files()
