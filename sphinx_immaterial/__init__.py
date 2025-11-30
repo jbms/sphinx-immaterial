@@ -73,6 +73,7 @@ def _get_html_builder(base_builder: Type[sphinx.builders.html.StandaloneHTMLBuil
                 base_builder.default_translator_class
             )
         else:
+
             @property
             def default_translator_class(self):
                 return html_translator_mixin.get_html_translator(
