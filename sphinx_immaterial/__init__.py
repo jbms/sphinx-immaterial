@@ -324,9 +324,14 @@ def _config_inited(
             + "The sphinx.ext.napoleon extension may be used instead for NumPy-style docstring support."
         )
 
+    # Enable the legacy (``Documenter``) autodoc implementation
+    # for all users of the theme
+    config.autodoc_use_legacy_class_based = True
+
 
 def setup(app: Sphinx):
-    app.connect("config-inited", _config_inited)
+    # Run before sphinx.ext.autodoc._register_directives()
+    app.connect("config-inited", _config_inited, priority=50)
 
     app.setup_extension("sphinx_immaterial.css_and_javascript_bundles")
     app.setup_extension("sphinx_immaterial.external_resource_cache")
