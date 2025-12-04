@@ -39,6 +39,37 @@ Anything contained within the _src_ folder is meant to be merged from the upstre
 
 There is no intention to support any mkdocs extensions in this theme because this theme is designed for the Sphinx documentation generator. You will often find that most of the extensions available for mkdocs are natively implemented in Sphinx or available in the form of a Sphinx extension.
 
+## Building this project's docs
+
+Install the following development tools:
+
+- [`uv` package manager](https://docs.astral.sh/uv/getting-started/installation/)
+- [Graphviz](https://graphviz.org/download/) (for generating graphs at docs' build-time)
+- [node.js](https://nodejs.org/en/download) (using [fnm](https://github.com/Schniz/fnm) is highly recommended)
+
+Setup the Python venv:
+
+```text
+uv sync
+```
+
+Assembling/copying over CSS/JS bundles and icons:
+
+```text
+npm install
+npm run build
+```
+
+Build documentation:
+
+```text
+uv run nox -s "docs(html)"
+```
+
+This sets up a Python venv (managed by `nox`), ensures necessary docs' (Python) dependencies are installed, and runs `sphinx-build`.
+
+If the last command completed successfully, the HTML docs can be browsed locally from the generated `docs/_build/html/index.html` file.
+
 ### Merging in changes from upstream
 
 There is a script titled "merge_from_mkdocs_material.py" that is designed to do most of the heavy lifting when pulling in changes from the mkdocs-material theme. It can only be executed in a Linux shell. More usage information is provided by the help menu:
