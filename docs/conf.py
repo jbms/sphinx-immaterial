@@ -512,8 +512,8 @@ nitpick_ignore = [
     ("cpp:identifier", "my_ns3"),
     ("cpp:identifier", "cpp_apigen_demo"),
     # Example JavaScript types
-    ("js:class", "string"),
-    ("js:class", "SomeError"),
+    ("js:func", "string"),
+    ("js:func", "SomeError"),
     # pydantic_extra_types.color not present in object inventory
     ("py:class", "pydantic_extra_types.color.Color"),
 ]
