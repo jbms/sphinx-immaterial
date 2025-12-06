@@ -4,73 +4,89 @@
 2. Open an issue if your query has not been previously addressed.
 3. If a solution is found, and requires changes to this repository, then submit a Pull Request.
 
-## Code style
-
-We use linters to keep our code style conventional. Thus, this repository is setup to use many of the popular linting and code formatting tools available.
-
-Please be sure to review/format your code changes in accordance with the style guides incorporated in this repository (which are typically named _.**rc_).
-
-### Using `nox` & `npm`
-
-Most of our CI uses a program utility called `nox`.
-For JS and SCSS checking, we use `npm` tasks.
-
-#### Run type checkers and formatters for Python
-
-Be sure `nox` is installed via `pip install nox`.
-
-From the repository root directory:
-
-```shell
-nox
-```
-
-More info is available via `nox -h` or [their documentation](https://nox.thea.codes/en/stable/usage.html).
-
-#### Run type checkers and formatters for JS & SCSS
-
-```shell
-npm run check
-```
-
 ## Unwanted changes
 
 Anything contained within the _src_ folder is meant to be merged from the upstream mkdocs-material repo. As such, it is discouraged from making any changes that might cause a merge conflict when new changes are pulled from the upstream repository.
 
 There is no intention to support any mkdocs extensions in this theme because this theme is designed for the Sphinx documentation generator. You will often find that most of the extensions available for mkdocs are natively implemented in Sphinx or available in the form of a Sphinx extension.
 
-## Building this project's docs
+## Required development tools
 
-Install the following development tools:
+These are the tools that this project uses:
 
 - [`uv` package manager](https://docs.astral.sh/uv/getting-started/installation/)
-- [Graphviz](https://graphviz.org/download/) (for generating graphs at docs' build-time)
-- [node.js](https://nodejs.org/en/download) (using [fnm](https://github.com/Schniz/fnm) is highly recommended)
+- [node.js](https://nodejs.org/en/download) (using [`fnm`](https://github.com/Schniz/fnm) is highly recommended)
 
-Setup the Python venv:
+The rest of this document will assume that these tools are installed.
+
+### Setup a venv
+
+Use the following command to setup a Python virtual environment ("venv" for short) specifically for this project:
 
 ```text
 uv sync
 ```
 
-Assembling/copying over CSS/JS bundles and icons:
+### Setup node.js
+
+Install the node.js dependencies (used for development):
 
 ```text
 npm install
+```
+
+Next, compile and copy the CSS/JS bundles and icons that this theme uses (at docs' build time and for theme distribution):
+
+```text
 npm run build
 ```
 
-Build documentation:
+## Code style
+
+We use linters to keep our code style conventional. Thus, this repository is setup to use many of the popular linting and code formatting tools available.
+
+Please be sure to review/format your code changes in accordance with the style guides incorporated in this repository (which are found in various configuration files).
+
+### Run type checkers and formatters for Python
+
+The following command uses the venv prepared as directed in [setup a venv](#setup-a-venv):
+
+```shell
+uv run nox
+```
+
+More info is available via `uv run nox -h` or [their documentation](https://nox.thea.codes/en/stable/usage.html).
+
+### Run type checkers and formatters for JS & SCSS
+
+```shell
+npm run check
+```
+
+## Building this project's docs
+
+Install the following tools (in addition to the [required development tools](#required-development-tools)):
+
+- [Graphviz](https://graphviz.org/download/) (for generating graphs at docs' build-time)
+
+### Run sphinx
+
+Assuming the [node.js dependencies are setup](#setup-nodejs),
+run sphinx using the following nox command:
 
 ```text
 uv run nox -s "docs(html)"
 ```
 
-This sets up a Python venv (managed by `nox`), ensures necessary docs' (Python) dependencies are installed, and runs `sphinx-build`.
+This command basically does the following:
+
+1. Sets up a Python venv (just for building docs) which is managed by `nox`.
+2. Ensures necessary docs' (Python) dependencies are installed.
+3. Runs `sphinx-build` using the HTML builder.
 
 If the last command completed successfully, the HTML docs can be browsed locally from the generated `docs/_build/html/index.html` file.
 
-### Merging in changes from upstream
+## Merging in changes from upstream
 
 There is a script titled "merge_from_mkdocs_material.py" that is designed to do most of the heavy lifting when pulling in changes from the mkdocs-material theme. It can only be executed in a Linux shell. More usage information is provided by the help menu:
 
