@@ -84,7 +84,7 @@ This command basically does the following:
 2. Ensures necessary docs' (Python) dependencies are installed.
 3. Runs `sphinx-build` using the HTML builder.
 
-If the last command completed successfully, the HTML docs can be browsed locally from the generated `docs/_build/html/index.html` file.
+Once the `nox` command has completed, the HTML docs can be browsed locally from the generated `docs/_build/html/index.html` file.
 
 ## Merging in changes from upstream
 
