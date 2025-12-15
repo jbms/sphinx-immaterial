@@ -62,7 +62,7 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
       - name: Cache node.js modules
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: "**/node_modules"
           key: ${{ runner.os }}-${{ matrix.node-version }}-node_modules-${{ hashFiles('**/package-lock.json') }}
@@ -102,7 +102,7 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
       - name: Cache node.js modules
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: "**/node_modules"
           key: ${{ runner.os }}-${{ matrix.node-version }}-node_modules-${{ hashFiles('**/package-lock.json') }}
@@ -119,7 +119,7 @@ jobs:
           uv pip install dist/*.whl
         shell: bash
       - name: Upload wheels as artifacts
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: python-packages-${{ runner.os }}
           path: |
@@ -128,7 +128,7 @@ jobs:
         uses: ts-graphviz/setup-graphviz@b1de5da23ed0a6d14e0aeee8ed52fdd87af2363c # v2.0.2
         with:
           macos-skip-brew-update: "true"
-      - uses: actions/cache@v4
+      - uses: actions/cache@v5
         with:
           path: ${{ github.workspace }}/theme_build_cache
           key: theme-build-cache-${{ runner.os }}-${{ github.run_id }}
@@ -137,7 +137,7 @@ jobs:
           SPHINX_IMMATERIAL_EXTERNAL_RESOURCE_CACHE_DIR: ${{ github.workspace }}/theme_build_cache
         run: uvx nox -s docs --forcecolor
       - name: Upload doc builds as artifacts
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: doc-builds-${{ runner.os }}
           path: docs/_build/
@@ -180,7 +180,7 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
       - name: Cache node.js modules
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: "**/node_modules"
           key: ${{ runner.os }}-${{ matrix.node-version }}-node_modules-${{ hashFiles('**/package-lock.json') }}
@@ -191,7 +191,7 @@ jobs:
         uses: ts-graphviz/setup-graphviz@b1de5da23ed0a6d14e0aeee8ed52fdd87af2363c # v2.0.2
         with:
           macos-skip-brew-update: "true"
-      - uses: actions/cache/restore@v4
+      - uses: actions/cache/restore@v5
         with:
           path: ${{ github.workspace }}/theme_build_cache
           key: theme-build-cache-${{ runner.os }}-${{ github.run_id }}
@@ -203,7 +203,7 @@ jobs:
         # `coverage run` cmd adds the working dir to python path, so no need to install pkg here
         run: uvx nox -s tests --forcecolor --python ${{ matrix.python-version }}
       - name: Upload coverage data
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: coverage-data-${{ runner.os }}-py${{ matrix.python-version }}
           path: .coverage*
@@ -217,7 +217,7 @@ jobs:
         with:
           persist-credentials: false
       - name: Download all artifacts
-        uses: actions/download-artifact@v6
+        uses: actions/download-artifact@v7
         with:
           merge-multiple: true
           pattern: coverage-data-*
@@ -245,17 +245,17 @@ jobs:
     needs: [build]
     steps:
       - name: Download Linux package
-        uses: actions/download-artifact@v6
+        uses: actions/download-artifact@v7
         with:
           name: python-packages-Linux
           path: dist-Linux
       - name: Download macOS package
-        uses: actions/download-artifact@v6
+        uses: actions/download-artifact@v7
         with:
           name: python-packages-macOS
           path: dist-macOS
       - name: Download Windows package
-        uses: actions/download-artifact@v6
+        uses: actions/download-artifact@v7
         with:
           name: python-packages-Windows
           path: dist-Windows
@@ -275,7 +275,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: [build, test]
     steps:
-      - uses: actions/download-artifact@v6
+      - uses: actions/download-artifact@v7
         with:
           name: python-packages-Linux
           path: dist
