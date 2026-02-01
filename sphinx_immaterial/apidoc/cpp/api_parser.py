@@ -962,7 +962,7 @@ def get_extent_spelling(translation_unit: TranslationUnit, extent: SourceRange) 
             else:
                 yield spelling
 
-    return " ".join(get_spellings())
+    return " ".join(get_spellings()).replace(" :: ", "::")
 
 
 def get_related_comments(decl: Cursor):
