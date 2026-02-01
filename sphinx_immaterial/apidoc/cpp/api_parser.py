@@ -2358,7 +2358,7 @@ def organize_entities(
                     "template <> " if template_parameters is not None else "",
                     location=(entity["location"]["file"], entity["location"]["line"]),
                 )
-            func_entity["declaration"] = declaration
+            func_entity["declaration"] = _substitute_internal_type_names(config, declaration)
         else:
             if replacements:
                 for key in cast(
