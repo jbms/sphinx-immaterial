@@ -2344,6 +2344,7 @@ def organize_entities(
         if _is_function(entity):
             func_entity = cast(FunctionEntity, entity)
             declaration = func_entity["declaration"]
+            declaration = _substitute_internal_type_names(config, declaration)
             if replacements:
                 declaration = _apply_identifier_replacements(declaration, replacements)
             if (
