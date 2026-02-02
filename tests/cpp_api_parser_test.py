@@ -296,14 +296,16 @@ namespace foo {
 struct SourceLocation {};
 }
 
-// Return type
+/// Default method
 foo::SourceLocation Default();
 
+/// Logging method
 void LogSourceLocation(foo::SourceLocation loc = Default());
 
+/// Class
 class ClassWithSourceLocation {
  public:
-  /// Constructs from a label.
+  /// Constructor.
   ClassWithSourceLocation(foo::SourceLocation loc = Default()) 
     : loc_(loc) {}
 
@@ -318,5 +320,9 @@ class ClassWithSourceLocation {
     output = api_parser.generate_output(config)
     assert not output.get("errors")
     print(output)
-    entities = list(output["entities"].values())
-    assert len(entities) == 2
+
+    assert len(output.get("entities", {}).values()) == 4
+    for x in output["entities"].values():
+        d = x.get("declaration")
+        if d:
+            assert d.find("source_location") != -1
