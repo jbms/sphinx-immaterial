@@ -940,20 +940,25 @@ def get_extent_spelling(translation_unit: TranslationUnit, extent: SourceRange) 
     because this is intended to be parsed by the Sphinx cpp domain anyway.
     """
 
+    add_space_between = (TokenKind.KEYWORD, TokenKind.IDENTIFIER, TokenKind.LITERAL)
     def get_spellings():
         prev_token = None
         COMMENT = TokenKind.COMMENT
         for token in translation_unit.get_tokens(extent=extent):
             if prev_token is not None:
                 yield prev_token.spelling
+                if prev_token.kind in add_space_between and token.kind in add_space_between:
+                    yield " "
                 prev_token = None
             if token.kind == COMMENT:
+                yield " "
                 continue
             prev_token = token
         # We need to handle the last token specially, because clang sometimes parses
         # ">>" as a single token but the extent may cover only the first of the two
         # angle brackets.
         if prev_token is not None:
+            yield " "
             spelling = prev_token.spelling
             token_end = cast(SourceLocation, prev_token.extent.end)
             offset_diff = token_end.offset - cast(SourceLocation, extent.end).offset
@@ -962,7 +967,7 @@ def get_extent_spelling(translation_unit: TranslationUnit, extent: SourceRange) 
             else:
                 yield spelling
 
-    return " ".join(get_spellings()).replace(" :: ", "::")
+    return "".join(get_spellings())
 
 
 def get_related_comments(decl: Cursor):
