@@ -284,3 +284,39 @@ constexpr inline bool HasA<int> = true;
         "HasA",
         "HasA-int",
     ]
+
+
+def test_type_replacements():
+    config = api_parser.Config(
+        input_path="a.cpp",
+        input_content=rb"""
+struct source_location {};
+
+namespace foo {
+struct SourceLocation {};
+}
+
+// Return type
+foo::SourceLocation Default();
+
+void LogSourceLocation(foo::SourceLocation loc = Default());
+
+class ClassWithSourceLocation {
+ public:
+  /// Constructs from a label.
+  ClassWithSourceLocation(foo::SourceLocation loc = Default()) 
+    : loc_(loc) {}
+
+  foo::SourceLocation loc_;
+};
+""",
+        type_replacements={
+            "foo::SourceLocation": "source_location",
+      },    
+    )
+
+    output = api_parser.generate_output(config)
+    assert not output.get("errors")
+    print(output)
+    entities = list(output["entities"].values())
+    assert len(entities) == 2
