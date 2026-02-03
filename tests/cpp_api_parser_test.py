@@ -314,7 +314,7 @@ class ClassWithSourceLocation {
 """,
         type_replacements={
             "foo::SourceLocation": "source_location",
-      },    
+        },
     )
 
     output = api_parser.generate_output(config)
