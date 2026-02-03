@@ -941,6 +941,7 @@ def get_extent_spelling(translation_unit: TranslationUnit, extent: SourceRange) 
     """
 
     add_space_between = (TokenKind.KEYWORD, TokenKind.IDENTIFIER, TokenKind.LITERAL)
+
     def get_spellings():
         prev_token = None
         COMMENT = TokenKind.COMMENT
