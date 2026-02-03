@@ -947,7 +947,10 @@ def get_extent_spelling(translation_unit: TranslationUnit, extent: SourceRange) 
         for token in translation_unit.get_tokens(extent=extent):
             if prev_token is not None:
                 yield prev_token.spelling
-                if prev_token.kind in add_space_between and token.kind in add_space_between:
+                if (
+                    prev_token.kind in add_space_between
+                    and token.kind in add_space_between
+                ):
                     yield " "
                 prev_token = None
             if token.kind == COMMENT:
