@@ -939,8 +939,10 @@ def get_extent_spelling(translation_unit: TranslationUnit, extent: SourceRange) 
     whitespace.  This results in excessive whitespace, but that does not matter
     because this is intended to be parsed by the Sphinx cpp domain anyway.
     """
-
-    add_space_between = (TokenKind.KEYWORD, TokenKind.IDENTIFIER, TokenKind.LITERAL)
+    no_spaces = (tuple(TokenKind.KEYWORD, TokenKind.PUNCTUATION),
+                 tuple(TokenKind.IDENTIFIER, TokenKind.PUNCTUATION),
+                 tuple(TokenKind.PUNCTUATION, TokenKind.KEYWORD),
+                 tuple(TokenKind.PUNCTUATION, TokenKind.IDENTIFIER))
 
     def get_spellings():
         prev_token = None
@@ -948,10 +950,7 @@ def get_extent_spelling(translation_unit: TranslationUnit, extent: SourceRange) 
         for token in translation_unit.get_tokens(extent=extent):
             if prev_token is not None:
                 yield prev_token.spelling
-                if (
-                    prev_token.kind in add_space_between
-                    and token.kind in add_space_between
-                ):
+                 if tuple(prev_token.kind, token.kind) not in no_spaces:
                     yield " "
                 prev_token = None
             if token.kind == COMMENT:
