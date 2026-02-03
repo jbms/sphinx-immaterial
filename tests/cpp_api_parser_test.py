@@ -325,4 +325,4 @@ class ClassWithSourceLocation {
     for x in output["entities"].values():
         d = x.get("declaration")
         if d:
-            assert d.find("source_location") != -1
+            assert cast(str, d).find("source_location") != -1
