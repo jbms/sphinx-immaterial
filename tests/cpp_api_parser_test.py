@@ -306,7 +306,7 @@ void LogSourceLocation(foo::SourceLocation loc = Default());
 class ClassWithSourceLocation {
  public:
   /// Constructor.
-  ClassWithSourceLocation(foo::SourceLocation loc = Default()) 
+  ClassWithSourceLocation(foo::SourceLocation loc = Default())
     : loc_(loc) {}
 
   foo::SourceLocation loc_;
