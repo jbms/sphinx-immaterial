@@ -1544,7 +1544,7 @@ def _transform_unexposed_decl(config: Config, decl: Cursor) -> Optional[VarEntit
 
     # Note: Since `source_code` is reconstructed from the tokens, we don't need to
     # worry about inconsistency in spacing.
-    if not re.search("^\s*template\s*<", source_code):
+    if not re.search(r"^\s*template\s*<", source_code):
         return None
 
     # Assume that it is a variable template
