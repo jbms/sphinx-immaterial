@@ -28,10 +28,10 @@ nox.options.sessions = [
     "check_lf",
 ]
 
-SUPPORTED_PY_VER = list(f"3.{x}" for x in range(10, 14))
+SUPPORTED_PY_VER = list(f"3.{x}" for x in range(10, 15))
 
 
-def uv_sync(session: nox.Session, *args: list[str]):
+def uv_sync(session: nox.Session, *args: str):
     session.run_install(
         "uv",
         "sync",
@@ -208,9 +208,11 @@ def docs(session: nox.Session, builder: str):
     ci_logger.info("::endgroup::")
 
 
-SUPPORTED_SPHINX = [6, 7, 8]
+SUPPORTED_SPHINX = [6, 7, 8, 9]
 
-EXCLUDED_PYTHON_SPHINX = {}
+EXCLUDED_PYTHON_SPHINX: set[tuple[str, str]] = {
+    ("3.10", "9"),
+}
 
 
 @nox.session
