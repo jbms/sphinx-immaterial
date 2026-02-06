@@ -191,6 +191,9 @@ sphinx7 = [
 sphinx8 = [
   "sphinx>=8,<9",
 ]
+sphinx9 = [
+    "sphinx>=9,<10; python_version >= '3.11'",
+]
 
 [project.optional-dependencies]
 json = [
@@ -226,6 +229,7 @@ conflicts = [
     { group = "sphinx6" },
     { group = "sphinx7" },
     { group = "sphinx8" },
+    { group = "sphinx9" },
   ],
 ]
 
