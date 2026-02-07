@@ -2,7 +2,7 @@
 
 import os
 import re
-from typing import Dict, List, Mapping, Optional, Type, cast
+from typing import Dict, Mapping, Optional, Type, cast
 from urllib.parse import urlparse
 
 import docutils.nodes
@@ -18,6 +18,14 @@ from sphinx import version_info
 from sphinx.application import Sphinx
 from sphinxcontrib.serializinghtml import JSONHTMLBuilder
 
+if version_info < (7, 2):
+    from sphinx.builders.html import JavaScript  # type: ignore[attr-defined]
+    from sphinx.builders.html import (  # type: ignore[attr-defined]
+        Stylesheet as StyleSheet,
+    )
+else:
+    from sphinx.builders.html._assets import _CascadingStyleSheet as StyleSheet
+    from sphinx.builders.html._assets import _JavaScript as JavaScript
 from . import (
     html_translator_mixin,
     json_builder_serializing_implementation,
@@ -62,9 +70,9 @@ def _get_html_builder(base_builder: Type[sphinx.builders.html.StandaloneHTMLBuil
 
     class CustomHTMLBuilder(base_builder):  # type: ignore
         if version_info < (7, 2):
-            css_files: List[sphinx.builders.html.Stylesheet]
+            css_files: list[StyleSheet]
         else:
-            _css_files: List[sphinx.builders.html._assets._CascadingStyleSheet]  # type: ignore[name-defined]
+            _css_files: list[StyleSheet]  # type: ignore[name-defined]
         theme: sphinx.theming.Theme
         templates: sphinx.jinja2glue.BuiltinTemplateLoader
 
@@ -98,11 +106,11 @@ def _get_html_builder(base_builder: Type[sphinx.builders.html.StandaloneHTMLBuil
                 excluded_scripts.add("_static/jquery.js")
                 excluded_scripts.add("_static/_sphinx_javascript_frameworks_compat.js")
             if version_info < (7, 2):
-                self.script_files: List[sphinx.builders.html.JavaScript] = [
+                self.script_files: list[JavaScript] = [
                     x for x in self.script_files if x.filename not in excluded_scripts
                 ]
             else:
-                self._js_files: List[sphinx.builders.html._assets._JavaScript] = [  # type: ignore[name-defined]
+                self._js_files: list[JavaScript] = [  # type: ignore[name-defined]
                     x for x in self._js_files if x.filename not in excluded_scripts
                 ]
 
@@ -121,14 +129,14 @@ def _get_html_builder(base_builder: Type[sphinx.builders.html.StandaloneHTMLBuil
             if version_info < (7, 2):
                 self.css_files = [
                     x
-                    for x in cast(List[sphinx.builders.html.Stylesheet], self.css_files)
+                    for x in cast(list[StyleSheet], self.css_files)
                     if x.filename not in excluded
                 ]
             else:
                 self._css_files = [
                     x
                     for x in cast(
-                        List[sphinx.builders.html._assets._CascadingStyleSheet],  # type: ignore[name-defined]
+                        list[StyleSheet],  # type: ignore[name-defined]
                         self._css_files,
                     )
                     if x.filename not in excluded
