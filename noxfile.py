@@ -73,7 +73,7 @@ PRE_EXCLUDE = re.compile(
             "__pycache__",
             "^src",
             "^sphinx_immaterial/(?:\\.icons|bundles|static|.*\\.html)",
-            "^tests/issue_134/.*(?:/build|\\.egg\\-info)",
+            "^tests/issue_134/.*(?:/build|\\.egg\\-info|\\.pyd)",
             "^node_modules",
             "^dist/",
             "^docs/(?:_build|\\w+_apigen_generated)",
