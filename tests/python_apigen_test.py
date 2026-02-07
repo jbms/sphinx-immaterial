@@ -14,7 +14,7 @@ from sphinx_immaterial.apidoc.python.apigen import (
 )
 
 if sphinx.version_info < (7, 2):
-    from sphinx.testing.path import path as SphinxPath
+    from sphinx.testing.path import path as SphinxPath  # type: ignore[import-not-found]
 else:
     from pathlib import Path as SphinxPath  # type: ignore[assignment]
 
