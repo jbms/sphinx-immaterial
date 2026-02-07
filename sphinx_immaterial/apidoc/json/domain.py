@@ -693,7 +693,7 @@ class JsonSchemaDirective(sphinx.directives.ObjectDescription):
         return sphinx_utils.parse_rst(
             self.state,
             sphinx_utils.format_directive("json:schema", entry.id, options=kwargs),
-            *self.get_source_info(),
+            *cast(tuple[str, int], self.get_source_info()),
         )
 
     def _make_field(
@@ -1107,7 +1107,7 @@ class JsonSchemaDomain(sphinx.domains.Domain):
         "schema": JsonSchemaRole(warn_dangling=True),
     }
 
-    object_types: Dict[str, sphinx.domains.ObjType] = {
+    object_types: Dict[str, sphinx.domains.ObjType] = {  # type: ignore[misc]
         "schema": sphinx.domains.ObjType("type", "schema"),
         "subschema": sphinx.domains.ObjType("member", "schema"),
     }
@@ -1116,7 +1116,7 @@ class JsonSchemaDomain(sphinx.domains.Domain):
         "schema": JsonSchemaDirective,
     }
 
-    initial_data: Dict[str, DomainSchemaEntry] = {
+    initial_data: Dict[str, DomainSchemaEntry] = {  # type: ignore[misc]
         "schemas": cast(DomainSchemaEntry, {}),
     }
 

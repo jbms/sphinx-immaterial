@@ -128,7 +128,8 @@ jobs:
         uses: ts-graphviz/setup-graphviz@b1de5da23ed0a6d14e0aeee8ed52fdd87af2363c # v2.0.2
         with:
           macos-skip-brew-update: "true"
-      - uses: actions/cache@v5
+      - uses: actions/cache/restore@v5
+        id: theme-build-cache
         with:
           path: ${{ github.workspace }}/theme_build_cache
           key: theme-build-cache-${{ runner.os }}-${{ github.run_id }}
@@ -141,6 +142,12 @@ jobs:
         with:
           name: doc-builds-${{ runner.os }}
           path: docs/_build/
+      - name: Save theme build cache
+        if: always() && steps.theme-build-cache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v5
+        with:
+          path: ${{ github.workspace }}/theme_build_cache
+          key: theme-build-cache-${{ runner.os }}-${{ github.run_id }}
       - name: upload docs to github pages
         if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main' && runner.os == 'Linux'
         uses: peaceiris/actions-gh-pages@4f9cc6602d3f66b9c108549d475ec49e8ef4d45e # pinned to v4.0.0
