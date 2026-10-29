@@ -24,7 +24,8 @@ import {
   Observable,
   catchError,
   map,
-  of
+  of,
+  share
 } from "rxjs"
 
 import {
@@ -130,5 +131,6 @@ export function fetchSitemap(base: URL | string): Observable<Sitemap> {
     .pipe(
       map(document => extract(document, new URL(base))),
       catchError(() => of(new Map())),
+      share()
     )
 }

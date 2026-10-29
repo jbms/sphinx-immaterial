@@ -63,6 +63,17 @@
         <link rel="next" href="{{ page.next_page.url | url }}" />
       {% endif %}
 
+      <!-- Alternate versions -->
+      {% if config.extra.alternate is iterable %}
+        {% for alt in config.extra.alternate %}
+          <link
+            rel="alternate"
+            href="{{ alt.link | url }}"
+            hreflang="{{ alt.lang | d(lang.t('language')) }}"
+          />
+        {% endfor %}
+      {% endif %}
+
       <!-- RSS feed -->
       {% if "rss" in config.plugins %}
         <link
@@ -145,17 +156,6 @@
     {% block analytics %}
       {% include "partials/integrations/analytics.html" %}
     {% endblock %}
-
-    <!-- Meta tags from front matter or plugins -->
-    {% if page.meta and page.meta.meta %}
-      {% for tag in page.meta.meta %}
-        <meta
-          {% for key, value in tag.items() %}
-            {{ key }}="{{value}}"
-          {% endfor %}
-        />
-      {% endfor %}
-    {% endif %}
 
     <!-- Custom front matter -->
     {% block extrahead %}{% endblock %}
@@ -323,9 +323,16 @@
             {% endif %}
           {% endblock %}
 
-          <!-- Page content -->
+          <!-- Page content container -->
           {% block container %}
             <div class="md-content" data-md-component="content">
+
+              <!-- Navigation path (breadcrumbs) -->
+              {% if "navigation.path" in features %}
+                {% include "partials/path.html" %}
+              {% endif %}
+
+              <!-- Page content -->
               <!-- sphinx-immaterial: Include role="main" for sphinx search -->
               <article class="md-content__inner md-typeset" role="main">
                 <!-- sphinx-immaterial: make content of `body` block visible to `content.html` -->
@@ -381,45 +388,41 @@
 
     <!-- Theme-related configuration -->
     {% block config %}
-      {%- set app = {
-        "base": base_url,
-        "features": features,
-        "translations": {},
-      } -%}
+      {% set _ = namespace() %}
+
+      <!-- Extra configuration -->
+      {% set _.annotate = config.extra.annotate %}
+      {% set _.tags = config.extra.tags %}
 
       <!-- Versioning -->
       {%- if config.extra.version -%}
-        {%- set mike = config.plugins.get("mike") -%}
+        {%- set mike = config.plugins.mike -%}
         {%- if not mike or mike.config.version_selector -%}
-          {%- set _ = app.update({ "version": config.extra.version }) -%}
+          {%- set _.version = config.extra.version -%}
         {%- endif -%}
       {%- endif -%}
 
-      <!-- Tags -->
-      {%- if config.extra.tags -%}
-        {%- set _ = app.update({ "tags": config.extra.tags }) -%}
-      {%- endif -%}
-
-      <!-- Translations -->
-      {%- set translations = app.translations -%}
-      {%- for key in [
-        "clipboard.copy",
-        "clipboard.copied",
-        "search.result.placeholder",
-        "search.result.none",
-        "search.result.one",
-        "search.result.other",
-        "search.result.more.one",
-        "search.result.more.other",
-        "search.result.term.missing",
-        "select.version"
-      ] -%}
-        {%- set _ = translations.update({ key: lang.t(key) }) -%}
-      {%- endfor -%}
-
       <!-- Configuration -->
       <script id="__config" type="application/json">
-        {{- app | tojson -}}
+        {{- {
+          "base": base_url,
+          "features": features,
+          "translations": {
+            "clipboard.copy": lang.t("clipboard.copy"),
+            "clipboard.copied": lang.t("clipboard.copied"),
+            "search.result.placeholder": lang.t("search.result.placeholder"),
+            "search.result.none": lang.t("search.result.none"),
+            "search.result.one": lang.t("search.result.one"),
+            "search.result.other": lang.t("search.result.other"),
+            "search.result.more.one": lang.t("search.result.more.one"),
+            "search.result.more.other": lang.t("search.result.more.other"),
+            "search.result.term.missing": lang.t("search.result.term.missing"),
+            "select.version": lang.t("select.version")
+          },
+          "annotate": _.annotate or none,
+          "tags": _.tags or none,
+          "version": _.version or none
+        } | tojson -}}
       </script>
     {% endblock %}
 
