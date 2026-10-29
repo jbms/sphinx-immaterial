@@ -5,6 +5,10 @@ version = "0"
 [build-system]
 requires = [
   "setuptools>=45",
-  "pybind11",
+  # We pin pybind11 because the tests compare its generated signatures against
+  # snapshots, and releases change how they spell types (e.g. 3.0.2 started
+  # writing `int` arguments as `typing.SupportsInt | typing.SupportsIndex`).
+  # When bumping this, update the snapshots with `pytest --snapshot-update`.
+  "pybind11==3.1.0",
 ]
 build-backend = "setuptools.build_meta"
