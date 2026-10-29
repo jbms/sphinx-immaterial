@@ -361,6 +361,16 @@ def _get_mkdocs_toc(
 class _NavContextObject(list):
     homepage: dict
 
+    @property
+    def items(self) -> "_NavContextObject":
+        """Mirrors mkdocs' `Navigation.items`, which the templates iterate over.
+
+        We need this because a plain list has no `items` attribute, and Jinja
+        silently treats the missing attribute as an empty sequence. Without it,
+        the navigation sidebar and tabs render with no entries at all.
+        """
+        return self
+
 
 def _traverse_mkdocs_toc(toc: List[MkdocsNavEntry]) -> Iterator[MkdocsNavEntry]:
     for entry in toc:
