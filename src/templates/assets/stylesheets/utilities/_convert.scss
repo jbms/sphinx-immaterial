@@ -47,6 +47,17 @@
     round(color.channel($color, "lightness", $space: hsl));
 }
 
+///
+/// Convert color in RGBA to RGB look-alike
+///
+@function rgba2rgb($color, $background: #FFFFFF) {
+  @return mix(
+    rgb(red($color), green($color), blue($color)),
+    $background,
+    alpha($color) * 100%
+  );
+}
+
 // ----------------------------------------------------------------------------
 
 ///

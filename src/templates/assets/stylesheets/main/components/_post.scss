@@ -24,6 +24,13 @@
 // Rules
 // ----------------------------------------------------------------------------
 
+// Post variables
+:root {
+  --md-post-pin-icon: svg-load("material/pin.svg");
+}
+
+// ----------------------------------------------------------------------------
+
 // Post
 .md-post {
 
@@ -114,6 +121,30 @@
   // Add margin to table of contents
   > .md-nav--secondary {
     margin: 1em 0;
+  }
+}
+
+// ----------------------------------------------------------------------------
+
+// Post is pinned
+.md-pin {
+  padding: px2rem(4px);
+  margin-top: px2rem(-1px);
+  background: var(--md-default-fg-color--lightest);
+  border-radius: px2rem(20px);
+
+  // Pin icon
+  &::after {
+    display: block;
+    width: px2rem(12px);
+    height: px2rem(12px);
+    margin: 0 auto;
+    content: "";
+    background-color: currentcolor;
+    mask-image: var(--md-post-pin-icon);
+    mask-repeat: no-repeat;
+    mask-position: center;
+    mask-size: contain;
   }
 }
 

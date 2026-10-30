@@ -21,7 +21,8 @@
 -->
 
 <!-- Render navigation link content -->
-{% macro render_content(nav_item, ref = nav_item) %}
+{% macro render_content(nav_item, ref) %}
+  {% set ref = ref or nav_item %}
 
   <!-- Navigation link icon -->
   <!-- sphinx-immaterial: "navigation.indexes" feature is built into sphinx -->
@@ -36,7 +37,8 @@
 {% endmacro %}
 
 <!-- Render navigation item -->
-{% macro render(nav_item, ref = nav_item) %}
+{% macro render(nav_item, ref) %}
+  {% set ref = ref or nav_item %}
 
   <!-- Determine classes -->
   {% set class = "md-tabs__item" %}

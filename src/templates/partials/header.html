@@ -91,13 +91,20 @@
 
     <!-- Button to open search modal -->
     {% if "material/search" in config.plugins %}
-      <label class="md-header__button md-icon" for="__search">
-        {% set icon = config.theme.icon.search or "material/magnify" %}
-        {% include ".icons/" ~ icon ~ ".svg" %}
-      </label>
+      <!-- sphinx-immaterial: plugin options are plain dicts rather than mkdocs
+           plugin objects, so there is no `config` and search is enabled -->
+      {% set search = config.plugins["material/search"] | attr("config") | d({"enabled": true}, true) %}
 
-      <!-- Search interface -->
-      {% include "partials/search.html" %}
+      <!-- Check if search is actually enabled - see https://t.ly/DT_0V -->
+      {% if search.enabled %}
+        <label class="md-header__button md-icon" for="__search">
+          {% set icon = config.theme.icon.search or "material/magnify" %}
+          {% include ".icons/" ~ icon ~ ".svg" %}
+        </label>
+
+        <!-- Search interface -->
+        {% include "partials/search.html" %}
+      {% endif %}
     {% endif %}
 
     <!-- Repository information -->

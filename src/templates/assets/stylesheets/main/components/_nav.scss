@@ -106,7 +106,12 @@
 
     // Navigation link that was passed
     &--passed {
-      color: var(--md-default-fg-color--light);
+
+      // Also enable color transitions on inline code blocks
+      &,
+      code {
+        color: var(--md-default-fg-color--light);
+      }
     }
 
     // Active link
@@ -141,11 +146,23 @@
       // and the element will become unclickable. Setting `position: relative`
       // seems to fix the issue - see https://bit.ly/3HljM1T
       position: relative;
+
+      // Truncate overflowing code blocks in the navigation with ellipsis, as
+      // the full link title is always shown as a tooltip on focus/hover
+      code {
+        word-break: normal;
+      }
     }
 
     // Always align navigation icons to the end
     .md-icon:last-child {
       margin-inline-start: auto;
+    }
+
+    // Navigation with content that is typeset
+    .md-typeset {
+      font-size: px2rem(14px);
+      line-height: 1.3;
     }
 
     // Navigation link icon
@@ -162,6 +179,12 @@
     &:is([href], [for]):is(:focus, :hover) {
       color: var(--md-accent-fg-color);
       cursor: pointer;
+
+      // Inline code block
+      code {
+        color: var(--md-accent-fg-color);
+        background-color: var(--md-accent-fg-color--transparent);
+      }
     }
 
     // Show outline for keyboard devices
