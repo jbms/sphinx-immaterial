@@ -1568,7 +1568,7 @@ def _split_autodoc_rst_output(
             return value, location
         return None, None
 
-    group_name, group_location = extract_field("group")
+    group_name, _group_location = extract_field("group")
 
     order_str, order_location = extract_field("order")
     order = None

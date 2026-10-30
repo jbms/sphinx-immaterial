@@ -155,8 +155,8 @@ _DECODE_TYPE_PARAM: dict[str, typing.Callable[[str], TypeParam]] = {
 }
 
 if sys.version_info >= (3, 10):
-    _ENCODE_TYPE_PARAM[typing.ParamSpec] = (
-        lambda annotation: TYPE_VAR_ANNOTATION_PREFIX + "P_" + annotation.__name__
+    _ENCODE_TYPE_PARAM[typing.ParamSpec] = lambda annotation: (
+        TYPE_VAR_ANNOTATION_PREFIX + "P_" + annotation.__name__
     )
     _DECODE_TYPE_PARAM["P"] = typing.ParamSpec
 if sys.version_info >= (3, 11):
