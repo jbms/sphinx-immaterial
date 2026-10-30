@@ -232,6 +232,10 @@ def _monkey_patch_stringify_annotation_to_support_type_params():
     for module in [
         "sphinx.util.typing",
         "sphinx.ext.autodoc",
+        "sphinx.ext.autodoc._dynamic._loader",
+        "sphinx.ext.autodoc._dynamic._type_annotations",
+        "sphinx.ext.autodoc._legacy_class_based._documenters",
+        "sphinx.ext.autodoc._generate",
         "sphinx.ext.autodoc.typehints",
         "sphinx.util.inspect",
         "sphinx.ext.napoleon.docstring",
