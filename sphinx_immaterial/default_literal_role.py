@@ -19,7 +19,7 @@ def set_default_literal_role(role: str):
 
         nodeclass.__name__ = "literal"
 
-        before, inlines, remaining, sysmessages, endstring = self.inline_obj(
+        before, inlines, remaining, sysmessages, _endstring = self.inline_obj(
             match,
             lineno,
             self.patterns.literal,

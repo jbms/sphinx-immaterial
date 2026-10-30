@@ -13,7 +13,7 @@ from ._tensorstore import *  # noqa: F403
 # fmt: off
 
 
-class Dim():
+class Dim:
     """1-d index interval with optionally-implicit bounds and dimension label.
 
     Examples:
@@ -247,7 +247,7 @@ Overload:
 
     __hash__ = None
     pass
-class DimExpression():
+class DimExpression:
     """Specifies an advanced indexing operation.
 
     Dimension expressions permit indexing using
@@ -260,7 +260,7 @@ class DimExpression():
     Operations
     ==========
     """
-    class _Label():
+    class _Label:
         def __getitem__(self, *args, **kwargs) -> None:
             """__getitem__(self: tensorstore_demo.DimExpression._Label, labels: Union[str, Sequence[str]]) -> tensorstore_demo.DimExpression
 
@@ -327,7 +327,7 @@ class DimExpression():
             """
         __iter__ = None
         pass
-    class _TranslateTo():
+    class _TranslateTo:
         def __getitem__(self, *args, **kwargs) -> None:
             """__getitem__(self: tensorstore_demo.DimExpression._TranslateTo, origins: Union[Sequence[Optional[int]], Optional[int]]) -> tensorstore_demo.DimExpression
 
@@ -395,7 +395,7 @@ class DimExpression():
             """
         __iter__ = None
         pass
-    class _Vindex():
+    class _Vindex:
         def __getitem__(self, *args, **kwargs) -> None:
             """__getitem__(self: tensorstore_demo.DimExpression._Vindex, indices: typing.Any) -> tensorstore_demo.DimExpression
 
@@ -855,7 +855,7 @@ class DimExpression():
         pass
     __iter__ = None
     pass
-class IndexDomain():
+class IndexDomain:
     """Domain (including bounds and optional dimension labels) of an N-dimensional index space.
 
     Logically, an :py:class:`.IndexDomain` is the cartesian product of a sequence of :py:obj:`.Dim` objects.

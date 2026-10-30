@@ -672,7 +672,7 @@ def _add_enumerators(
         assert len(nodes) == 1
         enumerator_objdesc = nodes[0]
         obj_content += enumerator_objdesc
-        enumerator_signode, enumerator_doc_node = enumerator_objdesc.children
+        enumerator_signode, _enumerator_doc_node = enumerator_objdesc.children
         assert isinstance(enumerator_signode, sphinx.addnodes.desc_signature)
         enumerator_signode["toc_title"] = name
 
