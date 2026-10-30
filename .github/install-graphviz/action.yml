@@ -1,0 +1,48 @@
+name: Install Graphviz
+description: >-
+  Installs Graphviz, including the layout engines that the docs and tests use,
+  with each OS's package manager.
+
+runs:
+  using: composite
+  steps:
+    # Ubuntu 26.04 ships Graphviz's other layout engines (e.g. the `twopi`
+    # layout used by docs/test.dot) in a separate package that apt doesn't pull
+    # in, so we install it too when the distro has it.
+    - name: Install Graphviz (Linux)
+      if: runner.os == 'Linux'
+      shell: bash
+      run: |
+        sudo apt-get update
+        packages=(graphviz)
+        if apt-cache show libgvplugin-neato-layout8 > /dev/null 2>&1; then
+          packages+=(libgvplugin-neato-layout8)
+        fi
+        sudo apt-get install -y "${packages[@]}"
+        dot -V
+
+    - name: Install Graphviz (macOS)
+      if: runner.os == 'macOS'
+      shell: bash
+      env:
+        HOMEBREW_NO_AUTO_UPDATE: "1"
+      run: |
+        brew install graphviz
+        dot -V
+
+    # Chocolatey's community feed sometimes answers with a 503, and choco
+    # treats that as "nothing to install" rather than an error. We retry until
+    # `dot` shows up so a flaky feed fails here instead of in the tests.
+    - name: Install Graphviz (Windows)
+      if: runner.os == 'Windows'
+      shell: pwsh
+      run: |
+        for ($attempt = 1; $attempt -le 5; $attempt++) {
+          if (Get-Command dot -ErrorAction SilentlyContinue) { dot -V; exit 0 }
+          Write-Host "dot not found; installing Graphviz (attempt $attempt)"
+          Start-Sleep -Seconds (20 * ($attempt - 1))
+          choco install graphviz -y --no-progress
+        }
+        if (Get-Command dot -ErrorAction SilentlyContinue) { dot -V; exit 0 }
+        Write-Error "Graphviz could not be installed"
+        exit 1

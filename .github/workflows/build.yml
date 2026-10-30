@@ -125,9 +125,7 @@ jobs:
           path: |
             dist/*.whl
       - name: Setup Graphviz
-        uses: ts-graphviz/setup-graphviz@b1de5da23ed0a6d14e0aeee8ed52fdd87af2363c # v2.0.2
-        with:
-          macos-skip-brew-update: "true"
+        uses: ./.github/install-graphviz
       - uses: actions/cache@v5
         with:
           path: ${{ github.workspace }}/theme_build_cache
@@ -188,9 +186,7 @@ jobs:
       - name: Build CSS and JS bundles
         run: npm run build
       - name: Setup Graphviz
-        uses: ts-graphviz/setup-graphviz@b1de5da23ed0a6d14e0aeee8ed52fdd87af2363c # v2.0.2
-        with:
-          macos-skip-brew-update: "true"
+        uses: ./.github/install-graphviz
       - uses: actions/cache/restore@v5
         with:
           path: ${{ github.workspace }}/theme_build_cache
