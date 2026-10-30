@@ -1220,7 +1220,7 @@
   
 
 <h1>Source code for sphinx_immaterial.apidoc.cpp.external_cpp_references</h1><div class="highlight"><pre>
-<span></span><code><span class="sd">&quot;&quot;&quot;Support for cross-referencing externally-defined C++ symbols.</span>
+<span></span><code><span class="sd">"""Support for cross-referencing externally-defined C++ symbols.</span>
 
 <span class="sd">The builtin `sphinx.ext.intersphinx` extension does not work well for C++</span>
 <span class="sd">because it only supports exact reference matches.  Consequently, a reference to</span>
@@ -1229,7 +1229,7 @@
 <span class="sd">This extension implements the simple solution of stripping off all template</span>
 <span class="sd">arguments when matching, which is not perfect but handles the most common use</span>
 <span class="sd">cases.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">NamedTuple</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">TypedDict</span>
@@ -1249,38 +1249,38 @@
 <div class="viewcode-block" id="ExternalCppReference">
 <a class="viewcode-back" href="../../../../apidoc/cpp/external_cpp_references.html#sphinx_immaterial.apidoc.cpp.external_cpp_references.ExternalCppReference">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">ExternalCppReference</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;A class used to represent each dictionary field&#39;s value specified in</span>
-<span class="sd">    :confval:`external_cpp_references`.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""A class used to represent each dictionary field's value specified in</span>
+<span class="sd">    :confval:`external_cpp_references`."""</span>
 
     <span class="n">url</span><span class="p">:</span> <span class="nb">str</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;URL to use as the target for references to this symbol.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""URL to use as the target for references to this symbol."""</span>
 
     <span class="n">object_type</span><span class="p">:</span> <span class="nb">str</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;C++ object type.</span>
+<span class="w">    </span><span class="sd">"""C++ object type.</span>
 <span class="sd">    This should be one of the object types defined by the C++ domain:</span>
 
 <span class="sd">    .. hlist::</span>
-<span class="sd">        - :python:`&quot;class&quot;`</span>
-<span class="sd">        - :python:`&quot;union&quot;`</span>
-<span class="sd">        - :python:`&quot;function&quot;`</span>
-<span class="sd">        - :python:`&quot;member&quot;`</span>
-<span class="sd">        - :python:`&quot;type&quot;`</span>
-<span class="sd">        - :python:`&quot;concept&quot;`</span>
-<span class="sd">        - :python:`&quot;enum&quot;`</span>
-<span class="sd">        - :python:`&quot;enumerator&quot;`</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">        - :python:`"class"`</span>
+<span class="sd">        - :python:`"union"`</span>
+<span class="sd">        - :python:`"function"`</span>
+<span class="sd">        - :python:`"member"`</span>
+<span class="sd">        - :python:`"type"`</span>
+<span class="sd">        - :python:`"concept"`</span>
+<span class="sd">        - :python:`"enum"`</span>
+<span class="sd">        - :python:`"enumerator"`</span>
+<span class="sd">    """</span>
 
     <span class="n">desc</span><span class="p">:</span> <span class="nb">str</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Description text to include in the tooltip.&quot;&quot;&quot;</span></div>
+<span class="w">    </span><span class="sd">"""Description text to include in the tooltip."""</span></div>
 
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_strip_template_arguments</span><span class="p">(</span><span class="n">s</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
-    <span class="n">s</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">lstrip</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">lstrip</span><span class="p">(</span><span class="s2">":"</span><span class="p">)</span>
     <span class="n">prev_index</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="n">retained_parts</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">nested</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">pattern</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;[()&lt;&gt;]&quot;</span><span class="p">)</span>
+    <span class="n">pattern</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">"[()&lt;&gt;]"</span><span class="p">)</span>
     <span class="n">s_len</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
     <span class="k">while</span> <span class="n">prev_index</span> <span class="o">&lt;</span> <span class="n">s_len</span><span class="p">:</span>
         <span class="n">m</span> <span class="o">=</span> <span class="n">pattern</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">prev_index</span><span class="p">)</span>
@@ -1295,27 +1295,27 @@
             <span class="k">del</span> <span class="n">nested</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
             <span class="n">prev_index</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">end</span><span class="p">()</span>
             <span class="k">continue</span>
-        <span class="k">if</span> <span class="n">ch</span> <span class="o">==</span> <span class="s2">&quot;(&quot;</span><span class="p">:</span>
-            <span class="n">nested</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;)&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">ch</span> <span class="o">==</span> <span class="s2">"("</span><span class="p">:</span>
+            <span class="n">nested</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">")"</span><span class="p">)</span>
             <span class="n">prev_index</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">end</span><span class="p">()</span>
             <span class="k">continue</span>
-        <span class="k">if</span> <span class="n">ch</span> <span class="o">==</span> <span class="s2">&quot;&lt;&quot;</span><span class="p">:</span>
-            <span class="n">nested</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;&gt;&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">ch</span> <span class="o">==</span> <span class="s2">"&lt;"</span><span class="p">:</span>
+            <span class="n">nested</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"&gt;"</span><span class="p">)</span>
             <span class="n">prev_index</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">end</span><span class="p">()</span>
             <span class="k">continue</span>
-        <span class="k">if</span> <span class="n">ch</span> <span class="o">==</span> <span class="s2">&quot;)&quot;</span><span class="p">:</span>
-            <span class="k">while</span> <span class="n">nested</span> <span class="ow">and</span> <span class="n">nested</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">&quot;)&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">ch</span> <span class="o">==</span> <span class="s2">")"</span><span class="p">:</span>
+            <span class="k">while</span> <span class="n">nested</span> <span class="ow">and</span> <span class="n">nested</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">")"</span><span class="p">:</span>
                 <span class="k">del</span> <span class="n">nested</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">nested</span><span class="p">:</span>
                 <span class="c1"># Mismatched parentheses</span>
                 <span class="k">return</span> <span class="kc">None</span>
             <span class="n">prev_index</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">end</span><span class="p">()</span>
             <span class="k">continue</span>
-        <span class="k">if</span> <span class="n">ch</span> <span class="o">==</span> <span class="s2">&quot;&gt;&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">ch</span> <span class="o">==</span> <span class="s2">"&gt;"</span><span class="p">:</span>
             <span class="c1"># Unmatched</span>
             <span class="n">prev_index</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">end</span><span class="p">()</span>
             <span class="k">continue</span>
-    <span class="k">return</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">retained_parts</span><span class="p">)</span>
+    <span class="k">return</span> <span class="s2">""</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">retained_parts</span><span class="p">)</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_missing_reference</span><span class="p">(</span>
@@ -1326,10 +1326,10 @@
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">reference</span><span class="p">]:</span>
     <span class="n">data</span> <span class="o">=</span> <span class="n">get_mappings</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;refdomain&quot;</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">&quot;cpp&quot;</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"refdomain"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"cpp"</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">None</span>
 
-    <span class="n">target</span> <span class="o">=</span> <span class="n">_strip_template_arguments</span><span class="p">(</span><span class="n">node</span><span class="p">[</span><span class="s2">&quot;reftarget&quot;</span><span class="p">])</span>
+    <span class="n">target</span> <span class="o">=</span> <span class="n">_strip_template_arguments</span><span class="p">(</span><span class="n">node</span><span class="p">[</span><span class="s2">"reftarget"</span><span class="p">])</span>
     <span class="k">if</span> <span class="n">target</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">None</span>
     <span class="n">result</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">target</span><span class="p">)</span>
@@ -1339,16 +1339,16 @@
     <span class="n">reftitle</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">desc</span>
 
     <span class="n">newnode</span> <span class="o">=</span> <span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">reference</span><span class="p">(</span>
-        <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">internal</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">refuri</span><span class="o">=</span><span class="n">result</span><span class="o">.</span><span class="n">url</span><span class="p">,</span> <span class="n">reftitle</span><span class="o">=</span><span class="n">reftitle</span>
+        <span class="s2">""</span><span class="p">,</span> <span class="s2">""</span><span class="p">,</span> <span class="n">internal</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">refuri</span><span class="o">=</span><span class="n">result</span><span class="o">.</span><span class="n">url</span><span class="p">,</span> <span class="n">reftitle</span><span class="o">=</span><span class="n">reftitle</span>
     <span class="p">)</span>
     <span class="n">newnode</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">contnode</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">object_type</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;class&quot;</span><span class="p">,</span> <span class="s2">&quot;type alias&quot;</span><span class="p">,</span> <span class="s2">&quot;enum&quot;</span><span class="p">):</span>
-        <span class="n">newnode</span><span class="p">[</span><span class="s2">&quot;classes&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;desctype&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">object_type</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">"class"</span><span class="p">,</span> <span class="s2">"type alias"</span><span class="p">,</span> <span class="s2">"enum"</span><span class="p">):</span>
+        <span class="n">newnode</span><span class="p">[</span><span class="s2">"classes"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"desctype"</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">newnode</span>
 
 
-<span class="n">_CPPREFERENCE_APP_KEY</span> <span class="o">=</span> <span class="s2">&quot;_sphinx_immaterial_cppreference_objects&quot;</span>
+<span class="n">_CPPREFERENCE_APP_KEY</span> <span class="o">=</span> <span class="s2">"_sphinx_immaterial_cppreference_objects"</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">get_mappings</span><span class="p">(</span><span class="n">app</span><span class="p">:</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">Sphinx</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">ObjectInfo</span><span class="p">]:</span>
@@ -1364,20 +1364,20 @@
     <span class="n">mappings</span> <span class="o">=</span> <span class="n">get_mappings</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
 
     <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">external_cpp_references</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-        <span class="n">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">.</span><span class="n">lstrip</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">.</span><span class="n">lstrip</span><span class="p">(</span><span class="s2">":"</span><span class="p">)</span>
         <span class="n">mappings</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">ObjectInfo</span><span class="p">(</span><span class="o">**</span><span class="n">value</span><span class="p">)</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">setup</span><span class="p">(</span><span class="n">app</span><span class="p">:</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">Sphinx</span><span class="p">):</span>
-    <span class="n">app</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;missing-reference&quot;</span><span class="p">,</span> <span class="n">_missing_reference</span><span class="p">)</span>
-    <span class="n">app</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;builder-inited&quot;</span><span class="p">,</span> <span class="n">_load_from_config</span><span class="p">)</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">"missing-reference"</span><span class="p">,</span> <span class="n">_missing_reference</span><span class="p">)</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">"builder-inited"</span><span class="p">,</span> <span class="n">_load_from_config</span><span class="p">)</span>
     <span class="n">app</span><span class="o">.</span><span class="n">add_config_value</span><span class="p">(</span>
-        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;external_cpp_references&quot;</span><span class="p">,</span>
+        <span class="n">name</span><span class="o">=</span><span class="s2">"external_cpp_references"</span><span class="p">,</span>
         <span class="n">default</span><span class="o">=</span><span class="p">{},</span>
-        <span class="n">types</span><span class="o">=</span><span class="p">(</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="s2">&quot;ExternalCppReference&quot;</span><span class="p">],),</span>
-        <span class="n">rebuild</span><span class="o">=</span><span class="s2">&quot;env&quot;</span><span class="p">,</span>
+        <span class="n">types</span><span class="o">=</span><span class="p">(</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="s2">"ExternalCppReference"</span><span class="p">],),</span>
+        <span class="n">rebuild</span><span class="o">=</span><span class="s2">"env"</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;parallel_read_safe&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;parallel_write_safe&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">"parallel_read_safe"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">"parallel_write_safe"</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
 </code></pre></div>
 
 
@@ -1399,7 +1399,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    Oct 16, 2026
+    Oct 30, 2026
   </span>
 
     

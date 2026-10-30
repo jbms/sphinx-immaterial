@@ -1220,10 +1220,10 @@
   
 
 <h1>Source code for tensorstore_demo._tensorstore</h1><div class="highlight"><pre>
-<span></span><code><span class="sd">&quot;&quot;&quot;Demo file for Python API documentation generation.</span>
+<span></span><code><span class="sd">"""Demo file for Python API documentation generation.</span>
 
 <span class="sd">This defines some entities that are aliased into the `tensorstore_demo` module.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">typing</span>
 
@@ -1231,21 +1231,21 @@
 <div class="viewcode-block" id="Foo">
 <a class="viewcode-back" href="../../python_apigen_generated/Foo.html#tensorstore_demo.Foo">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">Foo</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    This is a class defined in the ``tensorstore_demo._tensorstore`` module</span>
 <span class="sd">    but should appear to be defined in the ``tensorstore_demo`` module.</span>
 
 <span class="sd">    Group:</span>
 <span class="sd">      Some other group</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
 <div class="viewcode-block" id="Foo.bar">
 <a class="viewcode-back" href="../../python_apigen_generated/FooSubclass.html#tensorstore_demo.Foo.bar">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">bar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns :py:param:`x`.</span>
+<span class="w">        </span><span class="sd">"""Returns :py:param:`x`.</span>
 
 <span class="sd">        :param x: Parameter to :py:obj:`.bar`.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">pass</span></div>
 </div>
 
@@ -1254,13 +1254,13 @@
 <div class="viewcode-block" id="bar">
 <a class="viewcode-back" href="../../python_apigen_generated/bar.html#tensorstore_demo.bar">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">bar</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Foo</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Foo</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns :py:param:`x`.</span>
+<span class="w">    </span><span class="sd">"""Returns :py:param:`x`.</span>
 
 <span class="sd">    :param x: Parameter to :py:obj:`.bar`.</span>
 
 <span class="sd">    Group:</span>
 <span class="sd">      Some other group.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">pass</span></div>
 
 
@@ -1271,16 +1271,16 @@
 <div class="viewcode-block" id="FooSubclass">
 <a class="viewcode-back" href="../../python_apigen_generated/FooSubclass.html#tensorstore_demo.FooSubclass">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">FooSubclass</span><span class="p">(</span><span class="n">Foo</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;This is a subclass of :py:obj:`.Foo`.</span>
+<span class="w">    </span><span class="sd">"""This is a subclass of :py:obj:`.Foo`.</span>
 
 <span class="sd">    Group:</span>
 <span class="sd">      Some other group.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
 <div class="viewcode-block" id="FooSubclass.baz">
 <a class="viewcode-back" href="../../python_apigen_generated/FooSubclass.baz.html#tensorstore_demo.FooSubclass.baz">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">baz</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Does the baz operation.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Does the baz operation."""</span>
         <span class="k">return</span> <span class="n">x</span></div>
 
 
@@ -1295,7 +1295,7 @@
 <div class="viewcode-block" id="FooSubclass.overloaded_method">
 <a class="viewcode-back" href="../../python_apigen_generated/FooSubclass.overloaded_method.html#tensorstore_demo.FooSubclass.overloaded_method">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">overloaded_method</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns its argument.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Returns its argument."""</span>
         <span class="k">return</span> <span class="n">x</span></div>
 </div>
 
@@ -1320,7 +1320,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    Oct 16, 2026
+    Oct 30, 2026
   </span>
 
     

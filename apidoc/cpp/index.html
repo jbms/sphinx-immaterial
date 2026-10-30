@@ -1640,9 +1640,9 @@ does not apply to the name of the symbol being defined by the signature, only
 to parameter types, return types, default value expressions, etc.</p>
 <p>For example, with the following in <code class="file docutils literal notranslate"><span class="pre">conf.py</span></code>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="n">cpp_strip_namespaces_from_signatures</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s2">&quot;my_ns1&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;my_ns2&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;my_ns2::my_nested_ns&quot;</span><span class="p">,</span>
+    <span class="s2">"my_ns1"</span><span class="p">,</span>
+    <span class="s2">"my_ns2"</span><span class="p">,</span>
+    <span class="s2">"my_ns2::my_nested_ns"</span><span class="p">,</span>
 <span class="p">]</span>
 </code></pre></div>
 </div>
@@ -1685,20 +1685,20 @@ to parameter types, return types, default value expressions, etc.</p>
 </div>
 <div class="warning admonition">
 <p class="admonition-title">Warning</p>
-<p>If a nested symbol name like <code class="code highlight python docutils literal highlight-python"><span class="s2">&quot;my_ns1::abc&quot;</span></code> is specified in
+<p>If a nested symbol name like <code class="code highlight python docutils literal highlight-python"><span class="s2">"my_ns1::abc"</span></code> is specified in
 <a class="reference internal" href="#confval-cpp_strip_namespaces_from_signatures" title="cpp_strip_namespaces_from_signatures (configuration value) — list[str] specifying namespaces to strip from signatures."><code class="xref std std-confval docutils literal notranslate"><span class="pre">cpp_strip_namespaces_from_signatures</span></code></a>, then a reference like
 <code class="code highlight cpp docutils literal highlight-cpp"><span class="n">my_ns1</span><span class="o">::</span><span class="n">abc</span><span class="o">::</span><span class="n">X</span></code> will be converted to <code class="code highlight cpp docutils literal highlight-cpp"><span class="n">my_ns1</span><span class="o">::</span><span class="n">X</span></code>.  To also
-strip the <code class="code highlight cpp docutils literal highlight-cpp"><span class="n">my_ns1</span><span class="o">::</span></code> portion, <code class="code highlight python docutils literal highlight-python"><span class="s2">&quot;my_ns1&quot;</span></code> must also be
+strip the <code class="code highlight cpp docutils literal highlight-cpp"><span class="n">my_ns1</span><span class="o">::</span></code> portion, <code class="code highlight python docutils literal highlight-python"><span class="s2">"my_ns1"</span></code> must also be
 specified in <a class="reference internal" href="#confval-cpp_strip_namespaces_from_signatures" title="cpp_strip_namespaces_from_signatures (configuration value) — list[str] specifying namespaces to strip from signatures."><code class="xref std std-confval docutils literal notranslate"><span class="pre">cpp_strip_namespaces_from_signatures</span></code></a>.</p>
 </div>
 </dd></dl>
 
 <dl class="std confval objdesc">
 <dt class="sig sig-object highlight std" id="confval-cpp_xref_resolve_c_macro_pattern">
-<span class="sig-name descname"><span class="pre">cpp_xref_resolve_c_macro_pattern</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="s1">&#39;[A-Z]+[A-Z_0-9]*&#39;</span></code><a class="headerlink" href="#confval-cpp_xref_resolve_c_macro_pattern" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">cpp_xref_resolve_c_macro_pattern</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="s1">'[A-Z]+[A-Z_0-9]*'</span></code><a class="headerlink" href="#confval-cpp_xref_resolve_c_macro_pattern" title="Link to this definition">¶</a></dt>
 <dd><p>This theme adds support for resolving C macros and C macro parameters from
-cross references created using C++-domain roles like <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/domains/cpp.html#role-cpp-expr" title="(in Sphinx v9.1.1)"><code class="xref rst rst-role docutils literal notranslate"><span class="pre">cpp:expr</span></code></a> and
-<a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/domains/cpp.html#role-cpp-texpr" title="(in Sphinx v9.1.1)"><code class="xref rst rst-role docutils literal notranslate"><span class="pre">cpp:texpr</span></code></a>.</p>
+cross references created using C++-domain roles like <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/domains/cpp.html#role-cpp-expr" title="(in Sphinx v9.3.0)"><code class="xref rst rst-role docutils literal notranslate"><span class="pre">cpp:expr</span></code></a> and
+<a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/domains/cpp.html#role-cpp-texpr" title="(in Sphinx v9.3.0)"><code class="xref rst rst-role docutils literal notranslate"><span class="pre">cpp:texpr</span></code></a>.</p>
 <p>To avoid an additional symbol lookup in most cases, this support relies on a
 regular expression pattern to identify potential C macro targets.  By
 default, only names consisting of uppercase latin letters, underscores, or
@@ -1707,7 +1707,7 @@ be changed:</p>
 <div class="literal-block-wrapper docutils container" id="id2">
 <div class="code-block-caption highlight"><span class="filename"><span class="caption-text">
 </span>Add to <code class="file docutils literal notranslate"><span class="pre">conf.py</span></code> to allow all identifiers as macro names<a class="headerlink" href="#id2" title="Permalink to this code">¶</a></span></div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="n">cpp_xref_resolve_c_macro_pattern</span> <span class="o">=</span> <span class="s2">&quot;[^&lt;&gt;():]+&quot;</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="n">cpp_xref_resolve_c_macro_pattern</span> <span class="o">=</span> <span class="s2">"[^&lt;&gt;():]+"</span>
 </code></pre></div>
 </div>
 </div>
@@ -1720,8 +1720,8 @@ be changed:</p>
 <div class="literal-block-wrapper docutils container" id="id3">
 <div class="code-block-caption highlight"><span class="filename"><span class="caption-text">
 </span>Specifying <code class="code highlight cpp docutils literal highlight-cpp"><span class="cp">#include</span></code> directives in signatures<a class="headerlink" href="#id3" title="Permalink to this code">¶</a></span></div>
-<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><code><span class="p">..</span> <span class="ow">cpp:function</span><span class="p">::</span> #include &quot;my_header.h&quot;
-                  #include &quot;another_header.h&quot;
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><code><span class="p">..</span> <span class="ow">cpp:function</span><span class="p">::</span> #include "my_header.h"
+                  #include "another_header.h"
                   void foo(int param);
 
    Some function.
@@ -1732,9 +1732,9 @@ be changed:</p>
 <dl class="cpp function objdesc">
 <dt class="sig sig-object highlight api-include-path cpp">
 <div class="docutils container">
-<code class="cpp code highlight docutils literal highlight-cpp"><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;my_header.h&quot;</span></code></div>
+<code class="cpp code highlight docutils literal highlight-cpp"><span class="cp">#include</span><span class="w"> </span><span class="cpf">"my_header.h"</span></code></div>
 <div class="docutils container">
-<code class="cpp code highlight docutils literal highlight-cpp"><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;another_header.h&quot;</span></code></div>
+<code class="cpp code highlight docutils literal highlight-cpp"><span class="cp">#include</span><span class="w"> </span><span class="cpf">"another_header.h"</span></code></div>
 </dt>
 <dt class="sig sig-object highlight cpp" id="_CPPv43fooi">
 <span id="_CPPv33fooi"></span><span id="_CPPv23fooi"></span><span id="foo__i"></span><span class="kt">void</span><span class="w">&nbsp;</span><span class="sig-name descname"><span class="n">foo</span></span><span class="p">(</span><span><span class="kt">int</span><span class="w">&nbsp;</span><a class="n sig-param reference internal" href="#_CPPv43fooi" title="foo::param (C++ function parameter)"><span class="n sig-param">param</span></a></span><span class="p">)</span><span class="p">;</span><a class="headerlink" href="#_CPPv43fooi" title="Link to this definition">¶</a></dt>
@@ -1804,7 +1804,7 @@ for each signature.</p>
 <div class="code-block-caption highlight"><span class="filename"><span class="caption-text">
 </span>Function defined with alternative symbol identifier.<a class="headerlink" href="#id5" title="Permalink to this code">¶</a></span></div>
 <div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><code><span class="p">..</span> <span class="ow">cpp:function</span><span class="p">::</span> int my_function_with_custom_identifier(int x);
-   <span class="nc">:symbol-ids:</span> [&quot;my_custom_id&quot;]
+   <span class="nc">:symbol-ids:</span> ["my_custom_id"]
 </code></pre></div>
 </div>
 </div>
@@ -1869,7 +1869,7 @@ identifier.  This option has no effect if <code class="code highlight rst docuti
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    Oct 16, 2026
+    Oct 30, 2026
   </span>
 
     

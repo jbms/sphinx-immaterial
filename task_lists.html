@@ -1554,7 +1554,7 @@ checkbox or <code class="docutils literal notranslate"><span class="pre">[x]</sp
 <div class="literal-block-wrapper docutils container" id="id2">
 <div class="code-block-caption highlight"><span class="filename"><span class="caption-text">
 </span>This is already done in sphinx-immaterial theme:<a class="headerlink" href="#id2" title="Permalink to this code">¶</a></span></div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="n">extensions</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;sphinx_immaterial.task_lists&quot;</span><span class="p">]</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="n">extensions</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"sphinx_immaterial.task_lists"</span><span class="p">]</span>
 </code></pre></div>
 </div>
 </div>
@@ -1563,8 +1563,8 @@ checkbox or <code class="docutils literal notranslate"><span class="pre">[x]</sp
 sphinx-immaterial theme (which is inherited from mkdocs-material theme).</p>
 <p>To use this extension with a theme that has no CSS support, try adding your own CSS:</p>
 <div class="highlight-css notranslate"><div class="highlight"><pre><span></span><code><span class="p">:</span><span class="nd">root</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="nv">--md-task-list-icon</span><span class="p">:</span><span class="w"> </span><span class="nb">url</span><span class="p">(</span><span class="s1">&#39;data:image/svg+xml;charset=utf-8,&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 24 24&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M1 12C1 5.925 5.925 1 12 1s11 4.925 11 11-4.925 11-11 11S1 18.075 1 12zm16.28-2.72a.75.75 0 0 0-1.06-1.06l-5.97 5.97-2.47-2.47a.75.75 0 0 0-1.06 1.06l3 3a.75.75 0 0 0 1.06 0l6.5-6.5z&quot;/&gt;&lt;/svg&gt;&#39;</span><span class="p">);</span>
-<span class="w">  </span><span class="nv">--md-task-list-icon--checked</span><span class="p">:</span><span class="w"> </span><span class="nb">url</span><span class="p">(</span><span class="s1">&#39;data:image/svg+xml;charset=utf-8,&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 24 24&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M1 12C1 5.925 5.925 1 12 1s11 4.925 11 11-4.925 11-11 11S1 18.075 1 12zm16.28-2.72a.75.75 0 0 0-1.06-1.06l-5.97 5.97-2.47-2.47a.75.75 0 0 0-1.06 1.06l3 3a.75.75 0 0 0 1.06 0l6.5-6.5z&quot;/&gt;&lt;/svg&gt;&#39;</span><span class="p">);</span>
+<span class="w">  </span><span class="nv">--md-task-list-icon</span><span class="p">:</span><span class="w"> </span><span class="nb">url</span><span class="p">(</span><span class="s1">'data:image/svg+xml;charset=utf-8,&lt;svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"&gt;&lt;path fill-rule="evenodd" d="M1 12C1 5.925 5.925 1 12 1s11 4.925 11 11-4.925 11-11 11S1 18.075 1 12zm16.28-2.72a.75.75 0 0 0-1.06-1.06l-5.97 5.97-2.47-2.47a.75.75 0 0 0-1.06 1.06l3 3a.75.75 0 0 0 1.06 0l6.5-6.5z"/&gt;&lt;/svg&gt;'</span><span class="p">);</span>
+<span class="w">  </span><span class="nv">--md-task-list-icon--checked</span><span class="p">:</span><span class="w"> </span><span class="nb">url</span><span class="p">(</span><span class="s1">'data:image/svg+xml;charset=utf-8,&lt;svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"&gt;&lt;path fill-rule="evenodd" d="M1 12C1 5.925 5.925 1 12 1s11 4.925 11 11-4.925 11-11 11S1 18.075 1 12zm16.28-2.72a.75.75 0 0 0-1.06-1.06l-5.97 5.97-2.47-2.47a.75.75 0 0 0-1.06 1.06l3 3a.75.75 0 0 0 1.06 0l6.5-6.5z"/&gt;&lt;/svg&gt;'</span><span class="p">);</span>
 <span class="p">}</span>
 
 <span class="c">/* style for the unchecked checkboxes */</span>
@@ -1573,7 +1573,7 @@ sphinx-immaterial theme (which is inherited from mkdocs-material theme).</p>
 <span class="w">  </span><span class="k">mask-image</span><span class="p">:</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--md-task-list-icon</span><span class="p">);</span>
 <span class="w">  </span><span class="k">background-color</span><span class="p">:</span><span class="w"> </span><span class="nb">hsla</span><span class="p">(</span><span class="mi">232</span><span class="kt">deg</span><span class="p">,</span><span class="w"> </span><span class="mi">75</span><span class="kt">%</span><span class="p">,</span><span class="w"> </span><span class="mi">90</span><span class="kt">%</span><span class="p">,</span><span class="w"> </span><span class="mf">0.12</span><span class="p">);</span>
 
-<span class="w">  </span><span class="k">content</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">;</span>
+<span class="w">  </span><span class="k">content</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">;</span>
 <span class="w">  </span><span class="k">height</span><span class="p">:</span><span class="w"> </span><span class="mf">1.25</span><span class="kt">em</span><span class="p">;</span>
 <span class="w">  </span><span class="kp">-webkit-</span><span class="k">mask-repeat</span><span class="p">:</span><span class="w"> </span><span class="kc">no-repeat</span><span class="p">;</span>
 <span class="w">  </span><span class="k">mask-repeat</span><span class="p">:</span><span class="w"> </span><span class="kc">no-repeat</span><span class="p">;</span>
@@ -1585,7 +1585,7 @@ sphinx-immaterial theme (which is inherited from mkdocs-material theme).</p>
 <span class="p">}</span>
 
 <span class="c">/* style for the checked checkboxes */</span>
-<span class="p">.</span><span class="nc">task-list-control</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">[</span><span class="nt">type</span><span class="o">=</span><span class="s2">&quot;checkbox&quot;</span><span class="o">]</span><span class="p">:</span><span class="nd">checked</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">.</span><span class="nc">task-list-indicator</span><span class="p">::</span><span class="nd">before</span><span class="w"> </span><span class="p">{</span>
+<span class="p">.</span><span class="nc">task-list-control</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">[</span><span class="nt">type</span><span class="o">=</span><span class="s2">"checkbox"</span><span class="o">]</span><span class="p">:</span><span class="nd">checked</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">.</span><span class="nc">task-list-indicator</span><span class="p">::</span><span class="nd">before</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="kp">-webkit-</span><span class="k">mask-image</span><span class="p">:</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--md-task-list-icon--checked</span><span class="p">);</span>
 <span class="w">  </span><span class="k">mask-image</span><span class="p">:</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--md-task-list-icon--checked</span><span class="p">);</span>
 <span class="w">  </span><span class="k">background-color</span><span class="p">:</span><span class="w"> </span><span class="nb">hsl</span><span class="p">(</span><span class="mi">122</span><span class="kt">deg</span><span class="p">,</span><span class="w"> </span><span class="mi">84</span><span class="kt">%</span><span class="p">,</span><span class="w"> </span><span class="mi">45</span><span class="kt">%</span><span class="p">);</span>
@@ -1681,7 +1681,7 @@ CSS Hint</label></div>
 <span class="p">}</span>
 
 <span class="c">/* style for the checked checkboxes */</span>
-<span class="p">.</span><span class="nc">custom-task-list-style</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="nt">ul</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="nt">li</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="p">.</span><span class="nc">task-list-control</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">[</span><span class="nt">type</span><span class="o">=</span><span class="s2">&quot;checkbox&quot;</span><span class="o">]</span><span class="p">:</span><span class="nd">checked</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">.</span><span class="nc">task-list-indicator</span><span class="p">::</span><span class="nd">before</span><span class="w"> </span><span class="p">{</span>
+<span class="p">.</span><span class="nc">custom-task-list-style</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="nt">ul</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="nt">li</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="p">.</span><span class="nc">task-list-control</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">[</span><span class="nt">type</span><span class="o">=</span><span class="s2">"checkbox"</span><span class="o">]</span><span class="p">:</span><span class="nd">checked</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">.</span><span class="nc">task-list-indicator</span><span class="p">::</span><span class="nd">before</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="kp">-webkit-</span><span class="k">mask-image</span><span class="p">:</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--md-admonition-icon--success</span><span class="p">);</span>
 <span class="w">  </span><span class="k">mask-image</span><span class="p">:</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--md-admonition-icon--success</span><span class="p">);</span>
 <span class="w">  </span><span class="k">background-color</span><span class="p">:</span><span class="w"> </span><span class="nb">hsl</span><span class="p">(</span><span class="mi">122</span><span class="p">,</span><span class="w"> </span><span class="mi">84</span><span class="kt">%</span><span class="p">,</span><span class="w"> </span><span class="mi">45</span><span class="kt">%</span><span class="p">);</span>
@@ -1697,7 +1697,7 @@ CSS Hint</label></div>
 <span class="sig-name descname"><span class="pre">:name:</span></span><em class="property"> <span class="pre">(string)</span></em><a class="headerlink" href="#directive-option-task-list-name" title="Link to this definition">¶</a></dt>
 <dd><p>A qualified name that get used as the HTML element’s <code class="docutils literal notranslate"><span class="pre">name</span></code> attribute.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">name</span></code> option is only applied to the containing <code class="docutils literal notranslate"><span class="pre">div</span></code> element.
-Use the <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/referencing.html#role-ref" title="(in Sphinx v9.1.1)"><code class="xref any docutils literal notranslate"><span class="pre">ref</span></code></a> role to reference the element by name.</p>
+Use the <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/referencing.html#role-ref" title="(in Sphinx v9.3.0)"><code class="xref any docutils literal notranslate"><span class="pre">ref</span></code></a> role to reference the element by name.</p>
 </dd></dl>
 
 <dl class="rst directive:option objdesc">
@@ -1806,7 +1806,7 @@ the <a class="reference internal" href="#id1"><span class="std std-ref">parent t
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    Oct 16, 2026
+    Oct 30, 2026
   </span>
 
     

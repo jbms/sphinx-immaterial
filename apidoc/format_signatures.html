@@ -1671,7 +1671,7 @@
 <p>This theme supports three alternative ways to automatically format/indent API
 documentation signatures.</p>
 <h2 id="basic-function-parameter-wrapping">Basic function parameter wrapping<a class="headerlink" href="#basic-function-parameter-wrapping" title="Link to this heading">¶</a></h2>
-<p>As of Sphinx 7.1, the <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/configuration.html#confval-maximum_signature_line_length" title="(in Sphinx v9.1.1)"><code class="xref std std-confval docutils literal notranslate"><span class="pre">maximum_signature_line_length</span></code></a> option (and its
+<p>As of Sphinx 7.1, the <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/configuration.html#confval-maximum_signature_line_length" title="(in Sphinx v9.3.0)"><code class="xref std std-confval docutils literal notranslate"><span class="pre">maximum_signature_line_length</span></code></a> option (and its
 domain-specific variants) may be used to enable basic automatic parameter
 wrapping. The recommended limit for this theme is <code class="code highlight python docutils literal highlight-python"><span class="mi">68</span></code>.</p>
 <div class="warning admonition">
@@ -1683,7 +1683,7 @@ phones in portrait mode.</p>
 <p>This theme also supports a CSS-based formatting rule that can be enabled for
 long function signatures that displays each function parameter on a separate
 line. This is enabled by default (when the
-<a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/configuration.html#confval-maximum_signature_line_length" title="(in Sphinx v9.1.1)"><code class="xref std std-confval docutils literal notranslate"><span class="pre">maximum_signature_line_length</span></code></a> option is not enabled), and works
+<a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/configuration.html#confval-maximum_signature_line_length" title="(in Sphinx v9.3.0)"><code class="xref std std-confval docutils literal notranslate"><span class="pre">maximum_signature_line_length</span></code></a> option is not enabled), and works
 fairly well for Python signatures.</p>
 <p>It is controlled by the following <a class="reference internal" href="index.html#object-description-options"><span class="std std-ref">object description
 options</span></a>:</p>
@@ -1693,7 +1693,7 @@ options</span></a>:</p>
 <dd><p>Indicates whether CSS-based formatting is enabled. Disabled automatically if
 <a class="reference internal" href="#objconf-clang_format_style" title="clang_format_style (object description option)"><code class="xref std std-objconf docutils literal notranslate"><span class="pre">clang_format_style</span></code></a> or <a class="reference internal" href="#objconf-black_format_style" title="black_format_style (object description option)"><code class="xref std std-objconf docutils literal notranslate"><span class="pre">black_format_style</span></code></a> is specified.
 Also disabled automatically if the global or domain-specific
-<a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/configuration.html#confval-maximum_signature_line_length" title="(in Sphinx v9.1.1)"><code class="xref std std-confval docutils literal notranslate"><span class="pre">maximum_signature_line_length</span></code></a> option is enabled.</p>
+<a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/configuration.html#confval-maximum_signature_line_length" title="(in Sphinx v9.3.0)"><code class="xref std std-confval docutils literal notranslate"><span class="pre">maximum_signature_line_length</span></code></a> option is enabled.</p>
 </dd></dl>
 
 <dl class="std objconf objdesc">
@@ -1711,8 +1711,8 @@ under typical display settings with both left and right side bars displayed.</p>
 <p>For example, to disable this option for every domain except <code class="docutils literal notranslate"><span class="pre">py</span></code>, add the
 following to <code class="file docutils literal notranslate"><span class="pre">conf.py</span></code>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="n">object_description_options</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="p">(</span><span class="s2">&quot;.*&quot;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">wrap_signatures_with_css</span><span class="o">=</span><span class="kc">False</span><span class="p">)),</span>
-    <span class="p">(</span><span class="s2">&quot;py:.*&quot;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">wrap_signatures_with_css</span><span class="o">=</span><span class="kc">True</span><span class="p">)),</span>
+    <span class="p">(</span><span class="s2">".*"</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">wrap_signatures_with_css</span><span class="o">=</span><span class="kc">False</span><span class="p">)),</span>
+    <span class="p">(</span><span class="s2">"py:.*"</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">wrap_signatures_with_css</span><span class="o">=</span><span class="kc">True</span><span class="p">)),</span>
 <span class="p">]</span>
 </code></pre></div>
 </div>
@@ -1724,7 +1724,7 @@ following to <code class="file docutils literal notranslate"><span class="pre">c
                    name: int, \
                    other_param: list[str], \
                    yet_another: bool = False, \
-                   finally_another: str = &quot;some long string goes here&quot;\
+                   finally_another: str = "some long string goes here"\
                  ) -&gt; Tuple[str, bool, float, bytes, int]
 </code></pre></div>
 </div>
@@ -1732,18 +1732,18 @@ following to <code class="file docutils literal notranslate"><span class="pre">c
 <div class="result docutils container">
 <dl class="py function objdesc">
 <dt class="sig sig-object highlight py" id="long_function_signature_example">
-<span class="sig-name descname">long_function_signature_example</span><span class="p">(<br>&nbsp;&nbsp;&nbsp;&nbsp;</span><span><a class="n reference internal" href="#long_function_signature_example" title="long_function_signature_example.name (Python parameter)"><span class="n">name</span></a><span class="p">:</span><span class="w">&nbsp;</span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)">int</a></span></span></span><span class="p">,<br>&nbsp;&nbsp;&nbsp;&nbsp;</span><span><a class="n reference internal" href="#long_function_signature_example" title="long_function_signature_example.other_param (Python parameter)"><span class="n">other_param</span></a><span class="p">:</span><span class="w">&nbsp;</span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)">list</a><span class="p">[</span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)">str</a><span class="p">]</span></span></span></span><span class="p">,<br>&nbsp;&nbsp;&nbsp;&nbsp;</span><span><a class="n reference internal" href="#long_function_signature_example" title="long_function_signature_example.yet_another (Python parameter)"><span class="n">yet_another</span></a><span class="p">:</span><span class="w">&nbsp;</span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)">bool</a></span></span><span class="w">&nbsp;</span><span class="o">=</span><span class="w">&nbsp;</span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">False</span></code></span><span class="p">,<br>&nbsp;&nbsp;&nbsp;&nbsp;</span><span><a class="n reference internal" href="#long_function_signature_example" title="long_function_signature_example.finally_another (Python parameter)"><span class="n">finally_another</span></a><span class="p">:</span><span class="w">&nbsp;</span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)">str</a></span></span><span class="w">&nbsp;</span><span class="o">=</span><span class="w">&nbsp;</span><code class="code python default_value docutils literal highlight highlight-python"><span class="s2">&quot;some long string goes here&quot;</span><span class="p">,</span></code></span><span class="p">)&nbsp;</span><span class="p">-&gt;&nbsp;</span><span class="desctype"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.15)">tuple</a><span class="p">[</span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)">str</a><span class="p">,</span><span class="w">&nbsp;</span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)">bool</a><span class="p">,</span><span class="w">&nbsp;</span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)">float</a><span class="p">,</span><span class="w">&nbsp;</span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#bytes" title="(in Python v3.15)">bytes</a><span class="p">,</span><span class="w">&nbsp;</span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)">int</a><span class="p">]</span></span><a class="headerlink" href="#long_function_signature_example" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname">long_function_signature_example</span><span class="p">(<br>&nbsp;&nbsp;&nbsp;&nbsp;</span><span><a class="n reference internal" href="#long_function_signature_example" title="long_function_signature_example.name (Python parameter)"><span class="n">name</span></a><span class="p">:</span><span class="w">&nbsp;</span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)">int</a></span></span></span><span class="p">,<br>&nbsp;&nbsp;&nbsp;&nbsp;</span><span><a class="n reference internal" href="#long_function_signature_example" title="long_function_signature_example.other_param (Python parameter)"><span class="n">other_param</span></a><span class="p">:</span><span class="w">&nbsp;</span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)">list</a><span class="p">[</span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)">str</a><span class="p">]</span></span></span></span><span class="p">,<br>&nbsp;&nbsp;&nbsp;&nbsp;</span><span><a class="n reference internal" href="#long_function_signature_example" title="long_function_signature_example.yet_another (Python parameter)"><span class="n">yet_another</span></a><span class="p">:</span><span class="w">&nbsp;</span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)">bool</a></span></span><span class="w">&nbsp;</span><span class="o">=</span><span class="w">&nbsp;</span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">False</span></code></span><span class="p">,<br>&nbsp;&nbsp;&nbsp;&nbsp;</span><span><a class="n reference internal" href="#long_function_signature_example" title="long_function_signature_example.finally_another (Python parameter)"><span class="n">finally_another</span></a><span class="p">:</span><span class="w">&nbsp;</span><span class="n"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)">str</a></span></span><span class="w">&nbsp;</span><span class="o">=</span><span class="w">&nbsp;</span><code class="code python default_value docutils literal highlight highlight-python"><span class="s2">"some long string goes here"</span><span class="p">,</span></code></span><span class="p">)&nbsp;</span><span class="p">-&gt;&nbsp;</span><span class="desctype"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.15)">tuple</a><span class="p">[</span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)">str</a><span class="p">,</span><span class="w">&nbsp;</span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)">bool</a><span class="p">,</span><span class="w">&nbsp;</span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)">float</a><span class="p">,</span><span class="w">&nbsp;</span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#bytes" title="(in Python v3.15)">bytes</a><span class="p">,</span><span class="w">&nbsp;</span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)">int</a><span class="p">]</span></span><a class="headerlink" href="#long_function_signature_example" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
 </div>
 <div class="note admonition">
 <p class="admonition-title">Note</p>
-<p>The <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/configuration.html#confval-maximum_signature_line_length" title="(in Sphinx v9.1.1)"><code class="xref std std-confval docutils literal notranslate"><span class="pre">maximum_signature_line_length</span></code></a> and
+<p>The <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/configuration.html#confval-maximum_signature_line_length" title="(in Sphinx v9.3.0)"><code class="xref std std-confval docutils literal notranslate"><span class="pre">maximum_signature_line_length</span></code></a> and
 <a class="reference internal" href="#objconf-wrap_signatures_with_css" title="wrap_signatures_with_css (object description option)"><code class="xref std std-objconf docutils literal notranslate"><span class="pre">wrap_signatures_with_css</span></code></a> options produce similar results.</p>
 <p>The key differences are:</p>
 <ul class="simple">
-<li><p><a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/configuration.html#confval-maximum_signature_line_length" title="(in Sphinx v9.1.1)"><code class="xref std std-confval docutils literal notranslate"><span class="pre">maximum_signature_line_length</span></code></a> wraps Python type parameters in a
+<li><p><a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/configuration.html#confval-maximum_signature_line_length" title="(in Sphinx v9.3.0)"><code class="xref std std-confval docutils literal notranslate"><span class="pre">maximum_signature_line_length</span></code></a> wraps Python type parameters in a
 more sophisticated way.</p></li>
 <li><p><a class="reference internal" href="#objconf-wrap_signatures_with_css" title="wrap_signatures_with_css (object description option)"><code class="xref std std-objconf docutils literal notranslate"><span class="pre">wrap_signatures_with_css</span></code></a> properly accounts for
 <a class="reference internal" href="python/index.html#confval-python_type_aliases" title="python_type_aliases (configuration value) — Maps names or dotted names appearing in type annotations in Python signatures to the corresponding fully-qualified name."><code class="xref std std-confval docutils literal notranslate"><span class="pre">python_type_aliases</span></code></a> and other related type annotation
@@ -1771,12 +1771,12 @@ also specify the <a class="reference internal" href="#objconf-clang_format_style
 which the extension should be used.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="n">extensions</span> <span class="o">=</span> <span class="p">[</span>
     <span class="c1"># other extensions...</span>
-    <span class="s2">&quot;sphinx_immaterial.apidoc.format_signatures&quot;</span><span class="p">,</span>
+    <span class="s2">"sphinx_immaterial.apidoc.format_signatures"</span><span class="p">,</span>
 <span class="p">]</span>
 
 <span class="n">object_description_options</span> <span class="o">=</span> <span class="p">[</span>
     <span class="c1"># ...</span>
-    <span class="p">(</span><span class="s2">&quot;cpp:.*&quot;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">clang_format_style</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;BasedOnStyle&quot;</span><span class="p">:</span> <span class="s2">&quot;LLVM&quot;</span><span class="p">})),</span>
+    <span class="p">(</span><span class="s2">"cpp:.*"</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">clang_format_style</span><span class="o">=</span><span class="p">{</span><span class="s2">"BasedOnStyle"</span><span class="p">:</span> <span class="s2">"LLVM"</span><span class="p">})),</span>
 <span class="p">]</span>
 </code></pre></div>
 </div>
@@ -1799,10 +1799,10 @@ build will fail).</p>
 
 <dl class="std confval objdesc">
 <dt class="sig sig-object highlight std" id="confval-clang_format_command">
-<span class="sig-name descname"><span class="pre">clang_format_command</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="s1">&#39;clang-format&#39;</span></code><a class="headerlink" href="#confval-clang_format_command" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">clang_format_command</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="s1">'clang-format'</span></code><a class="headerlink" href="#confval-clang_format_command" title="Link to this definition">¶</a></dt>
 <dd><p>Name of <code class="docutils literal notranslate"><span class="pre">clang-format</span></code> executable.  May either be a plain filename, in
 which case normal <code class="docutils literal notranslate"><span class="pre">PATH</span></code> resolution applies, or a path to the executable.
-Defaults to <code class="code highlight python docutils literal highlight-python"><span class="s2">&quot;clang-format&quot;</span></code>.</p>
+Defaults to <code class="code highlight python docutils literal highlight-python"><span class="s2">"clang-format"</span></code>.</p>
 <p>To ensure that a consistent version of <code class="docutils literal notranslate"><span class="pre">clang-format</span></code> is available when
 building your documentation, add the <a class="reference external" href="https://pypi.org/project/clang-format/">clang-format PyPI package</a> as a dependency, or depend on the
 <code class="docutils literal notranslate"><span class="pre">clang-format</span></code> optional feature of this package:</p>
@@ -1842,12 +1842,12 @@ also specify the <a class="reference internal" href="#objconf-black_format_style
 which the extension should be used.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="n">extensions</span> <span class="o">=</span> <span class="p">[</span>
     <span class="c1"># other extensions...</span>
-    <span class="s2">&quot;sphinx_immaterial.apidoc.format_signatures&quot;</span><span class="p">,</span>
+    <span class="s2">"sphinx_immaterial.apidoc.format_signatures"</span><span class="p">,</span>
 <span class="p">]</span>
 
 <span class="n">object_description_options</span> <span class="o">=</span> <span class="p">[</span>
     <span class="c1"># ...</span>
-    <span class="p">(</span><span class="s2">&quot;py:.*&quot;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">black_format_style</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;line_length&quot;</span><span class="p">:</span> <span class="mi">60</span><span class="p">})),</span>
+    <span class="p">(</span><span class="s2">"py:.*"</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">black_format_style</span><span class="o">=</span><span class="p">{</span><span class="s2">"line_length"</span><span class="p">:</span> <span class="mi">60</span><span class="p">})),</span>
 <span class="p">]</span>
 </code></pre></div>
 </div>
@@ -1921,7 +1921,7 @@ CLI’s <a class="reference external" href="https://black.readthedocs.io/en/stab
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    Oct 16, 2026
+    Oct 30, 2026
   </span>
 
     

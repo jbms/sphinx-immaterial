@@ -2847,11 +2847,11 @@ list of <code class="code highlight python docutils literal highlight-python"><s
 specifying the JSON schema definition files.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="n">extensions</span> <span class="o">=</span> <span class="p">[</span>
     <span class="c1"># other extensions...</span>
-    <span class="s2">&quot;sphinx_immaterial.apidoc.json.domain&quot;</span><span class="p">,</span>
+    <span class="s2">"sphinx_immaterial.apidoc.json.domain"</span><span class="p">,</span>
 <span class="p">]</span>
 
 <span class="n">json_schemas</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s2">&quot;**/*_schema.yml&quot;</span><span class="p">,</span>
+    <span class="s2">"**/*_schema.yml"</span><span class="p">,</span>
 <span class="p">]</span>
 </code></pre></div>
 </div>
@@ -2879,10 +2879,10 @@ depend on the <code class="docutils literal notranslate"><span class="pre">jsons
 
 <dl class="std confval objdesc">
 <dt class="sig sig-object highlight std" id="confval-json_schema_rst_prolog">
-<span class="sig-name descname"><span class="pre">json_schema_rst_prolog</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="s1">&#39;&#39;</span></code><a class="headerlink" href="#confval-json_schema_rst_prolog" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">json_schema_rst_prolog</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="s1">''</span></code><a class="headerlink" href="#confval-json_schema_rst_prolog" title="Link to this definition">¶</a></dt>
 <dd><p>A string of rST that will be prepended to the <code class="docutils literal notranslate"><span class="pre">title</span></code> and <code class="docutils literal notranslate"><span class="pre">description</span></code>
 fields of a schema before parsing them as rST.</p>
-<p>This may be used to set the <a class="extlink-dudir reference external" href="http://docutils.sourceforge.net/docs/ref/rst/directives.html#default-role">rST directive default-role</a>, <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/directives.html#directive-highlight" title="(in Sphinx v9.1.1)"><code class="xref rst rst-dir docutils literal notranslate"><span class="pre">highlight</span></code></a>
+<p>This may be used to set the <a class="extlink-dudir reference external" href="http://docutils.sourceforge.net/docs/ref/rst/directives.html#default-role">rST directive default-role</a>, <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/directives.html#directive-highlight" title="(in Sphinx v9.3.0)"><code class="xref rst rst-dir docutils literal notranslate"><span class="pre">highlight</span></code></a>
 language, or <a class="reference internal" href="../../code_syntax_highlighting.html#directive-default-literal-role" title="default-literal-role directive"><code class="xref rst rst-dir docutils literal notranslate"><span class="pre">default-literal-role</span></code></a>.</p>
 <div class="note admonition">
 <p class="admonition-title">Note</p>
@@ -2895,19 +2895,19 @@ prior roles or highlight language.</p>
 <div class="literal-block-wrapper docutils container" id="id1">
 <div class="code-block-caption highlight"><span class="filename"><span class="caption-text">
 </span>Setting default roles and highlight language in <code class="file docutils literal notranslate"><span class="pre">conf.py</span></code><a class="headerlink" href="#id1" title="Permalink to this code">¶</a></span></div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="n">rst_prolog</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="n">rst_prolog</span> <span class="o">=</span> <span class="s2">"""</span>
 <span class="s2">.. role:: json(code)</span>
 <span class="s2">   :language: json</span>
 <span class="s2">   :class: highlight</span>
-<span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">"""</span>
 
-<span class="n">json_schema_rst_prolog</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="n">json_schema_rst_prolog</span> <span class="o">=</span> <span class="s2">"""</span>
 <span class="s2">.. default-role:: json:schema</span>
 
 <span class="s2">.. default-literal-role:: json</span>
 
 <span class="s2">.. highlight:: json</span>
-<span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">"""</span>
 </code></pre></div>
 </div>
 </div>
@@ -2915,7 +2915,7 @@ prior roles or highlight language.</p>
 
 <dl class="std confval objdesc">
 <dt class="sig sig-object highlight std" id="confval-json_schema_rst_epilog">
-<span class="sig-name descname"><span class="pre">json_schema_rst_epilog</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="s1">&#39;&#39;</span></code><a class="headerlink" href="#confval-json_schema_rst_epilog" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">json_schema_rst_epilog</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="s1">''</span></code><a class="headerlink" href="#confval-json_schema_rst_epilog" title="Link to this definition">¶</a></dt>
 <dd><p>A string of rST that will be appended to the <code class="docutils literal notranslate"><span class="pre">title</span></code> and <code class="docutils literal notranslate"><span class="pre">description</span></code>
 fields of a schema before parsing them as rST.</p>
 <p>This option is supported for symmetry with <a class="reference internal" href="#confval-json_schema_rst_prolog" title="json_schema_rst_prolog (configuration value) — A string of rST that will be prepended to the title and description fields of a schema before parsing them as rST."><code class="xref std std-confval docutils literal notranslate"><span class="pre">json_schema_rst_prolog</span></code></a>,
@@ -3022,7 +3022,7 @@ for <code class="docutils literal notranslate"><span class="pre">other_member</s
 </span>inheritance_schema.yml<a class="headerlink" href="#id2" title="Permalink to this code">¶</a></span></div>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><code><span class="nt">$schema</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http://json-schema.org/draft-07/schema#</span>
 <span class="nt">$id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Pet</span>
-<span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Represents</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">generic</span><span class="nv"> </span><span class="s">pet.&quot;</span>
+<span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="s">"Represents</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">generic</span><span class="nv"> </span><span class="s">pet."</span>
 <span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">object</span>
 <span class="nt">properties</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">type</span><span class="p">:</span>
@@ -3042,36 +3042,36 @@ for <code class="docutils literal notranslate"><span class="pre">other_member</s
 <span class="nt">definitions</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">dog</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">$id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Dog</span>
-<span class="w">    </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Represents</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">dog.&quot;</span>
+<span class="w">    </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="s">"Represents</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">dog."</span>
 <span class="w">    </span><span class="nt">allOf</span><span class="p">:</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">$ref</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Pet</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">object</span>
 <span class="w">      </span><span class="nt">properties</span><span class="p">:</span>
 <span class="w">        </span><span class="nt">type</span><span class="p">:</span>
-<span class="w">          </span><span class="nt">const</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;dog&quot;</span>
+<span class="w">          </span><span class="nt">const</span><span class="p">:</span><span class="w"> </span><span class="s">"dog"</span>
 <span class="w">        </span><span class="nt">bark_volume</span><span class="p">:</span>
 <span class="w">          </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">number</span>
-<span class="w">          </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Bark</span><span class="nv"> </span><span class="s">volume</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">dB.&quot;</span>
+<span class="w">          </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="s">"Bark</span><span class="nv"> </span><span class="s">volume</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">dB."</span>
 <span class="w">        </span><span class="nt">favorite_walk</span><span class="p">:</span>
 <span class="w">          </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
-<span class="w">          </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Favorite</span><span class="nv"> </span><span class="s">place</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">walk.&quot;</span>
+<span class="w">          </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="s">"Favorite</span><span class="nv"> </span><span class="s">place</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">walk."</span>
 <span class="w">  </span><span class="nt">cat</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">$id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Cat</span>
-<span class="w">    </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Represents</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">cat.&quot;</span>
+<span class="w">    </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="s">"Represents</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">cat."</span>
 <span class="w">    </span><span class="nt">allOf</span><span class="p">:</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">$ref</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Pet</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">object</span>
 <span class="w">      </span><span class="nt">properties</span><span class="p">:</span>
 <span class="w">        </span><span class="nt">type</span><span class="p">:</span>
-<span class="w">          </span><span class="nt">const</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;cat&quot;</span>
+<span class="w">          </span><span class="nt">const</span><span class="p">:</span><span class="w"> </span><span class="s">"cat"</span>
 <span class="w">        </span><span class="nt">meow_volume</span><span class="p">:</span>
 <span class="w">          </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">number</span>
-<span class="w">          </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Meow</span><span class="nv"> </span><span class="s">volume</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">dB.&quot;</span>
+<span class="w">          </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="s">"Meow</span><span class="nv"> </span><span class="s">volume</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">dB."</span>
 <span class="w">        </span><span class="nt">favorite_scratching_post</span><span class="p">:</span>
 <span class="w">          </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
-<span class="w">          </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Favorite</span><span class="nv"> </span><span class="s">place</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">scratch.&quot;</span>
+<span class="w">          </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="s">"Favorite</span><span class="nv"> </span><span class="s">place</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">scratch."</span>
 <span class="w">    </span><span class="nt">examples</span><span class="p">:</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="s">&quot;type&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;cat&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;name&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;Tom&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;age&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="nv">10</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;meow_volume&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="nv">45</span><span class="p p-Indicator">}</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="s">"type"</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">"cat"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"name"</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">"Tom"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"age"</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="nv">10</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"meow_volume"</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="nv">45</span><span class="p p-Indicator">}</span>
 </code></pre></div>
 </div>
 </div>
@@ -3137,7 +3137,7 @@ for <code class="docutils literal notranslate"><span class="pre">other_member</s
 <dt class="field-odd" id="required-members-json-Dog">Required members<span class="colon">:</span><a class="headerlink" href="#required-members-json-Dog" title="Permalink to this headline">¶</a></dt>
 <dd class="field-odd noindent"><dl class="json schema objdesc">
 <dt class="sig sig-object highlight json" id="json-Dog.type">
-<span class="sig-name descname"><span class="pre">type</span></span><span class="p"> <span class="pre">:</span> </span><code class="code json docutils literal highlight highlight-json"><span class="s2">&quot;dog&quot;</span></code><a class="headerlink" href="#json-Dog.type" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">type</span></span><span class="p"> <span class="pre">:</span> </span><code class="code json docutils literal highlight highlight-json"><span class="s2">"dog"</span></code><a class="headerlink" href="#json-Dog.type" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="json schema objdesc">
@@ -3187,7 +3187,7 @@ for <code class="docutils literal notranslate"><span class="pre">other_member</s
 <dt class="field-odd" id="required-members-json-Cat">Required members<span class="colon">:</span><a class="headerlink" href="#required-members-json-Cat" title="Permalink to this headline">¶</a></dt>
 <dd class="field-odd noindent"><dl class="json schema objdesc">
 <dt class="sig sig-object highlight json" id="json-Cat.type">
-<span class="sig-name descname"><span class="pre">type</span></span><span class="p"> <span class="pre">:</span> </span><code class="code json docutils literal highlight highlight-json"><span class="s2">&quot;cat&quot;</span></code><a class="headerlink" href="#json-Cat.type" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">type</span></span><span class="p"> <span class="pre">:</span> </span><code class="code json docutils literal highlight highlight-json"><span class="s2">"cat"</span></code><a class="headerlink" href="#json-Cat.type" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="json schema objdesc">
@@ -3222,7 +3222,7 @@ for <code class="docutils literal notranslate"><span class="pre">other_member</s
 </dl>
 <div class="example admonition">
 <p class="admonition-title">Example</p>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;cat&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Tom&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;age&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;meow_volume&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">45</span><span class="p">}</span>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cat"</span><span class="p">,</span><span class="w"> </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Tom"</span><span class="p">,</span><span class="w"> </span><span class="nt">"age"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="nt">"meow_volume"</span><span class="p">:</span><span class="w"> </span><span class="mi">45</span><span class="p">}</span>
 </code></pre></div>
 </div>
 </div>
@@ -3413,11 +3413,11 @@ for <code class="docutils literal notranslate"><span class="pre">other_member</s
 <span class="w">          </span><span class="no">this need not be specified.  This allows transforms containing</span>
 <span class="w">          </span><span class="no">out-of-bounds index array indices to correctly round trip through</span>
 <span class="w">          </span><span class="no">JSON, but normally need not be specified manually.</span>
-<span class="w">        </span><span class="nt">default</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;-inf&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;+inf&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">        </span><span class="nt">default</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">"-inf"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"+inf"</span><span class="p p-Indicator">]</span>
 <span class="w">        </span><span class="nt">examples</span><span class="p">:</span>
 <span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">5</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">100</span><span class="p p-Indicator">]</span>
-<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;-inf&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">10</span><span class="p p-Indicator">]</span>
-<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">-20</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;+inf&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">"-inf"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">10</span><span class="p p-Indicator">]</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">-20</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"+inf"</span><span class="p p-Indicator">]</span>
 <span class="w">  </span><span class="nt">index-interval</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">$id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">IndexInterval</span>
 <span class="w">    </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Specifies a closed interval of integer index values.</span>
@@ -3425,10 +3425,10 @@ for <code class="docutils literal notranslate"><span class="pre">other_member</s
 <span class="w">    </span><span class="nt">items</span><span class="p">:</span>
 <span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">oneOf</span><span class="p">:</span>
 <span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">integer</span>
-<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">const</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;-inf&quot;</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">const</span><span class="p">:</span><span class="w"> </span><span class="s">"-inf"</span>
 <span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">oneOf</span><span class="p">:</span>
 <span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">integer</span>
-<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">const</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;+inf&quot;</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">const</span><span class="p">:</span><span class="w"> </span><span class="s">"+inf"</span>
 </code></pre></div>
 </div>
 </div>
@@ -3588,7 +3588,7 @@ equal to the <a class="reference internal" href="#json-IndexTransform.input_rank
 
 <dl class="json schema objdesc">
 <dt class="sig sig-object highlight json" id="json-OutputIndexMap.index_array_bounds">
-<span class="sig-name descname"><span class="pre">index_array_bounds</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><a class="reference internal" href="#json-IndexInterval" title="IndexInterval (JSON type) — Specifies a closed interval of integer index values."><span class="pre">IndexInterval</span></a></span><span class="p"> <span class="pre">=</span> </span><code class="code json docutils literal highlight highlight-json"><span class="p">[</span><span class="s2">&quot;-inf&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;+inf&quot;</span><span class="p">]</span></code><a class="headerlink" href="#json-OutputIndexMap.index_array_bounds" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">index_array_bounds</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><a class="reference internal" href="#json-IndexInterval" title="IndexInterval (JSON type) — Specifies a closed interval of integer index values."><span class="pre">IndexInterval</span></a></span><span class="p"> <span class="pre">=</span> </span><code class="code json docutils literal highlight highlight-json"><span class="p">[</span><span class="s2">"-inf"</span><span class="p">,</span><span class="w"> </span><span class="s2">"+inf"</span><span class="p">]</span></code><a class="headerlink" href="#json-OutputIndexMap.index_array_bounds" title="Link to this definition">¶</a></dt>
 <dd><p>If present, specifies constraints on the values within
 <a class="reference internal" href="#json-OutputIndexMap.index_array" title="OutputIndexMap.index_array (JSON member) — If present, indicates that this output dimension uses an index array map, with the index array specified as a nested list of rank equal to the input_rank."><code class="xref json json-schema docutils literal notranslate"><span class="pre">index_array</span></code></a> (which must also be specified).  If
 <a class="reference internal" href="#json-OutputIndexMap.index_array" title="OutputIndexMap.index_array (JSON member) — If present, indicates that this output dimension uses an index array map, with the index array specified as a nested list of rank equal to the input_rank."><code class="xref json json-schema docutils literal notranslate"><span class="pre">index_array</span></code></a> contains an out-of-bounds index, an error
@@ -3606,13 +3606,13 @@ JSON, but normally need not be specified manually.</p>
 </div>
 <div class="example admonition">
 <p class="admonition-title">Example</p>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><code><span class="p">[</span><span class="s2">&quot;-inf&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">]</span>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><code><span class="p">[</span><span class="s2">"-inf"</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">]</span>
 </code></pre></div>
 </div>
 </div>
 <div class="example admonition">
 <p class="admonition-title">Example</p>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><code><span class="p">[</span><span class="mi">-20</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;+inf&quot;</span><span class="p">]</span>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><code><span class="p">[</span><span class="mi">-20</span><span class="p">,</span><span class="w"> </span><span class="s2">"+inf"</span><span class="p">]</span>
 </code></pre></div>
 </div>
 </div>
@@ -3624,7 +3624,7 @@ JSON, but normally need not be specified manually.</p>
 
 <dl class="json schema objdesc">
 <dt class="sig sig-object highlight json" id="json-IndexInterval">
-<em class="property"><span class="pre">json</span> </em><span class="sig-name descname"><span class="pre">IndexInterval</span></span><span class="p"> <span class="pre">:</span> </span><span class="p"><span class="pre">[</span></span><span class="desctype"><span class="pre">integer</span></span><span class="p"> <span class="pre">|</span> </span><code class="code json docutils literal highlight highlight-json"><span class="s2">&quot;-inf&quot;</span></code><span class="p"><span class="pre">,</span></span> <span class="desctype"><span class="pre">integer</span></span><span class="p"> <span class="pre">|</span> </span><code class="code json docutils literal highlight highlight-json"><span class="s2">&quot;+inf&quot;</span></code><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#json-IndexInterval" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">json</span> </em><span class="sig-name descname"><span class="pre">IndexInterval</span></span><span class="p"> <span class="pre">:</span> </span><span class="p"><span class="pre">[</span></span><span class="desctype"><span class="pre">integer</span></span><span class="p"> <span class="pre">|</span> </span><code class="code json docutils literal highlight highlight-json"><span class="s2">"-inf"</span></code><span class="p"><span class="pre">,</span></span> <span class="desctype"><span class="pre">integer</span></span><span class="p"> <span class="pre">|</span> </span><code class="code json docutils literal highlight highlight-json"><span class="s2">"+inf"</span></code><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#json-IndexInterval" title="Link to this definition">¶</a></dt>
 <dd><span><p>Specifies a closed interval of integer index values.</p>
   </span></dd></dl>
 
@@ -3650,7 +3650,7 @@ JSON, but normally need not be specified manually.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    Oct 16, 2026
+    Oct 30, 2026
   </span>
 
     

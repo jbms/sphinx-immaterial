@@ -1969,8 +1969,8 @@ reStructuredText used to create these examples.</p>
 <span class="normal">127</span>
 <span class="normal">128</span>
 <span class="normal">129</span>
-<span class="normal">130</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="sd">&quot;&quot;&quot;Adds support for obtaining property types from docstring signatures, and</span>
-<span class="sd">improves formatting by PyProperty of type annotations.&quot;&quot;&quot;</span>
+<span class="normal">130</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="sd">"""Adds support for obtaining property types from docstring signatures, and</span>
+<span class="sd">improves formatting by PyProperty of type annotations."""</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span>
@@ -1991,15 +1991,15 @@ reStructuredText used to create these examples.</p>
 <span class="n">PropertyDocumenter</span> <span class="o">=</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">ext</span><span class="o">.</span><span class="n">autodoc</span><span class="o">.</span><span class="n">PropertyDocumenter</span>
 
 
-<span class="n">property_sig_re</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;^(</span><span class="se">\\</span><span class="s2">(.*)</span><span class="se">\\</span><span class="s2">)</span><span class="se">\\</span><span class="s2">s*-&gt;</span><span class="se">\\</span><span class="s2">s*(.*)$&quot;</span><span class="p">)</span>
+<span class="n">property_sig_re</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">"^(</span><span class="se">\\</span><span class="s2">(.*)</span><span class="se">\\</span><span class="s2">)</span><span class="se">\\</span><span class="s2">s*-&gt;</span><span class="se">\\</span><span class="s2">s*(.*)$"</span><span class="p">)</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_get_property_getter</span><span class="p">(</span><span class="n">obj</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
     <span class="c1"># property</span>
-    <span class="n">func</span> <span class="o">=</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">inspect</span><span class="o">.</span><span class="n">safe_getattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="s2">&quot;fget&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="n">func</span> <span class="o">=</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">inspect</span><span class="o">.</span><span class="n">safe_getattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="s2">"fget"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">func</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="c1"># cached_property</span>
-        <span class="n">func</span> <span class="o">=</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">inspect</span><span class="o">.</span><span class="n">safe_getattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="s2">&quot;func&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">func</span> <span class="o">=</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">inspect</span><span class="o">.</span><span class="n">safe_getattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="s2">"func"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">func</span>
 
 
@@ -2007,11 +2007,11 @@ reStructuredText used to create these examples.</p>
     <span class="n">fget</span> <span class="o">=</span> <span class="n">_get_property_getter</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">fget</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">None</span>
-    <span class="n">doc</span> <span class="o">=</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">inspect</span><span class="o">.</span><span class="n">safe_getattr</span><span class="p">(</span><span class="n">fget</span><span class="p">,</span> <span class="s2">&quot;__doc__&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="n">doc</span> <span class="o">=</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">inspect</span><span class="o">.</span><span class="n">safe_getattr</span><span class="p">(</span><span class="n">fget</span><span class="p">,</span> <span class="s2">"__doc__"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">doc</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">None</span>
     <span class="n">line</span> <span class="o">=</span> <span class="n">doc</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s2">"</span><span class="se">\\</span><span class="s2">"</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
     <span class="n">match</span> <span class="o">=</span> <span class="n">property_sig_re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">match</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">None</span>
@@ -2065,13 +2065,13 @@ reStructuredText used to create these examples.</p>
             <span class="k">return</span>
 
         <span class="c1"># Check if type annotation has already been added.</span>
-        <span class="n">type_line_prefix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">indent</span> <span class="o">+</span> <span class="s2">&quot;   :type: &quot;</span>
+        <span class="n">type_line_prefix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">indent</span> <span class="o">+</span> <span class="s2">"   :type: "</span>
         <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">directive</span><span class="o">.</span><span class="n">result</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">start_line</span><span class="p">:]:</span>
             <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">type_line_prefix</span><span class="p">):</span>
                 <span class="k">return</span>
 
         <span class="c1"># Type annotation not already added.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">add_line</span><span class="p">(</span><span class="s2">&quot;   :type: &quot;</span> <span class="o">+</span> <span class="n">retann</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_sourcename</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_line</span><span class="p">(</span><span class="s2">"   :type: "</span> <span class="o">+</span> <span class="n">retann</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_sourcename</span><span class="p">())</span>
 
     <span class="n">PropertyDocumenter</span><span class="o">.</span><span class="n">add_directive_header</span> <span class="o">=</span> <span class="n">add_directive_header</span>  <span class="c1"># type: ignore[assignment]</span>
 
@@ -2083,9 +2083,9 @@ reStructuredText used to create these examples.</p>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
         <span class="n">fullname</span><span class="p">,</span> <span class="n">prefix</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">PyProperty</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">handle_signature</span><span class="p">(</span><span class="n">sig</span><span class="p">,</span> <span class="n">signode</span><span class="p">)</span>
 
-        <span class="n">typ</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;type&quot;</span><span class="p">)</span>
+        <span class="n">typ</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"type"</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">typ</span><span class="p">:</span>
-            <span class="n">signode</span> <span class="o">+=</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">addnodes</span><span class="o">.</span><span class="n">desc_sig_punctuation</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot; : &quot;</span><span class="p">)</span>
+            <span class="n">signode</span> <span class="o">+=</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">addnodes</span><span class="o">.</span><span class="n">desc_sig_punctuation</span><span class="p">(</span><span class="s2">""</span><span class="p">,</span> <span class="s2">" : "</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">version_info</span> <span class="o">&gt;=</span> <span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">3</span><span class="p">):</span>
                 <span class="n">signode</span> <span class="o">+=</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">domains</span><span class="o">.</span><span class="n">python</span><span class="o">.</span><span class="n">_annotations</span><span class="o">.</span><span class="n">_parse_annotation</span><span class="p">(</span>
                     <span class="n">typ</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">env</span>
@@ -2115,8 +2115,8 @@ reStructuredText used to create these examples.</p>
 <span class="p">..</span> <span class="ow">code-block</span><span class="p">::</span> <span class="k">python</span>
 
    <span class="k">def</span><span class="w"> </span><span class="nf">hello</span><span class="p">():</span>
-   <span class="w">    </span><span class="sd">&quot;&quot;&quot;Greet.&quot;&quot;&quot;</span>
-       <span class="k">return</span> <span class="s2">&quot;Hello World&quot;</span>
+   <span class="w">    </span><span class="sd">"""Greet."""</span>
+       <span class="k">return</span> <span class="s2">"Hello World"</span>
 
 <span class="p">..</span> <span class="ow">code-block</span><span class="p">::</span> <span class="k">javascript</span>
 
@@ -2124,7 +2124,7 @@ reStructuredText used to create these examples.</p>
    <span class="cm">* Greet.</span>
    <span class="cm">*/</span>
    <span class="kd">function</span><span class="w"> </span><span class="nx">hello</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-   <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="s2">&quot;Hello World&quot;</span><span class="p">;</span>
+   <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="s2">"Hello World"</span><span class="p">;</span>
    <span class="p">}</span>
 </code></pre></div>
 </div>
@@ -2135,15 +2135,15 @@ reStructuredText used to create these examples.</p>
 </code></pre></div>
 </div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">hello</span><span class="p">():</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Greet.&quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="s2">&quot;Hello World&quot;</span>
+<span class="w">    </span><span class="sd">"""Greet."""</span>
+    <span class="k">return</span> <span class="s2">"Hello World"</span>
 </code></pre></div>
 </div>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><code><span class="cm">/**</span>
 <span class="cm">* Greet.</span>
 <span class="cm">*/</span>
 <span class="kd">function</span><span class="w"> </span><span class="nx">hello</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="s2">&quot;Hello World&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="s2">"Hello World"</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
 </div>
@@ -2494,30 +2494,30 @@ source files for one Sphinx project.</p>
 \end{eqnarray}</div></div>
 </div>
 <h2 id="production-lists">Production Lists<a class="headerlink" href="#production-lists" title="Link to this heading">¶</a></h2>
-<p>The following <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/directives.html#directive-productionlist" title="(in Sphinx v9.1.1)"><code class="xref any docutils literal notranslate"><span class="pre">productionlist</span></code></a> is a modified example taken from
+<p>The following <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/directives.html#directive-productionlist" title="(in Sphinx v9.3.0)"><code class="xref any docutils literal notranslate"><span class="pre">productionlist</span></code></a> is a modified example taken from
 <a class="reference external" href="https://graphviz.org/doc/info/lang.html">the Graphviz documentation</a></p>
 <div class="results docutils container">
 <div class="literal-block-wrapper docutils container" id="id11">
 <div class="code-block-caption highlight"><span class="filename"><span class="caption-text">
 </span>Grammar for dot syntax<a class="headerlink" href="#id11" title="Permalink to this code">¶</a></span></div>
 <div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><code><span class="p">..</span> <span class="ow">productionlist</span><span class="p">::</span>
-   graph      : [ strict ] (<span class="nv">`graph`</span> | digraph) [ ID ] &#39;{&#39; <span class="nv">`stmt_list`</span> &#39;}&#39;
-   stmt_list  : [ <span class="nv">`stmt`</span> [ &#39;;&#39; ] <span class="nv">`stmt_list`</span> ]
+   graph      : [ strict ] (<span class="nv">`graph`</span> | digraph) [ ID ] '{' <span class="nv">`stmt_list`</span> '}'
+   stmt_list  : [ <span class="nv">`stmt`</span> [ ';' ] <span class="nv">`stmt_list`</span> ]
    stmt       : <span class="nv">`node_stmt`</span>
               : <span class="nv">`edge_stmt`</span>
               : <span class="nv">`attr_stmt`</span>
-              : ID &#39;=&#39; ID
+              : ID '=' ID
               : <span class="nv">`subgraph`</span>
    attr_stmt  : (<span class="nv">`graph`</span> | node | edge) <span class="nv">`attr_list`</span>
-   attr_list  : &#39;[&#39; [ <span class="nv">`a_list`</span> ] &#39;]&#39; [ <span class="nv">`attr_list`</span> ]
-   a_list     : ID &#39;=&#39; ID [ (&#39;;&#39; | &#39;,&#39;) ] [ <span class="nv">`a_list`</span> ]
+   attr_list  : '[' [ <span class="nv">`a_list`</span> ] ']' [ <span class="nv">`attr_list`</span> ]
+   a_list     : ID '=' ID [ (';' | ',') ] [ <span class="nv">`a_list`</span> ]
    edge_stmt  : (<span class="nv">`node_id`</span> | <span class="nv">`subgraph`</span>) <span class="nv">`edgeRHS`</span> [ <span class="nv">`attr_list`</span> ]
    edgeRHS    : edgeop (<span class="nv">`node_id`</span> | <span class="nv">`subgraph`</span>) [ <span class="nv">`edgeRHS`</span> ]
    node_stmt  : <span class="nv">`node_id`</span> [ <span class="nv">`attr_list`</span> ]
    node_id    : ID [ <span class="nv">`port`</span> ]
-   port       : &#39;:&#39; ID [ &#39;:&#39; <span class="nv">`compass_pt`</span> ]
-              : &#39;:&#39; <span class="nv">`compass_pt`</span>
-   subgraph   : [ <span class="nv">`subgraph`</span> [ ID ] ] &#39;{&#39; <span class="nv">`stmt_list`</span> &#39;}&#39;
+   port       : ':' ID [ ':' <span class="nv">`compass_pt`</span> ]
+              : ':' <span class="nv">`compass_pt`</span>
+   subgraph   : [ <span class="nv">`subgraph`</span> [ ID ] ] '{' <span class="nv">`stmt_list`</span> '}'
    compass_pt : (n | ne | e | se | s | sw | w | nw | c | _)
 
 This is a reference to the grammar for a <span class="na">:token:</span><span class="nv">`graph`</span> in dot syntax.
@@ -2584,7 +2584,7 @@ This is a reference to the grammar for a <span class="na">:token:</span><span cl
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    Oct 16, 2026
+    Oct 30, 2026
   </span>
 
     

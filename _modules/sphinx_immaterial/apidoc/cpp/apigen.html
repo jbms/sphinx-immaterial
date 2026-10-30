@@ -1220,7 +1220,7 @@
   
 
 <h1>Source code for sphinx_immaterial.apidoc.cpp.apigen</h1><div class="highlight"><pre>
-<span></span><code><span class="sd">&quot;&quot;&quot;C++ API documentation generation extension.&quot;&quot;&quot;</span>
+<span></span><code><span class="sd">"""C++ API documentation generation extension."""</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">collections</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">contextlib</span>
@@ -1254,34 +1254,34 @@
 
 <span class="n">logger</span> <span class="o">=</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
-<span class="n">APIDOC_SECTION_ID_PREFIX</span> <span class="o">=</span> <span class="s2">&quot;cpp-api-&quot;</span>
+<span class="n">APIDOC_SECTION_ID_PREFIX</span> <span class="o">=</span> <span class="s2">"cpp-api-"</span>
 
 
 <div class="viewcode-block" id="ApigenConfig">
 <a class="viewcode-back" href="../../../../apidoc/cpp/apigen.html#sphinx_immaterial.apidoc.cpp.apigen.ApigenConfig">[docs]</a>
 <span class="nd">@pydantic</span><span class="o">.</span><span class="n">dataclasses</span><span class="o">.</span><span class="n">dataclass</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">ApigenConfig</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Specifies a C++ API generation configuration.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Specifies a C++ API generation configuration."""</span>
 
     <span class="n">document_prefix</span><span class="p">:</span> <span class="nb">str</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Sphinx document path prefix for the per-entity documentation pages.</span>
+<span class="w">    </span><span class="sd">"""Sphinx document path prefix for the per-entity documentation pages.</span>
 
 <span class="sd">    .. important::</span>
-<span class="sd">        This should use the Linux path separator :python:`&quot;/&quot;` (even if</span>
+<span class="sd">        This should use the Linux path separator :python:`"/"` (even if</span>
 <span class="sd">        building on Windows).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="n">api_parser_config</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">api_parser</span><span class="o">.</span><span class="n">Config</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Configuration for generating an API description.</span>
+<span class="w">    </span><span class="sd">"""Configuration for generating an API description.</span>
 
 <span class="sd">    This option and `.api_data` are mutually exclusive.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="n">api_data</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Path to already-parsed API description.</span>
+<span class="w">    </span><span class="sd">"""Path to already-parsed API description.</span>
 
 <span class="sd">    This option and `.api_parser_config` are mutually exclusive.</span>
-<span class="sd">    &quot;&quot;&quot;</span></div>
+<span class="sd">    """</span></div>
 
 
 
@@ -1301,8 +1301,8 @@
         <span class="n">entity</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">entities</span><span class="p">[</span><span class="n">entity_id</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">entity</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
             <span class="n">cast</span><span class="p">(</span>
-                <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;related_members&quot;</span><span class="p">,</span> <span class="s2">&quot;related_nonmembers&quot;</span><span class="p">],</span>
-                <span class="s2">&quot;related_members&quot;</span> <span class="k">if</span> <span class="n">member</span> <span class="k">else</span> <span class="s2">&quot;related_nonmembers&quot;</span><span class="p">,</span>
+                <span class="n">Literal</span><span class="p">[</span><span class="s2">"related_members"</span><span class="p">,</span> <span class="s2">"related_nonmembers"</span><span class="p">],</span>
+                <span class="s2">"related_members"</span> <span class="k">if</span> <span class="n">member</span> <span class="k">else</span> <span class="s2">"related_nonmembers"</span><span class="p">,</span>
             <span class="p">),</span>
             <span class="n">cast</span><span class="p">(</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">EntityId</span><span class="p">]],</span> <span class="p">{}),</span>
         <span class="p">)</span>
@@ -1326,45 +1326,45 @@
             <span class="k">yield from</span> <span class="n">process_group</span><span class="p">(</span><span class="n">group_members</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">get_entity_toc_title</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">entity</span><span class="p">:</span> <span class="n">CppApiEntity</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">entity</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">entity</span><span class="p">[</span><span class="s2">"name"</span><span class="p">]</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">get_entity_scope</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">entity</span><span class="p">:</span> <span class="n">CppApiEntity</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="n">components</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">cur_entity</span> <span class="o">=</span> <span class="n">entity</span>
         <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
-            <span class="n">parent_id</span> <span class="o">=</span> <span class="n">cur_entity</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;parent&quot;</span><span class="p">)</span>
+            <span class="n">parent_id</span> <span class="o">=</span> <span class="n">cur_entity</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"parent"</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">parent_id</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="k">break</span>
             <span class="n">parent_entity</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">entities</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">parent_id</span><span class="p">)</span>
             <span class="k">assert</span> <span class="n">parent_entity</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
             <span class="n">cur_entity</span> <span class="o">=</span> <span class="n">parent_entity</span>
-            <span class="n">name_with_args</span> <span class="o">=</span> <span class="n">cur_entity</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">cur_entity</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;specializes&quot;</span><span class="p">):</span>
+            <span class="n">name_with_args</span> <span class="o">=</span> <span class="n">cur_entity</span><span class="p">[</span><span class="s2">"name"</span><span class="p">]</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">cur_entity</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"specializes"</span><span class="p">):</span>
                 <span class="n">name_with_args</span> <span class="o">+=</span> <span class="n">_format_template_arguments</span><span class="p">(</span><span class="n">cur_entity</span><span class="p">)</span>
             <span class="n">components</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name_with_args</span><span class="p">)</span>
         <span class="n">components</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">components</span><span class="p">:</span>
-            <span class="n">components</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">cur_entity</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;scope&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;::&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">components</span><span class="p">)</span>
+            <span class="n">components</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">""</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">cur_entity</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"scope"</span><span class="p">,</span> <span class="s2">""</span><span class="p">)</span> <span class="o">+</span> <span class="s2">"::"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">components</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">get_entity_object_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">entity</span><span class="p">:</span> <span class="n">CppApiEntity</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_entity_scope</span><span class="p">(</span><span class="n">entity</span><span class="p">)</span> <span class="o">+</span> <span class="n">entity</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span>
-        <span class="n">special_id</span> <span class="o">=</span> <span class="n">entity</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;special_id&quot;</span><span class="p">)</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_entity_scope</span><span class="p">(</span><span class="n">entity</span><span class="p">)</span> <span class="o">+</span> <span class="n">entity</span><span class="p">[</span><span class="s2">"name"</span><span class="p">]</span>
+        <span class="n">special_id</span> <span class="o">=</span> <span class="n">entity</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"special_id"</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">special_id</span><span class="p">:</span>
-            <span class="n">name</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="n">special_id</span><span class="si">}</span><span class="s2">]&quot;</span>
+            <span class="n">name</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">"[</span><span class="si">{</span><span class="n">special_id</span><span class="si">}</span><span class="s2">]"</span>
         <span class="k">return</span> <span class="n">name</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">get_entity_page_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">entity</span><span class="p">:</span> <span class="n">CppApiEntity</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">entity</span><span class="p">[</span><span class="s2">&quot;page_name&quot;</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">entity</span><span class="p">[</span><span class="s2">"page_name"</span><span class="p">]</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">get_entity_page_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">entity</span><span class="p">:</span> <span class="n">CppApiEntity</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">entity</span><span class="p">[</span><span class="s2">&quot;document_prefix&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_entity_page_name</span><span class="p">(</span><span class="n">entity</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">entity</span><span class="p">[</span><span class="s2">"document_prefix"</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_entity_page_name</span><span class="p">(</span><span class="n">entity</span><span class="p">)</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_get_cpp_api_data</span><span class="p">(</span>
     <span class="n">env</span><span class="p">:</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">environment</span><span class="o">.</span><span class="n">BuildEnvironment</span><span class="p">,</span> <span class="n">warn</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">CppApiData</span><span class="p">:</span>
-    <span class="n">KEY</span> <span class="o">=</span> <span class="s2">&quot;_sphinx_immaterial_cpp_apigen_data&quot;</span>
+    <span class="n">KEY</span> <span class="o">=</span> <span class="s2">"_sphinx_immaterial_cpp_apigen_data"</span>
     <span class="n">data</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">env</span><span class="o">.</span><span class="n">app</span><span class="p">,</span> <span class="n">KEY</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">data</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">data</span>
@@ -1378,29 +1378,29 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="k">with</span> <span class="nb">open</span><span class="p">(</span>
                 <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">env</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">srcdir</span><span class="p">,</span> <span class="n">apigen_config</span><span class="o">.</span><span class="n">api_data</span><span class="p">),</span>
-                <span class="s2">&quot;r&quot;</span><span class="p">,</span>
-                <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">,</span>
+                <span class="s2">"r"</span><span class="p">,</span>
+                <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">,</span>
             <span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
                 <span class="n">json_data</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">api_parser</span><span class="o">.</span><span class="n">JsonApiData</span><span class="p">,</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">))</span>
-        <span class="k">for</span> <span class="n">entity</span> <span class="ow">in</span> <span class="n">json_data</span><span class="p">[</span><span class="s2">&quot;entities&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
-            <span class="n">entity</span><span class="p">[</span><span class="s2">&quot;document_prefix&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">apigen_config</span><span class="o">.</span><span class="n">document_prefix</span>
-        <span class="n">data</span><span class="o">.</span><span class="n">entities</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">json_data</span><span class="p">[</span><span class="s2">&quot;entities&quot;</span><span class="p">])</span>
-        <span class="k">for</span> <span class="n">group_id</span><span class="p">,</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">json_data</span><span class="p">[</span><span class="s2">&quot;groups&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">for</span> <span class="n">entity</span> <span class="ow">in</span> <span class="n">json_data</span><span class="p">[</span><span class="s2">"entities"</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">entity</span><span class="p">[</span><span class="s2">"document_prefix"</span><span class="p">]</span> <span class="o">=</span> <span class="n">apigen_config</span><span class="o">.</span><span class="n">document_prefix</span>
+        <span class="n">data</span><span class="o">.</span><span class="n">entities</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">json_data</span><span class="p">[</span><span class="s2">"entities"</span><span class="p">])</span>
+        <span class="k">for</span> <span class="n">group_id</span><span class="p">,</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">json_data</span><span class="p">[</span><span class="s2">"groups"</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="n">data</span><span class="o">.</span><span class="n">groups</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">group_id</span><span class="p">,</span> <span class="p">[])</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">group</span><span class="p">)</span>
         <span class="n">data</span><span class="o">.</span><span class="n">nonitpick</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
-            <span class="nb">set</span><span class="p">((</span><span class="n">x</span><span class="p">[</span><span class="s2">&quot;target&quot;</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="s2">&quot;file&quot;</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="s2">&quot;line&quot;</span><span class="p">])</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">json_data</span><span class="p">[</span><span class="s2">&quot;nonitpick&quot;</span><span class="p">])</span>
+            <span class="nb">set</span><span class="p">((</span><span class="n">x</span><span class="p">[</span><span class="s2">"target"</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="s2">"file"</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="s2">"line"</span><span class="p">])</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">json_data</span><span class="p">[</span><span class="s2">"nonitpick"</span><span class="p">])</span>
         <span class="p">)</span>
 
         <span class="k">if</span> <span class="n">warn</span><span class="p">:</span>
-            <span class="k">for</span> <span class="n">diag</span> <span class="ow">in</span> <span class="n">json_data</span><span class="p">[</span><span class="s2">&quot;warnings&quot;</span><span class="p">]:</span>
+            <span class="k">for</span> <span class="n">diag</span> <span class="ow">in</span> <span class="n">json_data</span><span class="p">[</span><span class="s2">"warnings"</span><span class="p">]:</span>
                 <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
-                    <span class="n">diag</span><span class="p">[</span><span class="s2">&quot;message&quot;</span><span class="p">],</span>
-                    <span class="n">location</span><span class="o">=</span><span class="n">api_parser</span><span class="o">.</span><span class="n">json_location_to_string</span><span class="p">(</span><span class="n">diag</span><span class="p">[</span><span class="s2">&quot;location&quot;</span><span class="p">]),</span>
+                    <span class="n">diag</span><span class="p">[</span><span class="s2">"message"</span><span class="p">],</span>
+                    <span class="n">location</span><span class="o">=</span><span class="n">api_parser</span><span class="o">.</span><span class="n">json_location_to_string</span><span class="p">(</span><span class="n">diag</span><span class="p">[</span><span class="s2">"location"</span><span class="p">]),</span>
                 <span class="p">)</span>
-            <span class="k">for</span> <span class="n">diag</span> <span class="ow">in</span> <span class="n">json_data</span><span class="p">[</span><span class="s2">&quot;errors&quot;</span><span class="p">]:</span>
+            <span class="k">for</span> <span class="n">diag</span> <span class="ow">in</span> <span class="n">json_data</span><span class="p">[</span><span class="s2">"errors"</span><span class="p">]:</span>
                 <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-                    <span class="n">diag</span><span class="p">[</span><span class="s2">&quot;message&quot;</span><span class="p">],</span>
-                    <span class="n">location</span><span class="o">=</span><span class="n">api_parser</span><span class="o">.</span><span class="n">json_location_to_string</span><span class="p">(</span><span class="n">diag</span><span class="p">[</span><span class="s2">&quot;location&quot;</span><span class="p">]),</span>
+                    <span class="n">diag</span><span class="p">[</span><span class="s2">"message"</span><span class="p">],</span>
+                    <span class="n">location</span><span class="o">=</span><span class="n">api_parser</span><span class="o">.</span><span class="n">json_location_to_string</span><span class="p">(</span><span class="n">diag</span><span class="p">[</span><span class="s2">"location"</span><span class="p">]),</span>
                 <span class="p">)</span>
 
     <span class="nb">setattr</span><span class="p">(</span><span class="n">env</span><span class="o">.</span><span class="n">app</span><span class="p">,</span> <span class="n">KEY</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
@@ -1414,64 +1414,64 @@
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">docutils</span><span class="o">.</span><span class="n">statemachine</span><span class="o">.</span><span class="n">StringList</span><span class="p">]:</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">doc</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">None</span>
-    <span class="n">text</span> <span class="o">=</span> <span class="n">doc</span><span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">]</span>
-    <span class="n">location</span> <span class="o">=</span> <span class="n">doc</span><span class="p">[</span><span class="s2">&quot;location&quot;</span><span class="p">]</span>
-    <span class="n">filename</span> <span class="o">=</span> <span class="n">location</span><span class="p">[</span><span class="s2">&quot;file&quot;</span><span class="p">]</span>
-    <span class="n">lineno</span> <span class="o">=</span> <span class="n">location</span><span class="p">[</span><span class="s2">&quot;line&quot;</span><span class="p">]</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">doc</span><span class="p">[</span><span class="s2">"text"</span><span class="p">]</span>
+    <span class="n">location</span> <span class="o">=</span> <span class="n">doc</span><span class="p">[</span><span class="s2">"location"</span><span class="p">]</span>
+    <span class="n">filename</span> <span class="o">=</span> <span class="n">location</span><span class="p">[</span><span class="s2">"file"</span><span class="p">]</span>
+    <span class="n">lineno</span> <span class="o">=</span> <span class="n">location</span><span class="p">[</span><span class="s2">"line"</span><span class="p">]</span>
 
     <span class="k">if</span> <span class="n">summary</span><span class="p">:</span>
         <span class="c1"># Find first blank line</span>
-        <span class="n">first_blank_line</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;^\s*$&quot;</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">MULTILINE</span><span class="p">)</span>
+        <span class="n">first_blank_line</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s2">"^\s*$"</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">MULTILINE</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">first_blank_line</span><span class="p">:</span>
             <span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="p">[:</span> <span class="n">first_blank_line</span><span class="o">.</span><span class="n">start</span><span class="p">()]</span>
 
     <span class="n">out</span> <span class="o">=</span> <span class="n">docutils</span><span class="o">.</span><span class="n">statemachine</span><span class="o">.</span><span class="n">StringList</span><span class="p">()</span>
     <span class="n">sphinx_utils</span><span class="o">.</span><span class="n">append_multiline_string_to_stringlist</span><span class="p">(</span>
         <span class="n">out</span><span class="p">,</span>
-        <span class="s2">&quot;.. highlight-push::</span><span class="se">\n\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="n">env</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">cpp_apigen_rst_prolog</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;&lt;cpp_apigen_rst_prolog&gt;&quot;</span><span class="p">,</span>
+        <span class="s2">".. highlight-push::</span><span class="se">\n\n</span><span class="s2">"</span> <span class="o">+</span> <span class="n">env</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">cpp_apigen_rst_prolog</span> <span class="o">+</span> <span class="s2">"</span><span class="se">\n\n</span><span class="s2">"</span><span class="p">,</span>
+        <span class="s2">"&lt;cpp_apigen_rst_prolog&gt;"</span><span class="p">,</span>
         <span class="o">-</span><span class="mi">2</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="n">sphinx_utils</span><span class="o">.</span><span class="n">append_multiline_string_to_stringlist</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">lineno</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
     <span class="n">sphinx_utils</span><span class="o">.</span><span class="n">append_multiline_string_to_stringlist</span><span class="p">(</span>
         <span class="n">out</span><span class="p">,</span>
-        <span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="n">env</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">cpp_apigen_rst_epilog</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">.. highlight-pop::</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;&lt;cpp_apigen_rst_epilog&gt;&quot;</span><span class="p">,</span>
+        <span class="s2">"</span><span class="se">\n\n</span><span class="s2">"</span> <span class="o">+</span> <span class="n">env</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">cpp_apigen_rst_epilog</span> <span class="o">+</span> <span class="s2">"</span><span class="se">\n\n</span><span class="s2">.. highlight-pop::</span><span class="se">\n\n</span><span class="s2">"</span><span class="p">,</span>
+        <span class="s2">"&lt;cpp_apigen_rst_epilog&gt;"</span><span class="p">,</span>
         <span class="o">-</span><span class="mi">2</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="k">return</span> <span class="n">out</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_format_template_parameters</span><span class="p">(</span><span class="n">entity</span><span class="p">:</span> <span class="n">CppApiEntity</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-    <span class="n">template_parameters</span> <span class="o">=</span> <span class="n">entity</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;template_parameters&quot;</span><span class="p">)</span>
+    <span class="n">template_parameters</span> <span class="o">=</span> <span class="n">entity</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"template_parameters"</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">template_parameters</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">return</span> <span class="s2">&quot;&quot;</span>
-    <span class="n">tparam_list_str</span> <span class="o">=</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="s2">&quot;declaration&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">template_parameters</span><span class="p">)</span>
-    <span class="n">tparams</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;template &lt;</span><span class="si">{</span><span class="n">tparam_list_str</span><span class="si">}</span><span class="s2">&gt; &quot;</span>
-    <span class="n">requires</span> <span class="o">=</span> <span class="n">entity</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;requires&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s2">""</span>
+    <span class="n">tparam_list_str</span> <span class="o">=</span> <span class="s2">", "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="s2">"declaration"</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">template_parameters</span><span class="p">)</span>
+    <span class="n">tparams</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"template &lt;</span><span class="si">{</span><span class="n">tparam_list_str</span><span class="si">}</span><span class="s2">&gt; "</span>
+    <span class="n">requires</span> <span class="o">=</span> <span class="n">entity</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"requires"</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">requires</span><span class="p">:</span>
-        <span class="n">requires_expr</span> <span class="o">=</span> <span class="s2">&quot; &amp;&amp; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">requires</span><span class="p">)</span>
-        <span class="n">tparams</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;requires </span><span class="si">{</span><span class="n">requires_expr</span><span class="si">}</span><span class="s2"> &quot;</span>
+        <span class="n">requires_expr</span> <span class="o">=</span> <span class="s2">" &amp;&amp; "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">requires</span><span class="p">)</span>
+        <span class="n">tparams</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">"requires </span><span class="si">{</span><span class="n">requires_expr</span><span class="si">}</span><span class="s2"> "</span>
     <span class="k">return</span> <span class="n">tparams</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_format_template_arguments</span><span class="p">(</span><span class="n">entity</span><span class="p">:</span> <span class="n">CppApiEntity</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-    <span class="k">if</span> <span class="n">entity</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;specializes&quot;</span><span class="p">):</span>
-        <span class="c1"># Template arguments already included in `entity[&quot;name&quot;]`.</span>
-        <span class="k">return</span> <span class="s2">&quot;&quot;</span>
-    <span class="n">template_parameters</span> <span class="o">=</span> <span class="n">entity</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;template_parameters&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">entity</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"specializes"</span><span class="p">):</span>
+        <span class="c1"># Template arguments already included in `entity["name"]`.</span>
+        <span class="k">return</span> <span class="s2">""</span>
+    <span class="n">template_parameters</span> <span class="o">=</span> <span class="n">entity</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"template_parameters"</span><span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">template_parameters</span><span class="p">:</span>
-        <span class="k">return</span> <span class="s2">&quot;&quot;</span>
+        <span class="k">return</span> <span class="s2">""</span>
     <span class="n">strs</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">template_parameters</span><span class="p">:</span>
-        <span class="n">arg</span> <span class="o">=</span> <span class="n">param</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span>
+        <span class="n">arg</span> <span class="o">=</span> <span class="n">param</span><span class="p">[</span><span class="s2">"name"</span><span class="p">]</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">arg</span><span class="p">:</span>
             <span class="k">continue</span>
-        <span class="k">if</span> <span class="n">param</span><span class="p">[</span><span class="s2">&quot;pack&quot;</span><span class="p">]:</span>
-            <span class="n">arg</span> <span class="o">+=</span> <span class="s2">&quot;...&quot;</span>
+        <span class="k">if</span> <span class="n">param</span><span class="p">[</span><span class="s2">"pack"</span><span class="p">]:</span>
+            <span class="n">arg</span> <span class="o">+=</span> <span class="s2">"..."</span>
         <span class="n">strs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span>
-    <span class="n">args_str</span> <span class="o">=</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">strs</span><span class="p">)</span>
-    <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;&lt;</span><span class="si">{</span><span class="n">args_str</span><span class="si">}</span><span class="s2">&gt;&quot;</span>
+    <span class="n">args_str</span> <span class="o">=</span> <span class="s2">", "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">strs</span><span class="p">)</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s2">"&lt;</span><span class="si">{</span><span class="n">args_str</span><span class="si">}</span><span class="s2">&gt;"</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_validate_signature_line_tags</span><span class="p">(</span>
@@ -1483,7 +1483,7 @@
             <span class="n">child</span> <span class="o">=</span> <span class="n">child</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="n">strip_tag</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;Expected </span><span class="si">{</span><span class="n">strip_tag</span><span class="si">!r}</span><span class="s2"> tag, but received: </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">child</span><span class="p">)</span><span class="si">!r}</span><span class="s2">&quot;</span>
+                <span class="sa">f</span><span class="s2">"Expected </span><span class="si">{</span><span class="n">strip_tag</span><span class="si">!r}</span><span class="s2"> tag, but received: </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">child</span><span class="p">)</span><span class="si">!r}</span><span class="s2">"</span>
             <span class="p">)</span>
 
 
@@ -1498,19 +1498,19 @@
     <span class="n">strip_leading</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">strip_trailing</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">if</span> <span class="n">strip_self_parameters</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">entity</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;requires&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">entity</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;template_parameters&quot;</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">strip_trailing</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;trailingRequiresClause&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">entity</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"requires"</span><span class="p">)</span> <span class="ow">and</span> <span class="n">entity</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"template_parameters"</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">strip_trailing</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"trailingRequiresClause"</span><span class="p">)</span>
     <span class="n">depth</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">depth</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">strip_ancestors_parameters</span><span class="p">:</span>
             <span class="k">break</span>
         <span class="k">if</span> <span class="n">depth</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">strip_self_parameters</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">cur_entity</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;template_parameters&quot;</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">strip_leading</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;templateParams&quot;</span><span class="p">)</span>
-                <span class="k">if</span> <span class="n">cur_entity</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;requires&quot;</span><span class="p">):</span>
-                    <span class="n">strip_leading</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;requiresClause&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">cur_entity</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"template_parameters"</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">strip_leading</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"templateParams"</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">cur_entity</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"requires"</span><span class="p">):</span>
+                    <span class="n">strip_leading</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"requiresClause"</span><span class="p">)</span>
         <span class="n">depth</span> <span class="o">+=</span> <span class="mi">1</span>
-        <span class="n">parent_id</span> <span class="o">=</span> <span class="n">cur_entity</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;parent&quot;</span><span class="p">)</span>
+        <span class="n">parent_id</span> <span class="o">=</span> <span class="n">cur_entity</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"parent"</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">parent_id</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">break</span>
         <span class="n">cur_entity</span> <span class="o">=</span> <span class="n">api_data</span><span class="o">.</span><span class="n">entities</span><span class="p">[</span><span class="n">parent_id</span><span class="p">]</span>
@@ -1521,7 +1521,7 @@
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">addnodes</span><span class="o">.</span><span class="n">desc_signature_line</span><span class="p">)</span>
     <span class="p">]</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">signature_lines</span><span class="p">)</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">strip_leading</span><span class="p">)</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">strip_trailing</span><span class="p">):</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Missing children&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Missing children"</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">line_type</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">strip_leading</span><span class="p">):</span>
         <span class="k">assert</span> <span class="n">signature_lines</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">sphinx_line_type</span> <span class="o">==</span> <span class="n">line_type</span>
 
@@ -1544,17 +1544,17 @@
     <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">signode</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">condition</span><span class="o">=</span><span class="n">desc_cpp_explicit</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">children</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
             <span class="k">continue</span>
-        <span class="n">node</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">addnodes</span><span class="o">.</span><span class="n">desc_sig_punctuation</span><span class="p">(</span><span class="s2">&quot;...&quot;</span><span class="p">,</span> <span class="s2">&quot;...&quot;</span><span class="p">)</span>
+        <span class="n">node</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">addnodes</span><span class="o">.</span><span class="n">desc_sig_punctuation</span><span class="p">(</span><span class="s2">"..."</span><span class="p">,</span> <span class="s2">"..."</span><span class="p">)</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_format_entity_alias</span><span class="p">(</span>
     <span class="n">entity</span><span class="p">:</span> <span class="n">api_parser</span><span class="o">.</span><span class="n">TypeAliasEntity</span><span class="p">,</span> <span class="n">full_name</span><span class="p">:</span> <span class="nb">str</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
-    <span class="n">underlying_type</span> <span class="o">=</span> <span class="n">entity</span><span class="p">[</span><span class="s2">&quot;underlying_type&quot;</span><span class="p">]</span>
-    <span class="n">signature</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">full_name</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="n">underlying_type</span> <span class="o">=</span> <span class="n">entity</span><span class="p">[</span><span class="s2">"underlying_type"</span><span class="p">]</span>
+    <span class="n">signature</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">full_name</span><span class="si">}</span><span class="s2">"</span>
     <span class="k">if</span> <span class="n">underlying_type</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">signature</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot; = </span><span class="si">{</span><span class="n">underlying_type</span><span class="si">}</span><span class="s2">&quot;</span>
-    <span class="k">return</span> <span class="p">(</span><span class="s2">&quot;cpp:type&quot;</span><span class="p">,</span> <span class="n">signature</span><span class="p">)</span>
+        <span class="n">signature</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">" = </span><span class="si">{</span><span class="n">underlying_type</span><span class="si">}</span><span class="s2">"</span>
+    <span class="k">return</span> <span class="p">(</span><span class="s2">"cpp:type"</span><span class="p">,</span> <span class="n">signature</span><span class="p">)</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_format_entity_constructor</span><span class="p">(</span>
@@ -1566,23 +1566,23 @@
 <span class="k">def</span><span class="w"> </span><span class="nf">_format_entity_class</span><span class="p">(</span>
     <span class="n">entity</span><span class="p">:</span> <span class="n">api_parser</span><span class="o">.</span><span class="n">ClassEntity</span><span class="p">,</span> <span class="n">full_name</span><span class="p">:</span> <span class="nb">str</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
-    <span class="n">prefix</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">entity</span><span class="p">[</span><span class="s2">&quot;prefix&quot;</span><span class="p">])</span>
-    <span class="n">signature</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">prefix</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">full_name</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="n">prefix</span> <span class="o">=</span> <span class="s2">" "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">entity</span><span class="p">[</span><span class="s2">"prefix"</span><span class="p">])</span>
+    <span class="n">signature</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">prefix</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">full_name</span><span class="si">}</span><span class="s2">"</span>
     <span class="n">base_strs</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">for</span> <span class="n">base</span> <span class="ow">in</span> <span class="n">entity</span><span class="p">[</span><span class="s2">&quot;bases&quot;</span><span class="p">]:</span>
-        <span class="n">base_strs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">base</span><span class="p">[</span><span class="s1">&#39;access&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">base</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">base</span> <span class="ow">in</span> <span class="n">entity</span><span class="p">[</span><span class="s2">"bases"</span><span class="p">]:</span>
+        <span class="n">base_strs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">base</span><span class="p">[</span><span class="s1">'access'</span><span class="p">]</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">base</span><span class="p">[</span><span class="s1">'type'</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">base_strs</span><span class="p">:</span>
-        <span class="n">signature</span> <span class="o">+=</span> <span class="s2">&quot; : &quot;</span>
-        <span class="n">signature</span> <span class="o">+=</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">base_strs</span><span class="p">)</span>
+        <span class="n">signature</span> <span class="o">+=</span> <span class="s2">" : "</span>
+        <span class="n">signature</span> <span class="o">+=</span> <span class="s2">", "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">base_strs</span><span class="p">)</span>
 
-    <span class="k">return</span> <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;cpp:</span><span class="si">{</span><span class="n">entity</span><span class="p">[</span><span class="s1">&#39;keyword&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">signature</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span><span class="sa">f</span><span class="s2">"cpp:</span><span class="si">{</span><span class="n">entity</span><span class="p">[</span><span class="s1">'keyword'</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="n">signature</span><span class="p">)</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_format_entity_function</span><span class="p">(</span>
     <span class="n">entity</span><span class="p">:</span> <span class="n">api_parser</span><span class="o">.</span><span class="n">FunctionEntity</span><span class="p">,</span> <span class="n">full_name</span><span class="p">:</span> <span class="nb">str</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
-    <span class="n">signature</span> <span class="o">=</span> <span class="n">entity</span><span class="p">[</span><span class="s2">&quot;declaration&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">entity</span><span class="p">[</span><span class="s2">&quot;name_substitute&quot;</span><span class="p">],</span> <span class="n">full_name</span><span class="p">)</span>
-    <span class="k">return</span> <span class="p">(</span><span class="s2">&quot;cpp:function&quot;</span><span class="p">,</span> <span class="n">signature</span><span class="p">)</span>
+    <span class="n">signature</span> <span class="o">=</span> <span class="n">entity</span><span class="p">[</span><span class="s2">"declaration"</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">entity</span><span class="p">[</span><span class="s2">"name_substitute"</span><span class="p">],</span> <span class="n">full_name</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span><span class="s2">"cpp:function"</span><span class="p">,</span> <span class="n">signature</span><span class="p">)</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_format_entity_method</span><span class="p">(</span>
@@ -1598,21 +1598,21 @@
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_format_entity_var</span><span class="p">(</span><span class="n">entity</span><span class="p">:</span> <span class="n">api_parser</span><span class="o">.</span><span class="n">VarEntity</span><span class="p">,</span> <span class="n">full_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
-    <span class="n">declaration</span> <span class="o">=</span> <span class="n">entity</span><span class="p">[</span><span class="s2">&quot;declaration&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">entity</span><span class="p">[</span><span class="s2">&quot;name_substitute&quot;</span><span class="p">],</span> <span class="n">full_name</span><span class="p">)</span>
+    <span class="n">declaration</span> <span class="o">=</span> <span class="n">entity</span><span class="p">[</span><span class="s2">"declaration"</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">entity</span><span class="p">[</span><span class="s2">"name_substitute"</span><span class="p">],</span> <span class="n">full_name</span><span class="p">)</span>
     <span class="n">signature</span> <span class="o">=</span> <span class="n">declaration</span>
-    <span class="n">initializer</span> <span class="o">=</span> <span class="n">entity</span><span class="p">[</span><span class="s2">&quot;initializer&quot;</span><span class="p">]</span>
+    <span class="n">initializer</span> <span class="o">=</span> <span class="n">entity</span><span class="p">[</span><span class="s2">"initializer"</span><span class="p">]</span>
     <span class="k">if</span> <span class="n">initializer</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">signature</span> <span class="o">+=</span> <span class="n">initializer</span>
-    <span class="k">return</span> <span class="p">(</span><span class="s2">&quot;cpp:var&quot;</span><span class="p">,</span> <span class="n">signature</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span><span class="s2">"cpp:var"</span><span class="p">,</span> <span class="n">signature</span><span class="p">)</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_format_entity_enum</span><span class="p">(</span>
     <span class="n">entity</span><span class="p">:</span> <span class="n">api_parser</span><span class="o">.</span><span class="n">EnumEntity</span><span class="p">,</span> <span class="n">full_name</span><span class="p">:</span> <span class="nb">str</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
     <span class="n">signature</span> <span class="o">=</span> <span class="n">full_name</span>
-    <span class="n">directive_name</span> <span class="o">=</span> <span class="s2">&quot;cpp:enum&quot;</span>
-    <span class="k">if</span> <span class="n">entity</span><span class="p">[</span><span class="s2">&quot;keyword&quot;</span><span class="p">]:</span>
-        <span class="n">directive_name</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;-</span><span class="si">{</span><span class="n">entity</span><span class="p">[</span><span class="s1">&#39;keyword&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="n">directive_name</span> <span class="o">=</span> <span class="s2">"cpp:enum"</span>
+    <span class="k">if</span> <span class="n">entity</span><span class="p">[</span><span class="s2">"keyword"</span><span class="p">]:</span>
+        <span class="n">directive_name</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">"-</span><span class="si">{</span><span class="n">entity</span><span class="p">[</span><span class="s1">'keyword'</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span>
     <span class="k">return</span> <span class="p">(</span><span class="n">directive_name</span><span class="p">,</span> <span class="n">signature</span><span class="p">)</span>
 
 
@@ -1620,10 +1620,10 @@
     <span class="n">entity</span><span class="p">:</span> <span class="n">api_parser</span><span class="o">.</span><span class="n">MacroEntity</span><span class="p">,</span> <span class="n">full_name</span><span class="p">:</span> <span class="nb">str</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
     <span class="n">signature</span> <span class="o">=</span> <span class="n">full_name</span>
-    <span class="n">parameters</span> <span class="o">=</span> <span class="n">entity</span><span class="p">[</span><span class="s2">&quot;parameters&quot;</span><span class="p">]</span>
+    <span class="n">parameters</span> <span class="o">=</span> <span class="n">entity</span><span class="p">[</span><span class="s2">"parameters"</span><span class="p">]</span>
     <span class="k">if</span> <span class="n">parameters</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">signature</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;(</span><span class="si">{</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">parameters</span><span class="p">)</span><span class="si">}</span><span class="s2">)&quot;</span>
-    <span class="k">return</span> <span class="p">(</span><span class="s2">&quot;c:macro&quot;</span><span class="p">,</span> <span class="n">signature</span><span class="p">)</span>
+        <span class="n">signature</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">"(</span><span class="si">{</span><span class="s1">', '</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">parameters</span><span class="p">)</span><span class="si">}</span><span class="s2">)"</span>
+    <span class="k">return</span> <span class="p">(</span><span class="s2">"c:macro"</span><span class="p">,</span> <span class="n">signature</span><span class="p">)</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_format_template_prefix</span><span class="p">(</span>
@@ -1634,33 +1634,33 @@
         <span class="k">return</span> <span class="n">inner_prefix</span>
     <span class="n">prefixes</span> <span class="o">=</span> <span class="p">[</span><span class="n">inner_prefix</span><span class="p">]</span>
     <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
-        <span class="n">parent_id</span> <span class="o">=</span> <span class="n">entity</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;parent&quot;</span><span class="p">)</span>
+        <span class="n">parent_id</span> <span class="o">=</span> <span class="n">entity</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"parent"</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">parent_id</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">break</span>
         <span class="n">entity</span> <span class="o">=</span> <span class="n">api_data</span><span class="o">.</span><span class="n">entities</span><span class="p">[</span><span class="n">parent_id</span><span class="p">]</span>
         <span class="n">prefixes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">_format_template_parameters</span><span class="p">(</span><span class="n">entity</span><span class="p">))</span>
     <span class="n">prefixes</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span>
-    <span class="k">return</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">prefixes</span><span class="p">)</span>
+    <span class="k">return</span> <span class="s2">" "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">prefixes</span><span class="p">)</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_format_trailing_requires</span><span class="p">(</span><span class="n">entity</span><span class="p">:</span> <span class="n">CppApiEntity</span><span class="p">,</span> <span class="n">summary</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-    <span class="n">template_parameters</span> <span class="o">=</span> <span class="n">entity</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;template_parameters&quot;</span><span class="p">)</span>
-    <span class="n">requires</span> <span class="o">=</span> <span class="n">entity</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;requires&quot;</span><span class="p">)</span>
+    <span class="n">template_parameters</span> <span class="o">=</span> <span class="n">entity</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"template_parameters"</span><span class="p">)</span>
+    <span class="n">requires</span> <span class="o">=</span> <span class="n">entity</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"requires"</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">template_parameters</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">requires</span><span class="p">:</span>
-        <span class="k">return</span> <span class="s2">&quot;&quot;</span>
-    <span class="k">return</span> <span class="s2">&quot; requires &quot;</span> <span class="o">+</span> <span class="s2">&quot; &amp;&amp; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">expr</span> <span class="k">for</span> <span class="n">expr</span> <span class="ow">in</span> <span class="n">requires</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s2">""</span>
+    <span class="k">return</span> <span class="s2">" requires "</span> <span class="o">+</span> <span class="s2">" &amp;&amp; "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">expr</span> <span class="k">for</span> <span class="n">expr</span> <span class="ow">in</span> <span class="n">requires</span><span class="p">)</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_format_entity</span><span class="p">(</span>
     <span class="n">api_data</span><span class="p">:</span> <span class="n">CppApiData</span><span class="p">,</span> <span class="n">entity</span><span class="p">:</span> <span class="n">CppApiEntity</span><span class="p">,</span> <span class="n">summary</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">include_scope</span><span class="p">:</span> <span class="nb">bool</span>
 <span class="p">):</span>
-    <span class="n">full_name</span> <span class="o">=</span> <span class="n">api_data</span><span class="o">.</span><span class="n">get_entity_scope</span><span class="p">(</span><span class="n">entity</span><span class="p">)</span> <span class="k">if</span> <span class="n">include_scope</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
-    <span class="n">full_name</span> <span class="o">+=</span> <span class="n">entity</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span>
-    <span class="n">kind</span> <span class="o">=</span> <span class="n">entity</span><span class="p">[</span><span class="s2">&quot;kind&quot;</span><span class="p">]</span>
-    <span class="k">if</span> <span class="n">summary</span> <span class="ow">and</span> <span class="n">kind</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;class&quot;</span><span class="p">,</span> <span class="s2">&quot;alias&quot;</span><span class="p">,</span> <span class="s2">&quot;var&quot;</span><span class="p">):</span>
+    <span class="n">full_name</span> <span class="o">=</span> <span class="n">api_data</span><span class="o">.</span><span class="n">get_entity_scope</span><span class="p">(</span><span class="n">entity</span><span class="p">)</span> <span class="k">if</span> <span class="n">include_scope</span> <span class="k">else</span> <span class="s2">""</span>
+    <span class="n">full_name</span> <span class="o">+=</span> <span class="n">entity</span><span class="p">[</span><span class="s2">"name"</span><span class="p">]</span>
+    <span class="n">kind</span> <span class="o">=</span> <span class="n">entity</span><span class="p">[</span><span class="s2">"kind"</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">summary</span> <span class="ow">and</span> <span class="n">kind</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">"class"</span><span class="p">,</span> <span class="s2">"alias"</span><span class="p">,</span> <span class="s2">"var"</span><span class="p">):</span>
         <span class="c1"># Add template arguments</span>
         <span class="n">full_name</span> <span class="o">+=</span> <span class="n">_format_template_arguments</span><span class="p">(</span><span class="n">entity</span><span class="p">)</span>
-    <span class="n">cpp_directive</span><span class="p">,</span> <span class="n">signature_text</span> <span class="o">=</span> <span class="nb">globals</span><span class="p">()[</span><span class="sa">f</span><span class="s2">&quot;_format_entity_</span><span class="si">{</span><span class="n">kind</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">](</span>
+    <span class="n">cpp_directive</span><span class="p">,</span> <span class="n">signature_text</span> <span class="o">=</span> <span class="nb">globals</span><span class="p">()[</span><span class="sa">f</span><span class="s2">"_format_entity_</span><span class="si">{</span><span class="n">kind</span><span class="si">}</span><span class="s2">"</span><span class="p">](</span>
         <span class="n">entity</span><span class="p">,</span> <span class="n">full_name</span>
     <span class="p">)</span>
     <span class="n">signature_line</span> <span class="o">=</span> <span class="p">(</span>
@@ -1668,35 +1668,35 @@
         <span class="o">+</span> <span class="n">signature_text</span>
         <span class="o">+</span> <span class="n">_format_trailing_requires</span><span class="p">(</span><span class="n">entity</span><span class="p">,</span> <span class="n">summary</span><span class="o">=</span><span class="n">summary</span><span class="p">)</span>
     <span class="p">)</span>
-    <span class="k">if</span> <span class="n">kind</span> <span class="o">!=</span> <span class="s2">&quot;macro&quot;</span><span class="p">:</span>
-        <span class="n">signature_line</span> <span class="o">+=</span> <span class="s2">&quot;;&quot;</span>
+    <span class="k">if</span> <span class="n">kind</span> <span class="o">!=</span> <span class="s2">"macro"</span><span class="p">:</span>
+        <span class="n">signature_line</span> <span class="o">+=</span> <span class="s2">";"</span>
     <span class="k">return</span> <span class="n">cpp_directive</span><span class="p">,</span> <span class="n">signature_line</span>
 
 
 <span class="nd">@contextlib</span><span class="o">.</span><span class="n">contextmanager</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">save_cpp_scope</span><span class="p">(</span><span class="n">env</span><span class="p">:</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">environment</span><span class="o">.</span><span class="n">BuildEnvironment</span><span class="p">):</span>
-    <span class="n">parent_symbol</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">temp_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;cpp:parent_symbol&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
-    <span class="n">namespace_stack</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">temp_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;cpp:namespace_stack&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+    <span class="n">parent_symbol</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">temp_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"cpp:parent_symbol"</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+    <span class="n">namespace_stack</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">temp_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"cpp:namespace_stack"</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">namespace_stack</span><span class="p">:</span>
         <span class="n">namespace_stack</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">namespace_stack</span><span class="p">)</span>
-    <span class="n">parent_key</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">ref_context</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;cpp:parent_key&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+    <span class="n">parent_key</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">ref_context</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"cpp:parent_key"</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
 
     <span class="k">yield</span>
 
     <span class="k">if</span> <span class="n">parent_symbol</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">False</span><span class="p">:</span>
-        <span class="n">env</span><span class="o">.</span><span class="n">temp_data</span><span class="p">[</span><span class="s2">&quot;cpp:parent_symbol&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">parent_symbol</span>
+        <span class="n">env</span><span class="o">.</span><span class="n">temp_data</span><span class="p">[</span><span class="s2">"cpp:parent_symbol"</span><span class="p">]</span> <span class="o">=</span> <span class="n">parent_symbol</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">env</span><span class="o">.</span><span class="n">temp_data</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;cpp:parent_symbol&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">env</span><span class="o">.</span><span class="n">temp_data</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">"cpp:parent_symbol"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">namespace_stack</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">False</span><span class="p">:</span>
-        <span class="n">env</span><span class="o">.</span><span class="n">temp_data</span><span class="p">[</span><span class="s2">&quot;cpp:namespace_stack&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">namespace_stack</span>
+        <span class="n">env</span><span class="o">.</span><span class="n">temp_data</span><span class="p">[</span><span class="s2">"cpp:namespace_stack"</span><span class="p">]</span> <span class="o">=</span> <span class="n">namespace_stack</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">env</span><span class="o">.</span><span class="n">temp_data</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;cpp:namespace_stack&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">env</span><span class="o">.</span><span class="n">temp_data</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">"cpp:namespace_stack"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">parent_key</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">False</span><span class="p">:</span>
-        <span class="n">env</span><span class="o">.</span><span class="n">ref_context</span><span class="p">[</span><span class="s2">&quot;cpp:parent_key&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">parent_key</span>
+        <span class="n">env</span><span class="o">.</span><span class="n">ref_context</span><span class="p">[</span><span class="s2">"cpp:parent_key"</span><span class="p">]</span> <span class="o">=</span> <span class="n">parent_key</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">env</span><span class="o">.</span><span class="n">ref_context</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;cpp:parent_key&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">env</span><span class="o">.</span><span class="n">ref_context</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">"cpp:parent_key"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_add_entity_description</span><span class="p">(</span>
@@ -1707,10 +1707,10 @@
     <span class="n">summary</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
     <span class="n">state</span><span class="p">:</span> <span class="n">docutils</span><span class="o">.</span><span class="n">parsers</span><span class="o">.</span><span class="n">rst</span><span class="o">.</span><span class="n">states</span><span class="o">.</span><span class="n">RSTState</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="c1"># kind = entity[&quot;kind&quot;]</span>
+    <span class="c1"># kind = entity["kind"]</span>
     <span class="n">out</span> <span class="o">=</span> <span class="n">docutils</span><span class="o">.</span><span class="n">statemachine</span><span class="o">.</span><span class="n">StringList</span><span class="p">()</span>
-    <span class="n">location</span> <span class="o">=</span> <span class="n">entity</span><span class="p">[</span><span class="s2">&quot;location&quot;</span><span class="p">]</span>
-    <span class="n">parent_id</span> <span class="o">=</span> <span class="n">entity</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;parent&quot;</span><span class="p">)</span>
+    <span class="n">location</span> <span class="o">=</span> <span class="n">entity</span><span class="p">[</span><span class="s2">"location"</span><span class="p">]</span>
+    <span class="n">parent_id</span> <span class="o">=</span> <span class="n">entity</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"parent"</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">parent_id</span> <span class="ow">and</span> <span class="n">summary</span><span class="p">:</span>
         <span class="n">include_scope</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="k">else</span><span class="p">:</span>
@@ -1723,16 +1723,16 @@
         <span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="c1"># parent = None</span>
-        <span class="n">scope_template_prefix</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="n">scope_template_prefix</span> <span class="o">=</span> <span class="s2">""</span>
 
-    <span class="n">scope</span> <span class="o">=</span> <span class="n">api_data</span><span class="o">.</span><span class="n">get_entity_scope</span><span class="p">(</span><span class="n">entity</span><span class="p">)</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)</span>
+    <span class="n">scope</span> <span class="o">=</span> <span class="n">api_data</span><span class="o">.</span><span class="n">get_entity_scope</span><span class="p">(</span><span class="n">entity</span><span class="p">)</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s2">":"</span><span class="p">)</span>
 
     <span class="n">sphinx_utils</span><span class="o">.</span><span class="n">append_directive_to_stringlist</span><span class="p">(</span>
         <span class="n">out</span><span class="p">,</span>
-        <span class="s2">&quot;cpp:namespace&quot;</span><span class="p">,</span>
-        <span class="n">scope_template_prefix</span> <span class="o">+</span> <span class="n">scope</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">include_scope</span> <span class="k">else</span> <span class="s2">&quot;nullptr&quot;</span><span class="p">,</span>
-        <span class="n">source_path</span><span class="o">=</span><span class="n">location</span><span class="p">[</span><span class="s2">&quot;file&quot;</span><span class="p">],</span>
-        <span class="n">source_line</span><span class="o">=</span><span class="n">location</span><span class="p">[</span><span class="s2">&quot;line&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="s2">"cpp:namespace"</span><span class="p">,</span>
+        <span class="n">scope_template_prefix</span> <span class="o">+</span> <span class="n">scope</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">include_scope</span> <span class="k">else</span> <span class="s2">"nullptr"</span><span class="p">,</span>
+        <span class="n">source_path</span><span class="o">=</span><span class="n">location</span><span class="p">[</span><span class="s2">"file"</span><span class="p">],</span>
+        <span class="n">source_line</span><span class="o">=</span><span class="n">location</span><span class="p">[</span><span class="s2">"line"</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span>
     <span class="p">)</span>
 
     <span class="n">cpp_directive</span><span class="p">,</span> <span class="n">signature_line</span> <span class="o">=</span> <span class="n">_format_entity</span><span class="p">(</span>
@@ -1744,13 +1744,13 @@
     <span class="n">num_include_lines</span> <span class="o">=</span> <span class="mi">0</span>
 
     <span class="k">if</span> <span class="ow">not</span> <span class="n">summary</span><span class="p">:</span>
-        <span class="n">include_path</span> <span class="o">=</span> <span class="n">location</span><span class="p">[</span><span class="s2">&quot;file&quot;</span><span class="p">]</span>
-        <span class="n">signature_lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;#include &quot;</span><span class="si">{</span><span class="n">include_path</span><span class="si">}</span><span class="s1">&quot;&#39;</span><span class="p">)</span>
+        <span class="n">include_path</span> <span class="o">=</span> <span class="n">location</span><span class="p">[</span><span class="s2">"file"</span><span class="p">]</span>
+        <span class="n">signature_lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s1">'#include "</span><span class="si">{</span><span class="n">include_path</span><span class="si">}</span><span class="s1">"'</span><span class="p">)</span>
         <span class="n">num_include_lines</span> <span class="o">=</span> <span class="mi">1</span>
 
     <span class="n">signature_lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">signature_line</span><span class="p">)</span>
-    <span class="n">siblings</span> <span class="o">=</span> <span class="n">entity</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;siblings&quot;</span><span class="p">)</span>
-    <span class="n">entity_ids</span> <span class="o">=</span> <span class="p">[</span><span class="n">entity</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]]</span>
+    <span class="n">siblings</span> <span class="o">=</span> <span class="n">entity</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"siblings"</span><span class="p">)</span>
+    <span class="n">entity_ids</span> <span class="o">=</span> <span class="p">[</span><span class="n">entity</span><span class="p">[</span><span class="s2">"id"</span><span class="p">]]</span>
     <span class="k">if</span> <span class="n">siblings</span><span class="p">:</span>
         <span class="k">for</span> <span class="n">sibling_id</span> <span class="ow">in</span> <span class="n">siblings</span><span class="p">:</span>
             <span class="n">sibling</span> <span class="o">=</span> <span class="n">api_data</span><span class="o">.</span><span class="n">entities</span><span class="p">[</span><span class="n">sibling_id</span><span class="p">]</span>
@@ -1759,23 +1759,23 @@
             <span class="p">)</span>
             <span class="k">assert</span> <span class="n">other_cpp_directive</span> <span class="o">==</span> <span class="n">cpp_directive</span>
             <span class="n">signature_lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">other_signature_line</span><span class="p">)</span>
-            <span class="n">entity_ids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sibling</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">])</span>
+            <span class="n">entity_ids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sibling</span><span class="p">[</span><span class="s2">"id"</span><span class="p">])</span>
 
-    <span class="n">doc</span> <span class="o">=</span> <span class="n">entity</span><span class="p">[</span><span class="s2">&quot;doc&quot;</span><span class="p">]</span>
+    <span class="n">doc</span> <span class="o">=</span> <span class="n">entity</span><span class="p">[</span><span class="s2">"doc"</span><span class="p">]</span>
     <span class="k">assert</span> <span class="n">doc</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
     <span class="n">body</span> <span class="o">=</span> <span class="n">_transform_doc_comment</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">summary</span><span class="o">=</span><span class="n">summary</span><span class="p">)</span>
     <span class="n">sphinx_utils</span><span class="o">.</span><span class="n">append_directive_to_stringlist</span><span class="p">(</span>
         <span class="n">out</span><span class="p">,</span>
         <span class="n">cpp_directive</span><span class="p">,</span>
-        <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">signature_lines</span><span class="p">),</span>
+        <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">signature_lines</span><span class="p">),</span>
         <span class="n">options</span><span class="o">=</span><span class="p">{</span>
-            <span class="s2">&quot;noindexentry&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
-            <span class="s2">&quot;noindex&quot;</span><span class="p">:</span> <span class="n">summary</span><span class="p">,</span>
-            <span class="s2">&quot;node-id&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;symbol-ids&quot;</span><span class="p">:</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">entity_ids</span><span class="p">),</span>
+            <span class="s2">"noindexentry"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="s2">"noindex"</span><span class="p">:</span> <span class="n">summary</span><span class="p">,</span>
+            <span class="s2">"node-id"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+            <span class="s2">"symbol-ids"</span><span class="p">:</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">entity_ids</span><span class="p">),</span>
         <span class="p">},</span>
-        <span class="n">source_path</span><span class="o">=</span><span class="n">location</span><span class="p">[</span><span class="s2">&quot;file&quot;</span><span class="p">],</span>
-        <span class="n">source_line</span><span class="o">=</span><span class="n">location</span><span class="p">[</span><span class="s2">&quot;line&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="n">source_path</span><span class="o">=</span><span class="n">location</span><span class="p">[</span><span class="s2">"file"</span><span class="p">],</span>
+        <span class="n">source_line</span><span class="o">=</span><span class="n">location</span><span class="p">[</span><span class="s2">"line"</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span>
         <span class="n">content</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
     <span class="p">)</span>
 
@@ -1794,12 +1794,12 @@
         <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">signode</span><span class="p">,</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">addnodes</span><span class="o">.</span><span class="n">desc_signature</span><span class="p">)</span>
         <span class="c1"># Find the node in the signature containing the actual unqualified name.</span>
         <span class="k">for</span> <span class="n">sub_node</span> <span class="ow">in</span> <span class="n">signode</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">condition</span><span class="o">=</span><span class="n">sphinx</span><span class="o">.</span><span class="n">addnodes</span><span class="o">.</span><span class="n">desc_name</span><span class="p">):</span>
-            <span class="k">if</span> <span class="s2">&quot;sig-name-nonprimary&quot;</span> <span class="ow">in</span> <span class="n">sub_node</span><span class="p">[</span><span class="s2">&quot;classes&quot;</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="s2">"sig-name-nonprimary"</span> <span class="ow">in</span> <span class="n">sub_node</span><span class="p">[</span><span class="s2">"classes"</span><span class="p">]:</span>
                 <span class="k">continue</span>
             <span class="n">desc_name_nodes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sub_node</span><span class="p">)</span>
             <span class="k">break</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Failed to find desc_name node&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Failed to find desc_name node"</span><span class="p">)</span>
 
     <span class="n">obj_content</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">sphinx</span><span class="o">.</span><span class="n">addnodes</span><span class="o">.</span><span class="n">desc_content</span><span class="p">,</span> <span class="n">objdesc</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
 
@@ -1816,22 +1816,22 @@
             <span class="n">_summarize_explicit</span><span class="p">(</span><span class="n">signode</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">summary</span><span class="p">:</span>
-        <span class="n">objdesc</span><span class="p">[</span><span class="s2">&quot;classes&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;summary&quot;</span><span class="p">)</span>
+        <span class="n">objdesc</span><span class="p">[</span><span class="s2">"classes"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"summary"</span><span class="p">)</span>
         <span class="c1"># Insert a link around the `desc_name` field</span>
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">desc_name_node</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">desc_name_nodes</span><span class="p">):</span>
             <span class="n">xref_node</span> <span class="o">=</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">addnodes</span><span class="o">.</span><span class="n">pending_xref</span><span class="p">(</span>
-                <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                <span class="s2">""</span><span class="p">,</span>
                 <span class="n">desc_name_node</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(),</span>
-                <span class="n">refdomain</span><span class="o">=</span><span class="s2">&quot;std&quot;</span><span class="p">,</span>
-                <span class="n">reftype</span><span class="o">=</span><span class="s2">&quot;doc&quot;</span><span class="p">,</span>
-                <span class="n">reftarget</span><span class="o">=</span><span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="n">api_data</span><span class="o">.</span><span class="n">get_entity_page_path</span><span class="p">(</span><span class="n">entity</span><span class="p">),</span>
+                <span class="n">refdomain</span><span class="o">=</span><span class="s2">"std"</span><span class="p">,</span>
+                <span class="n">reftype</span><span class="o">=</span><span class="s2">"doc"</span><span class="p">,</span>
+                <span class="n">reftarget</span><span class="o">=</span><span class="s2">"/"</span> <span class="o">+</span> <span class="n">api_data</span><span class="o">.</span><span class="n">get_entity_page_path</span><span class="p">(</span><span class="n">entity</span><span class="p">),</span>
                 <span class="n">refwarn</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                 <span class="n">refexplicit</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
             <span class="p">)</span>
             <span class="n">desc_name_node</span><span class="o">.</span><span class="n">replace_self</span><span class="p">(</span><span class="n">xref_node</span><span class="p">)</span>
             <span class="n">desc_name_nodes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">xref_node</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">entity</span><span class="p">[</span><span class="s2">&quot;kind&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;enum&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">entity</span><span class="p">[</span><span class="s2">"kind"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"enum"</span><span class="p">:</span>
             <span class="n">_add_enumerators</span><span class="p">(</span>
                 <span class="n">env</span><span class="o">=</span><span class="n">env</span><span class="p">,</span>
                 <span class="n">api_data</span><span class="o">=</span><span class="n">api_data</span><span class="p">,</span>
@@ -1840,7 +1840,7 @@
                 <span class="n">parent_scope</span><span class="o">=</span><span class="n">scope_template_prefix</span> <span class="o">+</span> <span class="n">scope</span><span class="p">,</span>
                 <span class="n">state</span><span class="o">=</span><span class="n">state</span><span class="p">,</span>
             <span class="p">)</span>
-        <span class="n">member_groups</span> <span class="o">=</span> <span class="n">api_data</span><span class="o">.</span><span class="n">get_entity_sub_groups</span><span class="p">(</span><span class="n">entity</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">],</span> <span class="n">member</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">member_groups</span> <span class="o">=</span> <span class="n">api_data</span><span class="o">.</span><span class="n">get_entity_sub_groups</span><span class="p">(</span><span class="n">entity</span><span class="p">[</span><span class="s2">"id"</span><span class="p">],</span> <span class="n">member</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="n">_merge_summary_nodes_into</span><span class="p">(</span>
             <span class="n">env</span><span class="o">=</span><span class="n">env</span><span class="p">,</span>
             <span class="n">api_data</span><span class="o">=</span><span class="n">api_data</span><span class="p">,</span>
@@ -1862,30 +1862,30 @@
     <span class="n">state</span><span class="p">:</span> <span class="n">docutils</span><span class="o">.</span><span class="n">parsers</span><span class="o">.</span><span class="n">rst</span><span class="o">.</span><span class="n">states</span><span class="o">.</span><span class="n">RSTState</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="c1"># parent_object_name = api_data.get_entity_object_name(entity)</span>
-    <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">entity</span><span class="p">[</span><span class="s2">&quot;enumerators&quot;</span><span class="p">]:</span>
-        <span class="n">name</span> <span class="o">=</span> <span class="n">child</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span>
-        <span class="n">location</span> <span class="o">=</span> <span class="n">child</span><span class="p">[</span><span class="s2">&quot;location&quot;</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">entity</span><span class="p">[</span><span class="s2">"enumerators"</span><span class="p">]:</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">child</span><span class="p">[</span><span class="s2">"name"</span><span class="p">]</span>
+        <span class="n">location</span> <span class="o">=</span> <span class="n">child</span><span class="p">[</span><span class="s2">"location"</span><span class="p">]</span>
         <span class="n">out</span> <span class="o">=</span> <span class="n">docutils</span><span class="o">.</span><span class="n">statemachine</span><span class="o">.</span><span class="n">StringList</span><span class="p">()</span>
         <span class="n">sphinx_utils</span><span class="o">.</span><span class="n">append_directive_to_stringlist</span><span class="p">(</span>
             <span class="n">out</span><span class="p">,</span>
-            <span class="s2">&quot;cpp:namespace&quot;</span><span class="p">,</span>
-            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">parent_scope</span><span class="si">}</span><span class="s2">::</span><span class="si">{</span><span class="n">entity</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
-            <span class="n">source_path</span><span class="o">=</span><span class="n">location</span><span class="p">[</span><span class="s2">&quot;file&quot;</span><span class="p">],</span>
-            <span class="n">source_line</span><span class="o">=</span><span class="n">location</span><span class="p">[</span><span class="s2">&quot;line&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="s2">"cpp:namespace"</span><span class="p">,</span>
+            <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">parent_scope</span><span class="si">}</span><span class="s2">::</span><span class="si">{</span><span class="n">entity</span><span class="p">[</span><span class="s1">'name'</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
+            <span class="n">source_path</span><span class="o">=</span><span class="n">location</span><span class="p">[</span><span class="s2">"file"</span><span class="p">],</span>
+            <span class="n">source_line</span><span class="o">=</span><span class="n">location</span><span class="p">[</span><span class="s2">"line"</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span>
         <span class="p">)</span>
-        <span class="n">anchor</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;e-</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span>
-        <span class="n">child_doc</span> <span class="o">=</span> <span class="n">child</span><span class="p">[</span><span class="s2">&quot;doc&quot;</span><span class="p">]</span>
+        <span class="n">anchor</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"e-</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">"</span>
+        <span class="n">child_doc</span> <span class="o">=</span> <span class="n">child</span><span class="p">[</span><span class="s2">"doc"</span><span class="p">]</span>
         <span class="n">sphinx_utils</span><span class="o">.</span><span class="n">append_directive_to_stringlist</span><span class="p">(</span>
             <span class="n">out</span><span class="p">,</span>
-            <span class="s2">&quot;cpp:enumerator&quot;</span><span class="p">,</span>
-            <span class="n">child</span><span class="p">[</span><span class="s2">&quot;decl&quot;</span><span class="p">],</span>
+            <span class="s2">"cpp:enumerator"</span><span class="p">,</span>
+            <span class="n">child</span><span class="p">[</span><span class="s2">"decl"</span><span class="p">],</span>
             <span class="n">options</span><span class="o">=</span><span class="p">{</span>
-                <span class="s2">&quot;noindexentry&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
-                <span class="s2">&quot;symbol-ids&quot;</span><span class="p">:</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">([</span><span class="n">child</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]]),</span>
-                <span class="s2">&quot;node-id&quot;</span><span class="p">:</span> <span class="n">anchor</span><span class="p">,</span>
+                <span class="s2">"noindexentry"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+                <span class="s2">"symbol-ids"</span><span class="p">:</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">([</span><span class="n">child</span><span class="p">[</span><span class="s2">"id"</span><span class="p">]]),</span>
+                <span class="s2">"node-id"</span><span class="p">:</span> <span class="n">anchor</span><span class="p">,</span>
             <span class="p">},</span>
-            <span class="n">source_path</span><span class="o">=</span><span class="n">location</span><span class="p">[</span><span class="s2">&quot;file&quot;</span><span class="p">],</span>
-            <span class="n">source_line</span><span class="o">=</span><span class="n">location</span><span class="p">[</span><span class="s2">&quot;line&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="n">source_path</span><span class="o">=</span><span class="n">location</span><span class="p">[</span><span class="s2">"file"</span><span class="p">],</span>
+            <span class="n">source_line</span><span class="o">=</span><span class="n">location</span><span class="p">[</span><span class="s2">"line"</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span>
             <span class="n">content</span><span class="o">=</span><span class="n">_transform_doc_comment</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">child_doc</span><span class="p">,</span> <span class="n">summary</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
         <span class="p">)</span>
         <span class="k">with</span> <span class="n">apigen_utils</span><span class="o">.</span><span class="n">save_rst_defaults</span><span class="p">(</span><span class="n">env</span><span class="p">),</span> <span class="n">save_cpp_scope</span><span class="p">(</span><span class="n">env</span><span class="p">):</span>
@@ -1897,9 +1897,9 @@
         <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">nodes</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
         <span class="n">enumerator_objdesc</span> <span class="o">=</span> <span class="n">nodes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="n">obj_content</span> <span class="o">+=</span> <span class="n">enumerator_objdesc</span>
-        <span class="n">enumerator_signode</span><span class="p">,</span> <span class="n">enumerator_doc_node</span> <span class="o">=</span> <span class="n">enumerator_objdesc</span><span class="o">.</span><span class="n">children</span>
+        <span class="n">enumerator_signode</span><span class="p">,</span> <span class="n">_enumerator_doc_node</span> <span class="o">=</span> <span class="n">enumerator_objdesc</span><span class="o">.</span><span class="n">children</span>
         <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">enumerator_signode</span><span class="p">,</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">addnodes</span><span class="o">.</span><span class="n">desc_signature</span><span class="p">)</span>
-        <span class="n">enumerator_signode</span><span class="p">[</span><span class="s2">&quot;toc_title&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="n">enumerator_signode</span><span class="p">[</span><span class="s2">"toc_title"</span><span class="p">]</span> <span class="o">=</span> <span class="n">name</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_add_group_summary</span><span class="p">(</span>
@@ -1913,7 +1913,7 @@
     <span class="n">toc_entries</span> <span class="o">=</span> <span class="p">[]</span>
 
     <span class="n">name_counts</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">Counter</span><span class="p">(</span>
-        <span class="n">api_data</span><span class="o">.</span><span class="n">entities</span><span class="p">[</span><span class="n">entity_id</span><span class="p">][</span><span class="s2">&quot;name&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">entity_id</span> <span class="ow">in</span> <span class="n">entities</span>
+        <span class="n">api_data</span><span class="o">.</span><span class="n">entities</span><span class="p">[</span><span class="n">entity_id</span><span class="p">][</span><span class="s2">"name"</span><span class="p">]</span> <span class="k">for</span> <span class="n">entity_id</span> <span class="ow">in</span> <span class="n">entities</span>
     <span class="p">)</span>
 
     <span class="k">for</span> <span class="n">entity_id</span> <span class="ow">in</span> <span class="n">entities</span><span class="p">:</span>
@@ -1927,11 +1927,11 @@
             <span class="n">summary</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
             <span class="n">state</span><span class="o">=</span><span class="n">state</span><span class="p">,</span>
         <span class="p">)</span>
-        <span class="n">title</span> <span class="o">=</span> <span class="n">entity</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span>
+        <span class="n">title</span> <span class="o">=</span> <span class="n">entity</span><span class="p">[</span><span class="s2">"name"</span><span class="p">]</span>
         <span class="k">if</span> <span class="n">name_counts</span><span class="p">[</span><span class="n">title</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-            <span class="n">special_id</span> <span class="o">=</span> <span class="n">entity</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;special_id&quot;</span><span class="p">)</span>
+            <span class="n">special_id</span> <span class="o">=</span> <span class="n">entity</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"special_id"</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">special_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">title</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot; [</span><span class="si">{</span><span class="n">special_id</span><span class="si">}</span><span class="s2">]&quot;</span>
+                <span class="n">title</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">" [</span><span class="si">{</span><span class="n">special_id</span><span class="si">}</span><span class="s2">]"</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">notoc</span><span class="p">:</span>
             <span class="n">toc_entries</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">title</span><span class="p">,</span> <span class="n">path</span><span class="p">))</span>
 
@@ -1939,7 +1939,7 @@
         <span class="n">sphinx_utils</span><span class="o">.</span><span class="n">make_toctree_node</span><span class="p">(</span>
             <span class="n">state</span><span class="o">=</span><span class="n">state</span><span class="p">,</span>
             <span class="n">toc_entries</span><span class="o">=</span><span class="n">toc_entries</span><span class="p">,</span>
-            <span class="n">options</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;hidden&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span>
+            <span class="n">options</span><span class="o">=</span><span class="p">{</span><span class="s2">"hidden"</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span>
             <span class="n">source_path</span><span class="o">=</span><span class="vm">__name__</span><span class="p">,</span>
         <span class="p">)</span>
     <span class="p">)</span>
@@ -1953,7 +1953,7 @@
     <span class="n">groups</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">EntityId</span><span class="p">]],</span>
     <span class="n">top_level_group</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Merges the member summary into `contentnode`.</span>
+<span class="w">    </span><span class="sd">"""Merges the member summary into `contentnode`.</span>
 
 <span class="sd">    Members are organized into groups.  The group is either specified explicitly</span>
 <span class="sd">    by a `Group:` field in the docstring, or determined automatically by</span>
@@ -1964,11 +1964,11 @@
 <span class="sd">      contentnode: The existing container to which the member summaries will be</span>
 <span class="sd">        added.  If `contentnode` contains sections, those sections correspond to</span>
 <span class="sd">        group names.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="n">apigen_utils</span><span class="o">.</span><span class="n">merge_groups_into</span><span class="p">(</span>
         <span class="n">parent</span><span class="o">=</span><span class="n">contentnode</span><span class="p">,</span>
-        <span class="n">group_id_prefix</span><span class="o">=</span><span class="n">APIDOC_SECTION_ID_PREFIX</span> <span class="k">if</span> <span class="n">top_level_group</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">group_id_prefix</span><span class="o">=</span><span class="n">APIDOC_SECTION_ID_PREFIX</span> <span class="k">if</span> <span class="n">top_level_group</span> <span class="k">else</span> <span class="s2">""</span><span class="p">,</span>
         <span class="n">groups</span><span class="o">=</span><span class="n">groups</span><span class="p">,</span>
         <span class="n">insert_group</span><span class="o">=</span><span class="k">lambda</span> <span class="n">entities</span><span class="p">,</span> <span class="n">section</span><span class="p">:</span> <span class="n">_add_group_summary</span><span class="p">(</span>
             <span class="n">env</span><span class="o">=</span><span class="n">env</span><span class="p">,</span> <span class="n">api_data</span><span class="o">=</span><span class="n">api_data</span><span class="p">,</span> <span class="n">state</span><span class="o">=</span><span class="n">state</span><span class="p">,</span> <span class="n">entities</span><span class="o">=</span><span class="n">entities</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="n">section</span>
@@ -1977,7 +1977,7 @@
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">CppApigenEntityPageDirective</span><span class="p">(</span><span class="n">sphinx</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">docutils</span><span class="o">.</span><span class="n">SphinxDirective</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Documents an entity and summarizes its members, if applicable.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Documents an entity and summarizes its members, if applicable."""</span>
 
     <span class="n">has_content</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="n">final_argument_whitespace</span> <span class="o">=</span> <span class="kc">True</span>
@@ -1987,12 +1987,12 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Node</span><span class="p">]:</span>
         <span class="c1"># Wrap in a section</span>
         <span class="n">section</span> <span class="o">=</span> <span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">section</span><span class="p">()</span>
-        <span class="n">section</span><span class="p">[</span><span class="s2">&quot;ids&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="n">section</span><span class="p">[</span><span class="s2">"ids"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">""</span><span class="p">)</span>
 
         <span class="c1"># Sphinx treats the first child of a `section` node as the title,</span>
         <span class="c1"># regardless of its type.  We use a comment node to avoid adding a title</span>
         <span class="c1"># that would be redundant with the object description.</span>
-        <span class="n">comment_placeholder</span> <span class="o">=</span> <span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">comment</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="n">comment_placeholder</span> <span class="o">=</span> <span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">comment</span><span class="p">(</span><span class="s2">""</span><span class="p">,</span> <span class="s2">""</span><span class="p">)</span>
         <span class="n">section</span> <span class="o">+=</span> <span class="n">comment_placeholder</span>
 
         <span class="n">api_data</span> <span class="o">=</span> <span class="n">_get_cpp_api_data</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="p">)</span>
@@ -2001,7 +2001,7 @@
         <span class="n">entity</span> <span class="o">=</span> <span class="n">api_data</span><span class="o">.</span><span class="n">entities</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">entity_id</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">entity</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-                <span class="s2">&quot;Undefined C++ entity: </span><span class="si">%r</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">entity_id</span><span class="p">,</span> <span class="n">location</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">get_location</span><span class="p">()</span>
+                <span class="s2">"Undefined C++ entity: </span><span class="si">%r</span><span class="s2">"</span><span class="p">,</span> <span class="n">entity_id</span><span class="p">,</span> <span class="n">location</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">get_location</span><span class="p">()</span>
             <span class="p">)</span>
             <span class="k">return</span> <span class="p">[]</span>
 
@@ -2014,7 +2014,7 @@
             <span class="n">state</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">state</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="n">comment_placeholder</span><span class="o">.</span><span class="n">replace_self</span><span class="p">(</span>
-            <span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">comment</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">api_data</span><span class="o">.</span><span class="n">get_entity_object_name</span><span class="p">(</span><span class="n">entity</span><span class="p">))</span>
+            <span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">comment</span><span class="p">(</span><span class="s2">""</span><span class="p">,</span> <span class="n">api_data</span><span class="o">.</span><span class="n">get_entity_object_name</span><span class="p">(</span><span class="n">entity</span><span class="p">))</span>
         <span class="p">)</span>
 
         <span class="n">non_member_groups</span> <span class="o">=</span> <span class="n">api_data</span><span class="o">.</span><span class="n">get_entity_sub_groups</span><span class="p">(</span><span class="n">entity_id</span><span class="p">,</span> <span class="n">member</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
@@ -2030,7 +2030,7 @@
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">CppApigenTopLevelGroupDirective</span><span class="p">(</span><span class="n">sphinx</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">docutils</span><span class="o">.</span><span class="n">SphinxDirective</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Summarizes the members of a top-level group.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Summarizes the members of a top-level group."""</span>
 
     <span class="n">has_content</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="n">final_argument_whitespace</span> <span class="o">=</span> <span class="kc">True</span>
@@ -2038,7 +2038,7 @@
     <span class="n">optional_arguments</span> <span class="o">=</span> <span class="mi">0</span>
 
     <span class="n">option_spec</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s2">&quot;notoc&quot;</span><span class="p">:</span> <span class="n">docutils</span><span class="o">.</span><span class="n">parsers</span><span class="o">.</span><span class="n">rst</span><span class="o">.</span><span class="n">directives</span><span class="o">.</span><span class="n">flag</span><span class="p">,</span>
+        <span class="s2">"notoc"</span><span class="p">:</span> <span class="n">docutils</span><span class="o">.</span><span class="n">parsers</span><span class="o">.</span><span class="n">rst</span><span class="o">.</span><span class="n">directives</span><span class="o">.</span><span class="n">flag</span><span class="p">,</span>
     <span class="p">}</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Node</span><span class="p">]:</span>
@@ -2048,7 +2048,7 @@
         <span class="n">entities</span> <span class="o">=</span> <span class="n">api_data</span><span class="o">.</span><span class="n">groups</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">group_id</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">entities</span><span class="p">:</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
-                <span class="s2">&quot;No entities in group </span><span class="si">%r</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="s2">"No entities in group </span><span class="si">%r</span><span class="s2">"</span><span class="p">,</span>
                 <span class="n">group_id</span><span class="p">,</span>
                 <span class="n">location</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">get_location</span><span class="p">(),</span>
             <span class="p">)</span>
@@ -2060,13 +2060,13 @@
             <span class="n">state</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">state</span><span class="p">,</span>
             <span class="n">entities</span><span class="o">=</span><span class="n">entities</span><span class="p">,</span>
             <span class="n">parent</span><span class="o">=</span><span class="n">contentnode</span><span class="p">,</span>
-            <span class="n">notoc</span><span class="o">=</span><span class="s2">&quot;notoc&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">,</span>
+            <span class="n">notoc</span><span class="o">=</span><span class="s2">"notoc"</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="k">return</span> <span class="n">contentnode</span><span class="o">.</span><span class="n">children</span>
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">CppApigenEntitySummaryDirective</span><span class="p">(</span><span class="n">sphinx</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">docutils</span><span class="o">.</span><span class="n">SphinxDirective</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Generates a summary/link to a C++ entity.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Generates a summary/link to a C++ entity."""</span>
 
     <span class="n">has_content</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="n">final_argument_whitespace</span> <span class="o">=</span> <span class="kc">True</span>
@@ -2074,7 +2074,7 @@
     <span class="n">optional_arguments</span> <span class="o">=</span> <span class="mi">0</span>
 
     <span class="n">option_spec</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s2">&quot;notoc&quot;</span><span class="p">:</span> <span class="n">docutils</span><span class="o">.</span><span class="n">parsers</span><span class="o">.</span><span class="n">rst</span><span class="o">.</span><span class="n">directives</span><span class="o">.</span><span class="n">flag</span><span class="p">,</span>
+        <span class="s2">"notoc"</span><span class="p">:</span> <span class="n">docutils</span><span class="o">.</span><span class="n">parsers</span><span class="o">.</span><span class="n">rst</span><span class="o">.</span><span class="n">directives</span><span class="o">.</span><span class="n">flag</span><span class="p">,</span>
     <span class="p">}</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">docutils</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Node</span><span class="p">]:</span>
@@ -2084,7 +2084,7 @@
         <span class="n">entity</span> <span class="o">=</span> <span class="n">api_data</span><span class="o">.</span><span class="n">entities</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">entity_id</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">entity</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
-                <span class="s2">&quot;No C++ entity named: </span><span class="si">%r</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="s2">"No C++ entity named: </span><span class="si">%r</span><span class="s2">"</span><span class="p">,</span>
                 <span class="n">entity_id</span><span class="p">,</span>
                 <span class="n">location</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">get_location</span><span class="p">(),</span>
             <span class="p">)</span>
@@ -2096,13 +2096,13 @@
             <span class="n">state</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">state</span><span class="p">,</span>
             <span class="n">entities</span><span class="o">=</span><span class="p">[</span><span class="n">entity_id</span><span class="p">],</span>
             <span class="n">parent</span><span class="o">=</span><span class="n">contentnode</span><span class="p">,</span>
-            <span class="n">notoc</span><span class="o">=</span><span class="s2">&quot;notoc&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">,</span>
+            <span class="n">notoc</span><span class="o">=</span><span class="s2">"notoc"</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="k">return</span> <span class="n">contentnode</span><span class="o">.</span><span class="n">children</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_builder_inited</span><span class="p">(</span><span class="n">app</span><span class="p">:</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">Sphinx</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Generates the rST files for API members.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Generates the rST files for API members."""</span>
 
     <span class="n">api_data</span> <span class="o">=</span> <span class="n">_get_cpp_api_data</span><span class="p">(</span><span class="n">app</span><span class="o">.</span><span class="n">env</span><span class="p">,</span> <span class="n">warn</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">apigen_configs</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">_CONFIG_ATTR</span><span class="p">)</span>
@@ -2117,10 +2117,10 @@
     <span class="p">)</span>
     <span class="n">writer</span><span class="o">.</span><span class="n">prepare_output_directories</span><span class="p">()</span>
     <span class="k">for</span> <span class="n">entity</span> <span class="ow">in</span> <span class="n">api_data</span><span class="o">.</span><span class="n">entities</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
-        <span class="n">page_name</span> <span class="o">=</span> <span class="n">entity</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;page_name&quot;</span><span class="p">)</span>
+        <span class="n">page_name</span> <span class="o">=</span> <span class="n">entity</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"page_name"</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">page_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">continue</span>
-        <span class="n">entity</span><span class="p">[</span><span class="s2">&quot;page_name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">apigen_utils</span><span class="o">.</span><span class="n">make_unique_docname</span><span class="p">(</span>
+        <span class="n">entity</span><span class="p">[</span><span class="s2">"page_name"</span><span class="p">]</span> <span class="o">=</span> <span class="n">apigen_utils</span><span class="o">.</span><span class="n">make_unique_docname</span><span class="p">(</span>
             <span class="n">page_name</span><span class="p">,</span> <span class="n">writer</span><span class="o">.</span><span class="n">case_insensitive_filesystem</span>
         <span class="p">)</span>
 
@@ -2128,7 +2128,7 @@
         <span class="k">for</span> <span class="n">entity_id</span> <span class="ow">in</span> <span class="n">api_data</span><span class="o">.</span><span class="n">get_documented_entities</span><span class="p">():</span>
             <span class="n">entity</span> <span class="o">=</span> <span class="n">api_data</span><span class="o">.</span><span class="n">entities</span><span class="p">[</span><span class="n">entity_id</span><span class="p">]</span>
             <span class="n">content</span> <span class="o">=</span> <span class="n">sphinx_utils</span><span class="o">.</span><span class="n">format_directive</span><span class="p">(</span>
-                <span class="s2">&quot;cpp-apigen-entity-page&quot;</span><span class="p">,</span>
+                <span class="s2">"cpp-apigen-entity-page"</span><span class="p">,</span>
                 <span class="n">entity_id</span><span class="p">,</span>
             <span class="p">)</span>
             <span class="n">object_name</span> <span class="o">=</span> <span class="n">api_data</span><span class="o">.</span><span class="n">get_entity_object_name</span><span class="p">(</span><span class="n">entity</span><span class="p">)</span>
@@ -2145,10 +2145,10 @@
         <span class="k">return</span> <span class="kc">False</span>
     <span class="n">api_data</span> <span class="o">=</span> <span class="n">_get_cpp_api_data</span><span class="p">(</span><span class="n">app</span><span class="o">.</span><span class="n">env</span><span class="p">)</span>
     <span class="n">source</span><span class="p">,</span> <span class="n">line</span> <span class="o">=</span> <span class="n">docutils</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">get_source_line</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
-    <span class="k">return</span> <span class="p">(</span><span class="n">node</span><span class="p">[</span><span class="s2">&quot;reftarget&quot;</span><span class="p">],</span> <span class="n">source</span><span class="p">,</span> <span class="n">line</span><span class="p">)</span> <span class="ow">in</span> <span class="n">api_data</span><span class="o">.</span><span class="n">nonitpick</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">node</span><span class="p">[</span><span class="s2">"reftarget"</span><span class="p">],</span> <span class="n">source</span><span class="p">,</span> <span class="n">line</span><span class="p">)</span> <span class="ow">in</span> <span class="n">api_data</span><span class="o">.</span><span class="n">nonitpick</span>
 
 
-<span class="n">_CONFIG_ATTR</span> <span class="o">=</span> <span class="s2">&quot;_sphinx_immaterial_cpp_apigen_configs&quot;</span>
+<span class="n">_CONFIG_ATTR</span> <span class="o">=</span> <span class="s2">"_sphinx_immaterial_cpp_apigen_configs"</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_config_inited</span><span class="p">(</span>
@@ -2164,28 +2164,28 @@
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">setup</span><span class="p">(</span><span class="n">app</span><span class="p">:</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">Sphinx</span><span class="p">):</span>
-    <span class="n">app</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;config-inited&quot;</span><span class="p">,</span> <span class="n">_config_inited</span><span class="p">)</span>
-    <span class="n">app</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;builder-inited&quot;</span><span class="p">,</span> <span class="n">_builder_inited</span><span class="p">)</span>
-    <span class="n">app</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;warn-missing-reference&quot;</span><span class="p">,</span> <span class="n">_warn_missing_reference</span><span class="p">)</span>
-    <span class="n">app</span><span class="o">.</span><span class="n">add_directive</span><span class="p">(</span><span class="s2">&quot;cpp-apigen-entity-page&quot;</span><span class="p">,</span> <span class="n">CppApigenEntityPageDirective</span><span class="p">)</span>
-    <span class="n">app</span><span class="o">.</span><span class="n">add_directive</span><span class="p">(</span><span class="s2">&quot;cpp-apigen-group&quot;</span><span class="p">,</span> <span class="n">CppApigenTopLevelGroupDirective</span><span class="p">)</span>
-    <span class="n">app</span><span class="o">.</span><span class="n">add_directive</span><span class="p">(</span><span class="s2">&quot;cpp-apigen-entity-summary&quot;</span><span class="p">,</span> <span class="n">CppApigenEntitySummaryDirective</span><span class="p">)</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">"config-inited"</span><span class="p">,</span> <span class="n">_config_inited</span><span class="p">)</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">"builder-inited"</span><span class="p">,</span> <span class="n">_builder_inited</span><span class="p">)</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">"warn-missing-reference"</span><span class="p">,</span> <span class="n">_warn_missing_reference</span><span class="p">)</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">add_directive</span><span class="p">(</span><span class="s2">"cpp-apigen-entity-page"</span><span class="p">,</span> <span class="n">CppApigenEntityPageDirective</span><span class="p">)</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">add_directive</span><span class="p">(</span><span class="s2">"cpp-apigen-group"</span><span class="p">,</span> <span class="n">CppApigenTopLevelGroupDirective</span><span class="p">)</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">add_directive</span><span class="p">(</span><span class="s2">"cpp-apigen-entity-summary"</span><span class="p">,</span> <span class="n">CppApigenEntitySummaryDirective</span><span class="p">)</span>
     <span class="n">app</span><span class="o">.</span><span class="n">add_config_value</span><span class="p">(</span>
-        <span class="s2">&quot;cpp_apigen_configs&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="p">[],</span> <span class="n">rebuild</span><span class="o">=</span><span class="s2">&quot;env&quot;</span><span class="p">,</span> <span class="n">types</span><span class="o">=</span><span class="p">(</span><span class="n">List</span><span class="p">[</span><span class="n">ApigenConfig</span><span class="p">],)</span>
+        <span class="s2">"cpp_apigen_configs"</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="p">[],</span> <span class="n">rebuild</span><span class="o">=</span><span class="s2">"env"</span><span class="p">,</span> <span class="n">types</span><span class="o">=</span><span class="p">(</span><span class="n">List</span><span class="p">[</span><span class="n">ApigenConfig</span><span class="p">],)</span>
     <span class="p">)</span>
     <span class="n">app</span><span class="o">.</span><span class="n">add_config_value</span><span class="p">(</span>
-        <span class="s2">&quot;cpp_apigen_case_insensitive_filesystem&quot;</span><span class="p">,</span>
+        <span class="s2">"cpp_apigen_case_insensitive_filesystem"</span><span class="p">,</span>
         <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">types</span><span class="o">=</span><span class="p">(</span><span class="nb">bool</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="kc">None</span><span class="p">)),</span>  <span class="c1"># type: ignore[arg-type]</span>
-        <span class="n">rebuild</span><span class="o">=</span><span class="s2">&quot;env&quot;</span><span class="p">,</span>
+        <span class="n">rebuild</span><span class="o">=</span><span class="s2">"env"</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="n">app</span><span class="o">.</span><span class="n">add_config_value</span><span class="p">(</span>
-        <span class="s2">&quot;cpp_apigen_rst_prolog&quot;</span><span class="p">,</span> <span class="n">types</span><span class="o">=</span><span class="p">(</span><span class="nb">str</span><span class="p">,),</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">rebuild</span><span class="o">=</span><span class="s2">&quot;env&quot;</span>
+        <span class="s2">"cpp_apigen_rst_prolog"</span><span class="p">,</span> <span class="n">types</span><span class="o">=</span><span class="p">(</span><span class="nb">str</span><span class="p">,),</span> <span class="n">default</span><span class="o">=</span><span class="s2">""</span><span class="p">,</span> <span class="n">rebuild</span><span class="o">=</span><span class="s2">"env"</span>
     <span class="p">)</span>
     <span class="n">app</span><span class="o">.</span><span class="n">add_config_value</span><span class="p">(</span>
-        <span class="s2">&quot;cpp_apigen_rst_epilog&quot;</span><span class="p">,</span> <span class="n">types</span><span class="o">=</span><span class="p">(</span><span class="nb">str</span><span class="p">,),</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">rebuild</span><span class="o">=</span><span class="s2">&quot;env&quot;</span>
+        <span class="s2">"cpp_apigen_rst_epilog"</span><span class="p">,</span> <span class="n">types</span><span class="o">=</span><span class="p">(</span><span class="nb">str</span><span class="p">,),</span> <span class="n">default</span><span class="o">=</span><span class="s2">""</span><span class="p">,</span> <span class="n">rebuild</span><span class="o">=</span><span class="s2">"env"</span>
     <span class="p">)</span>
-    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;parallel_read_safe&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;parallel_write_safe&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">"parallel_read_safe"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">"parallel_write_safe"</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
 </code></pre></div>
 
 
@@ -2207,7 +2207,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    Oct 16, 2026
+    Oct 30, 2026
   </span>
 
     

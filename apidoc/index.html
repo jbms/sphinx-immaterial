@@ -1543,7 +1543,7 @@ domain/object type pair.</p>
 <span class="sig-name descname"><span class="pre">object_description_options</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.15)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Pattern</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="p">[]</span></code><a class="headerlink" href="#confval-object_description_options" title="Link to this definition">¶</a></dt>
 <dd><p><code class="code highlight python docutils literal highlight-python"><span class="nb">list</span></code> of <code class="code highlight python docutils literal highlight-python"><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">options</span><span class="p">)</span></code> pairs, where <code class="code highlight python docutils literal highlight-python"><span class="n">pattern</span></code>
 is a regular expression matching strings of the form
-<code class="code highlight python docutils literal highlight-python"><span class="s2">&quot;domain:objtype&quot;</span></code> and <code class="code highlight python docutils literal highlight-python"><span class="n">options</span></code> is a dictionary of supported
+<code class="code highlight python docutils literal highlight-python"><span class="s2">"domain:objtype"</span></code> and <code class="code highlight python docutils literal highlight-python"><span class="n">options</span></code> is a dictionary of supported
 <a class="reference internal" href="#object-description-options"><span class="std std-ref">Object description options</span></a>.</p>
 <p>The actual options for a given object type are determined by first
 initializing each option to its default value, and then applying as overrides
@@ -1562,7 +1562,7 @@ the options associated with each matching pattern in order.</p>
 <p>To prevent C++ parameter descriptions from appearing in the TOC, add the
 following to <code class="file docutils literal notranslate"><span class="pre">conf.py</span></code>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="n">object_description_options</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="p">(</span><span class="s2">&quot;cpp:.*Param&quot;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">include_in_toc</span><span class="o">=</span><span class="kc">False</span><span class="p">)),</span>
+    <span class="p">(</span><span class="s2">"cpp:.*Param"</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">include_in_toc</span><span class="o">=</span><span class="kc">False</span><span class="p">)),</span>
 <span class="p">]</span>
 </code></pre></div>
 </div>
@@ -1571,25 +1571,25 @@ following to <code class="file docutils literal notranslate"><span class="pre">c
 
 <dl class="std objconf objdesc">
 <dt class="sig sig-object highlight sig-wrap std" id="objconf-generate_synopses">
-<span class="sig-name descname"><span class="pre">generate_synopses</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><span class="s"><span class="pre">'first_paragraph'</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="s"><span class="pre">'first_sentence'</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><span class="pre">None</span></a></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="s1">&#39;first_paragraph&#39;</span></code><a class="headerlink" href="#objconf-generate_synopses" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">generate_synopses</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><span class="s"><span class="pre">'first_paragraph'</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="s"><span class="pre">'first_sentence'</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><span class="pre">None</span></a></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="s1">'first_paragraph'</span></code><a class="headerlink" href="#objconf-generate_synopses" title="Link to this definition">¶</a></dt>
 <dd><p>Indicates whether to generate a <em>synopsis</em> from the object description.  The
 synopsis is shown as a tooltip when hovering over a cross-reference link, and
 is also shown in the search results list.  Supported values are:</p>
 <dl class="simple">
 <dt><code class="code highlight python docutils literal highlight-python"><span class="kc">None</span></code></dt><dd><p>Disables synopsis generation.</p>
 </dd>
-<dt><code class="code highlight python docutils literal highlight-python"><span class="s2">&quot;first_paragraph&quot;</span></code></dt><dd><p>Uses the first paragraph of the description as the synopsis.</p>
+<dt><code class="code highlight python docutils literal highlight-python"><span class="s2">"first_paragraph"</span></code></dt><dd><p>Uses the first paragraph of the description as the synopsis.</p>
 </dd>
-<dt><code class="code highlight python docutils literal highlight-python"><span class="s2">&quot;first_sentence&quot;</span></code></dt><dd><p>Uses the first sentence of the first paragraph of the description as the synopsis.</p>
+<dt><code class="code highlight python docutils literal highlight-python"><span class="s2">"first_sentence"</span></code></dt><dd><p>Uses the first sentence of the first paragraph of the description as the synopsis.</p>
 </dd>
 </dl>
-<p>The default is <code class="code highlight python docutils literal highlight-python"><span class="s2">&quot;first_paragraph&quot;</span></code> except for <code class="regexp docutils literal notranslate"><span class="pre">c(pp)?:.*Param</span></code>
-where the default is <code class="code highlight python docutils literal highlight-python"><span class="s2">&quot;first_sentence&quot;</span></code>.</p>
+<p>The default is <code class="code highlight python docutils literal highlight-python"><span class="s2">"first_paragraph"</span></code> except for <code class="regexp docutils literal notranslate"><span class="pre">c(pp)?:.*Param</span></code>
+where the default is <code class="code highlight python docutils literal highlight-python"><span class="s2">"first_sentence"</span></code>.</p>
 <div class="note admonition">
 <p class="admonition-title">Note</p>
 <p>Synopsis generation is currently supported only for the following domains:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">std</span></code> (including object types added using <a class="reference external" href="https://www.sphinx-doc.org/en/master/extdev/appapi.html#sphinx.application.Sphinx.add_object_type" title="(in Sphinx v9.1.1)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sphinx.application.Sphinx.add_object_type</span></code></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">std</span></code> (including object types added using <a class="reference external" href="https://www.sphinx-doc.org/en/master/extdev/appapi.html#sphinx.application.Sphinx.add_object_type" title="(in Sphinx v9.3.0)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sphinx.application.Sphinx.add_object_type</span></code></a>)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">c</span></code> and <code class="docutils literal notranslate"><span class="pre">cpp</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">py</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">json</span></code></p></li>
@@ -1600,7 +1600,7 @@ where the default is <code class="code highlight python docutils literal highlig
 <p>To use the first sentence rather than the first paragraph as the synopsis
 for C++ class descriptions, add the following to <code class="file docutils literal notranslate"><span class="pre">conf.py</span></code>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="n">object_description_options</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="p">(</span><span class="s2">&quot;cpp:class&quot;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">generate_synopses</span><span class="o">=</span><span class="s2">&quot;first_sentence&quot;</span><span class="p">)),</span>
+    <span class="p">(</span><span class="s2">"cpp:class"</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">generate_synopses</span><span class="o">=</span><span class="s2">"first_sentence"</span><span class="p">)),</span>
 <span class="p">]</span>
 </code></pre></div>
 </div>
@@ -1617,7 +1617,7 @@ tooltips.</p>
 <p>For TOC entries, this is supported for all domains.  For regular cross
 references, this is supported only for the following domains:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">std</span></code> (including object types added using <a class="reference external" href="https://www.sphinx-doc.org/en/master/extdev/appapi.html#sphinx.application.Sphinx.add_object_type" title="(in Sphinx v9.1.1)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sphinx.application.Sphinx.add_object_type</span></code></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">std</span></code> (including object types added using <a class="reference external" href="https://www.sphinx-doc.org/en/master/extdev/appapi.html#sphinx.application.Sphinx.add_object_type" title="(in Sphinx v9.3.0)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sphinx.application.Sphinx.add_object_type</span></code></a>)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">c</span></code> and <code class="docutils literal notranslate"><span class="pre">cpp</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">py</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">json</span></code></p></li>
@@ -1628,7 +1628,7 @@ references, this is supported only for the following domains:</p>
 <p>To exclude the object type from all <code class="docutils literal notranslate"><span class="pre">py</span></code> domain xrefs, add the following
 to <code class="file docutils literal notranslate"><span class="pre">conf.py</span></code>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="n">object_description_options</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="p">(</span><span class="s2">&quot;py:.*&quot;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">include_object_type_in_xref_tooltip</span><span class="o">=</span><span class="kc">False</span><span class="p">)),</span>
+    <span class="p">(</span><span class="s2">"py:.*"</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">include_object_type_in_xref_tooltip</span><span class="o">=</span><span class="kc">False</span><span class="p">)),</span>
 <span class="p">]</span>
 </code></pre></div>
 </div>
@@ -1656,7 +1656,7 @@ option.</p>
 <p>To exclude object description fields from the table of contents for all
 <code class="docutils literal notranslate"><span class="pre">py</span></code> domain objects, add the following to <code class="file docutils literal notranslate"><span class="pre">conf.py</span></code>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="n">object_description_options</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="p">(</span><span class="s2">&quot;py:.*&quot;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">include_fields_in_toc</span><span class="o">=</span><span class="kc">False</span><span class="p">)),</span>
+    <span class="p">(</span><span class="s2">"py:.*"</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">include_fields_in_toc</span><span class="o">=</span><span class="kc">False</span><span class="p">)),</span>
 <span class="p">]</span>
 </code></pre></div>
 </div>
@@ -1679,7 +1679,7 @@ other rubrics from the object description in the TOC is provided for visual cons
 <p>To include object description rubrics in the table of contents for all
 <code class="docutils literal notranslate"><span class="pre">py</span></code> domain objects, add the following to <code class="file docutils literal notranslate"><span class="pre">conf.py</span></code>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="n">object_description_options</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="p">(</span><span class="s2">&quot;py:.*&quot;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">include_rubrics_in_toc</span><span class="o">=</span><span class="kc">True</span><span class="p">)),</span>
+    <span class="p">(</span><span class="s2">"py:.*"</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">include_rubrics_in_toc</span><span class="o">=</span><span class="kc">True</span><span class="p">)),</span>
 <span class="p">]</span>
 </code></pre></div>
 </div>
@@ -1704,10 +1704,10 @@ overridden using the following options:</p>
 <dd><p>Indicates the icon class, or <code class="code highlight python docutils literal highlight-python"><span class="kc">None</span></code> to disable the icon.  The class
 must be one of:</p>
 <ul class="simple">
-<li><p><code class="code highlight python docutils literal highlight-python"><span class="s2">&quot;alias&quot;</span></code></p></li>
-<li><p><code class="code highlight python docutils literal highlight-python"><span class="s2">&quot;procedure&quot;</span></code></p></li>
-<li><p><code class="code highlight python docutils literal highlight-python"><span class="s2">&quot;data&quot;</span></code></p></li>
-<li><p><code class="code highlight python docutils literal highlight-python"><span class="s2">&quot;sub-data&quot;</span></code></p></li>
+<li><p><code class="code highlight python docutils literal highlight-python"><span class="s2">"alias"</span></code></p></li>
+<li><p><code class="code highlight python docutils literal highlight-python"><span class="s2">"procedure"</span></code></p></li>
+<li><p><code class="code highlight python docutils literal highlight-python"><span class="s2">"data"</span></code></p></li>
+<li><p><code class="code highlight python docutils literal highlight-python"><span class="s2">"sub-data"</span></code></p></li>
 </ul>
 </dd></dl>
 
@@ -1715,8 +1715,8 @@ must be one of:</p>
 <dt class="sig sig-object highlight std" id="objconf-toc_icon_text">
 <span class="sig-name descname"><span class="pre">toc_icon_text</span></span><span class="p"> <span class="pre">:</span> </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><span class="pre">None</span></a></span></span><span class="p"> <span class="pre">=</span> </span><code class="python code highlight docutils literal highlight-python"><span class="kc">None</span></code><a class="headerlink" href="#objconf-toc_icon_text" title="Link to this definition">¶</a></dt>
 <dd><p>Indicates the text content of the icon, or <code class="code highlight python docutils literal highlight-python"><span class="kc">None</span></code> to disable the
-icon.  This should normally be a single character, such as <code class="code highlight python docutils literal highlight-python"><span class="s2">&quot;C&quot;</span></code> to
-indicate a class or <code class="code highlight python docutils literal highlight-python"><span class="s2">&quot;F&quot;</span></code> to indicate a function.</p>
+icon.  This should normally be a single character, such as <code class="code highlight python docutils literal highlight-python"><span class="s2">"C"</span></code> to
+indicate a class or <code class="code highlight python docutils literal highlight-python"><span class="s2">"F"</span></code> to indicate a function.</p>
 </dd></dl>
 
 <div class="example admonition">
@@ -1724,15 +1724,15 @@ indicate a class or <code class="code highlight python docutils literal highligh
 <p>To define a custom object type and specify an icon for it, add the following to
 <code class="file docutils literal notranslate"><span class="pre">conf.py</span></code>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="n">object_description_options</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="p">(</span><span class="s2">&quot;std:confval&quot;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">toc_icon_class</span><span class="o">=</span><span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="n">toc_icon_text</span><span class="o">=</span><span class="s2">&quot;C&quot;</span><span class="p">)),</span>
+    <span class="p">(</span><span class="s2">"std:confval"</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">toc_icon_class</span><span class="o">=</span><span class="s2">"data"</span><span class="p">,</span> <span class="n">toc_icon_text</span><span class="o">=</span><span class="s2">"C"</span><span class="p">)),</span>
 <span class="p">]</span>
 
 <span class="k">def</span><span class="w"> </span><span class="nf">setup</span><span class="p">(</span><span class="n">app</span><span class="p">):</span>
     <span class="n">app</span><span class="o">.</span><span class="n">add_object_type</span><span class="p">(</span>
-        <span class="s2">&quot;confval&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;confval&quot;</span><span class="p">,</span>
-        <span class="n">objname</span><span class="o">=</span><span class="s2">&quot;configuration value&quot;</span><span class="p">,</span>
-        <span class="n">indextemplate</span><span class="o">=</span><span class="s2">&quot;pair: </span><span class="si">%s</span><span class="s2">; configuration value&quot;</span><span class="p">,</span>
+        <span class="s2">"confval"</span><span class="p">,</span>
+        <span class="s2">"confval"</span><span class="p">,</span>
+        <span class="n">objname</span><span class="o">=</span><span class="s2">"configuration value"</span><span class="p">,</span>
+        <span class="n">indextemplate</span><span class="o">=</span><span class="s2">"pair: </span><span class="si">%s</span><span class="s2">; configuration value"</span><span class="p">,</span>
     <span class="p">)</span>
 </code></pre></div>
 </div>
@@ -1757,7 +1757,7 @@ indicate a class or <code class="code highlight python docutils literal highligh
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    Oct 16, 2026
+    Oct 30, 2026
   </span>
 
     

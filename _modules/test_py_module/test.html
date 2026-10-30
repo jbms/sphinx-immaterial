@@ -1221,7 +1221,7 @@
 
 <h1>Source code for test_py_module.test</h1><div class="highlight"><pre>
 <span></span><code><span class="c1"># -*- coding: utf-8 -*-</span>
-<span class="sd">&quot;&quot;&quot;Test Module for sphinx_rtd_theme.&quot;&quot;&quot;</span>
+<span class="sd">"""Test Module for sphinx_rtd_theme."""</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">functools</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Union</span>
@@ -1230,7 +1230,7 @@
 <div class="viewcode-block" id="Foo">
 <a class="viewcode-back" href="../../demo_api.html#test_py_module.test.Foo">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">Foo</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Docstring for class Foo.</span>
+<span class="w">    </span><span class="sd">"""Docstring for class Foo.</span>
 
 <span class="sd">    This text tests for the formatting of docstrings generated from output</span>
 <span class="sd">    ``sphinx.ext.autodoc``. Which contain reST, but sphinx nests it in the</span>
@@ -1241,13 +1241,13 @@
 <span class="sd">    Normal ``&lt;tt&gt;`` (like the &lt;tt&gt; I just wrote here) needs to be shown with</span>
 <span class="sd">    the same style as anything else with ````this type of markup````.</span>
 
-<span class="sd">    It&#39;s common for programmers to give a code example inside of their</span>
+<span class="sd">    It's common for programmers to give a code example inside of their</span>
 <span class="sd">    docstring::</span>
 
 <span class="sd">        from test_py_module import Foo</span>
 
 <span class="sd">        myclass = Foo()</span>
-<span class="sd">        myclass.dothismethod(&#39;with this argument&#39;)</span>
+<span class="sd">        myclass.dothismethod('with this argument')</span>
 <span class="sd">        myclass.flush()</span>
 
 <span class="sd">        print(myclass)</span>
@@ -1256,7 +1256,7 @@
 <span class="sd">    Here is a link to :py:meth:`capitalize`.</span>
 <span class="sd">    Here is a link to :py:meth:`__init__`.</span>
 
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="c1">#: Doc comment for class attribute Foo.bar.</span>
     <span class="c1">#: It can have multiple lines.</span>
@@ -1265,30 +1265,30 @@
     <span class="n">flox</span> <span class="o">=</span> <span class="mf">1.5</span>  <span class="c1">#: Doc comment for Foo.flox. One line only.</span>
 
     <span class="n">baz</span> <span class="o">=</span> <span class="mi">2</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Docstring for class attribute Foo.baz.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Docstring for class attribute Foo.baz."""</span>
 
 <div class="viewcode-block" id="Foo.__init__">
 <a class="viewcode-back" href="../../demo_api.html#test_py_module.test.Foo.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">qux</span><span class="p">,</span> <span class="n">spam</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Start the Foo.</span>
+<span class="w">        </span><span class="sd">"""Start the Foo.</span>
 
 <span class="sd">        :param qux: The first argument to initialize class.</span>
 <span class="sd">        :type qux: str</span>
 <span class="sd">        :param spam: Spam me yes or no...</span>
 <span class="sd">        :type spam: bool</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
         <span class="c1">#: Doc comment for instance attribute qux.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">qux</span> <span class="o">=</span> <span class="mi">3</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">spam</span> <span class="o">=</span> <span class="mi">4</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Docstring for instance attribute spam.&quot;&quot;&quot;</span></div>
+<span class="w">        </span><span class="sd">"""Docstring for instance attribute spam."""</span></div>
 
 
 <div class="viewcode-block" id="Foo.add">
 <a class="viewcode-back" href="../../demo_api.html#test_py_module.test.Foo.add">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">val1</span><span class="p">,</span> <span class="n">val2</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the added values.</span>
+<span class="w">        </span><span class="sd">"""Return the added values.</span>
 
 <span class="sd">        :param val1: First number to add.</span>
 <span class="sd">        :type val1: int</span>
@@ -1296,7 +1296,7 @@
 <span class="sd">        :type val2: int</span>
 <span class="sd">        :rtype: int</span>
 
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
         <span class="k">return</span> <span class="n">val1</span> <span class="o">+</span> <span class="n">val2</span></div>
 
@@ -1304,13 +1304,13 @@
 <div class="viewcode-block" id="Foo.capitalize">
 <a class="viewcode-back" href="../../demo_api.html#test_py_module.test.Foo.capitalize">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">capitalize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">myvalue</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a string as uppercase.</span>
+<span class="w">        </span><span class="sd">"""Return a string as uppercase.</span>
 
 <span class="sd">        :param myvalue: String to change</span>
 <span class="sd">        :type myvalue: str</span>
 <span class="sd">        :rtype: str</span>
 
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
         <span class="k">return</span> <span class="n">myvalue</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span></div>
 
@@ -1318,7 +1318,7 @@
 <div class="viewcode-block" id="Foo.another_function">
 <a class="viewcode-back" href="../../demo_api.html#test_py_module.test.Foo.another_function">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">another_function</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Here is another function.</span>
 
 <span class="sd">        :param a: The number of green hats you own.</span>
@@ -1346,20 +1346,20 @@
 <span class="sd">            This was changed in 2.0</span>
 <span class="sd">        .. deprecated:: 3.0</span>
 <span class="sd">            This is deprecated since 3.0</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">values</span><span class="p">())</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">kwargs</span><span class="p">),</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span></div>
 
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">qux_caps</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the instance qux as uppercase.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Return the instance qux as uppercase."""</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">capitalize</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">qux</span><span class="p">)</span>
 
 <div class="viewcode-block" id="Foo.qux_caps_cached">
 <a class="viewcode-back" href="../../demo_api.html#test_py_module.test.Foo.qux_caps_cached">[docs]</a>
     <span class="nd">@functools</span><span class="o">.</span><span class="n">cached_property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">qux_caps_cached</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the cached value of instance qux as uppercase.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Return the cached value of instance qux as uppercase."""</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">qux_caps</span></div>
 </div>
 
@@ -1368,7 +1368,7 @@
 <div class="viewcode-block" id="func">
 <a class="viewcode-back" href="../../demo_api.html#test_py_module.test.func">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">func</span><span class="p">(</span><span class="n">long</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">param</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> <span class="n">flags</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">lists</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">]):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;A function with many parameters.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""A function with many parameters."""</span>
     <span class="k">return</span> <span class="kc">None</span></div>
 
 </code></pre></div>
@@ -1392,7 +1392,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    Oct 16, 2026
+    Oct 30, 2026
   </span>
 
     

@@ -1446,29 +1446,29 @@
 <h1 id="external-c-symbol-links">External C++ symbol links<a class="headerlink" href="#external-c-symbol-links" title="Link to this heading">¶</a></h1>
 <p>This theme includes an optional
 <code class="code highlight python docutils literal highlight-python"><span class="n">sphinx_immaterial</span><span class="o">.</span><span class="n">apidoc</span><span class="o">.</span><span class="n">cpp</span><span class="o">.</span><span class="n">external_cpp_references</span></code> extension that
-allows normal C++ symbol references, e.g. through the <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/domains/cpp.html#role-cpp-expr" title="(in Sphinx v9.1.1)"><code class="xref rst rst-role docutils literal notranslate"><span class="pre">cpp:expr</span></code></a> role
+allows normal C++ symbol references, e.g. through the <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/domains/cpp.html#role-cpp-expr" title="(in Sphinx v9.3.0)"><code class="xref rst rst-role docutils literal notranslate"><span class="pre">cpp:expr</span></code></a> role
 or in C++ function signatures, to resolve to externally-defined C++ symbols that
-are manually specified in <code class="file docutils literal notranslate"><span class="pre">conf.py</span></code>.  Unlike the <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/extensions/intersphinx.html#module-sphinx.ext.intersphinx" title="(in Sphinx v9.1.1)"><code class="xref any docutils literal notranslate"><span class="pre">sphinx.ext.intersphinx</span></code></a>
+are manually specified in <code class="file docutils literal notranslate"><span class="pre">conf.py</span></code>.  Unlike the <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/extensions/intersphinx.html#module-sphinx.ext.intersphinx" title="(in Sphinx v9.3.0)"><code class="xref any docutils literal notranslate"><span class="pre">sphinx.ext.intersphinx</span></code></a>
 extension, template arguments are stripped when resolving references, which
 allows template entities to be resolved based on their base name.</p>
 <p>To use this extension, add it to the list of extensions in <code class="file docutils literal notranslate"><span class="pre">conf.py</span></code> and
 define the <a class="reference internal" href="#confval-external_cpp_references" title="external_cpp_references (configuration value) — A dictionary specifying the URL, object type, and descriptive text for each externally documented symbol name."><code class="xref std std-confval docutils literal notranslate"><span class="pre">external_cpp_references</span></code></a> configuration option:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="n">extensions</span> <span class="o">=</span> <span class="p">[</span>
     <span class="c1"># other extensions...</span>
-    <span class="s2">&quot;sphinx_immaterial.apidoc.cpp.external_cpp_references&quot;</span><span class="p">,</span>
+    <span class="s2">"sphinx_immaterial.apidoc.cpp.external_cpp_references"</span><span class="p">,</span>
 <span class="p">]</span>
 </code></pre></div>
 </div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span class="n">external_cpp_references</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;nlohmann::json&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s2">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;https://json.nlohmann.me/api/json/&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;object_type&quot;</span><span class="p">:</span> <span class="s2">&quot;type alias&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;desc&quot;</span><span class="p">:</span> <span class="s2">&quot;C++ type alias&quot;</span><span class="p">,</span>
+    <span class="s2">"nlohmann::json"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"url"</span><span class="p">:</span> <span class="s2">"https://json.nlohmann.me/api/json/"</span><span class="p">,</span>
+        <span class="s2">"object_type"</span><span class="p">:</span> <span class="s2">"type alias"</span><span class="p">,</span>
+        <span class="s2">"desc"</span><span class="p">:</span> <span class="s2">"C++ type alias"</span><span class="p">,</span>
     <span class="p">},</span>
-    <span class="s2">&quot;nlohmann::basic_json&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s2">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;https://json.nlohmann.me/api/basic_json/&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;object_type&quot;</span><span class="p">:</span> <span class="s2">&quot;class&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;desc&quot;</span><span class="p">:</span> <span class="s2">&quot;C++ class&quot;</span><span class="p">,</span>
+    <span class="s2">"nlohmann::basic_json"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"url"</span><span class="p">:</span> <span class="s2">"https://json.nlohmann.me/api/basic_json/"</span><span class="p">,</span>
+        <span class="s2">"object_type"</span><span class="p">:</span> <span class="s2">"class"</span><span class="p">,</span>
+        <span class="s2">"desc"</span><span class="p">:</span> <span class="s2">"C++ class"</span><span class="p">,</span>
     <span class="p">},</span>
 <span class="p">}</span>
 </code></pre></div>
@@ -1511,16 +1511,16 @@ documented symbol name.</p>
 <dd><p>C++ object type.
 This should be one of the object types defined by the C++ domain:</p>
 <table class="hlist"><tr><td><ul class="simple">
-<li><p><code class="code highlight python docutils literal highlight-python"><span class="s2">&quot;class&quot;</span></code></p></li>
-<li><p><code class="code highlight python docutils literal highlight-python"><span class="s2">&quot;union&quot;</span></code></p></li>
-<li><p><code class="code highlight python docutils literal highlight-python"><span class="s2">&quot;function&quot;</span></code></p></li>
-<li><p><code class="code highlight python docutils literal highlight-python"><span class="s2">&quot;member&quot;</span></code></p></li>
+<li><p><code class="code highlight python docutils literal highlight-python"><span class="s2">"class"</span></code></p></li>
+<li><p><code class="code highlight python docutils literal highlight-python"><span class="s2">"union"</span></code></p></li>
+<li><p><code class="code highlight python docutils literal highlight-python"><span class="s2">"function"</span></code></p></li>
+<li><p><code class="code highlight python docutils literal highlight-python"><span class="s2">"member"</span></code></p></li>
 </ul>
 </td><td><ul class="simple">
-<li><p><code class="code highlight python docutils literal highlight-python"><span class="s2">&quot;type&quot;</span></code></p></li>
-<li><p><code class="code highlight python docutils literal highlight-python"><span class="s2">&quot;concept&quot;</span></code></p></li>
-<li><p><code class="code highlight python docutils literal highlight-python"><span class="s2">&quot;enum&quot;</span></code></p></li>
-<li><p><code class="code highlight python docutils literal highlight-python"><span class="s2">&quot;enumerator&quot;</span></code></p></li>
+<li><p><code class="code highlight python docutils literal highlight-python"><span class="s2">"type"</span></code></p></li>
+<li><p><code class="code highlight python docutils literal highlight-python"><span class="s2">"concept"</span></code></p></li>
+<li><p><code class="code highlight python docutils literal highlight-python"><span class="s2">"enum"</span></code></p></li>
+<li><p><code class="code highlight python docutils literal highlight-python"><span class="s2">"enumerator"</span></code></p></li>
 </ul>
 </td></tr></table>
 </dd></dl>
@@ -1559,7 +1559,7 @@ This should be one of the object types defined by the C++ domain:</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    Oct 16, 2026
+    Oct 30, 2026
   </span>
 
     

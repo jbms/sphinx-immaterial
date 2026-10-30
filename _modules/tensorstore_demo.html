@@ -1220,11 +1220,11 @@
   
 
 <h1>Source code for tensorstore_demo</h1><div class="highlight"><pre>
-<span></span><code><span class="sd">&quot;&quot;&quot;Demo file for Python API documentation generation.</span>
+<span></span><code><span class="sd">"""Demo file for Python API documentation generation.</span>
 
 <span class="sd">Some of the docstrings have unusual syntax because they match the output from</span>
 <span class="sd">pybind11.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
@@ -1237,24 +1237,24 @@
 
 <div class="viewcode-block" id="Dim">
 <a class="viewcode-back" href="../python_apigen_generated/Dim.html#tensorstore_demo.Dim">[docs]</a>
-<span class="k">class</span><span class="w"> </span><span class="nc">Dim</span><span class="p">():</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;1-d index interval with optionally-implicit bounds and dimension label.</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Dim</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""1-d index interval with optionally-implicit bounds and dimension label.</span>
 
 <span class="sd">    Examples:</span>
 
-<span class="sd">        &gt;&gt;&gt; ts.Dim(&#39;x&#39;)</span>
-<span class="sd">        Dim(label=&quot;x&quot;)</span>
-<span class="sd">        &gt;&gt;&gt; ts.Dim(inclusive_min=3, exclusive_max=10, label=&#39;x&#39;)</span>
-<span class="sd">        Dim(inclusive_min=3, exclusive_max=10, label=&quot;x&quot;)</span>
+<span class="sd">        &gt;&gt;&gt; ts.Dim('x')</span>
+<span class="sd">        Dim(label="x")</span>
+<span class="sd">        &gt;&gt;&gt; ts.Dim(inclusive_min=3, exclusive_max=10, label='x')</span>
+<span class="sd">        Dim(inclusive_min=3, exclusive_max=10, label="x")</span>
 
 <span class="sd">    See also:</span>
 <span class="sd">      :py:obj:`IndexDomain`</span>
 
 <span class="sd">    Group:</span>
 <span class="sd">      Indexing</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;__init__(*args, **kwargs)</span>
+<span class="w">        </span><span class="sd">"""__init__(*args, **kwargs)</span>
 <span class="sd">Overloaded function.</span>
 
 <span class="sd">1. __init__(self: tensorstore_demo.Dim, label: Optional[str] = None, *, implicit_lower: bool = True, implicit_upper: bool = True) -&gt; None</span>
@@ -1277,9 +1277,9 @@
 <span class="sd">    &gt;&gt;&gt; x.finite</span>
 <span class="sd">    False</span>
 
-<span class="sd">    &gt;&gt;&gt; x = ts.Dim(&quot;x&quot;, implicit_upper=False)</span>
+<span class="sd">    &gt;&gt;&gt; x = ts.Dim("x", implicit_upper=False)</span>
 <span class="sd">    &gt;&gt;&gt; print(x)</span>
-<span class="sd">    &quot;x&quot;: (-inf*, +inf)</span>
+<span class="sd">    "x": (-inf*, +inf)</span>
 <span class="sd">    &gt;&gt;&gt; x.finite</span>
 <span class="sd">    False</span>
 
@@ -1368,10 +1368,10 @@
 
 <span class="sd">Overload:</span>
 <span class="sd">  inclusive_max</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">exclusive_max</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Exclusive upper bound of the interval.</span>
+<span class="w">        </span><span class="sd">"""Exclusive upper bound of the interval.</span>
 
 <span class="sd">        Equal to :python:`self.inclusive_max + 1`.  If the interval is unbounded above,</span>
 <span class="sd">        equal to the special value of ``+inf+1``.</span>
@@ -1389,10 +1389,10 @@
 <span class="sd">          Accessors</span>
 
 
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">inclusive_min</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Inclusive lower bound of the interval.</span>
+<span class="w">        </span><span class="sd">"""Inclusive lower bound of the interval.</span>
 
 <span class="sd">        Equal to :python:`self.exclusive_min + 1`.  If the interval is unbounded below,</span>
 <span class="sd">        equal to the special value of ``-inf``.</span>
@@ -1410,40 +1410,40 @@
 <span class="sd">          Accessors</span>
 
 
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">label</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Dimension label, or the empty string to indicate an unlabeled dimension.</span>
+<span class="w">        </span><span class="sd">"""Dimension label, or the empty string to indicate an unlabeled dimension.</span>
 
 <span class="sd">        Example:</span>
 
 <span class="sd">            &gt;&gt;&gt; ts.Dim().label</span>
-<span class="sd">            &#39;&#39;</span>
-<span class="sd">            &gt;&gt;&gt; ts.Dim(label=&#39;x&#39;).label</span>
-<span class="sd">            &#39;x&#39;</span>
+<span class="sd">            ''</span>
+<span class="sd">            &gt;&gt;&gt; ts.Dim(label='x').label</span>
+<span class="sd">            'x'</span>
 
 <span class="sd">        Group:</span>
 <span class="sd">          Accessors</span>
 
 
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
     <span class="nd">@label</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">label</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arg1</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Dimension label, or the empty string to indicate an unlabeled dimension.</span>
+<span class="w">        </span><span class="sd">"""Dimension label, or the empty string to indicate an unlabeled dimension.</span>
 
 <span class="sd">        Example:</span>
 
 <span class="sd">            &gt;&gt;&gt; ts.Dim().label</span>
-<span class="sd">            &#39;&#39;</span>
-<span class="sd">            &gt;&gt;&gt; ts.Dim(label=&#39;x&#39;).label</span>
-<span class="sd">            &#39;x&#39;</span>
+<span class="sd">            ''</span>
+<span class="sd">            &gt;&gt;&gt; ts.Dim(label='x').label</span>
+<span class="sd">            'x'</span>
 
 <span class="sd">        Group:</span>
 <span class="sd">          Accessors</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">size</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Size of the interval.</span>
+<span class="w">        </span><span class="sd">"""Size of the interval.</span>
 
 <span class="sd">        Equal to :python:`self.exclusive_max - self.inclusive_min`.</span>
 
@@ -1466,7 +1466,7 @@
 <span class="sd">          Accessors</span>
 
 
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
     <span class="n">size_alias</span> <span class="o">=</span> <span class="n">size</span>
 
     <span class="fm">__hash__</span> <span class="o">=</span> <span class="kc">None</span>
@@ -1474,8 +1474,8 @@
 
 <div class="viewcode-block" id="DimExpression">
 <a class="viewcode-back" href="../python_apigen_generated/DimExpression.html#tensorstore_demo.DimExpression">[docs]</a>
-<span class="k">class</span><span class="w"> </span><span class="nc">DimExpression</span><span class="p">():</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Specifies an advanced indexing operation.</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">DimExpression</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Specifies an advanced indexing operation.</span>
 
 <span class="sd">    Dimension expressions permit indexing using</span>
 <span class="sd">    dimension labels, and also support additional operations</span>
@@ -1486,51 +1486,51 @@
 
 <span class="sd">    Operations</span>
 <span class="sd">    ==========</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">class</span><span class="w"> </span><span class="nc">_Label</span><span class="p">():</span>
+<span class="sd">    """</span>
+    <span class="k">class</span><span class="w"> </span><span class="nc">_Label</span><span class="p">:</span>
         <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">            </span><span class="sd">&quot;&quot;&quot;__getitem__(self: tensorstore_demo.DimExpression._Label, labels: Union[str, Sequence[str]]) -&gt; tensorstore_demo.DimExpression</span>
+<span class="w">            </span><span class="sd">"""__getitem__(self: tensorstore_demo.DimExpression._Label, labels: Union[str, Sequence[str]]) -&gt; tensorstore_demo.DimExpression</span>
 
 
 <span class="sd">            Sets (or changes) the labels of the selected dimensions.</span>
 
 <span class="sd">            Examples:</span>
 
-<span class="sd">                &gt;&gt;&gt; ts.IndexTransform(3)[ts.d[0].label[&#39;x&#39;]]</span>
+<span class="sd">                &gt;&gt;&gt; ts.IndexTransform(3)[ts.d[0].label['x']]</span>
 <span class="sd">                Rank 3 -&gt; 3 index space transform:</span>
 <span class="sd">                  Input domain:</span>
-<span class="sd">                    0: (-inf*, +inf*) &quot;x&quot;</span>
+<span class="sd">                    0: (-inf*, +inf*) "x"</span>
 <span class="sd">                    1: (-inf*, +inf*)</span>
 <span class="sd">                    2: (-inf*, +inf*)</span>
 <span class="sd">                  Output index maps:</span>
 <span class="sd">                    out[0] = 0 + 1 * in[0]</span>
 <span class="sd">                    out[1] = 0 + 1 * in[1]</span>
 <span class="sd">                    out[2] = 0 + 1 * in[2]</span>
-<span class="sd">                &gt;&gt;&gt; ts.IndexTransform(3)[ts.d[0, 2].label[&#39;x&#39;, &#39;z&#39;]]</span>
+<span class="sd">                &gt;&gt;&gt; ts.IndexTransform(3)[ts.d[0, 2].label['x', 'z']]</span>
 <span class="sd">                Rank 3 -&gt; 3 index space transform:</span>
 <span class="sd">                  Input domain:</span>
-<span class="sd">                    0: (-inf*, +inf*) &quot;x&quot;</span>
+<span class="sd">                    0: (-inf*, +inf*) "x"</span>
 <span class="sd">                    1: (-inf*, +inf*)</span>
-<span class="sd">                    2: (-inf*, +inf*) &quot;z&quot;</span>
+<span class="sd">                    2: (-inf*, +inf*) "z"</span>
 <span class="sd">                  Output index maps:</span>
 <span class="sd">                    out[0] = 0 + 1 * in[0]</span>
 <span class="sd">                    out[1] = 0 + 1 * in[1]</span>
 <span class="sd">                    out[2] = 0 + 1 * in[2]</span>
-<span class="sd">                &gt;&gt;&gt; ts.IndexTransform(3)[ts.d[:].label[&#39;x&#39;, &#39;y&#39;, &#39;z&#39;]]</span>
+<span class="sd">                &gt;&gt;&gt; ts.IndexTransform(3)[ts.d[:].label['x', 'y', 'z']]</span>
 <span class="sd">                Rank 3 -&gt; 3 index space transform:</span>
 <span class="sd">                  Input domain:</span>
-<span class="sd">                    0: (-inf*, +inf*) &quot;x&quot;</span>
-<span class="sd">                    1: (-inf*, +inf*) &quot;y&quot;</span>
-<span class="sd">                    2: (-inf*, +inf*) &quot;z&quot;</span>
+<span class="sd">                    0: (-inf*, +inf*) "x"</span>
+<span class="sd">                    1: (-inf*, +inf*) "y"</span>
+<span class="sd">                    2: (-inf*, +inf*) "z"</span>
 <span class="sd">                  Output index maps:</span>
 <span class="sd">                    out[0] = 0 + 1 * in[0]</span>
 <span class="sd">                    out[1] = 0 + 1 * in[1]</span>
 <span class="sd">                    out[2] = 0 + 1 * in[2]</span>
-<span class="sd">                &gt;&gt;&gt; ts.IndexTransform(3)[ts.d[0, 1].label[&#39;x&#39;, &#39;y&#39;].translate_by[2]]</span>
+<span class="sd">                &gt;&gt;&gt; ts.IndexTransform(3)[ts.d[0, 1].label['x', 'y'].translate_by[2]]</span>
 <span class="sd">                Rank 3 -&gt; 3 index space transform:</span>
 <span class="sd">                  Input domain:</span>
-<span class="sd">                    0: (-inf*, +inf*) &quot;x&quot;</span>
-<span class="sd">                    1: (-inf*, +inf*) &quot;y&quot;</span>
+<span class="sd">                    0: (-inf*, +inf*) "x"</span>
+<span class="sd">                    1: (-inf*, +inf*) "y"</span>
 <span class="sd">                    2: (-inf*, +inf*)</span>
 <span class="sd">                  Output index maps:</span>
 <span class="sd">                    out[0] = -2 + 1 * in[0]</span>
@@ -1551,12 +1551,12 @@
 
 <span class="sd">            Group:</span>
 <span class="sd">              Operations</span>
-<span class="sd">            &quot;&quot;&quot;</span>
+<span class="sd">            """</span>
         <span class="fm">__iter__</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="k">pass</span>
-    <span class="k">class</span><span class="w"> </span><span class="nc">_TranslateTo</span><span class="p">():</span>
+    <span class="k">class</span><span class="w"> </span><span class="nc">_TranslateTo</span><span class="p">:</span>
         <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">            </span><span class="sd">&quot;&quot;&quot;__getitem__(self: tensorstore_demo.DimExpression._TranslateTo, origins: Union[Sequence[Optional[int]], Optional[int]]) -&gt; tensorstore_demo.DimExpression</span>
+<span class="w">            </span><span class="sd">"""__getitem__(self: tensorstore_demo.DimExpression._TranslateTo, origins: Union[Sequence[Optional[int]], Optional[int]]) -&gt; tensorstore_demo.DimExpression</span>
 
 
 <span class="sd">            Translates the domains of the selected input dimensions to the specified</span>
@@ -1565,33 +1565,33 @@
 <span class="sd">            Examples:</span>
 
 <span class="sd">               &gt;&gt;&gt; transform = ts.IndexTransform(input_shape=[4, 5, 6],</span>
-<span class="sd">               ...                               input_labels=[&#39;x&#39;, &#39;y&#39;, &#39;z&#39;])</span>
-<span class="sd">               &gt;&gt;&gt; transform[ts.d[&#39;x&#39;, &#39;y&#39;].translate_to[10, 20]]</span>
+<span class="sd">               ...                               input_labels=['x', 'y', 'z'])</span>
+<span class="sd">               &gt;&gt;&gt; transform[ts.d['x', 'y'].translate_to[10, 20]]</span>
 <span class="sd">               Rank 3 -&gt; 3 index space transform:</span>
 <span class="sd">                 Input domain:</span>
-<span class="sd">                   0: [10, 14) &quot;x&quot;</span>
-<span class="sd">                   1: [20, 25) &quot;y&quot;</span>
-<span class="sd">                   2: [0, 6) &quot;z&quot;</span>
+<span class="sd">                   0: [10, 14) "x"</span>
+<span class="sd">                   1: [20, 25) "y"</span>
+<span class="sd">                   2: [0, 6) "z"</span>
 <span class="sd">                 Output index maps:</span>
 <span class="sd">                   out[0] = -10 + 1 * in[0]</span>
 <span class="sd">                   out[1] = -20 + 1 * in[1]</span>
 <span class="sd">                   out[2] = 0 + 1 * in[2]</span>
-<span class="sd">               &gt;&gt;&gt; transform[ts.d[&#39;x&#39;, &#39;y&#39;].translate_to[10, None]]</span>
+<span class="sd">               &gt;&gt;&gt; transform[ts.d['x', 'y'].translate_to[10, None]]</span>
 <span class="sd">               Rank 3 -&gt; 3 index space transform:</span>
 <span class="sd">                 Input domain:</span>
-<span class="sd">                   0: [10, 14) &quot;x&quot;</span>
-<span class="sd">                   1: [0, 5) &quot;y&quot;</span>
-<span class="sd">                   2: [0, 6) &quot;z&quot;</span>
+<span class="sd">                   0: [10, 14) "x"</span>
+<span class="sd">                   1: [0, 5) "y"</span>
+<span class="sd">                   2: [0, 6) "z"</span>
 <span class="sd">                 Output index maps:</span>
 <span class="sd">                   out[0] = -10 + 1 * in[0]</span>
 <span class="sd">                   out[1] = 0 + 1 * in[1]</span>
 <span class="sd">                   out[2] = 0 + 1 * in[2]</span>
-<span class="sd">               &gt;&gt;&gt; transform[ts.d[&#39;x&#39;, &#39;y&#39;].translate_to[10]]</span>
+<span class="sd">               &gt;&gt;&gt; transform[ts.d['x', 'y'].translate_to[10]]</span>
 <span class="sd">               Rank 3 -&gt; 3 index space transform:</span>
 <span class="sd">                 Input domain:</span>
-<span class="sd">                   0: [10, 14) &quot;x&quot;</span>
-<span class="sd">                   1: [10, 15) &quot;y&quot;</span>
-<span class="sd">                   2: [0, 6) &quot;z&quot;</span>
+<span class="sd">                   0: [10, 14) "x"</span>
+<span class="sd">                   1: [10, 15) "y"</span>
+<span class="sd">                   2: [0, 6) "z"</span>
 <span class="sd">                 Output index maps:</span>
 <span class="sd">                   out[0] = -10 + 1 * in[0]</span>
 <span class="sd">                   out[1] = -10 + 1 * in[1]</span>
@@ -1619,12 +1619,12 @@
 
 <span class="sd">            Group:</span>
 <span class="sd">              Operations</span>
-<span class="sd">            &quot;&quot;&quot;</span>
+<span class="sd">            """</span>
         <span class="fm">__iter__</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="k">pass</span>
-    <span class="k">class</span><span class="w"> </span><span class="nc">_Vindex</span><span class="p">():</span>
+    <span class="k">class</span><span class="w"> </span><span class="nc">_Vindex</span><span class="p">:</span>
         <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">            </span><span class="sd">&quot;&quot;&quot;__getitem__(self: tensorstore_demo.DimExpression._Vindex, indices: typing.Any) -&gt; tensorstore_demo.DimExpression</span>
+<span class="w">            </span><span class="sd">"""__getitem__(self: tensorstore_demo.DimExpression._Vindex, indices: typing.Any) -&gt; tensorstore_demo.DimExpression</span>
 
 
 <span class="sd">            Applies a NumPy-style indexing operation with vectorized indexing semantics.</span>
@@ -1636,12 +1636,12 @@
 
 <span class="sd">            Examples:</span>
 
-<span class="sd">               &gt;&gt;&gt; transform = ts.IndexTransform(input_labels=[&#39;x&#39;, &#39;y&#39;, &#39;z&#39;])</span>
-<span class="sd">               &gt;&gt;&gt; transform[ts.d[&#39;y&#39;, &#39;z&#39;].vindex[[1, 2, 3], [4, 5, 6]]]</span>
+<span class="sd">               &gt;&gt;&gt; transform = ts.IndexTransform(input_labels=['x', 'y', 'z'])</span>
+<span class="sd">               &gt;&gt;&gt; transform[ts.d['y', 'z'].vindex[[1, 2, 3], [4, 5, 6]]]</span>
 <span class="sd">               Rank 2 -&gt; 3 index space transform:</span>
 <span class="sd">                 Input domain:</span>
 <span class="sd">                   0: [0, 3)</span>
-<span class="sd">                   1: (-inf*, +inf*) &quot;x&quot;</span>
+<span class="sd">                   1: (-inf*, +inf*) "x"</span>
 <span class="sd">                 Output index maps:</span>
 <span class="sd">                   out[0] = 0 + 1 * in[1]</span>
 <span class="sd">                   out[1] = 0 + 1 * bounded((-inf, +inf), array(in)), where array =</span>
@@ -1654,13 +1654,13 @@
 
 <span class="sd">            Group:</span>
 <span class="sd">              Operations</span>
-<span class="sd">            &quot;&quot;&quot;</span>
+<span class="sd">            """</span>
         <span class="fm">__iter__</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="k">pass</span>
 <div class="viewcode-block" id="DimExpression.__getitem__">
 <a class="viewcode-back" href="../python_apigen_generated/DimensionSelection.html#tensorstore_demo.DimExpression.__getitem__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;__getitem__(self: tensorstore_demo.DimExpression, indices: typing.Any) -&gt; tensorstore_demo.DimExpression</span>
+<span class="w">        </span><span class="sd">"""__getitem__(self: tensorstore_demo.DimExpression, indices: typing.Any) -&gt; tensorstore_demo.DimExpression</span>
 
 
 <span class="sd">        Applies a NumPy-style indexing operation with default index array semantics.</span>
@@ -1681,20 +1681,20 @@
 <span class="sd">        Integer indexing</span>
 <span class="sd">        ----------------</span>
 
-<span class="sd">           &gt;&gt;&gt; transform = ts.IndexTransform(input_labels=[&#39;x&#39;, &#39;y&#39;, &#39;z&#39;])</span>
-<span class="sd">           &gt;&gt;&gt; transform[ts.d[&#39;x&#39;][5]]</span>
+<span class="sd">           &gt;&gt;&gt; transform = ts.IndexTransform(input_labels=['x', 'y', 'z'])</span>
+<span class="sd">           &gt;&gt;&gt; transform[ts.d['x'][5]]</span>
 <span class="sd">           Rank 2 -&gt; 3 index space transform:</span>
 <span class="sd">             Input domain:</span>
-<span class="sd">               0: (-inf*, +inf*) &quot;y&quot;</span>
-<span class="sd">               1: (-inf*, +inf*) &quot;z&quot;</span>
+<span class="sd">               0: (-inf*, +inf*) "y"</span>
+<span class="sd">               1: (-inf*, +inf*) "z"</span>
 <span class="sd">             Output index maps:</span>
 <span class="sd">               out[0] = 5</span>
 <span class="sd">               out[1] = 0 + 1 * in[0]</span>
 <span class="sd">               out[2] = 0 + 1 * in[1]</span>
-<span class="sd">           &gt;&gt;&gt; transform[ts.d[&#39;x&#39;, &#39;z&#39;][5, 6]]</span>
+<span class="sd">           &gt;&gt;&gt; transform[ts.d['x', 'z'][5, 6]]</span>
 <span class="sd">           Rank 1 -&gt; 3 index space transform:</span>
 <span class="sd">             Input domain:</span>
-<span class="sd">               0: (-inf*, +inf*) &quot;y&quot;</span>
+<span class="sd">               0: (-inf*, +inf*) "y"</span>
 <span class="sd">             Output index maps:</span>
 <span class="sd">               out[0] = 5</span>
 <span class="sd">               out[1] = 0 + 1 * in[0]</span>
@@ -1702,10 +1702,10 @@
 
 <span class="sd">        A single scalar index term applies to all selected dimensions:</span>
 
-<span class="sd">           &gt;&gt;&gt; transform[ts.d[&#39;x&#39;, &#39;y&#39;][5]]</span>
+<span class="sd">           &gt;&gt;&gt; transform[ts.d['x', 'y'][5]]</span>
 <span class="sd">           Rank 1 -&gt; 3 index space transform:</span>
 <span class="sd">             Input domain:</span>
-<span class="sd">               0: (-inf*, +inf*) &quot;z&quot;</span>
+<span class="sd">               0: (-inf*, +inf*) "z"</span>
 <span class="sd">             Output index maps:</span>
 <span class="sd">               out[0] = 5</span>
 <span class="sd">               out[1] = 5</span>
@@ -1714,23 +1714,23 @@
 <span class="sd">        Interval indexing</span>
 <span class="sd">        -----------------</span>
 
-<span class="sd">           &gt;&gt;&gt; transform = ts.IndexTransform(input_labels=[&#39;x&#39;, &#39;y&#39;, &#39;z&#39;])</span>
-<span class="sd">           &gt;&gt;&gt; transform[ts.d[&#39;x&#39;][5:10]]</span>
+<span class="sd">           &gt;&gt;&gt; transform = ts.IndexTransform(input_labels=['x', 'y', 'z'])</span>
+<span class="sd">           &gt;&gt;&gt; transform[ts.d['x'][5:10]]</span>
 <span class="sd">           Rank 3 -&gt; 3 index space transform:</span>
 <span class="sd">             Input domain:</span>
-<span class="sd">               0: [5, 10) &quot;x&quot;</span>
-<span class="sd">               1: (-inf*, +inf*) &quot;y&quot;</span>
-<span class="sd">               2: (-inf*, +inf*) &quot;z&quot;</span>
+<span class="sd">               0: [5, 10) "x"</span>
+<span class="sd">               1: (-inf*, +inf*) "y"</span>
+<span class="sd">               2: (-inf*, +inf*) "z"</span>
 <span class="sd">             Output index maps:</span>
 <span class="sd">               out[0] = 0 + 1 * in[0]</span>
 <span class="sd">               out[1] = 0 + 1 * in[1]</span>
 <span class="sd">               out[2] = 0 + 1 * in[2]</span>
-<span class="sd">           &gt;&gt;&gt; transform[ts.d[&#39;x&#39;, &#39;z&#39;][5:10, 20:30]]</span>
+<span class="sd">           &gt;&gt;&gt; transform[ts.d['x', 'z'][5:10, 20:30]]</span>
 <span class="sd">           Rank 3 -&gt; 3 index space transform:</span>
 <span class="sd">             Input domain:</span>
-<span class="sd">               0: [5, 10) &quot;x&quot;</span>
-<span class="sd">               1: (-inf*, +inf*) &quot;y&quot;</span>
-<span class="sd">               2: [20, 30) &quot;z&quot;</span>
+<span class="sd">               0: [5, 10) "x"</span>
+<span class="sd">               1: (-inf*, +inf*) "y"</span>
+<span class="sd">               2: [20, 30) "z"</span>
 <span class="sd">             Output index maps:</span>
 <span class="sd">               out[0] = 0 + 1 * in[0]</span>
 <span class="sd">               out[1] = 0 + 1 * in[1]</span>
@@ -1739,22 +1739,22 @@
 <span class="sd">        As an extension, TensorStore allows the ``start``, ``stop``, and ``step``</span>
 <span class="sd">        :py:obj:`python:slice` terms to be vectors rather than scalars:</span>
 
-<span class="sd">           &gt;&gt;&gt; transform[ts.d[&#39;x&#39;, &#39;z&#39;][[5, 20]:[10, 30]]]</span>
+<span class="sd">           &gt;&gt;&gt; transform[ts.d['x', 'z'][[5, 20]:[10, 30]]]</span>
 <span class="sd">           Rank 3 -&gt; 3 index space transform:</span>
 <span class="sd">             Input domain:</span>
-<span class="sd">               0: [5, 10) &quot;x&quot;</span>
-<span class="sd">               1: (-inf*, +inf*) &quot;y&quot;</span>
-<span class="sd">               2: [20, 30) &quot;z&quot;</span>
+<span class="sd">               0: [5, 10) "x"</span>
+<span class="sd">               1: (-inf*, +inf*) "y"</span>
+<span class="sd">               2: [20, 30) "z"</span>
 <span class="sd">             Output index maps:</span>
 <span class="sd">               out[0] = 0 + 1 * in[0]</span>
 <span class="sd">               out[1] = 0 + 1 * in[1]</span>
 <span class="sd">               out[2] = 0 + 1 * in[2]</span>
-<span class="sd">           &gt;&gt;&gt; transform[ts.d[&#39;x&#39;, &#39;z&#39;][[5, 20]:30]]</span>
+<span class="sd">           &gt;&gt;&gt; transform[ts.d['x', 'z'][[5, 20]:30]]</span>
 <span class="sd">           Rank 3 -&gt; 3 index space transform:</span>
 <span class="sd">             Input domain:</span>
-<span class="sd">               0: [5, 30) &quot;x&quot;</span>
-<span class="sd">               1: (-inf*, +inf*) &quot;y&quot;</span>
-<span class="sd">               2: [20, 30) &quot;z&quot;</span>
+<span class="sd">               0: [5, 30) "x"</span>
+<span class="sd">               1: (-inf*, +inf*) "y"</span>
+<span class="sd">               2: [20, 30) "z"</span>
 <span class="sd">             Output index maps:</span>
 <span class="sd">               out[0] = 0 + 1 * in[0]</span>
 <span class="sd">               out[1] = 0 + 1 * in[1]</span>
@@ -1763,12 +1763,12 @@
 <span class="sd">        As with integer indexing, a single scalar slice applies to all selected</span>
 <span class="sd">        dimensions:</span>
 
-<span class="sd">           &gt;&gt;&gt; transform[ts.d[&#39;x&#39;, &#39;z&#39;][5:30]]</span>
+<span class="sd">           &gt;&gt;&gt; transform[ts.d['x', 'z'][5:30]]</span>
 <span class="sd">           Rank 3 -&gt; 3 index space transform:</span>
 <span class="sd">             Input domain:</span>
-<span class="sd">               0: [5, 30) &quot;x&quot;</span>
-<span class="sd">               1: (-inf*, +inf*) &quot;y&quot;</span>
-<span class="sd">               2: [5, 30) &quot;z&quot;</span>
+<span class="sd">               0: [5, 30) "x"</span>
+<span class="sd">               1: (-inf*, +inf*) "y"</span>
+<span class="sd">               2: [5, 30) "z"</span>
 <span class="sd">             Output index maps:</span>
 <span class="sd">               out[0] = 0 + 1 * in[0]</span>
 <span class="sd">               out[1] = 0 + 1 * in[1]</span>
@@ -1781,13 +1781,13 @@
 <span class="sd">        dummy/singleton dimension with implicit bounds</span>
 <span class="sd">        :math:`[0, 1)`:</span>
 
-<span class="sd">           &gt;&gt;&gt; transform = ts.IndexTransform(input_labels=[&#39;x&#39;, &#39;y&#39;])</span>
+<span class="sd">           &gt;&gt;&gt; transform = ts.IndexTransform(input_labels=['x', 'y'])</span>
 <span class="sd">           &gt;&gt;&gt; transform[ts.d[1][ts.newaxis]]</span>
 <span class="sd">           Rank 3 -&gt; 2 index space transform:</span>
 <span class="sd">             Input domain:</span>
-<span class="sd">               0: (-inf*, +inf*) &quot;x&quot;</span>
+<span class="sd">               0: (-inf*, +inf*) "x"</span>
 <span class="sd">               1: [0*, 1*)</span>
-<span class="sd">               2: (-inf*, +inf*) &quot;y&quot;</span>
+<span class="sd">               2: (-inf*, +inf*) "y"</span>
 <span class="sd">             Output index maps:</span>
 <span class="sd">               out[0] = 0 + 1 * in[0]</span>
 <span class="sd">               out[1] = 0 + 1 * in[2]</span>
@@ -1795,8 +1795,8 @@
 <span class="sd">           Rank 4 -&gt; 2 index space transform:</span>
 <span class="sd">             Input domain:</span>
 <span class="sd">               0: [0*, 1*)</span>
-<span class="sd">               1: (-inf*, +inf*) &quot;x&quot;</span>
-<span class="sd">               2: (-inf*, +inf*) &quot;y&quot;</span>
+<span class="sd">               1: (-inf*, +inf*) "x"</span>
+<span class="sd">               2: (-inf*, +inf*) "y"</span>
 <span class="sd">               3: [0*, 1*)</span>
 <span class="sd">             Output index maps:</span>
 <span class="sd">               out[0] = 0 + 1 * in[1]</span>
@@ -1809,8 +1809,8 @@
 <span class="sd">           Rank 4 -&gt; 2 index space transform:</span>
 <span class="sd">             Input domain:</span>
 <span class="sd">               0: [0*, 1*)</span>
-<span class="sd">               1: (-inf*, +inf*) &quot;x&quot;</span>
-<span class="sd">               2: (-inf*, +inf*) &quot;y&quot;</span>
+<span class="sd">               1: (-inf*, +inf*) "x"</span>
+<span class="sd">               2: (-inf*, +inf*) "y"</span>
 <span class="sd">               3: [0*, 1*)</span>
 <span class="sd">             Output index maps:</span>
 <span class="sd">               out[0] = 0 + 1 * in[1]</span>
@@ -1834,7 +1834,7 @@
 <span class="sd">        .. admonition:: Error</span>
 <span class="sd">           :class: failure</span>
 
-<span class="sd">           &gt;&gt;&gt; transform[ts.d[&#39;x&#39;][ts.newaxis]]</span>
+<span class="sd">           &gt;&gt;&gt; transform[ts.d['x'][ts.newaxis]]</span>
 <span class="sd">           Traceback (most recent call last):</span>
 <span class="sd">               ...</span>
 <span class="sd">           IndexError: New dimensions cannot be specified by label</span>
@@ -1880,17 +1880,17 @@
 <span class="sd">        coordinates given by the elements of the array of the selected dimension:</span>
 
 <span class="sd">            &gt;&gt;&gt; x = ts.array([[1, 2, 3], [4, 5, 6]], dtype=ts.int32)</span>
-<span class="sd">            &gt;&gt;&gt; x = x[ts.d[:].label[&#39;x&#39;, &#39;y&#39;]]</span>
-<span class="sd">            &gt;&gt;&gt; x[ts.d[&#39;y&#39;][[1, 1, 0]]]</span>
+<span class="sd">            &gt;&gt;&gt; x = x[ts.d[:].label['x', 'y']]</span>
+<span class="sd">            &gt;&gt;&gt; x[ts.d['y'][[1, 1, 0]]]</span>
 <span class="sd">            TensorStore({</span>
-<span class="sd">              &#39;array&#39;: [[2, 2, 1], [5, 5, 4]],</span>
-<span class="sd">              &#39;context&#39;: {&#39;data_copy_concurrency&#39;: {}},</span>
-<span class="sd">              &#39;driver&#39;: &#39;array&#39;,</span>
-<span class="sd">              &#39;dtype&#39;: &#39;int32&#39;,</span>
-<span class="sd">              &#39;transform&#39;: {</span>
-<span class="sd">                &#39;input_exclusive_max&#39;: [2, 3],</span>
-<span class="sd">                &#39;input_inclusive_min&#39;: [0, 0],</span>
-<span class="sd">                &#39;input_labels&#39;: [&#39;x&#39;, &#39;&#39;],</span>
+<span class="sd">              'array': [[2, 2, 1], [5, 5, 4]],</span>
+<span class="sd">              'context': {'data_copy_concurrency': {}},</span>
+<span class="sd">              'driver': 'array',</span>
+<span class="sd">              'dtype': 'int32',</span>
+<span class="sd">              'transform': {</span>
+<span class="sd">                'input_exclusive_max': [2, 3],</span>
+<span class="sd">                'input_inclusive_min': [0, 0],</span>
+<span class="sd">                'input_labels': ['x', ''],</span>
 <span class="sd">              },</span>
 <span class="sd">            })</span>
 
@@ -1909,17 +1909,17 @@
 <span class="sd">        dimensions are not well-defined for dimension expressions:</span>
 
 <span class="sd">            &gt;&gt;&gt; x = ts.array([[[1, 2], [3, 4]], [[5, 6], [7, 8]]], dtype=ts.int32)</span>
-<span class="sd">            &gt;&gt;&gt; x = x[ts.d[:].label[&#39;x&#39;, &#39;y&#39;, &#39;z&#39;]]</span>
-<span class="sd">            &gt;&gt;&gt; x[ts.d[&#39;z&#39;, &#39;y&#39;][[1, 0], [1, 1]]]</span>
+<span class="sd">            &gt;&gt;&gt; x = x[ts.d[:].label['x', 'y', 'z']]</span>
+<span class="sd">            &gt;&gt;&gt; x[ts.d['z', 'y'][[1, 0], [1, 1]]]</span>
 <span class="sd">            TensorStore({</span>
-<span class="sd">              &#39;array&#39;: [[4, 3], [8, 7]],</span>
-<span class="sd">              &#39;context&#39;: {&#39;data_copy_concurrency&#39;: {}},</span>
-<span class="sd">              &#39;driver&#39;: &#39;array&#39;,</span>
-<span class="sd">              &#39;dtype&#39;: &#39;int32&#39;,</span>
-<span class="sd">              &#39;transform&#39;: {</span>
-<span class="sd">                &#39;input_exclusive_max&#39;: [2, 2],</span>
-<span class="sd">                &#39;input_inclusive_min&#39;: [0, 0],</span>
-<span class="sd">                &#39;input_labels&#39;: [&#39;x&#39;, &#39;&#39;],</span>
+<span class="sd">              'array': [[4, 3], [8, 7]],</span>
+<span class="sd">              'context': {'data_copy_concurrency': {}},</span>
+<span class="sd">              'driver': 'array',</span>
+<span class="sd">              'dtype': 'int32',</span>
+<span class="sd">              'transform': {</span>
+<span class="sd">                'input_exclusive_max': [2, 2],</span>
+<span class="sd">                'input_inclusive_min': [0, 0],</span>
+<span class="sd">                'input_labels': ['x', ''],</span>
 <span class="sd">              },</span>
 <span class="sd">            })</span>
 
@@ -1935,32 +1935,32 @@
 <span class="sd">        non-zero coordinates:</span>
 
 <span class="sd">            &gt;&gt;&gt; x = ts.array([[1, 2, 3], [4, 5, 6]], dtype=ts.int32)</span>
-<span class="sd">            &gt;&gt;&gt; x = x[ts.d[:].label[&#39;x&#39;, &#39;y&#39;]]</span>
-<span class="sd">            &gt;&gt;&gt; x[ts.d[&#39;y&#39;][[False, True, True]]]</span>
+<span class="sd">            &gt;&gt;&gt; x = x[ts.d[:].label['x', 'y']]</span>
+<span class="sd">            &gt;&gt;&gt; x[ts.d['y'][[False, True, True]]]</span>
 <span class="sd">            TensorStore({</span>
-<span class="sd">              &#39;array&#39;: [[2, 3], [5, 6]],</span>
-<span class="sd">              &#39;context&#39;: {&#39;data_copy_concurrency&#39;: {}},</span>
-<span class="sd">              &#39;driver&#39;: &#39;array&#39;,</span>
-<span class="sd">              &#39;dtype&#39;: &#39;int32&#39;,</span>
-<span class="sd">              &#39;transform&#39;: {</span>
-<span class="sd">                &#39;input_exclusive_max&#39;: [2, 2],</span>
-<span class="sd">                &#39;input_inclusive_min&#39;: [0, 0],</span>
-<span class="sd">                &#39;input_labels&#39;: [&#39;x&#39;, &#39;&#39;],</span>
+<span class="sd">              'array': [[2, 3], [5, 6]],</span>
+<span class="sd">              'context': {'data_copy_concurrency': {}},</span>
+<span class="sd">              'driver': 'array',</span>
+<span class="sd">              'dtype': 'int32',</span>
+<span class="sd">              'transform': {</span>
+<span class="sd">                'input_exclusive_max': [2, 2],</span>
+<span class="sd">                'input_inclusive_min': [0, 0],</span>
+<span class="sd">                'input_labels': ['x', ''],</span>
 <span class="sd">              },</span>
 <span class="sd">            })</span>
 
 <span class="sd">        Equivalently, using an index array:</span>
 
-<span class="sd">            &gt;&gt;&gt; x[ts.d[&#39;y&#39;][[1, 2]]]</span>
+<span class="sd">            &gt;&gt;&gt; x[ts.d['y'][[1, 2]]]</span>
 <span class="sd">            TensorStore({</span>
-<span class="sd">              &#39;array&#39;: [[2, 3], [5, 6]],</span>
-<span class="sd">              &#39;context&#39;: {&#39;data_copy_concurrency&#39;: {}},</span>
-<span class="sd">              &#39;driver&#39;: &#39;array&#39;,</span>
-<span class="sd">              &#39;dtype&#39;: &#39;int32&#39;,</span>
-<span class="sd">              &#39;transform&#39;: {</span>
-<span class="sd">                &#39;input_exclusive_max&#39;: [2, 2],</span>
-<span class="sd">                &#39;input_inclusive_min&#39;: [0, 0],</span>
-<span class="sd">                &#39;input_labels&#39;: [&#39;x&#39;, &#39;&#39;],</span>
+<span class="sd">              'array': [[2, 3], [5, 6]],</span>
+<span class="sd">              'context': {'data_copy_concurrency': {}},</span>
+<span class="sd">              'driver': 'array',</span>
+<span class="sd">              'dtype': 'int32',</span>
+<span class="sd">              'transform': {</span>
+<span class="sd">                'input_exclusive_max': [2, 2],</span>
+<span class="sd">                'input_inclusive_min': [0, 0],</span>
+<span class="sd">                'input_labels': ['x', ''],</span>
 <span class="sd">              },</span>
 <span class="sd">            })</span>
 
@@ -1970,32 +1970,32 @@
 
 <span class="sd">            &gt;&gt;&gt; x = ts.array([[[1, 2, 3], [4, 5, 6]], [[7, 8, 9], [10, 11, 12]]],</span>
 <span class="sd">            ...              dtype=ts.int32)</span>
-<span class="sd">            &gt;&gt;&gt; x = x[ts.d[:].label[&#39;x&#39;, &#39;y&#39;, &#39;z&#39;]]</span>
-<span class="sd">            &gt;&gt;&gt; x[ts.d[&#39;x&#39;, &#39;z&#39;][[[True, False, False], [True, True, False]]]]</span>
+<span class="sd">            &gt;&gt;&gt; x = x[ts.d[:].label['x', 'y', 'z']]</span>
+<span class="sd">            &gt;&gt;&gt; x[ts.d['x', 'z'][[[True, False, False], [True, True, False]]]]</span>
 <span class="sd">            TensorStore({</span>
-<span class="sd">              &#39;array&#39;: [[1, 4], [7, 10], [8, 11]],</span>
-<span class="sd">              &#39;context&#39;: {&#39;data_copy_concurrency&#39;: {}},</span>
-<span class="sd">              &#39;driver&#39;: &#39;array&#39;,</span>
-<span class="sd">              &#39;dtype&#39;: &#39;int32&#39;,</span>
-<span class="sd">              &#39;transform&#39;: {</span>
-<span class="sd">                &#39;input_exclusive_max&#39;: [3, 2],</span>
-<span class="sd">                &#39;input_inclusive_min&#39;: [0, 0],</span>
-<span class="sd">                &#39;input_labels&#39;: [&#39;&#39;, &#39;y&#39;],</span>
+<span class="sd">              'array': [[1, 4], [7, 10], [8, 11]],</span>
+<span class="sd">              'context': {'data_copy_concurrency': {}},</span>
+<span class="sd">              'driver': 'array',</span>
+<span class="sd">              'dtype': 'int32',</span>
+<span class="sd">              'transform': {</span>
+<span class="sd">                'input_exclusive_max': [3, 2],</span>
+<span class="sd">                'input_inclusive_min': [0, 0],</span>
+<span class="sd">                'input_labels': ['', 'y'],</span>
 <span class="sd">              },</span>
 <span class="sd">            })</span>
 
 <span class="sd">        Equivalently, using an index array:</span>
 
-<span class="sd">            &gt;&gt;&gt; x[ts.d[&#39;x&#39;, &#39;z&#39;][[0, 1, 1], [0, 0, 1]]]</span>
+<span class="sd">            &gt;&gt;&gt; x[ts.d['x', 'z'][[0, 1, 1], [0, 0, 1]]]</span>
 <span class="sd">            TensorStore({</span>
-<span class="sd">              &#39;array&#39;: [[1, 4], [7, 10], [8, 11]],</span>
-<span class="sd">              &#39;context&#39;: {&#39;data_copy_concurrency&#39;: {}},</span>
-<span class="sd">              &#39;driver&#39;: &#39;array&#39;,</span>
-<span class="sd">              &#39;dtype&#39;: &#39;int32&#39;,</span>
-<span class="sd">              &#39;transform&#39;: {</span>
-<span class="sd">                &#39;input_exclusive_max&#39;: [3, 2],</span>
-<span class="sd">                &#39;input_inclusive_min&#39;: [0, 0],</span>
-<span class="sd">                &#39;input_labels&#39;: [&#39;&#39;, &#39;y&#39;],</span>
+<span class="sd">              'array': [[1, 4], [7, 10], [8, 11]],</span>
+<span class="sd">              'context': {'data_copy_concurrency': {}},</span>
+<span class="sd">              'driver': 'array',</span>
+<span class="sd">              'dtype': 'int32',</span>
+<span class="sd">              'transform': {</span>
+<span class="sd">                'input_exclusive_max': [3, 2],</span>
+<span class="sd">                'input_inclusive_min': [0, 0],</span>
+<span class="sd">                'input_labels': ['', 'y'],</span>
 <span class="sd">              },</span>
 <span class="sd">            })</span>
 
@@ -2005,11 +2005,11 @@
 <span class="sd">        added to the beginning of the result domain, i.e. exactly the behavior of</span>
 <span class="sd">        :py:obj:`DimExpression.vindex`.</span>
 
-<span class="sd">        &quot;&quot;&quot;</span></div>
+<span class="sd">        """</span></div>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">diagonal</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DimExpression</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Extracts the diagonal of the selected dimensions.</span>
+<span class="w">        </span><span class="sd">"""Extracts the diagonal of the selected dimensions.</span>
 
 <span class="sd">        The selection dimensions are removed from the resultant index space, and a new</span>
 <span class="sd">        dimension corresponding to the diagonal is added as the first dimension, with an</span>
@@ -2024,8 +2024,8 @@
 <span class="sd">        Examples:</span>
 
 <span class="sd">            &gt;&gt;&gt; transform = ts.IndexTransform(input_shape=[2, 3],</span>
-<span class="sd">            ...                               input_labels=[&quot;x&quot;, &quot;y&quot;])</span>
-<span class="sd">            &gt;&gt;&gt; transform[ts.d[&#39;x&#39;, &#39;y&#39;].diagonal]</span>
+<span class="sd">            ...                               input_labels=["x", "y"])</span>
+<span class="sd">            &gt;&gt;&gt; transform[ts.d['x', 'y'].diagonal]</span>
 <span class="sd">            Rank 1 -&gt; 2 index space transform:</span>
 <span class="sd">              Input domain:</span>
 <span class="sd">                0: [0, 2)</span>
@@ -2058,14 +2058,14 @@
 <span class="sd">              out[0] = 0 + 1 * in[1]</span>
 
 <span class="sd">          If only one dimension is selected, :py:obj:`.diagonal` is equivalent to</span>
-<span class="sd">          :python:`.label[&#39;&#39;].transpose[0]`:</span>
+<span class="sd">          :python:`.label[''].transpose[0]`:</span>
 
-<span class="sd">          &gt;&gt;&gt; transform = ts.IndexTransform(input_labels=[&#39;x&#39;, &#39;y&#39;])</span>
+<span class="sd">          &gt;&gt;&gt; transform = ts.IndexTransform(input_labels=['x', 'y'])</span>
 <span class="sd">          &gt;&gt;&gt; transform[ts.d[1].diagonal]</span>
 <span class="sd">          Rank 2 -&gt; 2 index space transform:</span>
 <span class="sd">            Input domain:</span>
 <span class="sd">              0: (-inf*, +inf*)</span>
-<span class="sd">              1: (-inf*, +inf*) &quot;x&quot;</span>
+<span class="sd">              1: (-inf*, +inf*) "x"</span>
 <span class="sd">            Output index maps:</span>
 <span class="sd">              out[0] = 0 + 1 * in[1]</span>
 <span class="sd">              out[1] = 0 + 1 * in[0]</span>
@@ -2073,7 +2073,7 @@
 <span class="sd">        Group:</span>
 <span class="sd">          Operations</span>
 
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">label</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DimExpression</span><span class="o">.</span><span class="n">_Label</span><span class="p">:</span>
         <span class="k">pass</span>
@@ -2088,8 +2088,8 @@
 
 <div class="viewcode-block" id="IndexDomain">
 <a class="viewcode-back" href="../python_apigen_generated/IndexDomain.html#tensorstore_demo.IndexDomain">[docs]</a>
-<span class="k">class</span><span class="w"> </span><span class="nc">IndexDomain</span><span class="p">():</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Domain (including bounds and optional dimension labels) of an N-dimensional index space.</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">IndexDomain</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Domain (including bounds and optional dimension labels) of an N-dimensional index space.</span>
 
 <span class="sd">    Logically, an :py:class:`.IndexDomain` is the cartesian product of a sequence of :py:obj:`.Dim` objects.</span>
 
@@ -2101,9 +2101,9 @@
 <span class="sd">    Group:</span>
 <span class="sd">      Indexing</span>
 
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;__init__(*args, **kwargs)</span>
+<span class="w">        </span><span class="sd">"""__init__(*args, **kwargs)</span>
 <span class="sd">Overloaded function.</span>
 
 <span class="sd">1. __init__(self: tensorstore_demo.IndexDomain, rank: Optional[int] = None, *, inclusive_min: Optional[Sequence[int]] = None, implicit_lower_bounds: Optional[Sequence[bool]] = None, exclusive_max: Optional[Sequence[int]] = None, inclusive_max: Optional[Sequence[int]] = None, shape: Optional[Sequence[int]] = None, implicit_upper_bounds: Optional[Sequence[bool]] = None, labels: Optional[Sequence[Optional[str]]] = None) -&gt; None</span>
@@ -2150,8 +2150,8 @@
 
 <span class="sd">Examples:</span>
 
-<span class="sd">    &gt;&gt;&gt; ts.IndexDomain([ts.Dim(5), ts.Dim(6, label=&#39;y&#39;)])</span>
-<span class="sd">    { [0, 5), &quot;y&quot;: [0, 6) }</span>
+<span class="sd">    &gt;&gt;&gt; ts.IndexDomain([ts.Dim(5), ts.Dim(6, label='y')])</span>
+<span class="sd">    { [0, 5), "y": [0, 6) }</span>
 
 <span class="sd">Overload:</span>
 <span class="sd">  dimensions</span>
@@ -2166,20 +2166,20 @@
 
 <span class="sd">    &gt;&gt;&gt; ts.IndexDomain(</span>
 <span class="sd">    ...     json={</span>
-<span class="sd">    ...         &quot;inclusive_min&quot;: [&quot;-inf&quot;, 7, [&quot;-inf&quot;], [8]],</span>
-<span class="sd">    ...         &quot;exclusive_max&quot;: [&quot;+inf&quot;, 10, [&quot;+inf&quot;], [17]],</span>
-<span class="sd">    ...         &quot;labels&quot;: [&quot;x&quot;, &quot;y&quot;, &quot;z&quot;, &quot;&quot;]</span>
+<span class="sd">    ...         "inclusive_min": ["-inf", 7, ["-inf"], [8]],</span>
+<span class="sd">    ...         "exclusive_max": ["+inf", 10, ["+inf"], [17]],</span>
+<span class="sd">    ...         "labels": ["x", "y", "z", ""]</span>
 <span class="sd">    ...     })</span>
-<span class="sd">    { &quot;x&quot;: (-inf, +inf), &quot;y&quot;: [7, 10), &quot;z&quot;: (-inf*, +inf*), [8*, 17*) }</span>
+<span class="sd">    { "x": (-inf, +inf), "y": [7, 10), "z": (-inf*, +inf*), [8*, 17*) }</span>
 
 <span class="sd">Overload:</span>
 <span class="sd">  json</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
     <span class="k">def</span><span class="w"> </span><span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;__eq__(self: tensorstore_demo.IndexDomain, arg0: tensorstore_demo.IndexDomain) -&gt; bool</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""__eq__(self: tensorstore_demo.IndexDomain, arg0: tensorstore_demo.IndexDomain) -&gt; bool</span>
+<span class="sd">        """</span>
     <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;__getitem__(*args, **kwargs)</span>
+<span class="w">        </span><span class="sd">"""__getitem__(*args, **kwargs)</span>
 <span class="sd">Overloaded function.</span>
 
 <span class="sd">1. __getitem__(self: tensorstore_demo.IndexDomain, identifier: Union[int, str]) -&gt; tensorstore_demo.Dim</span>
@@ -2196,13 +2196,13 @@
 
 <span class="sd">    &gt;&gt;&gt; domain = ts.IndexDomain(inclusive_min=[1, 2, 3],</span>
 <span class="sd">    ...                         exclusive_max=[4, 5, 6],</span>
-<span class="sd">    ...                         labels=[&#39;x&#39;, &#39;y&#39;, &#39;z&#39;])</span>
+<span class="sd">    ...                         labels=['x', 'y', 'z'])</span>
 <span class="sd">    &gt;&gt;&gt; domain[0]</span>
-<span class="sd">    Dim(inclusive_min=1, exclusive_max=4, label=&quot;x&quot;)</span>
-<span class="sd">    &gt;&gt;&gt; domain[&#39;y&#39;]</span>
-<span class="sd">    Dim(inclusive_min=2, exclusive_max=5, label=&quot;y&quot;)</span>
+<span class="sd">    Dim(inclusive_min=1, exclusive_max=4, label="x")</span>
+<span class="sd">    &gt;&gt;&gt; domain['y']</span>
+<span class="sd">    Dim(inclusive_min=2, exclusive_max=5, label="y")</span>
 <span class="sd">    &gt;&gt;&gt; domain[-1]</span>
-<span class="sd">    Dim(inclusive_min=3, exclusive_max=6, label=&quot;z&quot;)</span>
+<span class="sd">    Dim(inclusive_min=3, exclusive_max=6, label="z")</span>
 
 <span class="sd">Overload:</span>
 <span class="sd">  identifier</span>
@@ -2229,14 +2229,14 @@
 
 <span class="sd">    &gt;&gt;&gt; a = ts.IndexDomain(inclusive_min=[1, 2, 3],</span>
 <span class="sd">    ...                    exclusive_max=[4, 5, 6],</span>
-<span class="sd">    ...                    labels=[&#39;x&#39;, &#39;y&#39;, &#39;z&#39;])</span>
+<span class="sd">    ...                    labels=['x', 'y', 'z'])</span>
 <span class="sd">    &gt;&gt;&gt; a[:2]</span>
-<span class="sd">    { &quot;x&quot;: [1, 4), &quot;y&quot;: [2, 5) }</span>
+<span class="sd">    { "x": [1, 4), "y": [2, 5) }</span>
 <span class="sd">    &gt;&gt;&gt; a[0, -1]</span>
-<span class="sd">    { &quot;x&quot;: [1, 4), &quot;z&quot;: [3, 6) }</span>
-<span class="sd">    &gt;&gt;&gt; a[&#39;y&#39;, &#39;x&#39;]</span>
-<span class="sd">    { &quot;y&quot;: [2, 5), &quot;x&quot;: [1, 4) }</span>
-<span class="sd">    &gt;&gt;&gt; a[&#39;y&#39;, 1]</span>
+<span class="sd">    { "x": [1, 4), "z": [3, 6) }</span>
+<span class="sd">    &gt;&gt;&gt; a['y', 'x']</span>
+<span class="sd">    { "y": [2, 5), "x": [1, 4) }</span>
+<span class="sd">    &gt;&gt;&gt; a['y', 1]</span>
 <span class="sd">    Traceback (most recent call last):</span>
 <span class="sd">        ...</span>
 <span class="sd">    ValueError: Input dimensions {1} specified more than once</span>
@@ -2306,24 +2306,24 @@
 
 <span class="sd">   &gt;&gt;&gt; a = ts.IndexDomain(inclusive_min=[0, 1, 2],</span>
 <span class="sd">   ...                    exclusive_max=[5, 7, 8],</span>
-<span class="sd">   ...                    labels=[&quot;x&quot;, &quot;y&quot;, &quot;z&quot;])</span>
+<span class="sd">   ...                    labels=["x", "y", "z"])</span>
 <span class="sd">   &gt;&gt;&gt; b = ts.IndexDomain(inclusive_min=[2, 3],</span>
 <span class="sd">   ...                    exclusive_max=[6, 4],</span>
-<span class="sd">   ...                    labels=[&quot;y&quot;, &quot;x&quot;])</span>
+<span class="sd">   ...                    labels=["y", "x"])</span>
 <span class="sd">   &gt;&gt;&gt; a[b]</span>
-<span class="sd">   { &quot;x&quot;: [3, 4), &quot;y&quot;: [2, 6), &quot;z&quot;: [2, 8) }</span>
+<span class="sd">   { "x": [3, 4), "y": [2, 6), "z": [2, 8) }</span>
 
 <span class="sd">.. admonition:: Example with mixed labeled and unlabeled dimensions</span>
 <span class="sd">   :class: example</span>
 
 <span class="sd">   &gt;&gt;&gt; a = ts.IndexDomain(inclusive_min=[0, 0, 0, 0],</span>
 <span class="sd">   ...                    exclusive_max=[10, 10, 10, 10],</span>
-<span class="sd">   ...                    labels=[&quot;x&quot;, &quot;&quot;, &quot;&quot;, &quot;y&quot;])</span>
+<span class="sd">   ...                    labels=["x", "", "", "y"])</span>
 <span class="sd">   &gt;&gt;&gt; b = ts.IndexDomain(inclusive_min=[1, 2, 3, 4],</span>
 <span class="sd">   ...                    exclusive_max=[6, 7, 8, 9],</span>
-<span class="sd">   ...                    labels=[&quot;y&quot;, &quot;&quot;, &quot;x&quot;, &quot;&quot;])</span>
+<span class="sd">   ...                    labels=["y", "", "x", ""])</span>
 <span class="sd">   &gt;&gt;&gt; a[b]</span>
-<span class="sd">   { &quot;x&quot;: [3, 8), [2, 7), [4, 9), &quot;y&quot;: [1, 6) }</span>
+<span class="sd">   { "x": [3, 8), [2, 7), [4, 9), "y": [1, 6) }</span>
 
 <span class="sd">Note:</span>
 
@@ -2348,13 +2348,13 @@
 
 <span class="sd">    &gt;&gt;&gt; domain = ts.IndexDomain(inclusive_min=[1, 2, 3],</span>
 <span class="sd">    ...                         exclusive_max=[6, 7, 8],</span>
-<span class="sd">    ...                         labels=[&#39;x&#39;, &#39;y&#39;, &#39;z&#39;])</span>
+<span class="sd">    ...                         labels=['x', 'y', 'z'])</span>
 <span class="sd">    &gt;&gt;&gt; domain[ts.d[:].translate_by[5]]</span>
-<span class="sd">    { &quot;x&quot;: [6, 11), &quot;y&quot;: [7, 12), &quot;z&quot;: [8, 13) }</span>
-<span class="sd">    &gt;&gt;&gt; domain[ts.d[&#39;y&#39;][3:5]]</span>
-<span class="sd">    { &quot;x&quot;: [1, 6), &quot;y&quot;: [3, 5), &quot;z&quot;: [3, 8) }</span>
-<span class="sd">    &gt;&gt;&gt; domain[ts.d[&#39;z&#39;][5]]</span>
-<span class="sd">    { &quot;x&quot;: [1, 6), &quot;y&quot;: [2, 7) }</span>
+<span class="sd">    { "x": [6, 11), "y": [7, 12), "z": [8, 13) }</span>
+<span class="sd">    &gt;&gt;&gt; domain[ts.d['y'][3:5]]</span>
+<span class="sd">    { "x": [1, 6), "y": [3, 5), "z": [3, 8) }</span>
+<span class="sd">    &gt;&gt;&gt; domain[ts.d['z'][5]]</span>
+<span class="sd">    { "x": [1, 6), "y": [2, 7) }</span>
 
 <span class="sd">Note:</span>
 
@@ -2366,9 +2366,9 @@
 
 <span class="sd">       &gt;&gt;&gt; domain = ts.IndexDomain(inclusive_min=[1, 2, 3],</span>
 <span class="sd">       ...                         exclusive_max=[6, 7, 8],</span>
-<span class="sd">       ...                         labels=[&#39;x&#39;, &#39;y&#39;, &#39;z&#39;])</span>
-<span class="sd">       &gt;&gt;&gt; domain[ts.d[&#39;z&#39;][[3, 5, 7]]]</span>
-<span class="sd">       { &quot;x&quot;: [1, 6), &quot;y&quot;: [2, 7), [0, 3) }</span>
+<span class="sd">       ...                         labels=['x', 'y', 'z'])</span>
+<span class="sd">       &gt;&gt;&gt; domain[ts.d['z'][[3, 5, 7]]]</span>
+<span class="sd">       { "x": [1, 6), "y": [2, 7), [0, 3) }</span>
 
 <span class="sd">Overload:</span>
 <span class="sd">  expr</span>
@@ -2419,22 +2419,22 @@
 <span class="sd">Group:</span>
 <span class="sd">  Indexing</span>
 
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 <div class="viewcode-block" id="IndexDomain.to_json">
 <a class="viewcode-back" href="../python_apigen_generated/IndexDomain.to_json.html#tensorstore_demo.IndexDomain.to_json">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">to_json</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;to_json(self: tensorstore_demo.IndexDomain) -&gt; Any</span>
+<span class="w">        </span><span class="sd">"""to_json(self: tensorstore_demo.IndexDomain) -&gt; Any</span>
 
 
 <span class="sd">        Returns the JSON representation.</span>
 
 <span class="sd">        Group:</span>
 <span class="sd">          Accessors</span>
-<span class="sd">        &quot;&quot;&quot;</span></div>
+<span class="sd">        """</span></div>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">exclusive_max</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">typing</span><span class="o">.</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Exclusive upper bound of the domain.</span>
+<span class="w">        </span><span class="sd">"""Exclusive upper bound of the domain.</span>
 
 <span class="sd">        Example:</span>
 
@@ -2446,10 +2446,10 @@
 <span class="sd">          Accessors</span>
 
 
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">inclusive_min</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">typing</span><span class="o">.</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Inclusive lower bound of the domain, alias of :py:obj:`.origin`.</span>
+<span class="w">        </span><span class="sd">"""Inclusive lower bound of the domain, alias of :py:obj:`.origin`.</span>
 
 <span class="sd">        Example:</span>
 
@@ -2461,30 +2461,30 @@
 <span class="sd">          Accessors</span>
 
 
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">labels</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">typing</span><span class="o">.</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Dimension labels for each dimension.</span>
+<span class="w">        </span><span class="sd">"""Dimension labels for each dimension.</span>
 
 <span class="sd">        Example:</span>
 
 <span class="sd">            &gt;&gt;&gt; domain = ts.IndexDomain(inclusive_min=[1, 2, 3], shape=[3, 4, 5])</span>
 <span class="sd">            &gt;&gt;&gt; domain.labels</span>
-<span class="sd">            (&#39;&#39;, &#39;&#39;, &#39;&#39;)</span>
+<span class="sd">            ('', '', '')</span>
 <span class="sd">            &gt;&gt;&gt; domain = ts.IndexDomain(inclusive_min=[1, 2, 3],</span>
 <span class="sd">            ...                         shape=[3, 4, 5],</span>
-<span class="sd">            ...                         labels=[&#39;x&#39;, &#39;y&#39;, &#39;z&#39;])</span>
+<span class="sd">            ...                         labels=['x', 'y', 'z'])</span>
 <span class="sd">            &gt;&gt;&gt; domain.labels</span>
-<span class="sd">            (&#39;x&#39;, &#39;y&#39;, &#39;z&#39;)</span>
+<span class="sd">            ('x', 'y', 'z')</span>
 
 <span class="sd">        Group:</span>
 <span class="sd">          Accessors</span>
 
 
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">origin</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">typing</span><span class="o">.</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Inclusive lower bound of the domain.</span>
+<span class="w">        </span><span class="sd">"""Inclusive lower bound of the domain.</span>
 
 <span class="sd">        Example:</span>
 
@@ -2496,10 +2496,10 @@
 <span class="sd">          Accessors</span>
 
 
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">rank</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Number of dimensions in the index space.</span>
+<span class="w">        </span><span class="sd">"""Number of dimensions in the index space.</span>
 
 <span class="sd">        Example:</span>
 
@@ -2511,10 +2511,10 @@
 <span class="sd">          Accessors</span>
 
 
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">shape</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">typing</span><span class="o">.</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Shape of the domain.</span>
+<span class="w">        </span><span class="sd">"""Shape of the domain.</span>
 
 <span class="sd">        Example:</span>
 
@@ -2526,10 +2526,10 @@
 <span class="sd">          Accessors</span>
 
 
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">size</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Total number of elements in the domain.</span>
+<span class="w">        </span><span class="sd">"""Total number of elements in the domain.</span>
 
 <span class="sd">        This is simply the product of the extents in :py:obj:`.shape`.</span>
 
@@ -2543,57 +2543,57 @@
 <span class="sd">          Accessors</span>
 
 
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
     <span class="fm">__hash__</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="k">pass</span></div>
 
 <div class="viewcode-block" id="VeryLongClassNameForTestingOutWordWrapping">
 <a class="viewcode-back" href="../python_apigen_generated/VeryLongClassNameForTestingOutWordWrapping.html#tensorstore_demo.VeryLongClassNameForTestingOutWordWrapping">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">VeryLongClassNameForTestingOutWordWrapping</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;This is a class with a very long name.</span>
+<span class="w">    </span><span class="sd">"""This is a class with a very long name.</span>
 
 <span class="sd">    Group:</span>
 <span class="sd">      Some other group</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
 <div class="viewcode-block" id="VeryLongClassNameForTestingOutWordWrapping.very_long_method_name_for_testing_out_word_wrapper">
 <a class="viewcode-back" href="../python_apigen_generated/VeryLongClassNameForTestingOutWordWrapping.very_long_method_name_for_testing_out_word_wrapper.html#tensorstore_demo.VeryLongClassNameForTestingOutWordWrapping.very_long_method_name_for_testing_out_word_wrapper">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">very_long_method_name_for_testing_out_word_wrapper</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;This is a method with a very long name.&quot;&quot;&quot;</span></div>
+<span class="w">        </span><span class="sd">"""This is a method with a very long name."""</span></div>
 </div>
 
 
 <div class="viewcode-block" id="DimensionSelection">
 <a class="viewcode-back" href="../python_apigen_generated/DimensionSelection.html#tensorstore_demo.DimensionSelection">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">DimensionSelection</span><span class="p">(</span><span class="n">DimExpression</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;This extends :py:obj:`DimExpression`.</span>
+<span class="w">    </span><span class="sd">"""This extends :py:obj:`DimExpression`.</span>
 
 <span class="sd">    Group:</span>
 <span class="sd">      Indexing</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
 <div class="viewcode-block" id="DimensionSelection.foo">
 <a class="viewcode-back" href="../python_apigen_generated/DimensionSelection.foo.html#tensorstore_demo.DimensionSelection.foo">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">foo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bar</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Non-inherited method.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Non-inherited method."""</span>
         <span class="k">pass</span></div>
 </div>
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">_DimSelection</span><span class="p">:</span>
     <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DimensionSelection</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Constructs a DimensionSelection from an int.</span>
+<span class="w">        </span><span class="sd">"""Constructs a DimensionSelection from an int.</span>
 
 <span class="sd">        Group:</span>
 <span class="sd">          Indexing</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">pass</span>
 
 <span class="n">d</span> <span class="o">=</span> <span class="n">_DimSelection</span><span class="p">()</span>
-<span class="sd">&quot;&quot;&quot;Object used to construct DimensionSelection objects.</span>
+<span class="sd">"""Object used to construct DimensionSelection objects.</span>
 
 <span class="sd">Note: A docstring is required but will not be included in the docs.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 </code></pre></div>
 
 
@@ -2615,7 +2615,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    Oct 16, 2026
+    Oct 30, 2026
   </span>
 
     

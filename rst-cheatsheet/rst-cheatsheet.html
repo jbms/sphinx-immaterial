@@ -1528,13 +1528,13 @@ substitution definition.</p></td>
 the literal characters themselves. To get a literal backslash, use an escaped backslash (”\\”). For example:</p>
 <table class="docutils data align-default">
 <tbody>
-<tr class="row-odd"><td><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code>*escape* ``with`` &quot;\&quot;
+<tr class="row-odd"><td><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code>*escape* ``with`` "\"
 </code></pre></div>
 </div>
 </td>
 <td><p><em>escape</em> <code class="docutils literal notranslate"><span class="pre">with</span></code> “&quot;</p></td>
 </tr>
-<tr class="row-even"><td><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code>\*escape* \``with`` &quot;\\&quot;
+<tr class="row-even"><td><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code>\*escape* \``with`` "\\"
 </code></pre></div>
 </div>
 </td>
@@ -1550,7 +1550,7 @@ the literal characters themselves. To get a literal backslash, use an escaped ba
 <span class="o">-</span> <span class="n">This</span> <span class="ow">is</span> <span class="n">item</span> <span class="mi">2</span>
 
 <span class="o">-</span> <span class="n">Item</span> <span class="mi">3</span><span class="p">:</span> <span class="n">blank</span> <span class="n">lines</span> <span class="n">between</span> <span class="n">items</span> <span class="n">are</span> <span class="n">optional</span><span class="o">.</span>
-<span class="o">-</span> <span class="n">Item</span> <span class="mi">4</span><span class="p">:</span> <span class="n">Bullets</span> <span class="n">are</span> <span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="s2">&quot;*&quot;</span> <span class="ow">or</span> <span class="s2">&quot;+&quot;</span><span class="o">.</span>
+<span class="o">-</span> <span class="n">Item</span> <span class="mi">4</span><span class="p">:</span> <span class="n">Bullets</span> <span class="n">are</span> <span class="s2">"-"</span><span class="p">,</span> <span class="s2">"*"</span> <span class="ow">or</span> <span class="s2">"+"</span><span class="o">.</span>
   <span class="n">Continuing</span> <span class="n">text</span> <span class="n">must</span> <span class="n">be</span> <span class="n">aligned</span> <span class="n">after</span> <span class="n">the</span> <span class="n">bullet</span>
   <span class="ow">and</span> <span class="n">whitespace</span><span class="o">.</span>
 <span class="o">-</span> <span class="n">This</span> <span class="nb">list</span> <span class="n">item</span> <span class="n">contains</span> <span class="n">nested</span> <span class="n">items</span>
@@ -1651,7 +1651,7 @@ David Goodger</p>
 </dl>
 </td>
 </tr>
-<tr class="row-odd"><td><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="o">-</span><span class="n">a</span>            <span class="n">command</span><span class="o">-</span><span class="n">line</span> <span class="n">option</span> <span class="s2">&quot;a&quot;</span>
+<tr class="row-odd"><td><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="o">-</span><span class="n">a</span>            <span class="n">command</span><span class="o">-</span><span class="n">line</span> <span class="n">option</span> <span class="s2">"a"</span>
 <span class="o">-</span><span class="n">b</span> <span class="n">file</span>       <span class="n">options</span> <span class="n">can</span> <span class="n">have</span> <span class="n">arguments</span>
               <span class="ow">and</span> <span class="n">long</span> <span class="n">descriptions</span>
 <span class="o">--</span><span class="n">long</span>        <span class="n">options</span> <span class="n">can</span> <span class="n">be</span> <span class="n">long</span> <span class="n">also</span>
@@ -1695,7 +1695,7 @@ a nonalphanumeric character at least as long as the
 text.
 
 A lone top-level section is lifted up to be the
-document&#39;s title.
+document's title.
 
 Any non-alphanumeric character can be used, but
 Python convention is:
@@ -1705,7 +1705,7 @@ Python convention is:
 * ``=``, for sections
 * ``-``, for subsections
 * ``^``, for subsubsections
-* ``&quot;``, for paragraphs
+* ``"``, for paragraphs
 </code></pre></div>
 </div>
 </td>
@@ -1757,7 +1757,7 @@ block or quoted text is a literal block.
 You can also tack the ``::`` at the end of a
 paragraph::
 
-   It&#39;s very convenient to use this form.
+   It's very convenient to use this form.
 
 Per-line quoting can also be used for unindented
 blocks::
@@ -1777,7 +1777,7 @@ or quoted text is a literal block.</p>
 </div>
 <p>You can also tack the <code class="docutils literal notranslate"><span class="pre">::</span></code> at the end of a
 paragraph:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="n">It</span><span class="s1">&#39;s very convenient to use this form.</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="n">It</span><span class="s1">'s very convenient to use this form.</span>
 </code></pre></div>
 </div>
 <p>Per-line quoting can also be used for
@@ -1792,7 +1792,7 @@ unindented blocks:</p>
 <span class="o">|</span> <span class="n">verse</span><span class="p">,</span> <span class="ow">and</span> <span class="n">adornment</span><span class="o">-</span><span class="n">free</span> <span class="n">lists</span><span class="o">.</span>
 <span class="o">|</span>
 <span class="o">|</span> <span class="n">Each</span> <span class="n">new</span> <span class="n">line</span> <span class="n">begins</span> <span class="k">with</span> <span class="n">a</span>
-<span class="o">|</span> <span class="n">vertical</span> <span class="n">bar</span> <span class="p">(</span><span class="s2">&quot;|&quot;</span><span class="p">)</span><span class="o">.</span>
+<span class="o">|</span> <span class="n">vertical</span> <span class="n">bar</span> <span class="p">(</span><span class="s2">"|"</span><span class="p">)</span><span class="o">.</span>
 <span class="o">|</span>     <span class="n">Line</span> <span class="n">breaks</span> <span class="ow">and</span> <span class="n">initial</span> <span class="n">indents</span>
 <span class="o">|</span>     <span class="n">are</span> <span class="n">preserved</span><span class="o">.</span>
 <span class="o">|</span> <span class="n">Continuation</span> <span class="n">lines</span> <span class="n">are</span> <span class="n">wrapped</span>
@@ -1836,9 +1836,9 @@ with spaces in place of vertical bars.</div>
 </tr>
 <tr class="row-odd"><td><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="n">Doctest</span> <span class="n">blocks</span> <span class="n">are</span> <span class="n">interactive</span>
 <span class="n">Python</span> <span class="n">sessions</span><span class="o">.</span> <span class="n">They</span> <span class="n">begin</span> <span class="k">with</span>
-<span class="s2">&quot;``&gt;&gt;&gt;``&quot;</span> <span class="ow">and</span> <span class="n">end</span> <span class="k">with</span> <span class="n">a</span> <span class="n">blank</span> <span class="n">line</span><span class="o">.</span>
+<span class="s2">"``&gt;&gt;&gt;``"</span> <span class="ow">and</span> <span class="n">end</span> <span class="k">with</span> <span class="n">a</span> <span class="n">blank</span> <span class="n">line</span><span class="o">.</span>
 
-<span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span> <span class="s2">&quot;This is a doctest block.&quot;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span> <span class="s2">"This is a doctest block."</span>
 <span class="n">This</span> <span class="ow">is</span> <span class="n">a</span> <span class="n">doctest</span> <span class="n">block</span><span class="o">.</span>
 </code></pre></div>
 </div>
@@ -1846,7 +1846,7 @@ with spaces in place of vertical bars.</div>
 <td><p>Doctest blocks are interactive
 Python sessions. They begin with
 “<code class="docutils literal notranslate"><span class="pre">&gt;&gt;&gt;</span></code>” and end with a blank line.</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="s2">&quot;This is a doctest block.&quot;</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="s2">"This is a doctest block."</span>
 <span class="go">This is a doctest block.</span>
 </code></pre></div>
 </div>
@@ -1985,10 +1985,10 @@ They all begin with two periods and whitespace, the “explicit markup start”.
 <tr class="row-odd"><td><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="n">Footnote</span> <span class="n">references</span><span class="p">,</span> <span class="n">like</span> <span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="n">_</span><span class="o">.</span>
 <span class="n">Note</span> <span class="n">that</span> <span class="n">footnotes</span> <span class="n">may</span> <span class="n">get</span>
 <span class="n">rearranged</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">g</span><span class="o">.</span><span class="p">,</span> <span class="n">to</span> <span class="n">the</span> <span class="n">bottom</span> <span class="n">of</span>
-<span class="n">the</span> <span class="s2">&quot;page&quot;</span><span class="o">.</span>
+<span class="n">the</span> <span class="s2">"page"</span><span class="o">.</span>
 
 <span class="o">..</span> <span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="n">A</span> <span class="n">numerical</span> <span class="n">footnote</span><span class="o">.</span> <span class="n">Note</span>
-   <span class="n">there</span><span class="s1">&#39;s no colon after the ``]``.</span>
+   <span class="n">there</span><span class="s1">'s no colon after the ``]``.</span>
 </code></pre></div>
 </div>
 </td>
@@ -2011,8 +2011,8 @@ there’s no colon after the <code class="docutils literal notranslate"><span cl
 <span class="o">..</span> <span class="p">[</span><span class="c1">#] This is the first one.</span>
 <span class="o">..</span> <span class="p">[</span><span class="c1">#] This is the second one.</span>
 
-<span class="n">They</span> <span class="n">may</span> <span class="n">be</span> <span class="n">assigned</span> <span class="s1">&#39;autonumber</span>
-<span class="n">labels</span><span class="s1">&#39; - for instance,</span>
+<span class="n">They</span> <span class="n">may</span> <span class="n">be</span> <span class="n">assigned</span> <span class="s1">'autonumber</span>
+<span class="n">labels</span><span class="s1">' - for instance,</span>
 <span class="p">[</span><span class="c1">#fourth]_ and [#third]_.</span>
 
 <span class="o">..</span> <span class="p">[</span><span class="c1">#third] a.k.a. third_</span>
@@ -2073,7 +2073,7 @@ possible, like this: <a class="footnote-reference brackets" href="#id15" id="id1
 <tr class="row-even"><td><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="n">Citation</span> <span class="n">references</span><span class="p">,</span> <span class="n">like</span> <span class="p">[</span><span class="n">CIT2002</span><span class="p">]</span><span class="n">_</span><span class="o">.</span>
 <span class="n">Note</span> <span class="n">that</span> <span class="n">citations</span> <span class="n">may</span> <span class="n">get</span>
 <span class="n">rearranged</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">g</span><span class="o">.</span><span class="p">,</span> <span class="n">to</span> <span class="n">the</span> <span class="n">bottom</span> <span class="n">of</span>
-<span class="n">the</span> <span class="s2">&quot;page&quot;</span><span class="o">.</span>
+<span class="n">the</span> <span class="s2">"page"</span><span class="o">.</span>
 
 <span class="o">..</span> <span class="p">[</span><span class="n">CIT2002</span><span class="p">]</span> <span class="n">A</span> <span class="n">citation</span>
    <span class="p">(</span><span class="k">as</span> <span class="n">often</span> <span class="n">used</span> <span class="ow">in</span> <span class="n">journals</span><span class="p">)</span><span class="o">.</span>
@@ -2207,14 +2207,14 @@ dispose of medical waste.</p>
 </td>
 <td></td>
 </tr>
-<tr class="row-even"><td><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="n">An</span> <span class="s2">&quot;empty comment&quot;</span> <span class="n">does</span> <span class="ow">not</span>
+<tr class="row-even"><td><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="n">An</span> <span class="s2">"empty comment"</span> <span class="n">does</span> <span class="ow">not</span>
 <span class="n">consume</span> <span class="n">following</span> <span class="n">blocks</span><span class="o">.</span>
-<span class="p">(</span><span class="n">An</span> <span class="n">empty</span> <span class="n">comment</span> <span class="ow">is</span> <span class="s2">&quot;..&quot;</span> <span class="k">with</span>
+<span class="p">(</span><span class="n">An</span> <span class="n">empty</span> <span class="n">comment</span> <span class="ow">is</span> <span class="s2">".."</span> <span class="k">with</span>
 <span class="n">blank</span> <span class="n">lines</span> <span class="n">before</span> <span class="ow">and</span> <span class="n">after</span><span class="o">.</span><span class="p">)</span>
 
 <span class="o">..</span>
 
-        <span class="n">So</span> <span class="n">this</span> <span class="n">block</span> <span class="ow">is</span> <span class="ow">not</span> <span class="s2">&quot;lost&quot;</span><span class="p">,</span>
+        <span class="n">So</span> <span class="n">this</span> <span class="n">block</span> <span class="ow">is</span> <span class="ow">not</span> <span class="s2">"lost"</span><span class="p">,</span>
         <span class="n">despite</span> <span class="n">its</span> <span class="n">indentation</span><span class="o">.</span>
 </code></pre></div>
 </div>
@@ -2277,7 +2277,7 @@ despite its indentation.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    Oct 16, 2026
+    Oct 30, 2026
   </span>
 
     
