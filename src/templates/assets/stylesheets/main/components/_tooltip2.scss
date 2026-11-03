@@ -162,6 +162,49 @@
       }
     }
 
+    // Tooltip is used as a dialog - this role should be set if we intend to
+    // render typesetted content inside of the tooltip, e.g., from annotations,
+    // footnotes, or from other documents as fetched via instant previews. The
+    // content is rendered in the same size as other side content.
+    [role="dialog"] > & {
+      width: var(--md-tooltip-width);
+      padding: 0 px2rem(16px);
+      overflow: auto;
+      font-size: px2rem(12.8px);
+      pointer-events: initial;
+
+      // Overlay to fade out top and bottom
+      &::before,
+      &::after {
+        position: sticky;
+        z-index: 10;
+        display: block;
+        width: 100%;
+        height: px2rem(16px);
+        content: "";
+      }
+
+      // Overlay to fade out top
+      &::before {
+        top: 0;
+        background:
+          linear-gradient(
+            var(--md-default-bg-color),
+            transparent 75%
+          );
+      }
+
+      // Overlay to fade out bottom
+      &::after {
+        bottom: 0;
+        background:
+          linear-gradient(
+            transparent,
+            var(--md-default-bg-color) 75%
+          );
+      }
+    }
+
     // Tooltip is non-interactive - this role should be set if the tooltip has
     // only informational and non-interactive content, e.g., an actual tooltip.
     // It has no explicitl width set, uses a smaller font, and is centered,
