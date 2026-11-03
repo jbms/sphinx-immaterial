@@ -161,6 +161,27 @@ void foo();
         ),
         pytest.param(
             b"""
+/** First line. */
+/* non-doc block comment */
+/**/
+/*! Fourth line. */
+void foo();
+""",
+            "First line.\n\n\nFourth line.",
+            id="block-doc-nondoc-empty-doc",
+        ),
+        pytest.param(
+            b"/// Doc line.\n/**/ void foo();",
+            "Doc line.",
+            id="macro-empty-comment-before-decl",
+        ),
+        pytest.param(
+            b"/** Doc line. */ /**/ void foo();",
+            "Doc line.",
+            id="block-doc-and-inline-empty-comment",
+        ),
+        pytest.param(
+            b"""
 int foo; ///< First line.
          ///< Second line.
          /**< Third line. */
@@ -326,3 +347,257 @@ class ClassWithSourceLocation {
         d = x.get("declaration")
         if d:
             assert cast(str, d).find("source_location") != -1
+
+
+def test_using_declaration():
+    config = api_parser.Config(
+        input_path="a.cpp",
+        input_content=rb"""
+template <typename U>
+struct Wrapper {};
+
+/// Base class.
+///
+/// \ingroup X
+class Base {
+ public:
+  /// Constructs Base.
+  explicit Base(int x);
+  Base(int x, int y);
+  /// Value type alias.
+  using ValueType = int;
+  /// Waits for completion.
+  void Wait() const;
+  void Wait(int timeout) const;
+  /// Resets the state.
+  void reset();
+};
+
+/// Templated base class.
+///
+/// \ingroup X
+template <typename T>
+class TemplatedBase {
+ public:
+  /// Checks readiness.
+  bool Ready() const;
+};
+
+/// Derived class.
+///
+/// \ingroup X
+template <typename T>
+class Derived : public Base, public TemplatedBase<Wrapper<T>> {
+ public:
+  /// Inherits Base constructors.
+  using Base::Base;
+  /// Exposes ValueType.
+  using Base::ValueType;
+  /// Waits for completion.
+  using Base::Wait;
+  using Base::reset;
+  /// Checks readiness via nested template argument.
+  using TemplatedBase<Wrapper<T>>::Ready;
+};
+
+namespace detail_ns {
+void FreeHelper(int x);
+void FreeHelper(int x, int y);
+}
+
+namespace pub_ns {
+/// Re-exported overloaded free function.
+///
+/// \ingroup X
+using detail_ns::FreeHelper;
+}
+""",
+    )
+    output = api_parser.generate_output(config)
+    assert not output.get("errors")
+    assert not output.get("warnings")
+    page_names = sorted(
+        entity["page_name"]
+        for entity in output["entities"].values()
+        if "page_name" in entity
+    )
+    assert page_names == [
+        "Base",
+        "Base.Base",
+        "Base.ValueType",
+        "Base.Wait",
+        "Base.reset",
+        "Derived",
+        "Derived.Derived",
+        "Derived.Ready",
+        "Derived.ValueType",
+        "Derived.Wait",
+        "TemplatedBase",
+        "TemplatedBase.Ready",
+        "pub_ns.FreeHelper",
+    ]
+    by_page = {
+        entity["page_name"]: entity
+        for entity in output["entities"].values()
+        if "page_name" in entity
+    }
+
+    derived_ctor = by_page["Derived.Derived"]
+    assert derived_ctor["kind"] == "constructor"
+    assert derived_ctor["name"] == "Derived"
+    assert " ".join(derived_ctor["declaration"].split()) == "explicit __x0(int x)"
+    ctor_siblings = derived_ctor.get("siblings", [])
+    assert len(ctor_siblings) == 1
+    ctor_sibling = output["entities"][ctor_siblings[0]]
+    assert ctor_sibling["kind"] == "constructor"
+    assert ctor_sibling["name"] == "Derived"
+    assert " ".join(ctor_sibling["declaration"].split()) == "__x0(int x, int y)"
+
+    derived_alias = by_page["Derived.ValueType"]
+    assert derived_alias["kind"] == "alias"
+    assert derived_alias["underlying_type"] == "int"
+
+    derived_wait = by_page["Derived.Wait"]
+    assert derived_wait["kind"] == "method"
+    assert derived_wait["declaration"] == "void __x0() const"
+    siblings = derived_wait.get("siblings", [])
+    assert len(siblings) == 1
+    sibling = output["entities"][siblings[0]]
+    assert sibling["kind"] == "method"
+    assert sibling["declaration"] == "void __x0(int timeout) const"
+
+    free_helper = by_page["pub_ns.FreeHelper"]
+    assert free_helper["kind"] == "function"
+    assert free_helper.get("scope") == "pub_ns::"
+    assert free_helper["declaration"] == "void __x0(int x)"
+    free_siblings = free_helper.get("siblings", [])
+    assert len(free_siblings) == 1
+    free_sibling = output["entities"][free_siblings[0]]
+    assert free_sibling["kind"] == "function"
+    assert free_sibling.get("scope") == "pub_ns::"
+    assert free_sibling["declaration"] == "void __x0(int x, int y)"
+
+
+def test_var_decl_hide_types():
+    config = api_parser.Config(
+        input_path="a.cpp",
+        hide_types=[re.compile(r"\binternal_ns::")],
+        input_content=rb"""
+namespace internal_ns {
+struct Tag {};
+struct Niebloid {
+  template <typename T>
+  auto operator()(T&& v) const {
+    return 0;
+  }
+};
+struct CallbackNiebloid {
+  void operator()(void (*cb)() const) const & {}
+};
+struct PtrNiebloid {
+  int* operator()() const { return nullptr; }
+};
+}
+
+/// Tag constant.
+///
+/// \ingroup X
+constexpr auto kTag = internal_ns::Tag{};
+
+/// Formats values.
+///
+/// \ingroup X
+constexpr auto Format = internal_ns::Niebloid{};
+
+/// Invokes a const function pointer.
+///
+/// \ingroup X
+constexpr auto Invoke = internal_ns::CallbackNiebloid{};
+
+/// Returns a pointer.
+///
+/// \ingroup X
+constexpr auto GetPtr = internal_ns::PtrNiebloid{};
+
+/// Lambda callable.
+///
+/// \ingroup X
+constexpr auto Identity = [](int x) { return x; };
+
+/// Container with hidden-type members.
+///
+/// \ingroup X
+struct Holder {
+  /// Formats inside Holder.
+  static constexpr auto MemberFormat = internal_ns::Niebloid{};
+  /// Non-static callable field.
+  internal_ns::Niebloid callable_field;
+  /// Non-callable hidden-type field.
+  internal_ns::Tag tag_field;
+};
+""",
+    )
+    output = api_parser.generate_output(config)
+    assert not output.get("errors")
+    assert not output.get("warnings")
+    by_name = {entity["name"]: entity for entity in output["entities"].values()}
+    assert by_name["kTag"]["kind"] == "var"
+    assert by_name["kTag"]["declaration"] == "constexpr auto __x0"
+    assert by_name["kTag"]["initializer"] is None
+    assert by_name["Format"]["kind"] == "function"
+    assert by_name["Format"]["declaration"] == "constexpr auto __x0(T &&v)"
+    assert by_name["Format"]["template_parameters"] == [
+        {"declaration": "typename T", "name": "T", "kind": "type", "pack": False}
+    ]
+    assert by_name["Invoke"]["kind"] == "function"
+    assert by_name["Invoke"]["declaration"] == "constexpr void __x0(void (*cb)() const)"
+    assert by_name["GetPtr"]["kind"] == "function"
+    assert by_name["GetPtr"]["declaration"] == "constexpr int *__x0()"
+    assert by_name["Identity"]["kind"] == "var"
+    assert by_name["Identity"]["declaration"] == "constexpr auto __x0"
+    assert by_name["Identity"]["initializer"] is None
+    assert by_name["MemberFormat"]["kind"] == "method"
+    assert by_name["MemberFormat"]["declaration"] == "static constexpr auto __x0(T &&v)"
+    assert by_name["callable_field"]["kind"] == "method"
+    assert by_name["callable_field"]["declaration"] == "auto __x0(T &&v)"
+    assert by_name["tag_field"]["kind"] == "var"
+    assert by_name["tag_field"]["declaration"].strip() == "auto __x0"
+    assert "Methods" in by_name["Holder"]["related_members"]
+    assert "Data members" in by_name["Holder"]["related_members"]
+    assert "Friend functions" not in by_name["Holder"]["related_members"]
+
+
+def test_undocumented_parent_warning():
+    config = api_parser.Config(
+        input_path="a.cpp",
+        input_content=rb"""
+class UndocumentedParent {
+ public:
+  /// Documented member inside undocumented class.
+  void Foo();
+
+ private:
+  /// Private helper inside undocumented class (should not warn).
+  void PrivateHelper();
+};
+
+/// Documented outer class.
+///
+/// \ingroup X
+class DocumentedOuter {
+ private:
+  struct PrivateNested {
+    /// Comment inside private nested helper struct (should not warn).
+    int count = 0;
+  };
+};
+""",
+    )
+    output = api_parser.generate_output(config)
+    assert not output.get("errors")
+    warnings = output.get("warnings", [])
+    assert len(warnings) == 1
+    assert (
+        "Undocumented parent UndocumentedParent for documented member Foo()"
+        in warnings[0]["message"]
+    )
