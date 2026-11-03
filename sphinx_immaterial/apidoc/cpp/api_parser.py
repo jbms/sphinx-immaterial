@@ -237,8 +237,8 @@ class Config:
     hide_types: List[Pattern] = dataclasses.field(default_factory=list)
     """List of regular expressions matching *hidden* types.
 
-    Matching return types are replaced with :cpp:`auto`, and matching
-    initializers are elided.
+    Matching return and variable/field types are replaced with :cpp:`auto`, and
+    matching initializers are elided.
     """
     ignore_template_parameters: List[Pattern] = dataclasses.field(default_factory=list)
     """List of regular expressions matching *ignored* template parameters.
@@ -603,7 +603,7 @@ _DOC_COMMENT_START = re.compile(
     |
     (?:
       /\*
-      (?:!|\*)
+      (?:!|\*(?!/))
     )
     """,
     re.VERBOSE,
@@ -767,12 +767,13 @@ _COMMENT_PATTERN = re.compile(
       )*
     )
     |
-    (                  # "/*" comment (capture group 3)
-      [ \t]*           # Skip leading whitespace
-      /\*              # Comment introducer
-      ((?:\*|!)<?)     # Optional doc comment indicator (capture group 4)
-      (?:.|\n)*?       # Comment text
-      \*/              # Comment terminator
+    (                        # "/*" comment (capture group 3)
+      [ \t]*                 # Skip leading whitespace
+      /\*                    # Comment introducer
+      ((?:(?:\*(?!/)|!)<?)?) # Optional doc comment indicator (capture group 4)
+      ((?:.|\n)*?)           # Comment text (capture group 5)
+      \*/                    # Comment terminator
+      [ \t]*\n?              # Trailing whitespace and optional newline
     )
     """,
     re.VERBOSE,
@@ -796,21 +797,25 @@ def _convert_raw_comment_into_doc_comment(raw_comment: str) -> str:
             without_comment_prefix = re.sub(
                 r"^[ \t]*//" + re.escape(m.group(2)), "", m.group(0), flags=re.MULTILINE
             )
+            parts.append(dedent(without_comment_prefix))
         else:
             # /* comment
             without_comment_prefix = (
                 raw_comment[m.start(0) : m.start(4) - 2]
                 + " " * (2 + len(m.group(4)))
-                + raw_comment[m.end(4) : m.end(0) - 2]
+                + m.group(5)
             )
             # Check if every line is prefixed with an asterisk at the same
             # column as the initial "/*".
-            orig_text = m.group(0)
+            orig_text = raw_comment[m.start(0) : m.end(5) + 2]
             if re.fullmatch(r"([ \t]*)/\*[^\n]*(\n\1 \*[^\n]*)*(\s*\*/)?", orig_text):
                 without_comment_prefix = re.sub(
                     r"^([ \t]*)\*", r"\1 ", without_comment_prefix, flags=re.MULTILINE
                 )
-        parts.append(dedent(without_comment_prefix))
+            dedented = dedent(without_comment_prefix)
+            if m.group(0).endswith("\n"):
+                dedented = dedented.rstrip(" \t") + "\n"
+            parts.append(dedented)
     assert not raw_comment[pos:].strip(), "Unexpected syntax in raw comment"
     return "".join(parts).rstrip()
 
@@ -1321,7 +1326,43 @@ def _pick_name_substitute(code: str) -> str:
         i += 1
 
 
-def _transform_var_decl(config: Config, decl: Cursor) -> VarEntity:
+def _adjust_callable_var_declaration(
+    decl_string: str,
+    template_parameters: Optional[List[TemplateParameter]],
+    is_constexpr: bool,
+    is_static_member: bool,
+    location: Tuple[str, int],
+) -> str:
+    template_prefix = "template <> " if template_parameters is not None else ""
+    parser = sphinx.domains.cpp.DefinitionParser(
+        template_prefix + decl_string,
+        location=location,
+        config=cast(sphinx.config.Config, SphinxConfig()),
+    )
+    ast = parser.parse_declaration("function", "function")
+    parser.skip_ws()
+    parser.assert_end(allowSemicolon=True)
+    assert isinstance(ast.declaration, sphinx.domains.cpp.ASTType)
+    left_specs = ast.declaration.declSpecs.leftSpecs
+    if is_constexpr:
+        left_specs.constexpr = True
+    if is_static_member:
+        left_specs.storage = "static"
+    cur: Any = ast.declaration.decl
+    while cur is not None:
+        if (
+            isinstance(cur, sphinx.domains.cpp.ASTDeclaratorNameParamQual)
+            and cur.declId is not None
+        ):
+            cur.paramQual.const = False
+            cur.paramQual.volatile = False
+            cur.paramQual.refQual = None
+            break
+        cur = getattr(cur, "next", None)
+    return str(ast.declaration)
+
+
+def _transform_var_decl(config: Config, decl: Cursor) -> Optional[CppApiEntity]:
     exprs = [x for x in decl.get_children() if x.kind.is_expression()]
     presumed_filename, presumed_line, _ = get_presumed_location(decl.location)
     if len(exprs) > 1:
@@ -1334,6 +1375,49 @@ def _transform_var_decl(config: Config, decl: Cursor) -> VarEntity:
 
     type_spelling = decl.type.spelling
     if "(lambda at " in type_spelling:
+        type_spelling = "auto"
+    elif config.hide_types_pattern.search(type_spelling) is not None:
+        rec = decl.type.get_canonical().get_declaration()
+        if (
+            rec is not None
+            and not rec.is_anonymous()
+            and rec.kind
+            in (
+                CursorKind.STRUCT_DECL,
+                CursorKind.CLASS_DECL,
+            )
+        ):
+            call_ops = [
+                c
+                for c in rec.get_children()
+                if c.kind in (CursorKind.CXX_METHOD, CursorKind.FUNCTION_TEMPLATE)
+                and c.spelling == "operator()"
+                and c.access_specifier == clang.cindex.AccessSpecifier.PUBLIC
+            ]
+            if len(call_ops) == 1:
+                call_op = call_ops[0]
+                func_entity = _transform_function_decl(config, call_op)
+                if func_entity is not None:
+                    is_member = decl.kind == CursorKind.FIELD_DECL or (
+                        decl.semantic_parent is not None
+                        and decl.semantic_parent.kind in CLASS_KINDS
+                    )
+                    is_static_member = (
+                        is_member
+                        and decl.storage_class == clang.cindex.StorageClass.STATIC
+                    )
+                    template_params = _get_template_parameters(config, call_op)
+                    func_entity["kind"] = "method" if is_member else "function"
+                    func_entity["name"] = decl.spelling
+                    func_entity["declaration"] = _adjust_callable_var_declaration(
+                        func_entity["declaration"],
+                        template_params,
+                        is_constexpr="constexpr" in prefix,
+                        is_static_member=is_static_member,
+                        location=(presumed_filename, presumed_line),
+                    )
+                    func_entity["template_parameters"] = template_params
+                    return func_entity
         type_spelling = "auto"
     name_substitute = _pick_name_substitute(type_spelling)
 
@@ -1656,10 +1740,95 @@ def _transform_macro(config: Config, decl: Cursor) -> Optional[MacroEntity]:
     }
 
 
+def _get_using_decl_targets(decl: Cursor) -> List[Cursor]:
+    for sub in decl.get_children():
+        if sub.kind == CursorKind.OVERLOADED_DECL_REF:
+            num = clang.cindex.conf.lib.clang_getNumOverloadedDecls(sub)
+            targets: List[Cursor] = []
+            for i in reversed(range(num)):
+                target = clang.cindex.conf.lib.clang_getOverloadedDecl(sub, i)
+                target._tu = decl._tu
+                if (
+                    target.kind == CursorKind.CONSTRUCTOR
+                    and target.semantic_parent is not None
+                    and target.location == target.semantic_parent.location
+                ):
+                    # Skip compiler-synthesized implicit constructors.
+                    continue
+                targets.append(target)
+            return targets
+
+    # Fallback for dependent base classes (e.g. `using Base<T>::Wait;` inside a
+    # class template), where libclang emits TEMPLATE_REF / TYPE_REF children
+    # instead of OVERLOADED_DECL_REF.
+    depth = 0
+    tokens_at_depth0: List[Token] = []
+    for tok in cast(typing.Iterator[Token], decl.get_tokens()):
+        s = tok.spelling
+        if s == ";":
+            break
+        if s == "<":
+            depth += 1
+        elif s in (">", ">>", ">>>"):
+            depth = max(0, depth - len(s))
+        elif depth == 0:
+            tokens_at_depth0.append(tok)
+
+    qual_offset: Optional[int] = None
+    for i in range(len(tokens_at_depth0) - 1, 0, -1):
+        if tokens_at_depth0[i].spelling == "::":
+            qual_offset = tokens_at_depth0[i - 1].location.offset
+            break
+
+    if qual_offset is not None:
+        for sub in decl.get_children():
+            if sub.location.offset == qual_offset:
+                ref = sub.referenced
+                if ref is not None and ref.kind in CLASS_KINDS:
+                    member_name = decl.spelling
+                    return [
+                        c
+                        for c in ref.get_children()
+                        if c.spelling == member_name
+                        and c.kind in TRANSFORMERS
+                        and c.access_specifier != clang.cindex.AccessSpecifier.PRIVATE
+                    ]
+    return []
+
+
+def _transform_using_target(
+    config: Config, decl: Cursor, target: Cursor
+) -> Optional[CppApiEntity]:
+    transformer = TRANSFORMERS.get(target.kind)
+    if transformer is None:
+        return None
+    res = transformer(config, target)
+    if res is None:
+        return None
+    if (
+        res["kind"] == "constructor"
+        and decl.semantic_parent is not None
+        and decl.semantic_parent.spelling
+    ):
+        res["name"] = decl.semantic_parent.spelling
+    if "template_parameters" not in res:
+        res["template_parameters"] = _get_template_parameters(config, target)
+    return res
+
+
+def _transform_using_decl(config: Config, decl: Cursor) -> Optional[CppApiEntity]:
+    for target in _get_using_decl_targets(decl):
+        res = _transform_using_target(config, decl, target)
+        if res is not None:
+            return res
+    return None
+
+
 TRANSFORMERS: Dict[CursorKind, Callable[[Config, Cursor], Optional[CppApiEntity]]] = {
     CursorKind.TYPE_ALIAS_DECL: _transform_type_alias_decl,
     CursorKind.TYPEDEF_DECL: _transform_type_alias_decl,
     CursorKind.TYPE_ALIAS_TEMPLATE_DECL: _transform_type_alias_template_decl,
+    CursorKind.USING_DECLARATION: _transform_using_decl,
     CursorKind.STRUCT_DECL: _transform_class_decl,
     CursorKind.CLASS_DECL: _transform_class_decl,
     CursorKind.CLASS_TEMPLATE: _transform_class_template_decl,
@@ -1743,12 +1912,21 @@ def _kinds_are_compatible(a: str, b: str) -> bool:
     return _NORMALIZED_KIND[a] == _NORMALIZED_KIND[b]
 
 
+def _is_private_decl(cursor: Optional[Cursor]) -> bool:
+    while cursor is not None and cursor.kind != CursorKind.TRANSLATION_UNIT:
+        if cursor.access_specifier == clang.cindex.AccessSpecifier.PRIVATE:
+            return True
+        cursor = cursor.semantic_parent
+    return False
+
+
 class JsonApiGenerator:
     def __init__(self, extractor):
         self.extractor = extractor
         self.config = extractor.config
         self.seen_decls = {}
         self.output_json = []
+        self.warnings: List[JsonDiagnostic] = []
         self._prev_decl = None
         self._document_with_parent = {}
         self._seen_unexposed_entities: set[tuple[str, int, str]] = set()
@@ -1771,8 +1949,10 @@ class JsonApiGenerator:
         document_with = None
         location = _get_location_json(self.config, decl.location)
         if not doc:
-            if self._prev_decl is not None and _is_immediately_after(
-                decl, self._prev_decl[0]
+            if (
+                decl.kind != CursorKind.USING_DECLARATION
+                and self._prev_decl is not None
+                and _is_immediately_after(decl, self._prev_decl[0])
             ):
                 document_with = self._resolve_document_with(self._prev_decl[1]["id"])
             else:
@@ -1801,7 +1981,10 @@ class JsonApiGenerator:
             json_repr["scope"] = _get_full_nested_name(parent)
         else:
             json_repr["parent"] = get_entity_id(parent)
-        if decl.kind != CursorKind.UNEXPOSED_DECL:
+        if (
+            decl.kind != CursorKind.UNEXPOSED_DECL
+            and "template_parameters" not in json_repr
+        ):
             template_parameters = _get_template_parameters(self.config, decl)
             if json_repr.get("specializes") and template_parameters is None:
                 template_parameters = []
@@ -1872,6 +2055,17 @@ class JsonApiGenerator:
         parent_id = json_repr.get("parent")
         if parent_id is not None and parent_id not in self.seen_decls:
             # Parent is undocumented, skip.
+            doc = json_repr.get("doc")
+            if doc is not None and parent is not None and not _is_private_decl(decl):
+                self.warnings.append(
+                    {
+                        "message": (
+                            f"Undocumented parent {parent.displayname} for"
+                            f" documented member {decl.displayname}"
+                        ),
+                        "location": doc["location"],
+                    }
+                )
             return
         self._prev_decl = (decl, json_repr)
         entity_id = json_repr["id"]
@@ -1880,6 +2074,36 @@ class JsonApiGenerator:
             _merge_decl_json(existing_json_repr, json_repr)
             return
         self.seen_decls[entity_id] = json_repr
+        if (
+            decl.kind == CursorKind.USING_DECLARATION
+            and json_repr.get("doc") is not None
+        ):
+            transformed_targets = [
+                res
+                for t in _get_using_decl_targets(decl)
+                if (res := _transform_using_target(self.config, decl, t)) is not None
+            ]
+            for idx, sibling_repr in enumerate(transformed_targets[1:], start=1):
+                if not _kinds_are_compatible(json_repr["kind"], sibling_repr["kind"]):
+                    continue
+                sibling_any = cast(Any, sibling_repr)
+                if "parent" in json_repr:
+                    sibling_any["parent"] = json_repr["parent"]
+                if "scope" in json_repr:
+                    sibling_any["scope"] = json_repr["scope"]
+                if (
+                    sibling_any.get("specializes")
+                    and sibling_any.get("template_parameters") is None
+                ):
+                    sibling_any["template_parameters"] = []
+                sibling_id = f"{entity_id}:{idx}"
+                sibling_any["id"] = sibling_id
+                sibling_any["location"] = json_repr["location"]
+                sibling_any["doc"] = None
+                sibling_any["document_with"] = entity_id
+                sibling_any["friend"] = is_friend
+                self._document_with_parent[sibling_id] = entity_id
+                self.seen_decls[sibling_id] = sibling_any
 
 
 def _parse_template_parameter(
@@ -2637,7 +2861,9 @@ def _get_output_json(extractor: Extractor) -> JsonApiData:
         logger.info("Found %d C++ declarations", len(extractor.decls))
     for decl, doc_comment_start_bound in extractor.decls:
         generator.add(decl, doc_comment_start_bound)
-    return organize_entities(extractor.config, generator.seen_decls)
+    result = organize_entities(extractor.config, generator.seen_decls)
+    result["warnings"].extend(generator.warnings)
+    return result
 
 
 def generate_output(config: Config) -> JsonApiData:
