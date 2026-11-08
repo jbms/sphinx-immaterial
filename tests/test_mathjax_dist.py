@@ -23,19 +23,26 @@ Since Pythagoras, we know that :math:`a^2 + b^2 = c^2`.
 """
 
 
+@pytest.mark.parametrize("parallel", [0, 2], ids=["serial", "parallel"])
 @pytest.mark.parametrize(
     "has_equations", [True, False], ids=["with-equations", "no-equations"]
 )
-def test_has_mathjax_dist(immaterial_make_app, has_equations: bool):
+def test_has_mathjax_dist(immaterial_make_app, has_equations: bool, parallel: int):
     """tests if mathjax dist is included in build output"""
 
-    index_rst = INDEX_RST
+    # Use enough documents for sphinx to read and write them in subprocesses
+    # when building in parallel.
+    pages = [f"page{i}" for i in range(6)]
+    files = {"index.rst": INDEX_RST + "\n.. toctree::\n\n   " + "\n   ".join(pages)}
+    for page in pages:
+        files[f"{page}.rst"] = f"{page}\n{'=' * len(page)}\n"
     if has_equations:
-        index_rst += MATH_SYNTAX
+        files[f"{pages[-1]}.rst"] += MATH_SYNTAX
 
     app: SphinxTestApp = immaterial_make_app(
         extra_conf="extensions.append('sphinx.ext.mathjax')",
-        files={"index.rst": index_rst},
+        files=files,
+        parallel=parallel,
     )
 
     app.build()
