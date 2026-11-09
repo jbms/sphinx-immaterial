@@ -77,6 +77,11 @@
     [id] > & {
       vertical-align: text-top;
     }
+
+    // Shadow tag
+    &-shadow {
+      opacity: 0.5;
+    }
   }
 
   // Tag icon

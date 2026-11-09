@@ -39,8 +39,24 @@
   {% endif %}
 {% endmacro %}
 
+<!-- Render navigation link title -->
+{% macro render_title(nav_item) %}
+
+  <!-- Typeset title -->
+  {% if nav_item.typeset %}
+    <span class="md-typeset">
+      {{ nav_item.typeset.title }}
+    </span>
+
+  <!-- Regular title -->
+  {% else %}
+    {{ nav_item.title }}
+  {% endif %}
+{% endmacro %}
+
 <!-- Render navigation link content -->
-{% macro render_content(nav_item, ref = nav_item) %}
+{% macro render_content(nav_item, ref) %}
+  {% set ref = ref or nav_item %}
 
   <!-- Navigation link icon -->
   {% if nav_item.meta and nav_item.meta.icon %}
@@ -54,7 +70,7 @@
 
   <!-- Navigation link title -->
   <span class="md-ellipsis">
-    {{ ref.title }}
+    {{ render_title(ref) }}
 
     <!-- Navigation link subtitle -->
     {% if nav_item.meta and nav_item.meta.subtitle %}
@@ -63,6 +79,11 @@
     {% endif %}
   </span>
 
+  <!-- Navigation link to encrypted content -->
+  {% if nav_item.meta and nav_item.encrypted %}
+    {{ render_status(nav_item, "encrypted") }}
+  {% endif %}
+
   <!-- Navigation link status -->
   {% if nav_item.meta and nav_item.meta.status %}
     {{ render_status(nav_item, nav_item.meta.status) }}
@@ -70,7 +91,8 @@
 {% endmacro %}
 
 <!-- Render navigation item (pruned) -->
-{% macro render_pruned(nav_item, ref = nav_item) %}
+{% macro render_pruned(nav_item, ref) %}
+  {% set ref = ref or nav_item %}
   {% set first = nav_item.children | first %}
 
   <!-- Recurse, if the first item has further nested items -->
@@ -91,7 +113,7 @@
 {% endmacro %}
 
 <!-- Render navigation item -->
-{% macro render(nav_item, path, level) %}
+{% macro render(nav_item, path, level, parent) %}
 
   <!-- Determine classes -->
   {% set class = "md-nav__item" %}
@@ -118,8 +140,8 @@
 
     <!-- Determine all nested items that are index pages -->
     <!-- sphinx-immaterial: "navigation.indexes" feature is built into sphinx -->
-    <!-- set indexes to an empty list here since it is referenced below -->
-    {% set indexes = [] %}
+    <!-- set index to none here since it is referenced below -->
+    {% set index = none %}
 
     <!-- Navigation tabs -->
     {% if "navigation.tabs" in features %}
@@ -134,7 +156,7 @@
       {% if "navigation.sections" in features %}
 
         <!-- Render 2nd level items with nested items as sections -->
-        {% if level == 2 and nav_item.parent.active %}
+        {% if level == 2 and parent.active %}
           {% set class = class ~ " md-nav__item--section" %}
           {% set is_section = true %}
         {% endif %}
@@ -231,14 +253,14 @@
         >
           <label class="md-nav__title" for="{{ path }}">
             <span class="md-nav__icon md-icon"></span>
-            {{ nav_item.title }}
+            {{ render_title(nav_item) }}
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
 
             <!-- Nested navigation item -->
-            {% for nav_item in nav_item.children %}
-              {% if not indexes or nav_item != indexes | first %}
-                {{ render(nav_item, path ~ "_" ~ loop.index, level + 1) }}
+            {% for item in nav_item.children %}
+              {% if not index or item != index %}
+                {{ render(item, path ~ "_" ~ loop.index, level + 1, nav_item) }}
               {% endif %}
             {% endfor %}
           </ul>

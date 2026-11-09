@@ -99,8 +99,40 @@ function minsvg(data: string): string {
     ]
   })
 
-  /* Return minified SVG */
-  return result.data
+  // Return minified SVG - note that we need to remove `currentColor`, which
+  // FontAwesome added to paths. It would be better to do this with a proper
+  // DOM parser, but this will do for now.
+  return result.data.replace("fill=\"currentColor\" ", "")
+}
+
+/**
+ * Return a path with POSIX style separators
+ *
+ * The default function assumes UNIX system, so it just returns the path.
+ *
+ * @param p - string path
+ * @returns String path
+ */
+let assurePosixSep = function (p: string): string {
+  return p
+}
+
+/**
+ * Return a path with POSIX style separators
+ *
+ * The Windows variant of this function replaces the separator with regex.
+ *
+ * @param p - string path
+ * @returns String path
+ */
+function assurePosixSepWin(p: string): string {
+  return p.replace(winSepRegex, path.posix.sep)
+}
+
+const winSepRegex = new RegExp(`\\${path.win32.sep}`, "g")
+
+if (path.sep === path.win32.sep) {
+  assurePosixSep = assurePosixSepWin
 }
 
 /* ----------------------------------------------------------------------------
@@ -172,7 +204,7 @@ const assets$ = concat(
 const stylesheets$ = resolve("**/[!_]*.scss", { cwd: "src/templates/assets" })
   .pipe(
     mergeMap(file => zip(
-      of(ext(file, ".css")),
+      of(ext(file, ".css").replace(new RegExp(`(overrides|templates)\\${path.sep}`), "")),
       transformStyle({
         from: `src/templates/assets/${file}`,
         to: ext(`${base}/bundles/${file}`, ".css")
@@ -185,7 +217,7 @@ const stylesheets$ = resolve("**/[!_]*.scss", { cwd: "src/templates/assets" })
 const javascripts$ = resolve("**/{bundle}.ts", { cwd: "src/templates/assets" })
   .pipe(
     mergeMap(file => zip(
-      of(ext(file, ".js")),
+      of(ext(file, ".js").replace(new RegExp(`(overrides|templates)\\${path.sep}`), "")),
       transformScript({
         from: `src/templates/assets/${file}`,
         to: ext(`${base}/bundles/${file}`, ".js")
@@ -240,10 +272,10 @@ const manifest$ = merge(
     scan((prev, mapping) => {
       for (const [sourcePath, {file, licenseMap}] of mapping) {
         bundleLicenses.set(file, licenseMap)
-        prev.set(sourcePath, file.replace(
-          new RegExp(`${base}\\/(overrides|templates)\\/`),
+        prev.set(assurePosixSep(sourcePath), assurePosixSep(file.replace(
+          new RegExp(`${base}\\/(overrides|templates)\\${path.sep}`),
           ""
-        ).replace(`${base}/bundles/`, ""))
+        )).replace(`${base}/bundles/`, ""))
       }
       return prev
     }, new Map<string, string>()),

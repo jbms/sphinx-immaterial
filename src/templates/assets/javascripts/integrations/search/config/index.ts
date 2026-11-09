@@ -25,12 +25,20 @@
  * ------------------------------------------------------------------------- */
 
 /**
+ * Search field
+ */
+export interface SearchField {
+  boost?: number                       /* Field boost */
+}
+
+/**
  * Search configuration
  */
 export interface SearchConfig {
   lang: string[]                       /* Search languages */
   separator: string                    /* Search separator */
   pipeline: SearchPipelineFn[]         /* Search pipeline */
+  fields: Record<string, SearchField>  /* Search field */
 }
 
 /**
