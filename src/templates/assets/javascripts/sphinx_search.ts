@@ -232,7 +232,7 @@ declare global {
   /**
    * Stopwords (search terms to ignore), defined by language_data.js
    */
-  const stopwords: string[]
+  const stopwords: string[] | Set<string>
 }
 
 /**
@@ -726,7 +726,7 @@ export async function getResults(query: string): Promise<SearchResultStream> {
     // as a separate search term.
     for (const wordMatch of lowerTerm.matchAll(/\p{L}+/gu)) {
       const subTerm = wordMatch[0]
-      if (stopwords.indexOf(subTerm) !== -1) {
+      if (Array.isArray(stopwords) ? (stopwords.indexOf(subTerm) !== -1) : stopwords.has(subTerm)) {
         // skip this "word"
         continue
       }
