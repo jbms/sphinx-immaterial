@@ -48,6 +48,7 @@ MKDOCS_EXCLUDE_PATTERNS = [
     "material",
     # mkdocs-specific files
     "src/**/*.py",
+    "src/plugins",
     "src/templates/mkdocs_theme.yml",
     "src/templates/404.html",
     "mkdocs.yml",
@@ -168,16 +169,21 @@ def _create_adjusted_commit(
     # filter out exclude patterns for paths that don't exist in the temp_workdir
     for pattern in MKDOCS_EXCLUDE_PATTERNS:
         for file in pathlib.Path(temp_workdir).rglob(pattern):
-            exclude.append(str(file))
+            # Paths are relative because on macOS the temp dir is under a
+            # symlink (/var -> /private/var), which git rejects as being
+            # outside the repository when given absolute paths.
+            exclude.append(str(file.relative_to(temp_workdir)))
     subprocess.run(
-        ["git", "rm", "--quiet", "-r"] + exclude,
+        # We ignore unmatched paths because on case-insensitive filesystems
+        # (e.g. macOS), `rglob("CHANGELOG")` also matches `docs/changelog`,
+        # producing a path that git doesn't track under that spelling.
+        ["git", "rm", "--quiet", "-r", "--ignore-unmatch"] + exclude,
         cwd=temp_workdir,
         check=True,
         stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
     )
     _fix_package_json(pathlib.Path(temp_workdir) / "package.json")
-    subprocess.run(["git", "update-index"], cwd=temp_workdir, check=True)
+    subprocess.run(["git", "add", "package.json"], cwd=temp_workdir, check=True)
     tree = subprocess.run(
         ["git", "write-tree"],
         cwd=temp_workdir,

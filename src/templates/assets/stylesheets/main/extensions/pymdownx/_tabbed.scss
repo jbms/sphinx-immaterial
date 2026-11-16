@@ -403,6 +403,11 @@
     .no-js & {
       border-color: var(--md-default-fg-color);
     }
+
+    // Show border for tabs in tooltips
+    [role="dialog"] & {
+      border-color: var(--md-default-fg-color);
+    }
   }
 }
 

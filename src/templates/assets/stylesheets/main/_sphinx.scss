@@ -135,3 +135,11 @@
     }
   }
 }
+
+// We keep the first navigation path item (the root document) on one line like
+// the others.  Upstream only does this for the remaining items, which works for
+// a short "Home" link, but Sphinx projects usually title their root document
+// with the full project name, which would otherwise wrap onto several lines.
+.md-path__item:first-child {
+  white-space: nowrap;
+}

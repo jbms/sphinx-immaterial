@@ -34,6 +34,8 @@ export type Flag =
   | "announce.dismiss"                 /* Dismissable announcement bar */
   | "content.code.annotate"            /* Code annotations */
   | "content.code.copy"                /* Code copy button */
+  | "content.code.select"              /* Code selection */
+  | "content.footnote.tooltips"        /* Footnote tooltips */
   | "content.lazy"                     /* Lazy content elements */
   | "content.tabs.link"                /* Link content tabs */
   | "content.tooltips"                 /* Tooltips */
@@ -41,7 +43,9 @@ export type Flag =
   | "navigation.expand"                /* Automatic expansion */
   | "navigation.indexes"               /* Section pages */
   | "navigation.instant"               /* Instant navigation */
+  | "navigation.instant.prefetch"      /* Instant navigation prefetching */
   | "navigation.instant.progress"      /* Instant navigation progress */
+  | "navigation.instant.preview"       /* Instant preview */
   | "navigation.sections"              /* Section navigation */
   | "navigation.tabs"                  /* Tabs navigation */
   | "navigation.tabs.sticky"           /* Tabs navigation (sticky) */
@@ -100,6 +104,7 @@ export interface Config {
   translations: Translations           /* Translations */
   // sphinx-immaterial: search worker not used
   // search: string                    /* Search worker URL */
+  annotate?: Record<string, string[]>  /* Annotation mappings */
   tags?: Record<string, string>        /* Tags mapping */
   version?: Versioning                 /* Versioning */
 }

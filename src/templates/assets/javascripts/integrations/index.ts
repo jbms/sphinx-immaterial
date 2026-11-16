@@ -20,6 +20,7 @@
  * IN THE SOFTWARE.
  */
 
+export * from "./alternate"
 export * from "./clipboard"
 export * from "./instant"
 export * from "./search"

@@ -75,7 +75,7 @@ export function mountSearchHiglight(
   el: HTMLElement, { location$ }: MountOptions
 ): Observable<Component<SearchHighlight>> {
   // sphinx-immaterial: hard-coded fake index config
-  const indexConfig = {lang: [], separator: "\\s+", pipeline: []}
+  const indexConfig = {lang: [], separator: "\\s+", pipeline: [], fields: {}}
   return combineLatest([
     location$
       .pipe(

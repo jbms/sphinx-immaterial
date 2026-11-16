@@ -86,6 +86,16 @@ This theme adds support for the following fields in addition to those
 
         :hide-footer:
 
+.. filemeta:: hide-path
+
+    If specified, hides the navigation path (breadcrumbs) at the top of the current page when the
+    :python:`"navigation.path"` feature is enabled.
+
+    .. code-block:: rst
+        :caption: Hide the breadcrumbs at the top of the page:
+
+        :hide-path:
+
 .. filemeta:: hide-feedback
 
     If specified, hides the user :themeconf:`feedback` buttons at the bottom of the current page.
@@ -394,6 +404,35 @@ Configuration Options
 
                       # Code block content
 
+        - `content.code.select <https://squidfunk.github.io/mkdocs-material/reference/code-blocks/#code-selection-button>`_
+
+          Adds a button to code blocks that lets readers select a range of lines by clicking on them
+          (hold :kbd:`Shift` to extend the selection). The selection is stored in the URL, so a
+          link to it can be shared.
+
+          .. info:: Enabling or disabling line selection for a specific code block
+
+              Like the copy button, line selection can be enabled for a specific code block with
+              the ``select`` :rst:`:class:`, or disabled with the ``no-select`` :rst:`:class:`
+              when the :python:`"content.code.select"` feature is globally enabled.
+
+              .. rst-example:: Enable line selection
+
+                  .. code-block:: python
+                      :class: select
+                      :linenos:
+
+                      def greet(name):
+                          message = f"Hello, {name}!"
+                          print(message)
+                          return message
+
+        - `content.footnote.tooltips <https://squidfunk.github.io/mkdocs-material/reference/footnotes/#footnote-tooltips>`_
+
+          Shows the content of a footnote in a tooltip when hovering over (or focusing) its
+          reference, so readers don't need to jump to the bottom of the page. The footnotes in
+          :doc:`additional_samples` demonstrate this.
+
         - `content.tabs.link <https://squidfunk.github.io/mkdocs-material/reference/content-tabs/#linked-content-tabs>`_
 
           .. seealso::
@@ -419,6 +458,34 @@ Configuration Options
         - `navigation.expand <https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#navigation-expansion>`_
         - `navigation.footer <https://squidfunk.github.io/mkdocs-material/setup/setting-up-the-footer/#navigation>`_
         - `navigation.instant <https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#instant-loading>`_
+        - `navigation.instant.prefetch <https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#instant-prefetching>`_
+
+          Starts fetching a page as soon as the reader hovers over (or focuses) a link to it.
+          Requires the :python:`"navigation.instant"` feature.
+
+        - `navigation.instant.preview <https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#instant-previews>`_
+
+          Shows a preview of the linked section in a tooltip when hovering over (or focusing) a link
+          to another page of the documentation.
+
+        - `navigation.instant.progress <https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#progress-indicator>`_
+
+          Shows a progress indicator at the top of the page while a page is loaded with
+          :python:`"navigation.instant"`.
+
+          .. important::
+              The :python:`"navigation.instant"`, :python:`"navigation.instant.prefetch"`, and
+              :python:`"navigation.instant.preview"` features only apply to links listed in the
+              site's ``sitemap.xml``, so :themeconf:`site_url` must be set.
+
+        - `navigation.path <https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#navigation-path>`_
+
+          Shows the navigation path (breadcrumbs) to the current page above its title.
+
+          .. seealso::
+              Using the :filemeta:`hide-path` metadata field will hide the breadcrumbs on a
+              per-page basis.
+
         - `navigation.sections <https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#navigation-sections>`_
         - `navigation.tabs <https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#navigation-tabs>`_
           (only shows for browsers with large viewports)

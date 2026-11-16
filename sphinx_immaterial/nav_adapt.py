@@ -361,6 +361,16 @@ def _get_mkdocs_toc(
 class _NavContextObject(list):
     homepage: dict
 
+    @property
+    def items(self) -> "_NavContextObject":
+        """Mirrors mkdocs' `Navigation.items`, which the templates iterate over.
+
+        We need this because a plain list has no `items` attribute, and Jinja
+        silently treats the missing attribute as an empty sequence. Without it,
+        the navigation sidebar and tabs render with no entries at all.
+        """
+        return self
+
 
 def _traverse_mkdocs_toc(toc: List[MkdocsNavEntry]) -> Iterator[MkdocsNavEntry]:
     for entry in toc:
@@ -517,6 +527,31 @@ def _get_current_page_in_toc(toc: List[MkdocsNavEntry]) -> Optional[MkdocsNavEnt
             return entry
         return _get_current_page_in_toc(entry.children)
     return None
+
+
+def _get_ancestors_in_toc(toc: List[MkdocsNavEntry]) -> List[MkdocsNavEntry]:
+    """Returns the entries containing the current page, nearest first.
+
+    This matches the order of mkdocs' `page.ancestors`, which the navigation
+    path (breadcrumbs) template renders in reverse.  The current page itself is
+    excluded.
+
+    We skip entries that link to a section within a page (their url has a
+    fragment).  Child documents often sit inside sections of their parent page,
+    and listing every such heading makes the breadcrumbs much noisier than in
+    mkdocs, where they only list pages and navigation sections.
+    """
+    ancestors: List[MkdocsNavEntry] = []
+    entries = toc
+    while True:
+        entry = next((e for e in entries if e.active), None)
+        if entry is None or entry.current:
+            break
+        if entry.url is None or "#" not in entry.url:
+            ancestors.append(entry)
+        entries = entry.children
+    ancestors.reverse()
+    return ancestors
 
 
 def _prune_toc_by_active(
@@ -796,10 +831,17 @@ def _html_page_context(
         duplicate_local_toc=isinstance(meta.get("duplicate-local-toc"), str),
         toc_integrate="toc.integrate" in features,
     )
+    ancestors = _get_ancestors_in_toc(global_toc)
     context.update(nav=_NavContextObject(global_toc))
     master_doc = context.get("master_doc", app.config.master_doc)
+    homepage_title = env.titles.get(master_doc)
     context["nav"].homepage = {
         "url": context.get("pathto", lambda p: p)(master_doc),
+        "title": (
+            markupsafe.Markup.escape(homepage_title.astext())
+            if homepage_title is not None
+            else ""
+        ),
     }
 
     toc_title = theme_options.get("toc_title")
@@ -839,6 +881,7 @@ def _html_page_context(
         "is_homepage": (pagename == master_doc),
         "toc": local_toc,
         "integrated_local_toc": integrated_local_toc,
+        "ancestors": ancestors,
         "meta": {"hide": [], "meta": []},
     }
     if "title" in context:
@@ -871,6 +914,8 @@ def _html_page_context(
         page["meta"]["hide"].append("footer")
     if "hide-feedback" in meta:
         page["meta"]["hide"].append("feedback")
+    if "hide-path" in meta:
+        page["meta"]["hide"].append("path")
     if "show-comments" in meta:
         page["meta"]["comments"] = True
     if context.get("next"):

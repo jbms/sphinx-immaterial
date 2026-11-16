@@ -72,6 +72,8 @@ import {
   watchMain
 } from "./components"
 import {
+  fetchSitemap,
+  setupAlternate,
   setupClipboardJS,
   setupInstantNavigation,
   setupVersionSelector
@@ -100,8 +102,8 @@ const keyboard$ = watchKeyboard()
 
 /* Set up media observables */
 const viewport$ = watchViewport()
-const tablet$   = watchMedia("(min-width: 960px)")
-const screen$   = watchMedia("(min-width: 1220px)")
+const tablet$   = watchMedia("(min-width: 60em)")
+const screen$   = watchMedia("(min-width: 76.25em)")
 const print$    = watchPrint()
 
 /* Retrieve search index, if search is enabled */
@@ -112,12 +114,18 @@ const config = configuration()
 const alert$ = new Subject<string>()
 setupClipboardJS({ alert$ })
 
+/* Set up language selector */
+setupAlternate({ document$ })
+
 /* Set up progress indicator */
 const progress$ = new Subject<number>()
 
+/* Set up sitemap for instant navigation and previews */
+const sitemap$ = fetchSitemap(config.base)
+
 /* Set up instant navigation, if enabled */
 if (feature("navigation.instant"))
-  setupInstantNavigation({ location$, viewport$, progress$ })
+  setupInstantNavigation({ sitemap$, location$, viewport$, progress$ })
     .subscribe(document$)
 
 /* Set up version selector */
@@ -218,7 +226,7 @@ const content$ = defer(() => merge(
 
   /* Content */
   ...getComponentElements("content")
-    .map(el => mountContent(el, { viewport$, target$, print$ })),
+    .map(el => mountContent(el, { sitemap$, viewport$, target$, print$ })),
 
   /* Search highlighting */
   ...getComponentElements("content")
